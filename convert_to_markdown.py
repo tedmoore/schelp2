@@ -10,6 +10,13 @@ from jinja2 import Template, Environment, FileSystemLoader
 from schelp_parser import SchelpParser
 
 
+def _get_template_environment(template_path: Path) -> Environment:
+    """Create a Jinja2 environment capable of resolving partial includes."""
+    search_path = template_path.parent
+    loader = FileSystemLoader(str(search_path))
+    return Environment(loader=loader, trim_blocks=True, lstrip_blocks=True)
+
+
 def convert_to_markdown(schelp_file: str, template_file: str = None, output_file: str = None) -> str:
     """
     Convert a .schelp file to Markdown.
@@ -25,17 +32,20 @@ def convert_to_markdown(schelp_file: str, template_file: str = None, output_file
     
     # Load template
     if template_file:
-        with open(template_file, 'r', encoding='utf-8') as f:
-            template_content = f.read()
+        template_path = Path(template_file)
+        if not template_path.exists():
+            raise FileNotFoundError(f"Template file not found: {template_file}")
     else:
-        # Use default template
-        template_file_path = Path(__file__).parent / 'template.md'
-        if template_file_path.exists():
-            with open(template_file_path, 'r', encoding='utf-8') as f:
-                template_content = f.read()
-        else:
-            # Minimal inline template
-            template_content = """# {{ doc.metadata.title }}
+        # Use default template bundled with the project
+        template_path = Path(__file__).parent / 'templates' / 'template.md'
+
+    template = None
+    if template_path.exists():
+        env = _get_template_environment(template_path)
+        template = env.get_template(template_path.name)
+    else:
+        # Minimal inline template as a fallback if the file is missing
+        template = Template("""# {{ doc.metadata.title }}
 
 {% if doc.metadata.summary %}
 {{ doc.metadata.summary }}
@@ -44,10 +54,7 @@ def convert_to_markdown(schelp_file: str, template_file: str = None, output_file
 {% for block in doc.content %}
 {{ block }}
 {% endfor %}
-"""
-    
-    # Create Jinja2 environment and template
-    template = Template(template_content)
+""")
     
     # Render the template
     markdown = template.render(doc=ast)

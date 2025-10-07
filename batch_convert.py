@@ -8,7 +8,7 @@ import argparse
 from pathlib import Path
 from typing import List
 import json
-from jinja2 import Template
+from jinja2 import Environment, FileSystemLoader
 from schelp_parser import SchelpParser
 
 
@@ -22,15 +22,17 @@ def ast_to_markdown(ast: dict) -> str:
     Returns:
         Markdown content as string
     """
-    template_file_path = Path(__file__).parent / 'template.md'
+    template_file_path = Path(__file__).parent / 'templates' / 'template.md'
     
-    if template_file_path.exists():
-        with open(template_file_path, 'r', encoding='utf-8') as f:
-            template_content = f.read()
-    else:
+    if not template_file_path.exists():
         raise FileNotFoundError(f"Template file not found: {template_file_path}")
-    
-    template = Template(template_content)
+
+    env = Environment(
+        loader=FileSystemLoader(str(template_file_path.parent)),
+        trim_blocks=True,
+        lstrip_blocks=True,
+    )
+    template = env.get_template(template_file_path.name)
     return template.render(doc=ast)
 
 
