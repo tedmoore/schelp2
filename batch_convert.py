@@ -31,7 +31,7 @@ def find_schelp_files(directory: str, recursive: bool = True) -> List[Path]:
 
 
 def batch_parse(input_dir: str, output_dir: str = None, 
-                json_output: bool = False, recursive: bool = True):
+                json_output: bool = False, recursive: bool = True, debug: bool = False):
     """
     Parse all .schelp files in a directory.
     
@@ -40,13 +40,14 @@ def batch_parse(input_dir: str, output_dir: str = None,
         output_dir: Output directory for AST JSON files
         json_output: Whether to output JSON files
         recursive: Whether to search recursively
+        debug: Whether to enable debug output
     """
-    parser = SchelpParser(debug=True)
+    parser = SchelpParser(debug=debug)
     schelp_files = find_schelp_files(input_dir, recursive)
     
     if not schelp_files:
         print(f"No .schelp files found in {input_dir}", file=sys.stderr)
-        return
+        return [], []
     
     print(f"Found {len(schelp_files)} .schelp files")
     
@@ -172,6 +173,11 @@ def main():
         help='Output JSON AST files',
         action='store_true'
     )
+    parser.add_argument(
+        '--debug',
+        help='Enable debug output',
+        action='store_true'
+    )
     
     args = parser.parse_args()
     
@@ -180,7 +186,8 @@ def main():
             args.input_dir,
             args.output,
             args.json,
-            not args.no_recursive
+            not args.no_recursive,
+            args.debug
         )
         
         if args.index and results:
