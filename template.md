@@ -85,12 +85,12 @@
 {% endif %}
 
 {%- elif item.type == 'definition_list' -%}
-{%- for def_item in item.items %}
+{%- for def_item in item['items'] %}
 - **{{ render_inline(def_item.term) }}** - {{ render_inline(def_item.definition) }}
 {%- endfor %}
 
 {%- elif item.type == 'list' or item.type == 'numbered_list' -%}
-{%- for list_item in item.items %}
+{%- for list_item in item['items'] %}
 {% if item.type == 'numbered_list' %}{{ loop.index }}.{% else %}-{% endif %} {{ render_inline(list_item) }}
 {%- endfor %}
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Batch convert multiple .schelp files to Markdown.
+Batch convert multiple .schelp files to JSON and Markdown.
 """
 
 import sys
@@ -8,7 +8,30 @@ import argparse
 from pathlib import Path
 from typing import List
 import json
+from jinja2 import Template
 from schelp_parser import SchelpParser
+
+
+def ast_to_markdown(ast: dict) -> str:
+    """
+    Convert an AST to Markdown using the template.md file.
+    
+    Args:
+        ast: The parsed AST dictionary
+        
+    Returns:
+        Markdown content as string
+    """
+    template_file_path = Path(__file__).parent / 'template.md'
+    
+    if template_file_path.exists():
+        with open(template_file_path, 'r', encoding='utf-8') as f:
+            template_content = f.read()
+    else:
+        raise FileNotFoundError(f"Template file not found: {template_file_path}")
+    
+    template = Template(template_content)
+    return template.render(doc=ast)
 
 
 def find_schelp_files(directory: str, recursive: bool = True) -> List[Path]:
@@ -31,14 +54,16 @@ def find_schelp_files(directory: str, recursive: bool = True) -> List[Path]:
 
 
 def batch_parse(input_dir: str, output_dir: str = None, 
-                json_output: bool = False, recursive: bool = True, debug: bool = False):
+                json_output: bool = False, markdown_output: bool = False,
+                recursive: bool = True, debug: bool = False):
     """
     Parse all .schelp files in a directory.
     
     Args:
         input_dir: Input directory containing .schelp files
-        output_dir: Output directory for AST JSON files
+        output_dir: Output directory for converted files
         json_output: Whether to output JSON files
+        markdown_output: Whether to output Markdown files  
         recursive: Whether to search recursively
         debug: Whether to enable debug output
     """
@@ -59,21 +84,42 @@ def batch_parse(input_dir: str, output_dir: str = None,
             print(f"Parsing {schelp_file}...", end=' ')
             ast = parser.parse_file(str(schelp_file))
             
-            if json_output and output_dir:
-                # Create output path
-                output_path = Path(output_dir)
-                output_path.mkdir(parents=True, exist_ok=True)
+            output_files = []
+            
+            if output_dir and (json_output or markdown_output):
+                # Create base output path
+                base_output_path = Path(output_dir)
+                base_output_path.mkdir(parents=True, exist_ok=True)
                 
-                # Generate output filename
+                # Generate relative path for maintaining directory structure
                 relative_path = schelp_file.relative_to(input_dir)
-                json_file = output_path / relative_path.with_suffix('.json')
-                json_file.parent.mkdir(parents=True, exist_ok=True)
                 
-                # Write JSON
-                with open(json_file, 'w', encoding='utf-8') as f:
-                    json.dump(ast, f, indent=2)
+                # Output JSON if requested
+                if json_output:
+                    json_dir = base_output_path / 'json'
+                    json_file = json_dir / relative_path.with_suffix('.json')
+                    json_file.parent.mkdir(parents=True, exist_ok=True)
+                    
+                    with open(json_file, 'w', encoding='utf-8') as f:
+                        json.dump(ast, f, indent=2)
+                    output_files.append(f"JSON: {json_file}")
                 
-                print(f"✓ -> {json_file}")
+                # Output Markdown if requested
+                if markdown_output:
+                    md_dir = base_output_path / 'md'
+                    md_file = md_dir / relative_path.with_suffix('.md')
+                    md_file.parent.mkdir(parents=True, exist_ok=True)
+                    
+                    # Convert AST to Markdown
+                    markdown_content = ast_to_markdown(ast)
+                    with open(md_file, 'w', encoding='utf-8') as f:
+                        f.write(markdown_content)
+                    output_files.append(f"MD: {md_file}")
+                
+                if output_files:
+                    print(f"✓ -> {', '.join(output_files)}")
+                else:
+                    print("✓")
             else:
                 print("✓")
             
@@ -174,6 +220,11 @@ def main():
         action='store_true'
     )
     parser.add_argument(
+        '--markdown', '--md',
+        help='Output Markdown files',
+        action='store_true'
+    )
+    parser.add_argument(
         '--debug',
         help='Enable debug output',
         action='store_true'
@@ -186,6 +237,7 @@ def main():
             args.input_dir,
             args.output,
             args.json,
+            args.markdown,
             not args.no_recursive,
             args.debug
         )
