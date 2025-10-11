@@ -2,3 +2,4 @@ output
 __pycache__
 *.code-workspace
 .DS_Store
+tests

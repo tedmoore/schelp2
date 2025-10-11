@@ -7,8 +7,36 @@ represented as a Python dictionary for conversion to Markdown using Jinja2.
 """
 
 import re
-from typing import Dict, List, Any, Optional, Tuple
+from typing import Dict, List, Any, Optional, Callable, Tuple
 from pathlib import Path
+
+
+class ParserError(RuntimeError):
+    """Base class for parser errors."""
+
+
+class UnknownBlockTagError(ParserError):
+    """Raised when an unknown block-level tag is encountered."""
+
+    def __init__(self, tag: str, line_number: int, line_content: str):
+        super().__init__(
+            f"Unknown block tag '{tag}' on line {line_number}: {line_content.strip()}"
+        )
+        self.tag = tag
+        self.line_number = line_number
+        self.line_content = line_content
+
+
+class UnknownInlineTagError(ParserError):
+    """Raised when an unknown inline tag is encountered."""
+
+    def __init__(self, tag: str, line_number: int, line_content: str):
+        super().__init__(
+            f"Unknown inline tag '{tag}' on line {line_number}: {line_content.strip()}"
+        )
+        self.tag = tag
+        self.line_number = line_number
+        self.line_content = line_content
 
 
 class SchelpParser:
@@ -19,25 +47,40 @@ class SchelpParser:
         'class', 'title', 'summary', 'categories', 'related',
         'description', 'classmethods', 'instancemethods',
         'method', 'argument', 'returns', 'examples',
-        'section', 'subsection', 'note', 'warning',
+        'section', 'subsection', 'note', 'warning', 'subsubsection',
         'definitionlist', 'numberedlist', 'list', 'table',
-        'private', 'discussion', 'image'
+        'private', 'discussion', 'image', 'code', 'teletype', 'math',
+        'footnote', 'tree', 'classtree'
     ]
     
     # Inline tags
     INLINE_TAGS = [
-        'link', 'code', 'emphasis', 'strong', 'teletype'
+        'link', 'code', 'emphasis', 'strong', 'teletype', 'math',
+        'note', 'tree', 'footnote', 'list', 'soft', 'copymethod',
+        'classtree', 'keyword', 'anchor', 'bindaddress', 'fill',
+        'warning', 'next', 'must', 'vcf', 'z', 'vdiskin',
+        'postinlinewarnings', 'table'
     ]
     
-    def __init__(self, debug=False):
+    def __init__(self, debug: bool = False, strict: bool = True):
         self.lines = []
         self.current_line = 0
         self.debug = debug
+        self.strict = strict
         self.ast = {
             'type': 'document',
             'metadata': {},
             'content': []
         }
+        # Pre-compute supported block tags including metadata tags
+        self._metadata_tags = {'class', 'title', 'summary', 'categories', 'related'}
+        self._generic_block_tags = {
+            'keyword', 'anchor', 'strong', 'emphasis',
+            'copymethod', 'redirect', 'myunit'
+        }
+        self._supported_block_tags = set(self.BLOCK_TAGS) | self._metadata_tags | self._generic_block_tags
+        self._inline_open_pattern = re.compile(r'([A-Za-z][\w-]*)::', re.IGNORECASE)
+        self._special_inline_block_tags = {'footnote', 'code', 'table', 'list', 'tree', 'classtree'}
     
     def _debug_print(self, message, level=0):
         """Print debug message with indentation."""
@@ -107,6 +150,14 @@ class SchelpParser:
         if idx < len(self.lines):
             return self.lines[idx]
         return ''
+
+    def _is_block_tag_line(self, line: str) -> bool:
+        """Determine if a line begins with a known block-level tag."""
+        match = re.match(r'^(\w+)::', line.strip(), re.IGNORECASE)
+        if not match:
+            return False
+        tag_name = match.group(1).lower()
+        return tag_name in self._supported_block_tags
     
     def _advance(self, count: int = 1):
         """Advance the line counter."""
@@ -128,13 +179,21 @@ class SchelpParser:
         if tag_match:
             tag_name = tag_match.group(1).lower()  # Convert to lowercase for consistent processing
             tag_value = tag_match.group(2).strip()
-            self._debug_print(f"_parse_block: found tag '{tag_name}' with value '{tag_value}'", 3)
-            try:
-                self._parse_tag_block(tag_name, tag_value)
-            except Exception as e:
-                self._debug_print(f"Error in _parse_tag_block for {tag_name}: {e}")
-                raise
-            return
+            if tag_name in self._supported_block_tags:
+                self._debug_print(f"_parse_block: found block tag '{tag_name}' with value '{tag_value}'", 3)
+                try:
+                    self._parse_tag_block(tag_name, tag_value)
+                except Exception as e:
+                    self._debug_print(f"Error in _parse_tag_block for {tag_name}: {e}")
+                    raise
+                return
+            if tag_name in self.INLINE_TAGS and '::' in tag_value:
+                self._debug_print(f"_parse_block: treating inline-style tag '{tag_name}' as paragraph content", 3)
+                # Fall through to paragraph parsing
+            else:
+                if self.strict:
+                    raise UnknownBlockTagError(tag_name, self.current_line + 1, self._current())
+                self._debug_print(f"_parse_block: treating unknown tag '{tag_name}' as paragraph (non-strict mode)", 3)
         
         # Check for code blocks (start with whitespace or tab)
         if line.startswith(('\t', '    ')) or (self._current().startswith((' ', '\t')) and self._current().strip()):
@@ -167,7 +226,6 @@ class SchelpParser:
         elif tag_name == 'related':
             self.ast['metadata']['related'] = self._parse_related(tag_value)
         
-        # Content blocks
         elif tag_name == 'description':
             block = {
                 'type': 'section',
@@ -176,7 +234,7 @@ class SchelpParser:
                 'content': self._parse_block_content()
             }
             self.ast['content'].append(block)
-        
+
         elif tag_name == 'classmethods':
             block = {
                 'type': 'section',
@@ -238,6 +296,19 @@ class SchelpParser:
             }
             self.ast['content'].append(block)
         
+        elif tag_name == 'keyword':
+            keywords = [kw.strip() for kw in tag_value.split(',') if kw.strip()]
+            if keywords:
+                existing = self.ast['metadata'].setdefault('keywords', [])
+                existing.extend(keywords)
+
+        elif tag_name == 'anchor':
+            block = {
+                'type': 'anchor',
+                'name': tag_value
+            }
+            self.ast['content'].append(block)
+
         elif tag_name == 'section':
             block = {
                 'type': 'section',
@@ -251,6 +322,23 @@ class SchelpParser:
             block = {
                 'type': 'subsection',
                 'title': tag_value,
+                'content': self._parse_block_content()
+            }
+            self.ast['content'].append(block)
+
+        elif tag_name == 'subsubsection':
+            block = {
+                'type': 'subsubsection',
+                'title': tag_value,
+                'content': self._parse_block_content()
+            }
+            self.ast['content'].append(block)
+
+        elif tag_name == 'discussion':
+            block = {
+                'type': 'section',
+                'tag': 'discussion',
+                'title': 'Discussion' if not tag_value else tag_value,
                 'content': self._parse_block_content()
             }
             self.ast['content'].append(block)
@@ -272,24 +360,45 @@ class SchelpParser:
             self.ast['content'].append(block)
         
         elif tag_name == 'definitionlist':
+            items, attachments = self._parse_definition_list()
             block = {
                 'type': 'definition_list',
-                'items': self._parse_definition_list()
+                'items': items
             }
+            if attachments:
+                block['attachments'] = attachments
             self.ast['content'].append(block)
         
         elif tag_name == 'numberedlist':
+            items, attachments = self._parse_list()
             block = {
                 'type': 'numbered_list',
-                'items': self._parse_list()
+                'items': items
             }
+            if attachments:
+                block['attachments'] = attachments
             self.ast['content'].append(block)
         
         elif tag_name == 'list':
+            items, attachments = self._parse_list()
             block = {
                 'type': 'list',
-                'items': self._parse_list()
+                'items': items
             }
+            if attachments:
+                block['attachments'] = attachments
+            self.ast['content'].append(block)
+
+        elif tag_name == 'table':
+            block = self._parse_table(tag_value)
+            self.ast['content'].append(block)
+
+        elif tag_name == 'tree':
+            block = self._parse_tree_block(tag_value)
+            self.ast['content'].append(block)
+
+        elif tag_name == 'classtree':
+            block = self._parse_class_tree_block(tag_value)
             self.ast['content'].append(block)
         
         elif tag_name == 'private':
@@ -306,13 +415,40 @@ class SchelpParser:
                 'content': self._parse_code_block_content()
             }
             self.ast['content'].append(block)
+
+        elif tag_name == 'teletype':
+            block = {
+                'type': 'code_block',
+                'format': 'teletype',
+                'content': self._parse_code_block_content()
+            }
+            self.ast['content'].append(block)
+
+        elif tag_name == 'math':
+            block = self._parse_math_block()
+            self.ast['content'].append(block)
+
+        elif tag_name == 'footnote':
+            block = self._parse_footnote_block()
+            self.ast['content'].append(block)
         
         elif tag_name == 'image':
             block = self._parse_image(tag_value)
             self.ast['content'].append(block)
         
+        elif tag_name in self._generic_block_tags:
+            block = {
+                'type': 'tag_block',
+                'tag': tag_name,
+                'value': tag_value,
+                'content': self._parse_block_content()
+            }
+            self.ast['content'].append(block)
+
         else:
-            # Generic tag block
+            if self.strict:
+                raise UnknownBlockTagError(tag_name, self.current_line, self._current())
+            # Generic tag block fallback (non-strict mode)
             block = {
                 'type': 'tag_block',
                 'tag': tag_name,
@@ -343,13 +479,13 @@ class SchelpParser:
             line = self._current()
             
             # Stop at next tag
-            if re.match(r'^\w+::', line.strip(), re.IGNORECASE):
+            if self._is_block_tag_line(line):
                 break
             
             # Stop at blank line followed by a tag
             if not line.strip():
                 next_line = self._peek()
-                if next_line and re.match(r'^\w+::', next_line.strip(), re.IGNORECASE):
+                if next_line and self._is_block_tag_line(next_line):
                     self._advance()
                     break
             
@@ -373,11 +509,14 @@ class SchelpParser:
             # Check for list item (##)
             if stripped.startswith('##'):
                 item_content = stripped[2:].strip()
+                inline_nodes = self._parse_inline(item_content, self.current_line + 1)
+                clean_nodes, pending_nodes = self._split_pending_from_inline(inline_nodes)
                 content.append({
                     'type': 'list_item',
-                    'content': self._parse_inline(item_content)
+                    'content': clean_nodes
                 })
                 self._advance()
+                self._handle_pending_blocks(pending_nodes, content)
                 continue
             
             # Check for numbered list item with numberedlist:: format
@@ -385,7 +524,7 @@ class SchelpParser:
                 item_content = stripped[1:].strip()
                 content.append({
                     'type': 'list_item',
-                    'content': self._parse_inline(item_content)
+                    'content': self._parse_inline(item_content, self.current_line + 1)
                 })
                 self._advance()
                 continue
@@ -398,9 +537,88 @@ class SchelpParser:
             # Regular paragraph
             para = self._parse_paragraph()
             if para:
-                content.append(para)
+                clean, pending = self._split_pending_from_inline(para['content'])
+                para['content'] = clean
+                if para['content']:
+                    content.append(para)
+                self._handle_pending_blocks(pending, content)
         
         return content
+
+    def _split_pending_from_inline(self, inline_nodes: List[Dict[str, Any]]):
+        """Separate pending block markers from inline nodes."""
+        pending = []
+        clean = []
+        for node in inline_nodes:
+            if isinstance(node, dict) and node.get('type') == 'pending_block':
+                pending.append(node)
+            else:
+                clean.append(node)
+        return clean, pending
+
+    def _handle_pending_blocks(self, pending_nodes: List[Dict[str, Any]], container: List[Dict[str, Any]]):
+        """Parse pending blocks indicated by inline markers and append them to container."""
+        for node in pending_nodes:
+            block = self._parse_pending_block(node)
+            if block:
+                container.append(block)
+
+    def _parse_pending_block(self, node: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        """Dispatch parsing for inline markers that open block-level content."""
+        tag = node.get('tag')
+        value = node.get('value', '')
+
+        if tag == 'code':
+            return self._parse_code_block()
+        if tag == 'footnote':
+            return self._parse_footnote_block()
+        if tag == 'table':
+            return self._parse_table(value)
+        if tag == 'list':
+            items, attachments = self._parse_list()
+            block = {
+                'type': 'list',
+                'items': items
+            }
+            if attachments:
+                block['attachments'] = attachments
+            return block
+        if tag == 'tree':
+            return self._parse_tree_block(value)
+        if tag == 'classtree':
+            return self._parse_class_tree_block(value)
+        return None
+
+    def _parse_footnote_block(self) -> Dict[str, Any]:
+        """Parse a footnote block delimited by :: markers."""
+        content: List[Dict[str, Any]] = []
+
+        while self.current_line < len(self.lines):
+            line = self._current().strip()
+
+            if line == '::':
+                self._advance()
+                break
+
+            if not line:
+                self._advance()
+                continue
+
+            if self._is_block_tag_line(line):
+                break
+
+            para = self._parse_paragraph()
+            if para:
+                clean, pending = self._split_pending_from_inline(para['content'])
+                para['content'] = clean
+                if para['content']:
+                    content.append(para)
+                self._handle_pending_blocks(pending, content)
+
+        return {
+            'type': 'footnote',
+            'content': content
+        }
     
     def _parse_method_content(self) -> Dict[str, Any]:
         """Parse method-specific content including arguments and returns."""
@@ -418,7 +636,18 @@ class SchelpParser:
                 self._debug_print(f"_parse_method_content: INFINITE LOOP DETECTED! Breaking at line {self.current_line}")
                 break
                 
-            line = self._current().strip()
+            raw_line = self._current()
+
+            # Split trailing argument declarations that share a line with text
+            if 'argument::' in raw_line and not raw_line.lstrip().lower().startswith('argument::'):
+                prefix, remainder = raw_line.split('argument::', 1)
+                self.lines[self.current_line] = prefix.rstrip()
+                self.lines.insert(self.current_line + 1, f"argument::{remainder.strip()}")
+                if not self.lines[self.current_line]:
+                    self._advance()
+                continue
+
+            line = raw_line.strip()
             self._debug_print(f"_parse_method_content: loop {loop_count}, line {self.current_line}: {repr(line[:80])}", 6)
             
             # Stop at next method or major section (including examples)
@@ -441,10 +670,28 @@ class SchelpParser:
                         self._debug_print(f"_parse_method_content: argument parsing loop safety break at line {self.current_line}")
                         break
                         
-                    arg_line = self._current().strip()
+                    raw_arg_line = self._current()
+
+                    if 'argument::' in raw_arg_line and not raw_arg_line.lstrip().lower().startswith('argument::'):
+                        prefix, remainder = raw_arg_line.split('argument::', 1)
+                        self.lines[self.current_line] = prefix.rstrip()
+                        self.lines.insert(self.current_line + 1, f"argument::{remainder.strip()}")
+                        if not self.lines[self.current_line]:
+                            self._advance()
+                        continue
+
+                    if 'returns::' in raw_arg_line and not raw_arg_line.lstrip().lower().startswith('returns::'):
+                        prefix, remainder = raw_arg_line.split('returns::', 1)
+                        self.lines[self.current_line] = prefix.rstrip()
+                        self.lines.insert(self.current_line + 1, f"returns::{remainder.strip()}")
+                        if not self.lines[self.current_line]:
+                            self._advance()
+                        continue
+
+                    arg_line = raw_arg_line.strip()
                     self._debug_print(f"_parse_method_content: arg loop {arg_loop_count}, line {self.current_line}: {repr(arg_line[:50])}", 7)
                     # Stop at any tag (especially examples::)
-                    if re.match(r'^\w+::', arg_line, re.IGNORECASE):
+                    if self._is_block_tag_line(arg_line):
                         self._debug_print(f"_parse_method_content: argument parsing stopped at tag: {arg_line}", 7)
                         break
                     if not arg_line:
@@ -452,7 +699,7 @@ class SchelpParser:
                         self._advance()
                         continue
                     
-                    arg_content.append(self._parse_inline(arg_line))
+                    arg_content.append(self._parse_inline(arg_line, self.current_line + 1))
                     self._advance()
                 
                 self._debug_print(f"_parse_method_content: argument '{arg_name}' parsed with {len(arg_content)} content items", 6)
@@ -475,10 +722,20 @@ class SchelpParser:
                         self._debug_print(f"_parse_method_content: returns parsing loop safety break at line {self.current_line}")
                         break
                         
-                    ret_line = self._current().strip()
+                    raw_ret_line = self._current()
+
+                    if 'returns::' in raw_ret_line and not raw_ret_line.lstrip().lower().startswith('returns::'):
+                        prefix, remainder = raw_ret_line.split('returns::', 1)
+                        self.lines[self.current_line] = prefix.rstrip()
+                        self.lines.insert(self.current_line + 1, f"returns::{remainder.strip()}")
+                        if not self.lines[self.current_line]:
+                            self._advance()
+                        continue
+
+                    ret_line = raw_ret_line.strip()
                     self._debug_print(f"_parse_method_content: returns loop {returns_loop_count}, line {self.current_line}: {repr(ret_line[:50])}", 7)
                     # Stop at any tag (especially examples::)
-                    if re.match(r'^\w+::', ret_line, re.IGNORECASE):
+                    if self._is_block_tag_line(ret_line):
                         self._debug_print(f"_parse_method_content: returns parsing stopped at tag: {ret_line}", 7)
                         break
                     if not ret_line:
@@ -486,7 +743,7 @@ class SchelpParser:
                         self._advance()
                         continue
                     
-                    returns_content.append(self._parse_inline(ret_line))
+                    returns_content.append(self._parse_inline(ret_line, self.current_line + 1))
                     self._advance()
                 
                 self._debug_print(f"_parse_method_content: returns parsed with {len(returns_content)} content items", 6)
@@ -501,7 +758,7 @@ class SchelpParser:
                 continue
             
             # Check if this is actually a tag that should end method parsing
-            if re.match(r'^\w+::', line, re.IGNORECASE):
+            if self._is_block_tag_line(line):
                 self._debug_print(f"_parse_method_content: ending at tag: {line}", 6)
                 break
             
@@ -519,56 +776,157 @@ class SchelpParser:
         self._debug_print(f"_parse_method_content: finished with {len(result['arguments'])} args, {len(result['content'])} content items", 5)
         return result
 
-    def _parse_definition_list(self) -> List[Dict[str, Any]]:
+    def _parse_definition_list(self) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
         """Parse a definition list (## term || definition)."""
         items = []
+        attachments: List[Dict[str, Any]] = []
         
         while self.current_line < len(self.lines):
             line = self._current().strip()
             
             # Stop at next tag or empty line followed by tag
-            if not line or re.match(r'^\w+::', line, re.IGNORECASE):
+            if not line or self._is_block_tag_line(line):
                 break
             
             # Parse definition item (## term || definition)
             if line.startswith('##'):
                 item_text = line[2:].strip()
+                pending_nodes: List[Dict[str, Any]] = []
                 if '||' in item_text:
                     term, definition = item_text.split('||', 1)
+                    term_inline = self._parse_inline(term.strip(), self.current_line + 1)
+                    def_inline = self._parse_inline(definition.strip(), self.current_line + 1)
+                    clean_term, term_pending = self._split_pending_from_inline(term_inline)
+                    clean_def, def_pending = self._split_pending_from_inline(def_inline)
                     items.append({
-                        'term': self._parse_inline(term.strip()),
-                        'definition': self._parse_inline(definition.strip())
+                        'term': clean_term,
+                        'definition': clean_def
                     })
+                    pending_nodes = term_pending + def_pending
                 self._advance()
+                for pending in pending_nodes:
+                    block = self._parse_pending_block(pending)
+                    if block:
+                        attachments.append(block)
             else:
                 break
         
-        return items
+        return items, attachments
     
-    def _parse_list(self) -> List[Dict[str, Any]]:
+    def _parse_list(self) -> Tuple[List[List[Dict[str, Any]]], List[Dict[str, Any]]]:
         """Parse a list (## item)."""
-        items = []
+        items: List[List[Dict[str, Any]]] = []
+        attachments: List[Dict[str, Any]] = []
         
         while self.current_line < len(self.lines):
             line = self._current().strip()
             
             # Stop at next tag
-            if not line or re.match(r'^\w+::', line, re.IGNORECASE):
+            if not line or self._is_block_tag_line(line):
                 break
             
             # Parse list item
             if line.startswith('##'):
                 item_content = line[2:].strip()
-                items.append(self._parse_inline(item_content))
+                inline_nodes = self._parse_inline(item_content, self.current_line + 1)
+                clean_nodes, pending_nodes = self._split_pending_from_inline(inline_nodes)
+                items.append(clean_nodes)
                 self._advance()
+                for pending in pending_nodes:
+                    block = self._parse_pending_block(pending)
+                    if block:
+                        attachments.append(block)
             else:
                 break
         
-        return items
+        return items, attachments
+
+    def _parse_table(self, title: str) -> Dict[str, Any]:
+        """Parse a simple table (rows separated by newlines, cells by ||)."""
+        rows: List[List[str]] = []
+
+        while self.current_line < len(self.lines):
+            line = self._current()
+            stripped = line.strip()
+
+            # Stop at next tag or blank line followed by tag
+            if not stripped:
+                self._advance()
+                next_line = self._current() if self.current_line < len(self.lines) else ''
+                if next_line and re.match(r'^\w+::', next_line.strip(), re.IGNORECASE):
+                    break
+                continue
+
+            if re.match(r'^\w+::', stripped, re.IGNORECASE):
+                break
+
+            cells = [cell.strip() for cell in re.split(r'\s*\|\|\s*', stripped)]
+            rows.append(cells)
+            self._advance()
+
+        return {
+            'type': 'table',
+            'title': title,
+            'rows': rows
+        }
+
+    def _parse_tree_block(self, title: str) -> Dict[str, Any]:
+        """Parse a tree:: block preserving its textual structure."""
+        lines: List[str] = []
+        title = title.strip()
+
+        while self.current_line < len(self.lines):
+            line = self._current()
+            stripped_line = line.rstrip('\n')
+            stripped = stripped_line.strip()
+
+            if not stripped:
+                next_line = self._peek()
+                self._advance()
+                if next_line and self._is_tree_content_line(next_line):
+                    lines.append('')
+                    continue
+                break
+
+            if self._is_tree_content_line(line):
+                lines.append(stripped_line)
+                self._advance()
+                continue
+
+            break
+
+        return {
+            'type': 'tree',
+            'title': title,
+            'content': '\n'.join(lines).strip()
+        }
+
+    def _is_tree_content_line(self, line: str) -> bool:
+        """Determine if a line forms part of a tree representation."""
+        if line is None:
+            return False
+        stripped = line.strip()
+        if not stripped:
+            return False
+        if stripped == '::':
+            return True
+        if stripped.startswith('tree::'):
+            return True
+        if line.startswith((' ', '\t')):
+            return True
+        return False
+
+    def _parse_class_tree_block(self, value: str) -> Dict[str, Any]:
+        """Parse a classtree:: block (typically a single reference)."""
+        return {
+            'type': 'class_tree',
+            'root': value.strip()
+        }
     
     def _parse_paragraph(self) -> Optional[Dict[str, Any]]:
         """Parse a paragraph of text."""
         para_lines = []
+        start_line = self.current_line
         
         while self.current_line < len(self.lines):
             line = self._current()
@@ -583,7 +941,7 @@ class SchelpParser:
             block_tag_match = re.match(r'^(\w+)::', stripped, re.IGNORECASE)
             if block_tag_match:
                 tag_name = block_tag_match.group(1).lower()
-                if tag_name in self.BLOCK_TAGS:
+                if tag_name in self._supported_block_tags:
                     break
             
             if line.startswith(('\t', '    ')):
@@ -598,7 +956,7 @@ class SchelpParser:
         text = ' '.join(para_lines)
         return {
             'type': 'paragraph',
-            'content': self._parse_inline(text)
+            'content': self._parse_inline(text, start_line + 1)
         }
     
     def _parse_code_block(self) -> Dict[str, Any]:
@@ -653,6 +1011,27 @@ class SchelpParser:
             'type': 'code_block',
             'content': '\n'.join(code_lines)
         }
+
+    def _parse_math_block(self) -> Dict[str, Any]:
+        """Parse a math block delimited by math:: ... ::"""
+        math_lines: List[str] = []
+
+        while self.current_line < len(self.lines):
+            line = self._current()
+            stripped = line.strip()
+
+            if stripped == '::':
+                self._advance()
+                break
+
+            math_lines.append(line.rstrip())
+            self._advance()
+
+        content = '\n'.join(math_lines).strip()
+        return {
+            'type': 'math_block',
+            'content': content
+        }
     
     def _parse_image(self, value: str) -> Dict[str, Any]:
         """Parse an image tag."""
@@ -692,7 +1071,7 @@ class SchelpParser:
         
         return content
     
-    def _parse_inline(self, text: str) -> List[Dict[str, Any]]:
+    def _parse_inline(self, text: str, line_number: Optional[int] = None) -> List[Dict[str, Any]]:
         """
         Parse inline formatting like link::, code::, emphasis::, strong::.
         
@@ -702,67 +1081,207 @@ class SchelpParser:
             return []
         
         result = []
-        current_pos = 0
+        position = 0
+        text_length = len(text)
+
+        # Pre-compile inline tag handlers for clarity
+        inline_handlers: Dict[str, Callable[[str], Dict[str, Any]]] = {
+            'link': lambda value: {
+                'type': 'link',
+                'target': value,
+                'text': value.split('/')[-1] if '/' in value else value
+            },
+            'code': lambda value: {
+                'type': 'inline_code',
+                'content': value
+            },
+            'teletype': lambda value: {
+                'type': 'inline_code',
+                'content': value
+            },
+            'emphasis': lambda value: {
+                'type': 'emphasis',
+                'content': value
+            },
+            'strong': lambda value: {
+                'type': 'strong',
+                'content': value
+            },
+            'math': lambda value: {
+                'type': 'math',
+                'content': value
+            },
+            'note': lambda value: {
+                'type': 'inline_note',
+                'content': value
+            },
+            'tree': lambda value: {
+                'type': 'inline_tree',
+                'content': value
+            },
+            'footnote': lambda value: {
+                'type': 'footnote',
+                'content': value
+            },
+            'list': lambda value: {
+                'type': 'inline_list',
+                'content': value
+            },
+            'soft': lambda value: {
+                'type': 'soft',
+                'content': value
+            },
+            'copymethod': lambda value: {
+                'type': 'copymethod',
+                'content': value
+            },
+            'classtree': lambda value: {
+                'type': 'inline_tree',
+                'content': value
+            },
+            'keyword': lambda value: {
+                'type': 'inline_keyword',
+                'content': value
+            },
+            'anchor': lambda value: {
+                'type': 'inline_anchor',
+                'content': value
+            },
+            'bindaddress': lambda value: {
+                'type': 'inline_code',
+                'content': value or 'bindAddress'
+            },
+            'fill': lambda value: {
+                'type': 'inline_code',
+                'content': value or 'fill'
+            },
+            'warning': lambda value: {
+                'type': 'inline_warning',
+                'content': value
+            },
+            'next': lambda value: {
+                'type': 'inline_code',
+                'content': value or 'next'
+            },
+            'must': lambda value: {
+                'type': 'strong',
+                'content': value or 'must'
+            },
+            'vcf': lambda value: {
+                'type': 'inline_code',
+                'content': value or 'vcf'
+            },
+            'z': lambda value: {
+                'type': 'inline_code',
+                'content': value or 'z'
+            },
+            'vdiskin': lambda value: {
+                'type': 'inline_code',
+                'content': value or 'VDiskIn'
+            },
+            'postinlinewarnings': lambda value: {
+                'type': 'inline_code',
+                'content': value or 'postInlineWarnings'
+            },
+            'table': lambda value: {
+                'type': 'inline_table',
+                'content': value
+            }
+        }
+
+        pattern = self._inline_open_pattern
         
-        # Pattern for inline tags: tagname::content::
-        # Also handle link::Classes/ClassName:: format
-        pattern = r'(\w+)::(.*?)(?:::|\s|$)'
-        
-        for match in re.finditer(pattern, text):
-            tag_name = match.group(1)
-            tag_content = match.group(2)
-            
-            # Add any text before this tag
-            if match.start() > current_pos:
-                plain_text = text[current_pos:match.start()]
-                if plain_text:
-                    result.append({'type': 'text', 'content': plain_text})
-            
-            # Check if it's a known inline tag
-            if tag_name in self.INLINE_TAGS or tag_name == 'link':
-                if tag_name == 'link':
+        while position < text_length:
+            match = pattern.search(text, position)
+            if not match:
+                # No more inline tags, append remaining text
+                if position < text_length:
+                    result.append({'type': 'text', 'content': text[position:]})
+                break
+
+            tag_name = match.group(1).lower()
+            start_index = match.start()
+
+            # Append text before the tag
+            if start_index > position:
+                result.append({'type': 'text', 'content': text[position:start_index]})
+
+            # Skip matches that are part of anchors or paths (e.g., Foo#bar::)
+            if start_index > 0:
+                prev_char = text[start_index - 1]
+                if prev_char in '#/.-:*':
+                    result.append({'type': 'text', 'content': text[start_index:match.end()]})
+                    position = match.end()
+                    continue
+
+            content_start = match.end()
+            closing_index = text.find('::', content_start)
+
+            if closing_index == -1:
+                remainder = text[content_start:]
+                if tag_name in self._special_inline_block_tags:
+                    tag_value = remainder.strip()
                     result.append({
-                        'type': 'link',
-                        'target': tag_content,
-                        'text': tag_content.split('/')[-1] if '/' in tag_content else tag_content
+                        'type': 'pending_block',
+                        'tag': tag_name,
+                        'value': tag_value,
+                        'line': line_number
                     })
-                elif tag_name == 'code':
-                    result.append({
-                        'type': 'inline_code',
-                        'content': tag_content
-                    })
-                elif tag_name == 'emphasis':
-                    result.append({
-                        'type': 'emphasis',
-                        'content': tag_content
-                    })
-                elif tag_name == 'strong':
-                    result.append({
-                        'type': 'strong',
-                        'content': tag_content
-                    })
-                else:
-                    result.append({
-                        'type': tag_name,
-                        'content': tag_content
-                    })
-                
-                current_pos = match.end()
+                    position = len(text)
+                    break
+                if tag_name == 'keyword':
+                    whitespace_match = re.match(r'\s*', remainder)
+                    consumed = whitespace_match.end() if whitespace_match else 0
+                    if consumed:
+                        whitespace_text = remainder[:consumed]
+                        if whitespace_text:
+                            result.append({'type': 'text', 'content': whitespace_text})
+                    trimmed = remainder[consumed:]
+                    keyword_match = re.match(r'([^\s|]+)', trimmed)
+                    if keyword_match:
+                        value = keyword_match.group(1)
+                        handler = inline_handlers.get(tag_name)
+                        if handler:
+                            result.append(handler(value))
+                            position = content_start + consumed + keyword_match.end()
+                            continue
+                tag_value = remainder.strip()
+                # No closing :: found - treat as unknown or malformed inline tag
+                error_line = line_number if line_number is not None else self.current_line + 1
+                if self.strict:
+                    raise UnknownInlineTagError(tag_name, error_line, text)
+                # Non-strict mode: treat the rest as text and exit loop
+                result.append({'type': 'text', 'content': text[start_index:]})
+                break
+
+            tag_value = text[content_start:closing_index]
+            position = closing_index + 2
+
+            if tag_name in inline_handlers:
+                handler = inline_handlers[tag_name]
+                result.append(handler(tag_value))
             else:
-                # Not an inline tag, treat as plain text
-                pass
-        
-        # Add any remaining text
-        if current_pos < len(text):
-            remaining = text[current_pos:]
-            if remaining:
-                result.append({'type': 'text', 'content': remaining})
-        
-        # If no inline elements were found, return the whole text
+                error_line = line_number if line_number is not None else self.current_line + 1
+                if self.strict:
+                    raise UnknownInlineTagError(tag_name, error_line, text)
+                # In non-strict mode, keep the original text intact
+                result.append({'type': 'text', 'content': text[start_index:position]})
+
+        # Ensure we always return at least plain text
         if not result:
             result.append({'type': 'text', 'content': text})
-        
-        return result
+
+        # Merge adjacent text nodes for cleanliness
+        merged: List[Dict[str, Any]] = []
+        for item in result:
+            if item['type'] == 'text' and item.get('content') == '':
+                continue
+            if merged and merged[-1]['type'] == 'text' and item['type'] == 'text':
+                merged[-1]['content'] += item['content']
+            else:
+                merged.append(item)
+
+        return merged
 
 
 def main():

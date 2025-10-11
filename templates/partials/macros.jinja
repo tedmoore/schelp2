@@ -1,24 +1,55 @@
 {% macro render_inline(inline_content) -%}
+{%- if inline_content is string -%}
+{{ inline_content }}
+{%- elif inline_content is iterable -%}
 {%- for item in inline_content -%}
-{%- if item.type == 'text' -%}
+{%- set item_type = item.type if item.type is defined else 'text' -%}
+{%- if item_type == 'text' -%}
 {{ item.content }}
-{%- elif item.type == 'link' -%}
+{%- elif item_type == 'link' -%}
 [{{ item.text }}](#{{ item.target | replace('Classes/', '') | replace('/', '-') }})
-{%- elif item.type == 'inline_code' -%}
+{%- elif item_type == 'inline_code' -%}
 `{{ item.content }}`
-{%- elif item.type == 'emphasis' -%}
+{%- elif item_type == 'emphasis' -%}
 *{{ item.content }}*
-{%- elif item.type == 'strong' -%}
+{%- elif item_type == 'strong' -%}
 **{{ item.content }}**
+{%- elif item_type == 'math' -%}
+${{ item.content }}$
+{%- elif item_type == 'inline_note' -%}
+*Note:* {{ item.content }}
+{%- elif item_type == 'inline_warning' -%}
+⚠️ {{ item.content }}
+{%- elif item_type == 'footnote' -%}
+(*Footnote:* {{ item.content }}*)
+{%- elif item_type == 'inline_tree' -%}
+{{ item.content }}
+{%- elif item_type == 'inline_list' -%}
+{{ item.content }}
+{%- elif item_type == 'inline_keyword' -%}
+**Keyword:** {{ item.content }}
+{%- elif item_type == 'inline_anchor' -%}
+{{ item.content }}
+{%- elif item_type == 'soft' -%}
+{{ item.content }}
+{%- elif item_type == 'copymethod' -%}
+{{ item.content }}
+{%- elif item_type == 'inline_table' -%}
+{{ item.content }}
+{%- elif item_type == 'pending_block' -%}
+{#- Pending block markers are resolved during parsing -#}
+{%- else -%}
+{{ item.content }}
 {%- endif -%}
 {%- endfor -%}
+{%- endif -%}
 {%- endmacro %}
 
 {% macro render_content(content_list) -%}
 {%- for item in content_list -%}
 
 {%- if item.type == 'paragraph' -%}
-{{ _self.render_inline(item.content) }}
+{{ render_inline(item.content) }}
 
 {%- elif item.type == 'code_block' -%}
 ```
@@ -28,12 +59,17 @@
 {%- elif item.type == 'section' -%}
 ## {{ item.title }}
 
-{{ _self.render_content(item.content) }}
+{{ render_content(item.content) }}
 
 {%- elif item.type == 'subsection' -%}
 ### {{ item.title }}
 
-{{ _self.render_content(item.content) }}
+{{ render_content(item.content) }}
+
+{%- elif item.type == 'subsubsection' -%}
+#### {{ item.title }}
+
+{{ render_content(item.content) }}
 
 {%- elif item.type == 'method' -%}
 ### `{{ item.name }}`
@@ -45,47 +81,93 @@
 | Argument | Description |
 |----------|-------------|
 {%- for arg in item.arguments %}
-| `{{ arg.name }}` | {% for desc in arg.description %}{{ _self.render_inline(desc) }}{% endfor %} |
+| `{{ arg.name }}` | {% for desc in arg.description %}{{ render_inline(desc) }}{% endfor %} |
 {%- endfor %}
 {%- endif %}
 
 {%- if item.returns %}
 
-**Returns:** {% for ret in item.returns %}{{ _self.render_inline(ret) }}{% endfor %}
+**Returns:** {% for ret in item.returns %}{{ render_inline(ret) }}{% endfor %}
 {%- endif %}
 
 {%- if item.content %}
-{{ _self.render_content(item.content) }}
+{{ render_content(item.content) }}
 {%- endif %}
 
 {%- elif item.type == 'argument' -%}
-- `{{ item.name }}` - {{ _self.render_content(item.content) }}
+- `{{ item.name }}` - {{ render_content(item.content) }}
 
 {%- elif item.type == 'admonition' -%}
 {% if item.admonition_type == 'note' %}
-> **Note:** {{ _self.render_content(item.content) }}
+> **Note:** {{ render_content(item.content) }}
 {% elif item.admonition_type == 'warning' %}
-> **⚠️ Warning:** {{ _self.render_content(item.content) }}
+> **⚠️ Warning:** {{ render_content(item.content) }}
 {% endif %}
 
 {%- elif item.type == 'definition_list' -%}
 {%- for def_item in item['items'] %}
-- **{{ _self.render_inline(def_item.term) }}** - {{ _self.render_inline(def_item.definition) }}
+- **{{ render_inline(def_item.term) }}** - {{ render_inline(def_item.definition) }}
 {%- endfor %}
+{%- if item.attachments is defined %}
+{{ render_content(item.attachments) }}
+{%- endif %}
 
 {%- elif item.type == 'list' or item.type == 'numbered_list' -%}
 {%- for list_item in item['items'] %}
-{% if item.type == 'numbered_list' %}{{ loop.index }}.{% else %}-{% endif %} {{ _self.render_inline(list_item) }}
+{% if item.type == 'numbered_list' %}{{ loop.index }}.{% else %}-{% endif %} {{ render_inline(list_item) }}
 {%- endfor %}
+{%- if item.attachments is defined %}
+{{ render_content(item.attachments) }}
+{%- endif %}
 
 {%- elif item.type == 'list_item' -%}
-- {{ _self.render_inline(item.content) }}
+- {{ render_inline(item.content) }}
 
 {%- elif item.type == 'image' -%}
 ![{{ item.caption }}]({{ item.path }})
 {% if item.caption %}*{{ item.caption }}*{% endif %}
 
-{%- elif item.type == 'blank_line' -%}
+{%- elif item.type == 'tag_block' -%}
+> **{{ item.tag | capitalize }}:** {{ item.value }}
+{%- if item.content %}
+{{ render_content(item.content) }}
+{%- endif %}
+
+{%- elif item.type == 'anchor' -%}
+<a id="{{ item.name | replace(' ', '-') }}"></a>
+
+{%- elif item.type == 'footnote' -%}
+> *Footnote:* {{ render_content(item.content) }}
+
+{%- elif item.type == 'math_block' -%}
+$$
+{{ item.content }}
+$$
+
+{%- elif item.type == 'tree' -%}
+{% if item.title %}**{{ item.title }}**
+
+{% endif -%}
+{% if item.content %}
+```
+{{ item.content }}
+```
+{% endif %}
+
+{%- elif item.type == 'class_tree' -%}
+> **Class Tree Root:** {{ item.root }}
+
+{%- elif item.type == 'table' -%}
+{%- if item.title %}**{{ item.title }}**
+
+{%- endif -%}
+{%- if item.rows %}
+|{% for cell in item.rows[0] %} {{ cell }} |{% endfor %}
+|{% for cell in item.rows[0] %} --- |{% endfor %}
+{%- for row in item.rows %}
+|{% for cell in row %} {{ cell }} |{% endfor %}
+{%- endfor %}
+{%- endif %}
 
 {%- endif -%}
 
