@@ -43,24 +43,25 @@ class SchelpParser:
     """Parser for SuperCollider .schelp documentation files."""
     
     # Block-level tags
-    BLOCK_TAGS = [
+    BLOCK_TAGS = set([
         'class', 'title', 'summary', 'categories', 'related',
         'description', 'classmethods', 'instancemethods',
         'method', 'argument', 'returns', 'examples',
-        'section', 'subsection', 'note', 'warning', 'subsubsection',
+        'section', 'subsection', 'warning', 'subsubsection',
         'definitionlist', 'numberedlist', 'list', 'table',
         'private', 'discussion', 'image', 'code', 'teletype', 'math',
-        'footnote', 'tree', 'classtree'
-    ]
+        'tree', 'classtree','keyword', 'discussion',
+        'copymethod', 'redirect', 'note'
+    ])
     
     # Inline tags
-    INLINE_TAGS = [
+    INLINE_TAGS = set([
         'link', 'code', 'emphasis', 'strong', 'teletype', 'math',
-        'note', 'tree', 'footnote', 'list', 'soft', 'copymethod',
+        'tree', 'footnote', 'list', 'soft', 'copymethod',
         'classtree', 'keyword', 'anchor', 'bindaddress', 'fill',
-        'warning', 'next', 'must', 'vcf', 'z', 'vdiskin',
+        'warning', 'next', 'must',
         'postinlinewarnings', 'table'
-    ]
+    ])
     
     def __init__(self, debug: bool = False, strict: bool = True):
         self.lines = []
@@ -74,11 +75,7 @@ class SchelpParser:
         }
         # Pre-compute supported block tags including metadata tags
         self._metadata_tags = {'class', 'title', 'summary', 'categories', 'related'}
-        self._generic_block_tags = {
-            'keyword', 'anchor', 'strong', 'emphasis',
-            'copymethod', 'redirect', 'myunit'
-        }
-        self._supported_block_tags = set(self.BLOCK_TAGS) | self._metadata_tags | self._generic_block_tags
+        self._supported_block_tags = set(self.BLOCK_TAGS) | self._metadata_tags
         self._inline_open_pattern = re.compile(r'([A-Za-z][\w-]*)::', re.IGNORECASE)
         self._special_inline_block_tags = {'footnote', 'code', 'table', 'list', 'tree', 'classtree'}
     
@@ -344,18 +341,26 @@ class SchelpParser:
             self.ast['content'].append(block)
         
         elif tag_name == 'note':
+            # Parse note as delimited block with inline content
+            # We need to go back one line since _advance() was already called
+            self.current_line -= 1
+            inline_content = self._parse_delimited_inline_block()
             block = {
                 'type': 'admonition',
                 'admonition_type': 'note',
-                'content': self._parse_block_content()
+                'content': [{'type': 'paragraph', 'content': inline_content}]
             }
             self.ast['content'].append(block)
         
         elif tag_name == 'warning':
+            # Parse warning as delimited block with inline content
+            # We need to go back one line since _advance() was already called
+            self.current_line -= 1
+            inline_content = self._parse_delimited_inline_block()
             block = {
                 'type': 'admonition',
                 'admonition_type': 'warning',
-                'content': self._parse_block_content()
+                'content': [{'type': 'paragraph', 'content': inline_content}]
             }
             self.ast['content'].append(block)
         
@@ -467,6 +472,11 @@ class SchelpParser:
                 # Extract class name from Classes/ClassName format
                 if '::' in item:
                     item = item.split('::')[-1]
+                item = {
+                    'type': 'link',
+                    'target': item,
+                    'text': item,
+                }
                 items.append(item)
         return items
     
@@ -544,6 +554,65 @@ class SchelpParser:
                 self._handle_pending_blocks(pending, content)
         
         return content
+
+    def _parse_delimited_inline_block(self) -> List[Dict[str, Any]]:
+        """
+        Parse content within a delimited block (note::, warning::, etc.)
+        that ends with :: and may contain inline tags.
+        
+        Returns a list of parsed inline elements.
+        """
+        content_parts = []
+        
+        # Check if content is on the same line as the tag
+        current = self._current().strip()
+        tag_match = re.match(r'^\w+::\s*(.*)', current)
+        if tag_match and tag_match.group(1):
+            # Content starts on the same line
+            rest_of_line = tag_match.group(1)
+            # Check if it also closes on the same line
+            if rest_of_line.endswith('::'):
+                # Single-line delimited block
+                inline_content = rest_of_line[:-2].strip()
+                self._advance()
+                return self._parse_inline(inline_content, self.current_line)
+            else:
+                # Multi-line starting on same line
+                content_parts.append(rest_of_line)
+                self._advance()
+        else:
+            # Content starts on the next line
+            self._advance()
+        
+        # Collect lines until closing ::
+        while self.current_line < len(self.lines):
+            line = self._current()
+            stripped = line.strip()
+            
+            # Check for closing ::
+            if stripped == '::':
+                self._advance()
+                break
+            
+            # Check if line ends with ::
+            if stripped.endswith('::') and not stripped.endswith(':::'):
+                # Remove the closing ::
+                content_parts.append(stripped[:-2].strip())
+                self._advance()
+                break
+            
+            # Stop at another block tag (safety measure)
+            if self._is_block_tag_line(line):
+                break
+            
+            if stripped:
+                content_parts.append(stripped)
+            
+            self._advance()
+        
+        # Join all content and parse as inline
+        full_content = ' '.join(content_parts)
+        return self._parse_inline(full_content, self.current_line) if full_content else []
 
     def _split_pending_from_inline(self, inline_nodes: List[Dict[str, Any]]):
         """Separate pending block markers from inline nodes."""
@@ -1088,8 +1157,8 @@ class SchelpParser:
         inline_handlers: Dict[str, Callable[[str], Dict[str, Any]]] = {
             'link': lambda value: {
                 'type': 'link',
-                'target': value,
-                'text': value.split('/')[-1] if '/' in value else value
+                'target': value.split('##')[0].strip() if '##' in value else value,
+                'text': value.split('##')[1].strip() if '##' in value else value
             },
             'code': lambda value: {
                 'type': 'inline_code',

@@ -7,7 +7,11 @@
 {%- if item_type == 'text' -%}
 {{ item.content }}
 {%- elif item_type == 'link' -%}
-[{{ item.text }}](#{{ item.target | replace('Classes/', '') | replace('/', '-') }})
+{%- if item.target.startswith('http://') or item.target.startswith('https://') or item.target.startswith('#') -%}
+[{{ item.text }}]({{ item.target }})
+{%- else -%}
+{doc}`{{ item.text }} </{{ item.target }}>`
+{%- endif -%}
 {%- elif item_type == 'inline_code' -%}
 `{{ item.content }}`
 {%- elif item_type == 'emphasis' -%}
@@ -80,12 +84,12 @@ ${{ item.content }}$
 
 | Argument | Description |
 |----------|-------------|
-{%- for arg in item.arguments %}
-| `{{ arg.name }}` | {% for desc in arg.description %}{{ render_inline(desc) }}{% endfor %} |
-{%- endfor %}
+{% for arg in item.arguments %}
+| `{{ arg.name }}` | {% for desc in arg.description %}{{ render_inline(desc) }}{% endfor %} |  
+{% endfor %}
 {%- endif %}
 
-{%- if item.returns %}
+{% if item.returns %}
 
 **Returns:** {% for ret in item.returns %}{{ render_inline(ret) }}{% endfor %}
 {%- endif %}
@@ -114,8 +118,8 @@ ${{ item.content }}$
 
 {%- elif item.type == 'list' or item.type == 'numbered_list' -%}
 {%- for list_item in item['items'] %}
-{% if item.type == 'numbered_list' %}{{ loop.index }}.{% else %}-{% endif %} {{ render_inline(list_item) }}
-{%- endfor %}
+{% if item.type == 'numbered_list' %}{{ loop.index }}.{% else %}-{% endif %} {{ render_inline(list_item) }}  
+{% endfor %}
 {%- if item.attachments is defined %}
 {{ render_content(item.attachments) }}
 {%- endif %}
