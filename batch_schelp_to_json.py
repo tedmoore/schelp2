@@ -1,7 +1,7 @@
-from schelp_parser2 import parse_file
+from schelp_to_json import parse_file
 import argparse
 import os
-from schelp_parser2 import BLOCK_TAGS, BLOCK_PARSERS
+from schelp_to_json import BLOCK_TAGS, BLOCK_PARSERS
 
 def main(input_dir, output_dir):
     
@@ -32,7 +32,7 @@ def main(input_dir, output_dir):
                 parse_file(input_file, output_file)
                 parsed_files += 1
 
-    print(f"Parsed {parsed_files} files in {current_output_dir}")
+    print(f"Parsed {parsed_files} files")
                 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Batch parse .schelp files to .json format')

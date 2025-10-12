@@ -20,6 +20,7 @@ BLOCK_TAGS = [
     "numberedlist",
     "private",
     "related",
+    "returns",
     "section",
     "subsection",
     "subsubsection",
@@ -69,6 +70,19 @@ def parse_for_blocks(content: str) -> dict:
 
     return blocks
 
+def parse_inline_link(text: str) -> dict:
+    parts = text.split("##", 1)
+    target = parts[0].strip()
+    if len(parts) == 2:
+        display_text = parts[1].strip()
+    else:
+        display_text = target
+    return {"type": "link", "target": target, "text": display_text}
+
+INLINE_PARSERS = {
+    "link": parse_inline_link
+}
+
 def parse_for_inline_tags(text: str) -> list:
     if not text:
         return []
@@ -105,8 +119,12 @@ def parse_for_inline_tags(text: str) -> list:
                 # else:
                 #     result.append({"type": tag, "content": content})
                 
-                result.append({"type": tag, "content": content})
-                
+                if tag in INLINE_PARSERS.keys():
+                    parsed_content = INLINE_PARSERS[tag](content)
+                    result.append(parsed_content)
+                else:
+                    result.append({"type": tag, "content": content})
+
                 position = content_end + 2
                 
             else:
@@ -158,7 +176,7 @@ def parse_code_block(lines: list) -> dict:
     content = "\n".join(lines[1:]).strip()
     # code has a closing ::
     content = remove_closing_colons(content)
-    return {"type": "code", "content": content}
+    return {"type": "codeblock", "content": content}
 
 def parse_note_block(lines: list) -> dict:
     content = "\n".join(lines[1:]).strip()
@@ -175,7 +193,7 @@ def parse_summary_block(lines: list) -> dict:
     return {"type": "summary", "content": content}
 
 def parse_categories_block(lines: list) -> dict:
-    content = "\n".join(lines[1:]).strip()
+    content = "\n".join(lines).strip()
     content = remove_opening_tag('categories', content)
     content = content.split(",")
     content = [c.strip() for c in content if c.strip()]
@@ -286,11 +304,15 @@ def parse_examples_block(lines: list) -> dict:
     content = parse_for_inline_tags(content)
     return {"type": "examples", "content": content}
 
+def related_to_link(text: str) -> dict:
+    return {"type": "link", "text": text, "target": text}
+
 def parse_related_block(lines: list) -> dict:
-    content = "\n".join(lines[1:]).strip()
+    content = "\n".join(lines).strip()
     content = remove_opening_tag('related', content)
     content = content.split(",")
     content = [c.strip() for c in content if c.strip()]
+    content = [related_to_link(c) for c in content]
     return {"type": "related", "content": content}
 
 def parse_argument_block(lines: list) -> dict:
@@ -303,6 +325,12 @@ def parse_description_block(lines: list) -> dict:
     content = "\n".join(lines[1:]).strip()
     content = parse_for_inline_tags(content)
     return {"type": "description", "content": content}
+
+def parse_returns_block(lines: list) -> dict:
+    content = "\n".join(lines).strip()
+    content = remove_opening_tag('returns', content)
+    content = parse_for_inline_tags(content)
+    return {"type": "returns", "content": content}
 
 # keep in alphabetical order (just for convenience)
 BLOCK_PARSERS = {
@@ -329,7 +357,8 @@ BLOCK_PARSERS = {
     "summary": parse_summary_block,
     "table": parse_table_block,
     "title": parse_title_block,
-    "warning": parse_warning_block
+    "warning": parse_warning_block,
+    "returns": parse_returns_block
 }
 
 def parse_file(input_file: str, output_file: str):
@@ -370,38 +399,37 @@ def parse_file(input_file: str, output_file: str):
             doc["metadata"]["description"] = pb["content"]
         else:
             doc["content"].append(pb)
-    
-    # Add arguments list to methods and private methods
-    # I've decided not to nest argument blocks inside method blocks
-    # in this data structure because there might be code or note
-    # blocks in between, and it would complicate the parsing logic.
-    # Instead, we will look for argument blocks that immediately
-    # follow method or private blocks and associate them accordingly
-    # in an "arguments" property of the method
-    # so that later they can be compared 
-    # against the json built from the
-    # sc class library to check for any discrepancies.
-    for i, item in enumerate(doc["content"]):
-        if item["type"] in ["method", "private"]:
-            # Initialize arguments list
-            item["arguments"] = []
-            
-            # Look ahead for argument blocks that follow this method
-            j = i + 1
-            while j < len(doc["content"]):
-                if doc["content"][j]["type"] == "argument":
-                    item["arguments"].append(doc["content"][j]["name"])
-                    j += 1
-                elif doc["content"][j]["type"] in ["method", "private", "section", "subsection", "subsubsection", "classmethods", "instancemethods"]:
-                    # Hit another major block, stop collecting arguments
-                    break
-                else:
-                    # Skip other blocks (note, code, etc.) but keep looking
-                    j += 1
-            
+
+    doc["content"] = nest_arguments_in_methods(doc["content"])
+             
     if output_file:
         with open(output_file, 'w', encoding='utf-8') as f:
             json.dump(doc, f, indent=4)
+            
+def nest_arguments_in_methods(content: list) -> list:
+    """
+    Nest argument blocks under their corresponding method or private blocks.
+    """
+    result = []
+    current_method = None
+    
+    for block in content:
+        if block["type"] in ["method", "private"]:
+            # Start a new method/private block with an empty arguments list
+            current_method = block.copy()
+            current_method["arguments"] = []
+            result.append(current_method)
+        elif block["type"] == "argument" and current_method is not None:
+            # Add argument to the current method
+            current_method["arguments"].append(block)
+        else:
+            # Not an argument or no current method, add to result
+            result.append(block)
+            # Reset current method if we encounter a non-argument block
+            if block["type"] != "argument":
+                current_method = None
+    
+    return result
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

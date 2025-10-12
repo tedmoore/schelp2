@@ -1,11 +1,16 @@
 {% macro render_inline(inline_content) -%}
+
 {%- if inline_content is string -%}
 {{ inline_content }}
+
 {%- elif inline_content is iterable -%}
 {%- for item in inline_content -%}
+
 {%- set item_type = item.type if item.type is defined else 'text' -%}
+
 {%- if item_type == 'text' -%}
 {{ item.content }}
+
 {%- elif item_type == 'link' -%}
 {%- if item.target.startswith('http://') or item.target.startswith('https://') or item.target.startswith('#') -%}
 [{{ item.text }}]({{ item.target }})
@@ -75,8 +80,22 @@ ${{ item.content }}$
 
 {{ render_content(item.content) }}
 
+{%- elif item.type == 'examples' -%}
+## Examples:
+
+{{ render_content(item.content) }}
+
+{%- elif item.type == 'codeblock' -%}
+```
+{{ item.content }}
+```
+
 {%- elif item.type == 'method' -%}
 ### `{{ item.name }}`
+
+{% if item.content %}
+{{ render_inline(item.content) }}
+{% endif %}
 
 {%- if item.arguments %}
 
@@ -85,7 +104,7 @@ ${{ item.content }}$
 | Argument | Description |
 |----------|-------------|
 {% for arg in item.arguments %}
-| `{{ arg.name }}` | {% for desc in arg.description %}{{ render_inline(desc) }}{% endfor %} |  
+| `{{ arg.name }}` | {{ render_inline(arg.content) }} |  
 {% endfor %}
 {%- endif %}
 
@@ -101,12 +120,11 @@ ${{ item.content }}$
 {%- elif item.type == 'argument' -%}
 - `{{ item.name }}` - {{ render_content(item.content) }}
 
-{%- elif item.type == 'admonition' -%}
-{% if item.admonition_type == 'note' %}
-> **Note:** {{ render_content(item.content) }}
-{% elif item.admonition_type == 'warning' %}
+{%- elif item.type == 'note' -%}
+> **Note:** {{ render_inline(item.content) }}
+
+{% elif item.type == 'warning' %}
 > **⚠️ Warning:** {{ render_content(item.content) }}
-{% endif %}
 
 {%- elif item.type == 'definition_list' -%}
 {%- for def_item in item['items'] %}
@@ -117,7 +135,7 @@ ${{ item.content }}$
 {%- endif %}
 
 {%- elif item.type == 'list' or item.type == 'numbered_list' -%}
-{%- for list_item in item['items'] %}
+{%- for list_item in item['content'] %}
 {% if item.type == 'numbered_list' %}{{ loop.index }}.{% else %}-{% endif %} {{ render_inline(list_item) }}  
 {% endfor %}
 {%- if item.attachments is defined %}
