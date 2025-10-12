@@ -10,7 +10,7 @@
 {%- if item.target.startswith('http://') or item.target.startswith('https://') or item.target.startswith('#') -%}
 [{{ item.text }}]({{ item.target }})
 {%- else -%}
-{doc}`{{ item.text }} </{{ item.target }}>`
+[{{ item.text }}]({{ item.target }})
 {%- endif -%}
 {%- elif item_type == 'inline_code' -%}
 `{{ item.content }}`

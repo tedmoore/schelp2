@@ -846,22 +846,35 @@ class SchelpParser:
         return result
 
     def _parse_definition_list(self) -> Tuple[List[Dict[str, Any]], List[Dict[str, Any]]]:
-        """Parse a definition list (## term || definition)."""
+        """Parse a definition list (## term || definition).
+        
+        Handles both single-line and multi-line formats:
+        - Single line: ## term || definition
+        - Multi-line: ## term
+                      ||
+                      definition text
+        """
         items = []
         attachments: List[Dict[str, Any]] = []
         
         while self.current_line < len(self.lines):
             line = self._current().strip()
             
-            # Stop at next tag or empty line followed by tag
-            if not line or self._is_block_tag_line(line):
+            # Stop at next tag or closing ::
+            if not line or line == '::' or self._is_block_tag_line(line):
                 break
             
             # Parse definition item (## term || definition)
             if line.startswith('##'):
-                item_text = line[2:].strip()
+                term_parts = []
+                def_parts = []
+                in_definition = False
                 pending_nodes: List[Dict[str, Any]] = []
+                
+                # Check if it's single-line format (## term || definition)
+                item_text = line[2:].strip()
                 if '||' in item_text:
+                    # Single-line format
                     term, definition = item_text.split('||', 1)
                     term_inline = self._parse_inline(term.strip(), self.current_line + 1)
                     def_inline = self._parse_inline(definition.strip(), self.current_line + 1)
@@ -872,7 +885,71 @@ class SchelpParser:
                         'definition': clean_def
                     })
                     pending_nodes = term_pending + def_pending
-                self._advance()
+                    self._advance()
+                else:
+                    # Multi-line format - collect term lines until ||
+                    term_parts.append(item_text)
+                    self._advance()
+                    
+                    # Collect lines until we hit || separator or next item/tag
+                    while self.current_line < len(self.lines):
+                        line = self._current().strip()
+                        
+                        if not line:
+                            self._advance()
+                            continue
+                        
+                        if line == '||':
+                            # Found separator, now collect definition
+                            in_definition = True
+                            self._advance()
+                            break
+                        
+                        if line.startswith('##') or line == '::' or self._is_block_tag_line(line):
+                            # Hit next item or end, no definition found
+                            break
+                        
+                        term_parts.append(line)
+                        self._advance()
+                    
+                    # Collect definition lines if we found the separator
+                    if in_definition:
+                        while self.current_line < len(self.lines):
+                            line = self._current().strip()
+                            
+                            if not line:
+                                self._advance()
+                                continue
+                            
+                            if line.startswith('##') or line == '::' or self._is_block_tag_line(line):
+                                # Hit next item or end of list
+                                break
+                            
+                            def_parts.append(line)
+                            self._advance()
+                    
+                    # Parse collected term and definition
+                    if term_parts:
+                        term_text = ' '.join(term_parts)
+                        def_text = ' '.join(def_parts) if def_parts else ''
+                        
+                        term_inline = self._parse_inline(term_text, self.current_line + 1)
+                        clean_term, term_pending = self._split_pending_from_inline(term_inline)
+                        
+                        if def_text:
+                            def_inline = self._parse_inline(def_text, self.current_line + 1)
+                            clean_def, def_pending = self._split_pending_from_inline(def_inline)
+                            pending_nodes = term_pending + def_pending
+                        else:
+                            clean_def = []
+                            pending_nodes = term_pending
+                        
+                        items.append({
+                            'term': clean_term,
+                            'definition': clean_def
+                        })
+                
+                # Process pending blocks
                 for pending in pending_nodes:
                     block = self._parse_pending_block(pending)
                     if block:
@@ -1149,6 +1226,9 @@ class SchelpParser:
         if not text:
             return []
         
+        # Strip out meaningless soft:: :: patterns
+        text = re.sub(r'soft::\s*::', '', text)
+        
         result = []
         position = 0
         text_length = len(text)
@@ -1235,18 +1315,6 @@ class SchelpParser:
             'must': lambda value: {
                 'type': 'strong',
                 'content': value or 'must'
-            },
-            'vcf': lambda value: {
-                'type': 'inline_code',
-                'content': value or 'vcf'
-            },
-            'z': lambda value: {
-                'type': 'inline_code',
-                'content': value or 'z'
-            },
-            'vdiskin': lambda value: {
-                'type': 'inline_code',
-                'content': value or 'VDiskIn'
             },
             'postinlinewarnings': lambda value: {
                 'type': 'inline_code',
