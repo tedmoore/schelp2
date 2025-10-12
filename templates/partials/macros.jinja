@@ -12,39 +12,50 @@
 {{ item.content }}
 
 {%- elif item_type == 'link' -%}
-{%- if item.target.startswith('http://') or item.target.startswith('https://') or item.target.startswith('#') -%}
 [{{ item.text }}]({{ item.target }})
-{%- else -%}
-[{{ item.text }}]({{ item.target }})
-{%- endif -%}
+
 {%- elif item_type == 'inline_code' -%}
 `{{ item.content }}`
+
 {%- elif item_type == 'emphasis' -%}
 *{{ item.content }}*
+
 {%- elif item_type == 'strong' -%}
 **{{ item.content }}**
+
 {%- elif item_type == 'math' -%}
 ${{ item.content }}$
+
 {%- elif item_type == 'inline_note' -%}
 *Note:* {{ item.content }}
+
 {%- elif item_type == 'inline_warning' -%}
 ⚠️ {{ item.content }}
+
 {%- elif item_type == 'footnote' -%}
 (*Footnote:* {{ item.content }}*)
+
 {%- elif item_type == 'inline_tree' -%}
 {{ item.content }}
+
 {%- elif item_type == 'inline_list' -%}
 {{ item.content }}
+
 {%- elif item_type == 'inline_keyword' -%}
 **Keyword:** {{ item.content }}
+
 {%- elif item_type == 'inline_anchor' -%}
 {{ item.content }}
+
 {%- elif item_type == 'soft' -%}
 {{ item.content }}
+
 {%- elif item_type == 'copymethod' -%}
 {{ item.content }}
+
 {%- elif item_type == 'inline_table' -%}
 {{ item.content }}
+
 {%- elif item_type == 'pending_block' -%}
 {#- Pending block markers are resolved during parsing -#}
 {%- else -%}
@@ -134,9 +145,9 @@ ${{ item.content }}$
 {{ render_content(item.attachments) }}
 {%- endif %}
 
-{%- elif item.type == 'list' or item.type == 'numbered_list' -%}
+{%- elif item.type == 'list' or item.type == 'numberedlist' -%}
 {%- for list_item in item['content'] %}
-{% if item.type == 'numbered_list' %}{{ loop.index }}.{% else %}-{% endif %} {{ render_inline(list_item) }}  
+{% if item.type == 'numberedlist' %}{{ loop.index }}.{% else %}-{% endif %} {{ render_inline(list_item) }}  
 {% endfor %}
 {%- if item.attachments is defined %}
 {{ render_content(item.attachments) }}

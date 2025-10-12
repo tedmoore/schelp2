@@ -72,12 +72,29 @@ def parse_for_blocks(content: str) -> dict:
 
 def parse_inline_link(text: str) -> dict:
     parts = text.split("##", 1)
-    target = parts[0].strip()
+    original_target = parts[0].strip()
+    target = original_target
+    
+    # Handle anchors in the target
+    if "#" in target:
+        # Split on first # to separate file from anchor
+        file_part, anchor_part = target.split("#", 1)
+        if file_part:  # Only add .md if there's a file part
+            target = f"{file_part}.md#{anchor_part}"
+        else:  # Just an anchor (e.g., "#section")
+            target = f"#{anchor_part}"
+    elif not target.startswith("http://") and not target.startswith("https://"):
+        # Internal link without anchor - add .md
+        target = f"{target}.md"
+    
     if len(parts) == 2:
         display_text = parts[1].strip()
     else:
-        display_text = target
+        # Use original target (without .md) as display text
+        display_text = original_target
+    
     return {"type": "link", "target": target, "text": display_text}
+
 
 INLINE_PARSERS = {
     "link": parse_inline_link
@@ -304,15 +321,16 @@ def parse_examples_block(lines: list) -> dict:
     content = parse_for_inline_tags(content)
     return {"type": "examples", "content": content}
 
-def related_to_link(text: str) -> dict:
-    return {"type": "link", "text": text, "target": text}
+# def related_to_link(text: str) -> dict:
+#     return {"type": "link", "text": text, "target": text}
 
 def parse_related_block(lines: list) -> dict:
     content = "\n".join(lines).strip()
     content = remove_opening_tag('related', content)
     content = content.split(",")
     content = [c.strip() for c in content if c.strip()]
-    content = [related_to_link(c) for c in content]
+    # content = [related_to_link(c) for c in content]
+    content = [parse_inline_link(c) for c in content]
     return {"type": "related", "content": content}
 
 def parse_argument_block(lines: list) -> dict:
