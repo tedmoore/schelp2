@@ -4,3 +4,5 @@ __pycache__
 .DS_Store
 tests
 docs
+output2
+sc_classes.json
