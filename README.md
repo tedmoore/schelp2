@@ -1,0 +1,3 @@
+# schelp2
+
+This is an initial attempt at making a *new* helpfile system for SuperCollider. Ideally it would ...
