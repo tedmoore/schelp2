@@ -230,10 +230,12 @@ BLOCK_PARSERS = {
 def parse_file(input_file: str, output_file: str):
     
     with open(input_file, 'r', encoding='utf-8') as f:
-        content = f.read().splitlines()
+        content = f.read()
 
+    # note is not allowed to be in-line...
+    content = re.sub(r'([^\n])(note::)', r'\1\n\2', content, flags=re.IGNORECASE)
+    content = content.splitlines()
     blocks = get_blocks(content)
-
     parsed_blocks = [BLOCK_PARSERS[b[0]](b[1]) for b in blocks]
 
     # for pb in parsed_blocks:
