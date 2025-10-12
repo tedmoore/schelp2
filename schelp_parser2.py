@@ -41,7 +41,7 @@ INLINE_TAGS = [
     "teletype"
 ]
 
-def get_blocks(content: str) -> list:
+def parse_for_blocks(content: str) -> dict:
     blocks = []
     
     previous_block_start = None
@@ -66,7 +66,7 @@ def get_blocks(content: str) -> list:
         block_content = content[previous_block_start:]
         # print(f"{previous_block_tag} from line {previous_block_start+1} with {len(block_content)} lines")
         blocks.append((previous_block_tag, block_content))
-            
+
     return blocks
 
 def parse_for_inline_tags(text: str) -> list:
@@ -133,8 +133,8 @@ def parse_title_block(lines: list) -> dict:
     if lines and len(lines) > 0:
         title_line = lines[0]
         title = title_line.split("::",1)[1].strip()
-        return {"type": "title", "title": title}
-    return {"type": "title", "title": "No Title"}
+        return {"type": "title", "content": title}
+    return {"type": "title", "content": "No Title"}
 
 def parse_section_block(lines: list) -> dict:
     title = lines[0].split("::", 1)[1].strip()
@@ -341,17 +341,67 @@ def parse_file(input_file: str, output_file: str):
     content = re.sub(r'([^\n])(note::)', r'\1\n\2', content, flags=re.IGNORECASE)
     content = content.splitlines()
     
-    blocks = get_blocks(content)
+    blocks = parse_for_blocks(content)
     parsed_blocks = [BLOCK_PARSERS[b[0]](b[1]) for b in blocks]
     
-    output = {
+    # data structure with defaults
+    doc = {
         "source_file": input_file,
-        "blocks": parsed_blocks
+        "metadata": {
+            "title": "No title provided.",
+            "summary": "No summary provided.",
+            "categories": [],
+            "related": [],
+            "description": "No description provided."
+        },
+        "content": []
     }
-
+    
+    for pb in parsed_blocks:
+        if pb["type"] == "title":
+            doc["metadata"]["title"] = pb["content"]
+        elif pb["type"] == "summary":
+            doc["metadata"]["summary"] = pb["content"]
+        elif pb["type"] == "categories":
+            doc["metadata"]["categories"] = pb["content"]
+        elif pb["type"] == "related":
+            doc["metadata"]["related"] = pb["content"]
+        elif pb["type"] == "description":
+            doc["metadata"]["description"] = pb["content"]
+        else:
+            doc["content"].append(pb)
+    
+    # Add arguments list to methods and private methods
+    # I've decided not to nest argument blocks inside method blocks
+    # in this data structure because there might be code or note
+    # blocks in between, and it would complicate the parsing logic.
+    # Instead, we will look for argument blocks that immediately
+    # follow method or private blocks and associate them accordingly
+    # in an "arguments" property of the method
+    # so that later they can be compared 
+    # against the json built from the
+    # sc class library to check for any discrepancies.
+    for i, item in enumerate(doc["content"]):
+        if item["type"] in ["method", "private"]:
+            # Initialize arguments list
+            item["arguments"] = []
+            
+            # Look ahead for argument blocks that follow this method
+            j = i + 1
+            while j < len(doc["content"]):
+                if doc["content"][j]["type"] == "argument":
+                    item["arguments"].append(doc["content"][j]["name"])
+                    j += 1
+                elif doc["content"][j]["type"] in ["method", "private", "section", "subsection", "subsubsection", "classmethods", "instancemethods"]:
+                    # Hit another major block, stop collecting arguments
+                    break
+                else:
+                    # Skip other blocks (note, code, etc.) but keep looking
+                    j += 1
+            
     if output_file:
         with open(output_file, 'w', encoding='utf-8') as f:
-            json.dump(output, f, indent=4)
+            json.dump(doc, f, indent=4)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
