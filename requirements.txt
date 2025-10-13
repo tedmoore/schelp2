@@ -7,4 +7,3 @@ myst-parser>=2.0.0
 sphinx-copybutton>=0.5.2
 sphinxcontrib-jquery>=4.1
 linkify-it-py>=2.0.0
-readthedocs-sphinx-search>=0.3.0  # Improved client-side search

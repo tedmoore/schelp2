@@ -1,4 +1,4 @@
-# Minimal makefile for Sphinx documentation
+# Makefile for SuperCollider Sphinx Documentation
 #
 
 # You can set these variables from the command line, and also
@@ -7,30 +7,64 @@ SPHINXOPTS    ?= -j auto
 SPHINXBUILD   ?= sphinx-build
 SOURCEDIR     = docs
 BUILDDIR      = docs/_build
+PYTHON        ?= python3
 
 # Put it first so that "make" without argument is like "make help".
 help:
-	@$(SPHINXBUILD) -M help "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+	@echo "SuperCollider Documentation Build"
+	@echo "=================================="
+	@echo ""
+	@echo "Available targets:"
+	@echo "  html       - Build HTML documentation (default)"
+	@echo "  github     - Build for GitHub Pages (includes .nojekyll)"
+	@echo "  clean      - Remove build artifacts"
+	@echo "  install    - Install Python dependencies"
+	@echo "  serve      - Serve docs locally on port 8000"
+	@echo "  livehtml   - Auto-rebuild on changes (requires sphinx-autobuild)"
 
-.PHONY: help Makefile
+.PHONY: help html github clean install serve livehtml
 
-# Catch-all target: route all unknown targets to Sphinx using the new
-# "make mode" option.  $(O) is meant as a shortcut for $(SPHINXOPTS).
-%: Makefile
-	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+# Install Python dependencies
+install:
+	@echo "📦 Installing Python dependencies..."
+	@pip install -q -r requirements.txt
 
-# Custom target for GitHub Pages deployment
-github:
-	@echo "Building for GitHub Pages..."
-	@$(SPHINXBUILD) -M html "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O)
+# Prepare for build: generate index and copy config
+prepare: install
+	@echo "📝 Generating Sphinx index..."
+	@$(PYTHON) generate_sphinx_index.py
+	@echo "📋 Copying root config.py into docs/conf.py..."
+	@cp config.py docs/conf.py
+
+# Build HTML documentation
+html: prepare
+	@echo "🏗️  Building HTML documentation..."
+	@$(SPHINXBUILD) -b html "$(SOURCEDIR)" "$(BUILDDIR)/html" $(SPHINXOPTS) $(O)
+	@echo ""
+	@echo "✅ Build complete!"
+	@echo "📂 Output directory: $(BUILDDIR)/html/"
+	@echo "🌐 Run 'make serve' to view locally"
+
+# Build for GitHub Pages (includes .nojekyll file)
+github: html
+	@echo "📄 Creating .nojekyll for GitHub Pages..."
 	@touch "$(BUILDDIR)/html/.nojekyll"
-	@echo "Build complete. Output in $(BUILDDIR)/html/"
+	@echo "✅ GitHub Pages build complete!"
 
 # Clean build artifacts
 clean:
-	rm -rf $(BUILDDIR)/*
-	@echo "Build artifacts cleaned."
+	@echo "🧹 Cleaning build artifacts..."
+	@rm -rf $(BUILDDIR)/*
+	@rm -f docs/conf.py
+	@echo "✅ Clean complete."
+
+# Serve documentation locally
+serve:
+	@echo "🌐 Serving documentation on http://localhost:8000"
+	@echo "   Press Ctrl+C to stop"
+	@cd $(BUILDDIR)/html && $(PYTHON) -m http.server 8000
 
 # Live server for development (requires sphinx-autobuild)
-livehtml:
-	sphinx-autobuild "$(SOURCEDIR)" "$(BUILDDIR)/html" $(SPHINXOPTS) $(O)
+livehtml: prepare
+	@echo "🔄 Starting live rebuild server..."
+	@sphinx-autobuild "$(SOURCEDIR)" "$(BUILDDIR)/html" $(SPHINXOPTS) $(O)

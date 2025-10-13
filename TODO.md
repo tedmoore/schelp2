@@ -1,4 +1,3 @@
-* nest arguments
 * put "code" blocks into stand alone .scd files to check for errors
 * proper footnotes
 * compare methods and args in .md file against methods and args in json from sc class library to look for discrepancies

@@ -21,8 +21,7 @@ copyright = f"{datetime.now().year}, {author}"
 # (No autodoc/napoleon since we're documenting SuperCollider, not Python)
 extensions = [
     'myst_parser',                  # Parse Markdown (.md) files
-    'sphinx.ext.autosectionlabel',  # Enable cross-references to section titles
-    'readthedocs_sphinx_search'      # Improved client-side search
+    'sphinx.ext.autosectionlabel'  # Enable cross-references to section titles
 ]
 
 templates_path = ['_templates']
