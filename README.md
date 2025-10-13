@@ -4,7 +4,7 @@ This is an initial attempt at making a *new* helpfile system for SuperCollider. 
 
 ## Plan
 
-* [ ] Python `.schelp` to `.json` converter. The `.json` files contain an abstract syntax tree for flexible validation, formatting, etc., for the steps below.
+* [ ] Python `.schelp` to `.json` converter. The `.json` files contain an abstract syntax tree for flexible validation, formatting, etc., for the steps below. **The real question is, should this just be done with the existing `.schelp` parser!?**
 * [ ] Python `.json` to `.md` converter. Uses jinja2 templates.
 * [ ] Use docs-web-build-system to serve `.md` docs on local server (currently this repos is using Sphinx, see screenshot below for styling).
 * [ ] Ability to point consume the `.md` files as an abstract syntax tree and validate it against the SuperCollider class library (this can't be done at the `.json` stage because eventually it will be preferred for docs to be written in Markdown, and therefore will never go through the `.json` stage.)
