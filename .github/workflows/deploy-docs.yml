@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-      - master
-  workflow_dispatch:
 
 permissions:
   contents: read
@@ -33,15 +31,9 @@ jobs:
         run: |
           pip install -r requirements.txt
 
-      - name: Generate index
-        run: |
-          python generate_sphinx_index.py
-
       - name: Build Sphinx documentation
         run: |
-          cd docs
-          sphinx-build -b html . _build/html
-          touch _build/html/.nojekyll
+          make github
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
