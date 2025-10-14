@@ -1,0 +1,53 @@
+# Resonz
+
+*Resonant filter.*
+
+**Related:** [Formlet](../Classes/Formlet.md), [RHPF](../Classes/RHPF.md), [RLPF](../Classes/RLPF.md), [Ringz](../Classes/Ringz.md)
+
+**Categories:** UGens>Filters>Linear
+
+## Description
+
+This is the same as [Ringz](../Classes/Ringz.md), except that it has a constant gain at 0 dB instead of being constant skirt.
+It is a two pole resonant filter with zeroes at
+
+```supercollider
+z = ±1
+```
+
+
+Based on *K. Steiglitz, "A Note on Constant-Gain Digital Resonators", Computer Music Journal, vol 18, no. 4, pp. 8-10, Winter 1994*.
+
+
+## Class Methods
+
+### `ar`, `kr`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `in` | The input signal. |  
+| `freq` | Resonant frequency in Hertz. WARNING: due to the nature of its implementation frequency values close to 0 may cause glitches and/or extremely loud audio artifacts! |  
+| `bwr` | Bandwidth ratio (reciprocal of Q). rq = bandwidth / centerFreq.The reciprocal of Q is used rather than Q because it saves a divide operation inside the unit generator. |  
+| `mul` | Output will be multiplied by this value. |  
+| `add` | This value will be added to the output. |  
+
+## Examples
+
+
+```supercollider
+{ Resonz.ar(WhiteNoise.ar(0.5), 2000, 0.1) }.play
+
+// modulate frequency
+{ Resonz.ar(WhiteNoise.ar(0.5), XLine.kr(1000, 8000, 10), 0.05) }.play
+
+// modulate bandwidth
+{ Resonz.ar(WhiteNoise.ar(0.5), 2000, XLine.kr(1, 0.001, 8)) }.play
+
+// modulate bandwidth opposite direction
+{ Resonz.ar(WhiteNoise.ar(0.5), 2000, XLine.kr(0.001, 1, 8)) }.play
+```
+
+
+
+

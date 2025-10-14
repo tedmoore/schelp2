@@ -1,0 +1,78 @@
+# FileReader
+
+*file reader for space-delimited text files*
+
+**Related:** [File](../Classes/File.md)
+
+**Categories:** Files
+
+## Description
+
+FileReader reads space-delimited text files into 2D arrays line by line.
+For tab delimited files use [TabFileReader](../Classes/TabFileReader.md). For semi-colon-delimited files use [SemiColonFileReader](../Classes/SemiColonFileReader.md). For comma-separated files use [CSVFileReader](../Classes/CSVFileReader.md).
+
+## Examples
+
+
+```supercollider
+(
+// write a test file:
+f = File("FileReaderTest.sc", "w");
+f.write(
+"Some space delimited items in line 1
+
+and then some more with several blanks     in line 3
+"
+);
+f.close;
+)
+
+
+    // open file, read and put strings into array, close file.
+x = FileReader.read("FileReaderTest.sc").postcs;
+
+    // can skip empty lines:
+x = FileReader.read("FileReaderTest.sc", true).postcs;
+
+    // can skip blank entries caused by multiple spaces:
+x = FileReader.read("FileReaderTest.sc", true, true).postcs;
+
+    // do file open/close by hand if you prefer:
+f = File("FileReaderTest.sc", "r"); f.isOpen;
+t = FileReader(f, true, true);
+t.read;
+f.close;
+
+    // take letter "a" as delimiter:
+x = FileReader.read("FileReaderTest.sc", true, true, delimiter: $a).postcs;
+
+(
+// write a test file with numbers:
+f = File("FileReadTestNum.sc", "w");
+
+(1..10).do { |n| f.write(n.asString ++ " ") };
+f.close;
+)
+
+x = FileReader.read("FileReadTestNum.sc").postcs;
+x.collect(_.collect(_.interpret));    // convert to numbers.
+
+    // or do it immediately:
+x = FileReader.readInterpret("FileReadTestNum.sc").postcs;
+
+(
+// write a test file with several lines of numbers:
+f = File("FileReadTestNum.sc", "w");
+
+(1..100).do { |n|
+    f.write(n.asString ++ if (n % 10 != 0, " ", Char.nl)) };
+f.close;
+)
+
+
+x = FileReader.readInterpret("FileReadTestNum.sc", true, true).postln;
+```
+
+
+
+

@@ -1,0 +1,81 @@
+# PV_HainsworthFoote
+
+*FFT onset detector.*
+
+**Related:** [PV_JensenAndersen](../Classes/PV_JensenAndersen.md)
+
+**Categories:** UGens>FFT
+
+## Description
+
+FFT onset detector based on work described in *Hainsworth, S. (2003) Techniques for the Automated Analysis of Musical Audio. PhD, University of Cambridge engineering dept.*See especially p128. The Hainsworth metric is a modification of the Kullback Liebler distance.
+The onset detector has general ability to spot spectral change, so may have some ability to track chord changes aside from obvious transient jolts, but there's no guarantee it won't be confused by frequency modulation artifacts.
+Hainsworth metric on it's own gives good results but Foote might be useful in some situations: experimental.
+
+
+## Class Methods
+
+
+### `ar`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `buffer` | FFT buffer. |  
+| `proph` | What strength of detection signal from Hainsworth metric to use. |  
+| `propf` | What strength of detection signal from Foote metric to use. The Foote metric is normalised to (0..1). |  
+| `threshold` | Threshold hold level for allowing a detection. |  
+| `waittime` | If triggered, minimum wait until a further frame can cause another spot (useful to stop multiple detects on heavy signals). |  
+
+## Examples
+
+
+```supercollider
+// just Hainsworth metric with low threshold
+(
+SynthDef(\fftod, { |out|
+    var source1, detect;
+    source1 = SoundIn.ar(0);
+    detect = PV_HainsworthFoote.ar(FFT(LocalBuf(2048), source1), 1.0, 0.0);
+    Out.ar(out, SinOsc.ar([440, 445], 0, Decay.ar(0.1 * detect, 0.1)));
+}).play(s);
+)
+
+
+// spot note transitions
+(
+SynthDef(\fftod, { |out|
+    var source1, detect;
+    source1 = LFSaw.ar(LFNoise0.kr(1, 90, 400), 0, 0.5);
+    detect = PV_HainsworthFoote.ar(FFT(LocalBuf(2048), source1), 1.0, 0.0, 0.9, 0.5);
+    Out.ar(out, Pan2.ar(source1, -1.0) + Pan2.ar(SinOsc.ar(440, 0, Decay.ar(0.1 * detect, 0.1)), 1.0));
+}).play(s);
+)
+
+
+
+// Foote solo - never triggers with threshold over 1.0, threshold under mouse control
+(
+SynthDef(\fftod, { |out|
+    var source1, detect;
+    source1 = SoundIn.ar(0);
+    detect = PV_HainsworthFoote.ar(FFT(LocalBuf(2048), source1), 0.0, 1.0, MouseX.kr(0.0, 1.1), 0.02);
+    Out.ar(out, Pan2.ar(source1, -1.0) + Pan2.ar(SinOsc.ar(440, 0, Decay.ar(0.1 * detect, 0.1)), 1.0));
+}).play(s);
+)
+
+
+// compare to Amplitude UGen
+(
+SynthDef(\fftod, { |out|
+        var source1, detect;
+        source1 = SoundIn.ar(0);
+        detect = Amplitude.ar(source1) > MouseX.kr(0.0, 1.1);
+        Out.ar(out, Pan2.ar(source1, -1.0) + Pan2.ar(SinOsc.ar(440, 0, Decay.ar(0.1 * detect, 0.1)), 1.0));
+    }).play(s);
+)
+```
+
+
+
+

@@ -1,0 +1,89 @@
+# Psubdivide
+
+*partition a value into n equal subdivisions*
+
+**Related:** [Pdup](../Classes/Pdup.md)
+
+**Categories:** Streams-Patterns-Events>Patterns>Repetition
+
+## Description
+
+A filter pattern designed for a stream of float durations.
+Subdivides each duration by each subdivision and yields that value n times. A subdivision of 0 will skip the duration value, a subdivision of 1 yields the duration value unaffected.
+
+## Examples
+
+
+```supercollider
+(
+a = Psubdivide(
+    Pseq(#[1,1,1,1,1,2,2,2,2,2,0,1,3,4,0], inf),
+    Pseq(#[0.5, 1, 2, 0.25, 0.25], inf)
+);
+x = a.asStream;
+100.do({ x.next.postln });
+)
+
+
+(
+SynthDef(\help_sinegrain,
+    { |out = 0, freq = 440, sustain = 0.05|
+        var env;
+        env = EnvGen.kr(Env.perc(0.01, sustain, 0.2), doneAction: Done.freeSelf);
+        Out.ar(out, SinOsc.ar(freq, 0, env))
+    }).add;
+)
+
+(
+a = Psubdivide(
+    Pseq(#[1,1,1,1,1,2,2,2,2,2,3,3,3,3,3,4,4,4,4,4], inf),
+    Pseq(#[0.5, 1, 2, 0.25, 0.25], inf)
+);
+x = a.asStream;
+
+Routine({
+    loop({
+        Synth.grain(\help_sinegrain, [\freq, 440]);
+        x.next.wait;
+    })
+}).play(TempoClock.default);
+)
+
+
+(
+a = Psubdivide(
+    Pseq(#[1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,0,4,4], inf),
+    Pseq(#[0.5, 1, 2, 0.25, 0.25], inf)
+);
+x = a.asStream;
+Routine({
+    loop({
+        Synth.grain(\help_sinegrain, [\freq, 440]);
+        x.next.wait;
+    })
+}).play(TempoClock.default);
+)
+```
+
+
+Frequencies like being divided too.
+
+```supercollider
+(
+a = Psubdivide(
+    Pseq(#[1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,0,4,4], inf),
+    Pseq((80 + [0, 2, 3, 5, 7, 9, 10]).midicps, inf)
+);
+x = a.asStream;
+Routine({
+    loop({
+        Synth.grain(\help_sinegrain, [\freq, x.next.postln]);
+        0.25.wait
+    })
+}).play(TempoClock.default);
+)
+```
+
+
+
+

@@ -1,0 +1,65 @@
+# 03_Comments
+
+*Mark Polishook tutorial*
+
+**Categories:** Tutorials>Mark_Polishook_tutorial
+
+**Related:** [Mark_Polishook_tutorial/00_Introductory_tutorial](../../Tutorials/Mark_Polishook_tutorial/00_Introductory_tutorial.md)
+
+
+## Comments
+Comments are descriptive remarks that are meant to be read by humans but ignored by computers. Programmers use comments to annotate how code works or what it does. It's also the case that some find it helpful to write programs by first notating comments and then filling in matching code.
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+To write a comment in SuperCollider, either precede text with
+
+
+```supercollider
+//
+```
+
+
+as in
+
+
+```supercollider
+// Everything up to the end of the line is a comment
+```
+
+
+or place text on one or more lines between
+
+
+```supercollider
+/* and */
+```
+
+
+as in
+
+
+```supercollider
+/*
+
+This
+is
+a
+comment
+
+ */
+```
+
+
+If (when) evaluated, a comment will return nil, which is the value SuperCollider uses for uninitialized data.
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Use Format->Syntax Colorize (or cmd-') to syntax-colorize comments.
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+go to [Mark_Polishook_tutorial/04_Help](../../Tutorials/Mark_Polishook_tutorial/04_Help.md)
+
+
+

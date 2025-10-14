@@ -1,0 +1,40 @@
+# Int8Array
+
+*an array whose indexed slots are all of the same type*
+
+**Related:** [FloatArray](../Classes/FloatArray.md), [Int16Array](../Classes/Int16Array.md), [Int32Array](../Classes/Int32Array.md), [DoubleArray](../Classes/DoubleArray.md), [SymbolArray](../Classes/SymbolArray.md)
+
+**Categories:** Collections>Ordered
+
+## Description
+
+These classes implement arrays whose indexed slots are all of the same type.
+- Int8Array - 8 bit integer
+- Int16Array - 16 bit integer
+- Int32Array - 32 bit integer
+- FloatArray - 32 bit floating point
+- DoubleArray - 64 bit floating point
+- SymbolArray - symbols
+
+
+> **Note:** The overflow behavior of an element in an Int8Array is undefined. This occurs whenever the result of an operation does not fit in the range of values supported by the return type, in this case, an 8-bit signed integer.
+
+
+
+
+## Instance Methods
+
+### `readFromStream`
+### `parseOSC`
+Tries to interpret the bytes as an OSC message or OSC bundle. Throws an exception on failure. See also [Array#-asRawOSC](../Classes/Array.md#-asrawosc).
+```supercollider
+// OSC message:
+Int8Array[ 47, 115, 95, 110, 101, 119, 0, 0, 44, 115, 105, 105, 105, 115, 105, 0, 100, 101, 102, 97, 117, 108, 116, 0, -1, -1, -1, -1, 0, 0, 0, 1, 0, 0, 0, 1, 102, 114, 101, 113, 0, 0, 0, 0, 0, 0, 7, -87 ].parseOSC;
+// OSC bundle:
+Int8Array[ 35, 98, 117, 110, 100, 108, 101, 0, 0, 0, 0, 0, 25, -103, -103, -103, 0, 0, 0, 48, 47, 115, 95, 110, 101, 119, 0, 0, 44, 115, 105, 105, 105, 115, 105, 0, 100, 101, 102, 97, 117, 108, 116, 0, -1, -1, -1, -1, 0, 0, 0, 1, 0, 0, 0, 1, 102, 114, 101, 113, 0, 0, 0, 0, 0, 0, 7, -87 ].parseOSC;
+// not an OSC message or bundle:
+Int8Array[ 98, 111, 103, 117, 115 ].parseOSC;
+```
+
+
+

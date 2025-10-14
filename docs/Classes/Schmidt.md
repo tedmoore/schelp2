@@ -1,0 +1,61 @@
+# Schmidt
+
+*Schmidt trigger.*
+
+**Related:** [InRange](../Classes/InRange.md), [InRect](../Classes/InRect.md)
+
+**Categories:** UGens>Maths
+
+## Description
+
+If `in > hi`, output 1. If `in < lo`, output 0. Otherwise, repeat the last sample of output, assumed to be 0 at initialization. In sclang-flavored pseudocode:
+
+```supercollider
+out[i] = if(in[i] < lo[i]) {
+    0
+} {
+    if(in[i] > hi[i]) {
+        1
+   } {
+        out[i-1]
+   }
+};
+```
+
+
+
+
+## Class Methods
+
+### `ar`, `kr`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `in` | Signal to be tested. |  
+| `lo` | Low threshold. |  
+| `hi` | High threshold. |  
+
+## Examples
+
+
+```supercollider
+s.boot;
+
+{ Schmidt.kr(SinOsc.kr(1, 0, 0.2), -0.15, 0.15) }.scope; // see the trigger
+
+{ Schmidt.kr(MouseX.kr(0, 1), 0.2, 0.8) }.scope; // try it with the cursor
+
+// threshold octave jumps
+(
+{
+    var in = LFNoise1.kr(3);
+    var octave = Schmidt.kr(in, -0.15, 0.15) + 1;
+    SinOsc.ar(in * 200 + 500 * octave, 0, 0.1)
+}.scope;
+)
+```
+
+
+
+

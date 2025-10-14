@@ -1,0 +1,102 @@
+# Formlet
+
+*FOF-like filter.*
+
+**Related:** [RHPF](../Classes/RHPF.md), [RLPF](../Classes/RLPF.md), [Resonz](../Classes/Resonz.md), [Ringz](../Classes/Ringz.md)
+
+**Categories:** UGens>Filters>Linear
+
+## Description
+
+This is a resonant filter whose impulse response is like that of a sine wave with a [Decay2](../Classes/Decay2.md) envelope over it. It is possible to control the attacktime and decaytime.
+Formlet is equivalent to:
+
+```supercollider
+Ringz(in, freq, decaytime) - Ringz(in, freq, attacktime)
+```
+
+
+The great advantage to this filter over FOF is that there is no limit to the number of overlapping grains since the grain is just the impulse response of the filter.
+
+> **Note:** The amplitude of the resulting signal depends on the server's sample rate. See [Ringz: Interaction with sample rate](../Classes/Ringz.md#interaction-with-sample-rate) for details.
+
+
+
+
+## Class Methods
+
+### `ar`, `kr`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `in` | The input signal. |  
+| `freq` | Resonant frequency in Hertz. |  
+| `attacktime` | 60 dB attack time in seconds. |  
+| `decaytime` | 60 dB decay time in seconds. |  
+| `mul` |  |  
+| `add` |  |  
+Note that if attacktime == decaytime then the signal cancels out and if attacktime > decaytime then the impulse response is inverted.
+## Examples
+
+
+```supercollider
+// A reminder of the order of args and their default values:
+// Formlet.ar(in: 0.0, freq: 440.0, attacktime: 1.0, decaytime: 1.0, mul: 1.0, add: 0.0)
+
+// **Example #1:
+{ Formlet.ar(Impulse.ar(20, 0.5), 1000, 0.01, 0.1) }.play;
+
+// **Example #2:
+{ Formlet.ar(Blip.ar(XLine.kr(10, 400, 8), 1000, 0.1), 1000, 0.01, 0.1) }.play;
+
+// **Example #3:
+(
+// modulating formant frequency
+{
+    var in;
+    in = Blip.ar(SinOsc.kr(5, 0, 20, 300), 1000, 0.1);
+    Formlet.ar(in, XLine.kr(1500, 700, 8), 0.005, 0.04);
+}.play;
+)
+
+// **Example #4:
+(
+// mouse control of frequency and decay time.
+{
+    var in;
+
+    in = Blip.ar(freq:SinOsc.kr(freq:5, mul:20, add:300), numharm:100, mul:0.1);
+
+    Formlet.ar(
+        in: in,
+        freq: MouseY.kr(minval: 700, maxval: 2000, warp: 1),
+        attacktime: 0.005,
+        decaytime: MouseX.kr(minval: 0.01, maxval: 0.2, warp: 1),
+    );
+
+}.play;
+)
+
+// **Example #5:
+(
+// mouse control of frequency and attack time.
+{
+    var freq;
+
+    freq = Formlet.kr(
+        in: Dust.kr(10 ! 2),
+        freq: MouseY.kr(minval:7, maxval:200, warp:1),
+        attacktime: MouseX.kr(minval:0.1, maxval:2, warp:1),
+        decaytime: 0.005,
+    );
+
+    SinOsc.ar(freq * 200 + [500, 600] - 100) * 0.2;
+
+}.play;
+)
+```
+
+
+
+

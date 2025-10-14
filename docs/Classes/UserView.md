@@ -1,0 +1,469 @@
+# UserView
+
+*A custom drawn view using Pen*
+
+**Categories:** GUI>Views
+
+**Related:** [Pen](../Classes/Pen.md)
+
+## Description
+
+An empty view on which you can draw using the [Pen](../Classes/Pen.md) class.
+This view displays and does nothing by itself, but allows you to define how it will be drawn, and expects you to define its entire mode of interaction using mouse, key, and drag and drop actions.
+To define how the view is drawn you set the [#-drawFunc](#-drawfunc) variable to a [Function](../Classes/Function.md) within which you can use the [Pen](../Classes/Pen.md) class to draw graphical primitives, such as lines, rectangles, ellipses, curves, and also text.
+This class offers convenient mechanisms for creating animations, that is, to automatically redraw itself in regular time intervals. See the [#Animation](#animation) section of this document.
+For a guide to using this view, see [GUI-Introduction#Custom views](../Guides/GUI-Introduction.md#custom-views).
+
+> **Note:** Older tutorials might recommend subclassing UserView. Don't do that. Use composition, not inheritance. Make the UserView a property of your custom view class.
+
+
+
+
+## Class Methods
+
+
+
+## Instance Methods
+
+
+### Drawing
+### `drawFunc`
+ Sets the Function to evaluate whenever the view is asked to redraw itself. This may be, for example, due to being hidden and shown again, being resized, another view moving on top of it, or after the [View#-refresh](../Classes/View.md#-refresh) method has been called. Within that Function you are allowed to use the [Pen](../Classes/Pen.md) class to draw within the bounds of the view. All the coordinates given to the methods of Pen are relative to the top-left corner of the view. Usage of Pen is not allowed outside of that Function. The Function will be passed this view as the argument when evaluated.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | A Function. |  
+
+### `background`
+ Sets the color used to fill the whole area occupied by the view below the drawing done in [#-drawFunc](#-drawfunc). You can set the background at any moment, even within the `drawFunc`, but any drawing done in that Function will always be displayed on top of the background.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | A Color. |  
+
+### `drawingEnabled`
+ Whether the [#-drawFunc](#-drawfunc) will be called when the view is redrawing itself. Note that [#-background](#-background) will be painted regardless of this variable. The default value is `true`.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | A Boolean. |  
+
+### `clearOnRefresh`
+ Whether the view shall clear the last drawing done in [#-drawFunc](#-drawfunc) before being redrawn. If this is `false`, the view will continuously draw on top of all the previous drawing whenever it is redrawn, until [#-clearDrawing](#-cleardrawing) is called. The default value is `true`.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | A Boolean. |  
+
+### `clearDrawing`
+ If [#-clearOnRefresh](#-clearonrefresh) is `false`, you can call this method to manually clear any drawing done in [#-drawFunc](#-drawfunc) so far.
+
+### Animation
+### `animate`
+ Whether the view shall redraw itself internally at a regular time interval (frame rate). See [#-frameRate](#-framerate) for the way to adjust that interval. The default value is `false`.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | A Boolean. |  
+
+### `frameRate`
+ The interval at which the view regularly redraws itself, if [#-animate](#-animate) is `true`. You can change the desired frame rate by setting this variable. The default frame rate is 60fps.
+> **Note:** Getting the value of this variable will return the average actual frame rate. If it is lower than the desired frame rate set as described above, that implies that the view tries but does not manage to redraw itself at that frame rate. The reason may typically be that the drawing defined in [#-drawFunc](#-drawfunc) is computationally too demanding for the system.
+
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `fps` | A Float defining the interval between frames of animation, in frames per second. |  
+
+### `frame`
+ The count of frames drawn while [#-animate](#-animate) is `true`; it will increase by 1 every time the view is redrawn. If animation is stopped and started again (by setting `animate` to `false` and then `true` again), the frame count is restarted.**Returns:** An Integer.
+
+### Actions
+ The UserView by itself does not respond to any interaction by the user. You can define the modes of interaction entirely on your own using mouse and keyboard actions. See [Actions and Hooks](../Guides/GUI-Introduction.md#actions-and-hooks:-make-that-button-do-something!) for detailed explanation.
+
+ Note that there is no default mode of interaction with the UserView, so [View#-action](../Classes/View.md#-action) will never be triggered, if you don't implement that yourself.
+
+
+## Examples
+
+'Introduction to GUI' contains an [example](../Guides/GUI-Introduction.md#custom-views) with elaborate explanation on how to use UserView. Below are further examples.
+
+### Basic Usage
+Resize the window or click on the UserView to refresh the drawing:
+
+
+```supercollider
+(
+w = Window.new;
+v = UserView(w, w.view.bounds.insetBy(50, 50));
+v.resize = 5;
+v.background_(Color.rand);
+v.drawFunc = { |uview|
+        Pen.moveTo(0@uview.bounds.height.rand);
+        Pen.lineTo(uview.bounds.width@uview.bounds.height.rand);
+        Pen.stroke;
+    };
+v.mouseDownAction = { v.refresh };
+w.front;
+)
+```
+
+
+Coordinates are relative to the UserView. Try resizing the window:
+
+
+```supercollider
+(
+var func;
+
+func = { |me|
+    Pen.use{
+        10.do{
+            Color.red(rrand(0.0, 1), rrand(0.0, 0.5)).set;
+            Pen.addArc((400.exprand(2))@(100.rand), rrand(10, 100), 2pi.rand, pi);
+            Pen.perform([\stroke, \fill].choose);
+        }
+    }
+};
+
+w = Window.new("DrawFunc Examples").front;
+w.view.background_(Color.white);
+
+3.do{ |i|
+    v = UserView(w, Rect(20+(i*120), 100, 100, 100))
+        .drawFunc_(func);
+    v.resize = 3; // the func coordinates ar valid even though the view move on resize
+    v.background_(Color.rand);
+};
+
+w.refresh;
+)
+```
+
+
+
+
+### Responding to mouse clicks and movement
+Using [mouse actions](../Classes/View.md#mouse-actions) you can make UserView change the way it is drawn in response to mouse interaction. The sequence of examples below will guide you through the various possibilities.
+
+Clicking and moving the mouse on each of the painted squares in the following example will redraw them differently. See interpreter output for posted information that you can use in the mouse actions.
+
+
+```supercollider
+// drag some circles
+(
+var w, r, u;
+var clicked, relativeWhere;
+r = { Rect(300.rand, 300.rand, 110, 110) } ! 4;
+
+w = Window.new.front;
+u = UserView(w, Rect(0, 0, 400, 400));
+u.drawFunc = {
+    r.do { |x, i|
+        Pen.addOval(x); // wie addRect
+        Pen.color = Color.hsv(0.9 * (1/(i+1)), 0.6, 1);
+        Pen.draw;
+    };
+};
+u.mouseDownAction = { |v, x, y|
+    r.do { |rect, i|
+        if(rect.contains(Point(x, y))) {
+            clicked = i;
+            relativeWhere = Point(x, y) - rect.origin;
+        };
+    };
+};
+
+u.mouseMoveAction = { |v, x, y|
+    var rect;
+    if(clicked.notNil) {
+        rect = r.at(clicked);
+        r.put(clicked, rect.origin = Point(x, y) - relativeWhere);
+        w.refresh;
+    }
+};
+
+u.mouseUpAction = {
+    clicked = nil;
+}
+)
+```
+
+
+
+```supercollider
+// draw some random shapes
+(
+var drawFunc, mouseDownFunc, mouseUpFunc, mouseMoveFunc, sat = 0, startX;
+
+drawFunc = { |me|
+    Pen.use{
+        10.do{
+            Color.red(rrand(0.0, 1), rrand(0.3, 0.8)).set;
+            Pen.addArc((400.exprand(2))@(100.rand), rrand(10, 50), 2pi.rand, pi);
+            Pen.perform([\stroke, \fill].choose);
+        }
+    }
+};
+
+mouseDownFunc = { |me, x, y, mod|
+    startX = x;
+    postf("begin path: x=% realtive mouse coordinates:%\n", startX, x@y);
+};
+
+mouseUpFunc = { |me, x, y, mod|
+    postf("end path: (startX-x)==% mouse coordinates:%\n", (startX-x), x@y);
+};
+
+mouseMoveFunc = { |me, x, y, mod|
+    sat = ((startX-x)/100);
+    (x@y).postln;
+    me.refresh;
+};
+
+w = Window.new.front;
+w.view.background_(Color.white);
+3.do{ |i|
+    v = UserView(w, Rect(20+(i*120), 100, 100, 100));
+    v.background_(Color.rand);
+    v.drawFunc = drawFunc;
+    v.mouseDownAction = mouseDownFunc;
+    v.mouseUpAction = mouseUpFunc;
+    v.mouseMoveAction = mouseMoveFunc;
+};
+w.refresh;
+)
+```
+
+
+The following example uses the [#-clearOnRefresh](#-clearonrefresh) option to prevent the UserView from clearing its contents when redrawn. Clicking and moving the mouse within each square will draw ever more arcs on top of each other.
+
+
+```supercollider
+(
+var func, views;
+
+func = { |me|
+    Pen.use{
+        1.do{
+            Color(
+                rrand(0.0, 1),
+                rrand(0.0, 0.2),
+                rrand(0.0, 0.8),
+                rrand(0.4, 0.8)
+            ).set;
+            Pen.addArc((400.exprand(2))@(100.rand), rrand(10, 50), 2pi.rand, pi);
+            Pen.perform([\stroke, \fill].choose);
+        }
+    }
+};
+
+w = Window.new("DrawFunc Examples").front;
+w.view.background_(Color.white);
+views = { |i|
+    v = UserView(w, Rect(20+(i*120), 100, 100, 100));
+    v.background = Color.rand;
+    v.drawFunc = func;
+    v.mouseMoveAction = { |me| me.refresh };
+    v.clearOnRefresh_(false);
+} ! 3;
+w.refresh;
+)
+```
+
+
+The following example uses the [#-clearOnRefresh](#-clearonrefresh) option to keep the old contents when redrawn, allowing you to draw a line which follows the mouse cursor by clicking and dragging on the view.
+
+It also uses the mouse position to compute the color of the line.
+
+
+```supercollider
+(
+var w, txt, lines, points, drawLine;
+
+drawLine = { |points, bounds|
+    var p0;
+    points.do { |p, i|
+        if(i == 0){
+            p0 = p;
+        }{
+            Pen.moveTo(p0);
+            Pen.lineTo(p);
+            Color(
+                (p.x/bounds.width).clip(0, 1),
+                1.0-(p.x/bounds.width).clip(0, 1),
+                (p.y/bounds.height).clip(0, 1)
+            ).set;
+            Pen.stroke;
+            p0 = p;
+        }
+    };
+};
+
+w = Window("draw on me", Rect(128, 64, 340, 360));
+
+v = UserView(w, w.view.bounds)
+    .clearOnRefresh_(false)
+    .mouseDownAction_({ |v, x, y|
+        points = [x@y];
+    })
+    .mouseMoveAction_({ |v, x, y|
+        points = points.add(x@y);
+        v.refresh;
+    })
+    .mouseUpAction_({ |v, x, y|
+        points = points.add(x@y);
+        lines = lines.add(points);
+        points = nil;
+        v.refresh;
+    })
+    .background_(Color.white)
+    .drawFunc_{ |me|
+        var r = me.bounds;
+
+        Pen.use {
+            Pen.width = 1;
+            Color.black.set;
+
+            lines.do { |linePoints|
+                drawLine.value(linePoints, r);
+            };
+            lines = nil;
+
+            drawLine.value(points, r);
+            if(points.size > 0) { points = [points.last] };
+        };
+    };
+
+w.front;
+)
+```
+
+
+
+
+### Animation
+The following is an animation with mouse interaction. Click and drag in the view to move the center of the rotating object.
+
+
+```supercollider
+(
+var width = 400, height = 400, mx = 0, my = 0, pt, r;
+
+w = Window("animation and mouse interaction", Rect(100, 200, width, height), false);
+
+u = UserView(w, Rect(0, 0, width, height));
+u.background = Color.black;
+u.animate = true; // animate this view
+
+// allocate data in advance, for optimization:
+pt = Point();
+r = Rect();
+
+u.drawFunc = {
+    Pen.fillColor = Color.green;
+    Pen.stringAtPoint(u.frameRate.asString, Point(10, 10)); // display frame rate
+    Pen.stringAtPoint(u.frame.asString, Point(10, 30)); // display frame counter
+    Pen.color = Color.white;
+    pt.x = mx;
+    pt.y = my;
+    100.do{ |i|
+        Pen.moveTo(pt);
+        pt.x = sin(u.frame*0.04.neg+i)*(5*i)+mx; // use .frame to drive animation
+        pt.y = cos(u.frame*0.05+i)*(5*i)+my;
+        r.left = pt.x;
+        r.top = pt.y;
+        r.width = i;
+        r.height = i;
+        Pen.lineTo(pt);
+        Pen.fillStroke;
+        Pen.addOval(r);
+        Pen.fillStroke;
+    };
+};
+u.mouseDownAction = { |v, x, y|
+    mx = x;
+    my = y;
+};
+u.mouseMoveAction = u.mouseDownAction;
+w.front;
+)
+
+u.animate = false; // animation can be paused and resumed
+u.animate = true;
+w.close; // stops animation
+```
+
+
+A simple ball animation:
+
+
+```supercollider
+(
+var width = 400, height = 400, xspeed = 3, yspeed = 2, x = width*0.5, y = height*0.5;
+w = Window("ball", Rect(100, 200, width, height));
+u = UserView(w, Rect(0, 0, width, height));
+u.background = Color.black;
+u.animate = true;
+u.drawFunc = {
+    if(x<0 or: { x>width }, { xspeed = 0-xspeed });
+    if(y<0 or: { y>height }, { yspeed = 0-yspeed });
+    x = x+xspeed;
+    y = y+yspeed;
+    Pen.fillColor = Color.white;
+    Pen.fillOval(Rect.aboutPoint(Point(x, y), 8, 8));
+};
+w.front;
+)
+
+( // replace the drawFunc above while running
+u.drawFunc = {
+    Pen.fillColor = Color.red;
+    Pen.fillOval(Rect(200, 200, sin(u.frame*0.031)*200, sin(u.frame*0.044)*200));
+    Pen.fillOval(Rect(200, 200, sin(u.frame*0.052)*200, sin(u.frame*0.065)*200));
+    Pen.fillOval(Rect(200, 200, sin(u.frame*0.073)*200, sin(u.frame*0.086)*200));
+}
+)
+
+// close the window to stop
+w.close;
+```
+
+
+An animation that makes a good use of the [#-clearOnRefresh](#-clearonrefresh) option to keep the old contents when redrawing.
+
+
+```supercollider
+(
+var width = 640, height = 480, w, theta = 0, drawFunc;
+w = Window("trails", Rect(128, 64, width, height), false);
+drawFunc = { |view|
+    var x = 20 * sin(theta), y = 42 * cos(theta);
+    theta = theta + 0.01;
+    // draw a semitransparent rect filling the screen:
+    Pen.fillColor_(Color.red(0.2, 0.1));
+    Pen.fillRect(Rect(0, 0, width, height));
+    Pen.strokeColor_(Color.white);
+    Pen.translate(width * 0.5, height * 0.5);
+    6.do { |i|
+        Pen.rotate(theta * (1 - (i / 6)));
+        Pen.scale(0.7 + (i * 0.4), 0.4 + (i * 0.5));
+        Pen.strokeOval(Rect.aboutPoint(Point(x, y), 60, 40));
+    };
+};
+x = UserView(w, Rect(10, 10, width - 20, height - 20))
+    .canFocus_(false)
+    .drawFunc_(drawFunc)
+    .clearOnRefresh_(false);
+
+w.front;
+x.animate = true
+)
+```
+
+
+
+
+
+

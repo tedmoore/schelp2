@@ -1,0 +1,89 @@
+# Amplitude
+
+*Amplitude follower*
+
+**Categories:** UGens>Analysis>Amplitude
+
+## Description
+
+Tracks the relative amplitude of a signal, using an envelope follower algorithm. An envelope follower converges toward rising amplitude according to `attackTime`, and toward falling amplitude according to `releaseTime`. See the plot under Examples.
+
+
+## Class Methods
+
+### `ar`, `kr`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `in` | Input signal |  
+| `attackTime` | 20dB convergence time for following attacks. |  
+| `releaseTime` | 20dB convergence time for following decays. |  
+| `mul` |  |  
+| `add` |  |  
+
+## Examples
+
+The first example produces a plot, comparing a fast attack/release against slower settings. The green line (fast settings) approximates the amplitude more quickly, but also oscillates according to the wave shape. The blue line (slow settings) rises more slowly, but oscillates less (more stable measurement).
+
+```supercollider
+(
+{
+    // LFSaw begins at 0, illustrates attack time better
+    var sig = LFSaw.ar(440);
+    var amps = Amplitude.ar(
+        sig,
+        attackTime: [0.001, 0.01],
+        releaseTime: [0.01, 0.2]
+    );
+    [sig] ++ amps
+}.plot
+.superpose_(true)
+.plotColor_([Color.black, Color.green, Color.blue]);
+)
+
+(
+// use input amplitude to control SinOsc frequency
+{
+    SinOsc.ar(
+            Amplitude.kr(
+                        Blip.ar(3, 20) * LFNoise1.kr(0.1).range(0, 1),
+                        MouseX.kr(0.001, 1, 1),
+                        MouseY.kr(0.001, 1, 1),
+                        1200,
+                        400
+            ),
+            0, 0.3)
+}.play;
+)
+```
+
+
+
+```supercollider
+// use input amplitude to control Pulse amplitude - use headphones to prevent feedback.
+{ Pulse.ar(90, 0.3, Amplitude.kr(SoundIn.ar(0))) }.play;
+```
+
+
+
+```supercollider
+(
+// use input amplitude to control SinOsc frequency - use headphones to prevent feedback.
+{
+    SinOsc.ar(
+            Amplitude.kr(
+                        SoundIn.ar(0),
+                        0.01,
+                        0.01,
+                        1200,
+                        400
+            ),
+            0, 0.3)
+}.play;
+)
+```
+
+
+
+

@@ -1,0 +1,309 @@
+# Date
+
+*an object describing a point in time*
+
+**Categories:** Control
+
+
+## Class Methods
+
+### `new`
+Create a new Date with the given properties (all are Integer values, except `rawSeconds`, which is a Float). These arguments are also the names of instance variables of the Date object.The constructor initializes the instance in one of the following ways (in order of priority):1. If `Date.new` is called without any arguments, it will return the **current time**, the same as calling [#*localtime](#*localtime).
+```supercollider
+// The following are equivalent, they return "now" (at the time of call):
+Date.new;
+Date.localtime;
+```
+
+
+2. If a `rawSeconds` argument is specified, it is used to set (overwrite) all the other properties (`year`, `month`, `day`, `hour`, `minute`, `second`, `dayOfWeek`), regardless of whether they are nil or not.
+```supercollider
+(
+var d = Date.new.postln;
+var e = Date(rawSeconds: d.rawSeconds); // create a new Date with the same time
+d == e; // true
+)
+```
+
+
+3. The most typical usage is to create a Date from a year/month/day and possibly hour/minute/second. All of these properties (except `year`) have default values (`month = 1`, `day = 1`, `hour = 0`, `minute = 0`, `second = 0`). `rawSeconds` is computed based on the other properties. There is no default year -- if no `year` is provided, an error is thrown.
+```supercollider
+Date(1969, 7, 20, 20, 18); // -> Sun Jul 20 20:18:00 1969
+Date(2016); // -> Fri Jan  1 00:00:00 2016
+d = Date(2010, day: 15, minute: 30); // -> Fri Jan 15 00:30:00 2010
+[d.asString, d.dayOfWeek, d.rawSeconds]; // dayOfWeek and rawSeconds were computed
+```
+
+
+> **Note:** On Windows, `Date` creation fails for dates before Unix epoch, i.e. before January 1st, 1970.
+
+
+It is possible to specify dates with "out of range" values that will be resolved into a valid range -- this allows simple date offset calculations to be performed (see example below).
+```supercollider
+(
+// Simple date/time offsetting can be performed:
+("One hundred days before Christmas:" + Date(2010, 12, 25 - 100).format("%B %d")).postln;
+
+// Invalid dates are "corrected"
+Date(2017, 2, 29).postln; // March 1: 2017 was not a leap year!
+)
+```
+
+
+> **Note:** The `dayOfWeek` argument is **always calculated**. If it is specified, the value will be overwritten (it only remains a constructor argument for reasons of backward compatibility).
+```supercollider
+// There is no point (but no harm) in specifying the dayOfWeek argument,
+// as it will always be calculated:
+Date(2017, 10, 31, dayOfWeek: 0).dayOfWeek; // calculated to be 2 (Tuesday), not 0 (Sunday)
+```
+
+
+### `fromString`
+Create a new Date object from a date/time string, which is parsed according to the provided format string.
+```supercollider
+Date.fromString("2017-10-25 [13:25:55]", "%Y-%m-%d [%H:%M:%S]");
+Date.fromString("1981.9.30 @ 17:33", "%Y.%m.%d @ %H:%M");
+
+(
+// Round-trip via string, using "stamp"
+var stampString = Date(2013, 5, 25, 10, 9, 8).stamp;
+var d = Date.fromString(stampString, "%y%m%d_%H%M%S");
+(stampString + "-->" + d).postln;
+)
+```
+
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `string` | The date/time string to parse, for example `"2017-10-25 13:25:55"`. |  
+| `format` | The format to use to parse the date string. Note that the supported input formats are slightly different from those of the [#-format](#-format) (output) method. In particular, some of the "combined" formats (such as `%F` or `%T`) are not supported for input, you must expand them out (`"%F"` -> `"%Y-%m-%d"` and `"%T"` -> `"%H:%M:%S"`). The full list of supported input format flags may be found [here](http://www.boost.org/doc/libs/1_63_0/doc/html/date_time/date_time_io.html).To parse the above example string, you would use `"%Y-%m-%d %H:%M:%S"`. |  
+
+### `getDate`
+Get current date from system and create a date object from it.
+```supercollider
+(
+var a = Date.getDate;
+a.rawSeconds.postln;
+a.dayOfWeek.postln;
+a
+)
+```
+
+
+### `localtime`
+Get current localized time from system and create a date object from it.
+### `gmtime`
+Get current **Greenwich Mean Time (GMT)** from system and create a date object from it.
+### `seed`
+Get current date and return a value suitable for seeding a random number generator. See also [randomSeed](../Reference/randomSeed.md).
+```supercollider
+(
+var a = Date.seed;
+thisThread.randSeed = a;
+20.do { [1, 0].choose.post }; "".postln;
+thisThread.randSeed = a;
+25.do { [1, 0].choose.post }; "".postln;
+)
+```
+
+
+
+## Instance Methods
+
+### `rawSeconds`
+Get or set the receiver's raw time in seconds (relative to the "epoch" of January 1, 1970).If you modify this property, the other properties will not update. See note at [#-resolve](#-resolve) -- there is no "resolveFromRawSeconds" method, but you can generate a new self-consistent Date instance by passing the `rawSeconds` as an argument to [#*new](#*new).
+> **Note:** This value is not portable between machines, because of differences in the way the underlying time functions are implemented, and because of time zone differences. To save/restore Date values between runs and on different platforms, it is recommended **not** to use the rawSeconds value. Instead, you should serialize the Date to a string, for example:
+
+
+```supercollider
+(
+var savedDateStr = Date.localtime.format("%Y%m%d_%H%M%S").postcs;
+var loadedDate = Date.fromString(savedDateStr, "%Y%m%d_%H%M%S").postln;
+)
+```
+
+### `localtime`
+Set the receiver's time to current localtime.### `gmtime`
+Set the receiver's time to current **Greenwich Mean Time (GMT)**.### `dayStamp`
+Obtain a string with the year, month and day in the format **YYMMDD**.### `hourStamp`
+Obtain a string in the format **H:M:S**.### `secStamp`
+Obtain a string with the seconds.### `stamp`
+Obtain a string in the format **YYMMDD_HHMMSS**.### `asSortableString`
+Obtain a string in an alphabetically sortable standard database format.### `asctime`
+Obtain a string in the format WeekdayName MonthName Time Year.### `asString`
+Returns asctime.### `resolve`
+Resolve any inconsistencies in the Date object, updating all the fields (in particular `dayOfWeek` and `rawSeconds`) as necessary.If the instance properties (`year`, `month`, `day`, `hour`, `minute`, `second`) are modified, the Date will be in an inconsistent state -- its `rawSeconds` won't reflect the modifications, and the properties may fall outside of "normal" ranges (`month: 1-12, day:1-31, hour: 0-23, minute/second: 0-59`). Also, using the string conversion methods may give strange results. Calling the `resolve` method will put things back into a consistent state.
+```supercollider
+// Simple date/time offsetting can be performed:
+d = Date(2017, 9, 30, 10, 30); // -> Sat Sep 30 10:30:00 2017
+[d.dayOfWeek, d.rawSeconds]; // -> [6, 1506760200]
+d.hour = d.hour - 13; // -> Sat Sep 30 -03:30:00 2017
+d.month = d.month + 4; // -> Sat ??? 30 -03:30:00 2017
+d.minute = d.minute + 200; // -> Sat ??? 30 -03:230:00 2017
+d.rawSeconds; // hasn't changed: still 1506760200
+
+// Now resolve everything back into reasonable ranges, applying the offsets:
+d.resolve; // -> Tue Jan 30 00:50:00 2018
+[d.dayOfWeek, d.rawSeconds]; // -> [2, 1517269800]
+```
+
+
+> **Note:** There is no "resolveFromRawSeconds" method. If you modify the `rawSeconds` property, the other properties **won't** change to reflect it. If you want to "resolve" in the other direction, simply create a new Date object using the `rawSeconds`:
+```supercollider
+d = Date(1999, 12, 31); // -> Fri Dec 31 00:00:00 1999
+d.rawSeconds; // -> 946594800
+
+// Add 1 million seconds (~11.6 days)
+d.rawSeconds = d.rawSeconds + 1e6; // still shows -> Fri Dec 31 00:00:00 1999
+d.rawSeconds; // -> 947594800
+// rawSeconds different but the other properties haven't changed
+
+// If we were to call d.resolve, then rawSeconds would be reset to match all
+// the other properties.  So in this case, where we want to "resolve" from the
+// rawSeconds, just create a new Date object:
+d = Date(rawSeconds: d.rawSeconds);
+// -> Tue Jan 11 13:46:40 2000
+```
+
+### `format`
+Obtain a date string with a given format. The character % is replaced by the appropriate value, which is derived from the letter that follows.
+```supercollider
+Date.getDate.format("Today is %A. It is around %I o'clock (%p), in %B.");
+Date.getDate.format("%d/%m/%Y %H:%M");  // DD/MM/YYYY hh:mm
+```
+
+A list of formats can be found here: [http://www.opengroup.org/onlinepubs/009695399/functions/strftime.html](http://www.opengroup.org/onlinepubs/009695399/functions/strftime.html)
+**%a**
+: Replaced by the locale's abbreviated weekday name. [ tm_wday]
+
+**%A**
+: Replaced by the locale's full weekday name. [ tm_wday]
+
+**%b**
+: Replaced by the locale's abbreviated month name. [ tm_mon]
+
+**%B**
+: Replaced by the locale's full month name. [ tm_mon]
+
+**%c**
+: Replaced by the locale's appropriate date and time representation.
+
+**%C**
+: Replaced by the year divided by 100 and truncated to an integer, as a decimal number [00,99]. [ tm_year]
+
+**%d**
+: Replaced by the day of the month as a decimal number [01,31]. [ tm_mday]
+
+**%D**
+: Equivalent to %m / %d / %y. [ tm_mon, tm_mday, tm_year]
+
+**%e**
+: Replaced by the day of the month as a decimal number [1,31]; a single digit is preceded by a space. [ tm_mday]
+
+**%F**
+: Equivalent to %Y - %m - %d (the ISO 8601:2000 standard date format). [ tm_year, tm_mon, tm_mday]
+
+**%g**
+: Replaced by the last 2 digits of the week-based year (see below) as a decimal number [00,99]. [ tm_year, tm_wday, tm_yday]
+
+**%G**
+: Replaced by the week-based year (see below) as a decimal number (for example, 1977). [ tm_year, tm_wday, tm_yday]
+
+**%h**
+: Equivalent to %b. [ tm_mon]
+
+**%H**
+: Replaced by the hour (24-hour clock) as a decimal number [00,23]. [ tm_hour]
+
+**%I**
+: Replaced by the hour (12-hour clock) as a decimal number [01,12]. [ tm_hour]
+
+**%j**
+: Replaced by the day of the year as a decimal number [001,366]. [ tm_yday]
+
+**%m**
+: Replaced by the month as a decimal number [01,12]. [ tm_mon]
+
+**%M**
+: Replaced by the minute as a decimal number [00,59]. [ tm_min]
+
+**%n**
+: Replaced by a <newline>.
+
+**%p**
+: Replaced by the locale's equivalent of either a.m. or p.m. [ tm_hour]
+
+**%r**
+: Replaced by the time in a.m. and p.m. notation; in the POSIX locale this shall be equivalent to %I :%M :%S%p. [ tm_hour, tm_min, tm_sec]
+
+**%R**
+: Replaced by the time in 24-hour notation (%H : %M). [ tm_hour, tm_min]
+
+**%S**
+: Replaced by the second as a decimal number [00,60]. [ tm_sec]
+
+**%t**
+: Replaced by a <tab>.
+
+**%T**
+: Replaced by the time ( %H : %M : %S). [ tm_hour, tm_min, tm_sec]
+
+**%u**
+: Replaced by the weekday as a decimal number [1,7], with 1 representing Monday. [ tm_wday]
+
+**%U**
+: Replaced by the week number of the year as a decimal number [00,53]. The first Sunday of January is the first day of week 1; days in the new year before this are in week 0. [ tm_year, tm_wday, tm_yday]
+
+**%V**
+: Replaced by the week number of the year (Monday as the first day of the week) as a decimal number [01,53]. If the week containing 1 January has four or more days in the new year, then it is considered week 1. Otherwise, it is the last week of the previous year, and the next week is week 1. Both January 4th and the first Thursday of January are always in week 1. [ tm_year, tm_wday, tm_yday]
+
+**%w**
+: Replaced by the weekday as a decimal number [0,6], with 0 representing Sunday. [ tm_wday]
+
+**%W**
+: Replaced by the week number of the year as a decimal number [00,53]. The first Monday of January is the first day of week 1; days in the new year before this are in week 0. [ tm_year, tm_wday, tm_yday]
+
+**%x**
+: Replaced by the locale's appropriate date representation.
+
+**%X**
+: Replaced by the locale's appropriate time representation.
+
+**%y**
+: Replaced by the last two digits of the year as a decimal number [00,99]. [ tm_year]
+
+**%Y**
+: Replaced by the year as a decimal number (for example, 1997). [ tm_year]
+
+**%z**
+: Replaced by the offset from UTC in the ISO 8601:2000 standard format ( +hhmm or -hhmm), or by no characters if no timezone is determinable. For example, "-0430" means 4 hours 30 minutes behind UTC (west of Greenwich). If tm_isdst is zero, the standard time offset is used. If tm_isdst is greater than zero, the daylight savings time offset is used. If tm_isdst is negative, no characters are returned. [ tm_isdst]
+
+**%Z**
+: Replaced by the timezone name or abbreviation, or by no bytes if no timezone information exists. [ tm_isdst]
+
+**%%**
+: Replaced by %.
+
+If a conversion specification does not correspond to any of the above, the behavior is undefined.### `<`
+### `<=`
+### `>`
+### `>=`
+Compare two Dates based on their rawSeconds.
+```supercollider
+Date(1999, 12, 31, 23, 59, 59) < Date(2000, 1, 1, 0, 0, 0);
+Date(1999, 12, 31, 23, 59, 59) <= Date(2000, 1, 1, 0, 0, -1);
+Date(2005, 1, 1) > Date(2004, 1, 2);
+Date(2005, 2, 13) >= Date(2005, 2, 13);
+```
+
+### `==`
+### `!=`
+Test whether two Dates are equal/unequal, based on their rawSeconds.
+```supercollider
+Date(2016, 11, 4) == Date(2016, 10, 4 + 31);
+Date(2016) != Date(2017);
+```
+
+
+

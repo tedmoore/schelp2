@@ -1,0 +1,156 @@
+# Decay2
+
+*Exponential decay*
+
+**Related:** [Decay](../Classes/Decay.md), [Integrator](../Classes/Integrator.md)
+
+**Categories:** UGens>Filters>Linear, UGens>Envelopes
+
+## Description
+
+An integrating filter like [Decay](../Classes/Decay.md), but both the onset time and decay time can be specified.
+
+is equivalent to:
+
+For precise control over the attack, decay, and level of `Decay2` see [#Onset control and normalizing the envelope of Decay2](#onset-control-and-normalizing-the-envelope-of-decay2) and [#Calculating rise time and maximum rise time of Decay2](#calculating-rise-time-and-maximum-rise-time-of-decay2) below.
+
+
+## Class Methods
+
+### `ar`, `kr`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `in` | The input signal. |  
+| `attackTime` | 60 dB attack time in seconds. |  
+| `decayTime` | 60 dB decay time in seconds. |  
+| `mul` | The output will be multiplied by this value. |  
+| `add` | This value will be added to the output. |  
+
+## Examples
+
+
+```supercollider
+// Used as an envelope
+play{ Decay2.ar(Impulse.ar(XLine.kr(1,50,20), 0.25), 0.01, 0.2, FSinOsc.ar(600)) };
+// Compare to Decay
+play{ Decay.ar(Impulse.ar(XLine.kr(1,50,20), 0.25), 0.2, FSinOsc.ar(600), 0) };
+```
+
+
+Since `Decay2` is equivalent to the difference of two [Decay](../Classes/Decay.md)s, swapping the **attackTime** and **decayTime** inverts the envelope:
+
+```supercollider
+(
+plot({
+    var attack = 0.001, decay = 0.01;
+    var imp = Impulse.ar(0);
+    [
+        Decay2.ar(imp, attack, decay),
+        Decay2.ar(imp, decay, attack)
+    ]
+}, duration: 0.01).superpose_(true)
+)
+```
+
+
+
+### Onset control and normalizing the envelope of Decay2
+It can be useful to parameterize `Decay2` so that its peak value is `1.0`, and to be able to control when the peak value is reached. The following example normalizes the envelope of `Decay2` and provides a parameter, `riseScale`, to shift the onset earlier or later.
+
+A `riseScale` value of `0.0` gives a sharp onset time of just one sample, making it nearly equivalent to [Decay](../Classes/Decay.md). A value of just less than `1.0` (it cannot be equal to `1.0`) will generate the latest possible onset time, which is ~15% of the **decayTime**.
+
+
+```supercollider
+(
+var t60, riseScale, riseFac, normFac;
+
+// Approximate 60 dB decay time
+// (actual t60 will increase with riseScale)
+t60 = 0.01;
+
+// Scale the rise time (< 1.0)
+riseScale = 0.1;
+
+// Calculate normalization factor
+riseFac = riseScale / (2 - riseScale);
+normFac = riseFac.pow(riseFac / (riseFac - 1)) / (1 - riseFac);
+
+// Plot and compare to Decay
+plot({
+    var imp = Impulse.ar(0);
+    [
+        Decay.ar(imp, t60),
+        Decay2.ar(imp,
+            attackTime: t60 * riseFac,
+            decayTime: t60,
+            mul: normFac
+        )
+    ]
+}, duration: t60)
+.plotColor_([Color.blue, Color.red])
+.superpose_(true)
+)
+```
+
+
+In the previous example, note that `t60` is "approximate" because, while the *rate* of decay converges to that of the corresponding decay time, the actual time when the impulse response decays to -60 dB will be delayed as `riseScale` increases. This is apparent when looking at the impulse response on a decibel scale, with increasing values for `riseScale`.
+
+
+```supercollider
+(
+var t60, riseScale, riseFac, normFac;
+
+t60 = 0.01;
+riseScale = [0.0, 0.2, 0.5, 0.9];
+riseFac = riseScale / (2 - riseScale);
+normFac = riseFac.pow(riseFac / (riseFac - 1)) / (1 - riseFac);
+
+// Plot in dB to inspect decay time
+plot(
+    {
+        Decay2.ar(Impulse.ar(0),
+            attackTime: t60 * riseFac,
+            decayTime: t60,
+            mul: normFac
+        ).ampdb.max(-120) // to dB, clip -inf
+    },
+    duration: t60, minval: -60
+).superpose_(true)
+.axisLabelY_("dB")
+.axisLabelX_("Time (s)")
+)
+```
+
+
+
+
+### Calculating rise time and maximum rise time of Decay2
+The longest possible rise time is constrained to ~15% of the **decayTime**. This maximum rise time, as well as exact rise time for a given `riseScale` factor, can be calculated as follows:
+
+
+```supercollider
+(
+var t60, riseScale, riseFac, riseTime, maxRiseTime;
+
+t60 = 0.3; // decay time
+riseScale = 0.1;
+
+riseFac = riseScale / (2 - riseScale);
+maxRiseTime = t60 * 60.dbamp.log.reciprocal;
+riseTime = maxRiseTime * (riseFac * riseFac.log) / (riseFac - 1);
+
+postf(
+    "For decayTime = % sec, the max possible rise time is % sec.\n"
+    "When riseScale = %, the rise time is % sec.\n",
+    *round([t60, maxRiseTime, riseScale, riseTime], 0.001)
+);""
+)
+```
+
+
+
+
+
+

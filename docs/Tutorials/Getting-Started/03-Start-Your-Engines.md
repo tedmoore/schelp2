@@ -1,0 +1,57 @@
+# 03. Start Your Engines
+
+*Getting Started With SuperCollider*
+
+**Categories:** Tutorials>Getting-Started
+
+**Related:** [Getting-Started/00-Getting-Started-With-SC](../../Tutorials/Getting-Started/00-Getting-Started-With-SC.md)
+
+Before we can make any sound, we need to start or 'boot' a server application. The easiest way to do this is to use the shortcut Ctrl-B (Cmd-B on macOS). There is also a Server menu entry for "Boot Server".
+Notice that the white font on the black view on the bottom of the window has changed to green. This indicates that the server is running. The view also provides you with some information about CPU usage, and some other things which probably aren't too clear yet. More about them soon.
+Also take a look at the post window, where SC has given you some info, and let you know that it booted okay. For example:
+
+```supercollider
+Booting server 'localhost' on address 127.0.0.1:57110.
+Number of Devices: 2
+   0 : "Built-in Microph"
+   1 : "Built-in Output"
+
+"Built-in Microph" Input Device
+   Streams: 1
+      0  channels 2
+
+"Built-in Output" Output Device
+   Streams: 1
+      0  channels 2
+
+SC_AudioDriver: sample rate = 44100.000000, driver's block size = 512
+SuperCollider 3 server ready.
+Requested notification messages from server 'localhost'
+localhost: server process's maxLogins (1) matches with my options.
+localhost: keeping clientID (0) as confirmed by server process.
+Shared memory server interface initialized
+```
+
+If for some reason it failed to boot, there should be information printed about the error that occurred. If this happens, please reach out to the community for help: [https://supercollider.github.io#community](https://supercollider.github.io#community)
+By default you can refer to the localhost server in your code by using the letter `s`. You can send messages to start and stop it like so:
+
+```supercollider
+s.quit;
+s.boot;
+```
+
+Try this out and then leave the server running. Many examples in the documentation have `s.boot` at the beginning, but in general you should make sure the server is running before using any examples that generate audio, or otherwise access the server. In general the examples in this tutorial assume that the server is running.
+You can also refer to the default server with the text `Server.default`, for example:
+
+```supercollider
+Server.default.boot;
+```
+
+For more information see:
+[Server](../../Classes/Server.md)
+[AudioDeviceSelection](../../Reference/AudioDeviceSelection.md)
+____________________
+This document is part of the tutorial **Getting Started With SuperCollider**.
+Click here to go on to the next section: [Getting-Started/04-Functions-and-Other-Functionality](../../Tutorials/Getting-Started/04-Functions-and-Other-Functionality.md)
+Click here to return to the table of Contents: [Getting-Started/00-Getting-Started-With-SC](../../Tutorials/Getting-Started/00-Getting-Started-With-SC.md)
+

@@ -1,0 +1,67 @@
+# PitchShift
+
+*Time domain pitch shifter.*
+
+**Categories:** UGens>Filters>Pitch
+
+## Description
+
+A time domain granular pitch shifter. Grains have a triangular amplitude envelope and an overlap of 4:1, and use linear interpolation of the buffer.
+
+
+## Class Methods
+
+### `ar`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `in` | The input signal. |  
+| `windowSize` | The size of the grain window in seconds. This value cannot be modulated. The minimum value is 3 sample periods. If you supply a smaller value, it will be rounded up to the minimum. |  
+| `pitchRatio` | The ratio of the pitch shift. Must be from 0 to 4. |  
+| `pitchDispersion` | The maximum random deviation of the pitch from the`pitchRatio` . |  
+| `timeDispersion` | A random offset from zero to `timeDispersion` seconds is added to the delay of each grain. Use of some dispersion can alleviate a hard comb filter effect due to uniform grain placement. It can also be an effect in itself. `timeDispersion` can be no larger than `windowSize`. |  
+| `mul` | Output will be multiplied by this value. |  
+| `add` | This value will be added to the output. |  
+
+## Examples
+
+
+```supercollider
+(
+play({
+    z = Blip.ar(800, 6, 0.1);
+    PitchShift.ar(z, 0.02, Line.kr(0.1, 4, 20), 0, 0.0001)
+}))
+
+(
+// pitch shift input - USE HEADPHONES to prevent feedback.
+play({
+    PitchShift.ar(
+        SoundIn.ar([0, 1]),    // stereo audio input
+        0.1,             // grain size
+        MouseX.kr(0, 2),    // mouse x controls pitch shift ratio
+        0,                 // pitch dispersion
+        0.004            // time dispersion
+    )
+}))
+
+(
+// use PitchShift to granulate input - USE HEADPHONES to prevent feedback.
+// upper left corner is normal playback. x = pitch dispersion, y = time dispersion
+var grainSize;
+grainSize = 0.5;
+play({
+    PitchShift.ar(
+        SoundIn.ar([0, 1]),
+        grainSize,
+        1,                        // nominal pitch rate = 1
+        MouseX.kr(0, 1),             // pitch dispersion
+        MouseY.kr(0, grainSize)    // time dispersion
+    )
+}))
+```
+
+
+
+

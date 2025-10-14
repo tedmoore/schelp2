@@ -1,0 +1,234 @@
+# ScopeView
+
+*A buffer plotting view.*
+
+**Categories:** GUI>Views
+
+**Related:** [Stethoscope](../Classes/Stethoscope.md), [FreqScopeView](../Classes/FreqScopeView.md), [FreqScope](../Classes/FreqScope.md)
+
+## Description
+
+ScopeView is mainly intended to support the implementation of [Stethoscope](../Classes/Stethoscope.md) (an oscilloscope), [FreqScopeView](../Classes/FreqScopeView.md) (a basic frequency spectrum plotting view) and [FreqScope](../Classes/FreqScope.md) (a frequency spectrum analyzer tool).
+It is optimized to efficiently perform frequent plotting of the contents of a [Buffer](../Classes/Buffer.md) into which a [ScopeOut2](../Classes/ScopeOut2.md) UGen is writing. It will periodically poll the buffer for data and update the plot, as long as the ScopeOut2 UGen is writing into it; the buffer will not be plotted otherwise.
+
+
+## Class Methods
+
+
+
+## Instance Methods
+
+### `bufnum`
+ The number of the Buffer to plot. To set up the ScopeView object for plotting, one needs to set a valid buffer number and tell a [ScopeOut2](../Classes/ScopeOut2.md) UGen to write to it. Before the view starts periodically plotting the buffer, however, one needs to assign it a [Server](../Classes/Server.md) object and call the [#-start](#-start) method on it. If the ScopeOut2 UGen stops writing or an invalid buffer number is set, the plotting will pause.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | An integer. |  
+### `server`
+ An instance of ScopeView must be assigned to a particular server for it to work.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | A [Server](../Classes/Server.md) object |  
+### `start`
+ Tells the ScopeView object to start plotting.### `stop`
+ Tells the ScopeView object to stop plotting. Plotting can be resumed anytime with the [#start](#start) method.### `style`
+ The plotting style:- 0 = the channels are vertically spaced
+- 1 = the channels are overlaid
+- 2 = lissajou; each pair of channels is used for 2D plotting (as streams of x and y coordinates).
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | One of the above Integers. |  
+### `xZoom`
+ The scaling factor on the horizontal axis.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | A Float. |  
+### `yZoom`
+ The scaling factor on the vertical axis.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | A Float. |  
+### `x`
+ The horizontal offset.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | A Float. |  
+### `y`
+ The vertical offset.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | A Float. |  
+### `fill`
+ Fill area under scope.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | A Boolean. |  
+### `waveColors`
+ The colors used to plot each of the channels.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | An Array of Colors, one per channel. |  
+
+## Examples
+
+
+### A step-by-step example
+
+```supercollider
+// boot the server (if not already booted)
+s.boot;
+
+// execute the following two blocks in succession:
+(
+f = Buffer.alloc(s, 1024, 2);
+b = Bus.audio(s, 1);
+
+w = Window.new.front;
+w.onClose = { // free everything when finished
+    c.stop; a.free; d.free; f.free; b.free;
+    "SynthDefs, busses and buffers have all been freed.".postln;
+};
+c = ScopeView(w.view, w.view.bounds.insetAll(10, 10, 10, 10));
+c.bufnum = f.bufnum;
+c.server = s; // Important: one must assign the ScopeView to a server
+)
+
+(
+// listening to the bus, using ScopeOut2 to write it to the buffer
+a = SynthDef("monoscope", { |bus, bufnum|
+    var z;
+    z = In.ar(bus, 2);
+
+    ScopeOut2.ar(z, bufnum);
+    Out.ar(0, z);
+}).play(
+    target: RootNode(s),
+    args: [\bus, b.index, \bufnum, f.bufnum],
+    addAction: \addToTail // make sure it goes after what you are scoping
+);
+
+// making noise onto the buffer
+d = SynthDef("noise", { |bus|
+    var z;
+    z = LFSaw.ar(SinOsc.kr(0.1).range(300, 1000), [0, 1]*pi) * 0.1;
+    Out.ar(bus, z);
+}).play(
+    s,
+    [\bus, b.index]
+);
+c.start; // Tell the ScopeView to start
+CmdPeriod.doOnce({ w.close });
+)
+
+
+c.style = 0; // vertically spaced
+c.style = 1; // overlapped
+c.style = 2; // x/y
+```
+
+
+
+
+### An interactive example with sound
+This explains all the options:
+
+
+```supercollider
+(
+s.waitForBoot({
+    var func, sdef1, sdef2, syn1, syn2, startButton ;
+    f = Buffer.alloc(s, 1024, 2);
+    b = Bus.audio(s, 1);
+
+    w = Window("Scope", Rect(150, Window.screenBounds.height-500, 790, 400)).front;
+    c = ScopeView(w, Rect(10, 10, 380, 380)); // this is SCScope
+    c.bufnum = f.bufnum;
+
+    // IMPORTANT
+    c.server = s;
+
+    v = CompositeView(w, Rect(400, 10, 380, 380)).background_(Color.rand(0.7));
+    v.decorator = n = FlowLayout(v.bounds, margin: 0@0, gap: 5@5);
+
+    a = StaticText(v, Rect(20, 70, 90, 20)).string_(" xZoom = 1").background_(Color.rand);
+    m = Slider(v, Rect(20, 60, 285, 20)).background_(a.background).action_({ func.value }).value_(0.5);
+    d = StaticText(v, Rect(20, 70, 90, 20)).string_(" yZoom = 1").background_(Color.rand);
+    g = Slider(v, Rect(20, 60, 285, 20)).background_(d.background).action_({ func.value }).value_(0.5);
+
+    h = StaticText(v, Rect(20, 70, 90, 20)).string_(" x = 0").background_(Color.rand);
+    i = Slider(v, Rect(20, 60, 285, 20)).background_(h.background).action_({ func.value }).value_(0.5);
+
+    Button(v, Rect(0, 0, 380, 20))
+    .states_([["waveColors = [Color.rand, ...]", Color.black, Color.rand]])
+    .action_({ c.waveColors = [Color.rand, Color.rand] });
+
+    Button(v, Rect(0, 0, 380, 20))
+    .states_([[" background = Color.rand(0.1, 0.3) ", Color.black, Color.rand]])
+    .action_({ c.background = Color.rand(0.1, 0.3) });
+
+    t = Button(v, Rect(0, 0, 380, 20))
+    .states_([["Current style is 0", Color.black, Color.rand],
+        ["Current style is 1", Color.black, Color.rand],
+        ["Current style is 2", Color.black, Color.rand]])
+    .action_({ func.value });
+
+    func = {
+        c.xZoom = ([0.25, 10, \exp, 1/8, 1].asSpec.map(m.value)); a.string = " xZoom = %".format(c.xZoom);
+        c.yZoom = ([0.25, 10, \exp, 1/8, 1].asSpec.map(g.value)); d.string = " yZoom = %".format(c.yZoom);
+        c.x = ([-1024, 1024, \linear, 1/8, 1].asSpec.map(i.value)); h.string = " x = %".format(c.x);
+        c.style = t.value
+    };
+
+    startButton = Button.new(v, Rect(0, 0, 380, 50))
+    .states_([["Start Sound", Color.black, Color.green], ["Stop Sound", Color.black, Color.red]]).action_({ });
+
+
+    startButton.action_{
+        (startButton.value == 1).if{
+            syn1 = SynthDef("test1", { |bus, bufnum|
+                var z;
+                z = In.ar(bus, 2);
+                // ScopeOut2 writes the audio to the buffer
+                // IMPORTANT - ScopeOut2, not ScopeOut
+                ScopeOut2.ar(z, bufnum);
+                Out.ar(0, z);
+            }).play(
+                RootNode(s),
+                [\bus, b.index, \bufnum, f.bufnum],
+                \addToTail // make sure it goes after what you are scoping
+            );
+
+            // making noise onto the buffer
+            syn2 = SynthDef("test2", { |bus|
+                var z;
+                z = PMOsc.ar([300, 250], *SinOsc.ar([0.027, 0.017])*pi) * 0.1;
+                Out.ar(bus, z);
+            }).play(s, [\bus, b.index]);
+        } { 
+            syn1.free; syn2.free 
+        };
+   };
+
+    // IMPORTANT
+    c.start;
+
+    w.onClose = { syn1.free; syn2.free; b.free; f.free };
+    CmdPeriod.doOnce({ w.close });
+})
+)
+```
+
+
+
+
+
+

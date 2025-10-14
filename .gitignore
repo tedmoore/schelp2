@@ -1,8 +1,9 @@
 __pycache__
 *.code-workspace
 .DS_Store
-docs
 sc_classes.json
 json
 test_all.sh
 SCDoc/scdoc_parse_dump.dSYM
+docs/_build
+docs/conf.py.bak.*

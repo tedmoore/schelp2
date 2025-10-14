@@ -1,0 +1,59 @@
+# Paddp
+
+*add each value of a pattern to the value at a key in event stream*
+
+**Related:** [Padd](../Classes/Padd.md), [Pmulp](../Classes/Pmulp.md)
+
+**Categories:** Streams-Patterns-Events>Patterns>Math
+
+## Description
+
+Adds a value to a named value in an event pattern or stream until it ends. Repeats this with new values until the value stream ends.
+
+
+## Class Methods
+
+### `new`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `name` | the named value in the event pattern or stream to add to. |  
+| `value` | The value, pattern, stream or array to add. The resulting stream ends when this incoming stream ends. |  
+| `pattern` | The event pattern or stream within which to add the new values. |  
+
+## Examples
+
+
+```supercollider
+(
+var a, b;
+a = Paddp(\freq, Pseq([2, 3, pi], inf), Pbind(\freq, Pseq([100, 200, 300])));
+x = a.asStream;
+9.do({ x.next(Event.new).postln });
+)
+```
+
+
+
+```supercollider
+// sound example
+(
+SynthDef(\sinegrain,
+    { |out = 0, freq = 440, sustain = 0.02|
+        var env;
+        env = EnvGen.kr(Env.perc(0.001, sustain), 1, doneAction: Done.freeSelf);
+        Out.ar(out, SinOsc.ar(freq, 0, env * 0.1))
+    }).add;
+)
+
+(
+a = Pbind(\freq, Pseq([500, 600, 700]), \instrument, \sinegrain);
+a = Paddp(\freq, Pseq([30, 90, -100], inf), a);
+a.play;
+)
+```
+
+
+
+

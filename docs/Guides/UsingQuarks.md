@@ -1,0 +1,417 @@
+# Using Quarks
+
+*A guide to Quarks*
+
+**Categories:** Quarks
+
+**Related:** [Quarks](../Classes/Quarks.md), [Quark](../Classes/Quark.md), [Git](../Classes/Git.md)
+
+Quarks are packages of SuperCollider code containing classes, extension methods, documentation and server UGen plugins. The Quarks class manages downloading these packages and installing or uninstalling them.
+> **⚠️ Warning:** As individual users or groups develop their own Quark for different purposes, it is possible that installing multiple packages could cause problems because they conflict with each other. We therefore recommend that you select and install only the packages that you need. It may also be helpful to install one Quark package at a time, which should make it easier to troubleshoot problems as they arise.
+
+> **Note:** If you have trouble finding the Quarks package you need, you may find the Quarks package information in the following encyclopaedia useful: [https://baryon.supercollider.online](https://baryon.supercollider.online)
+
+
+
+## Preliminary stages
+Quarks installation depends on *git* version-control software. Detailed installation instructions may be found at [https://git-scm.com](https://git-scm.com).
+
+- Windows users can download and install the appropriate installation file for their environment from [https://git-scm.com/download/win](https://git-scm.com/download/win).
+- Linux users can copy the appropriate terminal commands from [https://git-scm.com/download/linux](https://git-scm.com/download/linux) for their environment and run them in a terminal window.
+- For Mac users, we recommend installing git from Homebrew, as described at [https://git-scm.com/download/mac](https://git-scm.com/download/mac). If you are unsure whether you have Homebrew installed, follow the instructions for installing Homebrew first. You may also need to install 'Xcode Command Line Tools' if a window pops up asking you to install it.
+
+
+
+
+## Installing/uninstalling/updating quarks
+
+### using the GUI
+You can install Quarks using the interface:
+
+
+```supercollider
+Quarks.gui
+```
+
+
+This offers many community contributed packages most of which are hosted on github.
+
+You can also add additional folders where you keep your personally developed quarks or those you have forked or downloaded. These will also be shown on the GUI as options for installing.
+
+
+```supercollider
+// put this in your startup.scd
+Quarks.addFolder("~/supercollider/quarks");
+```
+
+
+
+
+
+### by name
+You can (un)install a Quark by name:
+
+
+```supercollider
+Quarks.install("MathLib");
+Quarks.uninstall("MathLib");
+```
+
+
+
+
+
+### by git URL
+
+```supercollider
+Quarks.install("https://github.com/supercollider-quarks/MathLib.git");
+// uninstall it
+Quarks.uninstall("https://github.com/supercollider-quarks/MathLib.git");
+```
+
+
+
+
+
+### from a local folder
+and you can install any local folder:
+
+
+```supercollider
+// add your own classes
+Quarks.install("~/supercollider/quarks/my-thing");
+// install something that you downloaded and want to try out
+Quarks.install("~/Downloads/something-i-found");
+```
+
+
+You can also add a folder where you keep your development quarks (your own and things you have forked):
+
+
+```supercollider
+Quarks.addFolder("~/supercollider/quarks");
+```
+
+
+Now each quark inside that folder will appear on the GUI for you to un/install.
+
+If you wish to be able to uninstall local quarks, but still see them in the GUI, it is highly recommended to collect your local quark directories under a single primary directory. Then, use [Quarks#*addFolder](../Classes/Quarks.md#*addfolder) to add the primary directory. `addFolder` does not add individual quark directories.
+
+
+
+
+### Recompile the class library
+After installing or uninstalling you need to **Language > Recompile Class Library**
+
+If you've made a bit of a mess:
+
+
+```supercollider
+// remove everything
+Quarks.clear
+```
+
+
+
+
+
+### Internals
+When you install one it is cloned using git into:
+
+
+```supercollider
+Quarks.folder;
+// open the folder and have a look
+Quarks.openFolder;
+```
+
+
+and this path is added to the [LanguageConfig](../Classes/LanguageConfig.md) includePaths so that the classes are in SuperCollider's class path when you recompile the library.
+
+You can view and edit the current include paths via **Preferences > Interpreter > Include Paths**.
+
+
+```supercollider
+LanguageConfig.includePaths
+```
+
+
+You can also see or edit these settings in the file sclang_config.yaml
+
+
+
+
+### Fixing Conflicts
+SuperCollider does not allow duplicate class definitions and will fail to compile if you've accidentally installed conflicting packages.
+
+The Quarks interface can only work if SuperCollider is compiled and running, so if something goes wrong then you have to fix it manually.
+
+If you are using the SC IDE then open **Preferences > Interpreter** and remove the paths from the Include Paths.
+
+You can also manually edit `sclang_config.yaml`
+
+
+
+
+### Updating Quarks
+You can update all installed Quarks by evaluating the following code:
+
+
+```supercollider
+Quarks.all.do{ |quark| quark.update() };
+```
+
+
+or by pressing the 'Check for updates' button after evaluating the following code:
+
+
+```supercollider
+Quarks.gui
+```
+
+
+
+
+
+
+## Saving and Loading sets of Quarks
+To make project work simpler you can save and later reload your currently installed Quarks to and from a quarks.txt file. This is similar to what the LanguageConfig does but this also downloads the Quarks if needed and installs all dependencies.
+
+This is very useful for projects because you can pin the exact releases of each Quark that your project depends on and you should be able to reload them exactly even years in the future.
+
+
+```supercollider
+// save your current state
+Quarks.save("~/supercollider/quarks.txt");
+// reload it later
+Quarks.load("~/supercollider/quarks.txt");
+```
+
+
+This saves both what quarks you have and what git revision they are on. If you have uncommitted changes in one of the quarks then it will warn you that its dirty.
+
+The save format specifies the revisions using git tags with a fall back to the full sha hash that specifies the revision. In git terminology this is known as a refspec.
+
+If you have installed local paths that are not under git source control (your own work or things you have downloaded) then the paths will be saved without any version or refspec.
+
+The file format looks like this:
+
+
+```supercollider
+https://github.com/author/quarkname@tags/4.1.4
+https://github.com/supercollider-quarks/ddwCommon@8ae156b460dcb08285013265cf3a1c7172bba665
+~/supercollider/quarks/my-thing
+```
+
+
+Note that in this case `quarkname` was checked out to the tag 4.1.4, and `ddwCommon` was not on a tag so the refspec is the SHA hash. In both cases this results in an exact reference. `~/supercollider/quarks/my-thing` was not a git repo so the best it can do is to specify the path.
+
+Even if a quark was installed by name using the directory, the full repository URL will be saved to ensure that the reference is unvarying (the directory.txt could be edited and the URL changed, and that might then point to different source code).
+
+Any packages not under git source control are specified by path, abbreviated to the most logical path relative to the quark file, the home directory or by absolute path. They do not have a version or refspec.
+
+
+
+## Making your own Quarks
+Packages are a natural way to store your work.
+
+Install any source code folder as a Quark:
+
+
+```supercollider
+Quarks.install("~/path/to/my-quark")
+```
+
+
+Or create a folder where you do your development work and add that to the additional folders:
+
+
+```supercollider
+Quarks.addFolder("~/supercollider/quarks");
+```
+
+
+Now you can (un)install your own packages from your local folder.
+
+Managing your code with git is optional, but you should consider using it early on. Even if you do not intend to share your code with anyone else, git provides a backup system and a time machine if you break something.
+
+
+```supercollider
+# in the terminal, its easy as this:
+git init
+```
+
+
+Bitbucket offers free hosting for private repositories, and you can setup your own git host on any machine that you have SSH access to. But you don't even need an externally hosted repository to use git.
+
+Hard drives die, backups fail, people make mistakes. If you keep a copy on bitbucket then your work is that much safer.
+
+
+
+## Publishing a Quark
+Make a git repository and push it to github, gitlab, bitbucket or any publicly accessible git host.
+
+Be sure to **tag your releases**. The name of a tag should be the release version to which it corresponds. Using [Semantic Versioning](https://semver.org) (eg "v1.0.1") is strongly recommended. This provides the Quarks system with the ability to list available versions and allow the user to choose which version to checkout. Version tags also allow other quark developpers to pin their dependencies to specific release versions.
+
+You can add your quark to the Community Quark Directory by adding its name and git URL to the following file:
+
+[https://github.com/supercollider-quarks/quarks/blob/master/directory.txt](https://github.com/supercollider-quarks/quarks/blob/master/directory.txt)
+
+Simply click `edit`, add in your quark's info, and submit a pull request. Here's an example of what an entry should look like in the Quark Directory:
+
+
+```supercollider
+quarkname=https://github.com/author/quarkname
+```
+
+
+
+### Migrated Quarks from SVN
+I (felix) migrated the old SVN repository to github and preserved all the commits and authorship. You may find your old work in one of these quarks:
+
+[https://github.com/supercollider-quarks](https://github.com/supercollider-quarks)
+
+Contact me to transfer ownership to your own github account. You may also just fork any repo there, or if you've already moved your code to github then just edit the directory to point to your preferred newer version.
+
+Quarks with spaces in the name had to have those spaces removed. Quarks nested inside other quarks (dewdrop_lib) are now un-nested.
+
+
+
+
+### git branches
+Releases are specified with a git tag which refers to a specific commit regardless of what branch it is on. The default branch is master, but the branch does not really matter, only the tag. If you are not tagging specific releases then Quarks will fetch the master branch.
+
+
+
+
+
+## Quark file
+The quark file is a SuperCollider code file containing authorship, version, copyright and dependency information. It is optional but recommended. None of the fields are required and you may include any custom fields you like.
+
+The most important feature is to specify dependencies, version, summary and to specify the help file.
+
+It's similar to the package.json file in npm (JavaScript package manager) or bower.json for Bower (web/frontend package manager).
+
+The file name is the name of the quark followed by the .quark extension:
+
+
+```supercollider
+{quark name}.quark
+```
+
+
+and is a SuperCollider file that returns an IdentityDictionary
+
+
+```supercollider
+(
+  name: "DemonWidgets",
+  summary: "Widgets, gadgets and arcane devices for summoning demons.",
+  version: "1.0.0",
+  schelp: "DemonWidgets",
+  dependencies: ["Bjorklund", "Canvas3D", "cruciallib@tags/4.1.4"],
+  license: "GPL",
+  copyright: "Frank Furter, Dr.-Ing. 2015"
+)
+```
+
+
+Common fields
+
+- name
+- summary
+- author
+- copyright
+- license - default is GPL
+- version - semver compatible string is preferred eg. "1.0.0"
+- schelp - title of the primary help file
+- url - home page, defaults to the github/bitbucket url
+- dependencies - see below
+- isCompatible - a function returning a Boolean. Can check for presence of classes, features, version numbers.
+- organization
+- country
+- since
+- ext_dependency - text describing external software like "PD" or "processing"
+- preInstall - a function / hook which will be called before installation - see [UsingQuarks#Hooks](../Guides/UsingQuarks.md#hooks)
+
+
+dependencies is a list of Quarks or git urls with optional an @refspec
+
+
+```supercollider
+Bjorklund
+cruciallib@tags/4.1.4
+```
+
+
+
+### Hooks
+
+> **Note:** Introduced in SuperCollider 3.13 and therefore only available if running at least this version.
+
+
+It is possible to run a functions which are defined in the `.quark` file at specific points of installation or update process, so called "hooks".
+
+This can be used to setup or delete certain directory structures, check for hardware, etc.
+
+Upon execution, the hook function will be handled [Quark#-data](../Classes/Quark.md#-data), which is the parsed `.quark` file as an [Event](../Classes/Event.md), as the first argument.
+
+The following hooks are available and will be executed by [Quark#-runHook](../Classes/Quark.md#-runhook)
+
+| \preInstall | Will be executed before [Quarks#*link](../Classes/Quarks.md#*link) |  | 
+| --- | --- | --- || \postInstall | Will be executed after [Quarks#*link](../Classes/Quarks.md#*link) |  | | \preUpdate | Will be executed before [Git#-pull](../Classes/Git.md#-pull) | Upon execution this will have the old state of the `.quark` file | | \postUpdate | Will be executed after [Git#-pull](../Classes/Git.md#-pull) | Upon execution this will have the new, updated state of the `.quark` file | | \preUninstall | Will be executed before [Quarks#*unlink](../Classes/Quarks.md#*unlink) |  | | \postUninstall | Will be executed after [Quarks#*unlink](../Classes/Quarks.md#*unlink) |  | 
+An example to create a directory with samples for a Quark could look like
+
+
+```supercollider
+(
+  name: "DemonWidgets",
+  // ...
+  preInstall: {|data|
+    File.mkdir("~/samples/%".format(data[\name]));
+  },
+  postUninstall: {
+    "Samples at '~/samples/DomenWidgets' must be deleted manually".warn;
+  },
+)
+```
+
+
+
+
+
+### Deprecated/ignored fields
+`path` was used for SVN
+
+`helpdoc` specifies an html help file in the Quark. It will still work and will load the helpfile, but schelp is preferred.
+
+
+
+
+
+## Contributing fixes to a quark
+Best practice is to clone the quark into a folder where you do your development work. Make a ~/supercollider/quarks (or wherever you want it) and add this to the Quarks folders:
+
+
+```supercollider
+Quarks.addFolder("~/supercollider/quarks");
+```
+
+
+git clone the quark into that folder. You can do your development work / hacking there and submit a pull request to the repository owner.
+
+There is a git extension that is quite useful for working with github repositories is [https://hub.github.com](https://hub.github.com)
+
+If you use Quarks.gui you should now be able to see both the downloaded version of the quark and also your own cloned version.
+
+
+
+## Offline Usage
+Quarks should be usable even when offline. The directory is cached, refreshed every four hours. Cloned quarks can switch versions without needing to be online.
+
+You can download a zipped release of all quarks:
+
+[https://github.com/supercollider-quarks/quarks/releases](https://github.com/supercollider-quarks/quarks/releases)
+
+
+

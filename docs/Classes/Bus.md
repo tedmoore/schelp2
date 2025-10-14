@@ -1,0 +1,356 @@
+# Bus
+
+*Representation of a bus on the server*
+
+**Categories:** Server>Abstractions
+
+**Related:** [Server](../Classes/Server.md)
+
+## Description
+
+The clientside representation of an audio or control bus on a server. Encapsulates all the [OSC](../Browse.md#opensoundcontrol) messages a Bus can receive. Manages allocation and deallocation of bus indices so that you don't need to worry about conflicts. The number of control busses, audio busses, and input and output busses is fixed and cannot be changed after the server has been booted.
+For more information see [ClientVsServer](../Guides/ClientVsServer.md) and [Server-Architecture](../Reference/Server-Architecture.md).
+Note that using the Bus class to allocate a multichannel bus does not 'create' a multichannel bus, but rather simply reserves a series of adjacent bus indices with the bus' [Server](../Classes/Server.md) object's bus allocators. `abus.index` simply returns the first of those indices. When using a Bus with an [In](../Classes/In.md) or [Out](../Classes/Out.md) ugen there is nothing to stop you from reading to or writing from a larger range, or from hardcoding to a bus that has been allocated. You are responsible for making sure that the number of channels match and that there are no conflicts.
+Bus objects should not be created or modified within a [SynthDef](../Classes/SynthDef.md).
+
+> **Note:** The lowest `n` bus indices are reserved for hardware output and input, where <a id="note"></a>
+```supercollider
+n = server.options.numOutputBusChannels + server.options.numInputBusChannels
+```
+
+
+**Hardware output buses**
+: `0 .. (numOutputBusChannels - 1)`
+
+**Hardware input buses**
+: `numOutputBusChannels .. (numOutputBusChannels + numInputBusChannels - 1)`
+
+**First private bus index**
+: `numOutputBusChannels + numInputBusChannels`
+
+Do not try to use hardware I/O buses as private buses.
+
+
+
+
+## Class Methods
+
+### `control`
+Allocate a control bus on the server.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `server` | The [Server](../Classes/Server.md). Defaults to Server.default. |  
+| `numChannels` | Number of channels to allocate |  
+
+### `audio`
+Allocate a private audio bus on the server.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `server` | The [Server](../Classes/Server.md). Defaults to Server.default. |  
+| `numChannels` | Number of channels to allocate |  
+
+### `alloc`
+Allocate a bus of either rate as specified by `rate`.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `rate` | Rate symbol: \control or \audio |  
+| `server` | The [Server](../Classes/Server.md). Defaults to Server.default. |  
+| `numChannels` | Number of channels to allocate |  
+
+### `new`
+This method does not allocate a bus index, but assumes that you already have allocated the appropriate bus index and can supply it yourself.The hardware I/O buses can be accessed via the lowest indices (see [Note](#note) in the [Description](#description) section):- The first two channels of the hardware output buses:
+```supercollider
+a = Bus(\audio, 0, 2)
+```
+
+
+- The first channel of the hardware input bus, if hardware output channels are set to 2:
+```supercollider
+b = Bus(\audio, 2, 1)
+```
+
+
+
+### `newFrom`
+This method creates a new Bus that is a subset of the bus. The bus will be at the same rate as the input bus. offset is the index into the given bus. numChannels is the desired number of channels. If the combination of offset and numChannels is outside the input bus' range, an error will be thrown.
+
+## Instance Methods
+
+### `index`
+Get the Bus' index. Normally you should not need to do this since instances of Bus can be passed directly as [UGen](../Classes/UGen.md) inputs or [Synth](../Classes/Synth.md) args.### `free`
+Return the bus' indices to the server's bus allocator so they can be reallocated.### `rate`
+Get the Bus' rate. This is a symbol, either \control or \audio.### `numChannels`
+Get the Bus' number of channels.### `server`
+Get the Bus' server object.### `asMap`
+**Returns:** a symbol consisting of the letter 'c' or 'a' (for control or audio) followed by the bus's index. This may be used when setting a synth node's control inputs to map the input to the control bus.See the [Node](../Classes/Node.md) help file for more information on mapping controls to buses.
+```supercollider
+(
+a = Bus.control(s, 1).set(440);
+b = Bus.control(s, 1).set(0.01);
+)
+(
+SynthDef(\rlpf, { |out, ffreq, rq|
+    Out.ar(out, RLPF.ar(WhiteNoise.ar(0.2), ffreq, rq))
+}).play(s, [\ffreq, a.asMap, \rq, b.asMap]);
+)
+```
+
+### `subBus`
+Get a new Bus that is a subset of this bus (see `newFrom`).
+### Asynchronous Control Bus Methods
+The following commands apply only to control buses and are asynchronous. For synchronous access to control busses please consult [#Synchronous Control Bus Methods](#synchronous-control-bus-methods).
+
+### `value`
+Set all channels to this float value. This command is asynchronous.
+### `set`
+A list of values for each channel of the control bus. The list of values supplied should not be greater than the number of channels. This command is asynchronous.
+### `setn`
+As set but takes an array as an argument.
+### `get`
+Get the current value of this control bus. This command is asynchronous.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `action` | a function that will be evaluated when the server responds, with the current value of the bus passed as an argument. This will be a float for a single channel bus, or an array of floats for a multichannel bus. The default action posts the bus values. |  
+
+### `getn`
+Get the current values of this control bus. This command is asynchronous.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `count` | the number of channels to read, starting from this bus' first channel. |  
+| `action` | a function that will be evaluated when the server responds, with the current values of the bus in an array passed as an argument. |  
+
+
+### Synchronous Control Bus Methods
+Synchronous access to control busses only works for servers with a shared memory interface. You can check with [hasShmInterface](../Classes/Server.md#-hasshminterface) if the server provides these methods.
+
+
+> **Note:** Before 3.5 the internal server could be controlled via shared control busses and [SharedIn](../Classes/SharedIn.md) and [SharedOut](../Classes/SharedOut.md). These classes have been deprecated and will be removed.
+
+
+### `getSynchronous`
+Get the current value of this control bus. This command is synchronous.**Returns:** Value of the control bus.
+### `getnSynchronous`
+Get the current values of this control bus. This command is synchronous.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `count` | The number of channels to read, starting from this bus' first channel. |  
+**Returns:** Array of values.
+### `setSynchronous`
+A list of values for each channel of the control bus. The list of values supplied should not be greater than the number of channels. This command is synchronous.
+### `setnSynchronous`
+As setSynchronous but takes an array as an argument.
+
+### Conveniences for multichannel buses
+### `setAt`
+set the bus value(s) beginning at offset. asynchronous.
+### `setnAt`
+set the bus to the list of values supplied. asynchronous.
+### `setPairs`
+set the bus values by pairs of index, value, ... asynchronous
+
+### Using Buses like UGens
+### `kr`, `ar`
+use a bus like a UGen. The numChannels and offset arguments can be used to get a subset of the bus.By default, all the bus channels are used. E.g. in an 8 channel bus,- `b.kr` will return an [In](../Classes/In.md) ugen reading from all the 8 channels of the bus;
+- `b.kr(4)` will return the first four channels, and
+- `b.kr(2, 5)` will return two channels, starting from the bus's channels at index 5 and 6.
+
+
+### OSC Bundle Methods
+### `getMsg`
+Returns a msg of the type /c_get for use in osc bundles.
+### `getnMsg`
+Returns a msg of the type /c_getn for use in osc bundles.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `count` | the number of channels to read, starting from this bus' first channel. The default is this bus' numChannels. |  
+
+### `setMsg`
+Returns a msg of the type /c_set for use in osc bundles.
+### `setnMsg`
+Returns a msg of the type /c_setn for use in osc bundles.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `values` | an array of values to which adjacent channels should be set, starting at this bus' first channel. |  
+
+### `fillMsg`
+Returns a msg of the type /c_fill for use in osc bundles.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `value` | the value to which this bus' channels will be set. |  
+
+
+### Monitoring with an oscilloscope
+### `scope`
+Displays a bus in a [Stethoscope](../Classes/Stethoscope.md), using the Bus' [#-numChannels](#-numchannels), [#-index](#-index), and [#-rate](#-rate) properties.
+```supercollider
+s.boot
+b = Bus.audio(s, 2);
+a = { SinOsc.ar([330, 440], 0, 0.4) }.play(s, b) // you won't hear this if you only have two channels
+b.scope
+
+a.free;
+b.free;
+```
+
+
+
+### Plotting
+### `plot`
+See [#-plotAudio](#-plotaudio)
+### `plotAudio`
+example:
+```supercollider
+(
+b = Bus(\audio, 0, 2);
+s.bind {
+    SynthDef(\sinPerc, { |out = 0|
+        var signal = SinOsc.ar * Env.sine(0.1).ar(gate: Impulse.ar(2));
+        OffsetOut.ar(out, signal ! 2) }
+    ).add;
+    s.sync;
+    Synth(\sinPerc, [\out, b]);
+    b.plot(1);
+}
+)
+```
+
+
+
+### Bela
+### `belaScope`
+Scope all channels from this Bus to Bela's Oscilloscope (see [BelaScope](../Classes/BelaScope.md) for required setup). It is required that this Bus is on Server running on a Bela, which is thus capable of using BelaScope.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `scopeChannel` | Bela's oscilloscope channel to start scoping on. This has to be a non-negative number, and can't be changed after scoping starts. |  
+**Returns:** A [Synth](../Classes/Synth.md), linking this Bus to BelaScope's bus.
+
+## Examples
+
+
+```supercollider
+s.boot;
+
+(
+// something to play with
+SynthDef(\help_Bus, { |out = 0, ffreq = 100|
+    var x;
+    x = RLPF.ar(LFPulse.ar(SinOsc.kr(0.2, 0, 10, 21), [0, 0.1], 0.1),
+            ffreq, 0.1)
+            .clip2(0.4);
+    Out.ar(out, x);
+}).add;
+
+)
+
+x = Synth(\help_Bus);
+
+// get a bus
+b = Bus.control(s);
+
+// map the synth's second input (ffreq) to read
+// from the bus' output index
+x.map(1, b);
+
+// By setting the bus' value you send a /c_fill message
+// to each channel of the bus setting it to supplied float value
+b.value = 100;
+b.value = 1000;
+b.value = 30;
+
+// Since this is a single channel bus this has the same effect
+b.set(300);
+b.numChannels.postln;
+
+// multi-channel:  b.set(300, 350);
+// Get the current value. This is asynchronous so you can't rely on it happening immediately.
+(
+a = "waiting";
+b.get({ |value| a = value; ("after the server responds a is set to:" + a).postln });
+("a is now:" + a).postln;
+)
+
+x.free;
+
+    // buses can also be used with kr or ar like UGens:
+(
+
+SynthDef(\help_Bus, { |out|
+    var ffreq = b.kr;
+    Out.ar(out,
+        RLPF.ar(
+            LFPulse.ar(SinOsc.kr(0.2, 0, 10, 21), [0, 0.1], 0.1),
+            ffreq, 0.1
+        ).clip2(0.4)
+    );
+}).play;
+)
+
+b.free; // release it so it may be reallocated!
+
+
+// using and setting multichannel buses:
+
+(
+b = Bus.control(s, 4);
+
+x = SynthDef(\helpBusMulti, { |out|
+    var freqs = b.kr;
+    Out.ar(out, Splay.ar(SinOsc.ar(freqs) * Decay2.ar(Dust.ar(10 ! 4), 0.001, 0.1)) * 0.5);
+}).play;
+)
+
+    // set bus beginning at index 0:
+    // none of these methods checks whether the indexes remain
+    // within the bus's range.
+
+b.set(234, 345, 456, 567);
+b.getn;
+b.setn([100, 200, 300, 400]);
+b.getn;
+
+    // get to individual channels
+b.setAt(3, 500);
+b.getn;
+b.setAt(1, 300, 400);
+b.getn;
+b.setnAt(1, [250, 350]);
+b.getn;
+    // set by pairs of index, value ...
+b.setPairs(3, 600, 0, 200);
+b.getn;
+
+b.set(300, 500, 700, 900);
+
+(    // just get the first 2 channels
+x = SynthDef(\helpBusMulti, { |out|
+    Out.ar(out, SinOsc.ar(b.kr(2)) * 0.2)
+}).play;
+)
+b.set(300, 303);
+x.free;
+
+(    // just channels[[2, 3]];
+y = SynthDef(\helpBusMulti, { |out|
+    Out.ar(out, LFNoise2.ar(b.kr(2, 2)) * 0.2);
+}).play;
+)
+b.setAt(2, 1200);
+b.setAt(3, 2400);
+
+y.free;
+b.free;
+```
+
+
+
+

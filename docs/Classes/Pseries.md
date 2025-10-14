@@ -1,0 +1,68 @@
+# Pseries
+
+*arithmetic series pattern*
+
+**Related:** [Pgeom](../Classes/Pgeom.md)
+
+**Categories:** Streams-Patterns-Events>Patterns>List
+
+## Description
+
+Returns a stream that behaves like an arithmetic series.
+
+
+## Class Methods
+
+### `new`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `start` | start value. |  
+| `step` | addition factor. |  
+| `length` | number of values produced. |  
+
+## Examples
+
+
+```supercollider
+(
+var a;
+a = Pgeom(1.0, 1.1, inf);
+a.asStream.nextN(100).plot;
+)
+
+
+// sound example
+(
+SynthDef(\help_sinegrain,
+    { |out = 0, freq = 440, sustain = 0.05|
+        var env;
+        env = EnvGen.kr(Env.perc(0.01, sustain, 0.2), doneAction: Done.freeSelf);
+        Out.ar(out, SinOsc.ar(freq, 0, env))
+    }).add;
+)
+
+(
+var a;
+a = Pseries(300, 20, 70).asStream;
+{
+    a.do { |val|
+        Synth(\help_sinegrain, [\freq, val]);
+        0.02.wait;
+    }
+}.fork;
+)
+
+(
+Pbind(
+    \dur, 0.01,
+    \instrument, \help_sinegrain,
+    \freq, Pseries(800.0, Pbrown(-1.0, 3.0, 0.1, inf), inf)
+).play;
+)
+```
+
+
+
+

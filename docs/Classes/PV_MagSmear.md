@@ -1,0 +1,56 @@
+# PV_MagSmear
+
+*Average magnitudes across bins.*
+
+**Categories:** UGens>FFT
+
+## Description
+
+Average a bin's magnitude with its neighbors.
+
+
+## Class Methods
+
+### `new`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `buffer` | FFT buffer. |  
+| `bins` | Number of bins to average on each side of bin. As this number rises, so will CPU usage. |  
+
+## Examples
+
+
+```supercollider
+s.boot;
+
+(
+b = Buffer.alloc(s, 2048, 1);
+c = Buffer.read(s, ExampleFiles.child);
+)
+
+(
+SynthDef("help-magSmear", { |out = 0, bufnum = 0|
+    var in, chain;
+    in = LFSaw.ar(500, 0, Decay2.ar(Impulse.ar(2, 0, 0.2), 0.01, 2));
+    chain = FFT(bufnum, in);
+    chain = PV_MagSmear(chain, MouseX.kr(0, 100));
+    Out.ar(out, 0.5 * IFFT(chain).dup);
+}).play(s, [\out, 0, \bufnum, b.bufnum]);
+)
+
+(
+SynthDef("help-magSmear2", { |out = 0, bufnum = 0, soundBufnum = 2|
+    var in, chain;
+    in = PlayBuf.ar(1, soundBufnum, BufRateScale.kr(soundBufnum), loop: 1);
+    chain = FFT(bufnum, in);
+    chain = PV_MagSmear(chain, MouseX.kr(0, 100));
+    Out.ar(out, 0.5 * IFFT(chain).dup);
+}).play(s, [\out, 0, \bufnum, b.bufnum, \soundBufnum, c.bufnum]);
+)
+```
+
+
+
+

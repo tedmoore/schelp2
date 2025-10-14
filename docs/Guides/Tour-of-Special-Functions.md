@@ -1,0 +1,1075 @@
+# Tour of Special Mathematical Functions (Boost library)
+
+*Examples and plots for Special Functions.*
+
+**Categories:** Math
+
+**Related:** [SimpleNumber](../Classes/SimpleNumber.md)
+
+special functionsboost
+## Boost library Special Functions: usage, bounds and plots
+Supercollider provides an array of special functions from mathematics (e.g., Bessel, Chebyshev, etc.) as supplied by the Boost library.  The library's [online documentation](http://www.boost.org/doc/libs/1_66_0/libs/math/doc/html/special.html)serves as the primary reference for the following functions.
+
+Many of the functions are only valid in certain numerical ranges.  The following tour will show you plots that illustrate the behavior of the functions, their ranges and asymptotes.
+
+Define the plotting functions in the next section,  then you can use the Table of Contents menu to jump between function families.
+
+
+
+## Before you get started...
+Define the following functions that will lay out the plots for you:
+
+
+```supercollider
+(
+var makeColors, getLayout, plotSpecs;
+
+// generate colors for each plot
+makeColors = { |num, offset = (rrand(0, 1.0)), range = (rrand(0.15, 1.3))|
+    num.collect { |i|
+        var hue = i / (max(num, 1.0001) - 1) * range + offset;
+        Color.hsv(hue.wrap(0, 1), 0.6, 1, 1)
+    }
+};
+// generate a vertical layout for the plot and its text
+getLayout = { |plot, text|
+    var txt = StaticText()
+    .string_(text).font_(Font.defaultMonoFace)
+    .maxHeight_(50).align_(\center);
+    
+    VLayout(plot, txt, 10)
+};
+
+~multiPlot = { |func, data, txt, min, max|
+    var multiChan, params, samps, clumped, plotter;
+    var gridcol = Color.gray.alpha_(0.2);
+    
+    if(data.shape.size == 1) {
+        samps = data;
+        clumped = data.asList.flop;
+    }{
+        #params, samps = data;
+        if(params.size > 6) {
+            txt = txt ++ format("(% .. %)", params.first, params.last);
+        } {
+            txt = txt ++ params.asString;
+        };
+        clumped = params.collect{ |param, i|
+            samps.collect([param, _, i])
+        }
+    };
+    
+    multiChan = clumped.collect({ |bundle, i|
+        bundle.collect(func.applyTo(*_)).select(_.notNil)
+    });
+    
+    plotter = multiChan.plot(txt, minval: min, maxval: max)
+    .superpose_(true)
+    .domainSpecs_([samps.minItem, samps.maxItem].asSpec)
+    .plotColor_(
+        makeColors.(params !? params.size ?? 1, rrand(0, 1.0))
+    )
+    ;
+    
+    plotter.plots[0]
+    .gridColorX_(gridcol)
+    .gridColorY_(gridcol)
+    .plotMode_(\lines)
+    ;
+    
+    plotter
+};
+
+
+~paletteBool = false; // default to dark plots
+
+~layOutPlots = { |plotters, title = "", numCols|
+    var cols, win, hl, paletteButton, widthScale;
+    var vl = VLayout();
+    var sb = Window.screenBounds;
+    
+    cols = numCols ?? { plotters.size.sqrt.ceil.asInteger };
+    widthScale = cols.linlin(1, 4, 0.5, 0.9);
+    win = Window(title,
+        Rect()
+        .width_(sb.width * widthScale)
+        .height_(sb.height)
+        .center_(sb.center)
+    ).view.layout_(vl).front;
+    
+    paletteButton = Button().states_([["Light Plots"], ["Dark Plots"]]).maxSize_(Size(80, 15));
+    vl.add(HLayout(nil, paletteButton));
+    
+    plotters.do { |plotter, i|
+        var plot = plotter.parent.view.children[0];
+        (i % cols == 0).if{ vl.add(hl = HLayout()) };
+        hl.add(getLayout.(plot, plotter.name.asString));
+        plotter.parent.close;
+    };
+    
+    if(plotters.size % cols > 0) {
+        (cols - plotters.size % cols).do{ hl.add(StaticText().string_("")) }
+    };
+    
+    paletteButton.action_({ |but|
+        ~paletteBool = but.value.asBoolean;
+        plotters.do{ |plotter|
+            plotter.plots[0]
+            .backgroundColor_(
+                ~paletteBool.if{ Color.white } { Color(*0.1 ! 3) }
+            )
+            .fontColor_(
+                ~paletteBool.if{ Color(*0.7 ! 3) } { QtGUI.palette.color('window') }
+            );
+        };
+        win.refresh;
+    });
+    paletteButton.value_(~paletteBool).doAction; // start with dark plots
+};
+)
+```
+
+
+
+
+## Number Series
+
+```supercollider
+/* Bernouli Numbers */
+
+//   Odd numbered Bernoulli numbers are zero, except B1
+//   which is -1/2. Post even Bernouli numbers:
+(0 .. 31).do{ |i| postf("% %\n", i * 2, bernouliB2n(i)) }
+
+
+/* Tangent numbers */
+
+(0 .. 15).do { |i| postf("% %\n", i, tangentT2n(i)) }
+```
+
+
+
+
+## Gamma Functions
+
+### Gamma, Log Gamma, Digamma, Trigamma, Polygamma
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var checkCall, plotSpecs;
+// make sure z isn't a negative integer
+checkCall = { |selector, z|
+    if((z <= 0) nand: { (z % 1) == 0 }) { z.perform(selector) }
+};
+
+plotSpecs = [
+    [   { |z| checkCall.(\tgamma, z) },
+        (-4, -3.95 .. 6),
+        "tgamma(z)\n\"True\" gamma function",
+        -125, 125
+    ],
+    [   { |dz| checkCall.(\tgamma1pm1, dz) },
+        (-4, -3.95 .. 6),
+        "tgamma1pm1(dz)\ngamma(dz + 1) - 1",
+        -125, 125
+    ],
+    [   { |z| checkCall.(\lgamma, z) },
+        (-4, -3.95 .. 10),
+        "lgamma(z)\nLog gamma",
+        -2.5, 12.5
+    ],
+    [   { |z| checkCall.(\digamma, z) },
+        (-3, -2.95 .. 10),
+        "digamma(z)\nDigamma",
+        -2.5, 12.5
+    ],
+    [   { |z| checkCall.(\trigamma, z) },
+        (-3.99, -3.94 .. 10),
+        "trigamma(z)\nTrigamma",
+        0, 30
+    ],
+    [   // make sure z isn't a negative integer
+        { |n, z| if(z <= 0 nand: { (z % 1) == 0 }) { polygamma(n, z) } },
+        [[2, 3], (-6, -5.95 .. 5)],
+        "polygamma(z)\nPolygamma\nn = ",
+        -50, 400
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Gamma Functions", 2);
+)
+```
+
+
+
+
+
+### Gamma Ratios, Incomplete/Inverses, and Derivatives of Gamma Functions
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var plotSpecs = [
+    [   \gammaP,
+        [ (0.1, 0.5 .. 8), (0.01, 0.05 .. 20) ],
+        "gammaP(a, z)\nLower incomplete gamma function (normalized)\na = ",
+    ],
+    [   \gammaQ,
+        [ (0.1, 0.5 .. 8), (0.01, 0.05 .. 20) ],
+        "gammaQ(a, z)\nUpper incomplete gamma function (normalized)\na = ",
+    ],
+    [   \tgammaLower,
+        [ (0.1, 0.5 .. 8), (0.01, 0.05 .. 6) ],
+        "tgammaLower(a, z)\nLower incomplete gamma function (non-normalized)\na = ",
+        0, 3
+    ],
+    [   \tgammaUpper,
+        [ (0.1, 0.5 .. 8), (0.01, 0.05 .. 6) ],
+        "tgammaUpper(a, z)\nUpper incomplete gamma function (non-normalized)\na = ",
+        0, 3
+    ],
+    [   { |delta, z| if(z.neg != delta) { tgammaDeltaRatio(z, delta) } },
+        [ (-0.5, -0.4  .. 1), (0.0001, 0.1 .. 40) ],
+        "tgammaDeltaRatio(z, delta)\nGamma Delta Ratio\ndelta = ",
+        0, 7
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect { |data| ~multiPlot.(*data) }, "Gamma Functions (cont'd)", 2);
+)
+```
+
+
+
+
+
+
+## Factorials and Binomial Coefficients
+
+```supercollider
+/*  Factorial  */
+// Warning: overflows i > 170
+(1 .. 170).do{ |i| (i.asString + factorial(i.asFloat)).postln };
+
+
+/*  Double Factorial  */
+// for even i, i !! = i(i-2)(i-4)(i-6) ... (4)(2)
+doubleFactorial(8);
+// for odd i, i !! = i(i-2)(i-4)(i-6) ... (3)(1)
+doubleFactorial(7)
+
+/*  Rising Factorial  */
+// x(x+1)(x+2)(x+3)...(x+i-1)
+risingFactorial(9, 4)  // 9 * 10 * 11 ... (9+4-1)
+
+/*  Falling Factorial  */
+// x(x-1)(x-2)(x-3)...(x-i+1)
+fallingFactorial(9, 4) // 9 *  8 *  7 ... (9-4+1)
+```
+
+
+
+
+## Beta Functions
+
+### Beta Functions, Incomplete and Derivative
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var as = [9, 7, 5, 2, 1];
+var bs = [1, 2, 5, 7, 9];
+var xs = (0, 0.005 .. 1);
+var plotSpecs = [
+    [   { |a, b| log(beta(a, b)) }, // NOTE: using log for plot as in boost doc
+        [[0.5, 1.0, 5.0, 10.0], (0.001, 0.005 .. 5)],
+        "log(beta(a, b))\nBeta function\na = ",
+        -10, 10
+    ],
+    [   { |a, x, i| ibetaDerivative(a, bs[i], x) },
+        [as, xs],
+        "ibetaDerivative(a, b, x)\nDerivative of the Incomplete Beta function (norm)\nb=[1, 2, 5, 7, 9]  a = ",
+        0, 6
+    ],
+    [   { |a, x, i| ibeta(a, bs[i], x) },
+        [as, xs],
+        "ibeta(a, b, x)\nIncomplete Beta function (norm)\nb=[1, 2, 5, 7, 9]  a = ",
+        0, 1
+    ],
+    [   { |a, x, i| ibetaC(a, bs[i], x) },
+        [as, xs],
+        "ibetaC(a, b, x)\nComplement of Incomplete Beta function (norm)\nb=[1, 2, 5, 7, 9]  a = ",
+        0, 1
+    ],
+    [   { |a, x, i| betaFull(a, bs[i], x) },
+        [as, xs],
+        "betaFull(a, b, x)\nIncomplete Beta function (non-norm)\nb=[1, 2, 5, 7, 9]  a = ",
+        0, 0.125
+    ],
+    [   { |a, x, i| betaFullC(a, bs[i], x) },
+        [as, xs],
+        "betaFullC(a, b, x)\nComplement of the Incomplete Beta function (non-norm)\nb=[1, 2, 5, 7, 9]  a = ",
+        0, 0.125
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Beta Functions, Incomplete and Derivative", 2);
+)
+```
+
+
+
+
+
+### Incomplete Beta Function Inverses
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var abs = [9, 7, 5, 2, 1];
+var bs = [1, 2, 5, 7, 9];
+var xs = [0.1, 0.3, 0.5, 0.7, 0.9];
+var pqs = (0.001, 0.005 .. 1);
+var plotSpecs = [
+    [   { |a, p, i| ibetaInv(a, bs[i], p) },
+        [abs, pqs],
+        format("ibetaInv(a, b, p)\nb=%  a = ", bs),
+        0, 1
+    ],
+    [   { |a, p, i| ibetaCInv(a, bs[i], p) },
+        [abs, pqs],
+        format("ibetaCInv(a, b, x)\nb=%  a = ", bs),
+        0, 1
+    ],
+    [   { |b, p, i| ibetaInvA(b, xs[i], p) },
+        [abs, pqs],
+        format("ibetaInvA(b, x, p)\nx=%  b = ", xs),
+        0, 18
+    ],
+    [   { |b, q, i| ibetaCInvA(b, xs[i], q) },
+        [abs, pqs],
+        format("ibetaCInvA(b, x, q)\nx=%  b = ", xs),
+        0, 18
+    ],
+    [   { |b, p, i| ibetaInvB(b, xs[i], p) },
+        [abs, pqs],
+        format("ibetaInvB(b, x, p)\nx=%  b = ", xs),
+        0, 18
+    ],
+    [   { |b, q, i| ibetaCInvB(b, xs[i], q) },
+        [abs, pqs],
+        format("ibetaCInvB(b, x, q)\nx=%  b = ", xs),
+        0, 18
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Incomplete Beta Function Inverses", 4);
+)
+```
+
+
+
+
+
+
+## Error Functions
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var erfSamps = (-3, -2.995 .. 3);
+var plotSpecs = [
+    [   \erf,
+        erfSamps,
+        "erf(z)\nError Function",
+        -1, 1
+    ],
+    [   \erfC,
+        erfSamps,
+        "erfC(z)\nComplement of the Error Function",
+        0, 2
+    ],
+    [   \erfInv,
+        (-0.9995, -0.995 .. 1),
+        "erfInv(z)\nInverse of the Error Function",
+        -3, 2
+    ],
+    [   \erfCInv,
+        (0.001, 0.002 .. 1.999),
+        "erfCInv(z)\nInverse of the Complement of the Error Function",
+        -3, 2
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Error Function");
+)
+```
+
+
+
+
+## Polynomials
+
+### Legendre (and Associated) Polynomials
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var plotSpecs = [
+    [   { |l, x| legendreP(l, x.clip(-1, 1)) },
+        [(1 .. 4), (-1, -0.995 .. 1)],
+        "legendreP(l, x)\nLegendre Polynomials of the First Kind \nl = ",
+        -1, 1
+    ],
+    [   { |l, x| legendrePPrime(l, x.clip(-1, 1)) },
+        [(1 .. 4), (-1, -0.995 .. 1)],
+        "legendrePPrime(l, x)\nDerivatives of the Legendre Polynomials of the First Kind \nl = ",
+        -5, 5
+    ],
+    [   { |l, x| legendreQ(l, x.clip(-0.9999, 0.9999)) },
+        [(1 .. 4), (-1, -0.995 .. 1)],
+        "legendreQ(l, x)\nLegendre Polynomials of the Second Kind \nl = ",
+        -1, 1
+    ],
+    [   { |l, x, i| var ms = (l.neg..l); legendrePAssoc(l, ms[i], x.clip(-1, 1)) },
+        [1.dup(1*2+1), (-1, -0.995 .. 1)],
+        "legendrePAssoc(l, m, x)\nAssociated Legendre Polynomials of the First Kind \nEach order (m) in degree l = ",
+        -3, 3
+    ],
+    [   { |l, x, i| var ms = (l.neg..l); legendrePAssoc(l, ms[i], x.clip(-1, 1)) },
+        [2.dup(2*2+1), (-1, -0.995 .. 1)],
+        "legendrePAssoc(l, m, x)\nAssociated Legendre Polynomials of the First Kind \nEach order (m) in degree l = ",
+        -3, 3
+    ],
+    [   { |l, x, i| var ms = (l.neg..l); legendrePAssoc(l, ms[i], x.clip(-1, 1)) },
+        [4.dup(4*2+1), (-1, -0.995 .. 1)],
+        "legendrePAssoc(l, m, x)\nAssociated Legendre Polynomials of the First Kind\nEach order (m) in degree l = ",
+        -150, 150
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Legendre (and Associated) Polynomials");
+)
+```
+
+
+
+
+
+### Laguerre (and Associated) Polynomials
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var plotSpecs = [
+    [   \laguerre,
+        [(0 .. 6), (-5, -4.995 .. 11)],
+        "laguerre(n, x)\n Laguerre Polynomial\nn = ",
+        -10, 15
+    ],
+    [   { |n, x, i| var ms = (0..n); laguerreAssoc(n, ms[i], x) },
+        [3.dup(3+1), (-1, -0.95 .. 8)],
+        "laguerreAssoc(n, m, x)\nAssociated Laguerre Polynomials of the First Kind\nOrder m = (0..n), degree n = ",
+        -10, 10
+    ],
+    [   { |n, x, i| var ms = (0..n); laguerreAssoc(n, ms[i], x) },
+        [7.dup(7+1), (-1, -0.95 .. 8)],
+        "laguerreAssoc(n, m, x)\nAssociated Laguerre Polynomials of the First Kind\nOrder m = (0..n), degree n = ",
+        -65, 30
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Laguerre (and Associated) Polynomials", 1);
+)
+```
+
+
+
+
+
+### Hermite Polynomials
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var plotSpecs = [
+    [   \hermite,
+        [(0 .. 4), (-2, -1.95 .. 2)],
+        "hermite(n, x)\n Hermite Polynomial\nn = ",
+        -25, 25
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Hermite Polynomials");
+)
+```
+
+
+
+
+
+### Chebyshev Polynomials
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var ns = (0 .. 6);
+var samps = (-1, -0.995 .. 1);
+var plotSpecs = [
+    [   \chebyshevT,
+        [ns, samps],
+        "chebyshevT(n, x)\nChebyshev Polynomial of the First Kind \nn = ",
+        -1, 1
+    ],
+    [   \chebyshevU,
+        [ns, samps],
+        "chebyshevU(n, x)\nChebyshev Polynomial of the First Kind \nn = ",
+        -3, 3
+    ],
+    [   \chebyshevTPrime,
+        [ns, samps],
+        "chebyshevTPrime(n, x)\nDerivative of the Chebyshev Polynomial of the First Kind \nn = ",
+        -15, 15
+    ],
+
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Chebyshev Polynomials", 1);
+)
+```
+
+
+
+
+
+### Spherical Harmonics
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var samps = (-2pi, -1.995pi .. 2pi);
+var dupN = { |n| n.dup(n*2+1) };
+var plotSpecs = [
+    [   { |n, theta, i| var ms = (n.neg..n), phi = -15.degrad;
+            sphericalHarmonicR(n, ms[i], theta, phi)
+        },
+        [dupN.(3), samps],
+        "sphericalHarmonicR(n, m, theta, phi)\nSpherical Harmonics (real part)\nm = (n.neg..n), phi = -15 deg, n = ",
+        -1, 1
+    ],
+    [   { |n, theta, i| var ms = (n.neg..n), phi = 85.degrad;
+            sphericalHarmonicI(n, ms[i], theta, phi)
+        },
+        [dupN.(3), samps],
+        "sphericalHarmonicI(n, m, theta, phi)\nSpherical Harmonics (imaginary part)\nm = (n.neg..n), phi = 85 deg, n = ",
+        -1, 1
+    ],
+    [   { |n, theta, i| var ms = (n.neg..n), phi = 25.degrad;
+            sphericalHarmonicR(n, ms[i], theta, phi)
+        },
+        [dupN.(9), samps],
+        "sphericalHarmonicR(n, m, theta, phi)\nSpherical Harmonics (real part)\nm = (n.neg..n), phi = 25 deg, n = ",
+        -1.5, 1.5
+    ],
+    [   { |n, theta, i| var ms = (n.neg..n), phi = 45.degrad;
+            sphericalHarmonicI(n, ms[i], theta, phi)
+        },
+        [dupN.(5), samps],
+        "sphericalHarmonicI(n, m, theta, phi)\nSpherical Harmonics (imaginary part)\nm = (n.neg..n), phi = 45 deg, n = ",
+        -1, 1
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Spherical Harmonics");
+)
+```
+
+
+
+
+
+
+## Bessel Functions
+
+### Bessel and Modified Bessel Functions
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var plotSpecs = [
+    [   \cylBesselJ,
+        [(0 .. 4), (-20, -19.9 .. 20)],
+        "cylBesselJ(v, x)\nBessel Function of the First Kind \nv = ",
+        -1, 1
+    ],
+    [   \cylNeumann,
+        [(0 .. 4), (0.001, 0.05 .. 20)],
+        "cylNeumann(v, x)\nBessel Function of the Second Kind (Neumann) \nv = ",
+        -3, 1
+    ],
+    [   \cylBesselI,
+        [[0, 2, 5, 7, 10], (-10, -9.95 .. 10)],
+        "cylBesselI(v, x)\nModified Bessel Function of the First Kind \nv = ",
+        -15, 15
+    ],
+    [   \cylBesselK,
+        [[0, 2, 5, 7, 10], (0.15, 0.25 .. 10)],
+        "cylBesselK(v, x)\nModified Bessel Function of the Second Kind \nv = ",
+        0, 4
+    ],
+    [   \sphBessel,
+        [(0 .. 4), (0, 0.05 .. 20)],
+        "sphBessel(v, x)\nSpherical Bessel Function of the First Kind \nv = ",
+        -1, 1
+    ],
+    [   \sphNeumann,
+        [(0 .. 4), (0.001, 0.05 .. 20)],
+        "sphNeumann(v, x)\nSpherical Bessel Function of the Second Kind (Spherical Neumann) \nv = ",
+        -3, 1
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Bessel Functions", 2);
+)
+```
+
+
+
+
+
+### Derivatives of Bessel and Modified Bessel Functions
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var bPrimeVs = (0 .. 5);
+var modBPrimeVs = [0, 2, 5, 7, 10];
+var plotSpecs = [
+    [   \cylBesselJPrime,
+        [bPrimeVs, (-20, -19.9 .. 20)],
+        "cylBesselJPrime(v, x)\nDerivative of the Bessel Function of the First Kind \nv = ",
+        -1, 1
+    ],
+    [   \cylNeumannPrime,
+        [bPrimeVs, (0.04, 0.05 .. 20)],
+        "cylNeumannPrime(v, x)\nDerivative of the Bessel Function of the Second Kind \nv = ",
+        -1, 2
+    ],
+    [   \cylBesselIPrime,
+        [modBPrimeVs, (-10, -9.95 .. 10)],
+        "cylBesselIPrime(v, x)\nDerivative of the Modified Bessel Function of the First Kind \nv = ",
+        -25, 25
+    ],
+    [   \cylBesselKPrime,
+        [modBPrimeVs, (0.01, 0.05 .. 10)],
+        "cylBesselKPrime(v, x)\nDerivative of the Modified Bessel Function of the Second Kind \nv = ",
+        -0.5, 0
+    ],
+    [   \sphBesselPrime,
+        [modBPrimeVs, (0.001, 0.05 .. 20)],
+        "sphBesselPrime(v, x)\nDerivative of the Spherical Bessel Function of the First Kind \nv = ",
+    ],
+    [   \sphNeumannPrime,
+        [modBPrimeVs, (1.13, 1.15 .. 20)],
+        "sphNeumannPrime(v, x)\nDerivative of the Spherical Bessel Function of the Second Kind \nv = ",
+        -0.5, 0.5
+    ],
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Derivatives of Bessel Functions", 2);
+)
+```
+
+
+
+
+
+
+## Hankel Functions
+
+### Cyclic Hankel Functions
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var ns = (0 .. 3);
+var range = (0.001, 0.025 .. 6);
+var plotSpecs = [
+    [   { |n, z| cylHankel1(n,z).real },
+        [ns, range],
+        "cylHankel1(n,z).real\nCyclic Hankel Function of the First Kind (real part)\nn = ",
+        -1, 1.5
+    ],
+    [   { |n, z| cylHankel1(n,z).imag },
+        [ns, range],
+        "cylHankel1(n,z).imag\nCyclic Hankel Function of the First Kind (imaginary part)\nn = ",
+        -2, 1
+    ],
+    [   { |n, z| cylHankel2(n,z).real },
+        [ns, range],
+        "cylHankel2(n,z).real\nCyclic Hankel Function of the Second Kind (real part)\nn = ",
+        -1, 1.5
+    ],
+    [   { |n, z| cylHankel2(n,z).imag },
+        [ns, range],
+        "cylHankel2(n,z).imag\nCyclic Hankel Function of the Second Kind (imaginary part)\nn = ",
+        -1, 2
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Cyclic Hankel Functions");
+)
+```
+
+
+
+
+
+### Spherical Hankel Functions
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var ns = (0 .. 3);
+var range = (0.001, 0.025 .. 6);
+var plotSpecs = [
+    [   { |n, z| sphHankel1(n,z).real },
+        [ns, range],
+        "sphHankel1(n,z).real\nSpherical Hankel Function of the First Kind (real part)\nn = ",
+        -1, 2
+    ],
+    [   { |n, z| sphHankel1(n,z).imag },
+        [ns, range],
+        "sphHankel1(n,z).imag\nSpherical Hankel Function of the First Kind (imaginary part)\nn = ",
+        -2, 1
+    ],
+    [   { |n, z| sphHankel2(n,z).real },
+        [ns, range],
+        "sphHankel2(n,z).real\nSpherical Hankel Function of the Second Kind (real part)\nn = ",
+        -1, 2
+    ],
+    [   { |n, z| sphHankel2(n,z).imag },
+        [ns, range],
+        "sphHankel2(n,z).imag\nSpherical Hankel Function of the Second Kind (imaginary part)\nn = ",
+        -1, 2
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Spherical Hankel Functions");
+)
+```
+
+
+
+
+
+
+## Airy Functions
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var aiSamps = (-20, -19.95 .. 20);
+var biSamps = (-20, -19.95 .. 3);
+// generate sample points starting from a zero
+var genSamps = { |selector, zeroDex|
+    var zero = zeroDex.perform(selector);
+    (zero, zero - (zero*0.001) .. 0)
+};
+var plotSpecs = [
+    [\airyAi, aiSamps, "airyAi(z)"],
+    [\airyBi, biSamps, "airyBi(z)", -2, 15],
+    [\airyAiPrime, aiSamps, "airyAiPrime(z)", -1.2, 1.2],
+    [\airyBiPrime, biSamps, "airyBiPrime(z)", -1.2, 1.2],
+    [\airyAi,
+     genSamps.(\airyAiZero, 7),
+     "AiryAi from 7th zero\nairyAiZero(n)"
+    ],
+    [\airyBi,
+     genSamps.(\airyBiZero, 7),
+     "AiryBi from 7th zero\nairyBiZero(n)"
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect { |data| ~multiPlot.(*data) }, "Airy Functions");
+)
+```
+
+
+
+
+## Elliptic Integrals
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var samps = (-1, -0.995 ..1);
+var args1 = [0.5, 0.75, 1.25,pi/2]; // phis for first/second kind
+var args2 = [0, 0.5, 0.25, 0.75]; // ns/phis for third kind, D, Zeta, Lambda Funcs
+var plotSpecs = [
+    [   { |phi, k| ellint1(k.clip(-0.999, 0.999), phi) },
+        [args1, samps],
+        "ellint1(k,phi)\nFirst Kind (Incomplete) \nphi = ",
+        0.5, 2.5
+    ],
+    [   { |k| ellint1C(k.clip(-0.999, 0.999)) },
+        samps,
+        "ellint1C(k)\nFirst Kind (Complete)",
+        0.5, 2.5
+    ],
+    [   { |phi, k| ellint2(k.clip(-1, 1), phi) },
+        [args1, samps],
+        "ellint2(k,phi)\nSecond Kind (Incomplete) \nphi = ",
+        0.4, 1.6
+    ],
+    [   { |k| ellint2C(k.clip(-0.999, 0.999)) },
+        samps,
+        "ellint2C(k)\nSecond Kind (Complete)",
+        0.5, 1.5
+    ],
+    [   { |n, k, i|
+            var phis = [1.25, 1.25,pi/2,pi/2];
+            ellint3(k.clip(-0.999, 0.999), n, phis[i])
+        },
+        [args2, samps],
+        "ellint3(k,n,phi)\nThird Kind (Incomplete) \nphi=[1.25, 1.25,pi/2,pi/2], n = ",
+        1, 4
+    ],
+    [   { |n, k| ellint3C(k.clip(-0.999, 0.999), n) },
+        [args2, samps],
+        "ellint3C(n,k)\nThird Kind (Complete) \nn = ",
+        1, 4
+    ],
+    [   { |phi, k| ellintD(k.clip(-0.999, 0.999), phi) },
+        [args2, samps],
+        "ellintD(k, phi)\nElliptic Integral D (Incomplete) \nphi = ",
+        0, 0.2
+    ],
+    [   { |k| ellintDC(k.clip(-0.999, 0.999)) },
+        samps,
+        "ellintDC(k, phi)\nElliptic Integral D (Complete)",
+        0.5, 1.5
+    ],
+    [   { |phi, k| jacobiZeta(k.clip(-0.999, 0.999), phi) },
+        [args2, samps],
+        "jacobiZeta(k,phi)\nJacobi Zeta Function \nphi = ",
+        0, 0.3
+    ],
+    [   { |phi, k| heumanLambda(k.clip(-0.999, 0.999), phi) },
+        [args2, samps],
+        "heumanLambda(k,phi)\nHeuman Lambda Function \nphi = ",
+        0, 0.7
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Elliptic Integrals");
+)
+```
+
+
+
+
+## Jacobi Elliptic Functions
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var plotSpecs =
+[
+    \Cd, [-10, 10], \Cn, [-10, 10], \Cs, [0, 3], \Dc, [-10, 10], \Dn, [-10, 10], \Ds, [0, 3],
+    \Nc, [-5, 5], \Nd, [-2, 2], \Ns, [0, 4], \Sc, [-5, 5], \Sd, [-2.5, 2.5], \Sn, [-10, 10]
+].clump(2).collect{ |nameRange, i|
+    var method, variant, range, us, step;
+    var data, max, min, clipplot = 8;
+    var samps = 500, ks = [0, 0.5, 0.75, 0.95, 1];
+
+    #variant, range = nameRange;
+    step = range[1] - range[0] / samps;
+    us = (range[0], range[0]+step .. range[1]);
+    method = (\jacobi ++ variant).asSymbol;
+    data = ks.collect { |k|
+        us.collect { |u| k.perform(method, u) }
+    }.flat;
+    [
+        method,
+        [ks, us],
+        format("jacobi%(k,u)\nk = ", variant),
+        max(data.minItem, clipplot.neg) * 1.1, min(data.maxItem, clipplot) * 1.1,
+    ];
+};
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Jacobi Elliptic Functions");
+)
+```
+
+
+
+
+## Zeta Functions
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var plotSpecs = [
+    [   \zeta,
+        (-28, -27.95 .. 5),
+        "zeta(z)",
+        -75, 100
+    ],
+    [   \zeta,
+        (-15, -14.95 .. 0),
+        "zeta(z)",
+        -0.12, 0.12
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Riemann Zeta Function");
+)
+```
+
+
+
+
+## Exponential Integrals
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var plotSpecs = [
+    [   \expintEn,
+        [[1, 2, 3, 4], (0.0001, 0.01 .. 2)],
+        "expintEn(z)\nns = ",
+        0, 1
+    ],
+    [   \expintEi,
+        (-3, -2.99 .. 4),
+        "expintEi(z)",
+        -18, 18
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Exponential Integrals");
+)
+```
+
+
+
+
+## Basic Functions
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var plotSpecs = [
+    [   \sinPi,
+        (0, 0.05 .. 8),
+        "sinPi(x)",
+    ],
+    [   \cosPi,
+        (0, 0.05 .. 8),
+        "cosPi(x)",
+    ],
+    [   \log1p,
+        (-0.999, -0.994 .. 10),
+        "log1p(x)",
+    ],
+    [   \expm1,
+        (-4, -3.995 .. 2),
+        "expm1(x)",
+    ],
+    [   \cbrt,
+        (-10, -9.95 .. 10),
+        "cbrt(x)",
+    ],
+    [   \sqrt1pm1,
+        (-0.999, -0.994 .. 5),
+        "sqrt1pm1(x)",
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Basic Functions");
+)
+```
+
+
+
+
+## Sinus Cardinal (Sinc) and Hyperbolic Sinus Cardinal Functions, Inverse Hyperbolic Functions
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var plotSpecs = [
+    [   \sincPi,
+        (-40, -39.95 ..40),
+        "sincPi(x)\nSinus Cardinal (\"sinc\") Function\n(note: plot should be centered at 0)",
+    ],
+    [   \sinhcPi,
+        (-5, -4.95 ..5),
+        "sinhcPi(x)\nHyperbolic Sinus Cardinal Function\n(note: plot should be centered at 0)",
+    ],
+    [   \acosh,
+        (1, 1.05 .. 10),
+        "acosh(x)\nReciprocal of the hyperbolic cosine function",
+    ],
+    [   \asinh,
+        (-10, -9.99 ..10),
+        "asinh(x)\nReciprocal of the hyperbolic sine function",
+    ],
+    [   \atanh,
+        (-0.999, -0.995 .. 0.999),
+        "atanh(x)\nReciprocal of the hyperbolic tangent function",
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Sinus & Hyperbolic Sinus Cardinal, Inverse Hyperbolic Functions");
+)
+```
+
+
+
+
+## Owen's T Function
+Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
+
+
+```supercollider
+(
+var plotSpecs = [
+    [   { |a, h| owensT(h, a) },
+        [(-6, -5.5 .. 6),(-5, -4.995 ..5)],
+        "owensT(h, a)\nOwen's T Function\nh = ",
+        -0.4, 0.4
+    ]
+];
+
+~layOutPlots.(plotSpecs.collect{ |data| ~multiPlot.(*data) }, "Owen's T Function");
+)
+```
+
+
+
+
+
+

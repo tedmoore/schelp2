@@ -1,0 +1,82 @@
+# Psym
+
+*use a pattern of symbols to embed Pdefs*
+
+**Categories:** JITLib>Patterns, Live Coding
+
+**Related:** [Pdef](../Classes/Pdef.md)
+
+## Description
+
+for non-event patterns see [Pnsym](../Classes/Pnsym.md). Overview: [JITLib](../Overviews/JITLib.md).
+
+
+## Class Methods
+
+### `new`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `pattern` | a pattern that returns symbols or characters. Arrays are converted to parallel patterns ([Ppar](../Classes/Ppar.md)). |  
+| `dict` | the dictionary to be used for lookup. By default, this is `Pdef.all`, so one can embed Pdefs by name. |  
+
+
+## Instance Methods
+
+### `dict`
+set the dictionary to be used.
+## Examples
+
+
+```supercollider
+(
+// load a synthdef
+s.boot;
+SynthDef(\gpdef,
+    { |out = 0, freq = 440, sustain = 0.05, amp = 0.1, pan|
+        var env;
+        env = EnvGen.kr(Env.perc(0.01, sustain), doneAction: Done.freeSelf) * amp;
+        Out.ar(out, Pan2.ar(SinOsc.ar(freq, 0, env), pan))
+    }).add;
+)
+
+Pdef(\x, Pbind(\dur, Pn(0.25, 3), \instrument, \gpdef));
+Pdef(\y, Pchain(Pbind(\degree, Prand([5, 9, 0], inf), \legato, Pseq([0.3, 2.2], inf)), Pdef(\x)));
+Pdef(\z, Pchain(Pbind(\degree, Pseq([0, 2, 5, 7, 8, 9], 1)), Pn(Pdef(\y))));
+
+Pdef(\play, Psym(Pseq([\x, \x, Prand([\x, \y]), \z, \y], inf).trace)).play;
+
+// change root pattern:
+Pdef(\x, Pbind(\dur, Pn(0.125, 2), \instrument, \gpdef));
+Pdef(\x, Pbind(\dur, Pn(0.125, 3), \instrument, \gpdef, \ctranspose, 2));
+Pdef(\x, Pbind(\dur, Pn(0.125, 2), \instrument, \gpdef, \ctranspose, 0));
+
+// change sequence:
+Pdef(\play, Psym(Prand([Pseq([\x, \y], 5), Pseq([\z, \y], 5)], inf).trace)).play;
+
+// use a sequence of characters:
+Pdef(\play, Psym(Pseq("xxyxxzz", inf).trace)).play;
+
+// play in parallel:
+(
+Pdef(\play, Psym(
+    Prand([
+        Pseq([[\x, \y], \z], 5),
+        Pseq([[\z, \y], \x, \x, \y])
+        ]
+    , inf).trace)
+).play
+);
+
+Pdef(\z, Pchain(Pbind(\mtranspose, -5), Pdef(\y)));
+Pdef(\y, Pchain(Pbind(\degree, Pseq([4, 3, 4, 2, 4, 1, 4, 0], 1)), Pdef(\x)));
+
+
+Pdef(\play).stop; // stop it
+Pdef.clear; // clear all
+```
+
+
+
+

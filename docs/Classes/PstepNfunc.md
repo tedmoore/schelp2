@@ -1,0 +1,73 @@
+# PstepNfunc
+
+*combinatoric pattern*
+
+**Related:** [PstepNadd](../Classes/PstepNadd.md)
+
+**Categories:** Streams-Patterns-Events>Patterns>Time
+
+## Description
+
+Combines an arbitrary number of patterns by evaluating a function (depth first traversal). When a stream ends it is recreated from its pattern until the top stream ends.
+
+## Examples
+
+
+```supercollider
+(
+f = { |vals|
+    vals.postln;
+};
+x = PstepNfunc(f, [
+        Pseq([1, 2, 3]), Pseq([4, 5, 6]), Pseq([7, 8, 9])
+    ]).asStream;
+50.do({ x.next });
+)
+
+(
+f = { |vals|
+    var r;
+    r = vals.copy.removeAt(0);
+    vals.do({ |item|  r = item / r.squared * 10 });
+    r
+};
+x = PstepNfunc(f,
+    [
+        Pseq([1, 2, 3], inf),
+        Pseq([2, pi, 1]),
+        Pseq([0.1, 3, 0.2, 3])
+    ]
+    ).asStream;
+
+50.do({ x.next.postln });
+)
+
+// note that if the last pattern loops it will stick to that one:
+(
+f = { |vals|
+    vals.postln;
+};
+x = PstepNfunc(f, [Pseq([1, 2, 3]), Pseq([10, 20, 30, 40]), Pseq([100, 200, 300], inf)]).asStream;
+50.do({ x.next });
+)
+
+
+(
+f = { |vals|
+    vals.inject(1, { |x, y| x * y })
+};
+x = PstepNfunc(f,
+    [
+        Pseq([1, 2, 3], inf),
+        Pseq([2, pi, 1]),
+        Pseq([0.1, 3, 0.2, 3])
+    ]
+    ).asStream;
+
+50.do({ x.next.postln });
+)
+```
+
+
+
+

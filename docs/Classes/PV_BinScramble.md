@@ -1,0 +1,45 @@
+# PV_BinScramble
+
+*Scramble bins.*
+
+**Categories:** UGens>FFT
+
+## Description
+
+Randomizes the order of the bins. The trigger will select a new random ordering.
+
+
+## Class Methods
+
+### `new`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `buffer` | FFT buffer. |  
+| `wipe` | Scrambles more bins as wipe moves from 0 to 1. |  
+| `width` | A value from zero to one, indicating the maximum randomized distance of a bin from its original location in the spectrum. |  
+| `trig` | A trigger, that selects a new random ordering. |  
+
+## Examples
+
+
+```supercollider
+s.boot;
+b = Buffer.read(s, ExampleFiles.child);
+
+(
+// trig with MouseY
+SynthDef("help-binScramble", { |out = 0, soundBufnum = 2|
+    var in, chain;
+    in = PlayBuf.ar(1, soundBufnum, BufRateScale.kr(soundBufnum), loop: 1);
+    chain = FFT(LocalBuf(2048), in);
+    chain = PV_BinScramble(chain, MouseX.kr, 0.1, MouseY.kr > 0.5);
+    Out.ar(out, 0.1 * IFFT(chain).dup);
+}).play(s, [\soundBufnum, b]);
+)
+```
+
+
+
+

@@ -1,0 +1,174 @@
+# ServerOptions
+
+*Encapsulates commandline and other options for a Server*
+
+**Categories:** Server
+
+**Related:** [Server](../Classes/Server.md), [Server-Architecture](../Reference/Server-Architecture.md), [Server-Command-Reference](../Reference/Server-Command-Reference.md), [AudioDeviceSelection](../Reference/AudioDeviceSelection.md)
+
+## Description
+
+ServerOptions encapsulates various options for a server app within an object. This makes it convenient to launch multiple servers with the same options, or to archive different sets of options, etc. Every [Server](../Classes/Server.md) has an instance of ServerOptions created for it if one is not passed as the options argument when the Server object is created. (This is the case for example with the local and internal Servers which are created at startup.)
+A Server's instance of ServerOptions is stored in its options instance variable, which can be accessed through corresponding getter and setter methods.
+N.B. A ServerOptions' instance variables are translated into commandline arguments when a server app is booted. Thus a running Server must be rebooted before changes will take effect. There are also a few commandline options which are not currently encapsulated in ServerOptions. See [Server-Architecture](../Reference/Server-Architecture.md) for more details.
+
+
+## Class Methods
+
+
+### `new`
+Create and return a new instance of ServerOptions.
+### `devices`
+Return an Array of Strings listing the audio devices currently available on the system.
+### `inDevices`
+Return an Array of Strings listing the audio devices currently available on the system which have input channels.
+### `outDevices`
+Return an Array of Strings listing the audio devices currently available on the system which have output channels.
+> **Note:** The above three methods are not available if SuperCollider is built with JACK backend (by default on Linux). Also see [AudioDeviceSelection](../Reference/AudioDeviceSelection.md) for more information on selecting audio device.
+
+
+
+## Instance Methods
+
+
+### The Options
+### `blockSize`
+The number of samples in one control period. The default is 64.
+### `device`
+A String that allows you to choose a sound device to use as input and output. The default, `nil`, will use the system's default input and output device(s). See [AudioDeviceSelection](../Reference/AudioDeviceSelection.md) for more details.
+### `inDevice`
+A String that allows you to choose an input sound device. The default, `nil`, will use the system's default input device. See [AudioDeviceSelection](../Reference/AudioDeviceSelection.md) for more details.
+### `outDevice`
+A String that allows you to choose an output sound device. The default, `nil`, will use the system's default output device. See [AudioDeviceSelection](../Reference/AudioDeviceSelection.md) for more details.
+### `hardwareBufferSize`
+The preferred hardware buffer size. If non-nil the server app will attempt to set the hardware buffer frame size. Not all sizes are valid. See the documentation of your audio hardware for details. Default value is nil.
+### `initialNodeID`
+By default, the Server object in the client begins allocating node IDs at 1000, reserving 0-999 for "permanent" nodes. You may change this default here.
+### `inputStreamsEnabled`
+A String which allows turning off input streams that you are not interested in on the audio device. If the string is "01100", for example, then only the second and third input streams on the device will be enabled. Turning off streams can reduce CPU load. The default value is nil.
+### `loadDefs`
+A Boolean indicating whether or not to load the synth definitions in synthdefs/ (or anywhere set in the environment variable SC_SYNTHDEF_PATH) at startup. The default is true.
+### `maxNodes`
+The maximum number of nodes. The default is 1024.
+### `maxSynthDefs`
+The maximum number of synthdefs. The default is 1024.
+### `memSize`
+The number of kilobytes of real time memory allocated to the server. This memory is used to allocate synths and any memory that unit generators themselves allocate (for instance in the case of delay ugens which do not use buffers, such as CombN), and is separate from the memory used for buffers. Setting this too low is a common cause of 'exception in real time: alloc failed' errors. The default is 8192.
+### `numAudioBusChannels`
+The number of audio rate busses, which includes input and output busses. The default is 1024.
+### `numBuffers`
+The number of global sample buffers available. (See Buffer.) The default is 1024.
+### `numControlBusChannels`
+The number of internal control rate busses. The default is 16384.
+### `numInputBusChannels`
+The number of audio input bus channels. This need not correspond to the number of hardware inputs. The default is 2.
+### `numOutputBusChannels`
+The number of audio output bus channels. This need not correspond to the number of hardware outputs (this can be useful for instance in the case of recording). The default is 2.
+### `numRGens`
+The number of seedable random number generators. The default is 64.
+### `numWireBufs`
+The maximum number of buffers that are allocated to interconnect unit generators. (Not to be confused with the global sample buffers represented by Buffer.) This sets the limit of complexity of SynthDefs that can be loaded at runtime. This value will be automatically increased if a more complex def is loaded at startup, but it cannot be increased thereafter without rebooting. The default is 64.
+### `outputStreamsEnabled`
+A String which allows turning off output streams that you are not interested in on the audio device. If the string is "11000", for example, then only the first two output streams on the device will be enabled. Turning off streams can reduce CPU load.
+### `protocol`
+A Symbol representing the communications protocol. Either `\udp` or `\tcp`. The default is `\udp`.
+### `bindAddress`
+The IP address that the server's TCP or UDP socket is listening on. The default value is `"127.0.0.1"`, meaning only listen to OSC messages on the host.> **⚠️ Warning:** Until SuperCollider 3.10.3, this was set to `"0.0.0.0"` (listen on all network interfaces). However, this is a dangerous default configuration — for most users working on laptops connected to WiFi, this means that anyone on your local network can send OSC messages to the server. `"0.0.0.0"` is only useful if you are running networked server/client, and only safe if your networking is properly configured.Before SuperCollider 3.12 supernova listened to all network interfaces and ignored the `bindAddress` option. In later versions the behavior is identical to scsynth.
+### `remoteControlVolume`
+A Boolean indicating whether this server should allow its volume to be set remotely. The default value is `false`.
+### `sampleRate`
+The preferred sample rate. If non-nil the server app will attempt to set the sample rate of the hardware. The hardware has to support the sample rate that you choose.
+> **Note:** On Windows, leaving the `sampleRate` as `nil` for an `ASIO` device will likely result in setting the hardware to run at 44100 Hz.
+
+
+### `verbosity`
+Controls the verbosity of server messages. A value of 0 is normal behaviour. -1 suppresses informational messages. -2 suppresses informational and many error messages, as well as messages from Poll. The default is 0.
+### `zeroConf`
+A Boolean indication whether or not the server should publish its port using zero configuration networking, to facilitate network interaction. This is true by default; if you find unacceptable delays (beachballing) upon server boot, you can try setting this to false.
+### `ugenPluginsPath`
+A path or an Array of paths. If non-nil, the standard paths are NOT searched for plugins. This corresponds with the option "-U".
+### `restrictedPath`
+Allows you to restrict the system paths in which the server is allowed to read/write files during running. A nil value (the default) means no restriction. Otherwise, set it as a string representing a single path.
+### `threads`
+Number of audio threads that are spawned by supernova. For scsynth this value is ignored. If it is `nil`or 0, it uses one thread per CPU core. Default is `nil`.
+### `threadPinning`
+Enable/disable thread pinning. For scsynth this value is ignored. Thread pinning forces each thread to only run on a particular CPU core. Depending on the system, this might give better or worse performance. Default is `nil` which means that the value is chosen by Supernova. (At the time of writing, it is by default enabled on Linux and disabled on macOS and Windows.)
+### `useSystemClock`
+Tells supernova whether to sync to the driver's sample clock, or to the system clock.
+> **Note:** scsynth always uses system clock and this value is ignored.
+
+- `true` (default) -- Use the system clock. Timestamped messages will maintain consistent latency over long sessions, but may not be perfectly sample-accurate.
+- `false` -- Use the sample clock. This helps to support sample-accurate scheduling; however, messaging latency from the SuperCollider language will drift over long periods of time.
+
+### `memoryLocking`
+A Boolean indicating whether the server should try to lock its memory into physical RAM. Default is `false`.
+### `maxLogins`
+An Integer indicating the maximum number of clients which can simultaneously receive notifications from the server. When using TCP this is also the maximum number of simultaneous connections. This is also used by the language to split ranges of [Nodes](../Classes/Node.md), [Buffers](../Classes/Buffer.md), or [Busses](../Classes/Bus.md). In multi-client situations you will need to set this to at least the number of clients you wish to allow. This must be the same in the Server instances on every client. The default is 1. The maximum is 32.
+### `safetyClipThreshold`
+
+> **Note:** MacOS only
+
+A Float indicating a safety threshold for output values to be clipped to. This is necessary on macOS because setting a low system volume doesn't prevent output values greater than +/- 1 from sounding extremely loud, which can happen by mistake, e.g. when sending a negative coefficient to a filter. With this threshold, values are clipped just before being written to hardware output busses, which does not affect the recording. However, the signal will be affected if it's above the threshold and the sound is routed to other apps using 3rd-party software. Defaults to a threshold of 1.26 (ca. 2 dB), to save some ears and still allow some headroom. Setting safetyClipThreshold to `inf`, `0`, or a negative value, disables clipping altogether.
+
+### Other Instance Methods
+### `asOptionsString`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `port` | The port number for the resulting server app. Default value is 57110. |  
+**Returns:** a String specifying the options in the format required by the command-line server app (scsynth or supernova).
+### `firstPrivateBus`
+**Returns:** the index of the first audio bus on this server which is not used by the input and output hardware.
+### `pingsBeforeConsideredDead`
+Number of failed pings (attempts to contact server process) before server is considered dead. Default value is 5.
+
+## Examples
+
+
+```supercollider
+// Get the default server's options
+
+o = Server.default.options;
+
+// Post the number of output channels
+
+o.numOutputBusChannels.postln;
+
+// Set them to a new number
+
+o.numOutputBusChannels = 6; // The next time it boots, this will take effect
+
+// specify a device
+
+o.device = "MOTU Traveler";     // use a specific soundcard
+o.device = nil;            // use the system default soundcard
+
+// finally, boot the server
+
+Server.default.boot;
+// or, if the server was already running, reboot it
+Server.default.reboot;
+
+
+// ServerOptions and multiple servers
+
+// Create a new instance of ServerOptions for
+
+p = ServerOptions.new;
+
+// Set the memory size to twice the default
+
+p.memSize = 4096;
+
+// Create a new Server on the local machine using o for its options
+
+t = Server(\Local2, NetAddr("127.0.0.1", 57111), p);
+t.makeWindow;
+t.boot;
+t.quit;
+```
+
+
+
+

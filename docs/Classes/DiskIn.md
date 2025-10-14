@@ -1,0 +1,132 @@
+# DiskIn
+
+*Stream in audio from a file.*
+
+**Related:** [PlayBuf](../Classes/PlayBuf.md), [VDiskIn](../Classes/VDiskIn.md), [DiskOut](../Classes/DiskOut.md)
+
+**Categories:** UGens>InOut, UGens>Buffer
+
+## Description
+
+Continuously play a longer soundfile from disk. This requires a buffer to be preloaded with one buffer size of sound.
+DiskIn cannot alter playback rate. See [VDiskIn](../Classes/VDiskIn.md) for a disk-streaming UGen with rate control.
+
+
+## Class Methods
+
+
+### `ar`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `numChannels` | Number of channels. This must match the number of channels in the buffer. Must be a nonzero, positive integer. This is fixed when the SynthDef is compiled so cannot be assigned to a SynthDef argument. |  
+| `bufnum` | Buffer number
+> **Note:** The Buffer's numFrames must be a power of two and is recommended to be at least 65536 -- preferably 131072 or 262144. Smaller buffer sizes mean more frequent disk access, which can cause glitches. |  
+| `loop` | If set to 1, the soundfile will loop.
+> **Note:** If the buffer has a larger number of frames than the sound file there will be a noticeable gap between the first and the following loop iterations. In that case chose a smaller buffer size or use [PlayBuf](../Classes/PlayBuf.md) instead |  
+This UGen will set the ['done' flag](../Classes/Done.md) when finished playing.
+
+## Instance Methods
+
+
+## Examples
+
+
+```supercollider
+s.boot; // start the server
+
+// examples below will use this synthdef
+(
+SynthDef("help-Diskin", { |out, bufnum = 0|
+    Out.ar(out, DiskIn.ar(1, bufnum));
+}).add
+)
+```
+
+
+
+### Normal usage (with Buffer; "Object Style")
+
+```supercollider
+b = Buffer.cueSoundFile(s, ExampleFiles.apollo11, 0, 1);
+
+x = { DiskIn.ar(1, b.bufnum) }.play;
+
+b.close;
+
+// again
+// note the like named instance method, but different arguments
+b.cueSoundFile(ExampleFiles.apollo11, 0);
+
+x.free; b.close; b.free;
+
+
+
+// loop it (for better looping use PlayBuf!)
+(
+p = ExampleFiles.apollo11;
+a = SoundFile.new;
+a.openRead(p);
+d = a.numFrames/s.sampleRate; // get the duration
+a.close; // don't forget
+b = Buffer.cueSoundFile(s, p, 0, 1);
+f = { DiskIn.ar(1, b.bufnum) };
+x = f.play;
+r = Routine({
+    loop({ d.wait; x.free; x = f.play; b.close(b.cueSoundFileMsg(p, 0)) });
+}).play)
+r.stop; x.free; b.close; b.free; // you need to do all these to properly cleanup
+
+
+
+// cue and play right away
+(
+SynthDef("help-Diskin", { |out, bufnum = 0|
+    Out.ar(out, DiskIn.ar(1, bufnum));
+}).add;
+)
+
+(
+x = Synth.basicNew("help-Diskin");
+m = { |buf| x.addToHeadMsg(nil, [\bufnum, buf.bufnum]) };
+
+b = Buffer.cueSoundFile(s, ExampleFiles.apollo11, 0, 1, completionMessage: m);
+
+)
+```
+
+
+
+
+### OSC Messaging Style
+
+```supercollider
+// allocate a disk i/o buffer
+s.sendMsg("/b_alloc", 0, 65536, 1);
+
+// open an input file for this buffer, leave it open
+s.sendMsg("/b_read", 0, ExampleFiles.apollo11, 0, 65536, 0, 1);
+
+// create a diskin node
+s.sendMsg("/s_new", "help-Diskin", x = s.nextNodeID, 1, 1);
+
+s.sendMsg("/b_close", 0); // close the file (very important!)
+
+
+// again
+// don't need to reallocate and Synth is still reading
+s.sendMsg("/b_read", 0, ExampleFiles.apollo11, 0, 0, 0, 1);
+
+s.sendMsg("/n_free", x); // stop reading
+
+s.sendMsg("/b_close", 0); // close the file.
+
+s.sendMsg("/b_free", 0); // frees the buffer
+```
+
+
+
+
+
+

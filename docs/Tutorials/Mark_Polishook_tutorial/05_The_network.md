@@ -1,0 +1,111 @@
+# 05_The_network
+
+*Mark Polishook tutorial*
+
+**Categories:** Tutorials>Mark_Polishook_tutorial
+
+**Related:** [Mark_Polishook_tutorial/00_Introductory_tutorial](../../Tutorials/Mark_Polishook_tutorial/00_Introductory_tutorial.md)
+
+
+## Networks and client/server
+SuperCollider 3 uses a client/server model to operate across a network. What this means is that users write client programs that ask a server to do something, that is, they request service. Such requests can occur locally on one computer or they can be distributed remotely among two or more computers. Whether the computers are in the same room or separated across the world makes no difference as long as they're connected on a network.
+
+Client programs in SuperCollider typically specify synthesis definition (how a particular sound will be made) and synthesis scheduling (when a particular sound will be made). In turn, a SuperCollider server (or servers) synthesizes audio according to client instructions.
+
+To summarize, clients request; servers respond.
+
+
+
+## Client/server examples
+
+```supercollider
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// EX. 1 - execute each line, one at a time
+// define a synthesis process and make a client request to a server
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// define a server with a name and an address
+s = Server("aServer", NetAddr("127.0.0.1", 56789));        // "localhost" is a synonym for an ip of                                                 // "127.0.0.1"
+// start the server
+s.boot;
+
+// define a synthesis engine
+SynthDef("sine", { Out.ar(0, SinOsc.ar(440, 0, 0.2)) }).send(s);
+
+// schedule (run) synthesis
+s.sendMsg("s_new", "sine", n = s.nextNodeID, 0, 1);
+
+// stop the synth (delete it)
+s.sendMsg("/n_free", n);
+
+// (optionally) stop the server
+s.quit;
+```
+
+
+
+```supercollider
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// EX. 2
+// the same as in above, except on 2 computers across a network
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// define a (remote) server; it represents a computer "somewhere" on the internet"
+// the ip number has to be valid and the server, wherever it is, has to be running
+// servers cannot be booted remotely, eg, a program on one machine can't boot a server on another
+// this example assumes the server on the remote machine was booted from within
+// SuperCollider and not from the terminal
+s = Server("aServer", NetAddr("... an ip number ...", 56789));
+
+// define a synthesis engine ... exactly as in the previous example
+SynthDef("sine", { Out.ar(0, SinOsc.ar(440, 0, 0.2)) }).send(s);
+
+// schedule synthesis ... exactly as in the previous example
+s.sendMsg("s_new", "sine", n = s.nextNodeID, 0, 1);
+
+// stop the synth (delete it)
+s.sendMsg("/n_free", n);
+```
+
+
+
+```supercollider
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// EX. 3
+// client/server on one computer vs. client server on two computers
+// the previous examples without comments
+// they're identical except that
+//    the example that runs on one computer explicitly boots the server
+//    the example on 2 computers _assumes the server "somewhere" on the internet is booted
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// on one computer
+s = Server("aServer", NetAddr("localhost", 56789));
+s.boot;
+SynthDef("sine", { Out.ar(0, SinOsc.ar(440, 0, 0.2)) }).send(s);
+s.sendMsg("s_new", "sine", n = s.nextNodeID, 0, 1);
+s.sendMsg("/n_free", n);
+
+vs.
+
+// on two computers ... the server has to have a valid ip address
+s = Server("aServer", NetAddr("... an ip number ...", 56789));
+SynthDef("sine", { Out.ar(0, SinOsc.ar(440, 0, 0.2)) }).send(s);
+s.sendMsg("s_new", "sine", n = s.nextNodeID, 0, 1);
+s.sendMsg("/n_free", n);
+```
+
+
+
+
+## Localhost and internal servers
+The previous examples define server objects. But, for the most part, this isn't necessary as SuperCollider defines two such objects, the localhost and internal servers, at startup. They're represented by windows at the bottom of the screen. Each of the windows has a boot button to start its respective server.
+
+See the [ClientVsServer](../../Guides/ClientVsServer.md), [Server](../../Classes/Server.md), and [ServerOptions](../../Classes/ServerOptions.md) and [Server_Tutorial](../../Tutorials/Server_Tutorial.md) documents in the SuperCollider help system for further information.
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+Go to [Mark_Polishook_tutorial/06_Prerequisites](../../Tutorials/Mark_Polishook_tutorial/06_Prerequisites.md)
+
+
+

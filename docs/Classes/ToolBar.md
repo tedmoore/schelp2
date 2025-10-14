@@ -1,0 +1,137 @@
+# ToolBar
+
+*An inline button bar populated by MenuActions*
+
+**Categories:** GUI
+
+**Related:** [Menu](../Classes/Menu.md), [MenuAction](../Classes/MenuAction.md), [MainMenu](../Classes/MainMenu.md)
+
+## Description
+
+A ToolBar is similar to a [Menu](../Classes/Menu.md), with several key differences:
+- ToolBars act as regular [View](../Classes/View.md)s, and can be placed in layouts or in other views.
+- MenuActions on a toolbar appear as buttons instead of being listed menu-style
+- By default, MenuActions that have icons show ONLY the icon. MenuActions with text will appear as a text button. This can be changed using the toolButtonStyle property.
+
+
+```supercollider
+(
+View().fixedWidth_(300).layout_(HLayout(
+    ToolBar(
+        MenuAction("Option A", { "Option A".postln }),
+        MenuAction("Option B", { "Option B".postln }),
+        MenuAction("Option C", { "Option C".postln })
+    )
+)).front
+)
+```
+
+
+
+
+## Class Methods
+
+### `new`
+ Create a new ToolBar containing one or more actions.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | One or more [MenuAction](../Classes/MenuAction.md) |  
+
+
+## Instance Methods
+
+### `orientation`
+ The horizontal or vertical orientation of the ToolBar**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | A [QOrientation](../Classes/QOrientation.md) |  
+### `toolButtonStyle`
+ Controls whether the toolbar shows icons, text, or both.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `` | An integer; one of the values of [QToolButtonStyle](../Classes/QToolButtonStyle.md). |  
+
+```supercollider
+(
+~icon = Image(64).draw({ Pen.fillOval(Rect(0, 0, 64, 64)) });
+~styles = QToolButtonStyle.classVarNames;
+
+~tool = ToolBar(
+    MenuAction("Text")
+        .icon_(~icon)
+        .action_({
+            ~tool.toolButtonStyle = (~tool.toolButtonStyle + 1) % ~styles.size;
+            ~styles[~tool.toolButtonStyle].postln;
+        })
+).front;
+)
+```
+
+
+## Examples
+
+
+```supercollider
+(
+s.waitForBoot {
+    ~synth = nil;
+    ~freq = 300;
+
+    ~startIcon = Image(40).draw({
+        Pen.fillColor = Color.green;
+        Pen.moveTo(5@5);
+        Pen.lineTo(35@20);
+        Pen.lineTo(5@35);
+        Pen.lineTo(5@5);
+        Pen.fill;
+    });
+
+    ~stopIcon = Image(40).draw({
+        Pen.fillColor = Color.red;
+        Pen.fillRect(Rect(10, 10, 20, 20));
+    });
+
+    ~freqMenu = Menu(
+        MenuAction("100"),
+        MenuAction("200"),
+        MenuAction("300"),
+        MenuAction("400"),
+        MenuAction("500"),
+    ).title_(~freq);
+
+    ~updateFunc = {
+        |obj, what, action|
+        if (what == \triggered) {
+            ~freq = action.string.asInteger;
+            ~freqMenu.title = ~freq;
+            ~synth !? { ~synth.set(\f, ~freq) };
+        }
+    };
+
+    ~freqMenu.addDependant(~updateFunc);
+
+    ~play = MenuAction("play")
+        .icon_(~startIcon)
+        .action_({
+            if (~synth.isNil) {
+                ~synth = { |f| SinOsc.ar(f) * 0.1 }.play(args: [\f, ~freq]);
+                ~synth.onFree { ~synth = nil };
+                ~play.icon = ~stopIcon;
+            } {
+                ~synth.free;
+                ~play.icon = ~startIcon;
+            }
+        });
+
+    ~toolBar = ToolBar(~play, ~freqMenu).minWidth_(200).front;
+    ~toolBar.onClose_({ ~freqMenu.removeDependant(~updateFunc) })
+}
+)
+```
+
+
+
+

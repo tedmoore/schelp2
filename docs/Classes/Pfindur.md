@@ -1,0 +1,69 @@
+# Pfindur
+
+*limit total duration of events embedded in a stream*
+
+**Related:** [Pfinval](../Classes/Pfinval.md), [Pfin](../Classes/Pfin.md), [Pconst](../Classes/Pconst.md)
+
+**Categories:** Streams-Patterns-Events>Patterns>Repetition
+
+
+## Class Methods
+
+### `new`
+Embeds elements of the **pattern** into the stream until the duration comes close enough to **dur**.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `dur` | The duration in beats after which the stream should end, derived from the event keys `dur` or `delta`. The delta of the last event is adjusted so that the total duration fits this value. If the stream is shorter than dur, a `filler` (see below) can be used to fill the gap. |  
+| `pattern` | The pattern to cut short. This should be an event pattern (returning a stream of events). |  
+| `tolerance` | measuring tolerance for the total duration to avoid jitter |  
+
+## Examples
+
+
+```supercollider
+(
+var a, b;
+a = Pfindur(5, Pbind(\dur, Prand([1, 2, 0.5, 0.1], inf)));
+x = a.asStream;
+9.do({ x.next(Event.default).postln });
+)
+
+
+(
+var a, b;
+a = Pfindur(5, Pbind(\dur, Prand([1, 2, 0.5, 0.1], 4)));
+x = a.asStream;
+9.do({ x.next(Event.default).postln });
+)
+
+
+// Pfindur used as a sequence of pitches
+
+(
+SynthDef(\help_sinegrain,
+    { |out = 0, freq = 440, sustain = 0.05|
+        var env;
+        env = EnvGen.kr(Env.perc(0.01, sustain, 0.2), doneAction: Done.freeSelf);
+        Out.ar(out, SinOsc.ar(freq, 0, env))
+    }).add;
+)
+
+(
+var c;
+c = Pbind(
+    \dur, Prand([1, 0.02, 0.2], inf),
+    \instrument, \help_sinegrain,
+    \degree, Pseries(0, 1, inf),
+    \octave, 6
+);
+
+Pn(
+    Pfindur(1, c)
+).play;
+)
+```
+
+
+
+

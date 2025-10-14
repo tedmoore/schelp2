@@ -1,0 +1,72 @@
+# Ppatmod
+
+*modify a given pattern before passing it into the stream*
+
+**Related:** [Plazy](../Classes/Plazy.md)
+
+**Categories:** Streams-Patterns-Events>Patterns>Filter
+
+
+## Class Methods
+
+### `new`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `pattern` | the pattern. |  
+| `func` | A [Function](../Classes/Function.md) that modifies the enclosed pattern and embeds it in the stream. |  
+| `repeats` | the number of repeats. |  
+
+## Examples
+
+
+```supercollider
+(
+a = Ppatmod(
+    Pseq([0, 0, 0, 0], 1),
+    { |pat, i|
+        var list;
+        list = pat.list;
+        pat.list = list.put(list.size.rand, 2);
+    }, inf);
+
+x = a.asStream;
+30.do({ x.next.postln });
+)
+
+
+// Ppatmod used to modify a pattern that produces a sequence of pitches:
+
+(
+SynthDef(\help_sinegrain,
+    { |out = 0, freq = 440, sustain = 0.05|
+        var env;
+        env = EnvGen.kr(Env.perc(0.01, sustain, 0.2), doneAction: Done.freeSelf);
+        Out.ar(out, SinOsc.ar(freq, 0, env))
+    }).add;
+)
+
+(
+a = Pn(
+    Ppatmod(
+        Pseq([0, 0, 0, 0], 1),
+        { |pat, i|
+            var list;
+            list = pat.list;
+            pat.list = list.put(list.size.rand, 2);
+        }, 15),
+inf).asStream;
+
+Routine({
+    loop({
+        Synth(\help_sinegrain, [\freq, (a.next*5+77).midicps]);
+        0.13.wait;
+    })
+}).play;
+)
+```
+
+
+
+

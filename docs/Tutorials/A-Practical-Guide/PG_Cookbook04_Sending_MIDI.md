@@ -1,0 +1,49 @@
+# Pattern Guide Cookbook 04: Sending MIDI
+
+*Sending notes under pattern control to MIDI devices*
+
+**Related:** [A-Practical-Guide/PG_Cookbook03_External_Control](../../Tutorials/A-Practical-Guide/PG_Cookbook03_External_Control.md), [A-Practical-Guide/PG_Cookbook05_Using_Samples](../../Tutorials/A-Practical-Guide/PG_Cookbook05_Using_Samples.md)
+
+**Categories:** Streams-Patterns-Events>A-Practical-Guide, Tutorials>Pattern-Guide
+
+
+## Sending MIDI out with Patterns
+Sending MIDI is the job of the [MIDIOut](../../Classes/MIDIOut.md) class and the `\midi` event type. A MIDIOut is created to talk to a hardware device; the MIDI channel is provided when an event is played. MIDIOut's `newByName` makes it easier to identify a device.
+
+The `\midi` event type supports the following commands, chosen in the event by the `\midicmd` key: `\allNotesOff, \bend, \control, \noteOff, \noteOn, \polyTouch, \program, \smpte, \songPtr, \sysex, \touch`. The default is `\noteOn`. When playing a note (noteOn), by default the corresponding noteOff message will be sent after the note's sustain time.
+
+If you want to synchronize events played by a MIDI device and events played by the SuperCollider server, the MIDIOut object's latency must match the server latency. You can set the latency any time to affect all future events.
+
+
+```supercollider
+MIDIClient.init;    // if not already done
+
+(
+    // substitute your own device here
+var    mOut = MIDIOut.newByName("FastLane USB", "Port A").latency_(Server.default.latency);
+
+p = Pbind(
+    \type, \midi,
+        // this line is optional b/c noteOn is the default
+        // just making it explicit here
+    \midicmd, \noteOn,
+    \midiout, mOut,    // must provide the MIDI target here
+    \chan, 0,
+        // degree is converted to midinote, not just frequency
+    \degree, Pwhite(-7, 12, inf),
+    \dur, Pwrand([0.25, Pn(0.125, 2)], #[0.8, 0.2], inf),
+    \legato, sin(Ptime(inf) * 0.5).linexp(-1, 1, 1/3, 3),
+    \amp, Pexprand(0.5, 1.0, inf)
+).play(quant: 1);
+)
+
+p.stop;
+```
+
+
+Previous: [A-Practical-Guide/PG_Cookbook03_External_Control](../../Tutorials/A-Practical-Guide/PG_Cookbook03_External_Control.md)
+
+Next: [A-Practical-Guide/PG_Cookbook05_Using_Samples](../../Tutorials/A-Practical-Guide/PG_Cookbook05_Using_Samples.md)
+
+
+

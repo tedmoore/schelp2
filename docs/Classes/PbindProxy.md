@@ -1,0 +1,95 @@
+# PbindProxy
+
+*incremental event pattern reference*
+
+**Categories:** JITLib>Patterns, Streams-Patterns-Events>Patterns, Live Coding
+
+**Related:** [Pbindef](../Classes/Pbindef.md), [Pdef](../Classes/Pdef.md)
+
+## Description
+
+keeps a reference to a [Pbind](../Classes/Pbind.md) in which single keys can be replaced. It plays on when the old stream ended and a new stream is set and schedules the changes to the beat.
+
+
+## Class Methods
+
+### `new`
+Return a new instance of PbindProxy with the given patternpairs. Unlike [Pbindef](../Classes/Pbindef.md), it has no internal name.
+```supercollider
+a = PbindProxy(\note, Pseq([0, 7, 9], inf), \dur, 0.2).play;
+a.set(\note, Pseq([0, 6, 10]));
+a.stop;
+```
+
+It also supports keyword argument syntax:
+```supercollider
+a = PbindProxy(note: Pseq([0, 7, 9]), dur: 0.2).play;
+a.stop;
+```
+
+
+
+## Instance Methods
+
+### `source`
+returns the wrapper for the Pbind### `set`
+set the given patternpairs.### `at`
+return a pattern at that key. this can be used to set quant value individually, so different elementary patterns can be quantized differently.
+```supercollider
+x.at(\freq).quant = 2;
+```
+
+### `quant`
+set the quant of all elementary patterns, or return the quant value of the source pattern.
+## Examples
+
+
+```supercollider
+(
+    SynthDef(\Pdefhelp, { |out, freq, sustain = 1, amp = 1, pan|
+        var env, u = 1;
+        env = EnvGen.ar(Env.perc(0.03, sustain), 1, doneAction: Done.freeSelf);
+        5.do { var d; d = exprand(0.01, 1); u = SinOsc.ar(d * 300, u, rrand(0.1, 1.2) * d, 1) };
+        Out.ar(out, Pan2.ar(SinOsc.ar(u + 1 * freq, 0, amp * env), pan));
+    }).add;
+)
+s.boot;
+
+
+x = PbindProxy.new;
+x.set(\instrument, \Pdefhelp);
+
+x.play;
+
+x.set(\degree, Pseq([0, 2, 5b, 1b], inf));
+x.set(\dur, 0.1);
+x.set(\degree, Pseq([1b, 5, 3, 1b, 6, 2, 5, 0, 3, 0, 2], inf));
+x.set(\legato, Prand([1.0, 2.4, 0.2], inf), \mtranspose, -3);
+x.set(\mtranspose, nil); // remove key
+
+x.set(\degree, Pseq([1, 2, 3, 4, 5, 6], 1));
+x.play;
+
+x.set(\degree, Pseq([1, 2, 3, 4, 5, 6], 3), \dur, 0.02);
+x.play;
+
+x.set(\degree, Pseq([1, 2, 3, 4, 5, 6], 3), \dur, 0.1);
+x.set(\degree, Pseq([1b, 5, 3, 1b, 6, 2, 5, 0, 3, 0, 2], inf));
+x.play;
+
+
+// embed in other patterns:
+(
+    Ppar([
+        x,
+        Pbindf(x, \ctranspose, 4)
+    ]).play;
+)
+
+
+x.set(\degree, Pseq([1b, 5, 1b, 4, 0], inf), \dur, 0.4);
+```
+
+
+
+

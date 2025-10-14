@@ -1,0 +1,207 @@
+# jitlib_fading
+
+*Fade envelope generation and crossfading*
+
+**Categories:** JITLib>Tutorials, Tutorials>JITLib
+
+**Related:** [Overviews/JITLib](../../Overviews/JITLib.md)
+
+[NodeProxy](../../Classes/NodeProxy.md) ( [ProxySynthDef](../../Classes/ProxySynthDef.md) ) looks for inner envelopes in your definition function to find out whether a fade envelope is needed or not. In case there is no other inner possibility of freeing the synth, either
+- [a)](#a)_automatic_fade_envelope_generation) a fade envelope is created (audio / control rate output)
+- [b)](#b)_automatic_free_instead_of_crossfade) the synth is freed directly with no fading (scalar output or doneAction 1)
+- [c)](#c)_custom_fade_envelope) if you provide a gate arg and a doneAction 2 to your ugenGraph function, this is supposed to be a fade envelope for the synth
+- [d)](#d)_synthdef_name_assignment) if a synthdef name is used, case [c)](#c)_custom_fade_envelope) is supposed
+
+... so in most cases, there is not much to worry about, just these two points ar important, if one wants to use a self releasing synth or a different out ugen:
+- [e)](#e)_own_free_responsibility) own responsibility: if the function creates a ugengraph that can be freed by trigger or other things, it waits for this action instead of the node proxy freeing the synth.
+- [f)](#f)_own_output_responsibility) own out channel with 'out' arg: the control ugen with the name 'out' is set to the output channel number of the proxy.
+
+
+```supercollider
+p = ProxySpace.push(s.boot);
+
+~out.play;
+
+// note that you can use this functionality also when using ProxySynthDef directly:
+
+d = ProxySynthDef("test", { arg freq=440; SinOsc.ar(freq) }).send(s);
+s.sendMsg("/s_new", "test", 1980, 1, 1, \freq, 340);
+s.sendMsg("/n_set", 1980, \freq, 240);
+s.sendMsg("/n_set", 1980, \fadeTime, 4);
+s.sendMsg("/n_set", 1980, \gate, 0);
+```
+
+
+## a) automatic fade envelope generation
+
+```supercollider
+// no inner envelope and audio / control rate output
+(
+~out = { PinkNoise.ar([1,1]*0.1) };
+)
+
+(
+~kout = { PinkNoise.kr([1,1]*0.1) };
+)
+```
+
+
+
+
+## b) automatic free instead of crossfade
+
+```supercollider
+// inner envelope that cannot free the synth, the synth is freed when a new
+// function is assigned.
+(
+~out = { arg t_trig; EnvGen.kr(Env.asr, t_trig) * PinkNoise.ar([1,1]) };
+)
+~out.group.set(\t_trig, 1);
+
+(
+~out = { arg t_trig; EnvGen.kr(Env.asr, t_trig) * SinOsc.ar([1,1]*400) };
+)
+~out.group.set(\t_trig, 1);
+
+
+// for a scalar output also no fade env is created, but the synth is freed (without fading)
+(
+~out = { Out.ar(0, SinOsc.ar(Rand(440,550),0,0.2)) };
+)
+```
+
+
+
+
+## c) custom fade envelope
+
+```supercollider
+// when a gate arg is provided, and the env can free the synth, this envelope
+// is supposed to be the fade envelope for the synth: no extra fade env is created.
+
+~out = { arg gate=1; EnvGen.kr(Env.asr, gate, doneAction: Done.freeSelf) * 0.2 * SinOsc.ar([1,1]*Rand(440,550)) };
+
+
+// if you want to use the proxy's fadeTime, you should provide a fadeTime argument:
+
+~out = { arg gate=1, fadeTime = 0.1; EnvGen.kr(Env.asr(fadeTime, 1, fadeTime), gate, doneAction: Done.freeSelf) * 0.2 * SinOsc.ar([1,1] * Rand(440, 550)) };
+```
+
+
+
+
+## d) SynthDef name assignment
+
+```supercollider
+// if a symbol is used as input, the defname of a def on the server is supposed
+// to represent a SynthDef that has a gate, an out input and can free itself.
+(
+~out = \default;
+)
+
+// this is the minimal requirement arguments for such a use (similar to Pbind)
+(
+SynthDef("test", { arg gate=1, out;
+    Out.ar(out, Formant.ar(300, 200, 10) * EnvGen.kr(Env.asr, gate, doneAction: Done.freeSelf))
+}).send(s);
+)
+
+// you can also provide a fadeTime arg, which is set by the proxy:
+(
+SynthDef("test", { arg gate=1, out, fadeTime=1;
+    Out.ar(out,
+        Formant.ar(Rand(20,40), 600, 10, 0.2)
+        * EnvGen.kr(Env.asr(fadeTime,1,fadeTime), gate, doneAction: Done.freeSelf)
+    )
+}).send(s);
+)
+
+~out = \test;
+~out.fadeTime = 3;
+```
+
+
+
+> **Note:** the **number of channels** is your own responsibility when using symbols, as a symbol carries no channel information! (in all other cases the number of channels is wrapped or expanded to fit the proxy)
+
+
+
+```supercollider
+// if the synthdef has a fixed duration envelope, it won't use the proxy's fadeTime
+(
+SynthDef("test", { arg gate=1, out;
+    Out.ar(out,
+        Formant.ar(Rand(20,40), 600, 10, 0.6)
+        * EnvGen.kr(Env.perc, gate, doneAction: Done.freeSelf)
+    )
+}).send(s);
+)
+
+~out = \test;
+```
+
+
+
+
+## e) own free responsibility
+
+```supercollider
+//inner envelope that can free the synth, no extra fade env is created:
+(
+~out = { arg t_trig; EnvGen.kr(Env.asr, t_trig, doneAction: Done.freeSelf) * PinkNoise.ar([1,1]) };
+)
+~out.group.set(\t_trig, 1); //end it
+
+~out.send; //start a new synth
+~out.group.set(\t_trig, 1); //end it again
+
+
+// if there is a ugen that can free the synth, no extra fade env is created either,
+// but it supposes the synth frees itself, so if a new function is assigned it does
+// not get freed.
+(
+~out = { arg t_trig;
+    FreeSelf.kr(t_trig);
+    PinkNoise.ar([1,1]*0.3);
+};
+)
+~out.group.set(\t_trig, 1);
+```
+
+
+
+
+## f) own output responsibility
+
+```supercollider
+// the arg name 'out' can be used to output through the right channel.
+// of course with this one can get problems due to a wrong number of channels
+// or deliberate hacks.
+
+//left speaker
+(
+~out = { arg out;
+    OffsetOut.ar(out, Impulse.ar(10,0,0.1))
+}
+)
+
+//both speakers
+(
+~out = { arg out;
+    OffsetOut.ar(out, Impulse.ar([10, 10],0,0.1))
+}
+)
+
+//this plays out into another adjacent bus: this is a possible source of confusion.
+(
+~out = { arg out;
+    OffsetOut.ar(out, Impulse.ar([10, 10, 10],0,0.1))
+}
+)
+```
+
+
+
+
+
+

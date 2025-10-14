@@ -1,0 +1,173 @@
+# PV_Copy
+
+*Copy an FFT buffer*
+
+**Categories:** UGens>FFT
+
+## Description
+
+Copies the spectral frame in `bufferA` to `bufferB`. This allows for parallel processing of spectral data without the need for multiple FFT UGens. Further it allows to extract data at a given point in the FFT chain e.g. for monitoring purposes. 
+
+> **Note:** As of SC 3.7 instances of PV_Copy are added automatically where necessary for parallel processing. Please see [FFT-Overview](../Guides/FFT-Overview.md) for the current implementation. This document is provided for legacy purposes only. Existing code explicitly using PV_Copy should continue to work.
+
+
+
+
+## Class Methods
+
+### `new`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `bufferA` | source buffer. |  
+| `bufferB` | destination buffer.
+> **Note:** `bufferA` and `bufferB` must be the same size. |  
+
+## Examples
+
+
+```supercollider
+// read a sound file
+d = Buffer.read(s, ExampleFiles.child);
+
+
+// crossfade between original and magmul-ed whitenoise
+(
+{
+    var in, in2, chain, chainB, chainC;
+    in = PlayBuf.ar(1, d, BufRateScale.kr(d), loop: 1) * 2;
+    in2 = WhiteNoise.ar;
+    chain = FFT(LocalBuf(2048), in);
+    chainB = FFT(LocalBuf(2048), in2);
+    chainC = PV_Copy(chain, LocalBuf(2048));
+    chainB = PV_MagMul(chainB, chainC);
+    XFade2.ar(IFFT(chain), IFFT(chainB) * 0.1, SinOsc.kr(0.2, 1.5pi));
+}.play
+
+)
+
+
+// as previous but with Blip for 'vocoder' cross synthesis effect
+(
+{
+    var in, in2, chain, chainB, chainC;
+    in = PlayBuf.ar(1, d, BufRateScale.kr(d), loop: 1) * 2;
+    in2 = Blip.ar(100, 50);
+    chain = FFT(LocalBuf(2048), in);
+    chainB = FFT(LocalBuf(2048), in2);
+    chainC = PV_Copy(chain, LocalBuf(2048));
+    chainB = PV_MagMul(chainB, chainC);
+    XFade2.ar(IFFT(chain), IFFT(chainB) * 0.1, SinOsc.ar(0.2));
+}.play
+
+)
+
+
+
+// Spectral 'pan'
+(
+{
+    var in, chain, chainB, pan;
+    in = PlayBuf.ar(1, d, BufRateScale.kr(d), loop: 1);
+    chain = FFT(LocalBuf(2048), in);
+    chainB = PV_Copy(chain, LocalBuf(2048));
+    pan = MouseX.kr(0.001, 1.001, 'exponential') - 0.001;
+    chain = PV_BrickWall(chain, pan);
+    chainB = PV_BrickWall(chainB, -1 + pan);
+    IFFT([chain, chainB])
+}.play
+)
+
+// free sound file buffer
+d.free;
+
+
+
+
+
+// proof of concept: copy has identical data
+// global buffers for plotting the data
+(
+b = Buffer.alloc(s, 2048, 1);
+c = Buffer.alloc(s, 2048, 1);
+)
+
+//  silently record some FFT data into the buffers
+(
+x = {
+    var inA, chainA, chainB;
+    inA = LFClipNoise.ar(100);
+    chainA = FFT(b, inA);
+    chainB = PV_Copy(chainA, c);
+    IFFT(chainA) - IFFT(chainB); // proof of concept: cancels to zero
+}.play;
+)
+x.free;
+
+// IFFTed frames contain the same windowed output data
+(
+b.plot(\b, Rect(200, 430, 700, 300));
+c.plot(\c, Rect(200, 100, 700, 300));
+)
+
+// free the buffers
+[b, c].do(_.free);
+
+
+
+// Multiple Magnitude plots
+
+
+
+(
+~fftSize = 2048;
+~allBuffers = ();
+~copyToBuffer = { |chain, name|
+    var buffer = Buffer.alloc(s, ~fftSize);
+    ~allBuffers.put(name, buffer);
+    PV_Copy(chain, buffer)
+};
+)
+
+(
+x = { var in, chain, chainB, chainC;
+    in = WhiteNoise.ar;
+    chain = FFT(LocalBuf(~fftSize), in);
+    chain = ~copyToBuffer.(chain, 'initial'); // initial spectrum
+    chain = PV_RectComb(chain, 20, 0, 0.2);
+    chain = ~copyToBuffer.(chain, 'After RectComb'); // after comb
+    2.do { chain = PV_MagSquared(chain) };
+    chain = ~copyToBuffer.(chain, 'After MagSquared'); // after magsquared
+    0.00001 * Pan2.ar(IFFT(chain)); // silently play back
+}.play
+)
+
+
+x.free;
+
+// post all buffers
+(
+~allBuffers.keysValuesDo { |name, buffer, i|
+    buffer.getToFloatArray(action: { |array|
+        var z, x;
+        // Initially, data is in complex form
+        z = array.clump(2).flop;
+        z = z.collect { |each| Signal.newFrom(each) };
+        x = Complex(z[0], z[1]);
+        { x.magnitude.plot(name, Rect(200, 100 + (230 * i), 700, 200)) }.defer
+    });
+}
+)
+
+ // free the buffers and clean up
+(
+~allBuffers.do { |x| x.free };
+~allBuffers = nil;
+~copyToBuffer = nil;
+)
+```
+
+
+
+

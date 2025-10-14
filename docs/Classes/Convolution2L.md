@@ -1,0 +1,190 @@
+# Convolution2L
+
+*Real-time convolver with linear interpolation*
+
+**Related:** [Convolution](../Classes/Convolution.md), [Convolution2](../Classes/Convolution2.md), [Convolution3](../Classes/Convolution3.md), [StereoConvolution2L](../Classes/StereoConvolution2L.md)
+
+**Categories:** UGens>FFT, UGens>Convolution
+
+## Description
+
+Strict convolution with fixed kernel which can be updated using a trigger signal. There is a linear crossfade between the buffers upon change.
+See *Steven W Smith, The Scientist and Engineer's Guide to Digital Signal Processing: chapter 18* - [http://www.dspguide.com/ch18.htm](http://www.dspguide.com/ch18.htm)
+
+
+## Class Methods
+
+
+### `ar`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `in` | processing target |  
+| `kernel` | buffer index for the fixed kernel, may be modulated in combination with the trigger |  
+| `trigger` | update the kernel on a change from <=0 to >0 |  
+| `framesize` | size of FFT frame, must be a power of two (512, 1024, 2048, 4096 are standard choices). Convolution uses twice this number internally. Note that the convolution gets progressively more expensive to run for higher powers! The maximum value you can use is 2^16 = 16384. (This upper limit is half of "SC_FFT_MAXSIZE" defined in the SC source code.) Larger convolutions than this can be done using [PartConv](../Classes/PartConv.md). |  
+| `crossfade` | The number of periods over which a crossfade is made. The default is 1. This must be an integer. |  
+| `mul` |  |  
+| `add` |  |  
+
+## Examples
+
+
+```supercollider
+// allocate three buffers
+(
+b = Buffer.alloc(s, 2048);
+c = Buffer.alloc(s, 2048);
+d = Buffer.alloc(s, 2048);
+
+b.zero;
+c.zero;
+d.zero;
+)
+
+(
+50.do { |it| c.set(20 * it + 10, 1.0.rand) };
+3.do { |it| b.set(400 * it + 100, 1) };
+20.do { |it| d.set(40 * it + 20, 1) };
+)
+```
+
+
+
+
+```supercollider
+(
+SynthDef(\conv_test, { |out, kernel, t_trig = 0|
+    var input = Impulse.ar(1);
+    var framesize = 2048; // must have power of two
+    var result = Convolution2L.ar(input, kernel, t_trig, framesize, 1, 0.5);
+    Out.ar(out, result);
+}).add
+)
+
+x = Synth(\conv_test, [\kernel, b]);
+
+// changing the buffer number:
+x.set(\kernel, c);
+x.set(\t_trig, 1); // after this trigger, the change will take effect.
+x.set(\kernel, d);
+x.set(\t_trig, 1); // after this trigger, the change will take effect.
+
+d.zero;
+40.do { |it| d.set(20 * it + 10, 1) }; // changing the buffers' contents
+x.set(\t_trig, 1); // after this trigger, the change will take effect.
+
+x.set(\kernel, b);
+x.set(\t_trig, 1); // after this trigger, the change will take effect.
+
+x.free;
+```
+
+
+
+```supercollider
+// longer crossfade
+(
+SynthDef(\conv_test2, { |out, kernel, t_trig = 0|
+    var input = Impulse.ar(1);
+    var framesize = 2048; // must have power of two
+    var result = Convolution2L.ar(input, kernel, t_trig, 2048, 5, 0.5);
+    Out.ar(out, result);
+}).add
+)
+
+x = Synth(\conv_test2, [\kernel, b]);
+
+// changing the buffer number:
+x.set(\kernel, c);
+x.set(\t_trig, 1); // after this trigger, the change will take effect.
+x.set(\kernel, d);
+x.set(\t_trig, 1); // after this trigger, the change will take effect.
+
+d.zero;
+
+40.do { |it| d.set(20 * it + 10, 1) }; // changing the buffers' contents
+
+x.set(\t_trig, 1); // after this trigger, the change will take effect.
+
+x.set(\kernel, b);
+x.set(\t_trig, 1); // after this trigger, the change will take effect.
+
+x.free;
+```
+
+
+
+```supercollider
+// next example
+
+b = Buffer.read(s, ExampleFiles.child);
+
+(
+{
+    var input = SoundIn.ar(0);
+    var framesize = 2048; // must have power of two
+    Convolution2L.ar(input, b, 0, 512, 1, 0.5);
+}.play
+)
+```
+
+
+
+```supercollider
+// another example
+
+(
+// must have power of two framesize- FFT size will be sorted by Convolution2 to be double this
+// maximum is currently a = 8192 for FFT of size 16384
+a = 2048;
+// kernel buffer
+g = Buffer.alloc(s, a, 1);
+)
+
+(
+g.set(0, 1.0);
+100.do { |i| g.set(a.rand, (i + 1).reciprocal) };
+)
+
+(
+// random impulse response
+{
+    var input, inputAmp, threshhold, gate;
+
+    input = SoundIn.ar(0);
+    inputAmp = Amplitude.kr(input);
+    threshhold = 0.02;    // noise gating threshold
+    gate = Lag.kr(inputAmp > threshhold, 0.01);
+
+    Convolution2L.ar(input * gate, g, 0, a, 1, 0.5);
+}.play
+)
+
+g.free;
+```
+
+
+
+```supercollider
+// one last example
+(
+b = Buffer.alloc(s, 512, 1);
+b.sine1(1.0/[1, 2, 3, 4, 5, 6], true, true, true);
+)
+
+(
+{
+    var input = SoundIn.ar(0);
+    var framesize = 512;
+    Convolution2L.ar(input, b, 0, framesize, 1, 0.5);
+}.play
+)
+
+b.free;
+```
+
+
+
+

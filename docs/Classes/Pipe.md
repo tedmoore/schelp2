@@ -1,0 +1,94 @@
+# Pipe
+
+*pipe stdin to, or stdout from, a UNIX shell command*
+
+**Related:** [UnixFILE](../Classes/UnixFILE.md)
+
+**Categories:** Files
+
+## Description
+
+Pipe stdin to, or stdout from, a UNIX shell command. Pipe treats the shell command as if it were a UnixFILE, and returns nil when done. See [UnixFILE](../Classes/UnixFILE.md) for details of the access methods. Pipe must be explicitly closed. Do not rely on the garbage collector to do this for you!
+
+
+## Class Methods
+
+### `new`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `commandLine` | A [String](../Classes/String.md) representing a valid shell command. |  
+| `mode` | A [String](../Classes/String.md) representing the mode. Valid modes are "w" (pipe to stdin) and "r" (pipe from stdout). |  
+
+### `argv`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `args` | A [SequenceableCollection](../Classes/SequenceableCollection.md) containining strings where the first string is the path to the executable to be run and all other strings are passed as arguments to the executable. This method starts the process directly without using a shell. |  
+| `mode` | A [String](../Classes/String.md) representing the mode. Valid modes are "w" (pipe to stdin) and "r" (pipe from stdout). |  
+
+
+## Instance Methods
+
+### `open`
+Open the file.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `commandLine` | A command line [String](../Classes/String.md) passed to popen. |  
+| `mode` | A [String](../Classes/String.md) passed to popen, so should be one of: "r", "w" |  
+### `openArgv`
+Open the file.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `args` | A [SequenceableCollection](../Classes/SequenceableCollection.md) containining strings where the first string is the path to the executable to be run and all other strings are passed as arguments to the executable. This method starts the process directly without using a shell. |  
+| `mode` | A [String](../Classes/String.md) passed to popen, so should be one of: "r", "w" |  
+### `close`
+Closes the pipe, waiting for the command to finish. You must do this explicitly before the Pipe object is garbage collected.**Returns:** The exit status of the command (an Integer).
+## Examples
+
+
+```supercollider
+// this pipes in stdout from ls
+(
+var p, l;
+p = Pipe.new("ls -l", "r");            // list directory contents in long format
+l = p.getLine;                    // get the first line
+while({ l.notNil }, { l.postln; l = p.getLine });    // post until l = nil
+p.close;                    // close the pipe to avoid that nasty buildup
+)
+```
+
+
+without using a shell:
+
+```supercollider
+// this pipes in stdout from ls
+(
+var p, l;
+p = Pipe.argv(["ls", "-l"], "r");            // list directory contents in long format
+l = p.getLine;                    // get the first line
+while({ l.notNil }, { l.postln; l = p.getLine });    // post until l = nil
+p.close;                    // close the pipe to avoid that nasty buildup
+)
+```
+
+
+A more time-intensive request:
+
+```supercollider
+(
+var p, l;
+p = Pipe.new("ping -c10 sourceforge.net", "r");    // list directory contents in long format
+l = p.getLine;                    // get the first line
+while({ l.notNil }, { l.postln; l = p.getLine });    // post until l = nil
+p.close;                    // close the pipe to avoid that nasty buildup
+)
+```
+
+
+
+

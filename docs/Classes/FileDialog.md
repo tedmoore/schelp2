@@ -1,0 +1,80 @@
+# FileDialog
+
+*Operating system interface for Open file, save file, select directory dialogs*
+
+**Categories:** GUI>Accessories
+
+**Related:** [Dialog](../Classes/Dialog.md), [File](../Classes/File.md)
+
+## Description
+
+This is the interface for your standard operating system modal file dialogs to open files, save files and select directories.
+[Dialog](../Classes/Dialog.md) has functions built on top of FileDialog that may be more convenient to use. However, selecting a directory is only possible with FileDialog.
+
+
+## Class Methods
+
+
+### `new`
+Create and display a dialog.**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `okFunc` | Handler function evaluated when the user clicks "Open" or "Save". This function receives different arguments depending on the value of `stripResult`. By default (`stripResult: false`), `okFunc` is passed an array of selected paths. Otherwise, the paths are passed as separate arguments, one for each path. |  
+| `cancelFunc` | Handler function evaluated when the user clicks "Cancel". Receives no arguments. |  
+| `fileMode` | An integer that determines the type of dialog.These values correspond directly to values of QFileDialog::FileMode in the Qt class.- 0 The name of a file, whether it exists or not.
+- 1 The name of a single existing file.
+- 2 The name of a directory. Both files and directories are displayed.
+- 3 The names of zero or more existing files.
+0 or 3 implies that the user can type in a new file name. |  
+| `acceptMode` | An integer that determines whether the dialog is for opening or saving files. Note that this doesn't actually open or save a file; you'll need to do that in your `okFunc`. This only affects appearance of the dialog.These values correspond directly to values of QFileDialog::AcceptMode in the Qt class.- 0 Opening
+- 1 Saving |  
+| `stripResult` | A boolean. If `true`, selected paths are passed individually as arguments to `okFunc`. Otherwise, they are passed as an array in a single argument (the default).- false: okFunc(paths)
+- true: okFunc(path1, path2, path3) |  
+| `path` | A string. The dialog will initially display the contents of this path. The default is the current user's home directory. |  
+**Returns:** a FileDialog
+## Examples
+
+
+```supercollider
+// By default, the selected paths are passed to okFunc as an array.
+(
+FileDialog({ |paths|
+    postln("Selected path:" + paths[0]);
+    }, {
+    postln("Dialog was cancelled. Try again.");
+    });
+)
+
+// You can change this by passing `stripResult: true`
+(
+FileDialog({ |path|
+    postln("Selected path:" + path);
+    }, {
+    postln("Dialog was cancelled. Try again.");
+    }, stripResult: true);
+)
+
+// Passing `fileMode: 3` makes it possible to select multiple files.
+(
+FileDialog({ |paths|
+    postln("Selected paths:");
+    paths.do(_.postln);
+    }, fileMode: 3);
+)
+
+// Passing `fileMode: 0` allows selecting any kind of file.
+// You can start the dialog in a directory other than home by passing `path: "/some/path/"`
+(
+FileDialog({ |path|
+    postln("Selected file:" + path);
+    postln("File type is:" + File.type(path)) },
+    fileMode: 0,
+    stripResult: true,
+    path: Platform.userAppSupportDir);
+)
+```
+
+
+
+

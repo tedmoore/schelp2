@@ -1,0 +1,12 @@
+# Color roles
+
+**Categories:** GUI>Accessories
+
+*A list of color roles within a palette, and their meaning*
+
+A palette (see [QPalette](../Classes/QPalette.md)) consists of colors assigned to various color roles within the three color groups (see [palette_color_groups](../Reference/palette_color_groups.md)). The following is a list of possible symbols to denote color roles, and their meanings.
+| **Role** | **Meaning** | 
+| --- | --- || 'window' | Window background. Views may also use this role, for example to derive the color of their border. It is also the background of StaticText. | | 'windowText' | Text on top of 'window', for example in StaticText. | | 'button' | Everything button-alike. For example Button background, as well as Slider thumb. | | 'buttonText' | Text on top of 'button'. | | 'brightText' | May be used for text on pressed Button. | | 'base' | Background of views that display a lot of text (TextView, ListView, etc.). | | 'baseText' | Text on top of 'base'. | | 'alternateBase' | ListView may use alternate background colors for rows. | | 'toolTipBase' | Background of tooltips. | | 'toolTipText' | Text of tooltips. | | 'highlight' | Used to indicate selection, as in ListView, etc. | | 'highlightText' | Selected text / item. | | 'link' | Default color for links on a web page. | | 'linkVisited' | Default color for visited links on a web page. | Additionally, the following roles are used to create 3D effects:
+| **Role** | **Meaning** | 
+| --- | --- || 'light' | Lighter than 'button'. | | 'midlight' | Between 'button' and 'light'. | | 'middark' | Between 'button' and 'dark'. | | 'dark' | Darker than 'button'. | | 'shadow' | A very dark color. | 
+

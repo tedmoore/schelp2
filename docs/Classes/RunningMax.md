@@ -1,0 +1,52 @@
+# RunningMax
+
+*Track maximum level.*
+
+**Related:** [RunningMin](../Classes/RunningMin.md), [RunningSum](../Classes/RunningSum.md)
+
+**Categories:** UGens>Maths
+
+## Description
+
+Outputs the maximum value received at the input. When a trigger occurs at the reset input, the maximum output value is reset to the current value.
+
+
+## Class Methods
+
+### `ar`, `kr`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `in` | The input signal. |  
+| `trig` | Resets the output value to the current input value. A trigger happens when the signal changes from non-positive to positive. |  
+
+## Examples
+
+
+```supercollider
+(
+{
+    SinOsc.ar(
+            RunningMax.ar(Dust.ar(20), Impulse.ar(0.4)) * 500 + 200,
+            0, 0.2
+    )
+
+}.play;
+)
+
+// follow a sine lfo, reset rate controlled by mouse x
+(
+{
+    SinOsc.ar(
+            RunningMax.kr(SinOsc.kr(0.2), Impulse.kr(MouseX.kr(0.01, 2, 1))) * 500 + 200,
+            0, 0.2
+    )
+
+}.play;
+)
+```
+
+
+
+

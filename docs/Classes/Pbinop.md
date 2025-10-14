@@ -1,0 +1,116 @@
+# Pbinop
+
+*binary operator pattern*
+
+**Related:** [Pnaryop](../Classes/Pnaryop.md), [Punop](../Classes/Punop.md), [BinaryOpFunction](../Classes/BinaryOpFunction.md)
+
+**Categories:** Streams-Patterns-Events>Patterns>Math
+
+## Description
+
+Returns a stream that applies the binary operator to the stream values of the receiver. Usually, this is the result of applying a binary operator (i.e. a method with one argument) to a pattern.
+Examples of binary operators are: +, -, /, *, min, max, hypot ...
+
+
+## Class Methods
+
+### `new`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `operator` | operator to be applied |  
+| `a` | a pattern (or compatible pattern input) |  
+| `b` | a pattern (or compatible pattern input) |  
+| `adverb` |  |  
+
+## Examples
+
+
+```supercollider
+(
+var a;
+a = Pbinop(\hypot, Pseries(0, 1, 12), Pseries(3, -1, 12));
+a.asStream.all;
+)
+
+// this is the same as:
+(
+var a;
+a = Pseries(0, 1, 12).hypot(Pseries(3, -1, 12));
+a.asStream.all;
+)
+
+// also written as:
+(
+var a;
+a = Pseries(0, 1, 12) hypot: Pseries(3, -1, 12);
+a.asStream.all;
+)
+
+// some common cases:
+Pseq([1, 2, 3]) + 2;
+Pseq([1, 2, 3]) / Pseq([3, 4, 5, 6]);
+max(Pwhite(-10, 10, inf), Pseq([0, 2, 3, 4]));
+```
+
+
+
+```supercollider
+// sound example
+(
+SynthDef(\help_sinegrain,
+    { |out = 0, freq = 440, sustain = 0.05, amp = 0.1|
+        var env;
+        env = EnvGen.kr(Env.perc(0.01, sustain, 0.2, amp), doneAction: Done.freeSelf);
+        Out.ar(out, SinOsc.ar(freq, 0, env))
+    }).add;
+)
+
+(
+var a;
+a = Pn(Pbinop(\hypot, Pseries(0, 1, 34), Pseries(3, -1, 34)), inf).asStream;
+{
+    a.do { |val|
+        Synth(\help_sinegrain, [\freq, a * 200 + 300].postln);
+        0.05.wait;
+    }
+}.fork;
+)
+
+(
+Pbind(
+    \dur, 0.01,
+    \instrument, \help_sinegrain,
+    \note, Pn(Pbinop(\hypot, Pwhite(0, 12, 13), Pseries(3, -1, 12)))
+).play;
+)
+
+
+
+// these are the same as:
+
+(
+var a;
+a = Pn(Pseries(0, 1, 34) hypot: Pseries(3, -1, 34), inf).asStream;
+{
+    a.do { |val|
+        Synth(\help_sinegrain, [\freq, a * 200 + 300].postln);
+        0.05.wait;
+    }
+}.fork;
+)
+
+
+(
+Pbind(
+    \dur, 0.01,
+    \instrument, \help_sinegrain,
+    \note, Pn(Pwhite(0, 12, 13) hypot: Pseries(3, -1, 12))
+).play;
+)
+```
+
+
+
+

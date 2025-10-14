@@ -1,0 +1,59 @@
+# KeyState
+
+*Respond to the state of a key*
+
+**Related:** [MouseButton](../Classes/MouseButton.md), [MouseX](../Classes/MouseX.md), [MouseY](../Classes/MouseY.md)
+
+**Categories:** UGens>User interaction
+
+## Description
+
+Respond to the state of a key.
+
+> **Note:** Note that this UGen does not prevent normal typing. It therefore may be helpful to select a GUI window rather than an SC document when using KeyState, as the latter will be altered by any keystrokes.
+
+
+> **⚠️ Warning:** This UGen will not work for Linux users using Wayland, as the Wayland protocol does not allow a global keyboard or mouse state to be captured. The UGen will return $0.0$ as constant value. For more information see [https://github.com/supercollider/supercollider/issues/4544](https://github.com/supercollider/supercollider/issues/4544)
+> **⚠️ Warning:** MacOS users will need to add the SuperCollider application to the Input Monitoring group in the Privacy & Security preferences to have all keys captured. See [https://support.apple.com/en-us/guide/mac-help/mchl4cedafb6/mac](https://support.apple.com/en-us/guide/mac-help/mchl4cedafb6/mac)
+
+
+## Class Methods
+
+### `kr`
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+| `keycode` | The keycode value of the key to check. This corresponds to the keycode values passed into the keyDownActions of SCViews. See the example below. |  
+| `minval` | The value to output when the key is not pressed. |  
+| `maxval` | The value to output when the key is pressed. |  
+| `lag` | A lag factor. |  
+
+
+## Instance Methods
+
+
+## Examples
+
+
+```supercollider
+s.boot;
+
+// execute the code below to find out a key's keycode
+// the char and keycode of any key you press will be printed in the post window
+(
+w = Window.new("I catch keystrokes");
+w.view.keyDownAction = { |view, char, modifiers, unicode, keycode|  [char, keycode].postln };
+w.front;
+)
+
+// then execute this and then press the 'j' key
+(
+w.front; // something safe to type on
+{ SinOsc.ar(800, 0, KeyState.kr(38, 0, 0.1)) }.play;
+)
+```
+
+
+
+

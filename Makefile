@@ -29,13 +29,8 @@ install:
 	@echo "📦 Installing Python dependencies..."
 	@pip install -q -r requirements.txt
 
-# Prepare for build: generate index and copy config
-prepare: install
-	@echo "📋 Copying docs_staging files to docs..."
-	@cp -r docs_staging/* docs/
-
 # Build HTML documentation
-html: prepare
+html:
 	@echo "🏗️  Building HTML documentation..."
 	@$(SPHINXBUILD) -b html "$(SOURCEDIR)" "$(BUILDDIR)/html" $(SPHINXOPTS) $(O)
 	@echo ""
@@ -63,6 +58,6 @@ serve:
 	@cd $(BUILDDIR)/html && $(PYTHON) -m http.server 8000
 
 # Live server for development (requires sphinx-autobuild)
-livehtml: prepare
+livehtml:
 	@echo "🔄 Starting live rebuild server..."
 	@sphinx-autobuild "$(SOURCEDIR)" "$(BUILDDIR)/html" $(SPHINXOPTS) $(O)
