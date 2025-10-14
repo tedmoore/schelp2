@@ -1,7 +1,6 @@
-from schelp_to_json import parse_file
+from scdoc_to_json import parse_schelp_file
 import argparse
 import os
-from schelp_to_json import BLOCK_TAGS, BLOCK_PARSERS
 
 def main(input_dir, output_dir):
     
@@ -25,11 +24,13 @@ def main(input_dir, output_dir):
         
         # Process all .schelp files in current directory
         for filename in files:
-            if filename.endswith('.schelp'):
+            if filename.endswith('.ext.schelp'):
+                pass
+            elif filename.endswith('.schelp'):
                 input_file = os.path.join(root, filename)
                 output_file = os.path.join(current_output_dir, filename.replace('.schelp', '.json'))
                 print(f"{parsed_files+1} Parsing {input_file} to {output_file}")
-                parse_file(input_file, output_file)
+                parse_schelp_file(input_file, output_file=output_file)
                 parsed_files += 1
 
     print(f"Parsed {parsed_files} files")

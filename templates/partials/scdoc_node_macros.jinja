@@ -1,0 +1,489 @@
+{#- 
+  Macros for rendering SCDoc parse tree nodes from the C++ parser
+  Node structure: { "id": "NODE_TYPE", "text": "...", "children": [...] }
+-#}
+
+{#- Main rendering macro that dispatches to specific handlers based on node ID -#}
+{% macro render_node(node, indent=0) -%}
+{%- if not node -%}
+{#- Empty node, do nothing -#}
+{%- elif node.id == "DOCUMENT" -%}
+{{ render_document(node) }}
+
+{%- elif node.id == "HEADER" -%}
+{{ render_header(node) }}
+
+{%- elif node.id == "BODY" -%}
+{{ render_body(node) }}
+
+{%- elif node.id == "TITLE" -%}
+{{ render_title(node) }}
+
+{%- elif node.id == "SUMMARY" -%}
+{{ render_summary(node) }}
+
+{%- elif node.id == "CATEGORIES" -%}
+{{ render_categories(node) }}
+
+{%- elif node.id == "RELATED" -%}
+{{ render_related(node) }}
+
+{%- elif node.id == "DESCRIPTION" -%}
+{{ render_description(node) }}
+
+{%- elif node.id == "SECTION" -%}
+{{ render_section(node, 2) }}
+
+{%- elif node.id == "SUBSECTION" -%}
+{{ render_section(node, 3) }}
+
+{%- elif node.id == "SUBSUBSECTION" -%}
+{{ render_section(node, 4) }}
+
+{%- elif node.id == "CLASSMETHODS" -%}
+{{ render_classmethods(node) }}
+
+{%- elif node.id == "INSTANCEMETHODS" -%}
+{{ render_instancemethods(node) }}
+
+{%- elif node.id == "CMETHOD" -%}
+{{ render_method(node, "Class Method") }}
+
+{%- elif node.id == "IMETHOD" -%}
+{{ render_method(node, "Instance Method") }}
+
+{%- elif node.id == "METHOD" -%}
+{{ render_method(node, "Method") }}
+
+{%- elif node.id == "METHODNAMES" -%}
+{{ render_methodnames(node) }}
+
+{%- elif node.id == "METHODBODY" -%}
+{{ render_methodbody(node) }}
+
+{%- elif node.id == "ARGUMENTS" -%}
+{#- Handled by render_methodbody, don't render here -#}
+
+{%- elif node.id == "ARGUMENT" -%}
+{#- Handled by render_methodbody, don't render here -#}
+
+{%- elif node.id == "RETURNS" -%}
+{{ render_returns(node) }}
+
+{%- elif node.id == "PROSE" -%}
+{{ render_prose(node) }}
+
+{%- elif node.id == "TEXT" -%}
+{{ node.text if node.text else "" }}
+
+{%- elif node.id == "NL" -%}
+
+{%- elif node.id == "LINK" -%}
+{{ render_link(node) }}
+
+{%- elif node.id == "ANCHOR" -%}
+{{ render_anchor(node) }}
+
+{%- elif node.id == "CODE" -%}
+`{{ node.text }}`
+
+{%- elif node.id == "EMPHASIS" -%}
+*{{ node.text }}*
+
+{%- elif node.id == "STRONG" -%}
+**{{ node.text if node.text else render_children(node) }}**
+
+{%- elif node.id == "SOFT" -%}
+{{ node.text if node.text else render_children(node) }}
+
+{%- elif node.id == "TELETYPE" -%}
+`{{ node.text if node.text else render_children(node) }}`
+
+{%- elif node.id == "MATH" -%}
+${{ node.text }}$
+
+{%- elif node.id == "CODEBLOCK" -%}
+{{ render_codeblock(node) }}
+
+{%- elif node.id == "EXAMPLES" -%}
+{{ render_examples(node) }}
+
+{%- elif node.id == "NOTE" -%}
+{{ render_note(node) }}
+
+{%- elif node.id == "WARNING" -%}
+{{ render_warning(node) }}
+
+{%- elif node.id == "LIST" -%}
+{{ render_list(node) }}
+
+{%- elif node.id == "NUMBEREDLIST" -%}
+{{ render_numberedlist(node) }}
+
+{%- elif node.id == "ITEM" -%}
+{{ render_children(node) }}
+
+{%- elif node.id == "DEFINITIONLIST" -%}
+{{ render_definitionlist(node) }}
+
+{%- elif node.id == "DEFLISTITEM" -%}
+{{ render_deflistitem(node) }}
+
+{%- elif node.id == "TERM" -%}
+{{ render_children(node) }}
+
+{%- elif node.id == "DEFINITION" -%}
+{{ render_children(node) }}
+
+{%- elif node.id == "TABLE" -%}
+{{ render_table(node) }}
+
+{%- elif node.id == "TABROW" -%}
+{#- Handled by render_table -#}
+
+{%- elif node.id == "TABCOL" -%}
+{#- Handled by render_table -#}
+
+{%- elif node.id == "STRING" -%}
+{{ node.text }}
+
+{%- elif node.id == "FOOTNOTE" -%}
+{{ render_footnote(node) }}
+
+{%- elif node.id == "IMAGE" -%}
+{{ render_image(node) }}
+
+{%- elif node.id == "PRIVATE" -%}
+{#- Skip private method -#}
+
+{%- elif node.id == "IPRIVATE" -%}
+{#- Skip instance private method -#}
+
+{%- elif node.id == "CPRIVATE" -%}
+{#- Skip class private method -#}
+
+{%- else -%}
+{#- Unknown node type - render children if available -#}
+{{ render_children(node) }}
+{%- endif -%}
+{%- endmacro %}
+
+{#- Helper macro to render all children of a node -#}
+{% macro render_children(node) -%}
+{%- if node.children -%}
+{%- for child in node.children -%}
+{{ render_node(child) }}
+{%- endfor -%}
+{%- endif -%}
+{%- endmacro %}
+
+{#- Document structure -#}
+{% macro render_document(node) -%}
+{%- for child in node.children -%}
+{{ render_node(child) }}
+{%- endfor -%}
+{%- endmacro %}
+
+{#- Header rendering -#}
+{% macro render_header(node) -%}
+{% for child in node.children -%}
+{{ render_node(child) }}
+{% endfor -%}
+{%- endmacro %}
+
+{#- Body -#}
+{% macro render_body(node) -%}
+{%- for child in node.children -%}
+{{ render_node(child) }}
+{%- if child.id in ["PROSE", "DEFINITIONLIST", "LIST", "NUMBEREDLIST", "SECTION", "SUBSECTION", "SUBSUBSECTION", "CODE", "NOTE", "WARNING"] %}
+
+{% endif -%}
+{%- endfor -%}
+{%- endmacro %}
+
+{#- Title -#}
+{% macro render_title(node) -%}
+# {{ node.text }}
+{% endmacro %}
+
+{#- Summary -#}
+{% macro render_summary(node) -%}
+*{{ node.text }}*
+{% endmacro %}
+
+{#- Categories -#}
+{% macro render_categories(node) -%}
+**Categories:** {% for child in node.children %}{% if child.id == "STRING" %}{{ child.text }}{% if not loop.last %}, {% endif %}{% endif %}{% endfor %}
+
+{% endmacro %}
+
+{#- Related -#}
+{% macro render_related(node) -%}
+**Related:** {% for child in node.children %}{% if child.id == "STRING" %}[{{ child.text.replace("Classes/", "").replace("Guides/", "").replace("Tutorials/", "").replace("Reference/", "") }}]({{ child.text }}.md){% if not loop.last %}, {% endif %}{% endif %}{% endfor %}
+
+{% endmacro %}
+
+{#- Description -#}
+{% macro render_description(node) -%}
+
+## Description
+
+{% for child in node.children %}
+{{ render_node(child) }}
+{% endfor %}
+
+{% endmacro %}
+
+{#- Section with level -#}
+{#- Section/Subsection/Subsubsection -#}
+{% macro render_section(node, level=2) -%}
+{%- set heading = "#" * level %}
+
+{{ heading }} {{ node.text }}
+{% for child in node.children -%}
+{{ render_node(child) }}
+{%- if child.id in ["PROSE", "DEFINITIONLIST", "LIST", "NUMBEREDLIST", "SUBSECTION", "SUBSUBSECTION", "CODE"] %}
+
+{% endif -%}
+{%- endfor -%}
+{%- endmacro %}
+
+{#- Class Methods -#}
+{% macro render_classmethods(node) %}
+
+## Class Methods
+
+{% for child in node.children -%}
+{{ render_node(child) }}
+{% endfor -%}
+{% endmacro %}
+
+{#- Instance Methods -#}
+{% macro render_instancemethods(node) %}
+
+## Instance Methods
+
+{{ render_children(node) }}
+{% endmacro %}
+
+{#- Method -#}
+{% macro render_method(node, method_type="Method") -%}
+{%- set method_names = [] -%}
+{%- for child in node.children -%}
+  {%- if child.id == "METHODNAMES" -%}
+    {%- for name_node in child.children -%}
+      {%- if name_node.id == "STRING" -%}
+        {%- set _ = method_names.append(name_node.text) -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+{%- endfor -%}
+
+### `{{ method_names | join("`, `") }}`
+
+{%- for child in node.children -%}
+  {%- if child.id == "METHODBODY" %}
+
+{{ render_node(child) }}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- endmacro %}
+
+{#- Method Names -#}
+{% macro render_methodnames(node) -%}
+{#- Handled by render_method -#}
+{%- endmacro %}
+
+{#- Method Body -#}
+{% macro render_methodbody(node) -%}
+{%- for child in node.children -%}
+  {%- if child.id == "ARGUMENTS" -%}
+
+**Arguments:**
+
+| Argument | Description |
+|----------|-------------|
+{% for arg in child.children %}
+{% if arg.id == "ARGUMENT" %}
+| `{{ arg.text }}` | {{ render_children(arg) | trim }} |  
+{% endif -%}
+{%- endfor %}
+
+  {%- else -%}
+{{ render_node(child) }}
+  {%- endif -%}
+{%- endfor -%}
+{%- endmacro %}
+
+{#- Arguments container -#}
+{% macro render_arguments(node) -%}
+{#- Handled by render_methodbody -#}
+{%- endmacro %}
+
+{#- Single Argument -#}
+{% macro render_argument(node) -%}
+{#- Handled by render_methodbody -#}
+{%- endmacro %}
+
+{#- Returns -#}
+{% macro render_returns(node) -%}
+
+**Returns:** {{ render_children(node) }}
+{%- endmacro %}
+
+{#- Prose (paragraph) -#}
+{% macro render_prose(node) -%}
+{{ render_children(node) }}
+
+{%- endmacro %}
+
+{#- Link -#}
+{% macro render_link(node) -%}
+{%- set link_text = node.text -%}
+{%- set link_parts = link_text.split("##") -%}
+{%- if link_parts | length == 2 -%}
+{#- Format: target##display -#}
+{%- set target = link_parts[0] -%}
+{%- set display = link_parts[1] -%}
+{%- else -%}
+{#- Check if it's the three-part format: path#anchor#display -#}
+{%- set hash_parts = link_text.split("#") -%}
+{%- if hash_parts | length == 3 -%}
+{#- Format: path#anchor#display -#}
+{%- set target = hash_parts[0] ~ "#" ~ hash_parts[1] -%}
+{%- set display = hash_parts[2] -%}
+{%- else -%}
+{#- Default: use the full text as both target and display -#}
+{%- set target = link_text -%}
+{%- set display = link_text -%}
+{%- endif -%}
+{%- endif -%}
+
+{%- if target.startswith("http://") or target.startswith("https://") -%}
+[{{ display }}]({{ target }})
+{%- elif target.startswith("#") -%}
+[{{ display }}]({{ target }})
+{%- else -%}
+{%- if "#" in target -%}
+{%- set path_parts = target.split("#") -%}
+[{{ display }}]({{ path_parts[0] }}.md#{{ path_parts[1] }})
+{%- else -%}
+[{{ display }}]({{ target }}.md)
+{%- endif -%}
+{%- endif -%}
+{%- endmacro %}
+
+{#- Anchor -#}
+{% macro render_anchor(node) -%}
+<a id="{{ node.text }}"></a>
+{%- endmacro %}
+
+{#- Code Block -#}
+{% macro render_codeblock(node) -%}
+
+```supercollider
+{{ node.text }}
+```
+{%- endmacro %}
+
+{#- Examples -#}
+{% macro render_examples(node) -%}
+
+## Examples
+
+{% for child in node.children -%}
+{{ render_node(child) }}
+{% endfor -%}
+{%- endmacro %}
+
+{#- Note -#}
+{% macro render_note(node) %}
+
+> **Note:** {{ render_children(node) | trim }}
+
+{% endmacro %}
+
+{#- Warning -#}
+{% macro render_warning(node) -%}
+
+> **⚠️ Warning:** {{ render_children(node) | trim }}
+{%- endmacro %}
+
+{#- List -#}
+{% macro render_list(node) -%}
+{%- for child in node.children -%}
+{%- if child.id == "ITEM" %}
+- {{ render_children(child) }}
+{% endif -%}
+{%- endfor -%}
+{%- endmacro %}
+
+{#- Numbered List -#}
+{% macro render_numberedlist(node) -%}
+{%- for child in node.children -%}
+{%- if child.id == "ITEM" %}
+{{ loop.index }}. {{ render_children(child) }}
+{% endif -%}
+{%- endfor -%}
+{%- endmacro %}
+
+{#- Definition List -#}
+{% macro render_definitionlist(node) -%}
+
+{%- for child in node.children -%}
+{%- if child.id == "DEFLISTITEM" %}
+{{ render_deflistitem(child) }}
+{%- endif -%}
+{%- endfor -%}
+{%- endmacro %}
+
+{#- Definition List Item -#}
+{% macro render_deflistitem(node) -%}
+{%- for child in node.children -%}
+{%- if child.id == "TERM" %}
+**{{ render_children(child) | trim }}**
+{% elif child.id == "DEFINITION" %}
+: {{ render_children(child) | trim }}
+
+{% endif -%}
+{%- endfor -%}
+{%- endmacro %}
+
+{#- Table -#}
+{% macro render_table(node) -%}
+{%- set rows = [] -%}
+{%- for child in node.children -%}
+  {%- if child.id == "TABROW" -%}
+    {%- set cols = [] -%}
+    {%- for col in child.children -%}
+      {%- if col.id == "TABCOL" -%}
+        {%- set _ = cols.append(col) -%}
+      {%- endif -%}
+    {%- endfor -%}
+    {%- set _ = rows.append(cols) -%}
+  {%- endif -%}
+{%- endfor -%}
+
+{%- if rows -%}
+
+| {% for col in rows[0] %}{{ render_children(col) | trim }} | {% endfor %}
+
+|{% for col in rows[0] %} --- |{% endfor %}
+
+{%- for row in rows[1:] %}
+| {% for col in row %}{{ render_children(col) | trim }} | {% endfor %}
+
+{%- endfor -%}
+{%- endif -%}
+{%- endmacro %}
+
+{#- Footnote -#}
+{% macro render_footnote(node) -%}
+> *{{ render_children(node) }}*
+{%- endmacro %}
+
+{#- Image -#}
+{% macro render_image(node) -%}
+![{{ node.text }}]({{ node.text }})
+{%- endmacro %}

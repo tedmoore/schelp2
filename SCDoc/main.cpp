@@ -5,7 +5,7 @@
 #include <fstream>
 
 #include "SCDoc.h"
-#include <nlohmann/json.hpp>
+#include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
 

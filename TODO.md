@@ -1,6 +1,9 @@
-* put "code" blocks into stand alone .scd files to check for errors
+## more immediate
+
 * proper footnotes
-* compare methods and args in .md file against methods and args in json from sc class library to look for discrepancies
+
+## account for more in line tags?
+
 * Warning: Unknown inline tag 'discussion' found.
 * Warning: Unknown inline tag 'keyword' found.
 * Warning: Unknown inline tag 'redirect' found.
@@ -14,4 +17,9 @@
 * Warning: Unknown inline tag 'classtree' found.
 * Warning: Unknown inline tag 'patterns' found.
 * Warning: Unknown inline tag 'architecture' found.
-* implement copymethod
+
+## future, future
+
+* put "code" blocks into stand alone .scd files to check for errors
+* compare methods and args in .md file against methods and args in json from sc class library to look for discrepancies
+* implement copymethod?

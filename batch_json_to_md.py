@@ -1,4 +1,4 @@
-from json_to_markdown import convert_to_markdown
+from json_to_md import json_to_md
 import argparse
 import os
 
@@ -28,7 +28,7 @@ def main(input_dir, output_dir):
                 input_file = os.path.join(root, filename)
                 output_file = os.path.join(current_output_dir, filename.replace('.json', '.md'))
                 print(f"{converted_files+1} Converting {input_file} to {output_file}")
-                convert_to_markdown(input_file, output_file)
+                json_to_md(input_file, output_file)
                 converted_files += 1
 
     print(f"Converted {converted_files} files")
@@ -36,7 +36,7 @@ def main(input_dir, output_dir):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        '-i',
+        '-j',
         help='Input directory of .json files'
     )
     parser.add_argument(
@@ -44,4 +44,4 @@ if __name__ == '__main__':
         help='Output directory'
     )
     args = parser.parse_args()
-    main(args.i, args.o)
+    main(args.j, args.o)
