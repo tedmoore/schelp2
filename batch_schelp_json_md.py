@@ -1,6 +1,6 @@
 import argparse
 import batch_schelp_to_json
-import batch_json_to_markdown
+import batch_json_to_md
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -18,4 +18,4 @@ if __name__ == '__main__':
     )
     args = parser.parse_args()
     batch_schelp_to_json.main(args.i, args.j)
-    batch_json_to_markdown.main(args.j, args.o)
+    batch_json_to_md.main(args.j, args.o)
