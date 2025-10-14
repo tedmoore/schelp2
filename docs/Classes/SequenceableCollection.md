@@ -175,7 +175,7 @@ Return a new collection of same type as receiver which consists of all indices o
 #[a, b, c, g, h, h, j, h].selectIndices({ |item, i| item === \h })
 ```
 
-If you want to control what type of collection is returned, use [#-selectIndicesAs](#-selectindicesas)### `selectIndicesAs`
+If you want to control what type of collection is returned, use [selectIndicesAs](#selectindicesas)### `selectIndicesAs`
 Return a new collection of type *class* which consists of all indices of those elements of the receiver for which function answers `true`. The function is passed two arguments, the item and an integer index.
 ```supercollider
 #[a, b, c, g, h, h, j, h].selectIndicesAs({ |item, i| item === \h }, Set)
@@ -187,7 +187,7 @@ Return a new collection of same type as receiver which consists of all indices o
 #[a, b, c, g, h, h, j, h].rejectIndices({ |item, i| item === \h })
 ```
 
-If you want to control what type of collection is returned, use [#-rejectIndicesAs](#-rejectindicesas)### `rejectIndicesAs`
+If you want to control what type of collection is returned, use [rejectIndicesAs](#rejectindicesas)### `rejectIndicesAs`
 Return a new collection of type *class* which consists of all indices of those elements of the receiver for which function answers `false`. The function is passed two arguments, the item and an integer index.
 ```supercollider
 #[a, b, c, g, h, h, j, h].rejectIndicesAs({ |item, i| item === \h }, Set)
@@ -201,7 +201,7 @@ y.find([7, 6, 5]);
 ```
 
 ### `findAll`
-Similar to [#-find](#-find) but returns an array of all the indices at which the sequence is found.
+Similar to [find](#find) but returns an array of all the indices at which the sequence is found.
 ```supercollider
 y = [7, 8, 7, 6, 5, 6, 7, 6, 7, 8, 9];
 y.findAll([7, 6]);
@@ -214,14 +214,14 @@ Returns the closest index of the value in the collection (collection must be sor
 ```
 
 ### `indexInBetween`
-Returns a linearly interpolated float index for the value (collection must be sorted). Inverse operation is [#-blendAt](#-blendat).
+Returns a linearly interpolated float index for the value (collection must be sorted). Inverse operation is [blendAt](#blendat).
 ```supercollider
 x = [2, 3, 5, 6].indexInBetween(5.2);
 [2, 3, 5, 6].blendAt(x);
 ```
 
 ### `blendAt`
-Returns a linearly interpolated value between the two closest indices. Inverse operation is [#-indexInBetween](#-indexinbetween).
+Returns a linearly interpolated value between the two closest indices. Inverse operation is [indexInBetween](#indexinbetween).
 ```supercollider
 x = [2, 5, 6].blendAt(0.4);
 ```
@@ -333,7 +333,7 @@ a.flatten(3); // [ 1, 2, 3, 4, 5, 6, 7, 8, [9, 0] ]
 a.flatten(4); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
 ``` |  
 ### `flatten2`
-A symmetric version of [#-flatten](#-flatten). For a negative `numLevels`, it flattens starting from the innermost arrays.**Arguments:**
+A symmetric version of [flatten](#flatten). For a negative `numLevels`, it flattens starting from the innermost arrays.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -506,7 +506,7 @@ Choose an element from the collection at random using a list of probabilities or
 ```
 
 ### `wchoosen`
-Choose an element from the collection at random using a list of probabilities or weights. The weights are derived from a function or an array of any size, and their sum is automatically normalized to 1.0. If the weights are shorter than the collection, the remaining weights are assumed to be zero. If the weights are longer, the exceeding weights are ignored. A weight defined as a function is first called with the collection as the argument. Because the provided weights are normalized on every call, it is less efficient than using [#-wchoose](#-wchoose) with pre-normalized weights.
+Choose an element from the collection at random using a list of probabilities or weights. The weights are derived from a function or an array of any size, and their sum is automatically normalized to 1.0. If the weights are shorter than the collection, the remaining weights are assumed to be zero. If the weights are longer, the exceeding weights are ignored. A weight defined as a function is first called with the collection as the argument. Because the provided weights are normalized on every call, it is less efficient than using [wchoose](#wchoose) with pre-normalized weights.
 ```supercollider
 // weights are a non-normalized array
 10.collect { [1, 2, 3, 4].wchoosen([10, 18, 3, 2]) }
@@ -546,7 +546,7 @@ a.sortBy(\c);
 ```
 
 ### `order`
-Return an array of indices that would sort the collection into order. **function** is treated the same way as for the [#-sort](#-sort) method.
+Return an array of indices that would sort the collection into order. **function** is treated the same way as for the [sort](#sort) method.
 ```supercollider
 [6, 2, 1, 7, 5].order;
 ```
@@ -678,7 +678,7 @@ For cases that require comparisons other than identity, the optional `compareFun
 ``` |  
 
 ### `similarity`
-Returns a value between 0 and 1 representing the percentage similarity between this `SequenceableCollection` and the other `SequenceableCollection`.A value of 1 means they are exactly the same, a value of 0 means they are completely different. This is calculated based on the [#-editDistance](#-editdistance)
+Returns a value between 0 and 1 representing the percentage similarity between this `SequenceableCollection` and the other `SequenceableCollection`.A value of 1 means they are exactly the same, a value of 0 means they are completely different. This is calculated based on the [editDistance](#editdistance)
 ```supercollider
 "hello".similarity("hello"); // 1
 "hello".similarity("asdf"); // 0
@@ -690,13 +690,13 @@ Returns a value between 0 and 1 representing the percentage similarity between t
 | Argument | Description |
 |----------|-------------|
 | `other` | The `SequenceableCollection` to compare against |  
-| `compareFunc` | An optional compareFunc to be used to calculate the edit distance (see [#-editDistance](#-editdistance)) |  
+| `compareFunc` | An optional compareFunc to be used to calculate the edit distance (see [editDistance](#editdistance)) |  
 
 
 
 
 ### Math Support - Unary Messages
-All of the following messages send the message [#-performUnaryOp](#-performunaryop) to the receiver with the unary message selector as an argument.
+All of the following messages send the message [performUnaryOp](#performunaryop) to the receiver with the unary message selector as an argument.
 
 ### `neg`, `reciprocal`, `bitNot`, `abs`, `asFloat`, `ceil`, `floor`, `frac`, `sign`, `squared`, `cubed`, `sqrt`, `exp`, `midicps`, `cpsmidi`, `midiratio`, `ratiomidi`, `ampdb`, `dbamp`, `octcps`, `cpsoct`, `log`, `log2`, `log10`, `sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `sinh`, `cosh`, `tanh`, `rand`, `rand2`, `linrand`, `bilinrand`, `sum3rand`, `distort`, `softclip`, `coin`, `even`, `odd`, `isPositive`, `isNegative`, `isStrictlyPositive`, `real`, `imag`, `magnitude`, `magnitudeApx`, `phase`, `angle`, `rho`, `theta`, `asFloat`, `asInteger`
 
@@ -710,7 +710,7 @@ Creates a new collection of the results of applying the selector to all elements
 
 
 ### Math Support - Binary Messages
-All of the following messages send the message [#-performBinaryOp](#-performbinaryop) to the receiver with the binary message selector and the second operand as arguments.
+All of the following messages send the message [performBinaryOp](#performbinaryop) to the receiver with the binary message selector and the second operand as arguments.
 
 ### `+`, `-`, `*`, `/`, `div`, `min`, `max`, `<`, `<=`, `>`, `>=`, `bitXor`, `lcm`, `gcd`, `round`, `trunc`, `atan2`, `hypot`, `ring1`, `ring2`, `ring3`, `ring4`, `difsqr`, `sumsqr`, `sqrdif`, `absdif`, `amclip`, `scaleneg`, `clip2`, `excess`, `rrand`, `exprand`
 
@@ -915,7 +915,7 @@ Executes a system command **asynchronously**. This object should be an array of 
 
 
 ### `unixCmdGetStdOut`
-Similar to [#-unixCmd](#-unixcmd) except that the stdout of the process is returned (**synchronously**) rather than sent to the post window. This object should be an array of strings where the first string is the path to the executable to be run and all other strings are passed as arguments to the executable. This method starts the process directly without using a shell.
+Similar to [unixCmd](#unixcmd) except that the stdout of the process is returned (**synchronously**) rather than sent to the post window. This object should be an array of strings where the first string is the path to the executable to be run and all other strings are passed as arguments to the executable. This method starts the process directly without using a shell.
 ```supercollider
 ~listing = ["ls", "/"].unixCmdGetStdOut; // Grab
 ~listing.reverse.as(Array).dupEach.join.postln; // Mangle

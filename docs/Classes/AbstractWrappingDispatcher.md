@@ -30,7 +30,7 @@ Remove a responder func from this dispatcher.**Arguments:**
 |----------|-------------|
 | `funcProxy` | An instance of a subclass of [AbstractResponderFunc](../Classes/AbstractResponderFunc.md) to remove. |  
 ### `updateFuncForFuncProxy`
-This method is called within [#-update](#-update) to update any changes to one of this dispatcher's responder funcs' function(s). Users should not call this method directly, but subclasses may need to extend this method to do additional bookkeeping.**Arguments:**
+This method is called within [update](#update) to update any changes to one of this dispatcher's responder funcs' function(s). Users should not call this method directly, but subclasses may need to extend this method to do additional bookkeeping.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

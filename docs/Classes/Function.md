@@ -383,14 +383,14 @@ Executes the receiver. The cleanup function handler is executed with an error as
 
 ### Scheduling
 ### `awake`
-This method is called by a [Clock](../Classes/Clock.md) on which the function was scheduled when its scheduling time is up. It calls [#-value](#-value), passing on the scheduling time in beats as an argument.**Arguments:**
+This method is called by a [Clock](../Classes/Clock.md) on which the function was scheduled when its scheduling time is up. It calls [value](#value), passing on the scheduling time in beats as an argument.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `beats` | The scheduling time in beats. This is equal to the current logical time ([Thread#-beats](../Classes/Thread.md#-beats)). |  
 | `seconds` | The scheduling time in seconds. This is equal to the current logical time ([Thread#-seconds](../Classes/Thread.md#-seconds)). |  
 | `clock` | The clock on which the object was scheduled. |  
-**Returns:** The value returned by the function's [#-value](#-value). A caller clock uses this value to reschedule the function.
+**Returns:** The value returned by the function's [value](#value). A caller clock uses this value to reschedule the function.
 ```supercollider
 // Runs every 2 seconds
 AppClock.play({ "And again".postln; 2 });

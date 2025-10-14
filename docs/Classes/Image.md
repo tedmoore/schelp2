@@ -607,7 +607,7 @@ retrieve or set all the pixels of the receiver.
 | `array` | an [Int32Array](../Classes/Int32Array.md) of size receiver.width * receiver.height containing all pixel values as 32bit Integer |  
 
 ### `loadPixels`
-load all the pixels of the receiver in an array. it is better and faster to call this function instead of [#-pixels](#-pixels) if you plan to retrieve frequently the pixel data (since it won't allocate a new array everytime !)
+load all the pixels of the receiver in an array. it is better and faster to call this function instead of [pixels](#pixels) if you plan to retrieve frequently the pixel data (since it won't allocate a new array everytime !)
 ```supercollider
 // exec one line at a time
 (

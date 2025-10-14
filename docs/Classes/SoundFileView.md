@@ -29,7 +29,7 @@ Scroll using right-click + mouse-left/right.
 | `` | An Instance of SoundFile to display. |  
 
 ### `read`
- Reads a section of the [#-soundfile](#-soundfile) and displays it in the view. For large files, you may want to use readWithTask instead. The 'block' argument has no effect; the display resolution is infinite.**Arguments:**
+ Reads a section of the [soundfile](#soundfile) and displays it in the view. For large files, you may want to use readWithTask instead. The 'block' argument has no effect; the display resolution is infinite.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -52,7 +52,7 @@ Scroll using right-click + mouse-left/right.
 | `doneAction` | A Function called when the file reading has completed. |  
 
 ### `readWithTask`
- Reads a section of the [#-soundfile](#-soundfile) asynchronously (in the background), updating the [#-readProgress](#-readprogress) along the way. If the `showProgress` argument is `true`, a SoundFileViewProgressWindow opens to show the progress. The 'block' argument has no effect; the display resolution is infinite. The 'showProgress' argument has no effect; the view always displays reading progress within itself.**Arguments:**
+ Reads a section of the [soundfile](#soundfile) asynchronously (in the background), updating the [readProgress](#readprogress) along the way. If the `showProgress` argument is `true`, a SoundFileViewProgressWindow opens to show the progress. The 'block' argument has no effect; the display resolution is infinite. The 'showProgress' argument has no effect; the view always displays reading progress within itself.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -63,7 +63,7 @@ Scroll using right-click + mouse-left/right.
 | `showProgress` | Whether to open a progress window. Defaults to `true`. |  
 
 ### `readFileWithTask`
- Reads a section of an open instance of SoundFile asynchronously (in the background), updating the [#-readProgress](#-readprogress) along the way. If the `showProgress` argument is `true`, a SoundFileViewProgressWindow opens to show the progress. The 'block' argument has no effect; the display resolution is infinite.  The 'showProgress' argument has no effect; the view always displays reading progress within itself.**Arguments:**
+ Reads a section of an open instance of SoundFile asynchronously (in the background), updating the [readProgress](#readprogress) along the way. If the `showProgress` argument is `true`, a SoundFileViewProgressWindow opens to show the progress. The 'block' argument has no effect; the display resolution is infinite.  The 'showProgress' argument has no effect; the view always displays reading progress within itself.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -75,7 +75,7 @@ Scroll using right-click + mouse-left/right.
 | `showProgress` | Whether to open a progress window. Defaults to `true`. |  
 
 ### `data`
- Sets custom data instead of a sound file. This is a setter only; it is not possible to get the data. If you need access to the data, you must keep it in your own variable. Setting this property assumes 1 channel and sample rate of 44100 Hz. Use [#-setData](#-setdata) instead if you want more control.**Arguments:**
+ Sets custom data instead of a sound file. This is a setter only; it is not possible to get the data. If you need access to the data, you must keep it in your own variable. Setting this property assumes 1 channel and sample rate of 44100 Hz. Use [setData](#setdata) instead if you want more control.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -102,7 +102,7 @@ Allocates a desired amount of display channels and frames; all frames have initi
 | `samplerate` | An Integer. |  
 
 ### `set`
-Overwrites a range of display data with another data. This method can be used after [#-alloc](#-alloc) or [#-setData](#-setdata) has been called, but not while the view is displaying a sound file.**Arguments:**
+Overwrites a range of display data with another data. This method can be used after [alloc](#alloc) or [setData](#setdata) has been called, but not while the view is displaying a sound file.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -110,11 +110,11 @@ Overwrites a range of display data with another data. This method can be used af
 | `data` | The new data; an Array of Floats; multiple channel data should be interleaved. |  
 
 ### `startFrame`
- The beginning of the read section of the soundfile, or 0 if [#-alloc](#-alloc) or [#-setData](#-setdata) has been used.
+ The beginning of the read section of the soundfile, or 0 if [alloc](#alloc) or [setData](#setdata) has been used.
 ### `numFrames`
- The total amount of frames in the view; this is unrelated to [zooming](#-zoom) and [scrolling](#-scroll).
+ The total amount of frames in the view; this is unrelated to [zooming](#zoom) and [scrolling](#scroll).
 ### `readProgress`
- The reading progress, updated periodically when reading a soundfile using [#-readWithTask](#-readwithtask) or [#-readFileWithTask](#-readfilewithtask).
+ The reading progress, updated periodically when reading a soundfile using [readWithTask](#readwithtask) or [readFileWithTask](#readfilewithtask).
 
 ### Navigation
 ### `viewFrames`
@@ -134,7 +134,7 @@ Overwrites a range of display data with another data. This method can be used af
 | `` | A Float. |  
 
 ### `zoomAllOut`
- Zooms to the [current selection](#-currentselection).
+ Zooms to the [current selection](#currentselection).
 ### `zoomSelection`
  Zooms to a specific selection.**Arguments:**
 
@@ -147,7 +147,7 @@ Overwrites a range of display data with another data. This method can be used af
 ### `yZoom`
  Vertical scaling. The default `yZoom = 1` sets ±1.0 to the top and bottom of the view. If `yZoom = 2`, the view covers ±0.5 of the value range.**Returns:** A Float scaling factor.
 ### `yOffset`
- Vertical offset. The default `yOffset = 0` sets value of 0.0 in the middle of the channel's view, while `yOffset = 1`, sets 0.0 at the top and `yOffset = -1` sets 0.0 at the bottom of the view. This is performed after (and thus is not scaled by) the [#-yZoom](#-yzoom) factor.**Returns:** A Float offset.
+ Vertical offset. The default `yOffset = 0` sets value of 0.0 in the middle of the channel's view, while `yOffset = 1`, sets 0.0 at the top and `yOffset = -1` sets 0.0 at the bottom of the view. This is performed after (and thus is not scaled by) the [yZoom](#yzoom) factor.**Returns:** A Float offset.
 ### `spacing`
  A ratio between vertical space outside of the ±1.0 value range and channel's full height. The default `spacing = 0.1` makes top and bottom spaces add up to `0.1 * height` (each of them occupying half of that), while ±1.0 value range occupies `0.9 * height`. The value is clipped in the range from `0.0` to `1.0`.**Returns:** A Float scaling factor.
 ### `scrollPos`
@@ -292,7 +292,7 @@ Overwrites a range of display data with another data. This method can be used af
 
 ### Display
 ### `peakColor`
- The color of the peak-to-peak data. This can be overridden by [#-waveColors](#-wavecolors). Defaults to `Color(0.95, 0.7)`.**Arguments:**
+ The color of the peak-to-peak data. This can be overridden by [waveColors](#wavecolors). Defaults to `Color(0.95, 0.7)`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -306,8 +306,8 @@ Overwrites a range of display data with another data. This method can be used af
 | `` | A `Color`. |  
 
 ### `waveColors`
- An array of colors for the peak-to-peak data for each channel, allowing each channel to be represented by a different color. Defaults to `[]`. Once set, it overrides [#-peakColor](#-peakcolor). In order to revert to using `.peakColor`, set `.waveColors` back to an empty array: `.waveColors_([])`.
-> **Note:** [#-rmsColor](#-rmscolor) stays the same for all channels. However, using alpha blending, it is possible to display RMS data using either a lighter (e.g. `.rmsColor_(Color.grey(1, 0.3))`) or a darker (e.g. `.rmsColor_(Color.grey(0, 0.3))`) shade of the peak-to-peak color.
+ An array of colors for the peak-to-peak data for each channel, allowing each channel to be represented by a different color. Defaults to `[]`. Once set, it overrides [peakColor](#peakcolor). In order to revert to using `.peakColor`, set `.waveColors` back to an empty array: `.waveColors_([])`.
+> **Note:** [rmsColor](#rmscolor) stays the same for all channels. However, using alpha blending, it is possible to display RMS data using either a lighter (e.g. `.rmsColor_(Color.grey(1, 0.3))`) or a darker (e.g. `.rmsColor_(Color.grey(0, 0.3))`) shade of the peak-to-peak color.
 
 **Arguments:**
 

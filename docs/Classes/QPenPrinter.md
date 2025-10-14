@@ -21,7 +21,7 @@ Convenience function to show a print dialog and print.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `printFunc` | A [Function](../Classes/Function.md) to be evaluated when the user presses "Print", with the printer object as Pen painter target. See **aPrintFunc** in [#-print](#-print) below. |  
+| `printFunc` | A [Function](../Classes/Function.md) to be evaluated when the user presses "Print", with the printer object as Pen painter target. See **aPrintFunc** in [print](#print) below. |  
 | `cancelFunc` | An optional [Function](../Classes/Function.md) to be evaluated if the user presses "Cancel". |  
 
 
@@ -43,15 +43,15 @@ This method does the actual printing or PDF export. It evaluates **aPrintFunc** 
 | Argument | Description |
 |----------|-------------|
 | `aPrintFunc` | A [Function](../Classes/Function.md) to be evaluated to draw the graphics. |  
-If this method is called without configuring the printer object first, it will print on the default printer with default settings.This method is typically called from within the **aOkFunc** of [#-showDialog](#-showdialog) above. After showDialog has configured the printer once, this method can be called multiple times to reuse the last printer configuration.The point at (0@0) will coincide with the origin of [#-pageRect](#-pagerect), which is offset by the page margins. So you don't need to translate the Pen.
+If this method is called without configuring the printer object first, it will print on the default printer with default settings.This method is typically called from within the **aOkFunc** of [showDialog](#showdialog) above. After showDialog has configured the printer once, this method can be called multiple times to reuse the last printer configuration.The point at (0@0) will coincide with the origin of [pageRect](#pagerect), which is offset by the page margins. So you don't need to translate the Pen.
 ### `newPage`
-Starts a new page. Typically called within the **aPrintFunc** of [#-print](#-print).
+Starts a new page. Typically called within the **aPrintFunc** of [print](#print).
 
 ### Properties
 ### `paperRect`
 Get the paper bounds.**Returns:** a [Rect](../Classes/Rect.md)
 ### `pageRect`
-Get the page bounds, which is the printable area and usually smaller than [#-paperRect](#-paperrect) due to margins.**Returns:** a [Rect](../Classes/Rect.md)The **origin** of the Rect is relative to the paper, and will be non-zero due to margins.
+Get the page bounds, which is the printable area and usually smaller than [paperRect](#paperrect) due to margins.**Returns:** a [Rect](../Classes/Rect.md)The **origin** of the Rect is relative to the paper, and will be non-zero due to margins.
 ### `pageSize`
 Get the page size as a Size.**Returns:** a [Size](../Classes/Size.md)This can be used to scale the graphics to fit the page if the bounds of the graphics is known:
 ```supercollider

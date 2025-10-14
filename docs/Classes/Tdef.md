@@ -71,7 +71,7 @@ One Tdef may have many tasks in different places. A change in the task definitio
 ### `quant`
 Set the quantisation time for beat accurate scheduling.
 ### `clock`
-get or set the instance's default clock, used by [#-play](#-play) if no other clock is specified. Defaults to TempoClock.default.**Arguments:**
+get or set the instance's default clock, used by [play](#play) if no other clock is specified. Defaults to TempoClock.default.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -110,14 +110,14 @@ Pass a value (typically an [Event](../Classes/Event.md)) into the task function,
 just like any pattern, embeds itself in stream
 
 ### Tdef as EventStreamPlayer
-For live coding, each Tdef also may control one instance that plays one task. This is a [PauseStream](../Classes/PauseStream.md), accessible in the instance variable [#-player](#-player).
+For live coding, each Tdef also may control one instance that plays one task. This is a [PauseStream](../Classes/PauseStream.md), accessible in the instance variable [player](#player).
 
 ### `play`
 Starts the Tdef and creates a player.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `argClock` | a clock on which to play the Tdef. If nil, uses the instance's [#-clock](#-clock), which in turn defaults to TempoClock.default. |  
+| `argClock` | a clock on which to play the Tdef. If nil, uses the instance's [clock](#clock), which in turn defaults to TempoClock.default. |  
 | `doReset` | a flag whether to reset the task if already playing |  
 | `quant` | can be an array of [quant, phase, offset] or a [Quant](../Classes/Quant.md) value. |  
 

@@ -77,7 +77,7 @@ var g = GridLines([0, 10000].asSpec);
 ```
 
 The implementation is based on: [A. S. Glassner, Ed., Graphics Gems. San Diego: Morgan Kaufmann, 1990](https://www.sciencedirect.com/book/9780080507538/graphics-gems).### `looseRange`
-Returns the logical minimum and maximum that will contain the **min** and **max**, determed internally using [#-niceNum](#-nicenum).**Arguments:**
+Returns the logical minimum and maximum that will contain the **min** and **max**, determed internally using [niceNum](#nicenum).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

@@ -143,7 +143,7 @@ Signal.rectWindow(1024, 512).plot;
 | `pad` | the number of samples of the size that is zero padding. |  
 
 ### `fftCosTable`
-Fourier Transform: Fill a Signal with the cosine table needed by the FFT methods. See also the instance methods [#-fft](#-fft) and [#-ifft](#-ifft).
+Fourier Transform: Fill a Signal with the cosine table needed by the FFT methods. See also the instance methods [fft](#fft) and [ifft](#ifft).
 ```supercollider
 Signal.fftCosTable(512).plot;
 ```

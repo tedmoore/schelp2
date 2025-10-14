@@ -27,7 +27,7 @@ Free a previously allocated block starting at *address*.
 ### `reserve`
 Mark a specific range of addresses as used so that the alloc method will not return any addresses within that range. 
 ### `findAvailable`
-Given an integer width of a desired block, find and return a `ContiguousBlock` object whose `start` is the beginning address of the block and whose `size` is the width. This method only queries the allocator; it does not change the state. If you obtain an address using `findAvailable`, there is no guarantee that a later call will not return the same address. So, in general, use [#-alloc](#-alloc) to request an address. (`alloc` calls `findAvailable` and then `reserve`.)This method could be considered "half-private": It may be useful for queries, but in general, you can get everything you need from [#-alloc](#-alloc), [#-free](#-free) and [#-reserve](#-reserve).
+Given an integer width of a desired block, find and return a `ContiguousBlock` object whose `start` is the beginning address of the block and whose `size` is the width. This method only queries the allocator; it does not change the state. If you obtain an address using `findAvailable`, there is no guarantee that a later call will not return the same address. So, in general, use [alloc](#alloc) to request an address. (`alloc` calls `findAvailable` and then `reserve`.)This method could be considered "half-private": It may be useful for queries, but in general, you can get everything you need from [alloc](#alloc), [free](#free) and [reserve](#reserve).
 
 ### Status and debugging
 You may query these state variables, but it is not recommended to change them outside of the public interface.

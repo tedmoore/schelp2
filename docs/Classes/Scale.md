@@ -43,7 +43,7 @@ Scale.phrygian(\pythagorean)
 ```
 
 
-If the tuning size does not match the scale's [#-pitchesPerOctave](#-pitchesperoctave), a warning will be thrown, and the scale will use its default tuning.
+If the tuning size does not match the scale's [pitchesPerOctave](#pitchesperoctave), a warning will be thrown, and the scale will use its default tuning.
 
 For a complete list of available scales, execute
 
@@ -109,7 +109,7 @@ Sets or gets the tuning of the Scale.**Arguments:**
 |----------|-------------|
 | `inTuning` | can be either an instance of [Tuning](../Classes/Tuning.md) or a symbol matching a library tuning. |  
 ### `semitones`
-Returns a tuned array of semitone values. [#-as](#-as)(Array) is equivalent; [#-as](#-as)(List) returns it as a list, etc.### `cents`
+Returns a tuned array of semitone values. [as](#as)(Array) is equivalent; [as](#as)(List) returns it as a list, etc.### `cents`
 Returns a tuned array of cent values.### `ratios`
 Returns a tuned array of ratios.### `as`
 Converting. For example `as(Array)`, `as(List)` and `as(LocalBuf)` which is useful for server-side work.

@@ -47,7 +47,7 @@ Uninks the environment to the current document, so that it is the currentEnviron
 ## PseudoVariables (global variables)
 These are not methods, but global variables.
 
-> **⚠️ Warning:** In general, you should not manipulate these variables directly. Instead, use the [#-use](#-use), [#-push](#-push) and [#*pop](#*pop) methods.
+> **⚠️ Warning:** In general, you should not manipulate these variables directly. Instead, use the [use](#use), [push](#push) and [#*pop](#*pop) methods.
 ### `currentEnvironment`
 determines environment used by "~" syntax, [#valueEnvir](#valueenvir), and [#valueArrayEnvir](#valuearrayenvir)
 ### `topEnvironment`

@@ -34,8 +34,8 @@ The following keyboard shortcuts may be used when focused on the Stethoscope dis
 | `server` | A valid Server (either a local or the internal server), or `nil`, in which case the `Server.default` is used. |  
 | `numChannels` | An integer. Default value is 2. |  
 | `index` | The offset index. An Integer. Default is nil. |  
-| `bufsize` | The size of the analysis buffer. Default is 4096. See also [#-bufsize](#-bufsize). |  
-| `zoom` | Horizontal magnification of the displayed wave. Default is 1. See also [#-xZoom](#-xzoom). |  
+| `bufsize` | The size of the analysis buffer. Default is 4096. See also [bufsize](#bufsize). |  
+| `zoom` | Horizontal magnification of the displayed wave. Default is 1. See also [xZoom](#xzoom). |  
 | `rate` | \audio or \control. Default is \audio. |  
 | `view` | The optional parent view. Default is nil. If nil, then it will open in its own Window. |  
 | `bufnum` | The id number of the Buffer to analyze. Default value is nil. If nil, then a Buffer of size bufSize is allocated. discussion:  Example:
@@ -85,14 +85,14 @@ Stethoscope.ugenScopes; // returns the ugen scopes
 | `` | An Integer. |  
 
 ### `numChannels`
- The amount of adjacent busses to scope (from [#-index](#-index) on).**Arguments:**
+ The amount of adjacent busses to scope (from [index](#index) on).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An Integer. |  
 
 ### `bufsize`
- Defines the maximum allowed [#-cycle](#-cycle).
+ Defines the maximum allowed [cycle](#cycle).
 ### `cycle`
 
 > **Note:** Only available in Qt GUI
@@ -132,9 +132,9 @@ s.scope.bounds_(500@600);
 ### `toggleSize`
  Toggle between small and large size.
 ### `zoom`
- A synonym for [#-xZoom](#-xzoom).
+ A synonym for [xZoom](#xzoom).
 ### `xZoom`
- Magnifies the displayed wave horizontally to the given factor. This sets [#-cycle](#-cycle) to `1024 * xZoom.reciprocal`.**Arguments:**
+ Magnifies the displayed wave horizontally to the given factor. This sets [cycle](#cycle) to `1024 * xZoom.reciprocal`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -166,7 +166,7 @@ s.scope.bounds_(500@600);
 
 ### Convenience
 ### `setProperties`
- Sets several properties at once: [#-numChannels](#-numchannels), [#-index](#-index), [#-bufsize](#-bufsize), [#-zoom](#-zoom), and [#-rate](#-rate).
+ Sets several properties at once: [numChannels](#numchannels), [index](#index), [bufsize](#bufsize), [zoom](#zoom), and [rate](#rate).
 
 ## Examples
 

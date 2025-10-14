@@ -7,9 +7,9 @@
 ## Description
 
 A view that displays a numerical value and allows to modify it by typing the value in, and incrementing or decrementing it using the keyboard, or mouse.
-Using the keyboard, the value will change on each arrow key press by the amount defined by [#-step](#-step).
+Using the keyboard, the value will change on each arrow key press by the amount defined by [step](#step).
 Mouse scrolling is performed by pressing a mouse button inside the view and dragging the mouse vertically. The value will change according to the mouse cursor movement, in steps defined by [#-scroll_step](#-scroll_step).
-By default, holding down the Shift, Ctrl, or Alt key while incrementing or decrementing the value will multiply the steps by 100, 10, or 0.1 respectively, though you can customize this by setting [#-shift_scale](#-shift_scale), [#-ctrl_scale](#-ctrl_scale), or [#-alt_scale](#-alt_scale). Scrolling can be enabled or disabled by modifying the [#-scroll](#-scroll) variable.
+By default, holding down the Shift, Ctrl, or Alt key while incrementing or decrementing the value will multiply the steps by 100, 10, or 0.1 respectively, though you can customize this by setting [#-shift_scale](#-shift_scale), [#-ctrl_scale](#-ctrl_scale), or [#-alt_scale](#-alt_scale). Scrolling can be enabled or disabled by modifying the [scroll](#scroll) variable.
 
 
 ## Class Methods
@@ -28,37 +28,37 @@ By default, holding down the Shift, Ctrl, or Alt key while incrementing or decre
 | `` | A Float. |  
 
 ### `valueAction`
- Sets [#-value](#-value) to the argument and triggers [#-action](#-action).
+ Sets [value](#value) to the argument and triggers [action](#action).
 ### `increment`
- Increments the value by [#-step](#-step) multiplied by 'factor'.**Arguments:**
+ Increments the value by [step](#step) multiplied by 'factor'.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `factor` | Any number. |  
 
 ### `decrement`
- Decrements the value by [#-step](#-step) multiplied by 'factor'.**Arguments:**
+ Decrements the value by [step](#step) multiplied by 'factor'.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `factor` | Any number. |  
 
 ### `string`
- Text to be displayed instead of the numerical value. Setting [#-value](#-value) after this will display the value again.**Arguments:**
+ Text to be displayed instead of the numerical value. Setting [value](#value) after this will display the value again.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A String. |  
 
 ### `object`
- If [#-setBoth](#-setboth) is true, setting this variable also sets [#-string](#-string) to the argument interpreted [as String](../Classes/Object.md#-asstring).**Arguments:**
+ If [setBoth](#setboth) is true, setting this variable also sets [string](#string) to the argument interpreted [as String](../Classes/Object.md#-asstring).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | Any object, typically one which makes sense to display as a string, such as a Float. |  
 
 ### `setBoth`
- A variable stating whether setting [#-object](#-object) will also set [#-string](#-string).**Arguments:**
+ A variable stating whether setting [object](#object) will also set [string](#string).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -95,7 +95,7 @@ By default, holding down the Shift, Ctrl, or Alt key while incrementing or decre
 | `` | An Integer. |  
 
 ### `decimals`
- Sets both [#-minDecimals](#-mindecimals) and [#-maxDecimals](#-maxdecimals) to the argument.**Arguments:**
+ Sets both [minDecimals](#mindecimals) and [maxDecimals](#maxdecimals) to the argument.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -129,7 +129,7 @@ By default, holding down the Shift, Ctrl, or Alt key while incrementing or decre
 
 ### Interaction
 ### `step`
- The amount by which the value will changed when [#-increment](#-increment) or [#-decrement](#-decrement) is called, or when related keys are pressed.**Arguments:**
+ The amount by which the value will changed when [increment](#increment) or [decrement](#decrement) is called, or when related keys are pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -143,21 +143,21 @@ By default, holding down the Shift, Ctrl, or Alt key while incrementing or decre
 | `` | A Float. |  
 
 ### `shift_scale`
- The factor by which [#-step](#-step) or [#-scroll_step](#-scroll_step) is multiplied when incrementing or decrementing the value using keyboard or mouse while the Shift key is pressed.**Arguments:**
+ The factor by which [step](#step) or [#-scroll_step](#-scroll_step) is multiplied when incrementing or decrementing the value using keyboard or mouse while the Shift key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
 
 ### `ctrl_scale`
- The factor by which [#-step](#-step) or [#-scroll_step](#-scroll_step) is multiplied when incrementing or decrementing the value using keyboard or mouse while the Ctrl key is pressed.**Arguments:**
+ The factor by which [step](#step) or [#-scroll_step](#-scroll_step) is multiplied when incrementing or decrementing the value using keyboard or mouse while the Ctrl key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
 
 ### `alt_scale`
- The factor by which [#-step](#-step) or [#-scroll_step](#-scroll_step) is multiplied when incrementing or decrementing the value using keyboard or mouse while the Alt key is pressed.**Arguments:**
+ The factor by which [step](#step) or [#-scroll_step](#-scroll_step) is multiplied when incrementing or decrementing the value using keyboard or mouse while the Alt key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -173,11 +173,11 @@ By default, holding down the Shift, Ctrl, or Alt key while incrementing or decre
 
 ### Drag and drop
 ### `defaultGetDrag`
-**Returns:** The [#-value](#-value).
+**Returns:** The [value](#value).
 ### `defaultCanReceiveDrag`
 **Returns:** True if the current drag data is a number.
 ### `defaultReceiveDrag`
- Sets [#-valueAction](#-valueaction) to the current drag data.
+ Sets [valueAction](#valueaction) to the current drag data.
 
 ## Examples
 

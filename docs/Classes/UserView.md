@@ -10,7 +10,7 @@
 
 An empty view on which you can draw using the [Pen](../Classes/Pen.md) class.
 This view displays and does nothing by itself, but allows you to define how it will be drawn, and expects you to define its entire mode of interaction using mouse, key, and drag and drop actions.
-To define how the view is drawn you set the [#-drawFunc](#-drawfunc) variable to a [Function](../Classes/Function.md) within which you can use the [Pen](../Classes/Pen.md) class to draw graphical primitives, such as lines, rectangles, ellipses, curves, and also text.
+To define how the view is drawn you set the [drawFunc](#drawfunc) variable to a [Function](../Classes/Function.md) within which you can use the [Pen](../Classes/Pen.md) class to draw graphical primitives, such as lines, rectangles, ellipses, curves, and also text.
 This class offers convenient mechanisms for creating animations, that is, to automatically redraw itself in regular time intervals. See the [#Animation](#animation) section of this document.
 For a guide to using this view, see [GUI-Introduction#Custom views](../Guides/GUI-Introduction.md#custom-views).
 
@@ -35,40 +35,40 @@ For a guide to using this view, see [GUI-Introduction#Custom views](../Guides/GU
 | `` | A Function. |  
 
 ### `background`
- Sets the color used to fill the whole area occupied by the view below the drawing done in [#-drawFunc](#-drawfunc). You can set the background at any moment, even within the `drawFunc`, but any drawing done in that Function will always be displayed on top of the background.**Arguments:**
+ Sets the color used to fill the whole area occupied by the view below the drawing done in [drawFunc](#drawfunc). You can set the background at any moment, even within the `drawFunc`, but any drawing done in that Function will always be displayed on top of the background.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Color. |  
 
 ### `drawingEnabled`
- Whether the [#-drawFunc](#-drawfunc) will be called when the view is redrawing itself. Note that [#-background](#-background) will be painted regardless of this variable. The default value is `true`.**Arguments:**
+ Whether the [drawFunc](#drawfunc) will be called when the view is redrawing itself. Note that [background](#background) will be painted regardless of this variable. The default value is `true`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
 
 ### `clearOnRefresh`
- Whether the view shall clear the last drawing done in [#-drawFunc](#-drawfunc) before being redrawn. If this is `false`, the view will continuously draw on top of all the previous drawing whenever it is redrawn, until [#-clearDrawing](#-cleardrawing) is called. The default value is `true`.**Arguments:**
+ Whether the view shall clear the last drawing done in [drawFunc](#drawfunc) before being redrawn. If this is `false`, the view will continuously draw on top of all the previous drawing whenever it is redrawn, until [clearDrawing](#cleardrawing) is called. The default value is `true`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
 
 ### `clearDrawing`
- If [#-clearOnRefresh](#-clearonrefresh) is `false`, you can call this method to manually clear any drawing done in [#-drawFunc](#-drawfunc) so far.
+ If [clearOnRefresh](#clearonrefresh) is `false`, you can call this method to manually clear any drawing done in [drawFunc](#drawfunc) so far.
 
 ### Animation
 ### `animate`
- Whether the view shall redraw itself internally at a regular time interval (frame rate). See [#-frameRate](#-framerate) for the way to adjust that interval. The default value is `false`.**Arguments:**
+ Whether the view shall redraw itself internally at a regular time interval (frame rate). See [frameRate](#framerate) for the way to adjust that interval. The default value is `false`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
 
 ### `frameRate`
- The interval at which the view regularly redraws itself, if [#-animate](#-animate) is `true`. You can change the desired frame rate by setting this variable. The default frame rate is 60fps.
-> **Note:** Getting the value of this variable will return the average actual frame rate. If it is lower than the desired frame rate set as described above, that implies that the view tries but does not manage to redraw itself at that frame rate. The reason may typically be that the drawing defined in [#-drawFunc](#-drawfunc) is computationally too demanding for the system.
+ The interval at which the view regularly redraws itself, if [animate](#animate) is `true`. You can change the desired frame rate by setting this variable. The default frame rate is 60fps.
+> **Note:** Getting the value of this variable will return the average actual frame rate. If it is lower than the desired frame rate set as described above, that implies that the view tries but does not manage to redraw itself at that frame rate. The reason may typically be that the drawing defined in [drawFunc](#drawfunc) is computationally too demanding for the system.
 
 **Arguments:**
 
@@ -77,7 +77,7 @@ For a guide to using this view, see [GUI-Introduction#Custom views](../Guides/GU
 | `fps` | A Float defining the interval between frames of animation, in frames per second. |  
 
 ### `frame`
- The count of frames drawn while [#-animate](#-animate) is `true`; it will increase by 1 every time the view is redrawn. If animation is stopped and started again (by setting `animate` to `false` and then `true` again), the frame count is restarted.**Returns:** An Integer.
+ The count of frames drawn while [animate](#animate) is `true`; it will increase by 1 every time the view is redrawn. If animation is stopped and started again (by setting `animate` to `false` and then `true` again), the frame count is restarted.**Returns:** An Integer.
 
 ### Actions
  The UserView by itself does not respond to any interaction by the user. You can define the modes of interaction entirely on your own using mouse and keyboard actions. See [Actions and Hooks](../Guides/GUI-Introduction.md#actions-and-hooks:-make-that-button-do-something!) for detailed explanation.
@@ -237,7 +237,7 @@ w.refresh;
 ```
 
 
-The following example uses the [#-clearOnRefresh](#-clearonrefresh) option to prevent the UserView from clearing its contents when redrawn. Clicking and moving the mouse within each square will draw ever more arcs on top of each other.
+The following example uses the [clearOnRefresh](#clearonrefresh) option to prevent the UserView from clearing its contents when redrawn. Clicking and moving the mouse within each square will draw ever more arcs on top of each other.
 
 
 ```supercollider
@@ -273,7 +273,7 @@ w.refresh;
 ```
 
 
-The following example uses the [#-clearOnRefresh](#-clearonrefresh) option to keep the old contents when redrawn, allowing you to draw a line which follows the mouse cursor by clicking and dragging on the view.
+The following example uses the [clearOnRefresh](#clearonrefresh) option to keep the old contents when redrawn, allowing you to draw a line which follows the mouse cursor by clicking and dragging on the view.
 
 It also uses the mouse position to compute the color of the line.
 
@@ -431,7 +431,7 @@ w.close;
 ```
 
 
-An animation that makes a good use of the [#-clearOnRefresh](#-clearonrefresh) option to keep the old contents when redrawing.
+An animation that makes a good use of the [clearOnRefresh](#clearonrefresh) option to keep the old contents when redrawing.
 
 
 ```supercollider

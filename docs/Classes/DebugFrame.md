@@ -6,7 +6,7 @@
 
 ## Description
 
-A representation of the call frame. Can be used to reconstruct a backtrace by using [#-caller](#-caller).
+A representation of the call frame. Can be used to reconstruct a backtrace by using [caller](#caller).
 An instance can be acquired by calling [Object#-getBackTrace](../Classes/Object.md#-getbacktrace). While this is often not useful due to function inlining, it is useful when called on an [Exception](../Classes/Exception.md), see the implementation of [Exception#-reportError](../Classes/Exception.md#-reporterror) where a call to [Object#-dumpBackTrace](../Classes/Object.md#-dumpbacktrace) can be replaced by a call to [Object#-getBackTrace](../Classes/Object.md#-getbacktrace) and a call stack constructed manually.
 
 
@@ -35,7 +35,7 @@ while{ debugFrame.isNil.not }{
 ```
 
 ### `args`
-Returns an [Array](../Classes/Array.md) of the argument's values, if there are no arguments, returns a [Nil](../Classes/Nil.md). This does not contain the argument names, which must be accessed through the [#-functionDef](#-functiondef).
+Returns an [Array](../Classes/Array.md) of the argument's values, if there are no arguments, returns a [Nil](../Classes/Nil.md). This does not contain the argument names, which must be accessed through the [functionDef](#functiondef).
 ```supercollider
 { thisFunction.getBackTrace }.().args == nil;
 { |a, b, c| thisFunction.getBackTrace }.().args == [nil, nil, nil];
@@ -44,7 +44,7 @@ Returns an [Array](../Classes/Array.md) of the argument's values, if there are n
 ```
 
 ### `vars`
-Same as [#-args](#-args) but for the variables.
+Same as [args](#args) but for the variables.
 ```supercollider
 { thisFunction.getBackTrace }.().vars == nil
 { var a; thisFunction.getBackTrace }.().vars == [nil]

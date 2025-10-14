@@ -65,7 +65,7 @@ a.nodeMap.postln; // the values are set in the node map.
 ```
 
 **\xset -> event pattern**
-: set all proxy controls to event data, using synth crossfade (see [#-xset](#-xset)).
+: set all proxy controls to event data, using synth crossfade (see [xset](#xset)).
 ```supercollider
 a = NodeProxy(s);
 a[0] = { |freq = 440, dt=0.1, rate=2| Ringz.ar(Impulse.ar(rate * [1, 1.2]), freq, dt)*0.1 };

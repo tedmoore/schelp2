@@ -14,40 +14,40 @@ Dragging the mouse pointer on either end of the range moves the end by itself. D
 
 
 ### `new`
- When a new RangeSlider is created, its [#-orientation](#-orientation) is determined by the initial size: if it is wider than high, the orientation will be horizontal, otherwise it will be vertical.
+ When a new RangeSlider is created, its [orientation](#orientation) is determined by the initial size: if it is wider than high, the orientation will be horizontal, otherwise it will be vertical.
 
 ## Instance Methods
 
 
 ### Data
 ### `lo`
- The low end of the range. If you attempt to set it higher then the current [#-hi](#-hi), -hi will be set instead, and -lo will become the old -hi. When setting -lo the value will always be clipped to the range between 0 and 1.**Arguments:**
+ The low end of the range. If you attempt to set it higher then the current [hi](#hi), -hi will be set instead, and -lo will become the old -hi. When setting -lo the value will always be clipped to the range between 0 and 1.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float between 0 and 1. |  
 
 ### `hi`
- The high end of the range. If you attempt to set it lower then the current [#-lo](#-lo), -lo will be set instead, and -hi will become the old -lo. When setting -hi the value will always be clipped to the range between 0 and 1.**Arguments:**
+ The high end of the range. If you attempt to set it lower then the current [lo](#lo), -lo will be set instead, and -hi will become the old -lo. When setting -hi the value will always be clipped to the range between 0 and 1.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float between 0 and 1. |  
 
 ### `activeLo`
- Sets [#-lo](#-lo) to the argument and triggers [#-action](#-action).
+ Sets [lo](#lo) to the argument and triggers [action](#action).
 ### `activeHi`
- Sets [#-hi](#-hi) to the argument and triggers [#-action](#-action).
+ Sets [hi](#hi) to the argument and triggers [action](#action).
 ### `range`
- The difference between [#-hi](#-hi) and [#-lo](#-lo). Setting -range will set -hi to -lo + -range.
+ The difference between [hi](#hi) and [lo](#lo). Setting -range will set -hi to -lo + -range.
 ### `activeRange`
- Sets [#-range](#-range) to the argument and triggers [#-action](#-action).
+ Sets [range](#range) to the argument and triggers [action](#action).
 ### `setSpan`
- Sets [#-lo](#-lo) and [#-hi](#-hi) to each of the arguments, respectively.
+ Sets [lo](#lo) and [hi](#hi) to each of the arguments, respectively.
 ### `setSpanActive`
- Calls [#-setSpan](#-setspan), forwarding the arguments, and triggers [#-action](#-action).
+ Calls [setSpan](#setspan), forwarding the arguments, and triggers [action](#action).
 ### `setDeviation`
- Sets [#-lo](#-lo) and [#-hi](#-hi) according to their deviation and their average instead of their absolute values.**Arguments:**
+ Sets [lo](#lo) and [hi](#hi) according to their deviation and their average instead of their absolute values.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -55,14 +55,14 @@ Dragging the mouse pointer on either end of the range moves the end by itself. D
 | `average` | A Float determining the average of -lo and -hi. |  
 
 ### `increment`
- Increments both [#-lo](#-lo) and [#-hi](#-hi) by [#-step](#-step) multiplied by 'factor'.**Arguments:**
+ Increments both [lo](#lo) and [hi](#hi) by [step](#step) multiplied by 'factor'.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `factor` | A Float. |  
 
 ### `decrement`
- Decrements both [#-lo](#-lo) and [#-hi](#-hi) by [#-step](#-step) multiplied by 'factor'.**Arguments:**
+ Decrements both [lo](#lo) and [hi](#hi) by [step](#step) multiplied by 'factor'.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -87,7 +87,7 @@ Dragging the mouse pointer on either end of the range moves the end by itself. D
 
 ### Interaction
 ### `step`
- The amount by which the range will change when [#-increment](#-increment) or [#-decrement](#-decrement) is called, or when related keys are pressed.**Arguments:**
+ The amount by which the range will change when [increment](#increment) or [decrement](#decrement) is called, or when related keys are pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -96,21 +96,21 @@ Dragging the mouse pointer on either end of the range moves the end by itself. D
 ### `pixelStep`
  The absolute amount by which the range would change if the handle moved by one pixel.**Returns:** A Float.
 ### `shift_scale`
- The factor by which [#-step](#-step) is multiplied when incrementing or decrementing the range by keyboard while the Shift key is pressed.**Arguments:**
+ The factor by which [step](#step) is multiplied when incrementing or decrementing the range by keyboard while the Shift key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
 
 ### `ctrl_scale`
- The factor by which [#-step](#-step) is multiplied when incrementing or decrementing the range by keyboard while the Ctrl key is pressed.**Arguments:**
+ The factor by which [step](#step) is multiplied when incrementing or decrementing the range by keyboard while the Ctrl key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
 
 ### `alt_scale`
- The factor by which [#-step](#-step) is multiplied when incrementing or decrementing the range by keyboard while the Alt key is pressed.**Arguments:**
+ The factor by which [step](#step) is multiplied when incrementing or decrementing the range by keyboard while the Alt key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -126,11 +126,11 @@ Dragging the mouse pointer on either end of the range moves the end by itself. D
 
 ### Drag and drop
 ### `defaultGetDrag`
-**Returns:** A Point of which the x and y coordinates are set to [#-lo](#-lo) and [#-hi](#-hi), respectively.
+**Returns:** A Point of which the x and y coordinates are set to [lo](#lo) and [hi](#hi), respectively.
 ### `defaultCanReceiveDrag`
 **Returns:** True if the current drag data is a Point.
 ### `defaultReceiveDrag`
- Sets [#-lo](#-lo) and [#-hi](#-hi) to the two coordinates of the Point stored as the current drag data, respectively, and triggers the [#-action](#-action).
+ Sets [lo](#lo) and [hi](#hi) to the two coordinates of the Point stored as the current drag data, respectively, and triggers the [action](#action).
 
 ## Examples
 

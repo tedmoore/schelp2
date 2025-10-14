@@ -8,7 +8,7 @@
 
 A view that displays a hierarchy of items. It is divided into rows and column: each row represents an item, and each column represents a different data field of the items.
 The items are represented in code by instances of [TreeViewItem](../Classes/TreeViewItem.md), returned by the various TreeView methods. Top level items are added via the TreeView interface, while child items are added via the TreeViewItem interface, which also allows to manipulate items in more detail after their creation.
-Items can be visually sorted with [#-sort](#-sort), or by clicking on one of the column headers, if [#-canSort](#-cansort) is enabled.
+Items can be visually sorted with [sort](#sort), or by clicking on one of the column headers, if [canSort](#cansort) is enabled.
 Each item can hold other views in each of its data fields, which allows for rich graphical interaction. See [TreeViewItem#-setView](../Classes/TreeViewItem.md#-setview).
 
 
@@ -65,15 +65,15 @@ Each item can hold other views in each of its data fields, which allows for rich
 ### `itemAt`
  The item at `index`.
 ### `childAt`
- Alias for [#-itemAt](#-itemat), provided for compatibility with TreeViewItem.
+ Alias for [itemAt](#itemat), provided for compatibility with TreeViewItem.
 ### `addChild`
- Alias for [#-addItem](#-additem), provided for compatibility with TreeViewItem.
+ Alias for [addItem](#additem), provided for compatibility with TreeViewItem.
 ### `insertChild`
- Alias for [#-addChild](#-addchild), provided for compatibility with TreeViewItem.
+ Alias for [addChild](#addchild), provided for compatibility with TreeViewItem.
 
 ### Appearance
 ### `sort`
- Sort items by data in `column`. This works regardless of [#-canSort](#-cansort).
+ Sort items by data in `column`. This works regardless of [canSort](#cansort).
 > **Note:** Sorting has no effect on the logical order of the items, it only affects how they are displayed.
 
 **Arguments:**
@@ -102,7 +102,7 @@ Sets the width of a column. The rightmost column must extend at least to the rig
 
 ### Interaction
 ### `canSort`
- Whether the user can sort the items by clicking on a column header. When setting to `true`, the items will be sorted immediately according to the current sorting column. While `true`, the view will also automatically sort new items. The default is `false`. See also: [#-sort](#-sort).
+ Whether the user can sort the items by clicking on a column header. When setting to `true`, the items will be sorted immediately according to the current sorting column. While `true`, the view will also automatically sort new items. The default is `false`. See also: [sort](#sort).
 
 ### Actions
 ### `itemPressedAction`

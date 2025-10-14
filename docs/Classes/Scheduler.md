@@ -17,17 +17,17 @@ A Scheduler can be used to schedule and reschedule functions to be evaluated at 
 | Argument | Description |
 |----------|-------------|
 | `clock` | A clock, like SystemClock. |  
-| `drift` | If `true`, [#-sched](#-sched) will schedule tasks relative to the current absolute time ([Main.elapsedTime](../Classes/Process.md#*elapsedtime)), otherwise to the current logical time of the scheduler ([#-seconds](#-seconds)). |  
-| `recursive` | Sets [#-recursive](#-recursive). |  
+| `drift` | If `true`, [sched](#sched) will schedule tasks relative to the current absolute time ([Main.elapsedTime](../Classes/Process.md#*elapsedtime)), otherwise to the current logical time of the scheduler ([seconds](#seconds)). |  
+| `recursive` | Sets [recursive](#recursive). |  
 
 
 ## Instance Methods
 
 ### `play`
 Schedules the task immediately. Equivalent to `sched(0, task)`.### `sched`
-Schedule the task at `delta` seconds relative to the current time, as defined by the `drift` argument of the [constructor](#*new).Regardless of what time a task is scheduled, it will only be awaken the next time [#-seconds](#-seconds) is set.### `schedAbs`
+Schedule the task at `delta` seconds relative to the current time, as defined by the `drift` argument of the [constructor](#*new).Regardless of what time a task is scheduled, it will only be awaken the next time [seconds](#seconds) is set.### `schedAbs`
 Schedule the task at absolute `time` in seconds.### `advance`
-Advance the current logical time by `delta` seconds. Has same effect as setting [#-seconds](#-seconds).### `seconds`
+Advance the current logical time by `delta` seconds. Has same effect as setting [seconds](#seconds).### `seconds`
 The current logical time of the scheduler.Setting a new time will wake up (evaluate) any tasks scheduled within that time; a task that returns a new time will be rescheduled accordingly.### `isEmpty`
 Returns whether the scheduling queue is empty.### `clear`
 Clears the scheduling queue### `queue`

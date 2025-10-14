@@ -36,7 +36,7 @@ Default number of channels when initializing in audio rate and no specific numbe
 ### `defaultNumControl`
 Default number of channels when initializing in control rate and no specific number is given (default: 1).
 ### `defaultReshaping`
-default reshaping behaviour for BusPlug and its sublass NodeProxy. See: [#-reshaping](#-reshaping)
+default reshaping behaviour for BusPlug and its sublass NodeProxy. See: [reshaping](#reshaping)
 
 ## Instance Methods
 
@@ -54,7 +54,7 @@ Copy the internal settings of one proxy into another. Old state is cleared, the 
 | `proxy` | The object whose internal state is being copied. |  
 
 ### `reshaping`
-Determines how to behave when [#-initBus](#-initbus) is called. Current options:- `nil` Once initialized, keep the same bus - this is the default
+Determines how to behave when [initBus](#initbus) is called. Current options:- `nil` Once initialized, keep the same bus - this is the default
 - `\static` Same as nil, but allows you to override the default in instances
 - `\elastic` On a change, shrink and grow according to need, replace bus. Monitoring is adjusted.
 - `\expanding` On a change, only grow according to need, replace bus. Monitoring is adjusted.
@@ -91,7 +91,7 @@ x.next(()); // returns map arguments for the audio rate bus
 
 
 ### `asControlInput`
-Returns the map argument for the bus, just like [#-embedInStream](#-embedinstream)
+Returns the map argument for the bus, just like [embedInStream](#embedinstream)
 
 ### Monitoring and Routing
 ### `isPlaying`
@@ -136,7 +136,7 @@ stop to play out public channels.**Arguments:**
 returns the current monitor (see [Monitor](../Classes/Monitor.md))
 
 ### Bus changes
-These methods are a little numerous, because they are important for implementing [NodeProxy](../Classes/NodeProxy.md) behavior. Mostly the methods [#-bus](#-bus) and [#-initBus](#-initbus) will be sufficient in normal use.
+These methods are a little numerous, because they are important for implementing [NodeProxy](../Classes/NodeProxy.md) behavior. Mostly the methods [bus](#bus) and [initBus](#initbus) will be sufficient in normal use.
 
 
 > **Note:** The old bus is freed when a new bus is made.
@@ -154,7 +154,7 @@ set the bus object by passing a [Bus](../Classes/Bus.md).
 ### `defineBus`
 make a new bus for the BusPlug with a given rate and number of channels.
 ### `initBus`
-Make a new bus only if necessary. This depends on the current bus and the [#-reshaping](#-reshaping) mode.**Returns:** Boolean (true if successful).
+Make a new bus only if necessary. This depends on the current bus and the [reshaping](#reshaping) mode.**Returns:** Boolean (true if successful).
 
 ## Examples
 

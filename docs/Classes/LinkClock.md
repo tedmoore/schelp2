@@ -66,7 +66,7 @@ SuperCollider peers may optionally synchronize barlines and all meter changes by
 A LinkClock's state may be changed by other connected Link peers. LinkClock uses dependant notifications to relay the new state to other interested objects.
 
 | **Notification** | **Event** | 
-| --- | --- || `\tempo` | Tempo changed | | `\meter` | The clock's `beatsPerBar` changed | | `\linkStart` | An external peer started playback | | `\linkStop` | An external peer stopped playback | | `\numPeers` | The number of connected peers changed | | `\resynced` | After [#-enableMeterSync](#-enablemetersync), a `\resynced` notification is sent whenever a [MeterSync#-resyncMeter](../Classes/MeterSync.md#-resyncmeter) call finishes successfully. One Boolean argument is passed: `true` if other SuperCollider peers were found, `false` if not. | 
+| --- | --- || `\tempo` | Tempo changed | | `\meter` | The clock's `beatsPerBar` changed | | `\linkStart` | An external peer started playback | | `\linkStop` | An external peer stopped playback | | `\numPeers` | The number of connected peers changed | | `\resynced` | After [enableMeterSync](#enablemetersync), a `\resynced` notification is sent whenever a [MeterSync#-resyncMeter](../Classes/MeterSync.md#-resyncmeter) call finishes successfully. One Boolean argument is passed: `true` if other SuperCollider peers were found, `false` if not. | 
 (Note that Link does not synchronize meter across peers; this notification is inherited from TempoClock. [LinkClock#-isSyncingMeter](../Classes/LinkClock.md#-issyncingmeter) is a SuperCollider-specific way to synchronize meter; it is not part of the Link protocol.)
 
 The most convenient way to register to receive a notification is [SimpleController](../Classes/SimpleController.md). See the examples below.
@@ -81,7 +81,7 @@ Creates a new instance of LinkClock.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `tempo` | The initial [tempo](#-tempo). Defaults to `1`. |  
+| `tempo` | The initial [tempo](#tempo). Defaults to `1`. |  
 | `beats` | The time in beats, corresponding to the reference time. Default to `0`. |  
 | `seconds` | The reference time in seconds. See [TempoClock#*new](../Classes/TempoClock.md#*new). |  
 | `queueSize` | The storage size of the scheduling queue. See [TempoClock#*new](../Classes/TempoClock.md#*new). |  
@@ -92,7 +92,7 @@ Creates a new instance of LinkClock derived from a [TempoClock](../Classes/Tempo
 | Argument | Description |
 |----------|-------------|
 | `clock` | The [TempoClock](../Classes/TempoClock.md) used to create the LinkClock. |  
-The LinkClock [tempo](#-tempo), [beats](#-beats), [seconds](#-seconds) and [beatsPerBar](#-beatsperbar) values are set to those of the TempoClock. The TempoClock is then stopped and all of its tasks are rescheduled by the newly created LinkClock, so that they are now synchronized with the Link session.
+The LinkClock [tempo](#tempo), [beats](#beats), [seconds](#seconds) and [beatsPerBar](#beatsperbar) values are set to those of the TempoClock. The TempoClock is then stopped and all of its tasks are rescheduled by the newly created LinkClock, so that they are now synchronized with the Link session.
 
 ## Instance Methods
 
@@ -118,10 +118,10 @@ Activates SuperCollider-barline sync by creating a [MeterSync](../Classes/MeterS
 |----------|-------------|
 | `id` | Optional: An integer ID, uniquely identifying this instance. If not provided, one will be chosen randomly. |  
 | `ports` | Optional: An array of port numbers, to which barline-sync messages will be sent. |  
-**Returns:** The LinkClock instance (to support chaining configuration methods, e.g. `l = LinkClock.new.latency_(s.latency).enableMeterSync`, in which case you want `l` to be the clock object). To get access to the MeterSync object, use [#-getMeterSync](#-getmetersync).### `disableMeterSync`
+**Returns:** The LinkClock instance (to support chaining configuration methods, e.g. `l = LinkClock.new.latency_(s.latency).enableMeterSync`, in which case you want `l` to be the clock object). To get access to the MeterSync object, use [getMeterSync](#getmetersync).### `disableMeterSync`
 Remove all barline-sync objects.### `isSyncingMeter`
 **Returns:** A Boolean, `true` if barline sync is active, `false` if not. (If you create the barline sync object independently, this answer is likely to be incorrect.)### `getMeterSync`
-**Returns:** The MeterSync object previously created by [#-enableMeterSync](#-enablemetersync).
+**Returns:** The MeterSync object previously created by [enableMeterSync](#enablemetersync).
 > **Note:** It is possible, though redundant and not recommended, to create multiple barline-sync objects by doing `clock.enableMeterSync` and `m = SCClockMeterSync(clock)`. `getMeterSync` has access *only* to the object created by `clock.enableMeterSync`. Therefore, it is recommended to use `clock.enableMeterSync` in all cases.
 
 

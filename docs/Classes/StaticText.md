@@ -25,14 +25,14 @@ A view displaying non-editable text
 | `` | A String. |  
 
 ### `object`
- If [#-setBoth](#-setboth) is true, setting this variable also sets [#-string](#-string) to the value interpreted [as String](../Classes/Object.md#-asstring).**Arguments:**
+ If [setBoth](#setboth) is true, setting this variable also sets [string](#string) to the value interpreted [as String](../Classes/Object.md#-asstring).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | Any object, typically one which makes sense to display as a string, such as a Float. |  
 
 ### `setBoth`
- A variable stating whether setting [#-object](#-object) will also set [#-string](#-string).**Arguments:**
+ A variable stating whether setting [object](#object) will also set [string](#string).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

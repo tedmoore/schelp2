@@ -66,7 +66,7 @@ Tuning.new((0..11).collect(_ * (2.08 ** (1/12))), 2.08, "Stretched ET12");
 ## Instance Methods
 
 ### `semitones`
-Returns an array of semitone values for the pitch set. [#-as](#-as)(Array) is equivalent; [#-as](#-as)(List) returns it as a list, etc.### `cents`
+Returns an array of semitone values for the pitch set. [as](#as)(Array) is equivalent; [as](#as)(List) returns it as a list, etc.### `cents`
 Returns a array of cent values for the pitch set.### `ratios`
 Returns a tuned array of ratios for the pitch set.
 ## Examples

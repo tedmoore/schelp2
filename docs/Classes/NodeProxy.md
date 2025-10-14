@@ -12,7 +12,7 @@ Generally a **proxy** is a placeholder for something. A node proxy is a placehol
 NodeProxy is used internally in [ProxySpace](../Classes/ProxySpace.md) and it is a superclass of [Ndef](../Classes/Ndef.md), allowing to easily access and combine a large number of placeholders.
 Graphical editor for a node proxy: [NdefGui](../Classes/NdefGui.md).
 
-> **Note:** NodeProxy plays on a *private bus*. If you want to **hear** the output, use [#-play](#-play) and [#-stop](#-stop). To free inner players and stop listen: [#-end](#-end). Entirely removing all inner settings: [#-clear](#-clear)
+> **Note:** NodeProxy plays on a *private bus*. If you want to **hear** the output, use [play](#play) and [stop](#stop). To free inner players and stop listen: [end](#end). Entirely removing all inner settings: [clear](#clear)
 
 
 
@@ -257,7 +257,7 @@ a.numChannels; // 8
 
 
 ### `mold`
-Adjust the proxy to a given rate / numChannels. If there are any child proxies that have elastic [#-reshaping](#-reshaping), they are adjusted accordingly.
+Adjust the proxy to a given rate / numChannels. If there are any child proxies that have elastic [reshaping](#reshaping), they are adjusted accordingly.
 ```supercollider
 a = NodeProxy(s);
 a.play;
@@ -271,7 +271,7 @@ a.numChannels; // 8
 
 ### Other ways to set or change the sources
 ### `prime`
-Set source without starting the synth. To start it, [#-send](#-send) can be used later. Running synths are released and proxy is initialized if still neutral.
+Set source without starting the synth. To start it, [send](#send) can be used later. Running synths are released and proxy is initialized if still neutral.
 ### `add`
 Add a new source to the present ones
 ### `removeAt`
@@ -287,7 +287,7 @@ Set the source by index. Objects can be inserted at any index, only the order of
 | `obj` | A valid source (see [#Supported sources](#supported-sources)). |  
 | `channelOffset` | using a multichannel setup it can be useful to set this, when the objects numChannels is smaller than the proxy |  
 | `extraArgs` | Arguments that can be sent with the object directly (not cached) |  
-| `now` | if set to false, only prepare the source and do not start the object (see [#-prime](#-prime))
+| `now` | if set to false, only prepare the source and do not start the object (see [prime](#prime))
 ```supercollider
 // put can be used with the array indexing syntax:
 a = NodeProxy.new.play;
@@ -310,7 +310,7 @@ If paused, start all objects
 ### `rebuild`
 Rebuild all SynthDefs from sources.
 ### `orderNodes`
-Arrange the order of groups from this to the last. This can be important when external input is filtered in order to **minimize latency**. Note that if a [#-parentGroup](#-parentgroup) was provided, the nodes must be in the same parentGroup.
+Arrange the order of groups from this to the last. This can be important when external input is filtered in order to **minimize latency**. Note that if a [parentGroup](#parentgroup) was provided, the nodes must be in the same parentGroup.
 
 ### Release and cleaning up
 ### `free`
@@ -375,7 +375,7 @@ Returns true if the object has been initialized on the server, e.g. a synthDef h
 ### `paused`
 Returns true if the processes are paused.
 ### `awake`
-If set to false (default: true), a change of the source does not start a new synth immediately. This is useful when synths are triggered by [#-spawn](#-spawn), and a change of sound should not duplicate sends.
+If set to false (default: true), a change of the source does not start a new synth immediately. This is useful when synths are triggered by [spawn](#spawn), and a change of sound should not duplicate sends.
 ### `fadeTime`
 set the crossfade time. See: [JITLib/jitlib_fading](../Tutorials/JITLib/jitlib_fading.md) .
 
@@ -469,9 +469,9 @@ Ndef.clear(10)
 ### `unset`, `unmap`
 Remove specified settings and unmap or unset the synths.
 ### `xset`
-set/map with a crossfade into the new setting. The crossfade time is the NodeProxy [#-fadeTime](#-fadetime).
+set/map with a crossfade into the new setting. The crossfade time is the NodeProxy [fadeTime](#fadetime).
 ### `lag`
-set the lag values of these args (identical to [#-setRates](#-setrates)). To remove these settings, use: `lag(\key1, nil, key2, nil, ...)`
+set the lag values of these args (identical to [setRates](#setrates)). To remove these settings, use: `lag(\key1, nil, key2, nil, ...)`
 ### `setRates`
 set the default rate (\tr, \ir, numerical) for synthDef arg. A rate of nil removes setting.
 ### `controlNames`

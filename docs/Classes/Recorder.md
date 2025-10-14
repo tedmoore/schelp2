@@ -72,7 +72,7 @@ Starts or resumes recording the output.**Arguments:**
 | `numChannels` | The number of output channels to record. |  
 | `node` | The [Node](../Classes/Node.md) to record immediately after. By default, this is the default group 1. |  
 | `duration` | If set, this limits recording to a given time in seconds.
-> **Note:** The recording starts when the buffer has been allocated, and after the usually very short network latency. It will last for the `duration` exactly down to one server block size (64 samples). For scheduling the starting point of a recording precisely, call [#-prepareForRecord](#-prepareforrecord) first, and then call [#-record](#-record) a bundle (see [Server#-bind](../Classes/Server.md#-bind) and [Server#-sync](../Classes/Server.md#-sync)). |  
+> **Note:** The recording starts when the buffer has been allocated, and after the usually very short network latency. It will last for the `duration` exactly down to one server block size (64 samples). For scheduling the starting point of a recording precisely, call [prepareForRecord](#prepareforrecord) first, and then call [record](#record) a bundle (see [Server#-bind](../Classes/Server.md#-bind) and [Server#-sync](../Classes/Server.md#-sync)). |  
 If you have not called prepareForRecord first (see above) then it will be invoked for you (but that adds a slight delay before recording starts for real).
 ```supercollider
 r = Recorder(s);
@@ -86,7 +86,7 @@ Pauses recording. Can be resumed by executing record again, or by calling resume
 Start recording again.### `stopRecording`
 Stops recording, closes the file, and frees the associated resources.You must call this when finished recording or the output file will be unusable. Cmd-. while recording has the same effect.### `filePrefix`
 a string used as prefix for the path when recording. This can be used to separate the outputs of several recorders. The default is `"SC_"`.### `numChannels`
-a number of sound file channels that is used always when using this recorder, unless a different one is specified in the [#-record](#-record) method. When not set, we use [Server#-recChannels](../Classes/Server.md#-recchannels).### `recHeaderFormat`
+a number of sound file channels that is used always when using this recorder, unless a different one is specified in the [record](#record) method. When not set, we use [Server#-recChannels](../Classes/Server.md#-recchannels).### `recHeaderFormat`
 Get/set the header format (string) of the output file. The default is "wav". Must be called **before** prepareForRecord.### `recSampleFormat`
 Get/set the sample format (string) of the output file. The default is "float". Must be called **before** prepareForRecord.### `recBufSize`
 Get/set the size of the [Buffer](../Classes/Buffer.md) to use with the [DiskOut](../Classes/DiskOut.md) UGen. This must be a power of two. The default is the `sampleRate.nextPowerOfTwo` or the first power of two number of samples longer than one second. Must be called **before** prepareForRecord.### `isRecording`

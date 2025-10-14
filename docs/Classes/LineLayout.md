@@ -11,14 +11,14 @@
 This is an abstract superclass of [HLayout](../Classes/HLayout.md) and [VLayout](../Classes/VLayout.md) which distribute views in a horizontal or vertical line, respectively.
 
 ### Fine tuning
-Each item can be assigned a **stretch factor** and an **alignment** flag to fine tune how its size and position are managed. This can be done at layout [construction](#*new), when an item is [added](#-add) or [inserted](#-insert) or for an already present item with [#-setStretch](#-setstretch) and [#-setAlignment](#-setalignment) methods.
+Each item can be assigned a **stretch factor** and an **alignment** flag to fine tune how its size and position are managed. This can be done at layout [construction](#*new), when an item is [added](#add) or [inserted](#insert) or for an already present item with [setStretch](#setstretch) and [setAlignment](#setalignment) methods.
 
 The **stretch factor** only affects distribution in the direction of the layout (vertical or horizontal). All items have a stretch factor of 0 by default, so only their own preferences will determine space distribution. As soon as an item is assigned a stretch factor higher than 0, the space will be redistributed according to proportions of stretch factors.
 
 
 
 ### Leaving empty space
-An empty space with an arbitrary stretch factor may be inserted using nil in place of an item in combination with the stretch factor. Similarly, an empty space of fixed size may be inserted using an integer in place of an item. See [constructor](#*new) and [#-add](#-add) for details.
+An empty space with an arbitrary stretch factor may be inserted using nil in place of an item in combination with the stretch factor. Similarly, an empty space of fixed size may be inserted using an integer in place of an item. See [constructor](#*new) and [add](#add) for details.
 
 
 

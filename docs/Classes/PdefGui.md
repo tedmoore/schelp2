@@ -87,7 +87,7 @@ Create a new [JITGui](../Classes/JITGui.md) that will be watching an object and 
 a [Pdef](../Classes/Pdef.md), or nil### `numItems`
 the number of items in the envirGui### `parent`
 the parent view### `bounds`
-the bounds of the [#-zone](#-zone)### `zone`
+the bounds of the [zone](#zone)### `zone`
 the [CompositeView](../Classes/CompositeView.md) within which the PdefGui is shown### `nameBut`, `playBut`, `pauseBut`, `srcBut`, `envBut`
 the buttons### `envirGui`
 the gui for the Pdef's envir - nil if numItems is 0.### `object`

@@ -30,7 +30,7 @@ Add an action or object for registry.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `object` | Can either be a [Function](../Classes/Function.md) to be evaluated (as first arg the server is passed in), or an [Object](../Classes/Object.md) that implements the message returned by [#-functionSelector](#-functionselector). **One object is only registered once**, so that multiple additions don't cause multiple calls. |  
+| `object` | Can either be a [Function](../Classes/Function.md) to be evaluated (as first arg the server is passed in), or an [Object](../Classes/Object.md) that implements the message returned by [functionSelector](#functionselector). **One object is only registered once**, so that multiple additions don't cause multiple calls. |  
 | `server` | Server for which to register. If the symbol **\default** is passed in, the action is called for the current default server. If the symbol **\all** is passed in, the action is called for all current servers. If server is nil, it is added to \all. |  
 
 ### `remove`

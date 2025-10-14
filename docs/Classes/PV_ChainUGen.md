@@ -30,7 +30,7 @@ Returns the FFT chain buffer's size.
 ```
 
 ### `pvcalc`
-pvcalc applies a function to the frequency-domain data of an FFT chain. See [#-pvcollect](#-pvcollect) below for discussion of efficiency considerations. See also [#-pvcalc2](#-pvcalc2) below, and [UnpackFFT](../Classes/UnpackFFT.md).
+pvcalc applies a function to the frequency-domain data of an FFT chain. See [pvcollect](#pvcollect) below for discussion of efficiency considerations. See also [#-pvcalc2](#-pvcalc2) below, and [UnpackFFT](../Classes/UnpackFFT.md).
 ```supercollider
 chain = chain.pvcalc(numframes, func, frombin, tobin, zeroothers)
 ```
@@ -51,7 +51,7 @@ chain = chain.pvcalc(numframes, func, frombin, tobin, zeroothers)
 | `tobin` | Range end (optional) |  
 | `zeroothers` | If set to 1 then bins outside of the range being processed are silenced. |  
 ### `pvcalc2`
-The method pvcalc2 is just like [#-pvcalc](#-pvcalc) but can combine two FFT chains.
+The method pvcalc2 is just like [pvcalc](#pvcalc) but can combine two FFT chains.
 ```supercollider
 chain = chain.pvcalc2(chain2, numframes, func, frombin, tobin, zeroothers)
 ```

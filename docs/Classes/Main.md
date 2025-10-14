@@ -89,7 +89,7 @@ Register a [Function](../Classes/Function.md) to be evaluated whenever SuperColl
 
 | Argument | Description |
 |----------|-------------|
-| `func` | A [Function](../Classes/Function.md) or similar object to be added. When evaluated, this function will be passed the arguments msg, time, replyAddr, and recvPort, corresponding to the message itself as an [Array](../Classes/Array.md), the time the message was sent, the [NetAddr](../Classes/NetAddr.md) of the sender, and the port on which the message was received. Note that this order differs from that used by the deprecated method [#-recvOSCfunc](#-recvoscfunc).
+| `func` | A [Function](../Classes/Function.md) or similar object to be added. When evaluated, this function will be passed the arguments msg, time, replyAddr, and recvPort, corresponding to the message itself as an [Array](../Classes/Array.md), the time the message was sent, the [NetAddr](../Classes/NetAddr.md) of the sender, and the port on which the message was received. Note that this order differs from that used by the deprecated method [recvOSCfunc](#recvoscfunc).
 ```supercollider
 // post all incoming traffic except the server status messages
 // basically the same as OSCFunc.trace

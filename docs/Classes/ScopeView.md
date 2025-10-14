@@ -19,7 +19,7 @@ It is optimized to efficiently perform frequent plotting of the contents of a [B
 ## Instance Methods
 
 ### `bufnum`
- The number of the Buffer to plot. To set up the ScopeView object for plotting, one needs to set a valid buffer number and tell a [ScopeOut2](../Classes/ScopeOut2.md) UGen to write to it. Before the view starts periodically plotting the buffer, however, one needs to assign it a [Server](../Classes/Server.md) object and call the [#-start](#-start) method on it. If the ScopeOut2 UGen stops writing or an invalid buffer number is set, the plotting will pause.**Arguments:**
+ The number of the Buffer to plot. To set up the ScopeView object for plotting, one needs to set a valid buffer number and tell a [ScopeOut2](../Classes/ScopeOut2.md) UGen to write to it. Before the view starts periodically plotting the buffer, however, one needs to assign it a [Server](../Classes/Server.md) object and call the [start](#start) method on it. If the ScopeOut2 UGen stops writing or an invalid buffer number is set, the plotting will pause.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

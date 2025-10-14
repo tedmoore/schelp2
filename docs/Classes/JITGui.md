@@ -95,7 +95,7 @@ put an object in the gui - if the gui accepts it.
 ### `accepts`
 test whether obj is a valid object to show in a JITGui. In **JITGui** itself, all objects are accepted, in the subclasses, **obj** can either be nil or a specific class, such as [Tdef](../Classes/Tdef.md), [Pdef](../Classes/Pdef.md), [Ndef](../Classes/Ndef.md)
 ### `name`
-set the text of the [#-nameView](#-nameview) and the window (if it [#-hasWindow](#-haswindow))
+set the text of the [nameView](#nameview) and the window (if it [hasWindow](#haswindow))
 ### `getName`
 ask the object its name, or return `'_anon_'`
 ### `winName`
@@ -106,7 +106,7 @@ if it has its own window, one can move it to some specific location.
 close its window.
 
 ### How JITGuis work
-A JITGui watches the state of its object by calling its (the gui's) [#-getState](#-getstate) method at appropriate intervals (skipjack.dt). It compares the new state of the object with the previous state stored in [#-prevState](#-prevstate). When something has changed, only the gui elements concerned are updated.
+A JITGui watches the state of its object by calling its (the gui's) [getState](#getstate) method at appropriate intervals (skipjack.dt). It compares the new state of the object with the previous state stored in [prevState](#prevstate). When something has changed, only the gui elements concerned are updated.
 
 Compare this with model-view-controller (MVC):
 
@@ -120,7 +120,7 @@ Compare this with model-view-controller (MVC):
 You can write your own subclasses to JITGui very efficiently by implementing appropriate variants of the following methods in your class. For examples of these methods, see [TdefGui](../Classes/TdefGui.md), [EnvirGui](../Classes/EnvirGui.md), [NdefGui](../Classes/NdefGui.md).
 
 ### `setDefaults`
-used to calculate the required onscreen size for the jitGui's zone. Should determine zone size based on [#-numItems](#-numitems) and options. also, [#-defPos](#-defpos) (where to show your jitGui by default) can be set here, and possibly modifications to the skin used.
+used to calculate the required onscreen size for the jitGui's zone. Should determine zone size based on [numItems](#numitems) and options. also, [defPos](#defpos) (where to show your jitGui by default) can be set here, and possibly modifications to the skin used.
 ### `accepts`
 a test whether **obj** can be shown in the particular kind of JITGui. Subclasses of JITGui are made for special objects, e.g. Pdefs, so they should test whether obj is the right kind.
 ### `makeViews`
@@ -130,7 +130,7 @@ create all the views of the jitGui inside the zone.
 ### `getState`
 ask the object for all aspects of its current state that will be displayed.
 ### `checkUpdate`
-get the object's current state with [#-prevState](#-prevstate), compare it with prevState, update all gui elements that need to be changed, and store the new state as prevState. This method is called in the skipJack.
+get the object's current state with [prevState](#prevstate), compare it with prevState, update all gui elements that need to be changed, and store the new state as prevState. This method is called in the skipJack.
 
 ### 3 - More methods you may want to overwrite if required
 ### `calcBounds`
@@ -144,7 +144,7 @@ a method for generating a name for the object.
 ### `winName`
 a method for generating a name for the JITGui's window.
 ### `makeScroller`
-Some objects may have more elements to display than the gui has slots, e.g. a [ProxySpace](../Classes/ProxySpace.md) can have more proxies than the mixer has numItems. Then, only [#-numItems](#-numitems) elements are shown, and the others can be scrolled to with [#-scroller](#-scroller) - an [EZScroller](../Classes/EZScroller.md) next to the slot elements. The makeScroller method should knows where in the zone to put the scroller.
+Some objects may have more elements to display than the gui has slots, e.g. a [ProxySpace](../Classes/ProxySpace.md) can have more proxies than the mixer has numItems. Then, only [numItems](#numitems) elements are shown, and the others can be scrolled to with [scroller](#scroller) - an [EZScroller](../Classes/EZScroller.md) next to the slot elements. The makeScroller method should knows where in the zone to put the scroller.
 
 ## Examples
 

@@ -404,7 +404,7 @@ r = seriesIter(0, 5); // last = inf
 r.nextN(8); // run repeatedly
 ```
 
-See also [#-series](#-series) and [ListComprehensions](../Guides/ListComprehensions.md).**Returns:** A [Routine](../Classes/Routine.md).
+See also [series](#series) and [ListComprehensions](../Guides/ListComprehensions.md).**Returns:** A [Routine](../Classes/Routine.md).
 
 ### windowing
 ### `rectWindow`

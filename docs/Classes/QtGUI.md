@@ -19,7 +19,7 @@ QtGUI provides top-level control for the Qt GUI bindings and some platform-level
 
 
 ### `availableStyles`
-Returns an array of all available styles on this platform. For use with [#-style](#-style).
+Returns an array of all available styles on this platform. For use with [style](#style).
 ### `cursorPosition`
 Gets the current position of the cursor as a [Point](../Classes/Point.md).
 ### `debugLevel`
@@ -44,5 +44,5 @@ QtGUI.stringBounds("hellooo", Font(Font.defaultSansFace, 100))
 | `aFont` | An instance of [Font](../Classes/Font.md). |  
 
 ### `style`
-Gets or sets the current GUI style. The given style must be a [String](../Classes/String.md) or [Symbol](../Classes/Symbol.md) that names one of the styles returned by [#-availableStyles](#-availablestyles).
+Gets or sets the current GUI style. The given style must be a [String](../Classes/String.md) or [Symbol](../Classes/Symbol.md) that names one of the styles returned by [availableStyles](#availablestyles).
 

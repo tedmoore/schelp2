@@ -25,7 +25,7 @@ set the default quantization value for the class.
 ### `source`
 set the source (a pattern). If a quantization is given, schedule this change to the next beat (**pattern_**(..) is equivalent)### `clear`
 set the source to nil and stop playing### `clock`
-get or set the instance's default clock, used by [#-play](#-play) if no other clock is specified. Defaults to TempoClock.default.### `quant`
+get or set the instance's default clock, used by [play](#play) if no other clock is specified. Defaults to TempoClock.default.### `quant`
 get or set the quantization value. can be an array [quant, phase, offset, outset]### `fadeTime`
 when the synthdefs that are used contain an `\amp` control, the patterns are replaced by crossfading the previous with the new over this time (in beats)### `envir`
 provide a default event for the Pdef. It is used to filter the incoming stream before it is passed to the source pattern. This is similar to [NodeProxy#-nodeMap](../Classes/NodeProxy.md#-nodemap). When set for the first time, the pattern is rebuilt.### `set`
@@ -38,7 +38,7 @@ Given a [Stream](../Classes/Stream.md) like e.g. [Routine](../Classes/Routine.md
 |----------|-------------|
 | `inval` | The inval is an [Event](../Classes/Event.md) and is passed into all substreams. It can be used to control how they behave from the outside. |  
 | `embed` | See [Object#-streamArg](../Classes/Object.md#-streamarg) for explanation. |  
-| `default` | Replacement for `nil` outputs of the source pattern. One use case is [#-endless](#-endless).
+| `default` | Replacement for `nil` outputs of the source pattern. One use case is [endless](#endless).
 ```supercollider
 a = EventPatternProxy.new;
 a.source = Pbind(\freq, Pgeom(100, Pwhite(1.01, 1.2), 4));
@@ -51,11 +51,11 @@ r.nextN(12, ()); // the next 12 values from r
 
 ### b) using as EventStreamPlayer
 ### `play`
-starts the EventPatternProxy and creates a player. if you want to play multiple instances, use [#-fork](#-fork).**Arguments:**
+starts the EventPatternProxy and creates a player. if you want to play multiple instances, use [fork](#fork).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `argClock` | play on a certain clock, e.g. a [TempoClock](../Classes/TempoClock.md). If nil uses this instance's [#-clock](#-clock), which in turn defaults to TempoClock.default. |  
+| `argClock` | play on a certain clock, e.g. a [TempoClock](../Classes/TempoClock.md). If nil uses this instance's [clock](#clock), which in turn defaults to TempoClock.default. |  
 | `protoEvent` | an event to be used as a first input to the chain |  
 | `quant` | can be an array of [quant, phase, offset, outset], or an instance of [Quant](../Classes/Quant.md). |  
 | `doReset` | if set to true, play will restart the stream if already running (a [Boolean](../Classes/Boolean.md)).

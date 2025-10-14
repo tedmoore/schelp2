@@ -9,26 +9,26 @@
 ## Description
 
 A view which can graphically display nodes at x/y coordinates, connection lines, cross-connections, node markers, and labels. All of the values for these are stored in arrays. While this view is typically used to make editable envelopes interfaces, it can be used to draw very complex interconnection graphs as well.
-You can make the view display an [Env](../Classes/Env.md) using [#-setEnv](#-setenv). Note however that the view will work on a copy of the data of the Env object, therefore moving the nodes through the view will have no effect on the Env.
-You can also define nodes with arrays of x and y values using [#-value](#-value), and the connections using [#-connect](#-connect).
+You can make the view display an [Env](../Classes/Env.md) using [setEnv](#setenv). Note however that the view will work on a copy of the data of the Env object, therefore moving the nodes through the view will have no effect on the Env.
+You can also define nodes with arrays of x and y values using [value](#value), and the connections using [connect](#connect).
 
 ### Appearance
-The view supports two **display styles**: the default one draws nodes as small dots, with labels next to them, while another style draws nodes as rounded rectangles with labels drawn inside. See [#-style](#-style).
+The view supports two **display styles**: the default one draws nodes as small dots, with labels next to them, while another style draws nodes as rounded rectangles with labels drawn inside. See [style](#style).
 
-A **label** for each of the nodes can be set using [#-strings](#-strings) and [#-setString](#-setstring).
+A **label** for each of the nodes can be set using [strings](#strings) and [setString](#setstring).
 
 
 
 ### Interaction
 Nodes can be selected and moved using mouse. Shift-clicking a node will add it to the selection.
 
-You can also move selected nodes and change selection using keyboard. Pressing the arrow keys will move selected nodes (as long as [#-step](#-step) is larger than 0). Pressing the left or right arrow keys while holding down Alt will select previous or next node, and holding down Shift will extend selection to the left or to the right. Other GUI kits may differ.
+You can also move selected nodes and change selection using keyboard. Pressing the arrow keys will move selected nodes (as long as [step](#step) is larger than 0). Pressing the left or right arrow keys while holding down Alt will select previous or next node, and holding down Shift will extend selection to the left or to the right. Other GUI kits may differ.
 
-[#-keepHorizontalOrder](#-keephorizontalorder) allows you to enforce the order of nodes in horizontal direction to match their index order. In that case, node movement to the left and to the right will be restricted by the positions of their immediate neighbours. This is especially useful when EnvelopeView is used to display an [Env](../Classes/Env.md).
+[keepHorizontalOrder](#keephorizontalorder) allows you to enforce the order of nodes in horizontal direction to match their index order. In that case, node movement to the left and to the right will be restricted by the positions of their immediate neighbours. This is especially useful when EnvelopeView is used to display an [Env](../Classes/Env.md).
 
-[#-elasticSelection](#-elasticselection) determines whether moving multiple nodes will be blocked altogether if any of the nodes meet an obstacle (the view bounds or a neighbour node), or only those individual nodes will be blocked.
+[elasticSelection](#elasticselection) determines whether moving multiple nodes will be blocked altogether if any of the nodes meet an obstacle (the view bounds or a neighbour node), or only those individual nodes will be blocked.
 
-Node selection can also be changed programmatically using [#-index](#-index), [#-selectIndex](#-selectindex), and [#-deselectIndex](#-deselectindex). The [current](#-index) node can be moved programmatically using [#-x](#-x) and [#-y](#-y).
+Node selection can also be changed programmatically using [index](#index), [selectIndex](#selectindex), and [deselectIndex](#deselectindex). The [current](#index) node can be moved programmatically using [x](#x) and [y](#y).
 
 
 
@@ -52,7 +52,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 | `` | An Array containing two other Arrays, of which one contains the horizontal and the other the vertical position of the new nodes. The values must be between 0 and 1. For example: `[[x1, x2, x3, ...], [y1, y2, y3, ...]]` |  
 
 ### `valueAction`
- Sets [#-value](#-value) to the argument and triggers the [#-action](#-action).
+ Sets [value](#value) to the argument and triggers the [action](#action).
 ### `x`
  The horizontal position of the *current* node.**Arguments:**
 
@@ -68,9 +68,9 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 | `` | A Float between 0 and 1. |  
 
 ### `currentvalue`
- Synonym for [#-y](#-y).
+ Synonym for [y](#y).
 ### `curves`
- The shapes of connections between nodes. See below for the valid objects that describe a shape. If a single shape is given, it will be applied to all the existing nodes. If an Array of shapes is given, each of its elements will be applied to an existing node, in order of index. A connection curve shape applied to a node will determine the shape of the connections originating at that node. If no connections have been created using [#-connect](#-connect), the origin node of a connection is the one with lower index. If there are such connections however, their origin is the node that was passed as the first argument to [#-connect](#-connect).**Arguments:**
+ The shapes of connections between nodes. See below for the valid objects that describe a shape. If a single shape is given, it will be applied to all the existing nodes. If an Array of shapes is given, each of its elements will be applied to an existing node, in order of index. A connection curve shape applied to a node will determine the shape of the connections originating at that node. If no connections have been created using [connect](#connect), the origin node of a connection is the one with lower index. If there are such connections however, their origin is the node that was passed as the first argument to [connect](#connect).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -78,7 +78,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 
 ### `strings`
  The labels of the nodes.
-> **Note:** In order for the labels to be visible, you might need to ensure that the [#-strokeColor](#-strokecolor) contrasts the [#-fillColor](#-fillcolor) (depending on how the view draws the nodes and the labels).
+> **Note:** In order for the labels to be visible, you might need to ensure that the [strokeColor](#strokecolor) contrasts the [fillColor](#fillcolor) (depending on how the view draws the nodes and the labels).
 
 **Arguments:**
 
@@ -88,7 +88,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 
 ### `setString`
  Sets the label of the node at the given index.
-> **Note:** In order for the label to be visible, you might need to ensure that the [#-strokeColor](#-strokecolor) contrasts the [#-fillColor](#-fillcolor) (depending on how the view draws the nodes and the labels).
+> **Note:** In order for the label to be visible, you might need to ensure that the [strokeColor](#strokecolor) contrasts the [fillColor](#fillcolor) (depending on how the view draws the nodes and the labels).
 
 **Arguments:**
 
@@ -107,7 +107,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 
 ### `setThumbWidth`
  Sets the width of the node at the given index.
-> **Note:** For compatibility with existing code, this will set the [#-style](#-style) to **'rects'**.
+> **Note:** For compatibility with existing code, this will set the [style](#style) to **'rects'**.
 
 **Arguments:**
 
@@ -118,7 +118,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 
 ### `setThumbHeight`
  Sets the height of the node at the given index.
-> **Note:** For compatibility with existing code, this will set the [#-style](#-style) to **'rects'**.
+> **Note:** For compatibility with existing code, this will set the [style](#style) to **'rects'**.
 
 **Arguments:**
 
@@ -136,7 +136,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 | `size` | An Integer. |  
 
 ### `connect`
- Removes any connections created when the [#-value](#-value) was set, and then creates new ones from the node at index given in the first argument to each of the nodes at indexes given in the second argument.**Arguments:**
+ Removes any connections created when the [value](#value) was set, and then creates new ones from the node at index given in the first argument to each of the nodes at indexes given in the second argument.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -148,10 +148,10 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 
 ### Appearance
 ### `style`
- One of the following drawing styles:- **'dots'** - nodes are drawn as small dots within a larger circle indicating the area of mouse sensitivity. Labels are drawn next to the dots (see [#-setString](#-setstring)). This style always draws nodes with *equal width and height*, and will use the smaller of the node's sizes, if different (it never draws ellipses).
+ One of the following drawing styles:- **'dots'** - nodes are drawn as small dots within a larger circle indicating the area of mouse sensitivity. Labels are drawn next to the dots (see [setString](#setstring)). This style always draws nodes with *equal width and height*, and will use the smaller of the node's sizes, if different (it never draws ellipses).
 - **'rects'** - nodes are drawn as rounded rectangles. Labels are drawn within the bounds of the rectangles.
 
-> **Note:** For compatibility with existing code, calling any of [#-thumbWidth](#-thumbwidth), [#-thumbHeight](#-thumbheight), [#-setThumbWidth](#-setthumbwidth), or [#-setThumbHeight](#-setthumbheight) will automatically switch style to **'rects'**. You can still set a different style afterwards.
+> **Note:** For compatibility with existing code, calling any of [thumbWidth](#thumbwidth), [thumbHeight](#thumbheight), [setThumbWidth](#setthumbwidth), or [setThumbHeight](#setthumbheight) will automatically switch style to **'rects'**. You can still set a different style afterwards.
 
 **Arguments:**
 
@@ -189,7 +189,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 
 ### `thumbWidth`
  Sets the width of all nodes.
-> **Note:** For compatibility with existing code, this will set the [#-style](#-style) to **'rects'**.
+> **Note:** For compatibility with existing code, this will set the [style](#style) to **'rects'**.
 
 **Arguments:**
 
@@ -199,7 +199,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 
 ### `thumbHeight`
  Sets the height of all nodes.
-> **Note:** For compatibility with existing code, this will set the [#-style](#-style) to **'rects'**.
+> **Note:** For compatibility with existing code, this will set the [style](#style) to **'rects'**.
 
 **Arguments:**
 
@@ -208,7 +208,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 | `` | An Integer. |  
 
 ### `thumbSize`
- Sets both [#-thumbWidth](#-thumbwidth) and [#-thumbHeight](#-thumbheight) to the argument.
+ Sets both [thumbWidth](#thumbwidth) and [thumbHeight](#thumbheight) to the argument.
 ### `strokeColor`
  The color used to draw the connections and the node labels.**Arguments:**
 
@@ -217,7 +217,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 | `` | A Color. |  
 
 ### `fillColor`
- The default color used to draw the nodes. If the color of a specific node has been set using [#-setFillColor](#-setfillcolor), it will take precedence.**Arguments:**
+ The default color used to draw the nodes. If the color of a specific node has been set using [setFillColor](#setfillcolor), it will take precedence.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -238,11 +238,11 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 | `` | A Color. |  
 
 ### `colors`
- Sets the [#-strokeColor](#-strokecolor) and the [#-fillColor](#-fillcolor) to the arguments, respectively.
+ Sets the [strokeColor](#strokecolor) and the [fillColor](#fillcolor) to the arguments, respectively.
 
 ### Interaction
 ### `index`
- The index of the *current* node, i.e. the node affected by [#-x](#-x) and [#-y](#-y) methods. This is the selected node with lowest index, or -1 if no selection.**Arguments:**
+ The index of the *current* node, i.e. the node affected by [x](#x) and [y](#y) methods. This is the selected node with lowest index, or -1 if no selection.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -251,7 +251,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 ### `lastIndex`
  The last node selected, regardless of the current state of selection, or -1 if no node has yet been selected.
 ### `selectIndex`
- Selects the node at given index and makes it the current one, i.e. [#-currentvalue](#-currentvalue) will relate to that node. As a special case, if the argument is -1 all nodes will be deselected.**Arguments:**
+ Selects the node at given index and makes it the current one, i.e. [currentvalue](#currentvalue) will relate to that node. As a special case, if the argument is -1 all nodes will be deselected.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -275,7 +275,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 | `` | A Boolean. |  
 
 ### `setEditable`
- Sets whether the node at given index is editable. Regardless of this, no node will be editable unless [#-editable](#-editable) is `true`.**Arguments:**
+ Sets whether the node at given index is editable. Regardless of this, no node will be editable unless [editable](#editable) is `true`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -297,7 +297,7 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 | `` | A Boolean. |  
 
 ### `elasticSelection`
- Whether the relative positions of nodes within the selection can change when the selection is moved using mouse or keyboard, in order to adapt to obstacles (the view bounds or, in case [#-keepHorizontalOrder](#-keephorizontalorder) is `true`, a neighbour node). If this is `false`, movement of multiple nodes will be blocked altogether when an obstacles is met, otherwise only the individual nodes will be blocked at their obstacles.**Arguments:**
+ Whether the relative positions of nodes within the selection can change when the selection is moved using mouse or keyboard, in order to adapt to obstacles (the view bounds or, in case [keepHorizontalOrder](#keephorizontalorder) is `true`, a neighbour node). If this is `false`, movement of multiple nodes will be blocked altogether when an obstacles is met, otherwise only the individual nodes will be blocked at their obstacles.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -314,11 +314,11 @@ Node selection can also be changed programmatically using [#-index](#-index), [#
 
 ### Drag and drop
 ### `defaultGetDrag`
-**Returns:** The [#-value](#-value).
+**Returns:** The [value](#value).
 ### `defaultCanReceiveDrag`
-**Returns:** True for any drag data, but the data should be in the same format as [#-value](#-value).
+**Returns:** True for any drag data, but the data should be in the same format as [value](#value).
 ### `defaultReceiveDrag`
- If the drag data is of the acceptable form (see [#-defaultCanReceiveDrag](#-defaultcanreceivedrag) above), sets [#-value](#-value) using that data.
+ If the drag data is of the acceptable form (see [defaultCanReceiveDrag](#defaultcanreceivedrag) above), sets [value](#value) using that data.
 
 ## Examples
 

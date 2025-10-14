@@ -13,7 +13,7 @@ A view that allows setting a numerical value by means of moving a sliding handle
 
 
 ### `new`
- When a new Slider is created, its [#-orientation](#-orientation) is determined by the initial size: if it is wider than high, the orientation will be horizontal, otherwise it will be vertical.
+ When a new Slider is created, its [orientation](#orientation) is determined by the initial size: if it is wider than high, the orientation will be horizontal, otherwise it will be vertical.
 
 ## Instance Methods
 
@@ -27,16 +27,16 @@ A view that allows setting a numerical value by means of moving a sliding handle
 | `` | A Float. |  
 
 ### `valueAction`
- Sets [#-value](#-value) and triggers [#-action](#-action).
+ Sets [value](#value) and triggers [action](#action).
 ### `increment`
- Increments the value by [#-step](#-step) multiplied by 'factor'.**Arguments:**
+ Increments the value by [step](#step) multiplied by 'factor'.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `factor` | Any number. |  
 
 ### `decrement`
- Decrements the value by [#-step](#-step) multiplied by 'factor'.**Arguments:**
+ Decrements the value by [step](#step) multiplied by 'factor'.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -52,7 +52,7 @@ A view that allows setting a numerical value by means of moving a sliding handle
 | `` | One of the two Symbols: \horizontal or \vertical. |  
 
 ### `thumbSize`
- The size of the handle - its width or height, depending on [#-orientation](#-orientation).**Arguments:**
+ The size of the handle - its width or height, depending on [orientation](#orientation).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -75,7 +75,7 @@ A view that allows setting a numerical value by means of moving a sliding handle
 
 ### Interaction
 ### `step`
- The amount by which the value will changed when [#-increment](#-increment) or [#-decrement](#-decrement) is called, or when related keys are pressed.**Arguments:**
+ The amount by which the value will changed when [increment](#increment) or [decrement](#decrement) is called, or when related keys are pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -84,21 +84,21 @@ A view that allows setting a numerical value by means of moving a sliding handle
 ### `pixelStep`
  The absolute amount by which the value would change if the handle moved by one pixel.**Returns:** A Float.
 ### `shift_scale`
- The factor by which [#-step](#-step) is multiplied when incrementing or decrementing the value by keyboard while the Shift key is pressed.**Arguments:**
+ The factor by which [step](#step) is multiplied when incrementing or decrementing the value by keyboard while the Shift key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
 
 ### `ctrl_scale`
- The factor by which [#-step](#-step) is multiplied when incrementing or decrementing the value by keyboard while the Ctrl key is pressed.**Arguments:**
+ The factor by which [step](#step) is multiplied when incrementing or decrementing the value by keyboard while the Ctrl key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
 
 ### `alt_scale`
- The factor by which [#-step](#-step) is multiplied when incrementing or decrementing the value by keyboard while the Alt key is pressed.**Arguments:**
+ The factor by which [step](#step) is multiplied when incrementing or decrementing the value by keyboard while the Alt key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -114,11 +114,11 @@ A view that allows setting a numerical value by means of moving a sliding handle
 
 ### Drag and drop
 ### `defaultGetDrag`
-**Returns:** The [#-value](#-value).
+**Returns:** The [value](#value).
 ### `defaultCanReceiveDrag`
 **Returns:** True if the current drag data is a number.
 ### `defaultReceiveDrag`
- Sets [#-valueAction](#-valueaction) to the current drag data.
+ Sets [valueAction](#valueaction) to the current drag data.
 
 ## Examples
 

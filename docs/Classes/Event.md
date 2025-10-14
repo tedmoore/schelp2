@@ -8,7 +8,7 @@
 
 ## Description
 
-An Event specifies an action to be taken in response to a [#-play](#-play) message. Its key/value pairs specify the parameters of that action. Event inherits most of its methods from its superclasses, especially from [Dictionary](../Classes/Dictionary.md). Nevertheless Event inherits from [IdentityDictionary](../Classes/IdentityDictionary.md) and querying values is done by checking its keys for *identity*, not *equality*. For the usage and meaning of the `parent` and `proto` events, see [IdentityDictionary](../Classes/IdentityDictionary.md)'s helpfile.
+An Event specifies an action to be taken in response to a [play](#play) message. Its key/value pairs specify the parameters of that action. Event inherits most of its methods from its superclasses, especially from [Dictionary](../Classes/Dictionary.md). Nevertheless Event inherits from [IdentityDictionary](../Classes/IdentityDictionary.md) and querying values is done by checking its keys for *identity*, not *equality*. For the usage and meaning of the `parent` and `proto` events, see [IdentityDictionary](../Classes/IdentityDictionary.md)'s helpfile.
 
 ```supercollider
 a = (x: 6, y: 7, play: { (~x * ~y).postln });
@@ -178,7 +178,7 @@ Combines an event given in the argument with the current event. This is used to 
 ### `playAndDelta`
 Used by [EventStreamPlayer](../Classes/EventStreamPlayer.md) to play Events and obtain a time increment.### `isRest`
 Returns **true** if the event will be played as a rest, and **false** otherwise. See [Rest](../Classes/Rest.md) for a more complete discussion of rests in event patterns.### `asUGenInput`
-Calls [#-asControlInput](#-ascontrolinput).### `asControlInput`
+Calls [asControlInput](#ascontrolinput).### `asControlInput`
 Enables events to represent the server resources they created in an Event.
 ### Methods that allow Events to provide user control for Synths on Groups
 ### `synth`

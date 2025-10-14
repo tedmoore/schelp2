@@ -78,7 +78,7 @@ SoundFile.use(ExampleFiles.child, { |f| f.inspect });
 
 
 ### `normalize`
-Normalizes a soundfile to a level set by the user. The normalized audio will be written into a second file.Using this class method (SoundFile.normalize) will automatically open the source file for you. You may also [#-openRead](#-openread) the SoundFile yourself and call [#-normalize](#-normalize) on it. In that case, the source path is omitted because the file is already open.See instance method [#-normalize](#-normalize) for more information.
+Normalizes a soundfile to a level set by the user. The normalized audio will be written into a second file.Using this class method (SoundFile.normalize) will automatically open the source file for you. You may also [openRead](#openread) the SoundFile yourself and call [normalize](#normalize) on it. In that case, the source path is omitted because the file is already open.See instance method [normalize](#normalize) for more information.
 
 ## Instance Methods
 
@@ -113,14 +113,14 @@ e = f[1].cue((addAction: 2, group: 1));    // synth will play ahead of the defau
 
 ### Read/Write
 ### `openRead`
-Read the header of a file. Answers a [Boolean](../Classes/Boolean.md) whether the read was successful. Sets the [#-numFrames](#-numframes), [#-numChannels](#-numchannels) and [#-sampleRate](#-samplerate). Does **not** set the [#-headerFormat](#-headerformat) and [#-sampleFormat](#-sampleformat).**Arguments:**
+Read the header of a file. Answers a [Boolean](../Classes/Boolean.md) whether the read was successful. Sets the [numFrames](#numframes), [numChannels](#numchannels) and [sampleRate](#samplerate). Does **not** set the [headerFormat](#headerformat) and [sampleFormat](#sampleformat).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `pathName` | a [String](../Classes/String.md) specifying the path name of the file to read. |  
 
 ### `readData`
-Reads the sample data of the file into the raw array you supply. You must have already called [#-openRead](#-openread).When you reach EOF, the array's size will be 0. Checking the array size is an effective termination condition when looping through a sound file. See the method [#-channelPeaks](#-channelpeaks) for example.**Arguments:**
+Reads the sample data of the file into the raw array you supply. You must have already called [openRead](#openread).When you reach EOF, the array's size will be 0. Checking the array size is an effective termination condition when looping through a sound file. See the method [channelPeaks](#channelpeaks) for example.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -134,7 +134,7 @@ Write the header of a file. Answers a [Boolean](../Classes/Boolean.md) whether t
 | `pathName` | a [String](../Classes/String.md) specifying the path name of the file to write. |  
 
 ### `writeData`
-Writes the rawArray to the sample data of the file. You must have already called [#-openWrite](#-openwrite).**Arguments:**
+Writes the rawArray to the sample data of the file. You must have already called [openWrite](#openwrite).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -180,7 +180,7 @@ Normalizes a soundfile to a level set by the user. The normalized audio will be 
 
 ### Instance Variables
 ### `path`
-Get the pathname of the file. This variable is set via the [#-openRead](#-openread) or [#-openWrite](#-openwrite) calls.
+Get the pathname of the file. This variable is set via the [openRead](#openread) or [openWrite](#openwrite) calls.
 ### `headerFormat`
 This is a [String](../Classes/String.md) indicating the header format which was read by openRead and will be written by openWrite. In order to write a file with a certain header format you set this variable.
 **read/write header formats:**
@@ -189,7 +189,7 @@ This is a [String](../Classes/String.md) indicating the header format which was 
 
 Additionally, a huge number of other formats are supported read only. Please note that WAV file support is limited to 4GB. For output of multiple channels or very long recordings we suggest to use RF64, W64, or CAF (on macOS).
 ### `sampleFormat`
-A [String](../Classes/String.md) indicating the format of the sample data which was read by [#-openRead](#-openread) and will be written by [#-openWrite](#-openwrite). libsndfile determines which header formats support which sample formats. This information is detailed at [http://www.mega-nerd.com/libsndfile](http://www.mega-nerd.com/libsndfile) . The possible sample formats are:
+A [String](../Classes/String.md) indicating the format of the sample data which was read by [openRead](#openread) and will be written by [openWrite](#openwrite). libsndfile determines which header formats support which sample formats. This information is detailed at [http://www.mega-nerd.com/libsndfile](http://www.mega-nerd.com/libsndfile) . The possible sample formats are:
 **sample formats:**
 : | **format** | **notes** | **supported headers** (partial list)  | 
 | --- | --- | --- || "int8", "int16", "int24", "int32" | integer formats | "AIFF", "WAV", "RF64", "W64", "CAF", "FLAC"  | | "float" | floating-point format (won't clip above 0dB) | "AIFF", "WAV", "RF64", "W64", "CAF"  | | "mulaw", "alaw" | U-law and A-law encoding | "WAV", "W64"  | | "vorbis" | "Vorbis" compressed format | "OGG"  | | "mp1", "mp2", "mp3" | MPEG Layer I, II, and III compressed formats | "MPEG" (see **NOTE** below) |

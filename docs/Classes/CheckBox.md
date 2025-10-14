@@ -25,7 +25,7 @@ A view that toggles between two states when clicked, displaying or hiding a chec
 | `` | A Boolean. |  
 
 ### `valueAction`
- Sets [#-value](#-value) and triggers [#-action](#-action).**Arguments:**
+ Sets [value](#value) and triggers [action](#action).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -40,11 +40,11 @@ A view that toggles between two states when clicked, displaying or hiding a chec
 
 ### Drag and drop
 ### `defaultGetDrag`
-**Returns:** The [#-value](#-value).
+**Returns:** The [value](#value).
 ### `defaultCanReceiveDrag`
 **Returns:** True if the current drag data is a Boolean.
 ### `defaultReceiveDrag`
- Sets [#-valueAction](#-valueaction) to the current drag data.
+ Sets [valueAction](#valueaction) to the current drag data.
 
 ## Examples
 

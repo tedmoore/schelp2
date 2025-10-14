@@ -25,7 +25,7 @@ set the default quantization value for the class. (default: 1.0). can be a pair 
 ### `source`
 set the source. If a quantization is given, schedule this change to the next beat the object is a **routine function**, which is evaluated in a protected way, so that failure will notify the proxy that it has stopped. The object can also be a **pattern** of time values.### `clear`
 set the source to nil### `clock`
-get or set the instance's default clock, used by [#-play](#-play) if no other clock is specified. Defaults to TempoClock.default.### `quant`
+get or set the instance's default clock, used by [play](#play) if no other clock is specified. Defaults to TempoClock.default.### `quant`
 get or set the quantization value. can be a pair [quant, offset]### `condition`
 provide a condition under which the pattern is switched when a new one is inserted. the stream value and a count is passed into the function. the methods **count_(n)** simply counts up to n and switches the pattern then### `reset`
 switch the pattern immediately. (stuck conditions can be subverted by this)### `envir`
@@ -44,7 +44,7 @@ starts the TaskProxy and creates a player. if you want to play multiple instance
 
 | Argument | Description |
 |----------|-------------|
-| `argClock` | which clock to use. if nil then use this instance's [#-clock](#-clock), which in turn defaults to TempoClock.default. |  
+| `argClock` | which clock to use. if nil then use this instance's [clock](#clock), which in turn defaults to TempoClock.default. |  
 | `doReset` | A [Boolean](../Classes/Boolean.md) |  
 | `quant` | can be an array of [quant, phase] |  
 

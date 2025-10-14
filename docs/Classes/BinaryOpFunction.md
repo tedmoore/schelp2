@@ -15,7 +15,7 @@ Operating on functions instead of numbers, what results is not a result of the c
 
 ### `value`
 Executes each of the operand functions and then performs the selector on the result.### `valueArray`
-the same as [#-value](#-value)
+the same as [value](#value)
 ## Examples
 
 

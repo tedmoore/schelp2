@@ -23,7 +23,7 @@ Note that `DrawGrid` does not hold any reference to the `UserView` but is meant 
 | `bounds` | A [Point](../Classes/Point.md) or [Rect](../Classes/Rect.md) describing the size and position of the grid within the parent view (not including any labels). |  
 | `horzGrid` | A grid lines object for the x-axis, instantiated via [GridLines](../Classes/GridLines.md), or [ControlSpec#-grid](../Classes/ControlSpec.md#-grid) method, or `nil` (resulting in no grid lines). |  
 | `vertGrid` | A grid lines object for the y-axis, see **horzGrid**. |  
-**Returns:** A `DrawGrid`.The warp behavior of the **horizGrid** and **vertGrid** is based on the warp behavior of the `ControlSpec` used by the grid lines object assigned to each axis.Multiple `DrawGrid` may be used to draw grids on a single [UserView](../Classes/UserView.md).See [#-preview](#-preview) if you'd like to preview modifications of this `DrawGrid`. See [Examples](#testing-and-modifying) below.
+**Returns:** A `DrawGrid`.The warp behavior of the **horizGrid** and **vertGrid** is based on the warp behavior of the `ControlSpec` used by the grid lines object assigned to each axis.Multiple `DrawGrid` may be used to draw grids on a single [UserView](../Classes/UserView.md).See [preview](#preview) if you'd like to preview modifications of this `DrawGrid`. See [Examples](#testing-and-modifying) below.
 
 ## Instance Methods
 
@@ -70,7 +70,7 @@ A `Boolean` which turns on/off anti-aliasing. See [Pen#*smoothing](../Classes/Pe
 Set the line dash pattern. The **value** should be a [FloatArray](../Classes/FloatArray.md) of values that specify the lengths of the alternating dashes and spaces. For example, `FloatArray[10.0, 3.0, 5.0, 3.0]`, for dashes of lengths `10.0` and `5.0` pixels, separated by spaces of `3.0` pixels. See [Pen#*lineDash](../Classes/Pen.md#*linedash).**Returns:** Self.### `x`
 A `DrawGridX` object that draws the x (horizontal) axis. In general you shouldn't need to set this.**Returns:** A `DrawGridX`.### `y`
 A `DrawGridY` object that draws the y (vertical) axis. In general you shouldn't need to set this.**Returns:** A `DrawGridY`.### `numTicks`
-Set the *approximate* number of grid lines ("ticks") for each axis. If set, the number of ticks is fixed and `numTicks` takes precedence over [#-tickSpacing](#-tickspacing). If `nil`, the number of grid lines change with the view size, constrained by the `tickSpacing`. Default: `nil`.See [Examples](#testing-and-modifying) below.**Arguments:**
+Set the *approximate* number of grid lines ("ticks") for each axis. If set, the number of ticks is fixed and `numTicks` takes precedence over [tickSpacing](#tickspacing). If `nil`, the number of grid lines change with the view size, constrained by the `tickSpacing`. Default: `nil`.See [Examples](#testing-and-modifying) below.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -88,7 +88,7 @@ g = GridLines([0, 200].asSpec);
 ```
 
 ### `tickSpacing`
-Set the *minimum* spacing between grid lines ("ticks") for each axis. The number of grid lines will change with the view size, but won't be spaced less than this `tickSpacing`, allowing you to control the density of grid lines. However if [#-numTicks](#-numticks) is not `nil`, it takes precedence over `tickSpacing`.See [Examples](#testing-and-modifying) below.**Arguments:**
+Set the *minimum* spacing between grid lines ("ticks") for each axis. The number of grid lines will change with the view size, but won't be spaced less than this `tickSpacing`, allowing you to control the density of grid lines. However if [numTicks](#numticks) is not `nil`, it takes precedence over `tickSpacing`.See [Examples](#testing-and-modifying) below.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -133,7 +133,7 @@ u.onResize = { |u|
 
 
 ### Testing and modifying
-For previewing the look and feel of your `GridLines`, you can render your `DrawGrid` using the [#-preview](#-preview) method:
+For previewing the look and feel of your `GridLines`, you can render your `DrawGrid` using the [preview](#preview) method:
 
 
 ```supercollider

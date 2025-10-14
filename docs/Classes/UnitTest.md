@@ -177,7 +177,7 @@ Make sure that a specific [Exception](../Classes/Exception.md) or [Error](../Cla
 | `onFailure` | If not `nil`, a failure stops the tests and evaluates this function. |  
 | `details` | Some optional extra details which will be passed to the reporting framework for display unless brief reporting is requested (see [#*passVerbosity](#*passverbosity)). |  
 ### `assertNoException`
-Make sure that a specific [Exception](../Classes/Exception.md) or [Error](../Classes/Error.md) is **not** thrown. For arguments, see [#-assertException](#-assertexception).### `wait`
+Make sure that a specific [Exception](../Classes/Exception.md) or [Error](../Classes/Error.md) is **not** thrown. For arguments, see [assertException](#assertexception).### `wait`
 Wait for a predicate function to return `true`. Considers the test failed after `maxTime`. Only valid within a test (or a routine).
 > **Note:** It's best to avoid using this method in tests. See [CondVar#-waitFor](../Classes/CondVar.md#-waitfor) for a better option.
 
@@ -202,7 +202,7 @@ Wait for server boot until continued. Only valid within a test (or a routine).If
 ```
 
 ### `debug`
-Supply some debugging information relevant to the currently running test case. This will be displayed immediately preceding any details which may be displayed through use of the `details` argument of [#-passed](#-passed) and [#-failed](#-failed).**Arguments:**
+Supply some debugging information relevant to the currently running test case. This will be displayed immediately preceding any details which may be displayed through use of the `details` argument of [passed](#passed) and [failed](#failed).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

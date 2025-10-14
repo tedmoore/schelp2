@@ -4,9 +4,9 @@
 
 **Categories:** External Control
 
-This class provides basic support for serial port communication. Ports are opened with [#*new](#*new) and closed with [#-close](#-close).
-Each SerialPort object uses an 8KB internal buffer and reads data as soon as it is available. If the data is not read out of the buffer and the buffer fills up, incoming bytes will be dropped. Use [#-rxErrors](#-rxerrors) to get a count of the number of bytes dropped.
-Since it is constantly polling the port for available data, a SerialPort object knows almost immediately when the port has been lost. When this happens, it will call the [#-doneAction](#-doneaction) callback and mark itself as closed.
+This class provides basic support for serial port communication. Ports are opened with [#*new](#*new) and closed with [close](#close).
+Each SerialPort object uses an 8KB internal buffer and reads data as soon as it is available. If the data is not read out of the buffer and the buffer fills up, incoming bytes will be dropped. Use [rxErrors](#rxerrors) to get a count of the number of bytes dropped.
+Since it is constantly polling the port for available data, a SerialPort object knows almost immediately when the port has been lost. When this happens, it will call the [doneAction](#doneaction) callback and mark itself as closed.
 
 ## Class Methods
 
@@ -42,7 +42,7 @@ SerialPort.listDevices;
 ### `devicePattern`
 If set to a non-nil value, `SerialPort.devicePattern` instead returns `SerialPort.devicePattern.patchMatch`. That is, the value of this class variable is used as a file glob.This is a legacy feature and no longer recommended. File globbing alone is not powerful enough to capture a general set of possible serial port paths, and this level of customization was not necessary for `SerialPort.devices`. If you need to refine the results returned by `SerialPort.devices`, it is better to do your own matching or filtering.
 ### `closeAll`
-Calls [#-close](#-close) on all ports.
+Calls [close](#close) on all ports.
 ### `cleanupAll`
 Deprecated; use [#*closeAll](#*closeall) instead.
 

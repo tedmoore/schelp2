@@ -8,7 +8,7 @@
 
 ## Description
 
-A general purpose class for monitoring or crosslinking between busses. It supports multichannel expansion and crossfading between settings. It provides optimizations for playing contiguous channels to other contiguous busses ([#-play](#-play)) and for more complex routings, such as splitting, spreading etc to multiple channels ([#-playN](#-playn)). Monitor uses the existing set of [SystemSynthDefs](../Classes/SystemSynthDefs.md) to do this.
+A general purpose class for monitoring or crosslinking between busses. It supports multichannel expansion and crossfading between settings. It provides optimizations for playing contiguous channels to other contiguous busses ([play](#play)) and for more complex routings, such as splitting, spreading etc to multiple channels ([playN](#playn)). Monitor uses the existing set of [SystemSynthDefs](../Classes/SystemSynthDefs.md) to do this.
 
 ```supercollider
 { Out.ar(87, SinOsc.ar(MouseX.kr(240, 1000, 1) * [1, 2, 3], 0, 0.2)) }.play; // play three sine tone on channels 87, 88, and 89
@@ -136,6 +136,6 @@ Set one single fadeTime for the next transition (may be a stop or a new play).##
 Returns true if the group is still playing.### `group`
 Return the group in which all mapping synths are running.### `numChannels`
 Return the number of input channels.### `copy`
-Return a copy of the receiver, with the same channel setting, but not running. You can run it with the settings by sending it the [#-play](#-play) message, and pass in any modifications you want to make.### `playToBundle`
+Return a copy of the receiver, with the same channel setting, but not running. You can run it with the settings by sending it the [play](#play) message, and pass in any modifications you want to make.### `playToBundle`
 Adds all playing osc messages to a bundle, passed as an argument. The bundle object should implement the method **.add**
 

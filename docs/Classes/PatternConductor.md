@@ -16,7 +16,7 @@ PatternConductor provides a simple interactive control (supporting play, pause, 
 ### `tempo`
 Sets the tempo of the PatternConductor### `play`
 Play the pattern. A [TempoClock](../Classes/TempoClock.md) is created, its tempo is set to the PatternConductor tempo, and the pattern is played using that clock. If quant is non-zero, this is synchronized with TempoClock.default at the specified quantization.### `pause`
-Pause the pattern, sustaining notes indefinitely. A subsequent [#-resume](#-resume) will return to the original tempo (so the notes will end as scheduled). A subsequent [#-play](#-play) will cut-off any sounding notes and resume play at the original tempo.### `stop`
+Pause the pattern, sustaining notes indefinitely. A subsequent [resume](#resume) will return to the original tempo (so the notes will end as scheduled). A subsequent [play](#play) will cut-off any sounding notes and resume play at the original tempo.### `stop`
 can cut-off or shorten sounding notes, depending on the value of tempo. If stopTempo is nil, all notes are cut-off immediately. Otherwise, notes end at the specified tempo.
 ## Examples
 

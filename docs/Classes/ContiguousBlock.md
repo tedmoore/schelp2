@@ -10,7 +10,7 @@
 
 A ContiguousBlock is a range of addresses (generally integers >= 0) used in a [ContiguousBlockAllocator](../Classes/ContiguousBlockAllocator.md). ContiguousBlockAllocator is used in [Server](../Classes/Server.md) to manage buffer numbers and audio/control bus indices.
 `ContiguousBlock(10, 2)` spans address indices 10 and 11.
-Additionally, a ContiguousBlock may be marked as in use or free. See [#-used](#-used).
+Additionally, a ContiguousBlock may be marked as in use or free. See [used](#used).
 
 
 ## Class Methods

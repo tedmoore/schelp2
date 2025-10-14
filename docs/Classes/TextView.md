@@ -8,7 +8,7 @@
 
 TextView consists of an area where **multi-line text** can be typed in and edited.
 Using the view's methods, the text can be formatted: different **font** and **text color** can be applied to parts of the text. Text can also be inserted, removed, and selected programmatically.
-The view can **open text documents** and load from them both **plain text**, as well as formatted text in **HTML**, although it can not save the text back to files. However, you can get the contents of the view using the [#-string](#-string) method and then implement saving on your own, but the -string method will only return plain text, regardless of how the contents of the view are formatted.
+The view can **open text documents** and load from them both **plain text**, as well as formatted text in **HTML**, although it can not save the text back to files. However, you can get the contents of the view using the [string](#string) method and then implement saving on your own, but the -string method will only return plain text, regardless of how the contents of the view are formatted.
 
 
 ## Class Methods
@@ -106,7 +106,7 @@ t.front;
 
 ### Text Selection
 ### `selectedString`
- The plain text contained in the current selection. When getting this variable and there is no selection, the entire line at text cursor is returned (equivalent to [#-currentLine](#-currentline)). Setting this variable will replace text in the selection with the argument, or do nothing if there is no selection.**Arguments:**
+ The plain text contained in the current selection. When getting this variable and there is no selection, the entire line at text cursor is returned (equivalent to [currentLine](#currentline)). Setting this variable will replace text in the selection with the argument, or do nothing if there is no selection.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -130,14 +130,14 @@ t.front;
 
 ### Appearance
 ### `font`
- The default font of the entire text. This font applies to any text to which a font has not been applied using [#-setFont](#-setfont).**Arguments:**
+ The default font of the entire text. This font applies to any text to which a font has not been applied using [setFont](#setfont).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Font. |  
 
 ### `stringColor`
- The default color of the entire text. This color applies to any text to which a color has not been applied using [#-setStringColor](#-setstringcolor).
+ The default color of the entire text. This color applies to any text to which a color has not been applied using [setStringColor](#setstringcolor).
 > **Note:** Calling `stringColor_` does *not* affect the cursor's color. Setting a dark background, using `background_`, and a light text color will leave the cursor as a dark color. It is recommended to set the background and string colors by setting the TextView's palette to an instance of [QPalette](../Classes/QPalette.md).
 ```supercollider
 (
@@ -175,21 +175,21 @@ t = TextView(nil, Rect(800, 50, 500, 400))
 | `` | A Boolean. |  
 
 ### `hasHorizontalScroller`
- Whether the horizontal scroller is shown. Note that if [#-autohidesScrollers](#-autohidesscrollers) is `true` the scroller may be hidden despite this variable being set to `true`. Since the TextView typically wraps text into the next line when a line reaches the edge of the view, the horizontal scroller may never be shown, unless [#-autohidesScrollers](#-autohidesscrollers) is `false`. Defaults to `true`.**Arguments:**
+ Whether the horizontal scroller is shown. Note that if [autohidesScrollers](#autohidesscrollers) is `true` the scroller may be hidden despite this variable being set to `true`. Since the TextView typically wraps text into the next line when a line reaches the edge of the view, the horizontal scroller may never be shown, unless [autohidesScrollers](#autohidesscrollers) is `false`. Defaults to `true`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
 
 ### `hasVerticalScroller`
- Whether the vertical scroller is shown. Note that if [#-autohidesScrollers](#-autohidesscrollers) is `true` the scroller may be hidden despite this variable being set to `true`. Defaults to `true`.**Arguments:**
+ Whether the vertical scroller is shown. Note that if [autohidesScrollers](#autohidesscrollers) is `true` the scroller may be hidden despite this variable being set to `true`. Defaults to `true`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
 
 ### `autohidesScrollers`
- Whether each of the scrollers will be automatically hidden if there is no use for it, i.e. the content is not scrollable in the direction of the scroller. If [#-hasHorizontalScroller](#-hashorizontalscroller) or [#-hasVerticalScroller](#-hasverticalscroller) is `false`, the respective scroller will always be hidden, regardless of this variable. Defaults to `true`.**Arguments:**
+ Whether each of the scrollers will be automatically hidden if there is no use for it, i.e. the content is not scrollable in the direction of the scroller. If [hasHorizontalScroller](#hashorizontalscroller) or [hasVerticalScroller](#hasverticalscroller) is `false`, the respective scroller will always be hidden, regardless of this variable. Defaults to `true`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -198,7 +198,7 @@ t = TextView(nil, Rect(800, 50, 500, 400))
 
 ### Drag and Drop
 
-> **Note:** Default drag-and-drop behavior of TextView is not defined in standard SC methods, but in the view implementation instead (except for [#-defaultGetDrag](#-defaultgetdrag)). It may or may not be overridable by adding your own handlers (see [View#Drag and drop](../Classes/View.md#drag-and-drop)), depending on the GUI kit in use.
+> **Note:** Default drag-and-drop behavior of TextView is not defined in standard SC methods, but in the view implementation instead (except for [defaultGetDrag](#defaultgetdrag)). It may or may not be overridable by adding your own handlers (see [View#Drag and drop](../Classes/View.md#drag-and-drop)), depending on the GUI kit in use.
 
 
 Dragging from TextView will give the selected text in a String as drag data, while dropping will accept any object and insert it [as String](../Classes/Object.md#-asstring) at the drop location.
@@ -206,7 +206,7 @@ Dragging from TextView will give the selected text in a String as drag data, whi
 You can also drag files from outside SuperCollider onto a TextView, and it will insert their URLs at the drop location.
 
 ### `defaultGetDrag`
-**Returns:** The [#-selectedString](#-selectedstring).
+**Returns:** The [selectedString](#selectedstring).
 
 ## Examples
 

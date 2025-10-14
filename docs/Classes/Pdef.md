@@ -98,7 +98,7 @@ Set the default quantisation for new instances (default: 1.0). This can be an ar
 One pattern may have many streams in different places. A change in the pattern definition Pdef propagates through all streams. The change does not have to be immediate - there is a scheme to schedule when the change becomes effective: a **quant** and **clock** (like elsewhere) and a **condition**.
 
 ### `clock`
-get or set the instance's default clock, used by [#-play](#-play) if no other clock is specified. Defaults to TempoClock.default.
+get or set the instance's default clock, used by [play](#play) if no other clock is specified. Defaults to TempoClock.default.
 ### `quant`
 Set the quantisation time for beat accurate scheduling.**Arguments:**
 
@@ -143,7 +143,7 @@ Pass a value (typically an [Event](../Classes/Event.md)) into the pattern inval,
 just like any pattern, embeds itself in stream
 
 ### Pdef as EventStreamPlayer
-For live coding, each Pdef also may control one instance that plays one stream off it. This is an [EventStreamPlayer](../Classes/EventStreamPlayer.md), accessible in the instance variable [#-player](#-player).
+For live coding, each Pdef also may control one instance that plays one stream off it. This is an [EventStreamPlayer](../Classes/EventStreamPlayer.md), accessible in the instance variable [player](#player).
 
 ### `play`
 Starts the Pdef and creates a player. (See: [EventPatternProxy#-play](../Classes/EventPatternProxy.md#-play))
@@ -412,9 +412,9 @@ Pdef(\x, Pbind(\degree, Pseq((0..7), inf)).trace(\degree));
 
 
 ### Update condition
-In order to be able to switch to a new pattern under a certain [#-condition](#-condition), the instance variable condition can be set to a function that returns a boolean. Value and a count index are passed to the function. The condition is always valid for the **next pattern** inserted. For stuck conditions, the [#-reset](#-reset) message can be used.
+In order to be able to switch to a new pattern under a certain [condition](#condition), the instance variable condition can be set to a function that returns a boolean. Value and a count index are passed to the function. The condition is always valid for the **next pattern** inserted. For stuck conditions, the [reset](#reset) message can be used.
 
-As counting up (such as *"every nth event, a swap can happen"*) is a common task, there is a method for this, called [#-count](#-count)(n).
+As counting up (such as *"every nth event, a swap can happen"*) is a common task, there is a method for this, called [count](#count)(n).
 
 
 ```supercollider

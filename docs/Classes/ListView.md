@@ -6,9 +6,9 @@
 
 ## Description
 
-A view that displays a list of text items and allows one or more of them to be selected, depending on [#-selectionMode](#-selectionmode).
+A view that displays a list of text items and allows one or more of them to be selected, depending on [selectionMode](#selectionmode).
 In default selection mode (single item selection), clicking on an item will select it, and pressing the up or down arrow keys will move selection to previous or next item, respectively. Other selection modes allow more complex interaction.
-There is a difference between the concepts of [current](#-value) item, end [selected](#-selection) items. In default selection mode they will always be the same, but not so in other modes.
+There is a difference between the concepts of [current](#value) item, end [selected](#selection) items. In default selection mode they will always be the same, but not so in other modes.
 
 
 ## Class Methods
@@ -29,16 +29,16 @@ There is a difference between the concepts of [current](#-value) item, end [sele
 ### `clear`
  Removes all items.
 ### `value`
- The index of the current item, or nil when there is no current item. Note that this may be different than [#-selection](#-selection) when [#-selectionMode](#-selectionmode) allows multiple items to be selected.**Arguments:**
+ The index of the current item, or nil when there is no current item. Note that this may be different than [selection](#selection) when [selectionMode](#selectionmode) allows multiple items to be selected.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An Integer or nil. |  
 
 ### `valueAction`
- Sets [#-value](#-value) and triggers the [#-action](#-action).
+ Sets [value](#value) and triggers the [action](#action).
 ### `selection`
- An array of all selected indexes. When setting selection, either an array or a single integer may be used. Note that this may be different than [#-value](#-value) when [#-selectionMode](#-selectionmode) allows multiple items to be selected. When setting selection in single-item selection mode, only the last index will remain selected.
+ An array of all selected indexes. When setting selection, either an array or a single integer may be used. Note that this may be different than [value](#value) when [selectionMode](#selectionmode) allows multiple items to be selected. When setting selection in single-item selection mode, only the last index will remain selected.
 
 ### Appearance
 ### `colors`
@@ -82,9 +82,9 @@ There is a difference between the concepts of [current](#-value) item, end [sele
 
 ### Actions
 ### `action`
- The action object evaluated whenever the user changes the *current* item, i.e. when [#-value](#-value) changes as a result of GUI interaction.
+ The action object evaluated whenever the user changes the *current* item, i.e. when [value](#value) changes as a result of GUI interaction.
 ### `selectionAction`
-The action object evaluated whenever [#-selection](#-selection) changes.
+The action object evaluated whenever [selection](#selection) changes.
 ### `enterKeyAction`
  The action object evaluated whenever the user presses the Enter (Return) key.
 ### `defaultKeyDownAction`
@@ -93,11 +93,11 @@ The action object evaluated whenever [#-selection](#-selection) changes.
 
 ### Drag and drop
 ### `defaultGetDrag`
-**Returns:** The [#-value](#-value).
+**Returns:** The [value](#value).
 ### `defaultCanReceiveDrag`
 **Returns:** True if the current drag data is a number.
 ### `defaultReceiveDrag`
- Sets [#-valueAction](#-valueaction) to the current drag data.
+ Sets [valueAction](#valueaction) to the current drag data.
 
 ## Examples
 

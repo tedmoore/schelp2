@@ -9,18 +9,18 @@
 ## Description
 
 GridLayout distributes its space into a **grid of rows and columns**, where each item can occupy **one or more cells**.
-You can construct the layout in two ways using [#*rows](#*rows) and [#*columns](#*columns). In the former constructor you pass arrays of items by rows, and in the latter by columns. Items can also be added later using [#-add](#-add) and [#-addSpanning](#-addspanning). To remove an item, simply use [View#-remove](../Classes/View.md#-remove) for views, or [QObject#-destroy](../Classes/QObject.md#-destroy) for views or layouts.
+You can construct the layout in two ways using [#*rows](#*rows) and [#*columns](#*columns). In the former constructor you pass arrays of items by rows, and in the latter by columns. Items can also be added later using [add](#add) and [addSpanning](#addspanning). To remove an item, simply use [View#-remove](../Classes/View.md#-remove) for views, or [QObject#-destroy](../Classes/QObject.md#-destroy) for views or layouts.
 It is possible to add more than one view into the same cell. The last added view will be the top-most. However, it is most probably more convenient to use a [StackLayout](../Classes/StackLayout.md) for that purpose.
 The layout manages the grid size automatically: you can add an item at any row and cell number. When items are added or removed, the grid will re-adjust according to the last occupied row and column.
 
 ### Fine tuning
-Each item can be assigned an **alignment** either at layout [construction](#*rows) or later using [#-setAlignment](#-setalignment). An item will then get at most its default size, if available (see: [View#-sizeHint](../Classes/View.md#-sizehint)), and will be aligned within its cell according to the specified alignment.
+Each item can be assigned an **alignment** either at layout [construction](#*rows) or later using [setAlignment](#setalignment). An item will then get at most its default size, if available (see: [View#-sizeHint](../Classes/View.md#-sizehint)), and will be aligned within its cell according to the specified alignment.
 
-Each row or column can be assigned a **stretch factor** using [#-setRowStretch](#-setrowstretch) and [#-setColumnStretch](#-setcolumnstretch). Rows or columns that would otherwise get equal space are then distributed according to the relative proportions of their stretch factors.
+Each row or column can be assigned a **stretch factor** using [setRowStretch](#setrowstretch) and [setColumnStretch](#setcolumnstretch). Rows or columns that would otherwise get equal space are then distributed according to the relative proportions of their stretch factors.
 
-Each row or column can also be assigned a **minimum** size using [#-setMinRowHeight](#-setminrowheight) and [#-setMinColumnWidth](#-setmincolumnwidth), to override the size constraints imposed by the contained views.
+Each row or column can also be assigned a **minimum** size using [setMinRowHeight](#setminrowheight) and [setMinColumnWidth](#setmincolumnwidth), to override the size constraints imposed by the contained views.
 
-In addition to adjusting the spacing between cells using [Layout#-spacing](../Classes/Layout.md#-spacing) you can control the spacing between rows and between columns separately using [#-hSpacing](#-hspacing) and [#-vSpacing](#-vspacing).
+In addition to adjusting the spacing between cells using [Layout#-spacing](../Classes/Layout.md#-spacing) you can control the spacing between rows and between columns separately using [hSpacing](#hspacing) and [vSpacing](#vspacing).
 
 
 

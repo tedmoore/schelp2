@@ -190,7 +190,7 @@ Returns a msg of the type /c_fill for use in osc bundles.**Arguments:**
 
 ### Monitoring with an oscilloscope
 ### `scope`
-Displays a bus in a [Stethoscope](../Classes/Stethoscope.md), using the Bus' [#-numChannels](#-numchannels), [#-index](#-index), and [#-rate](#-rate) properties.
+Displays a bus in a [Stethoscope](../Classes/Stethoscope.md), using the Bus' [numChannels](#numchannels), [index](#index), and [rate](#rate) properties.
 ```supercollider
 s.boot
 b = Bus.audio(s, 2);
@@ -205,7 +205,7 @@ b.free;
 
 ### Plotting
 ### `plot`
-See [#-plotAudio](#-plotaudio)
+See [plotAudio](#plotaudio)
 ### `plotAudio`
 example:
 ```supercollider

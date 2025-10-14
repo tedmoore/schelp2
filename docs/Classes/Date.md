@@ -77,7 +77,7 @@ var d = Date.fromString(stampString, "%y%m%d_%H%M%S");
 | Argument | Description |
 |----------|-------------|
 | `string` | The date/time string to parse, for example `"2017-10-25 13:25:55"`. |  
-| `format` | The format to use to parse the date string. Note that the supported input formats are slightly different from those of the [#-format](#-format) (output) method. In particular, some of the "combined" formats (such as `%F` or `%T`) are not supported for input, you must expand them out (`"%F"` -> `"%Y-%m-%d"` and `"%T"` -> `"%H:%M:%S"`). The full list of supported input format flags may be found [here](http://www.boost.org/doc/libs/1_63_0/doc/html/date_time/date_time_io.html).To parse the above example string, you would use `"%Y-%m-%d %H:%M:%S"`. |  
+| `format` | The format to use to parse the date string. Note that the supported input formats are slightly different from those of the [format](#format) (output) method. In particular, some of the "combined" formats (such as `%F` or `%T`) are not supported for input, you must expand them out (`"%F"` -> `"%Y-%m-%d"` and `"%T"` -> `"%H:%M:%S"`). The full list of supported input format flags may be found [here](http://www.boost.org/doc/libs/1_63_0/doc/html/date_time/date_time_io.html).To parse the above example string, you would use `"%Y-%m-%d %H:%M:%S"`. |  
 
 ### `getDate`
 Get current date from system and create a date object from it.
@@ -112,7 +112,7 @@ thisThread.randSeed = a;
 ## Instance Methods
 
 ### `rawSeconds`
-Get or set the receiver's raw time in seconds (relative to the "epoch" of January 1, 1970).If you modify this property, the other properties will not update. See note at [#-resolve](#-resolve) -- there is no "resolveFromRawSeconds" method, but you can generate a new self-consistent Date instance by passing the `rawSeconds` as an argument to [#*new](#*new).
+Get or set the receiver's raw time in seconds (relative to the "epoch" of January 1, 1970).If you modify this property, the other properties will not update. See note at [resolve](#resolve) -- there is no "resolveFromRawSeconds" method, but you can generate a new self-consistent Date instance by passing the `rawSeconds` as an argument to [#*new](#*new).
 > **Note:** This value is not portable between machines, because of differences in the way the underlying time functions are implemented, and because of time zone differences. To save/restore Date values between runs and on different platforms, it is recommended **not** to use the rawSeconds value. Instead, you should serialize the Date to a string, for example:
 
 

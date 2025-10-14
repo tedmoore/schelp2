@@ -119,7 +119,7 @@ The default keydown actions are:| key | action | comment |
 ### `properties`
 A list of properties to which this view responds. See [View](../Classes/View.md).**Returns:** [\bounds, \visible, \enabled, \canFocus, \resize, \background, \minWidth, \maxWidth, \minHeight, \maxHeight, \value, \font, \states, \focusColor]
 ### `defaultGetDrag`
-The method called by default when initiating a drag **from** a Button. Returns the same as [#-value](#-value).
+The method called by default when initiating a drag **from** a Button. Returns the same as [value](#value).
 ### `defaultCanReceiveDrag`
 The method called by default when attempting to drop a drag in this object. By default, Button will respond only to drags where the drag contains a [Number](../Classes/Number.md) or [Function](../Classes/Function.md).
 ### `defaultReceiveDrag`

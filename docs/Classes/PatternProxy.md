@@ -21,7 +21,7 @@ a default source, if none is given. the default is 1.0 (it is not 0.0 in order t
 ### `defaultQuant`
 set the default quantization value for the class. (default: nil)
 ### `defaultValue`
-a default return value, if no source is given. the default is 1.0 (it is not 0.0 in order to make it safe for durations). This is used in [#-endless](#-endless).
+a default return value, if no source is given. the default is 1.0 (it is not 0.0 in order to make it safe for durations). This is used in [endless](#endless).
 
 ## Instance Methods
 
@@ -52,7 +52,7 @@ Given a [Stream](../Classes/Stream.md) like e.g. [Routine](../Classes/Routine.md
 |----------|-------------|
 | `inval` | The inval is passed into all substreams and can be used to control how they behave from the outside. |  
 | `embed` | See [Object#-streamArg](../Classes/Object.md#-streamarg) for explanation. |  
-| `default` | Replacement for `nil` outputs of the source pattern. One use case is [#-endless](#-endless).
+| `default` | Replacement for `nil` outputs of the source pattern. One use case is [endless](#endless).
 ```supercollider
 a = PatternProxy.new;
 a.source = Pgeom(1, Pwhite(1.01, 1.2), 4);

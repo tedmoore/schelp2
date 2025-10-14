@@ -69,7 +69,7 @@ the paramViews that display the values:- Single numbers appear in an [EZSlider](
 - all other values are shown as compileStrings in an [EZText](../Classes/EZText.md).
 See [ParamView](../Classes/ParamView.md) for details.
 ### `specs`
-a local dictionary of the specs used for display ranges of numerical parameters by the paramViews of this envirgui. See the [#-getSpec](#-getspec) method for details.
+a local dictionary of the specs used for display ranges of numerical parameters by the paramViews of this envirgui. See the [getSpec](#getspec) method for details.
 ### `editKeys`
 the keys of the currently displayed items in the dict.
 ### `keysRotation`

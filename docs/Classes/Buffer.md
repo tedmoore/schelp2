@@ -444,9 +444,9 @@ Returns the number of sample frames in the corresponding server-side buffer. Not
 Returns the number of channels in the corresponding server-side buffer.
 ### `sampleRate`
 Returns the language-side instance variable `sampleRate`, of the corresponding server-side buffer. By default, this will be set to the server's sample rate when the `Buffer` is instantiated.The `sampleRate` setter method only changes the language-side instance variable. It does not resample the buffer or change its sample rate on the server. To change the server-side buffer sample rate, use `setSampleRate`.
-> **Note:** Setting the `sampleRate` instance variable affects the returned [#-duration](#-duration) (which returns `numFrames / sampleRate`).
+> **Note:** Setting the `sampleRate` instance variable affects the returned [duration](#duration) (which returns `numFrames / sampleRate`).
 
-> **⚠️ Warning:** You can use [#-query](#-query) to inspect the buffer's sample rate on the server, but this will also *update the* `sampleRate` *instance variable*, overwriting its value which you may have previously set.
+> **⚠️ Warning:** You can use [query](#query) to inspect the buffer's sample rate on the server, but this will also *update the* `sampleRate` *instance variable*, overwriting its value which you may have previously set.
 ### `setSampleRate`
 Sets the sample rate of the buffer on the server side, and updates its value on the language side. This does not resample the audio.**Arguments:**
 
@@ -489,7 +489,7 @@ x.free; b.free;
 
 
 ### `allocReadChannel`, `allocReadChannelMsg`
-As [#-allocRead](#-allocread) above, but allows you to specify which channels to read.**Arguments:**
+As [allocRead](#allocread) above, but allows you to specify which channels to read.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -527,7 +527,7 @@ Read a soundfile into an already allocated buffer.**Arguments:**
 ### `readMsg`
  construct the message for a read command. args are like those for read,  except that last arg is completionMessage.Note that if the number of frames in the file is greater than the number of frames in the buffer, it will be truncated. Note that readMsg will not auto-update instance variables. Call updateInfo in order to do this.
 ### `readChannel`
-As [#-read](#-read) above, but allows you to specify which channels to read.**Arguments:**
+As [read](#read) above, but allows you to specify which channels to read.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -606,7 +606,7 @@ b.free;
 
 
 ### `setn`, `setnMsg`
-Set a contiguous range of values in the buffer starting at the index startAt to be equal to the Array of floats or integers, values. The number of values set corresponds to the size of values. Additional pairs of starting indices and arrays of values may be included in the same message. (Floating-point values for index are truncated to integer.)Note that multichannel buffers interleave their sample data, therefore the actual number of available values is equal to `numFrames * numChannels`. You are responsible for interleaving the data in values if needed. Multi-dimensional arrays will not work. Indices start at 0.N.B. The maximum number of values that you can set with a single setn message is 1633 when the server is using UDP as its communication protocol. Use [#-loadCollection](#-loadcollection) and [#-sendCollection](#-sendcollection) to set larger ranges of values.
+Set a contiguous range of values in the buffer starting at the index startAt to be equal to the Array of floats or integers, values. The number of values set corresponds to the size of values. Additional pairs of starting indices and arrays of values may be included in the same message. (Floating-point values for index are truncated to integer.)Note that multichannel buffers interleave their sample data, therefore the actual number of available values is equal to `numFrames * numChannels`. You are responsible for interleaving the data in values if needed. Multi-dimensional arrays will not work. Indices start at 0.N.B. The maximum number of values that you can set with a single setn message is 1633 when the server is using UDP as its communication protocol. Use [loadCollection](#loadcollection) and [sendCollection](#sendcollection) to set larger ranges of values.
 ```supercollider
 s.boot;
 b = Buffer.alloc(s, 16);
@@ -693,7 +693,7 @@ b.free;
 
 
 ### `getn`, `getnMsg`
-Send a message requesting the a contiguous range of values of size count starting from index. action is a Function which will be passed the values in an Array as an argument and evaluated when a reply is received. (Floating-point values for index and count are truncated to integer.)N.B. The maximum number of values that you can get with a single getn message is 1633 when the server is using UDP as its communication protocol. Use [#-loadToFloatArray](#-loadtofloatarray) and [#-getToFloatArray](#-gettofloatarray) to get larger ranges of values.
+Send a message requesting the a contiguous range of values of size count starting from index. action is a Function which will be passed the values in an Array as an argument and evaluated when a reply is received. (Floating-point values for index and count are truncated to integer.)N.B. The maximum number of values that you can get with a single getn message is 1633 when the server is using UDP as its communication protocol. Use [loadToFloatArray](#loadtofloatarray) and [getToFloatArray](#gettofloatarray) to get larger ranges of values.
 ### `loadToFloatArray`
 Write the buffer to a file and then load it into a FloatArray.**Arguments:**
 

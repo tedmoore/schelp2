@@ -129,7 +129,7 @@ fork {
 ```
 
 ### `clipAt`
-Similar to [#-at](#-at), but guarantees that any value for index is valid by clipping values outside the collection's bounds. Values greater than `size - 1` are clipped to that last index, and values below `0` (negative) are clipped to 0. When passed an array of indices, returns a new Array containing the elements at the specified positions. [SequenceableCollection#-|@|](../Classes/SequenceableCollection.md#-|@|) is its syntactic shortcut.
+Similar to [at](#at), but guarantees that any value for index is valid by clipping values outside the collection's bounds. Values greater than `size - 1` are clipped to that last index, and values below `0` (negative) are clipped to 0. When passed an array of indices, returns a new Array containing the elements at the specified positions. [SequenceableCollection#-|@|](../Classes/SequenceableCollection.md#-|@|) is its syntactic shortcut.
 ```supercollider
 a = List[1, 2, 3]
 a.clipAt(2) // same as at
@@ -139,7 +139,7 @@ a|@|3 //syntactic shortcut
 ```
 
 ### `wrapAt`
-Similar to [#-at](#-at), but guarantees that any value for index is valid by wrapping values outside the collection's bounds. If the index exceeds `size - 1`, it wraps back around to `0`. Similarly, if the index is below `0` (negative), it wraps to access elements from the end of the collection. `this.wrapAt(index)` is equivalent to `this.at(index mod: size)`, ensuring the index is always within the valid range of the collection. The index can also be an array of indices to extract the specified elements. [SequenceableCollection#-@@](../Classes/SequenceableCollection.md#-@@) is its syntactic shortcut.
+Similar to [at](#at), but guarantees that any value for index is valid by wrapping values outside the collection's bounds. If the index exceeds `size - 1`, it wraps back around to `0`. Similarly, if the index is below `0` (negative), it wraps to access elements from the end of the collection. `this.wrapAt(index)` is equivalent to `this.at(index mod: size)`, ensuring the index is always within the valid range of the collection. The index can also be an array of indices to extract the specified elements. [SequenceableCollection#-@@](../Classes/SequenceableCollection.md#-@@) is its syntactic shortcut.
 ```supercollider
 a = List[1, 2, 3]
 a.wrapAt(2) // same as at
@@ -163,7 +163,7 @@ fork {
 ```
 
 ### `foldAt`
-Similar to [#-at](#-at), but guarantees that any value for index is valid by reflecting values outside the collection's bounds. Values greater than `size - 1` are reflected back toward lower indices. Similarly, if the index is below `0` (negative), it folds in the opposite direction. This creates a symmetrical mapping of any index within the collection's boundaries. The index can also be an array of indices to extract the specified elements. [SequenceableCollection#-@|@](../Classes/SequenceableCollection.md#-@|@) is its syntactic shortcut.
+Similar to [at](#at), but guarantees that any value for index is valid by reflecting values outside the collection's bounds. Values greater than `size - 1` are reflected back toward lower indices. Similarly, if the index is below `0` (negative), it folds in the opposite direction. This creates a symmetrical mapping of any index within the collection's boundaries. The index can also be an array of indices to extract the specified elements. [SequenceableCollection#-@|@](../Classes/SequenceableCollection.md#-@|@) is its syntactic shortcut.
 ```supercollider
 a = List[1, 2, 3]
 a.foldAt(2) // same as at
@@ -188,9 +188,9 @@ fork {
 
 ### `put`
 Put **item** at **index**, replacing what is there. See [SequenceableCollection#Indexing](../Classes/SequenceableCollection.md#indexing)..### `clipPut`
-Same as [#-put](#-put), but values for **index** greater than the [List](../Classes/List.md) instance size minus one will be clipped to `size - 1`, which is the last index.### `wrapPut`
-Same as [#-put](#-put), but values for **index** greater than the [List](../Classes/List.md) instance size minus one will be wrapped around to 0.### `foldPut`
-Same as [#-put](#-put), but values for **index** greater than the [List](../Classes/List.md) instance size minus one will be folded back.### `add`
+Same as [put](#put), but values for **index** greater than the [List](../Classes/List.md) instance size minus one will be clipped to `size - 1`, which is the last index.### `wrapPut`
+Same as [put](#put), but values for **index** greater than the [List](../Classes/List.md) instance size minus one will be wrapped around to 0.### `foldPut`
+Same as [put](#put), but values for **index** greater than the [List](../Classes/List.md) instance size minus one will be folded back.### `add`
 Adds an **item** to the end of the List.### `addFirst`
 Inserts the **item** at the beginning of the List.### `insert`
 Inserts the **item** into the contents of the [List](../Classes/List.md) at the indicated **index**.
@@ -201,7 +201,7 @@ x; // -> List[999, 1, 2, 3, 4]
 ```
 
 ### `boundedInsert`
-Same as [#-insert](#-insert), but removes the receiver's last element before inserting **item**. This changes the receiver but maintains its size.
+Same as [insert](#insert), but removes the receiver's last element before inserting **item**. This changes the receiver but maintains its size.
 ```supercollider
 x = List[1, 2, 3, 4]; // -> List[1, 2, 3, 4]
 x.boundedInsert(1, 999); // -> List[1, 999, 2, 3]
@@ -389,7 +389,7 @@ y.postln;
 ```
 
 ### `foldExtend`
-Same as [#-wrapExtend](#-wrapextend) but the sequences fold back on the list elements.
+Same as [wrapExtend](#wrapextend) but the sequences fold back on the list elements.
 ```supercollider
 (
 x = List[1, 2, "foo"];

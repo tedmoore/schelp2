@@ -51,10 +51,10 @@ Create a new Server instance.**Arguments:**
 | `name` | a symbol; each Server object is stored in one global classvariable under its name. |  
 | `addr` | an optional instance of [NetAddr](../Classes/NetAddr.md), providing host and port. The default is the localhost address using port 57110; the same as the local server. |  
 | `options` | an optional instance of [ServerOptions](../Classes/ServerOptions.md). If `nil`, an instance of ServerOptions will be created, using the default values. |  
-| `clientID` | an integer. In multi-client situations, every client can be given separate ranges for [Nodes](../Classes/Node.md), [Buffers](../Classes/Buffer.md), or [Busses](../Classes/Bus.md). In normal usage, the server will supply an ID automatically when a client registers for the [notifications](#-notify) so you should not need to supply one here. N.B. In multi-client situations, you will need to set the [ServerOptions#-maxLogins](../Classes/ServerOptions.md#-maxlogins) to at least the number of clients you wish to allow. This must be the same in the Server instances on every client. |  
+| `clientID` | an integer. In multi-client situations, every client can be given separate ranges for [Nodes](../Classes/Node.md), [Buffers](../Classes/Buffer.md), or [Busses](../Classes/Bus.md). In normal usage, the server will supply an ID automatically when a client registers for the [notifications](#notify) so you should not need to supply one here. N.B. In multi-client situations, you will need to set the [ServerOptions#-maxLogins](../Classes/ServerOptions.md#-maxlogins) to at least the number of clients you wish to allow. This must be the same in the Server instances on every client. |  
 
 ### `remote`
-Create a new Server instance corresponding to a server app running on a separate machine. This method assumes the remote app has been booted and starts listening immediately. You should not call [#-boot](#-boot) on an instance created using this method. [Server-Guide](../Guides/Server-Guide.md) and [MultiClient_Setups](../Guides/MultiClient_Setups.md) contain further information on this and multiclient usage.**Arguments:**
+Create a new Server instance corresponding to a server app running on a separate machine. This method assumes the remote app has been booted and starts listening immediately. You should not call [boot](#boot) on an instance created using this method. [Server-Guide](../Guides/Server-Guide.md) and [MultiClient_Setups](../Guides/MultiClient_Setups.md) contain further information on this and multiclient usage.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -62,7 +62,7 @@ Create a new Server instance corresponding to a server app running on a separate
 | `addr` | an optional instance of [NetAddr](../Classes/NetAddr.md), providing IP address of the remote machine and port the app is listening on. |  
 | `options` | an optional instance of [ServerOptions](../Classes/ServerOptions.md). If `nil`, an instance of ServerOptions will be created, using the default values.
 > **Note:** To enable remote connections you will need to change the option [ServerOptions#-bindAddress](../Classes/ServerOptions.md#-bindaddress) as the default value only allows connections from the local machine. `s.options.bindAddress = "0.0.0.0"` will allow connections from any address. |  
-| `clientID` | an integer. In multi-client situations, every client can be given separate ranges for [Nodes](../Classes/Node.md), [Buffers](../Classes/Buffer.md), or [Busses](../Classes/Bus.md). In normal usage, the server will supply an ID automatically when a client registers for the [notifications](#-notify) so you should not need to supply one here. N.B. In multi-client situations, you will need to set the [ServerOptions#-maxLogins](../Classes/ServerOptions.md#-maxlogins) to at least the number of clients you wish to allow. This must be the same in the Server instances on every client.
+| `clientID` | an integer. In multi-client situations, every client can be given separate ranges for [Nodes](../Classes/Node.md), [Buffers](../Classes/Buffer.md), or [Busses](../Classes/Bus.md). In normal usage, the server will supply an ID automatically when a client registers for the [notifications](#notify) so you should not need to supply one here. N.B. In multi-client situations, you will need to set the [ServerOptions#-maxLogins](../Classes/ServerOptions.md#-maxlogins) to at least the number of clients you wish to allow. This must be the same in the Server instances on every client.
 ```supercollider
 // example usage:
 // on machine running the server
@@ -111,14 +111,14 @@ Server.all
 
 
 ### `allRunningServers`
-**Returns:** a Set containing all running servers, according to the definition of [#-serverRunning](#-serverrunning).
+**Returns:** a Set containing all running servers, according to the definition of [serverRunning](#serverrunning).
 ```supercollider
 Server.allRunningServers
 ```
 
 
 ### `allBootedServers`
-**Returns:** a Set containing all booted servers, according to the definition of [#-hasBooted](#-hasbooted).
+**Returns:** a Set containing all booted servers, according to the definition of [hasBooted](#hasbooted).
 ### `named`
 **Returns:** An [IdentityDictionary](../Classes/IdentityDictionary.md) of all servers listed by their name
 ```supercollider
@@ -196,7 +196,7 @@ Evaluate "onComplete" as soon as the server has booted. This method will boot th
 | `limit` | The number of times to check for a successful boot. (5 times/sec) |  
 | `onFailure` | A function to evaluate after the server fails to boot. If onFailure is not given, an error message is posted. Providing a function suppresses the error message. If you want to supply a function and print the normal error message, make sure that your function returns "false," e.g. `s.waitForBoot(onFailure: { ... custom action...; false })`. |  
 | `clock` | The default [Clock](../Classes/Clock.md) is [AppClock](../Classes/AppClock.md). Use [SystemClock](../Classes/SystemClock.md) or [TempoClock](../Classes/TempoClock.md) if time accuracy is important. |  
-Refer to the discussion of [#-doWhenBooted](#-dowhenbooted).### `doWhenBooted`
+Refer to the discussion of [doWhenBooted](#dowhenbooted).### `doWhenBooted`
 Evaluate "onComplete" as soon as the server has booted. This method assumes the server is being booted explicitly through a separate `boot` call. If the server is already running, "onComplete" is executed immediately.**Arguments:**
 
 | Argument | Description |
@@ -241,7 +241,7 @@ boot the remote server, create new allocators.**Arguments:**
 |----------|-------------|
 | `startAliveThread` | If true, start a Routine to send a /status message to the server every so often. The interval between the messages is set by `theServer.aliveThreadPeriod = (seconds)`. The default period is 0.7. If false, /status will not be sent and the server's window will not update. |  
 | `recover` | If true, create a new node ID allocator for the server, but use the old buffer and bus allocators. This is useful if the server process did not actually stop. In normal use, the default value "false" should be used. |  
-| `onFailure` | In this method, the onFailure argument is for internal use only. If you wish to take specific actions when the server boots or fails to boot, it is recommended to use [#-waitForBoot](#-waitforboot) or [#-doWhenBooted](#-dowhenbooted). |  
+| `onFailure` | In this method, the onFailure argument is for internal use only. If you wish to take specific actions when the server boots or fails to boot, it is recommended to use [waitForBoot](#waitforboot) or [doWhenBooted](#dowhenbooted). |  
 You cannot boot a server app on a remote machine, but you can initialize the allocators by calling this message.### `quit`
 quit the server application
 > **Note:** If the server is unresponsive at the time of calling this method, it will be forced to quit immediately.
@@ -294,7 +294,7 @@ Return a [Bus](../Classes/Bus.md) object that represents the output audio bus.
 > **Note:** `/status` messages won't be posted, when dumping is enabled |  
 
 ### `queryAllNodes`
-Post a representation of this Server's current node tree to the post window. See [#-plotTree](#-plottree) for a graphical variant.Very helpful for debugging. For local servers, this uses g_dumpTree and for remote g_queryTree. See [Group](../Classes/Group.md) and [Server-Command-Reference](../Reference/Server-Command-Reference.md) for more info.
+Post a representation of this Server's current node tree to the post window. See [plotTree](#plottree) for a graphical variant.Very helpful for debugging. For local servers, this uses g_dumpTree and for remote g_queryTree. See [Group](../Classes/Group.md) and [Server-Command-Reference](../Reference/Server-Command-Reference.md) for more info.
 ```supercollider
 s.boot;
 s.queryAllNodes; // note the root node (ID 0) and the default group (ID 1)
@@ -330,7 +330,7 @@ Get process ID of the running server (if not internal).
 ### `addr`
 The network address of the server as a [NetAddr](../Classes/NetAddr.md).
 ### `maxNumClients`
-If known, the maximum number of clients allowed on the server. Otherwise, the value of [ServerOptions#-maxLogins](../Classes/ServerOptions.md#-maxlogins), which is what will be requested after the server boots. This number is not guaranteed to be correct until [#-serverRunning](#-serverrunning) is `true`.
+If known, the maximum number of clients allowed on the server. Otherwise, the value of [ServerOptions#-maxLogins](../Classes/ServerOptions.md#-maxlogins), which is what will be requested after the server boots. This number is not guaranteed to be correct until [serverRunning](#serverrunning) is `true`.
 ### `clientID`
 The getter returns the client ID of this client on the remote process. `nil` until the server is running.The setter attempts to set the client ID of this client for the remote server process. Fails on invalid input or if the server is running. Valid inputs are in the range `[0..(this.maxNumClients-1)]`.
 ### `hasShmInterface`
@@ -464,7 +464,7 @@ ServerTree.remove(f);
 ### GUI methods
 ### `makeGui`
 Create and show the server window. The window responds to a number of keyboard shortcuts:| **key** | **action** | 
-| --- | --- || `n` | Post a representation of this Server's current node tree to the post window. (See [#-queryAllNodes](#-queryallnodes)) | | `N` | As 'n' above but include controls. | | `l` | Show input/output level meters. (See [#-meter](#-meter)) | | `p` | Show graphical view of the node tree. (See [#-plotTree](#-plottree)) | | (space) | Boot server if not already booted. (See [#-boot](#-boot)) | | `s` | Show scope window. (See [#-scope](#-scope)) | | `f` | Show frequency analyzer window. (See [#-freqscope](#-freqscope)) | | `d` | Toggle dumping of OSC messages. | | `m` | Toggle mute. | | `0` | Reset volume to 0 db. | 
+| --- | --- || `n` | Post a representation of this Server's current node tree to the post window. (See [queryAllNodes](#queryallnodes)) | | `N` | As 'n' above but include controls. | | `l` | Show input/output level meters. (See [meter](#meter)) | | `p` | Show graphical view of the node tree. (See [plotTree](#plottree)) | | (space) | Boot server if not already booted. (See [boot](#boot)) | | `s` | Show scope window. (See [scope](#scope)) | | `f` | Show frequency analyzer window. (See [freqscope](#freqscope)) | | `d` | Toggle dumping of OSC messages. | | `m` | Toggle mute. | | `0` | Reset volume to 0 db. | 
 ### `makeWindow`
 On most platforms, this is equivalent to `makeGui`. If you are running SuperCollider on Emacs, it makes a server view composed of Emacs widgets.
 ### `scope`
@@ -511,10 +511,10 @@ s.meter.window.bounds // -> Rect(200.0, 200.0, 134.0, 230.0)
 | `position` | the position of the meter window, i.e. the singleton instance of [ServerMeter](../Classes/ServerMeter.md). (See [ServerMeter#-position](../Classes/ServerMeter.md#-position).) The default is ``nil``, and the scope window will appear near the bottom-left side of the display: left: 5; bottom: 277. |  
 
 ### `plotTree`
-Plot the node/group tree in a graphical format, similar to [#-queryAllNodes](#-queryallnodes). This creates a singleton window containing [NodeTreeView](../Classes/NodeTreeView.md).
+Plot the node/group tree in a graphical format, similar to [queryAllNodes](#queryallnodes). This creates a singleton window containing [NodeTreeView](../Classes/NodeTreeView.md).
 > **Note:** To use multiple instances of [NodeTreeView](../Classes/NodeTreeView.md) per [Server](../Classes/Server.md) instance or workspace, refer to the [Examples in NodeTreeView Documentation](../Classes/NodeTreeView.md#examples).
 
-This method returns an instance of [NodeTreeView](../Classes/NodeTreeView.md), which can also be accessed via [#-nodeTreeView](#-nodetreeview) method. Before version 3.14, this method returned an instance of the Server itself.
+This method returns an instance of [NodeTreeView](../Classes/NodeTreeView.md), which can also be accessed via [nodeTreeView](#nodetreeview) method. Before version 3.14, this method returned an instance of the Server itself.
 ```supercollider
 // start the SuperCollider server:
 s.boot;
@@ -595,7 +595,7 @@ s.plotTree; // brings the plotTree window to the front without changing its posi
 ``` |  
 
 ### `nodeTreeView`
-An Instance of [NodeTreeView](../Classes/NodeTreeView.md) that is created by the [#-plotTree](#-plottree) method.
+An Instance of [NodeTreeView](../Classes/NodeTreeView.md) that is created by the [plotTree](#plottree) method.
 ### `plotTreeView`
 Plot the node/group tree graphically on a given view.**Arguments:**
 

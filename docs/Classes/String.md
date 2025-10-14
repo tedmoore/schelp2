@@ -164,7 +164,7 @@ Prints the string and a carriage return to the current post window.
 
 
 ### `postc`, `postcln`
-As [#-post](#-post) and [#-postln](#-postln), but formatted as a comment.
+As [post](#post) and [postln](#postln), but formatted as a comment.
 ```supercollider
 "This is a comment.".postcln;
 ```
@@ -180,7 +180,7 @@ this is a test. pi = 3.1416, list = [1, 2, 3, 4]
 
 
 ### `postcs`
-As [#-postln](#-postln), but posts the [compileString](#-ascompilestring) of the receiver.
+As [postln](#postln), but posts the [compileString](#ascompilestring) of the receiver.
 ```supercollider
 List[1, 2, ["comment", [3, 2]], { 1.0.rand }].postcs;
 ```
@@ -260,7 +260,7 @@ Returns an [Integer](../Classes/Integer.md) derived from the String. Strings beg
 "4".asInteger
 ```
 
-  The method `.asInteger` does not understand scientific notation (e.g., `2e3` for `2000`),  and simply ignores all characters in the string after its first nonnumeric character  (excepting signs `+,-` at the beginning of the string).  If you use scientific notation, use [#-asFloat](#-asfloat) instead.
+  The method `.asInteger` does not understand scientific notation (e.g., `2e3` for `2000`),  and simply ignores all characters in the string after its first nonnumeric character  (excepting signs `+,-` at the beginning of the string).  If you use scientific notation, use [asFloat](#asfloat) instead.
 ```supercollider
 "2e3".asInteger // -> 2
 ```
@@ -272,7 +272,7 @@ Returns a [Float](../Classes/Float.md) derived from the String. Strings beginnin
 "4.3".asFloat
 ```
 
-  The method `.asFloat` understands scientific notation (e.g., `2e3` for `2000`, `2e-3` for `0.002`), and accepts uppercase `E` and lowercase `e`. By contrast, the method [#-asInteger](#-asinteger) does *not* accept scientific notation.
+  The method `.asFloat` understands scientific notation (e.g., `2e3` for `2000`, `2e-3` for `0.002`), and accepts uppercase `E` and lowercase `e`. By contrast, the method [asInteger](#asinteger) does *not* accept scientific notation.
 ```supercollider
 "2e3".asFloat // -> 2000.0
 ```
@@ -346,21 +346,21 @@ Concatenate this string with the following args.
 
 
 ### `scatArgs`
-Same as [#-catArgs](#-catargs), but with spaces in between.
+Same as [catArgs](#catargs), but with spaces in between.
 ```supercollider
 "These are some args: ".scatArgs(\fish, SinOsc.ar, { 4 + 3 }).postln;
 ```
 
 
 ### `ccatArgs`
-Same as [#-catArgs](#-catargs), but with commas in between.
+Same as [catArgs](#catargs), but with commas in between.
 ```supercollider
 "a String".ccatArgs(\fish, SinOsc.ar, { 4 + 3 }).postln;
 ```
 
 
 ### `catList`, `scatList`, `ccatList`
-As [#-catArgs](#-catargs), [#-scatArgs](#-scatargs) and [#-ccatArgs](#-ccatargs) above, but takes a Collection (usually a [List](../Classes/List.md) or an [Array](../Classes/Array.md)) as an argument.
+As [catArgs](#catargs), [scatArgs](#scatargs) and [ccatArgs](#ccatargs) above, but takes a Collection (usually a [List](../Classes/List.md) or an [Array](../Classes/Array.md)) as an argument.
 ```supercollider
 "a String".ccatList([\fish, SinOsc.ar, { 4 + 3 }]).postln;
 ```
@@ -443,7 +443,7 @@ Perl regular expression search (see [String#Regular expressions](../Classes/Stri
 
 **Returns:** A nested array, where each sub-array is a pair, `[character index, matching string]`. If there are no matches, an empty array.
 ### `findAllRegexp`
-Like [#-findAll](#-findall), but use regular expressions (see [String#Regular expressions](../Classes/String.md#regular-expressions)). Unlike findRegexp, it returns only the indices of the matches: `string.findAllRegexp(regexp)` returns the same as `string.findRegexp(regexp).flop.at(0)`.
+Like [findAll](#findall), but use regular expressions (see [String#Regular expressions](../Classes/String.md#regular-expressions)). Unlike findRegexp, it returns only the indices of the matches: `string.findAllRegexp(regexp)` returns the same as `string.findRegexp(regexp).flop.at(0)`.
 ```supercollider
 "foobar".findAllRegexp("o*bar");
 "32424 334 /**aaaaaa*/".findAllRegexp("/\\*\\*a*\\*/");
@@ -477,7 +477,7 @@ Returns the index of the string in the receiver, or nil if not found. If **ignor
 
 
 ### `findBackwards`
-Same like [#-find](#-find), but starts at the end of the string.
+Same like [find](#find), but starts at the end of the string.
 ```supercollider
 // compare:
 "These words are several words".find("words"); // 6
@@ -522,7 +522,7 @@ Returns a [Boolean](../Classes/Boolean.md) indicating if the String contains str
 
 
 ### `containsi`
-Same as [#-contains](#-contains), but case insensitive.
+Same as [contains](#contains), but case insensitive.
 ```supercollider
 "These are several words".containsi("ArE").postln;
 ```
@@ -536,7 +536,7 @@ Returns a [Boolean](../Classes/Boolean.md) indicating if the String contains str
 
 
 ### `icontainsStringAt`
-Same as [#-containsStringAt](#-containsstringat), but case insensitive.
+Same as [containsStringAt](#containsstringat), but case insensitive.
 ### `beginsWith`
 
 ### `endsWith`
@@ -563,7 +563,7 @@ Randomize the order of characters in the string.
 
 
 ### `replace`
-Like [#-tr](#-tr), but with Strings as well as Chars as arguments.
+Like [tr](#tr), but with Strings as well as Chars as arguments.
 ```supercollider
 "Here are several words which are fish".replace("are", "were");
 ```
@@ -679,7 +679,7 @@ Post << "Print this on Post";
 
 
 ### `storeOn`
-Same as [#-printOn](#-printon), but formatted [#-asCompileString](#-ascompilestring).
+Same as [printOn](#printon), but formatted [asCompileString](#ascompilestring).
 ```supercollider
 "Store this on Post".storeOn(Post);
 
@@ -721,7 +721,7 @@ Also on os x applescript can be called via osascript:
 ```
 
 
-Should you need an environment variable to persist you can use [#-setenv](#-setenv).
+Should you need an environment variable to persist you can use [setenv](#setenv).
 
 
 > **Note:** Despite the fact that the method is called 'unixCmd', **it does work in Windows**. The string must be a DOS command, however: "dir" rather than "ls" for instance.
@@ -747,7 +747,7 @@ Example:
 
 
 ### `unixCmdGetStdOut`
-Similar to [#-unixCmd](#-unixcmd) except that the stdout of the process is returned (**synchronously**) rather than sent to the post window.
+Similar to [unixCmd](#unixcmd) except that the stdout of the process is returned (**synchronously**) rather than sent to the post window.
 ```supercollider
 ~listing = "ls Help".unixCmdGetStdOut; // Grab
 ~listing.reverse.as(Array).dupEach.join.postln; // Mangle
@@ -775,7 +775,7 @@ Example:
 
 
 ### `setenv`
-Set the environment variable indicated in the string to equal the String **value**. This value will persist until it is changed or SC is quit. Note that if **value** is a path you may need to call [#-standardizePath](#-standardizepath) on it.
+Set the environment variable indicated in the string to equal the String **value**. This value will persist until it is changed or SC is quit. Note that if **value** is a path you may need to call [standardizePath](#standardizepath) on it.
 ```supercollider
 // all defs in this directory will be loaded when a local server boots
 "SC_SYNTHDEF_PATH".setenv("~/scwork/".standardizePath);
@@ -804,7 +804,7 @@ Post << "Help/*".pathMatch;
 ### `load`
 Load and execute the file at the path represented by the receiver.
 ### `loadPaths`
-Perform [#-pathMatch](#-pathmatch) on this String, then load and execute all paths in the resultant [Array](../Classes/Array.md).
+Perform [pathMatch](#pathmatch) on this String, then load and execute all paths in the resultant [Array](../Classes/Array.md).
 ```supercollider
 // first prepare a file with some code...
 (
@@ -858,7 +858,7 @@ Also see [#-+/+](#-+/+) for path concatenation.
 The term "path separator" is a platform-independent term for the character(s) that can be used to separate components of a path. On Windows, both forward slash "/" and backward slash "\\" are path separators. On POSIX-based systems like macOS and Linux, only forward slash is allowed.
 
 ### `shellQuote`
-Return a new string suitable for use as a filename in a shell command, by enclosing it in single quotes (`'`). If the string contains any single quotes they will be escaped.You should use this method on a path before embedding it in a string executed by [#-unixCmd](#-unixcmd) or [#-systemCmd](#-systemcmd).
+Return a new string suitable for use as a filename in a shell command, by enclosing it in single quotes (`'`). If the string contains any single quotes they will be escaped.You should use this method on a path before embedding it in a string executed by [unixCmd](#unixcmd) or [systemCmd](#systemcmd).
 ```supercollider
 unixCmd("ls " + Platform.userExtensionDir.shellQuote)
 ```
@@ -911,7 +911,7 @@ Parse this string as YAML/JSON.**Returns:** A nested structure of [Array](../Cla
 ### `parseYAMLFile`
 Same as `parseYAML` but parse a file directly instead of a string. This is faster than reading a file into a string and then parse it.
 ### `parseJSON`
-This method is currently just an alias for [#-parseYAML](#-parseyaml), in the future it will only accept valid JSON.**Returns:** A nested structure of [Array](../Classes/Array.md)s (for sequences), [Dictionaries](../Classes/Dictionary.md) (for maps) and [String](../Classes/String.md)s (for scalars).
+This method is currently just an alias for [parseYAML](#parseyaml), in the future it will only accept valid JSON.**Returns:** A nested structure of [Array](../Classes/Array.md)s (for sequences), [Dictionaries](../Classes/Dictionary.md) (for maps) and [String](../Classes/String.md)s (for scalars).
 ```supercollider
 "{ \"a\": 1 }".parseYAML;
 "{ \"a\": 1 }".parseJSON;
@@ -919,7 +919,7 @@ This method is currently just an alias for [#-parseYAML](#-parseyaml), in the fu
 
 
 ### `parseJSONFile`
-This method is currently just an alias for [#-parseYAMLFile](#-parseyamlfile), in the future it will only accept valid JSON files.
+This method is currently just an alias for [parseYAMLFile](#parseyamlfile), in the future it will only accept valid JSON files.
 
 ### Document Support
 ### `newTextWindow`
@@ -947,7 +947,7 @@ Returns the path for the helpfile named this, if it exists, else returns nil.
 
 
 ### `help`
-Performs [#-findHelpFile](#-findhelpfile) on this, and opens the file it if it exists, otherwise opens the main helpfile.
+Performs [findHelpFile](#findhelpfile) on this, and opens the file it if it exists, otherwise opens the main helpfile.
 ```supercollider
 "Document".help;
 "foobar".help;

@@ -9,8 +9,8 @@
 ## Description
 
 A Routine runs a [Function](../Classes/Function.md) and allows it to be suspended in the middle and be resumed again where it left off. This functionality is supported by the Routine's superclass [Thread](../Classes/Thread.md). Effectively, Routines can be used to implement co-routines as found in Scheme and some other languages.
-A Routine is **started** the first time [#-next](#-next) is called, which will run the Function from the beginning. It is **suspended** when it "yields" (using [Object#-yield](../Classes/Object.md#-yield) within the Function), and then **resumed** using [#-next](#-next) again. When the Function returns, the Routine is considered **stopped**, and calling [#-next](#-next) will have no effect - unless the Routine is **reset** using [#-reset](#-reset), which will rewind the Function to the beginning. You can stop a Routine before its Function returns using [#-stop](#-stop).
-When a Routine is **scheduled** on a [Clock](../Classes/Clock.md) (e.g. using [#-play](#-play)), it will be started or resumed at the scheduled time. The value yielded by the Routine will be used as the time difference for rescheduling the Routine. (See [#-awake](#-awake)).
+A Routine is **started** the first time [next](#next) is called, which will run the Function from the beginning. It is **suspended** when it "yields" (using [Object#-yield](../Classes/Object.md#-yield) within the Function), and then **resumed** using [next](#next) again. When the Function returns, the Routine is considered **stopped**, and calling [next](#next) will have no effect - unless the Routine is **reset** using [reset](#reset), which will rewind the Function to the beginning. You can stop a Routine before its Function returns using [stop](#stop).
+When a Routine is **scheduled** on a [Clock](../Classes/Clock.md) (e.g. using [play](#play)), it will be started or resumed at the scheduled time. The value yielded by the Routine will be used as the time difference for rescheduling the Routine. (See [awake](#awake)).
 Since Routine inherits from [Thread](../Classes/Thread.md), it has its own associated [logical time](../Classes/Thread.md#-beats), etc. When a Routine is started or resumed, it becomes the [current thread](../Classes/Thread.md#.thisthread).
 Routine also inherits from [Stream](../Classes/Stream.md), and thus shares its ability to be combined using math operations and "filtered".
 
@@ -42,10 +42,10 @@ a = r { 1.yield; 2.yield };
 ## Instance Methods
 
 ### `next`
-This method performs differently according to the Routine's state:- Starts the Routine, if it has not been started yet or it has been [reset](#-reset); i.e runs its Function from the beginning, passing on the `inval` argument.
+This method performs differently according to the Routine's state:- Starts the Routine, if it has not been started yet or it has been [reset](#reset); i.e runs its Function from the beginning, passing on the `inval` argument.
 - Resumes the Routine, if it has been suspended (it has yielded); i.e. resumes its Function from the point where [yield](../Classes/Object.md#-yield) was called on an Object, passing the `inval` argument as the return value of `yield`.
-- Does nothing if the Routine has stopped (because its Function has returned, or [#-stop](#-stop) has been called).
-`thisThread` : Since Routine inherits from [Thread](../Classes/Thread.md), it will become the *current thread* when it is started or resumed; i.e. [thisThread](../Classes/Thread.md#.thisthread) used in the Routine Function will return the Routine.Time: Just before `next` is called, `thisThread` points either to another Routine, or the top-level Thread. During the `next` call, this becomes the parent thread (see [Thread#-parent](../Classes/Thread.md#-parent)). `next` then evaluates on the parent's clock, at the parent's logical time.Synonyms for `next` are [#-value](#-value) and [#-resume](#-resume).**Returns:** - Either the value that the Routine yields (the Object on which [yield](../Classes/Object.md#-yield) is called within the Routine Function),
+- Does nothing if the Routine has stopped (because its Function has returned, or [stop](#stop) has been called).
+`thisThread` : Since Routine inherits from [Thread](../Classes/Thread.md), it will become the *current thread* when it is started or resumed; i.e. [thisThread](../Classes/Thread.md#.thisthread) used in the Routine Function will return the Routine.Time: Just before `next` is called, `thisThread` points either to another Routine, or the top-level Thread. During the `next` call, this becomes the parent thread (see [Thread#-parent](../Classes/Thread.md#-parent)). `next` then evaluates on the parent's clock, at the parent's logical time.Synonyms for `next` are [value](#value) and [resume](#resume).**Returns:** - Either the value that the Routine yields (the Object on which [yield](../Classes/Object.md#-yield) is called within the Routine Function),
 - ...or `nil`, if the Routine has stopped.
 When a Routine is started by a call to this method (or one of its synonyms), the method's argument is passed on as the argument to the Routine Function:
 ```supercollider
@@ -87,10 +87,10 @@ r = Routine { |inval|
 ```
 
 ### `value`
-Equivalent to [#-next](#-next).### `resume`
-Equivalent to [#-next](#-next).### `stop`
-Equivalent to the Routine Function reaching its end or returning: after this, the Routine will never run again (the [#-next](#-next) method has no effect and returns `nil`), unless [#-reset](#-reset) is called.### `reset`
-Causes the Routine to start from the beginning next time [#-next](#-next) is called.If a Routine is stopped (its Function has returned or [#-stop](#-stop) has been called), it will never run again (the [#-next](#-next) method has no effect and returns `nil`), unless this method is called.A Routine cannot reset itself, except by calling [Object#-yieldAndReset](../Classes/Object.md#-yieldandreset).See also: [Object#-yield](../Classes/Object.md#-yield), [Object#-alwaysYield](../Classes/Object.md#-alwaysyield)### `play`
+Equivalent to [next](#next).### `resume`
+Equivalent to [next](#next).### `stop`
+Equivalent to the Routine Function reaching its end or returning: after this, the Routine will never run again (the [next](#next) method has no effect and returns `nil`), unless [reset](#reset) is called.### `reset`
+Causes the Routine to start from the beginning next time [next](#next) is called.If a Routine is stopped (its Function has returned or [stop](#stop) has been called), it will never run again (the [next](#next) method has no effect and returns `nil`), unless this method is called.A Routine cannot reset itself, except by calling [Object#-yieldAndReset](../Classes/Object.md#-yieldandreset).See also: [Object#-yield](../Classes/Object.md#-yield), [Object#-alwaysYield](../Classes/Object.md#-alwaysyield)### `play`
 Schedules the Routine on the given [Clock](../Classes/Clock.md), at a time specified by `quant`. At that time, the Routine will wake up (by calling [Routine#-awake](../Classes/Routine.md#-awake)), setting the clock and time and evaluating the Routine. If the Routine yields a number, this number of beats will be added to the current time and the Routine will be rescheduled. (This behavior is compatible with scheduling a [Stream](../Classes/Stream.md) or a [Function](../Classes/Function.md).)**Arguments:**
 
 | Argument | Description |
@@ -207,7 +207,7 @@ u.stop;
 ```
 
 ### `awake`
-This method is called by a [Clock](../Classes/Clock.md) on which the Routine was scheduled when its scheduling time is up. It calls [#-next](#-next), passing on the scheduling time in beats as an argument. The value returned by `next` (the value yielded by the Routine) will in turn be returned by this method, thus determining the time which the Routine will be rescheduled for.**Arguments:**
+This method is called by a [Clock](../Classes/Clock.md) on which the Routine was scheduled when its scheduling time is up. It calls [next](#next), passing on the scheduling time in beats as an argument. The value returned by `next` (the value yielded by the Routine) will in turn be returned by this method, thus determining the time which the Routine will be rescheduled for.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

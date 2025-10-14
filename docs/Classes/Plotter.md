@@ -181,21 +181,21 @@ Get/set the label for the x-axes. Can be a [String](../Classes/String.md) or an 
 ### `axisLabelY`
 Get/set the label for the y-axes. Can be a [String](../Classes/String.md) or an [Array](../Classes/Array.md) of [String](../Classes/String.md)s, or `nil` to remove the label. See [#Axis labels](#axis-labels) example below.
 ### `showUnits`
-Get/set whether the corresponding [ControlSpec#-units](../Classes/ControlSpec.md#-units) are displayed as labels. The state of [#-unitLocation](#-unitlocation) determines whether the units are shown as axis labels or appended to the tick labels.**Arguments:**
+Get/set whether the corresponding [ControlSpec#-units](../Classes/ControlSpec.md#-units) are displayed as labels. The state of [unitLocation](#unitlocation) determines whether the units are shown as axis labels or appended to the tick labels.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `bool` | A `Boolean`. |  
 When enabling `showUnits`, axis or tick labels will only be updated to show the units when the `axisLabelX/Y` or grid `labelAppendString` properties are `nil`, empty, or were previously set to show the spec units — i.e. `showUnits` won't overwrite a label that has been explicitly set.See [#Unit labels](#unit-labels) example below.
 ### `unitLocation`
-Get/set the label type on which the `Spec` [ControlSpec#-units](../Classes/ControlSpec.md#-units) are shown.See the Discussion in [#-showUnits](#-showunits) about the interraction with pre-existing labels at the **location**, and [#Unit labels](#unit-labels) example below.**Arguments:**
+Get/set the label type on which the `Spec` [ControlSpec#-units](../Classes/ControlSpec.md#-units) are shown.See the Discussion in [showUnits](#showunits) about the interraction with pre-existing labels at the **location**, and [#Unit labels](#unit-labels) example below.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `location` | A `Symbol`, `\axis` or `\ticks`, to show the units as the axis label or appended to each of the tick labels, respectively. |  
 
 ### `setProperties`
-Set properties of all plot views. Defaults are taken from `GUI.skins.at(\plot);`> **⚠️ Warning:** It's preferrable to use Plotter's instance methods when possible to set Plot properties to ensure proper behavior when using [#-superpose](#-superpose).**Arguments:**
+Set properties of all plot views. Defaults are taken from `GUI.skins.at(\plot);`> **⚠️ Warning:** It's preferrable to use Plotter's instance methods when possible to set Plot properties to ensure proper behavior when using [superpose](#superpose).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -283,13 +283,13 @@ plotter.updatePlotBounds;
 
 
 ### `getGridProperty`
-Get the value of a grid property. See [#-setGridProperties](#-setgridproperties) for a list of available properties.**Arguments:**
+Get the value of a grid property. See [setGridProperties](#setgridproperties) for a list of available properties.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `axis` | A `Symbol` denoting the axis whose grid you're modifying: `\x` or `\y`. |  
 | `property` | The property name as a `Symbol`. |  
-As a convenience method, `getGridProperty` assumes that properties across all `Plot`s are the same (as would be the case if set by [#-setGridProperties](#-setgridproperties)) so returns a single value. Alternatively, properties from individual plot grids can be collected by iterating over the plots:
+As a convenience method, `getGridProperty` assumes that properties across all `Plot`s are the same (as would be the case if set by [setGridProperties](#setgridproperties)) so returns a single value. Alternatively, properties from individual plot grids can be collected by iterating over the plots:
 ```supercollider
 ( // inspect the \labelAnchor of each DrawGridX
 var plotter  = [10, 34, 167].collect({ |freq|
@@ -309,9 +309,9 @@ Set whether a [Rect](../Classes/Rect.md) is drawn around the boundary of the gri
 | Argument | Description |
 |----------|-------------|
 | `bool` | A `Boolean`. |  
-In some cases, the [GridLines](../Classes/GridLines.md) of the grid will not fall on the minimum or maximum of it's spec's range. Using [#-drawGridBaseLines](#-drawgridbaselines) or [#-drawGridBoundingRect](#-drawgridboundingrect) will give the appearance of grid lines at the lower end ("base") of the grid, or at both ends of the grid, respectively.
+In some cases, the [GridLines](../Classes/GridLines.md) of the grid will not fall on the minimum or maximum of it's spec's range. Using [drawGridBaseLines](#drawgridbaselines) or [drawGridBoundingRect](#drawgridboundingrect) will give the appearance of grid lines at the lower end ("base") of the grid, or at both ends of the grid, respectively.
 ### `drawGridBaseLines`
-Set whether a line is drawn at the lower extent of the grid axes. Setting to `false` disables any bounding grid lines (including a bounding `Rect`). See also the Discussion in [#-drawGridBoundingRect](#-drawgridboundingrect).**Arguments:**
+Set whether a line is drawn at the lower extent of the grid axes. Setting to `false` disables any bounding grid lines (including a bounding `Rect`). See also the Discussion in [drawGridBoundingRect](#drawgridboundingrect).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -334,9 +334,9 @@ a = { (40..300).scramble }.dup(2).plot;
 a.domainSpecs = \freq.asSpec;
 ```
 
-See also the [#Explicit domain and axis specs](#explicit-domain-and-axis-specs) example below.When setting your `Plotter` [#-value](#-value), the default **domainSpecs** is a linear spec in the range `[0, value.size-1]` (i.e. the indices of the values). Therefore, your values are displayed as evenly sampled between the `minval` and `maxval`, unless you have explicitly set the [#-domain](#-domain) values.If a new [#-value](#-value) is set, you will need to update your domainSpecs.
+See also the [#Explicit domain and axis specs](#explicit-domain-and-axis-specs) example below.When setting your `Plotter` [value](#value), the default **domainSpecs** is a linear spec in the range `[0, value.size-1]` (i.e. the indices of the values). Therefore, your values are displayed as evenly sampled between the `minval` and `maxval`, unless you have explicitly set the [domain](#domain) values.If a new [value](#value) is set, you will need to update your domainSpecs.
 ### `domain`
-Set/get the x-axis positions of your data points. The size of the `domainArray` must equal the size of your [#-value](#-value) array, i.e. a domain value specified for each data point.
+Set/get the x-axis positions of your data points. The size of the `domainArray` must equal the size of your [value](#value) array, i.e. a domain value specified for each data point.
 ```supercollider
 (
 var data, domain, plot;
@@ -349,7 +349,7 @@ plot.domain_(domain);
 )
 ```
 
-See also the [#Explicit domain and axis specs](#explicit-domain-and-axis-specs) example below.Domain values are mapped into the range of the [#-domainSpecs](#-domainspecs), so need not be evenly distributed. If [#-domain](#-domain) is set to `nil`, your values are displayed as evenly sampled between the `minval` and `maxval` of the [#-domainSpecs](#-domainspecs).Currently, for multichannel data plots, it's assumed that all channels of data share a single [#-domain](#-domain). I.e. `domainArray` must be an [Array](../Classes/Array.md) of rank 1.If a new [#-value](#-value) is set, you will need to update your [#-domain](#-domain).
+See also the [#Explicit domain and axis specs](#explicit-domain-and-axis-specs) example below.Domain values are mapped into the range of the [domainSpecs](#domainspecs), so need not be evenly distributed. If [domain](#domain) is set to `nil`, your values are displayed as evenly sampled between the `minval` and `maxval` of the [domainSpecs](#domainspecs).Currently, for multichannel data plots, it's assumed that all channels of data share a single [domain](#domain). I.e. `domainArray` must be an [Array](../Classes/Array.md) of rank 1.If a new [value](#value) is set, you will need to update your [domain](#domain).
 ### `resolution`
 Set the minimum number of pixels between data points (default: 1)
 ```supercollider

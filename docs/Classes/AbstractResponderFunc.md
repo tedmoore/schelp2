@@ -8,7 +8,7 @@
 
 ## Description
 
-AbstractResponderFunc is the abstract superclass of responder funcs, which are classes which register one or more functions to respond to a particular type of input. It provides some common functionality such as introspection. Its two main subclasses are [OSCFunc](../Classes/OSCFunc.md), and [MIDIFunc](../Classes/MIDIFunc.md). By default responder funcs do not persist beyond Cmd-. (see [#-permanent](#-permanent) below).
+AbstractResponderFunc is the abstract superclass of responder funcs, which are classes which register one or more functions to respond to a particular type of input. It provides some common functionality such as introspection. Its two main subclasses are [OSCFunc](../Classes/OSCFunc.md), and [MIDIFunc](../Classes/MIDIFunc.md). By default responder funcs do not persist beyond Cmd-. (see [permanent](#permanent) below).
 Instances will register with a dispatcher (an instance of a subclass of [AbstractDispatcher](../Classes/AbstractDispatcher.md)), which will actually dispatch incoming messages to an instance's Function(s).
 
 
@@ -51,7 +51,7 @@ Remove a function from the list of functions which will be executed when this ob
 ### `gui`
 Open a subclass specific GUI. (Not yet implemented)**Returns:** The GUI object.### `oneShot`
 Indicate that this object should execute only once and then free itself.### `fix`
-A synonym for [#-permanent](#-permanent)### `free`
+A synonym for [permanent](#permanent)### `free`
 Disable this object and remove it from the global lists. This should be done when you are finished using this object.### `clear`
 Remove all active functions from this object's function list.
 ## Examples

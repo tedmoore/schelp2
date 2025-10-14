@@ -12,14 +12,14 @@ A child view is added into a window by passing the window to the view's construc
 > **Note:** There is no distinction between windows, views, and containers; a View can be displayed directly on screen, and can contain other views. Therefore, visual descriptions of Window and most of the methods that are specific to Window in other GUI kits, also apply to and make part of View in Qt, and are thus shared by all its subclasses.The Window class is provided in Qt GUI for compatibility as well as convenience: e.g. unlike View, Window will be created by default in the center of the screen, and various aspects can be conveniently controlled using its constructor arguments.
 
 
-The Window is usually drawn with a bar on its top edge that displays the window's title which you can set in the [constructor](#*new), or using [#-name](#-name).
+The Window is usually drawn with a bar on its top edge that displays the window's title which you can set in the [constructor](#*new), or using [name](#name).
 
 
 ## Class Methods
 
 
 ### `new`
- Creates a new Window instance. You will need to call [#-front](#-front) on it to become visible.**Arguments:**
+ Creates a new Window instance. You will need to call [front](#front) on it to become visible.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -33,7 +33,7 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 ### `allWindows`
  An array of all existing Window instances.
 ### `closeAll`
- Calls [#-close](#-close) an all existing Window instances.
+ Calls [close](#close) an all existing Window instances.
 ### `initAction`
  The default action object to be evaluated whenever a new Window is instantiated.
 ### `screenBounds`
@@ -50,7 +50,7 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 ### `view`
  When a Window is created, it creates a container view, accessible using this method, that occupies the whole area of the window, and which will be used as the actual parent of the child widgets.**Returns:** A View.
 ### `asView`
- Equivalent to [#-view](#-view)
+ Equivalent to [view](#view)
 ### `currentSheet`
 
 > **Note:** Only in Cocoa GUI
@@ -59,7 +59,7 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 
 ### Visibility
 ### `front`
- Displays the window on the screen (This has the same effect as setting [#-visible](#-visible) to true).
+ Displays the window on the screen (This has the same effect as setting [visible](#visible) to true).
 ### `minimize`
  Hides the window, only keeping its representation in the dock, taskbar, etc..
 ### `unminimize`
@@ -76,7 +76,7 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 | `` | A Boolean. |  
 
 ### `visible`
- Whether the window is visible. Setting this to `true` has the same effect as [#-front](#-front), and setting it to false closes the window without destroying it.**Arguments:**
+ Whether the window is visible. Setting this to `true` has the same effect as [front](#front), and setting it to false closes the window without destroying it.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -96,7 +96,7 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 | `` | A Rect or a Point interpreted [as Rect](../Classes/Point.md#-asrect). |  
 **Returns:** A Rect.
 ### `setTopLeftBounds`
- A convenience method that, unlike [#-bounds](#-bounds), sets the bounds by measuring position from the top-left corner of the screen, and vertically offset by `menuSpacer`.**Arguments:**
+ A convenience method that, unlike [bounds](#bounds), sets the bounds by measuring position from the top-left corner of the screen, and vertically offset by `menuSpacer`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -104,7 +104,7 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 | `menuSpacer` | An Integer amount of pixels. |  
 
 ### `setInnerExtent`
- Resizes the window, keeping its position intact. This is equivalent to [View#-resizeTo](../Classes/View.md#-resizeto) called on the [#-view](#-view).**Arguments:**
+ Resizes the window, keeping its position intact. This is equivalent to [View#-resizeTo](../Classes/View.md#-resizeto) called on the [view](#view).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -112,11 +112,11 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 | `h` | An Integer height in pixels. |  
 
 ### `sizeHint`
- Redirects to [View#-sizeHint](../Classes/View.md#-sizehint) of the [#-view](#-view).
+ Redirects to [View#-sizeHint](../Classes/View.md#-sizehint) of the [view](#view).
 ### `minSizeHint`
- Redirects to [View#-minSizeHint](../Classes/View.md#-minsizehint) of the [#-view](#-view).
+ Redirects to [View#-minSizeHint](../Classes/View.md#-minsizehint) of the [view](#view).
 ### `addFlowLayout`
- A convenience method which sets `decorator` of the [#-view](#-view) to a new instance of FlowLayout. See [FlowLayout](../Classes/FlowLayout.md) for examples.**Arguments:**
+ A convenience method which sets `decorator` of the [view](#view) to a new instance of FlowLayout. See [FlowLayout](../Classes/FlowLayout.md) for examples.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -124,7 +124,7 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 | `gap` | A Point describing the [gap](../Classes/FlowLayout.md#-gap) of the FlowLayout. |  
 **Returns:** The new FlowLayout instance.
 ### `layout`
- Redirects to [View#-layout](../Classes/View.md#-layout) of the [#-view](#-view).
+ Redirects to [View#-layout](../Classes/View.md#-layout) of the [view](#view).
 ### `moveToBottom`
  Moves the window to the lowest usable screen position without overlapping system-reserved areas (e.g., taskbars, docks).**Arguments:**
 
@@ -196,9 +196,9 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 ### `onClose`
  The action object to be evaluated when the window is closed.
 ### `addToOnClose`
- Adds an object to [#-onClose](#-onclose), wrapping the current value into an Array, if it is not yet.
+ Adds an object to [onClose](#onclose), wrapping the current value into an Array, if it is not yet.
 ### `removeFromOnClose`
- Removes an object from [#-onClose](#-onclose), if the latter is an Array.
+ Removes an object from [onClose](#onclose), if the latter is an Array.
 
 ## Examples
 

@@ -25,7 +25,7 @@ Its minimum value occurs when the phase `x = -1` and `x = 1`, and its maximum oc
 | `iphase` | Initial offset phase offset in the range `[-1, 1]`. Default: 0 |  
 | `loop` | If **loop** `> 0`, the function repeats. Otherwise, it calls **doneAction** after one cycle. Default: 1 |  
 | `doneAction` | A `doneAction` value, which is evaluated at the end of a cycle (if **loop** `= 0`). `2` frees the synth. Default: `0` (continues running). See [Done#Actions](../Classes/Done.md#actions) for more options. |  
-By default, the maximum value of `LFGauss` is `1`. The minimum value will depend on the **width**, and can by inspected with [#-minval](#-minval).The function can be mapped to a specified range with [#-range](#-range), which can be useful when using `LFGauss` as an envelope that may need to span a range of, e.g., `[0, 1]`.See the examples below for understanding and manipulating the [#Min and max values, curve width](#min-and-max-values,-curve-width).
+By default, the maximum value of `LFGauss` is `1`. The minimum value will depend on the **width**, and can by inspected with [minval](#minval).The function can be mapped to a specified range with [range](#range), which can be useful when using `LFGauss` as an envelope that may need to span a range of, e.g., `[0, 1]`.See the examples below for understanding and manipulating the [#Min and max values, curve width](#min-and-max-values,-curve-width).
 
 ## Instance Methods
 
@@ -65,11 +65,11 @@ s.boot;
 
 
 ### Min and max values, curve width
-[#-minval](#-minval) for a given **width** (assuming **iphase** `= 0`) is:
+[minval](#minval) for a given **width** (assuming **iphase** `= 0`) is:
 
 `minval = exp(-1.0 / (2.0 * squared(width)))`
 
-**width** for a given [#-minval](#-minval) is:
+**width** for a given [minval](#minval) is:
 
 `width = sqrt(-1.0 / log(minval))`
 
@@ -168,7 +168,7 @@ sqrt(-1 / (2 * log(-60.dbamp))) // 0.269
 
 ### Gabor Grain
 
-> **Note:** The gaussian function doesn't start with `0` – it asymptotically approaches it at `-inf` and `inf`. When using it as an envelope, it has to start at some smaller value, and it has an offset for this value. You can remove this offset by explicitly setting the [#-range](#-range), e.g. to `[0, 1]` (this is the default).
+> **Note:** The gaussian function doesn't start with `0` – it asymptotically approaches it at `-inf` and `inf`. When using it as an envelope, it has to start at some smaller value, and it has an offset for this value. You can remove this offset by explicitly setting the [range](#range), e.g. to `[0, 1]` (this is the default).
 
 
 

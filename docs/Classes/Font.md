@@ -76,20 +76,20 @@ Gets/sets the name of the font.**Arguments:**
 |----------|-------------|
 | `value` | An instance of [String](../Classes/String.md). |  
 ### `size`
-Gets/sets the size of the font. Setting this variable is always considered as setting the [#-pixelSize](#-pixelsize), while getting it will return any size set. See [#-hasPointSize](#-haspointsize) for distinction.**Arguments:**
+Gets/sets the size of the font. Setting this variable is always considered as setting the [pixelSize](#pixelsize), while getting it will return any size set. See [hasPointSize](#haspointsize) for distinction.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `pixelSize` | A Float. |  
 ### `hasPointSize`
-A Boolean variable indicating whether the [#-size](#-size) is regarded as pixel-size (precise amount of pixels), or point-size (adapting to screen resolution). To change this, you need to set the size via [#-pixelSize](#-pixelsize) or [#-pointSize](#-pointsize).### `pixelSize`
-Gets or sets the pixel-size of the font. When getting, returns nil if the font has point-size instead. See [#-hasPointSize](#-haspointsize) for distinction.**Arguments:**
+A Boolean variable indicating whether the [size](#size) is regarded as pixel-size (precise amount of pixels), or point-size (adapting to screen resolution). To change this, you need to set the size via [pixelSize](#pixelsize) or [pointSize](#pointsize).### `pixelSize`
+Gets or sets the pixel-size of the font. When getting, returns nil if the font has point-size instead. See [hasPointSize](#haspointsize) for distinction.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | Any number, but note that floats will be rounded to integer values when setting pixel-size. |  
 ### `pointSize`
-Gets or sets the point-size of the font. When getting, returns nil if the font has pixel-size instead. See [#-hasPointSize](#-haspointsize) for distinction.**Arguments:**
+Gets or sets the point-size of the font. When getting, returns nil if the font has pixel-size instead. See [hasPointSize](#haspointsize) for distinction.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

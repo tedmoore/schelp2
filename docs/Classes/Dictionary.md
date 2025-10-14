@@ -161,7 +161,7 @@ d = Dictionary.newFrom([\hello, 9, \whello, 77, \z, 99]);
 d.getPairs;
 ```
 
-Note that, unlike [#-asPairs](#-aspairs), getPairs will return nil with an empty Dictionary.
+Note that, unlike [asPairs](#aspairs), getPairs will return nil with an empty Dictionary.
 ```supercollider
 d = Dictionary.new;
 d.getPairs;
@@ -230,7 +230,7 @@ d.trueAt(\bar) // false (d[\bar] is nil)
 
 
 ### `falseAt`
-Returns [True](../Classes/True.md) if the item's `booleanValue` at the key is `false`, otherwise `true`. See [#-trueAt](#-trueat) for examples.
+Returns [True](../Classes/True.md) if the item's `booleanValue` at the key is `false`, otherwise `true`. See [trueAt](#trueat) for examples.
 
 ### Testing
 ### `includes`
@@ -274,7 +274,7 @@ d.keysValuesDo { |key, value| postln("the key: " ++ key ++ " the value: " ++ val
 
 
 ### `keysValuesChange`
-Iterate over the associations, and evaluate the function for each, passing key and value as argument. Replace the value with the return value from the function (similar to [#-collect](#-collect), but modifies the dictionary **in place**).
+Iterate over the associations, and evaluate the function for each, passing key and value as argument. Replace the value with the return value from the function (similar to [collect](#collect), but modifies the dictionary **in place**).
 ```supercollider
 d = Dictionary[\a -> "hello", \b -> "robot", \c -> [1, 2, 3]];
 d.keysValuesChange { |key, value| "the key: " ++ key ++ " the value: " ++ value };
@@ -299,7 +299,7 @@ d.associationsDo { |assoc| postln("the association: " ++ assoc) };
 
 
 ### `pairsDo`
-Iterate over the associations, and evaluate the function for each, passing key and value as argument. Identical to [#-keysValuesDo](#-keysvaluesdo)
+Iterate over the associations, and evaluate the function for each, passing key and value as argument. Identical to [keysValuesDo](#keysvaluesdo)
 ### `invert`
 Return a new dictionary with all the values as keys and vice versa.
 ```supercollider
@@ -394,7 +394,7 @@ d = Dictionary[\a -> 5, \b -> 7, \c -> 1, \d -> 0];
 d.asPairs;
 ```
 
-Note that, unlike [#-getPairs](#-getpairs), asPairs will return an empty Array with an empty Dictionary.
+Note that, unlike [getPairs](#getpairs), asPairs will return an empty Array with an empty Dictionary.
 ```supercollider
 d = Dictionary.new;
 d.asPairs;
@@ -402,7 +402,7 @@ d.asPairs;
 
 
 ### `asKeyValuePairs`
-See [#-asPairs](#-aspairs).
+See [asPairs](#aspairs).
 ### `embedInStream`
 **Arguments:**
 

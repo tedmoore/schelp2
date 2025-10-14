@@ -25,28 +25,28 @@ A view displaying editable text.
 | `` | A String. |  
 
 ### `object`
- If [#-setBoth](#-setboth) is true, setting this variable also sets [#-string](#-string) to the value interpreted [as String](../Classes/Object.md#-asstring).**Arguments:**
+ If [setBoth](#setboth) is true, setting this variable also sets [string](#string) to the value interpreted [as String](../Classes/Object.md#-asstring).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | Any object, typically one which makes sense to display as a string, such as a Float. |  
 
 ### `setBoth`
- A variable stating whether setting [#-object](#-object) will also set [#-string](#-string).**Arguments:**
+ A variable stating whether setting [object](#object) will also set [string](#string).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
 
 ### `value`
- Gets the same as [#-string](#-string), but when setting also sets [#-string](#-string) to the value interpreted [as String](../Classes/Object.md#-asstring) regardless of the [#-setBoth](#-setboth) flag.**Arguments:**
+ Gets the same as [string](#string), but when setting also sets [string](#string) to the value interpreted [as String](../Classes/Object.md#-asstring) regardless of the [setBoth](#setboth) flag.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | Any object, typically one which makes sense to display as a string, such as a Float. |  
 
 ### `valueAction`
- Sets [#-value](#-value) and triggers [#-action](#-action).
+ Sets [value](#value) and triggers [action](#action).
 
 ### Appearance
 ### `align`
@@ -79,11 +79,11 @@ A view displaying editable text.
 
 ### Drag and drop
 ### `defaultGetDrag`
-**Returns:** The displayed [#-string](#-string).
+**Returns:** The displayed [string](#string).
 ### `defaultCanReceiveDrag`
 **Returns:** Always true.
 ### `defaultReceiveDrag`
- Sets [#-valueAction](#-valueaction) to the current drag data.
+ Sets [valueAction](#valueaction) to the current drag data.
 
 ## Examples
 

@@ -82,7 +82,7 @@ Create a new [JITGui](../Classes/JITGui.md) that will be watching an object and 
 a [Tdef](../Classes/Tdef.md), or nil### `numItems`
 the number of items in the envirGui### `parent`
 the parent view### `bounds`
-the bounds of the [#-zone](#-zone)### `zone`
+the bounds of the [zone](#zone)### `zone`
 the [CompositeView](../Classes/CompositeView.md) within which the TdfGui is shown### `nameBut`, `playBut`, `pauseBut`, `srcBut`, `envBut`
 the buttons### `envirGui`
 the gui for the Tdef's envir - if numItems > 0.### `object`

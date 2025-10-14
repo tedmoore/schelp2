@@ -36,7 +36,7 @@ When clicked, this view opens a menu containing several text items, then closes 
 | `` | An integer, or nil meaning no selected item. |  
 
 ### `valueAction`
- Sets [#-value](#-value) and triggers [#-action](#-action).**Arguments:**
+ Sets [value](#value) and triggers [action](#action).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -70,15 +70,15 @@ When clicked, this view opens a menu containing several text items, then closes 
 
 ### Actions
 ### `action`
- The action object evaluated whenever the user changes the selected item from the menu. See [#-allowsReselection](#-allowsreselection) for customization.
+ The action object evaluated whenever the user changes the selected item from the menu. See [allowsReselection](#allowsreselection) for customization.
 
 ### Drag and drop
 ### `defaultGetDrag`
-**Returns:** The [#-value](#-value).
+**Returns:** The [value](#value).
 ### `defaultCanReceiveDrag`
 **Returns:** True if the current drag data is a number.
 ### `defaultReceiveDrag`
- Sets [#-valueAction](#-valueaction) to the current drag data.
+ Sets [valueAction](#valueaction) to the current drag data.
 
 ## Examples
 

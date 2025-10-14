@@ -1,5 +1,7 @@
 # schelp2
 
+Peek at the current state of things [here](https://www.tedmooremusic.com/schelp2/Help.html).
+
 This is an initial attempt at making a *new* helpfile system for SuperCollider. It is still very much a work in progress. Collaboration is invited! 
 
 ## Why does this exist?

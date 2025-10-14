@@ -58,7 +58,7 @@ File.getcwd;
 ### `use`
 Open the file, evaluate the function with the file as argument, and close it again. If the process fails, close the file and throw an error.
 ### `readAllString`
-Open the file at the given path, call [#-readAllString](#-readallstring), and return the string. Whether the process succeeds or fails, the file will always be closed.
+Open the file at the given path, call [readAllString](#readallstring), and return the string. Whether the process succeeds or fails, the file will always be closed.
 ```supercollider
 // write a file
 File.use("~/test.txt".standardizePath, "w", { |f| f.write("The green fox fell into the blue lake") });
@@ -69,11 +69,11 @@ File.readAllString("~/test.txt".standardizePath);
 
 
 ### `readAllSignal`
-Open the file at the given path, call [#-readAllSignal](#-readallsignal), and return the signal. Whether the process succeeds or fails, the file will always be closed.
+Open the file at the given path, call [readAllSignal](#readallsignal), and return the signal. Whether the process succeeds or fails, the file will always be closed.
 ### `readAllStringHTML`
-Open the file at the given path, call [#-readAllStringHTML](#-readallstringhtml), and return the string. Whether the process succeeds or fails, the file will always be closed.
+Open the file at the given path, call [readAllStringHTML](#readallstringhtml), and return the string. Whether the process succeeds or fails, the file will always be closed.
 ### `readAllStringRTF`
-Open the file at the given path, call [#-readAllStringRTF](#-readallstringrtf), and return the string. Whether the process succeeds or fails, the file will always be closed.
+Open the file at the given path, call [readAllStringRTF](#readallstringrtf), and return the string. Whether the process succeeds or fails, the file will always be closed.
 
 ### Filesystem utilities
 ### `exists`

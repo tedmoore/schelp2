@@ -77,7 +77,7 @@ returns a [RecNodeProxy](../Classes/RecNodeProxy.md) that records the NodeProxy 
 ### `ar`, `kr`
 returns a NodeProxy output that plays the NodeProxy at that key, to be used within a function used as input to a node proxy
 ### `wakeUp`
-when the proxyspace is created without a running server this method can be used. To run it (internally this is done by [#-play](#-play) as well).
+when the proxyspace is created without a running server this method can be used. To run it (internally this is done by [play](#play) as well).
 ### `fadeTime`
 set the fadetime of all proxies as well as the default fade time
 ### `clock`

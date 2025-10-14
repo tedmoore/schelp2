@@ -45,7 +45,7 @@ myPath.fileName.postln;
 
 ### `fileNameWithoutExtension`
 returns the name of the file itself without the file extension.### `extension`
-returns the file extension, i.e. everything after the last full-stop in the [#-fileName](#-filename).### `pathOnly`
+returns the file extension, i.e. everything after the last full-stop in the [fileName](#filename).### `pathOnly`
 returns the full path up to the file name itself; i.e. everything up to and including the last slash. This is handy e.g. for storing several files in the same folder.
 ```supercollider
 (
@@ -177,7 +177,7 @@ PathName("floating").endNumber.postln;
 ```
 
 ### `noEndNumbers`
-returns [#-fullPath](#-fullpath) without any numbers at the end.
+returns [fullPath](#fullpath) without any numbers at the end.
 ```supercollider
 PathName("floating1").noEndNumbers.postln;
 PathName("floating").noEndNumbers.postln;

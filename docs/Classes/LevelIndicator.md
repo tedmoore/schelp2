@@ -25,7 +25,7 @@ Get or set the current level of the view.**Arguments:**
 | `val` | A [Float](../Classes/Float.md) between 0 and 1. |  
 **Returns:** A [Float](../Classes/Float.md)### `warning`
 ### `critical`
-Set the warning and critical thresholds. If meter value is above either threshold, [#-warningColor](#-warningcolor) or [#-criticalColor](#-criticalcolor) will be shown, respectively (by default, yellow and red). If [#-drawsPeak](#-drawspeak) is true warning color will be displayed based on [#-peakLevel](#-peaklevel) rather than value.**Arguments:**
+Set the warning and critical thresholds. If meter value is above either threshold, [warningColor](#warningcolor) or [criticalColor](#criticalcolor) will be shown, respectively (by default, yellow and red). If [drawsPeak](#drawspeak) is true warning color will be displayed based on [peakLevel](#peaklevel) rather than value.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -42,7 +42,7 @@ Sets the style of the view.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `val` | An [QLevelIndicatorStyle](../Classes/QLevelIndicatorStyle.md) \continuous or \led (see [#-stepWidth](#-stepwidth))
+| `val` | An [QLevelIndicatorStyle](../Classes/QLevelIndicatorStyle.md) \continuous or \led (see [stepWidth](#stepwidth))
 ```supercollider
 (
 w = Window().front.layout_(
@@ -126,7 +126,7 @@ w.layout_(HLayout(
 )
 ``` |  
 ### `drawsPeak`
-Determines whether the view draws a separate peak display. This can be useful for displaying both peak and RMS values. If drawsPeak is true [#-warning](#-warning) and [#-critical](#-critical) will be displayed based on [#-peakLevel](#-peaklevel) rather than value.**Arguments:**
+Determines whether the view draws a separate peak display. This can be useful for displaying both peak and RMS values. If drawsPeak is true [warning](#warning) and [critical](#critical) will be displayed based on [peakLevel](#peaklevel) rather than value.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -140,7 +140,7 @@ w = Window().front().layout_(HLayout(
 )
 ``` |  
 ### `peakLevel`
-Sets the level of the peak display. (See [#-drawsPeak](#-drawspeak).)**Arguments:**
+Sets the level of the peak display. (See [drawsPeak](#drawspeak).)**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

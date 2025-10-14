@@ -26,7 +26,7 @@ Convert collection (e.g. arrays of arrays) to pairs.
 Return the size when linking across.### `depth`
 Return the size when linking down.### `do`
 Iterate over the two elements.### `traverse`
-Same like: [#-depthFirstPreOrderTraversal](#-depthfirstpreordertraversal)### `depthFirstPreOrderTraversal`
+Same like: [depthFirstPreOrderTraversal](#depthfirstpreordertraversal)### `depthFirstPreOrderTraversal`
 Traverse the data structure first link down, then across (see [#examples](#examples)).### `depthFirstPostOrderTraversal`
 Traverse the data structure from bottom up (see [#examples](#examples)).
 ## Examples

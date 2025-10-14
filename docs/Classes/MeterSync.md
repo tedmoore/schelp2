@@ -118,7 +118,7 @@ Answers with the clock being controlled by this instance.
 > **Note:** You cannot change the associated clock object. You should instead [MeterSync#-free](../Classes/MeterSync.md#-free) this instance, and create a new instance for the other clock.
 
 ### `repeats`
-Get or set the number of repeats for OSC messaging.UDP does not detect failure to deliver messages; therefore, messages may be lost. If that happens, LinkClock peers may fail to synchronize properly and [#-resyncMeter](#-resyncmeter) may be unable to recover. To prevent this, sync messages are sent 'repeats' times. The default is 4.### `delta`
+Get or set the number of repeats for OSC messaging.UDP does not detect failure to deliver messages; therefore, messages may be lost. If that happens, LinkClock peers may fail to synchronize properly and [resyncMeter](#resyncmeter) may be unable to recover. To prevent this, sync messages are sent 'repeats' times. The default is 4.### `delta`
 Get or set the number of seconds between OSC messaging repeats.
 ## Examples
 

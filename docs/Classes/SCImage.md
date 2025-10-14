@@ -633,7 +633,7 @@ retrieve or set all the pixels of the receiver.
 | `array` | an [Int32Array](../Classes/Int32Array.md) of size receiver.width * receiver.height containing all pixel values as 32bit Integer |  
 
 ### `loadPixels`
-load all the pixels of the receiver in an array. it is better and faster to call this function instead of [#-pixels](#-pixels) if you plan to retrieve frequently the pixel data (since it won't allocate a new array everytime !)
+load all the pixels of the receiver in an array. it is better and faster to call this function instead of [pixels](#pixels) if you plan to retrieve frequently the pixel data (since it won't allocate a new array everytime !)
 ```supercollider
 // exec one line at a time
 i = SCImage.new(
@@ -770,12 +770,12 @@ w = a.plot(freeOnClose: true, background: Color.black);
 | `region` | option to constrain the filter to a specific region IN the SCImage. |  
 
 ### `filteredWith`
-returns a new SCImage, copy of the receiver filtered with an array of SCImageFilter. arguments are the same as [#-applyFilters](#-applyfilters) (except for **region**).
+returns a new SCImage, copy of the receiver filtered with an array of SCImageFilter. arguments are the same as [applyFilters](#applyfilters) (except for **region**).
 > **Note:** Beware: you are responsible for freeing the newly created SCImage !!!
 
 
 ### `filters`
-filters is the instance variable that holds the array of SCImageFilter attached to the receiver. This is a convenient for applying filters out place and changing the SCImageFilter's attributes. see [#-addFilter](#-addfilter), [#-removeFilter](#-removefilter)see [SCImageFilter](../Classes/SCImageFilter.md) for an example on how to use the **filters** array.
+filters is the instance variable that holds the array of SCImageFilter attached to the receiver. This is a convenient for applying filters out place and changing the SCImageFilter's attributes. see [addFilter](#addfilter), [removeFilter](#removefilter)see [SCImageFilter](../Classes/SCImageFilter.md) for an example on how to use the **filters** array.
 ### `addFilter`
 you can also attach filters to the receiver for real-time changing operations. In this case the receiver will create a cache before each rendering to maintain its previous state, and allowing you to use filters without applying them in place. The cache is managed directly by the receiver. you can add several filters to the receiver, the first filter in the array is the first applied in the rendering chain.see [SCImageFilter](../Classes/SCImageFilter.md) for an example on how to use **addFilter**.**Arguments:**
 
@@ -791,7 +791,7 @@ see [SCImageFilter](../Classes/SCImageFilter.md) for an example on how to use **
 | `filter` | the SCImageFilter to remove from the rendering chain. |  
 
 ### `flatten`
-if [#-filters](#-filters) is not zero sized, this method will apply all those filters in place. if the image is accelerated this method force a bitmap representation of the receiver.
+if [filters](#filters) is not zero sized, this method will apply all those filters in place. if the image is accelerated this method force a bitmap representation of the receiver.
 ### `invert`
 invert the receiver
 ```supercollider

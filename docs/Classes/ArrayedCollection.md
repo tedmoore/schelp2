@@ -124,7 +124,7 @@ fork {
 ```
 
 ### `clipAt`
-Similar to [#-at](#-at), but guarantees that any value for index is valid by clipping values outside the collection's bounds. Values greater than `size - 1` are clipped to that last index, and values below `0` (negative) are clipped to 0. The index can also be an array of indices to extract the specified elements. [SequenceableCollection#-|@|](../Classes/SequenceableCollection.md#-|@|) is its syntactic shortcut.
+Similar to [at](#at), but guarantees that any value for index is valid by clipping values outside the collection's bounds. Values greater than `size - 1` are clipped to that last index, and values below `0` (negative) are clipped to 0. The index can also be an array of indices to extract the specified elements. [SequenceableCollection#-|@|](../Classes/SequenceableCollection.md#-|@|) is its syntactic shortcut.
 ```supercollider
 a = [1, 2, 3]
 a.clipAt(2) // same as at
@@ -134,7 +134,7 @@ a|@|3 //syntactic shortcut
 ```
 
 ### `wrapAt`
-Similar to [#-at](#-at), but guarantees that any value for index is valid by wrapping values outside the collection's bounds. If the index exceeds `size - 1`, it wraps back around to `0`. Similarly, if the index is below `0` (negative), it wraps to access elements from the end of the collection. `this.wrapAt(index)` is equivalent to `this.at(index mod: size)`, ensuring the index is always within the valid range of the collection. The index can also be an array of indices to extract the specified elements. [SequenceableCollection#-@@](../Classes/SequenceableCollection.md#-@@) is its syntactic shortcut.
+Similar to [at](#at), but guarantees that any value for index is valid by wrapping values outside the collection's bounds. If the index exceeds `size - 1`, it wraps back around to `0`. Similarly, if the index is below `0` (negative), it wraps to access elements from the end of the collection. `this.wrapAt(index)` is equivalent to `this.at(index mod: size)`, ensuring the index is always within the valid range of the collection. The index can also be an array of indices to extract the specified elements. [SequenceableCollection#-@@](../Classes/SequenceableCollection.md#-@@) is its syntactic shortcut.
 ```supercollider
 a = [1, 2, 3]
 a.wrapAt(2) // same as at
@@ -158,7 +158,7 @@ fork {
 ```
 
 ### `foldAt`
-Similar to [#-at](#-at), but guarantees that any value for index is valid by reflecting values outside the collection's bounds. Values greater than `size - 1` are reflected back toward lower indices. Similarly, if the index is below `0` (negative), it folds in the opposite direction. This creates a symmetrical mapping of any index within the collection's boundaries. The index can also be an array of indices to extract the specified elements. [SequenceableCollection#-@|@](../Classes/SequenceableCollection.md#-@|@) is its syntactic shortcut.
+Similar to [at](#at), but guarantees that any value for index is valid by reflecting values outside the collection's bounds. Values greater than `size - 1` are reflected back toward lower indices. Similarly, if the index is below `0` (negative), it folds in the opposite direction. This creates a symmetrical mapping of any index within the collection's boundaries. The index can also be an array of indices to extract the specified elements. [SequenceableCollection#-@|@](../Classes/SequenceableCollection.md#-@|@) is its syntactic shortcut.
 ```supercollider
 a = [1, 2, 3]
 a.foldAt(2) // same as at
@@ -197,9 +197,9 @@ z = x.put([0, 1], 150); // [150, 150, 3]
 ```
 
 ### `clipPut`
-Same as [#-put](#-put), but values for **index** greater than the [ArrayedCollection](../Classes/ArrayedCollection.md) instance size minus one will be clipped to `size - 1`, which is the last index.### `wrapPut`
-Same as [#-put](#-put), but values for **index** greater than the [ArrayedCollection](../Classes/ArrayedCollection.md) instance size minus one will be wrapped around to 0.### `foldPut`
-Same as [#-put](#-put), but values for **index** greater than the [ArrayedCollection](../Classes/ArrayedCollection.md) instance size minus one will be folded back.### `putEach`
+Same as [put](#put), but values for **index** greater than the [ArrayedCollection](../Classes/ArrayedCollection.md) instance size minus one will be clipped to `size - 1`, which is the last index.### `wrapPut`
+Same as [put](#put), but values for **index** greater than the [ArrayedCollection](../Classes/ArrayedCollection.md) instance size minus one will be wrapped around to 0.### `foldPut`
+Same as [put](#put), but values for **index** greater than the [ArrayedCollection](../Classes/ArrayedCollection.md) instance size minus one will be folded back.### `putEach`
 Put the **values** in the corresponding indices given by **keys**. If one of the two argument arrays is longer then it will wrap.
 ```supercollider
 y = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -242,7 +242,7 @@ y.postln; // returns [3, 4]
 ```
 
 ### `takeAt`
-Similar to [#-removeAt](#-removeat), but does not maintain the order of the items following the one that was removed. Instead, the last item is placed into the position of the removed item and the array's size decreases by one.
+Similar to [removeAt](#removeat), but does not maintain the order of the items following the one that was removed. Instead, the last item is placed into the position of the removed item and the array's size decreases by one.
 ```supercollider
 y = [1, 2, 3, 4, 5];
 y.takeAt(1);
@@ -250,7 +250,7 @@ y.postln;
 ```
 
 ### `takeThese`
-Removes all items in the receiver for which the **func** answers true. The function is passed two arguments, the item and an integer index. Note that order is not preserved. See [#-takeAt](#-takeat).
+Removes all items in the receiver for which the **func** answers true. The function is passed two arguments, the item and an integer index. Note that order is not preserved. See [takeAt](#takeat).
 ```supercollider
 y = [1, 2, 3, 4];
 y.takeThese({ |item, index| item.odd });    // remove odd items
@@ -417,7 +417,7 @@ y.postln;
 )
 ```
 
-> **⚠️ Warning:** `x.copyRange(a, b)` is **not** equivalent to `x[a..b]`. The latter compiles to [#-copySeries](#-copyseries), which has different behavior when **end** < **start**. See [NOTE](#copyrange_copyseries) in [#-copySeries](#-copyseries).### `copySeries`
+> **⚠️ Warning:** `x.copyRange(a, b)` is **not** equivalent to `x[a..b]`. The latter compiles to [copySeries](#copyseries), which has different behavior when **end** < **start**. See [NOTE](#copyrange_copyseries) in [copySeries](#copyseries).### `copySeries`
 Return a new [ArrayedCollection](../Classes/ArrayedCollection.md) consisting of the values starting at **first**, then every step of the distance between **first** and **second**, up until **last**. – All indices (first, second, last) are specified as integers starting from 0. If **second** is `nil`, a step of 1 or -1 is used as appropriate.`x.copySeries(a, nil, c)` is equivalent to `x[a..c]`, and `x.copySeries(a, b, c)` is equivalent to `x[a, b..c]`
 ```supercollider
 (
@@ -507,7 +507,7 @@ Iterate over the elements in reverse order, calling the function for each elemen
 
 ### `collect`
 Answer a new collection which consists of the results of function evaluated for each item in the collection. The function is passed two arguments, the item and an integer index. See [Collection](../Classes/Collection.md) helpfile for examples.### `deepCollect`
-The same as [#-collect](#-collect), but can look inside sub-arrays up to the specified **depth**.
+The same as [collect](#collect), but can look inside sub-arrays up to the specified **depth**.
 ```supercollider
 a = [99, [4, 6, 5], [[32]]];
 a.deepCollect(1, { |item| item.isArray }).postln;
@@ -566,7 +566,7 @@ a.performInPlace(\normalizeSum, 3, 6);
 ```
 
 ### `rank`
-Returns the number of dimensions of the collection. `rank` inspects the size of the left-most elements of sub-arrays only, i.e. it's assumed that the collection [#-isRectangular](#-isrectangular), so subarrays of mismatched sizes may not return an expected result. A single value has a rank of `0`. An empty array has a rank of `1`.
+Returns the number of dimensions of the collection. `rank` inspects the size of the left-most elements of sub-arrays only, i.e. it's assumed that the collection [isRectangular](#isrectangular), so subarrays of mismatched sizes may not return an expected result. A single value has a rank of `0`. An empty array has a rank of `1`.
 ```supercollider
 0.rank // 0
 [].rank // 1
@@ -576,7 +576,7 @@ Returns the number of dimensions of the collection. `rank` inspects the size of 
 ```
 
 ### `shape`
-Returns an array describing the dimension of each nested array. Requires [#-isRectangular](#-isrectangular) as a precondition.
+Returns an array describing the dimension of each nested array. Requires [isRectangular](#isrectangular) as a precondition.
 ```supercollider
 [4, 7, 6, 8].shape // [4]
 [[4, 7], [6, 8]].shape // [2, 2]
@@ -585,7 +585,7 @@ Returns an array describing the dimension of each nested array. Requires [#-isRe
 ```
 
 ### `reshape`
-For a multidimensional array, rearranges the data using the desired number of elements along each dimension. The data may be extended using [Array#-wrapExtend](../Classes/Array.md#-wrapextend) if needed. This will always return a rectangular array, see [#-isRectangular](#-isrectangular).
+For a multidimensional array, rearranges the data using the desired number of elements along each dimension. The data may be extended using [Array#-wrapExtend](../Classes/Array.md#-wrapextend) if needed. This will always return a rectangular array, see [isRectangular](#isrectangular).
 ```supercollider
 a = [4, 7, 6, 8];
 a.reshape(2, 2);

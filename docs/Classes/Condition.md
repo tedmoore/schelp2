@@ -29,7 +29,7 @@ c.unhang;
 ```
 
 ### `signal`
-If [#-test](#-test) is true, reschedule blocked threads.### `unhang`
+If [test](#test) is true, reschedule blocked threads.### `unhang`
 Resume threads.
 ## Examples
 

@@ -65,8 +65,8 @@ a.next; // starts again.
 ### `reset`
 Call the reset function, if defined.### `envir`
 Get or set the environment to which the function has been bound.### `nextFunc`
-Get or set the function which is called on [#-next](#-next).### `resetFunc`
-Get or set the function which is called on [#-reset](#-reset).
+Get or set the function which is called on [next](#next).### `resetFunc`
+Get or set the function which is called on [reset](#reset).
 ## Examples
 
 

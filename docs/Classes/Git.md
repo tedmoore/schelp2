@@ -70,7 +70,7 @@ Git().url_("fooBar").remoteAsHttpUrl;
 
 | Argument | Description |
 |----------|-------------|
-| `tag` | one of the tags returned by [#-tags](#-tags) |  
+| `tag` | one of the tags returned by [tags](#tags) |  
 **Returns:** hash of the given tag
 ### `isDirty`
 **Returns:** `true` if there are local changes
@@ -88,7 +88,7 @@ perform a checkout from remote with argument `refspec`**Arguments:**
 ### `pull`
 perform a pull from remote
 ### `clone`
-perform a clone from url into [#-localPath](#-localpath)**Arguments:**
+perform a clone from url into [localPath](#localpath)**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

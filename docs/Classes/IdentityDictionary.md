@@ -77,7 +77,7 @@ e[\b]
 ## Class Methods
 
 ### `new`
-The [#-parent](#-parent) and [#-proto](#-proto) instance variables allow additional IdentityDictionary's to provide default values. The precedence order for determining the value of a key is the IdentityDictionary, its prototype, its parent.When the instance variable [#-know](#-know) is [True](../Classes/True.md), the IdentityDictionary responds to unknown messages by looking up the selector and evaluating the result with the dictionary as an argument. For example:
+The [parent](#parent) and [proto](#proto) instance variables allow additional IdentityDictionary's to provide default values. The precedence order for determining the value of a key is the IdentityDictionary, its prototype, its parent.When the instance variable [know](#know) is [True](../Classes/True.md), the IdentityDictionary responds to unknown messages by looking up the selector and evaluating the result with the dictionary as an argument. For example:
 ```supercollider
 a = IdentityDictionary(know: true);
 a.put(\foo, { |x, y| "--".postln; ("x:" ++ x).postln;  ("y:" ++ y).postln; y.squared });

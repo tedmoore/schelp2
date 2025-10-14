@@ -10,7 +10,7 @@
 
 Keeps elements in an order and allows to put them at arbitrary slots without having to allocate a large array.
 
-> **Note:** [#-put](#-put) and [#-at](#-at) are slower than in [IdentityDictionary](../Classes/IdentityDictionary.md) / [PriorityQueue](../Classes/PriorityQueue.md), [#-do](#-do) is faster.
+> **Note:** [put](#put) and [at](#at) are slower than in [IdentityDictionary](../Classes/IdentityDictionary.md) / [PriorityQueue](../Classes/PriorityQueue.md), [do](#do) is faster.
 
 
 

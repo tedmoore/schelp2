@@ -9,16 +9,16 @@
 ## Description
 
 Knob displays a value from 0.0 to 1.0 in rotary fashion, and allows to control it with either circular or linear mouse motion.
-It also displays the deviation of the value from either 0.0 or 0.5, which you can choose using [#-centered](#-centered).
-To switch between the mouse interaction modes, use [#-mode](#-mode).
-The amount by which the value changes at interaction can be fine-tuned using [#-step](#-step), [#-keystep](#-keystep), [#-shift_scale](#-shift_scale), [#-ctrl_scale](#-ctrl_scale), and [#-alt_scale](#-alt_scale)
+It also displays the deviation of the value from either 0.0 or 0.5, which you can choose using [centered](#centered).
+To switch between the mouse interaction modes, use [mode](#mode).
+The amount by which the value changes at interaction can be fine-tuned using [step](#step), [keystep](#keystep), [#-shift_scale](#-shift_scale), [#-ctrl_scale](#-ctrl_scale), and [#-alt_scale](#-alt_scale)
 
 
 ## Class Methods
 
 
 ### `defaultMode`
- The default [#-mode](#-mode) for newly created Knobs.
+ The default [mode](#mode) for newly created Knobs.
 
 ## Instance Methods
 
@@ -32,16 +32,16 @@ The amount by which the value changes at interaction can be fine-tuned using [#-
 | `` | A Number in the range of 0.0 to 1.0. |  
 
 ### `valueAction`
- Sets the value and triggers [#-action](#-action).
+ Sets the value and triggers [action](#action).
 ### `increment`
- Increments the value by [#-keystep](#-keystep) multiplied by the argument.**Arguments:**
+ Increments the value by [keystep](#keystep) multiplied by the argument.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Number. |  
 
 ### `decrement`
- Decrements the value by [#-keystep](#-keystep) multiplied by the argument.**Arguments:**
+ Decrements the value by [keystep](#keystep) multiplied by the argument.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -67,28 +67,28 @@ The amount by which the value changes at interaction can be fine-tuned using [#-
 | `` | A Number. |  
 
 ### `step`
- The amount by which the value is incremented/decremented using the mouse in 'horizontal' and 'vertical' [modes](#-mode).**Arguments:**
+ The amount by which the value is incremented/decremented using the mouse in 'horizontal' and 'vertical' [modes](#mode).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Number. |  
 
 ### `shift_scale`
- The factor by which [#-step](#-step) or [#-keystep](#-keystep) is multiplied when used at mouse or keyboard interaction while the Shift key is pressed.**Arguments:**
+ The factor by which [step](#step) or [keystep](#keystep) is multiplied when used at mouse or keyboard interaction while the Shift key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
 
 ### `ctrl_scale`
- The factor by which [#-step](#-step) or [#-keystep](#-keystep) is multiplied when used at mouse or keyboard interaction while the Ctrl key is pressed.**Arguments:**
+ The factor by which [step](#step) or [keystep](#keystep) is multiplied when used at mouse or keyboard interaction while the Ctrl key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
 
 ### `alt_scale`
- The factor by which [#-step](#-step) or [#-keystep](#-keystep) is multiplied when used at mouse or keyboard interaction while the Alt key is pressed.**Arguments:**
+ The factor by which [step](#step) or [keystep](#keystep) is multiplied when used at mouse or keyboard interaction while the Alt key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -120,15 +120,15 @@ The amount by which the value changes at interaction can be fine-tuned using [#-
  The action object evaluated whenever the user interacts with the Knob using the mouse or the keyboard.
 ### `defaultKeyDownAction`
  Implements the default effects of key presses as follows:| **Key** | **Effect** | 
-| --- | --- || r | valueAction_(1.0.rand) | | n | valueAction_(0) | | x | valueAction_(1) | | c | valueAction_(0.5) | | ] | increment | | [ | decrement | | up arrow | increment | | down arrow | decrement | | right arrow | increment | | left arrow | decrement |  See also: [#-keystep](#-keystep), [#-shift_scale](#-shift_scale), [#-ctrl_scale](#-ctrl_scale), [#-alt_scale](#-alt_scale).
+| --- | --- || r | valueAction_(1.0.rand) | | n | valueAction_(0) | | x | valueAction_(1) | | c | valueAction_(0.5) | | ] | increment | | [ | decrement | | up arrow | increment | | down arrow | decrement | | right arrow | increment | | left arrow | decrement |  See also: [keystep](#keystep), [#-shift_scale](#-shift_scale), [#-ctrl_scale](#-ctrl_scale), [#-alt_scale](#-alt_scale).
 
 ### Drag and drop
 ### `defaultGetDrag`
-**Returns:** The [#-value](#-value).
+**Returns:** The [value](#value).
 ### `defaultCanReceiveDrag`
 **Returns:** True if the current drag data is a Number.
 ### `defaultReceiveDrag`
- Sets [#-valueAction](#-valueaction) to the current drag data.
+ Sets [valueAction](#valueaction) to the current drag data.
 
 ## Examples
 
@@ -207,7 +207,7 @@ k.centered = false
 
 
 ### step
-[#-step](#-step) only affects the 'horiz' and 'vert' modes:
+[step](#step) only affects the 'horiz' and 'vert' modes:
 
 
 ```supercollider

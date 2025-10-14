@@ -98,7 +98,7 @@ An [Event](../Classes/Event.md) is a [Environment](../Classes/Environment.md) wi
 
 
 ### Playing Event Patterns
-The [#-play](#-play) method does not return the pattern itself. Instead, it returns the [EventStreamPlayer](../Classes/EventStreamPlayer.md) object that actually runs the pattern. Control instructions -- stop, pause, resume, play, reset -- should be addressed to the EventStreamPlayer. (The same pattern can play many times simultaneously, using different EventStreamPlayers.)
+The [play](#play) method does not return the pattern itself. Instead, it returns the [EventStreamPlayer](../Classes/EventStreamPlayer.md) object that actually runs the pattern. Control instructions -- stop, pause, resume, play, reset -- should be addressed to the EventStreamPlayer. (The same pattern can play many times simultaneously, using different EventStreamPlayers.)
 
 
 ```supercollider
@@ -114,7 +114,7 @@ p.stop;    // DOES stop because p is the EventStreamPlayer
 
 
 ### Recording Event Patterns
-Patterns may be recorded in realtime or non-realtime. See the method [#-record](#-record) for realtime recording.
+Patterns may be recorded in realtime or non-realtime. See the method [record](#record) for realtime recording.
 
 For non-realtime recording see the [Score](../Classes/Score.md) helpfile, especially "creating Score from a pattern." It can be tricky, because NRT recording launches a new server instance. That server instance is not aware of buffers or other resources loaded into the realtime server you might have been using for tests. The pattern is responsible for (re)loading any resources (buffers, effects etc.). [Pfset](../Classes/Pfset.md) or [Pproto](../Classes/Pproto.md) may be useful.
 

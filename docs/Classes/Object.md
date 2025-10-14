@@ -174,7 +174,7 @@ a.postcs;
 ### `asInt`
 Deprecated. Use `asInteger` instead.
 ### `cs`
-Shorthand for [#-asCompileString](#-ascompilestring).
+Shorthand for [asCompileString](#ascompilestring).
 ```supercollider
 { 10.do { 10.postln } }.cs;
 "Strings don't post with surrounding quotes.".cs;
@@ -268,7 +268,7 @@ postf(
 
 **Returns:** A [Float](../Classes/Float.md) in the range `0.0` to `1.0`.
 ### `compareObject`
-Tests if two Objects (of the same class) are the same in a certain respect: It returns true if instVarNames are equal in both. If none are given, all instance variables are tested (see also: [#-instVarHash](#-instvarhash))
+Tests if two Objects (of the same class) are the same in a certain respect: It returns true if instVarNames are equal in both. If none are given, all instance variables are tested (see also: [instVarHash](#instvarhash))
 ```supercollider
 a = Pseq([1, 2, 3], inf); b = Pseq([100, 200, 300], inf);
 a.compareObject(b, [\repeats]); // true
@@ -295,7 +295,7 @@ b.identityHash;
 
 
 ### `instVarHash`
-Returns a combined hash value for the object's instance variables and the object's class. If none are given, all instance variables are tested (see also: [#-compareObject](#-compareobject)).
+Returns a combined hash value for the object's instance variables and the object's class. If none are given, all instance variables are tested (see also: [compareObject](#compareobject)).
 ```supercollider
 a = Pseq([1, 2, 3], inf); b = Pseq([100, 200, 300], inf);
 
@@ -428,7 +428,7 @@ a.performList(\value, [1, 2, 3]);
 
 
 ### `performArgs`
-Like [#-perform](#-perform), but allows you to pass a key-value array of keyword arguments. Useful in [#-doesNotUnderstand](#-doesnotunderstand) and other places where you might accept a variety of keyword arguments.**Arguments:**
+Like [perform](#perform), but allows you to pass a key-value array of keyword arguments. Useful in [doesNotUnderstand](#doesnotunderstand) and other places where you might accept a variety of keyword arguments.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -758,7 +758,7 @@ x[0][0] === x[1][0] // true: doesn't deepCopy receiver
 
 ### Scheduling
 ### `awake`
-This method is called by a [Clock](../Classes/Clock.md) on which the object was scheduled when its scheduling time is up. It calls [#-next](#-next), passing on the scheduling time in beats as an argument.**Arguments:**
+This method is called by a [Clock](../Classes/Clock.md) on which the object was scheduled when its scheduling time is up. It calls [next](#next), passing on the scheduling time in beats as an argument.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -833,7 +833,7 @@ a.nextN(9)
 
 
 ### `nextN`
-Returns an array with the results of calling [#-next](#-next) a given number of times**Arguments:**
+Returns an array with the results of calling [next](#next) a given number of times**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

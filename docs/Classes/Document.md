@@ -213,7 +213,7 @@ Get / set the document is editable.**Arguments:**
 | `bool` | An instance of [Boolean](../Classes/Boolean.md). |  
 
 ### `name`
-Get / set the title (same as [#-title](#-title)).**Arguments:**
+Get / set the title (same as [title](#title)).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -225,7 +225,7 @@ Document.current.name.postln;
 
 
 ### `title`
-Get / set the title (same as [#-name](#-name)).**Arguments:**
+Get / set the title (same as [name](#name)).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -250,9 +250,9 @@ Document.current.isEdited.postln;
 ### `isFront`
 Returns `true` if the document is in front.
 ### `didBecomeKey`
-Saves the current [Environment](../Classes/Environment.md), makes the document current, and performs its [#-toFrontAction](#-tofrontaction).
+Saves the current [Environment](../Classes/Environment.md), makes the document current, and performs its [toFrontAction](#tofrontaction).
 ### `didResignKey`
-Performs the Document's [#-endFrontAction](#-endfrontaction) and restores the current [Environment](../Classes/Environment.md).
+Performs the Document's [endFrontAction](#endfrontaction) and restores the current [Environment](../Classes/Environment.md).
 
 ### Controlling Document
 ### `close`
@@ -314,14 +314,14 @@ Get / set the action to be performed when the document become the front document
 | `value` | An instance of [Function](../Classes/Function.md) or [FunctionList](../Classes/FunctionList.md). |  
 
 ### `mouseDownAction`
-Get/set the action to be performed on [#-mouseDown](#-mousedown).**Arguments:**
+Get/set the action to be performed on [mouseDown](#mousedown).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `action` | An instance of [Function](../Classes/Function.md) or [FunctionList](../Classes/FunctionList.md). The arguments passed to the function are: `document`, `x`, `y`, `modifiers`, `buttonNumber`, `clickCount`. |  
 
 ### `mouseUpAction`
-Get/set the action to be performed on [#-mouseUp](#-mouseup).**Arguments:**
+Get/set the action to be performed on [mouseUp](#mouseup).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -355,7 +355,7 @@ Document.current.mouseUpAction = nil; // clear mouseUpAction
 
 
 ### `keyDownAction`
-Get/set the action to be performed on [#-keyDown](#-keydown).**Arguments:**
+Get/set the action to be performed on [keyDown](#keydown).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -369,7 +369,7 @@ Document.current.keyDownAction = nil;
 
 
 ### `keyUpAction`
-Get/set the action to be performed on [#-keyUp](#-keyup).**Arguments:**
+Get/set the action to be performed on [keyUp](#keyup).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -501,7 +501,7 @@ Get a range of text from the document. Synchronous. The text is directly returne
 
 ### `getTextAsync`
 Get a range of text from the document. Asynchronous. The text is passed to the `action` function as an argument.
-> **Note:** Currently, in Windows, [#-getText](#-gettext) and [#-string](#-string) may be unreliable. Windows users are recommended to use [#-getTextAsync](#-gettextasync) for the time being.
+> **Note:** Currently, in Windows, [getText](#gettext) and [string](#string) may be unreliable. Windows users are recommended to use [getTextAsync](#gettextasync) for the time being.
 
 **Arguments:**
 

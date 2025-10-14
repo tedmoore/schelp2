@@ -8,7 +8,7 @@
 
 ## Description
 
-An `Env` is a specification for a segmented envelope. `Env`s can be used both server-side, by an [EnvGen](../Classes/EnvGen.md) or an [IEnvGen](../Classes/IEnvGen.md) within a [SynthDef](../Classes/SynthDef.md), and clientside, with methods such as [#-at](#-at) and [#-asStream](#-asstream), below.
+An `Env` is a specification for a segmented envelope. `Env`s can be used both server-side, by an [EnvGen](../Classes/EnvGen.md) or an [IEnvGen](../Classes/IEnvGen.md) within a [SynthDef](../Classes/SynthDef.md), and clientside, with methods such as [at](#at) and [asStream](#asstream), below.
 An `Env` can have any number of segments which can stop at a particular value or loop several segments when sustaining. It can have several shapes for its segments.
 The envelope is conceived as a sequence of breakpoint *nodes* with three parameters: a *level*, a transition *time*, and a transition *curve* shape. The three node parameters are kept in separate arrays as explained below. Note that because the first node represents the initial level of the envelope, it has no associated transition time or curve.
 
@@ -369,7 +369,7 @@ Env.cutoff(1, 1, \sine).test(2).plot;
 
 
 ### `circle`
-Creates a new envelope which, when used by an [EnvGen](../Classes/EnvGen.md), cycles through its values.For making an already-created envelope cyclic, you can use the [#-circle](#-circle) instance method, which takes the looparound time and curve as arguments.**Arguments:**
+Creates a new envelope which, when used by an [EnvGen](../Classes/EnvGen.md), cycles through its values.For making an already-created envelope cyclic, you can use the [circle](#circle) instance method, which takes the looparound time and curve as arguments.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -413,7 +413,7 @@ var loopBackTime = 0.06;
 
 
 ### Multichannel expansion
-If one of the values within either levels, times, or curves is itself an array, the envelope expands to multiple channels wherever appropriate. This means that when such an envelope is passed to an EnvGen, this EnvGen will expand, and when the envelope is queried via the methods [#-at](#-at) or [#-asSignal](#-assignal), it will return an array of values.
+If one of the values within either levels, times, or curves is itself an array, the envelope expands to multiple channels wherever appropriate. This means that when such an envelope is passed to an EnvGen, this EnvGen will expand, and when the envelope is queried via the methods [at](#at) or [asSignal](#assignal), it will return an array of values.
 
 
 ```supercollider
@@ -643,7 +643,7 @@ w.front
 ### `asSignal`
 Returns a [Signal](../Classes/Signal.md) of size **length** created by sampling this Env at **length** number of intervals. If the envelope has multiple channels (see [#Multichannel expansion](#multichannel-expansion)), this method returns an array of signals.### `asArray`
 Converts the Env to an [Array](../Classes/Array.md) in a specially ordered format. This allows for Env parameters to be settable arguments in a SynthDef. See example under [#*newClear](#*newclear).### `asMultichannelArray`
-Converts the Env to an [Array](../Classes/Array.md) in a specially ordered format, like [#-asArray](#-asarray), however it always returns an array of these data sets, corresponding to the number of channels of the envelope.### `isSustained`
+Converts the Env to an [Array](../Classes/Array.md) in a specially ordered format, like [asArray](#asarray), however it always returns an array of these data sets, corresponding to the number of channels of the envelope.### `isSustained`
 Returns true if this is a sustaining envelope, false otherwise.### `range`, `exprange`, `curverange`
 Returns a copy of the Env whose levels have been mapped onto the given linear, exponential or curve range.
 ```supercollider

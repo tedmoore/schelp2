@@ -135,7 +135,7 @@ List[1, 2, 3, 4].removeAll(List[2, 3]);
 ~closet.removeAll([\hat, \coat, \shoe, \shoe]); // Doesn't empty the closet, just removes what we wanted to
 ```
 
-See [#-removeEvery](#-removeevery) for a related method that removes all occurrences.
+See [removeEvery](#removeevery) for a related method that removes all occurrences.
 
 
 ### `removeEvery`
@@ -184,7 +184,7 @@ List[1, 2, 3, 4].includes(3);
 
 
 ### `includesEqual`
-Answer whether anObject is contained in the receiver. In contrast to [#-includes](#-includes) this tests for equality - not identity.
+Answer whether anObject is contained in the receiver. In contrast to [includes](#includes) this tests for equality - not identity.
 ```supercollider
 List["a", "b", "c"].includesEqual("c");  // true
 List["a", "b", "c"].includes("c");       // false
@@ -224,21 +224,21 @@ Answer a new collection which consists of the results of **function** evaluated 
 List[1, 2, 3, 4].collect({ |item, i| item + 10 });
 ```
 
-If you want to control what type of collection is returned, use [#-collectAs](#-collectas)(function, class).
+If you want to control what type of collection is returned, use [collectAs](#collectas)(function, class).
 ### `select`
 Answer a new collection which consists of all items in the receiver for which **function** answers [True](../Classes/True.md). The function is passed two arguments, the item and an integer index.
 ```supercollider
 List[1, 2, 3, 4].select({ |item, i| item.even });
 ```
 
-If you want to control what type of collection is returned, use [#-selectAs](#-selectas)(function, class).
+If you want to control what type of collection is returned, use [selectAs](#selectas)(function, class).
 ### `reject`
 Answer a new collection which consists of all items in the receiver for which **function** answers [False](../Classes/False.md). The function is passed two arguments, the item and an integer index.
 ```supercollider
 List[1, 2, 3, 4].reject({ |item, i| item.even });
 ```
 
-If you want to control what type of collection is returned, use [#-rejectAs](#-rejectas)(function, class).
+If you want to control what type of collection is returned, use [rejectAs](#rejectas)(function, class).
 ### `detect`
 Answer the first item in the receiver for which **function** answers [True](../Classes/True.md). The function is passed two arguments, the item and an integer index.
 ```supercollider
@@ -247,7 +247,7 @@ List[1, 2, 3, 4].detect({ |item, i| item.even });
 
 
 ### `detectLast`
-Similar to [#-detect](#-detect), but performed in reverse order.
+Similar to [detect](#detect), but performed in reverse order.
 ```supercollider
 [2, 3, 4, 6, 8, 9, 10].detectLast({ arg item; item.odd }); // 9
 ["a", "b", "c"].detectLast({ arg item; item == "d" }); // nil
@@ -255,14 +255,14 @@ Similar to [#-detect](#-detect), but performed in reverse order.
 
 
 ### `detectIndex`
-Similar to [#-detect](#-detect) but returns the index instead of the item itself.
+Similar to [detect](#detect) but returns the index instead of the item itself.
 ```supercollider
 List[1, 2, 3, 4].detectIndex({ |item, i| item.even });
 ```
 
 
 ### `detectLastIndex`
-Similar to [#-detectIndex](#-detectindex), but performed in reverse order.
+Similar to [detectIndex](#detectindex), but performed in reverse order.
 ```supercollider
 [0, 1, 2, 3, 4].detectLastIndex({ arg item; item.odd }); // 3
 ["a", "b", "c"].detectLastIndex({ arg item; item == 0 }); // nil
@@ -270,9 +270,9 @@ Similar to [#-detectIndex](#-detectindex), but performed in reverse order.
 
 
 ### `lastForWhich`
-Returns the last element of the collection for which the function is true. Synonym to [#-detectLast](#-detectlast).
+Returns the last element of the collection for which the function is true. Synonym to [detectLast](#detectlast).
 ### `lastIndexForWhich`
-Returns the index of the last element of the collection for which the function is true. Synonym to [#-detectLastIndex](#-detectlastindex).
+Returns the index of the last element of the collection for which the function is true. Synonym to [detectLastIndex](#detectlastindex).
 ### `inject`
 In functional programming, the operation known as a left fold. inject takes an initial value and a function and combines the elements of the collection by applying the function to the accumulated value and an element from the collection starting from the first element in the collection. The **function** takes two arguments and returns the new value. The accumulated value is initialized to **initialValue**.
 ```supercollider
@@ -298,7 +298,7 @@ In functional programming, the operation known as a right fold. inject takes an 
 
 
 ### `collectInPlace`
-Iterate over the collection and replace each item with a new one, returned by the function. This can be useful when one wants to aviod creating a new array in memory. In most cases, it is better to use [#-collect](#-collect).
+Iterate over the collection and replace each item with a new one, returned by the function. This can be useful when one wants to aviod creating a new array in memory. In most cases, it is better to use [collect](#collect).
 ```supercollider
 a = [1, 5, 3, 4];
 a.collectInPlace { |x| 2 ** x };
@@ -312,7 +312,7 @@ a; // remains unchanged
 
 
 ### `collectCopy`
-Like [#-collect](#-collect), but the collection is copied before iteration. This is recommended wherever the function may change the collection itself.
+Like [collect](#collect), but the collection is copied before iteration. This is recommended wherever the function may change the collection itself.
 ```supercollider
 a = [1, 5, 2, 3, 4];
 b = a.collectCopy { |x| if(x.even) { a.remove(x); "removed" } { x } };

@@ -150,14 +150,14 @@ Routine({ loop {
 
 
 ### Iteration
-The method [#-do](#-do) effectively 'plays' a stream by iterating all of its contents.
+The method [do](#do) effectively 'plays' a stream by iterating all of its contents.
 
-And the following messages create a stream by filtering another stream in some way: [#-collect](#-collect), [#-reject](#-reject), [#-select](#-select), [#-dot](#-dot), [#-interlace](#-interlace), [#-appendStream](#-appendstream), [#-embedInStream](#-embedinstream), [#-trace](#-trace).
+And the following messages create a stream by filtering another stream in some way: [collect](#collect), [reject](#reject), [select](#select), [dot](#dot), [interlace](#interlace), [appendStream](#appendstream), [embedInStream](#embedinstream), [trace](#trace).
 
 
 
 ### Composite Streams
-Routines can be **embedded** in each other, using [#-embedInStream](#-embedinstream) :
+Routines can be **embedded** in each other, using [embedInStream](#embedinstream) :
 
 
 ```supercollider
@@ -291,7 +291,7 @@ nil;
 ## Instance Methods
 
 ### `play`
-Streams that return **numbers** can be played directly with the **play** message. Streams that return **events** need to be wrapped in an [EventStreamPlayer](../Classes/EventStreamPlayer.md). See [#-asEventStreamPlayer](#-aseventstreamplayer).**Arguments:**
+Streams that return **numbers** can be played directly with the **play** message. Streams that return **events** need to be wrapped in an [EventStreamPlayer](../Classes/EventStreamPlayer.md). See [asEventStreamPlayer](#aseventstreamplayer).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
