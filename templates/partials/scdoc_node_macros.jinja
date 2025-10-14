@@ -355,9 +355,9 @@ ${{ node.text }}$
 {%- set target = hash_parts[0] ~ "#" ~ anchor -%}
 {%- set display = hash_parts[2] -%}
 {%- else -%}
-{#- Default: use the full text as both target and display -#}
+{#- Default: use the full text as both target and display, but clean up display -#}
 {%- set target = link_text -%}
-{%- set display = link_text -%}
+{%- set display = link_text.replace("Classes/", "").replace("Guides/", "").replace("Tutorials/", "").replace("Reference/", "").replace("Overviews/", "").replace("Other/", "") -%}
 {%- endif -%}
 {%- endif -%}
 
