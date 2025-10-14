@@ -61,7 +61,7 @@ f.(a: 3) // Error: binary operator '+' failed, b is 'nil' and you cannot add a n
 
 A function can be thought as a machine able to perform a task on demand, e.g. a calculator. The calculator can receive input (args) and can output a value, the result of the performed operations. The function definition can then be thought as the building of the calculator: once built, the calculator does nothing until it is requested to work (by passing the value method to a function). The following figure depicts an empty function, input without output, output without input, and the general case with input and output.
 
-![functions.png#Functions](functions.png#Functions)
+![functions.png / Functions ](functions.png#Functions)
 
 
 ## Arguments

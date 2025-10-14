@@ -8,7 +8,7 @@
 
 A symbol, like a [String](../Classes/String.md), is a sequence of characters. Unlike strings, two symbols with exactly the same characters will be the exact same object. Symbols are optimized for recreating the same symbol over and over again. In practice, this means that symbols are best used for identifiers or tags that are only meaningful within your program, whereas you should use a string when your characters are really processed as text data. Use symbols to name things, use strings for input and output.
 Good uses of symbols include symbolic constant values and [Dictionary](../Classes/Dictionary.md) keys.
-Symbols are represented syntactically as literals which are described in [Literals#Symbols](../Reference/Literals.md#symbols).
+Symbols are represented syntactically as literals which are described in [Literals / Symbols ](../Reference/Literals.md#symbols).
 
 ### Creating a Symbol
 A symbol can be written by surrounding characters by single quotes (may include whitespace):

@@ -2,7 +2,7 @@
 
 *Signal Processing in SuperCollider*
 
-**Related:** [Browse#UGens](../Browse#UGens.md)
+**Related:** [Browse / UGens ](../Browse#UGens.md)
 
 **Categories:** UGens, Server>Nodes
 

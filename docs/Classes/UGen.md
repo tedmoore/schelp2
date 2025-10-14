@@ -4,7 +4,7 @@
 
 **Categories:** UGens, Server>Abstractions
 
-**Related:** [Browse#UGens](../Browse#UGens.md), [Tour_of_UGens](../Guides/Tour_of_UGens.md), [UGens-and-Synths](../Guides/UGens-and-Synths.md)
+**Related:** [Browse / UGens ](../Browse#UGens.md), [Tour_of_UGens](../Guides/Tour_of_UGens.md), [UGens-and-Synths](../Guides/UGens-and-Synths.md)
 
 ## Description
 

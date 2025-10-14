@@ -103,9 +103,9 @@ Gets or sets the number of seconds of OSC messaging latency for which the `LinkC
 |----------|-------------|
 | `lat` | A Float. |  
 ### `tempo`
-Sets or gets the current session tempo at the current logical time. Note that the tempo may be changed at any time by another peer; the LinkClock broadcasts a `\tempo` notification in this case (see [LinkClock#Notifications](../Classes/LinkClock.md#notifications)).### `beats`
+Sets or gets the current session tempo at the current logical time. Note that the tempo may be changed at any time by another peer; the LinkClock broadcasts a `\tempo` notification in this case (see [LinkClock / Notifications ](../Classes/LinkClock.md#notifications)).### `beats`
 Sets or gets the current logical time in beats. If you are trying to set the beats, Link may adjust your given value to maintain sync with other peers.### `numPeers`
-Gets the number of peers connected to the current Link session. When peers join or leave the session, the LinkClock broadcasts a `\numPeers` notification (see [LinkClock#Notifications](../Classes/LinkClock.md#notifications)).### `quantum`
+Gets the number of peers connected to the current Link session. When peers join or leave the session, the LinkClock broadcasts a `\numPeers` notification (see [LinkClock / Notifications ](../Classes/LinkClock.md#notifications)).### `quantum`
 Gets or sets Link's internal quantum (see above, [#beatsPerBar and quantum](#beatsperbar-and-quantum)). Normally this should be done at the beginning of a performance, or not at all. It is risky to change quantum during a performance. Changing meter locally is the same as in TempoClock: [TempoClock#-beatsPerBar](../Classes/TempoClock.md#-beatsperbar).**Arguments:**
 
 | Argument | Description |

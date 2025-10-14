@@ -198,7 +198,7 @@ t = TextView(nil, Rect(800, 50, 500, 400))
 
 ### Drag and Drop
 
-> **Note:** Default drag-and-drop behavior of TextView is not defined in standard SC methods, but in the view implementation instead (except for [defaultGetDrag](#defaultgetdrag)). It may or may not be overridable by adding your own handlers (see [View#Drag and drop](../Classes/View.md#drag-and-drop)), depending on the GUI kit in use.
+> **Note:** Default drag-and-drop behavior of TextView is not defined in standard SC methods, but in the view implementation instead (except for [defaultGetDrag](#defaultgetdrag)). It may or may not be overridable by adding your own handlers (see [View / Drag and drop ](../Classes/View.md#drag-and-drop)), depending on the GUI kit in use.
 
 
 Dragging from TextView will give the selected text in a String as drag data, while dropping will accept any object and insert it [as String](../Classes/Object.md#-asstring) at the drop location.

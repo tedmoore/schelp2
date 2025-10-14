@@ -11,7 +11,7 @@ The name "SuperCollider" is in fact used to indicate five different things (Figu
 4. the interpreter program as a client for the server
 5. the application including the two programs and providing mentioned functionalities
 
-![structureEn.png#Figure 1. Structure of the SuperCollider application](structureEn.png#Figure 1. Structure of the SuperCollider application)The SuperCollider application is thus made up of two distinct, autonomous, components, a server and a client. For the first we have a choice between scsynth (SC-synthesizer) and supernova, and for the second we have sclang (SC-language).
+![structureEn.png / Figure 1. Structure of the SuperCollider application ](structureEn.png#Figure 1. Structure of the SuperCollider application)The SuperCollider application is thus made up of two distinct, autonomous, components, a server and a client. For the first we have a choice between scsynth (SC-synthesizer) and supernova, and for the second we have sclang (SC-language).
 
 ## Description
 The SuperCollider application makes use of client/server architecture which separates two functions, respectively one providing and the other requesting services. The client and the server communicate through a network.

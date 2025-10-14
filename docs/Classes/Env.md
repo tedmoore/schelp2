@@ -511,7 +511,7 @@ Instead of using an [EnvGen](../Classes/EnvGen.md) inside a UGen graph, this mes
 | Argument | Description |
 |----------|-------------|
 | `doneAction` | An integer representing an action to be executed when the env is finished playing. This can be used to free the enclosing synth, etc. See [Done](../Classes/Done.md) for more detail. |  
-| `gate` | This triggers the envelope and holds it open while > 0. If the Env is fixed-length (e.g. Env.linen, Env.perc), the gate argument is used as a simple trigger. If it is an sustaining envelope (e.g. Env.adsr, Env.asr), the envelope is held open until the gate becomes 0, at which point is released.If **gate** < 0, force release with time `-1.0 - gate`. See [EnvGen#Forced release](../Classes/EnvGen.md#forced-release) example. |  
+| `gate` | This triggers the envelope and holds it open while > 0. If the Env is fixed-length (e.g. Env.linen, Env.perc), the gate argument is used as a simple trigger. If it is an sustaining envelope (e.g. Env.adsr, Env.asr), the envelope is held open until the gate becomes 0, at which point is released.If **gate** < 0, force release with time `-1.0 - gate`. See [EnvGen / Forced release ](../Classes/EnvGen.md#forced-release) example. |  
 | `timeScale` | The durations of the segments are multiplied by this value. This value can be modulated, but is only sampled at the start of a new envelope segment. |  
 | `levelScale` | The levels of the breakpoints are multiplied by this value. This value can be modulated, but is only sampled at the start of a new envelope segment. |  
 | `levelBias` | This value is added as an offset to the levels of the breakpoints. This value can be modulated, but is only sampled at the start of a new envelope segment. |  

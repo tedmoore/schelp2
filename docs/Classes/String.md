@@ -26,7 +26,7 @@ y = "this is a\n"
 ```
 
 
-Backslash is the escape character. See [Literals#Characters](../Reference/Literals.md#characters).
+Backslash is the escape character. See [Literals / Characters ](../Reference/Literals.md#characters).
 
 ### Character encodings
 Note that, while Char does not support encodings aside from ASCII—such as multi-byte encodings like UTF-8 and UTF-16, or the full Latin-1 (ISO 8859-1) character set—Chars with negative values are perfectly legal, and may be strung together in strings that use these encodings.
@@ -379,8 +379,8 @@ Note carefully the argument order:
 `findRegexp` follows the pattern established by [String#-find](../Classes/String.md#-find), where the receiver is the string to be searched. `matchRegexp` follows the pattern of [matchItem](../Reference/matchItem.md), where the receiver is the pattern to match and the first argument is the object to be tested. This is a common source of confusion, but it is based on this precedent.
 
 ### `matchRegexp`
-Perl regular expression matching (see [String#Regular expressions](../Classes/String.md#regular-expressions)). Returns true if the receiver (a regular expression pattern) matches the string passed to it. The **start** is an offset where to start searching in the string (default: 0), **end** where to stop.
-> **Note:** This is `regexp.matchRegexp(stringToSearch)` and not the other way around! See above: [String#Regular expressions](../Classes/String.md#regular-expressions).
+Perl regular expression matching (see [String / Regular expressions ](../Classes/String.md#regular-expressions)). Returns true if the receiver (a regular expression pattern) matches the string passed to it. The **start** is an offset where to start searching in the string (default: 0), **end** where to stop.
+> **Note:** This is `regexp.matchRegexp(stringToSearch)` and not the other way around! See above: [String / Regular expressions ](../Classes/String.md#regular-expressions).
 
 
 ```supercollider
@@ -409,7 +409,7 @@ This method is used to replace parts of text.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `regex` | A perl regular expression (see [String#Regular expressions](../Classes/String.md#regular-expressions)) with which to match the caller. |  
+| `regex` | A perl regular expression (see [String / Regular expressions ](../Classes/String.md#regular-expressions)) with which to match the caller. |  
 | `with` | The [String](../Classes/String.md) to replace the found regex with. |  
 **Returns:** A [String](../Classes/String.md).
 ```supercollider
@@ -428,7 +428,7 @@ This method is used to replace parts of text.**Arguments:**
 
 
 ### `findRegexp`
-Perl regular expression search (see [String#Regular expressions](../Classes/String.md#regular-expressions)). This method searches exhaustively for matches and collects them into an array of pairs, in the format `[character index, matching string]`."Leftmost largest match": As in most flavors of regular expressions, `*` and `+` are greedy; if it is possible to have more than one overlapping match for a part of the regular expression, the match list will include only the leftmost and largest of them. In `"foobar".findRegexp("o+")`, `"o+"` may potentially have three matches: `"o"` at index 1 (second character), `"o"` at index 2, and `"oo"` at index 1. `findRegexp` will return only the last of these (`"oo"`), because it begins in the leftmost-possible matching position, and it is the longest possible match at that position.Note, though, that parentheses for grouping (a "marked sub-expression" or "capturing group") will produce a separate result: `"aaa".findRegexp("(a+)");` appears to produce duplicated results `[[0, aaa], [0, aaa]]`, but this is because the first match is for the parentheses and the second is for `a+`.To see the marked sub-expression results more clearly, consider:
+Perl regular expression search (see [String / Regular expressions ](../Classes/String.md#regular-expressions)). This method searches exhaustively for matches and collects them into an array of pairs, in the format `[character index, matching string]`."Leftmost largest match": As in most flavors of regular expressions, `*` and `+` are greedy; if it is possible to have more than one overlapping match for a part of the regular expression, the match list will include only the leftmost and largest of them. In `"foobar".findRegexp("o+")`, `"o+"` may potentially have three matches: `"o"` at index 1 (second character), `"o"` at index 2, and `"oo"` at index 1. `findRegexp` will return only the last of these (`"oo"`), because it begins in the leftmost-possible matching position, and it is the longest possible match at that position.Note, though, that parentheses for grouping (a "marked sub-expression" or "capturing group") will produce a separate result: `"aaa".findRegexp("(a+)");` appears to produce duplicated results `[[0, aaa], [0, aaa]]`, but this is because the first match is for the parentheses and the second is for `a+`.To see the marked sub-expression results more clearly, consider:
 ```supercollider
 "foobar".findRegexp("(o*)(bar)");
 -> [[1, oobar], [1, oo], [3, bar]]
@@ -443,7 +443,7 @@ Perl regular expression search (see [String#Regular expressions](../Classes/Stri
 
 **Returns:** A nested array, where each sub-array is a pair, `[character index, matching string]`. If there are no matches, an empty array.
 ### `findAllRegexp`
-Like [findAll](#findall), but use regular expressions (see [String#Regular expressions](../Classes/String.md#regular-expressions)). Unlike findRegexp, it returns only the indices of the matches: `string.findAllRegexp(regexp)` returns the same as `string.findRegexp(regexp).flop.at(0)`.
+Like [findAll](#findall), but use regular expressions (see [String / Regular expressions ](../Classes/String.md#regular-expressions)). Unlike findRegexp, it returns only the indices of the matches: `string.findAllRegexp(regexp)` returns the same as `string.findRegexp(regexp).flop.at(0)`.
 ```supercollider
 "foobar".findAllRegexp("o*bar");
 "32424 334 /**aaaaaa*/".findAllRegexp("/\\*\\*a*\\*/");
@@ -453,7 +453,7 @@ Like [findAll](#findall), but use regular expressions (see [String#Regular expre
 
 **Returns:** An array of integer character indices pointing to all the possible matches.
 ### `findRegexpAt`
-Match a regular expression (see [String#Regular expressions](../Classes/String.md#regular-expressions)) at the given offset, returning the match and the length of the match in an Array, or nil if it doesn't match. The match must begin right at the offset.
+Match a regular expression (see [String / Regular expressions ](../Classes/String.md#regular-expressions)) at the given offset, returning the match and the length of the match in an Array, or nil if it doesn't match. The match must begin right at the offset.
 ```supercollider
 "foobaroob".findRegexpAt("o*b+", 0); // nil
 "foobaroob".findRegexpAt("o*b+", 1); // [oob, 3]

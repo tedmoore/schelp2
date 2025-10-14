@@ -310,7 +310,7 @@ Node selection can also be changed programmatically using [index](#index), [sele
 ### `metaAction`
  The action object evaluated whenever the user moves a node while the Ctrl key is pressed.
 ### `defaultKeyDownAction`
- Implements the default behavior on key presses. The default behavior is defined in the C++ implementation of the view instead of this method. See [View#Key and mouse event processing](../Classes/View.md#key-and-mouse-event-processing) for explanation of how to override the behavior.
+ Implements the default behavior on key presses. The default behavior is defined in the C++ implementation of the view instead of this method. See [View / Key and mouse event processing ](../Classes/View.md#key-and-mouse-event-processing) for explanation of how to override the behavior.
 
 ### Drag and drop
 ### `defaultGetDrag`

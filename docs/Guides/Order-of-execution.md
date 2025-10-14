@@ -41,7 +41,7 @@ If you have:
 
 The effect synth will not hear the source synth, and you won't get the results you want.
 
-![server.png#A diagram of a typical server configuration](server.png#A diagram of a typical server configuration)
+![server.png / A diagram of a typical server configuration ](server.png#A diagram of a typical server configuration)
 On the server external signals can be received by synths from "public" input busses (one in the represented case), while the different synths must be connected to "public" out audio busses (two in the case) in order to output a signal externally to the soundcard (see Bus). Other busses (both control and audio) are internal. In general, busses can be thought as roughly analogous to sends, busses, or submixes on an analog mixer, or as pipes allowing one to route "flowing" signals. If a synth is connected to a bus at a certain point (thus "flowing" into it) a synth taking the signal from the same bus at a subsequent point will take as input the flowing signal (along with anything else previously output to the bus), just as would occur with a water pipe.
 
 

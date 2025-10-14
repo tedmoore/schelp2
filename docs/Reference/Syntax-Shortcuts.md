@@ -266,7 +266,7 @@ As a simple (non-combinatorial) example, the following are equivalent ways of li
 
 
 
-> **Note:** The shorthand only admits a subset of the symbols that may be enclosed in single quotes. See [Literals#Symbols](../Reference/Literals.md#symbols) for details.
+> **Note:** The shorthand only admits a subset of the symbols that may be enclosed in single quotes. See [Literals / Symbols ](../Reference/Literals.md#symbols) for details.
 
 
 

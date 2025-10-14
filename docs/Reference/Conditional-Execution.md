@@ -376,7 +376,7 @@ while { i < 5 } { i = i + 1; "boing".postln };
 
 
 ## Other Control Structures
-Conditional expressions are a type of control structures; another useful type are iterations such as `.do` and `.for`.  These are discussed separately in the page on [iteration](../Reference/loop.md) (also see [Collection#Iteration](../Classes/Collection.md#iteration)). Finally, the methods [Function#-try](../Classes/Function.md#-try) and [Function#-protect](../Classes/Function.md#-protect) are technically conditional expressions,  but their intended use is in the handling of exceptions, which is why their are discussed in [Exception](../Classes/Exception.md) rather than here.
+Conditional expressions are a type of control structures; another useful type are iterations such as `.do` and `.for`.  These are discussed separately in the page on [iteration](../Reference/loop.md) (also see [Collection / Iteration ](../Classes/Collection.md#iteration)). Finally, the methods [Function#-try](../Classes/Function.md#-try) and [Function#-protect](../Classes/Function.md#-protect) are technically conditional expressions,  but their intended use is in the handling of exceptions, which is why their are discussed in [Exception](../Classes/Exception.md) rather than here.
 
 
 
@@ -441,7 +441,7 @@ Entries 5 and 12 are jump statements, instructing to jump to entries 15 and 19 r
 
 
 ## Audio Control Structures: Do not use .if etc. in Synths!
-The control structures discussed here is intended for use in sclang (i.e., language/client), not in scsynth (i.e., server).  Use of .if in signal processing contexts may appear to work in simple cases but is **not advised**.  Intead, use [Select](../Classes/Select.md) or [SelectX](../Classes/SelectX.md) and related classes. Also see [UserFAQ#SynthDef Issues](../Guides/UserFAQ.md#synthdef-issues) for more details.
+The control structures discussed here is intended for use in sclang (i.e., language/client), not in scsynth (i.e., server).  Use of .if in signal processing contexts may appear to work in simple cases but is **not advised**.  Intead, use [Select](../Classes/Select.md) or [SelectX](../Classes/SelectX.md) and related classes. Also see [UserFAQ / SynthDef Issues ](../Guides/UserFAQ.md#synthdef-issues) for more details.
 
 The following code runs (does not produce an error), but is **not good usage**, because it is not very obvious what is going on: 
 

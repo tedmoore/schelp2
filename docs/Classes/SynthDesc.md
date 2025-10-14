@@ -192,7 +192,7 @@ e[\mdDemo].makeWindow;
 
 
 ### `read`
-Adds all synthDescs in a path to a dict. You should not use this method or *readFile to read SynthDescs into a SynthDescLib. Use [SynthDescLib#read](../Classes/SynthDescLib.md#read) or [SynthDescLib#readStream](../Classes/SynthDescLib.md#readstream) instead.
+Adds all synthDescs in a path to a dict. You should not use this method or *readFile to read SynthDescs into a SynthDescLib. Use [SynthDescLib / read ](../Classes/SynthDescLib.md#read) or [SynthDescLib / readStream ](../Classes/SynthDescLib.md#readstream) instead.
 
 ## Instance Methods
 

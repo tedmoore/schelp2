@@ -22,7 +22,7 @@ See [SCDoc](../Classes/SCDoc.md), [SCDocSyntax](../Reference/SCDocSyntax.md), [W
 
 Also a new method [Help#*methodArgs](../Classes/Help.md#*methodargs) returns a human-readable string of arguments and default values for a method. Example: `Help.methodArgs("SinOsc.ar")`
 
-In SuperCollider version 3.5.2, SCDoc has been rewritten and the parser is now implemented in C++ for speed and stability. The syntax has gotten stricter, and it will throw errors or warnings if there are faults in the documentation. See [WritingHelp#News in SC 3.5.2](../Guides/WritingHelp.md#news-in-sc-3.5.2) for some important changes to keep in mind.
+In SuperCollider version 3.5.2, SCDoc has been rewritten and the parser is now implemented in C++ for speed and stability. The syntax has gotten stricter, and it will throw errors or warnings if there are faults in the documentation. See [WritingHelp / News in SC 3.5.2 ](../Guides/WritingHelp.md#news-in-sc-3.5.2) for some important changes to keep in mind.
 
 
 

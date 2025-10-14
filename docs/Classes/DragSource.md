@@ -11,7 +11,7 @@
 [DragSource](../Classes/DragSource.md), [DragSink](../Classes/DragSink.md) and [DragBoth](../Classes/DragBoth.md) are a set of view classes intended as simple-to-use drag-and-drop sources and destinations. They are graphically represented as a simple rectangle, and their specialty is that they *do not require the Cmd/Ctrl key to be held down to initiate dragging*.
 Akin to [StaticText](../Classes/StaticText.md) they can store arbitrary content in the [-object](../Classes/StaticText.md#-object) variable, and display it using [Object#-asString](../Classes/Object.md#-asstring). You can set the displayed text separately using [-string](../Classes/StaticText.md#-string), and keep it independent of the content if you set [-setBoth](../Classes/StaticText.md#-setboth) to `false`.
 **DragSource**, specifically, gives the **-object** variable as the data **for dragging**, but **accepts no drop**.
-See: [View#Drag and drop](../Classes/View.md#drag-and-drop) for a general description of the drag and drop mechanism.
+See: [View / Drag and drop ](../Classes/View.md#drag-and-drop) for a general description of the drag and drop mechanism.
 
 
 ## Class Methods

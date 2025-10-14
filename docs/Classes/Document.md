@@ -46,7 +46,7 @@ Open a document from a path.**Arguments:**
 | `selectionStart` | The beginning of the cursor selection of the file content. |  
 | `selectionLength` | The length of the cursor selection of the file content. |  
 | `envir` | An instance of [Environment](../Classes/Environment.md). The Environment to be used by the interpreter of the document window. By default, it is set to the current [Environment](../Classes/Environment.md). |  
-See also [Document#save](../Classes/Document.md#save) below.
+See also [Document / save ](../Classes/Document.md#save) below.
 ```supercollider
 Document.open("README", 292, 253); // notice the selected text in the open document
 ```
@@ -359,7 +359,7 @@ Get/set the action to be performed on [keyDown](#keydown).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `action` | An instance of [Function](../Classes/Function.md) or [FunctionList](../Classes/FunctionList.md). The arguments passed to the function are: `document`, `char`, `modifiers`, `unicode`, `keycode`. See [View#Key actions](../Classes/View.md#key-actions) for details on these arguments. |  
+| `action` | An instance of [Function](../Classes/Function.md) or [FunctionList](../Classes/FunctionList.md). The arguments passed to the function are: `document`, `char`, `modifiers`, `unicode`, `keycode`. See [View / Key actions ](../Classes/View.md#key-actions) for details on these arguments. |  
 
 ```supercollider
 Document.current.keyDownAction = { |...args| args.postln };
@@ -373,7 +373,7 @@ Get/set the action to be performed on [keyUp](#keyup).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `action` | An instance of [Function](../Classes/Function.md) or [FunctionList](../Classes/FunctionList.md). The arguments passed to the function are: `document`, `char`, `modifiers`, `unicode`, `keycode`. See [View#Key actions](../Classes/View.md#key-actions) for details on these arguments. |  
+| `action` | An instance of [Function](../Classes/Function.md) or [FunctionList](../Classes/FunctionList.md). The arguments passed to the function are: `document`, `char`, `modifiers`, `unicode`, `keycode`. See [View / Key actions ](../Classes/View.md#key-actions) for details on these arguments. |  
 
 ```supercollider
 Document.current.keyUpAction = { |...args| args.postln };

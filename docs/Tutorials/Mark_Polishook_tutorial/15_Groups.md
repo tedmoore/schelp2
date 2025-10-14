@@ -19,7 +19,7 @@ or
 ```
 
 Most of the SuperCollider help documents for the UGens show other such examples.
-[Browse#UGens](../../Browse.md#ugens)
+[Browse / UGens ](../../Browse.md#ugens)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Many synthesis processes, because they use more than a few ugens, are often best divided into component parts. This can make code modular, reusable, and easier to read.
 The [Group](../../Classes/Group.md) class, which is the means to specify a collection of nodes, provides a mechanism through which to control several synths at once.

@@ -47,7 +47,7 @@ a.speak(adverb: "loudly") // I say 'meow' loudly.
 ```
 
 
-[Functions#Variable Arguments](../Reference/Functions.md#variable-arguments) also work.
+[Functions / Variable Arguments ](../Reference/Functions.md#variable-arguments) also work.
 
 
 ```supercollider

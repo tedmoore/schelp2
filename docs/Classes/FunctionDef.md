@@ -153,7 +153,7 @@ Get the Array of Symbols of the local variable names.
 
 ### Generating Strings
 ### `makeFuncModifierString`
-Return a string that can be interpreted as code for a new function which extracts the arguments from the receiver. This can be used to build a hygienic macro which returns a function with valid keyword arguments, instead of just anonymously forwarding the arguments, like in `{ |...args| func.valueArray(args) }`.For an implementation example [Function#flop](../Classes/Function.md#flop) (as below).**Arguments:**
+Return a string that can be interpreted as code for a new function which extracts the arguments from the receiver. This can be used to build a hygienic macro which returns a function with valid keyword arguments, instead of just anonymously forwarding the arguments, like in `{ |...args| func.valueArray(args) }`.For an implementation example [Function / flop ](../Classes/Function.md#flop) (as below).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

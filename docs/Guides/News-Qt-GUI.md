@@ -119,7 +119,7 @@ QtGUI.palette = QPalette.system;
 ### Mouse and key event propagation
 In addition to key events, mouse events can also propagate to parent views.
 
-Also, the control over event propagation works differently in Qt. See [View#Key and mouse event processing](../Classes/View.md#key-and-mouse-event-processing) for detailed explanation.
+Also, the control over event propagation works differently in Qt. See [View / Key and mouse event processing ](../Classes/View.md#key-and-mouse-event-processing) for detailed explanation.
 
 Moreover, you can make a view transparent for mouse events using [View#-acceptsMouse](../Classes/View.md#-acceptsmouse), which will forward all mouse events to the view under, regardless of whether they are in a parent-child relationship.
 

@@ -24,7 +24,7 @@ c.value.postln;    // evaluate c and print the result
 ```
 
 
-See [AbstractFunction#Function Composition](../Classes/AbstractFunction.md#function-composition) for function composition examples.
+See [AbstractFunction / Function Composition ](../Classes/AbstractFunction.md#function-composition) for function composition examples.
 Because Functions are such an important concept, here some examples from related programming languages with functions as first class objects:
 
 ```supercollider

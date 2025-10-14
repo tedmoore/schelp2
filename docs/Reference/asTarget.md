@@ -7,7 +7,7 @@
 **Related:** [Node](../Classes/Node.md)
 
 ### `asTarget`
-The classes listed below implement the method `asTarget`. This is used widely in the [Node](../Classes/Node.md) classes ( [Group](../Classes/Group.md) and [Synth](../Classes/Synth.md) ) to convert non-Node objects to an appropriate target. This allows nil and instances of [Server](../Classes/Server.md) to be used as targets. This can be useful when writing classes which create nodes internally, but in most cases there should be little need to call asTarget in normal use.For an updated list of which classes that implements `asTarget`, see asTarget in [Methods#asTarget](../Overviews/Methods.md#astarget)
+The classes listed below implement the method `asTarget`. This is used widely in the [Node](../Classes/Node.md) classes ( [Group](../Classes/Group.md) and [Synth](../Classes/Synth.md) ) to convert non-Node objects to an appropriate target. This allows nil and instances of [Server](../Classes/Server.md) to be used as targets. This can be useful when writing classes which create nodes internally, but in most cases there should be little need to call asTarget in normal use.For an updated list of which classes that implements `asTarget`, see asTarget in [Methods / asTarget ](../Overviews/Methods.md#astarget)
 **[Node#-asTarget](../Classes/Node.md#-astarget)**
 : Returns the instance of Node itself. The subclasses of Node (Synth and Group) are valid targets and require no conversion.
 

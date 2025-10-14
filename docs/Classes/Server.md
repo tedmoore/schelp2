@@ -334,7 +334,7 @@ If known, the maximum number of clients allowed on the server. Otherwise, the va
 ### `clientID`
 The getter returns the client ID of this client on the remote process. `nil` until the server is running.The setter attempts to set the client ID of this client for the remote server process. Fails on invalid input or if the server is running. Valid inputs are in the range `[0..(this.maxNumClients-1)]`.
 ### `hasShmInterface`
-Returns true if a [ServerShmInterface](../Classes/ServerShmInterface.md) is available. See also [Bus#Synchronous Control Bus Methods](../Classes/Bus.md#synchronous-control-bus-methods). The shared memory interface is initialized after first server boot.> **⚠️ Warning:** Currently, the shared memory interface treats server port as an unique identifier. In the rare case when there are multiple servers running on the same machine and listening on the same port, this leads to the shared memory interface of one of the servers being overwritten by the other.
+Returns true if a [ServerShmInterface](../Classes/ServerShmInterface.md) is available. See also [Bus / Synchronous Control Bus Methods ](../Classes/Bus.md#synchronous-control-bus-methods). The shared memory interface is initialized after first server boot.> **⚠️ Warning:** Currently, the shared memory interface treats server port as an unique identifier. In the rare case when there are multiple servers running on the same machine and listening on the same port, this leads to the shared memory interface of one of the servers being overwritten by the other.
 ### `serverBooting`
 `true` if the server is booting, `false` otherwise.
 ### `hasBooted`

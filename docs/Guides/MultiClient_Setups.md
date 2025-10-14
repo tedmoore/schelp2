@@ -29,7 +29,7 @@ When multiple clients log in, this is what happens:
 - When a local or remote server object/client has no user-specified clientID, scsynth sends back the next free clientID, and the client uses that clientID.
 - When a local or remote server object/client was created with specific clientID, scsynth sends back that number if it was free, or the next free clientID if not; the client should use the free number in any case, as the other may clash with a client already logged in.
 - In case the client was already registered and tries to register again (after a reboot or network problem), scsynth sends back a failed message AND the clientID this client had earlier, and the client will use that clientID.
-- [After pull request #3181] scsynth also sends back the maxLogins value it was started with, so clients can also adjust their internal allocator settings to it.
+- [After pull request  / 3181 ] scsynth also sends back the maxLogins value it was started with, so clients can also adjust their internal allocator settings to it.
 
 
 

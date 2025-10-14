@@ -332,7 +332,7 @@ Common fields
 - country
 - since
 - ext_dependency - text describing external software like "PD" or "processing"
-- preInstall - a function / hook which will be called before installation - see [UsingQuarks#Hooks](../Guides/UsingQuarks.md#hooks)
+- preInstall - a function / hook which will be called before installation - see [UsingQuarks / Hooks ](../Guides/UsingQuarks.md#hooks)
 
 
 dependencies is a list of Quarks or git urls with optional an @refspec

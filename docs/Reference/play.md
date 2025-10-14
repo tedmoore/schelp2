@@ -7,7 +7,7 @@
 ### `play`
 The `play` message is of common use in sc. Different objects respond to it in various ways, but the simple meaning is: **start a process**. It is usually implemented by objects in contributed libraries as well.play usually returns the playing object which might not be the same as the one the message was sent to.opposite: `stop`
 ## Clocks, Routines, Streams and Patterns
-For a full list of which classes that implements `play`, see [Methods#play](../Overviews/Methods.md#play)
+For a full list of which classes that implements `play`, see [Methods / play ](../Overviews/Methods.md#play)
 
 
 ### clock.play (stream)

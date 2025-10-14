@@ -18,7 +18,7 @@ Simple linear envelope generator.
 
 | Argument | Description |
 |----------|-------------|
-| `gate` | This triggers the envelope and holds it open while > 0.If **gate** < 0, force release with time `-1.0 - gate`. See [EnvGen#Forced release](../Classes/EnvGen.md#forced-release). |  
+| `gate` | This triggers the envelope and holds it open while > 0.If **gate** < 0, force release with time `-1.0 - gate`. See [EnvGen / Forced release ](../Classes/EnvGen.md#forced-release). |  
 | `attackTime` | The duration of the attack portion. |  
 | `susLevel` | The level of the sustain portion. |  
 | `releaseTime` | The duration of the release portion. |  

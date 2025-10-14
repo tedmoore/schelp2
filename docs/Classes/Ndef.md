@@ -47,7 +47,7 @@ Ndef.clear(3); // clear all after 3 seconds
 
 ### Creation
 ### `new`
-Return a new node proxy and store it in a global ProxySpace under the key. If there is already an Ndef there, replace its object with the new one. The object can be any supported class, see [NodeProxy#Supported sources](../Classes/NodeProxy.md#supported-sources) help. Internally, all instances are kept in a [ProxySpace](../Classes/ProxySpace.md). The [EnvironmentRedirect#dispatch](../Classes/EnvironmentRedirect.md#dispatch) function is called when the source is set.**Arguments:**
+Return a new node proxy and store it in a global ProxySpace under the key. If there is already an Ndef there, replace its object with the new one. The object can be any supported class, see [NodeProxy / Supported sources ](../Classes/NodeProxy.md#supported-sources) help. Internally, all instances are kept in a [ProxySpace](../Classes/ProxySpace.md). The [EnvironmentRedirect / dispatch ](../Classes/EnvironmentRedirect.md#dispatch) function is called when the source is set.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

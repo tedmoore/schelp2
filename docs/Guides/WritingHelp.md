@@ -14,7 +14,7 @@ The simplest way is to look at an existing help file or class document, and read
 > **Note:** The help files should use UTF-8 encoding!
 
 
-All tags that are used for document metadata should be entered at the top of the document source file, before any section or other text. See [SCDocSyntax#Header tags](../Reference/SCDocSyntax.md#header-tags)
+All tags that are used for document metadata should be entered at the top of the document source file, before any section or other text. See [SCDocSyntax / Header tags ](../Reference/SCDocSyntax.md#header-tags)
 
 In the header, you must specify the title, summary and categories parts of the header.
 
@@ -28,7 +28,7 @@ Use regular text in sections and subsections, and possible other tags for lists,
 ### Documenting new classes
 When you navigate to an undocumented class, it will contain an schelp template that can be filled in and saved to HelpSource/Classes/ClassName.schelp.
 
-A list of all undocumented classes can be seen here: [Browse#Undocumented classes](../Browse.md#undocumented-classes) (auto-generated).
+A list of all undocumented classes can be seen here: [Browse / Undocumented classes ](../Browse.md#undocumented-classes) (auto-generated).
 
 
 

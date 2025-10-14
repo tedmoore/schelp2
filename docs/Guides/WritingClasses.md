@@ -212,7 +212,7 @@ Foo {
 
 If initialisation logic that prepares the arguments before assignment is required, ideally, it should go before the call to `super.newCopyArgs`. This way the final object never exists in an invalid state — an alternative is the use of an `init` method and shall be shown shortly.
 
-However, when there is a hierarchy of classes, `newCopyArgs` requires that all the base class arguments be passed in the order they are defined.  This makes changing the base class difficult. Here is one way to mitigate this issue using variable keyword arguments [Functions#Variable Arguments](../Reference/Functions.md#variable-arguments) and [Object#-superPerformArgs](../Classes/Object.md#-superperformargs).
+However, when there is a hierarchy of classes, `newCopyArgs` requires that all the base class arguments be passed in the order they are defined.  This makes changing the base class difficult. Here is one way to mitigate this issue using variable keyword arguments [Functions / Variable Arguments ](../Reference/Functions.md#variable-arguments) and [Object#-superPerformArgs](../Classes/Object.md#-superperformargs).
 
 
 ```supercollider

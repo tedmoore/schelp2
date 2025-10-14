@@ -164,7 +164,7 @@ x.free; b.free;
 ### `mapn`, `mapnMsg`
 Map sequential ranges of controls in this Node to read from control rate Buses.This is similar to map above, but you specify the number of sequential Controls to map. If this Node is a Group this will mapn all Nodes within the Group.
 ### `release`, `releaseMsg`
-This method causes the receiver to be freed after the specified amount of time. This is a convenience method which assumes that the synth contains an envelope generator (an EnvGen, Linen, or similar UGen) running a sustaining envelope (see [Env#Sustained Envelope Creation Methods](../Classes/Env.md#sustained-envelope-creation-methods)) and that this envelope's gate argument is set to a control called `\gate`.**Arguments:**
+This method causes the receiver to be freed after the specified amount of time. This is a convenience method which assumes that the synth contains an envelope generator (an EnvGen, Linen, or similar UGen) running a sustaining envelope (see [Env / Sustained Envelope Creation Methods ](../Classes/Env.md#sustained-envelope-creation-methods)) and that this envelope's gate argument is set to a control called `\gate`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

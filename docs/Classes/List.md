@@ -100,7 +100,7 @@ x.postln;
 
 ### `array`
 Sets the List's Array.### `at`
-Return the item at **index**. See [SequenceableCollection#Indexing](../Classes/SequenceableCollection.md#indexing).. Accepts either a single index or an array of indices, in which case an Array of elements is returned. [Array](../Classes/Array.md) is its syntactic shortcut.
+Return the item at **index**. See [SequenceableCollection / Indexing ](../Classes/SequenceableCollection.md#indexing).. Accepts either a single index or an array of indices, in which case an Array of elements is returned. [Array](../Classes/Array.md) is its syntactic shortcut.
 ```supercollider
 x = List[1, 2, 3] //-> [1, 2, 3]
 
@@ -187,7 +187,7 @@ fork {
 ```
 
 ### `put`
-Put **item** at **index**, replacing what is there. See [SequenceableCollection#Indexing](../Classes/SequenceableCollection.md#indexing)..### `clipPut`
+Put **item** at **index**, replacing what is there. See [SequenceableCollection / Indexing ](../Classes/SequenceableCollection.md#indexing)..### `clipPut`
 Same as [put](#put), but values for **index** greater than the [List](../Classes/List.md) instance size minus one will be clipped to `size - 1`, which is the last index.### `wrapPut`
 Same as [put](#put), but values for **index** greater than the [List](../Classes/List.md) instance size minus one will be wrapped around to 0.### `foldPut`
 Same as [put](#put), but values for **index** greater than the [List](../Classes/List.md) instance size minus one will be folded back.### `add`
@@ -213,7 +213,7 @@ x.boundedInsert(-2, \b); // -> List[b, 1, 999, 2]
 ### `pop`
 Remove and return the last element of the List.### `grow`
 Increase the size of the List by **sizeIncrease** number of slots.### `removeAt`
-Remove and return the item at **index**, shrinking the size of the List. See [SequenceableCollection#Indexing](../Classes/SequenceableCollection.md#indexing)..
+Remove and return the item at **index**, shrinking the size of the List. See [SequenceableCollection / Indexing ](../Classes/SequenceableCollection.md#indexing)..
 ```supercollider
 y = List[1, 2, 3];
 y.removeAt(1);
@@ -253,7 +253,7 @@ List[1, 2, 3, 4, 5, 6].pairsDo({ |a, b| [a, b].postln });
 ```
 
 ### `copyRange`
-Return a new List which is a copy of the indexed slots of the receiver from start to end. See [SequenceableCollection#Indexing](../Classes/SequenceableCollection.md#indexing)..
+Return a new List which is a copy of the indexed slots of the receiver from start to end. See [SequenceableCollection / Indexing ](../Classes/SequenceableCollection.md#indexing)..
 ```supercollider
 (
 var y, z;
@@ -265,7 +265,7 @@ y.postln;
 ```
 
 ### `copySeries`
-Return a new List consisting of the values starting at **first**, then every step of the distance between **first** and **second**, up until **last**. See [SequenceableCollection#Indexing](../Classes/SequenceableCollection.md#indexing)..
+Return a new List consisting of the values starting at **first**, then every step of the distance between **first** and **second**, up until **last**. See [SequenceableCollection / Indexing ](../Classes/SequenceableCollection.md#indexing)..
 ```supercollider
 (
 var y, z;
@@ -276,7 +276,7 @@ y.postln;
 ```
 
 ### `putSeries`
-Put **value** at every index starting at **first**, then every step of the distance between **first** and **second**, up until **last**. See [SequenceableCollection#Indexing](../Classes/SequenceableCollection.md#indexing)..
+Put **value** at every index starting at **first**, then every step of the distance between **first** and **second**, up until **last**. See [SequenceableCollection / Indexing ](../Classes/SequenceableCollection.md#indexing)..
 ```supercollider
 (
 var y, z;

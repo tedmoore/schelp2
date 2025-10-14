@@ -201,7 +201,7 @@ Views and windows can be assigned **actions** that they will perform whenever a 
 
 Objects can also be given to views and windows to evaluate on events that are not a direct result of user's interaction, but convey useful information about the view's operation and the state it moved in. In this case they are often differentiated from actions and called **hooks**.
 
-Here, we will give an overview of different kinds of actions and hooks. See [View#Actions in general](../Classes/View.md#actions-in-general) and following sections for precise explanation of how to assign and make use of them.
+Here, we will give an overview of different kinds of actions and hooks. See [View / Actions in general ](../Classes/View.md#actions-in-general) and following sections for precise explanation of how to assign and make use of them.
 
 
 ### Default actions
@@ -227,7 +227,7 @@ All the views can be assigned actions to specific mouse and keyboard events, no 
 
 You can assign actions to **mouse events** generated when the mouse pointer enters the space of a view, when it moves over them, and when a mouse button is pressed or released.
 
-See [View#Mouse actions](../Classes/View.md#mouse-actions) for details.
+See [View / Mouse actions ](../Classes/View.md#mouse-actions) for details.
 
 In the following example the StaticText will report whether the Button is pressed or released.
 
@@ -243,7 +243,7 @@ b.mouseUpAction = { t.string = "Button released" };
 
 You can assign actions to **keyboard events** generated whenever a key is pressed or released while the view has keyboard focus. Keyboard focus is a state of a view in which it has exclusive priority to respond to keyboard events. A view that has keyboard focus typically in a way visually indicates so. On most platforms, pressing the Tab key will switch the keyboard focus between views in the active window and clicking on a view will give it focus.
 
-See [View#Key actions](../Classes/View.md#key-actions) for details.
+See [View / Key actions ](../Classes/View.md#key-actions) for details.
 
 Typing text into any of the TextFields in the following example will change the color of the rectangle bellow, for each TextField a different color.
 
@@ -262,7 +262,7 @@ y.keyUpAction = ~reset;
 ```
 
 
-If a key or mouse event is not handled by the view on which it occurs, it may **propagate** to the parent view, and trigger the parent's action. See [View#Key and mouse event processing](../Classes/View.md#key-and-mouse-event-processing) for detailed explanation.
+If a key or mouse event is not handled by the view on which it occurs, it may **propagate** to the parent view, and trigger the parent's action. See [View / Key and mouse event processing ](../Classes/View.md#key-and-mouse-event-processing) for detailed explanation.
 
 
 
@@ -272,7 +272,7 @@ When a mouse button is pressed on a view together with Cmd(macOS) or Ctrl(Other 
 
 It is possible to customize what object a view exports when dragged from and how a view reacts to objects dropped by assigning custom drag and drop actions.
 
-See [View#Drag and drop](../Classes/View.md#drag-and-drop) for details.
+See [View / Drag and drop ](../Classes/View.md#drag-and-drop) for details.
 
 
 ```supercollider

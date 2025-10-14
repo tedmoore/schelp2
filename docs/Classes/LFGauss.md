@@ -24,7 +24,7 @@ Its minimum value occurs when the phase `x = -1` and `x = 1`, and its maximum oc
 | `width` | The width of the bell curve (its standard deviation).Practically speaking, a **width** `<= 0.25` will give minimum values near, but not equal to, zero.The bell curve becomes broader with increasing **width**. Beyond roughly `>= 0.25` the function has the appearance of being truncated, or, when **loop** `= 1`, the cycles begin to "overlap". Default: `0.1` |  
 | `iphase` | Initial offset phase offset in the range `[-1, 1]`. Default: 0 |  
 | `loop` | If **loop** `> 0`, the function repeats. Otherwise, it calls **doneAction** after one cycle. Default: 1 |  
-| `doneAction` | A `doneAction` value, which is evaluated at the end of a cycle (if **loop** `= 0`). `2` frees the synth. Default: `0` (continues running). See [Done#Actions](../Classes/Done.md#actions) for more options. |  
+| `doneAction` | A `doneAction` value, which is evaluated at the end of a cycle (if **loop** `= 0`). `2` frees the synth. Default: `0` (continues running). See [Done / Actions ](../Classes/Done.md#actions) for more options. |  
 By default, the maximum value of `LFGauss` is `1`. The minimum value will depend on the **width**, and can by inspected with [minval](#minval).The function can be mapped to a specified range with [range](#range), which can be useful when using `LFGauss` as an envelope that may need to span a range of, e.g., `[0, 1]`.See the examples below for understanding and manipulating the [#Min and max values, curve width](#min-and-max-values,-curve-width).
 
 ## Instance Methods

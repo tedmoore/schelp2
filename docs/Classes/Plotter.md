@@ -18,7 +18,7 @@ When the plotter window has focus, the following keyboard shortcuts can be used 
 
 
 ### Method extensions
-Plotter extends other classes with methods. To see what classes implements plot, see [Methods#plot](../Overviews/Methods.md#plot)
+Plotter extends other classes with methods. To see what classes implements plot, see [Methods / plot ](../Overviews/Methods.md#plot)
 
 ### `plot`
 

@@ -10,7 +10,7 @@
 > **Note:** This help file uses the key commands for macOS; on other systems, please substitute the Shortcuts as necessary
 
 
-Listed below are a few techniques for tracking down documentation and functionality. Note: If some of the terms used below (e.g. class, method, inheritance, etc.) are unclear to you, you may wish to read the [Glossary](../Guides/Glossary.md) and [Browse#Language](../Browse.md#language) helpfiles for detail on some of these concepts. Reading a general tutorial on Object Oriented Programming at some point could also be useful, as could reading a FAQ, etc. about Smalltalk. Smalltalk is the general purpose OOP language upon which the design of the SuperCollider language is based. Its syntax is different than SC's, but conceptually it has much in common.
+Listed below are a few techniques for tracking down documentation and functionality. Note: If some of the terms used below (e.g. class, method, inheritance, etc.) are unclear to you, you may wish to read the [Glossary](../Guides/Glossary.md) and [Browse / Language ](../Browse.md#language) helpfiles for detail on some of these concepts. Reading a general tutorial on Object Oriented Programming at some point could also be useful, as could reading a FAQ, etc. about Smalltalk. Smalltalk is the general purpose OOP language upon which the design of the SuperCollider language is based. Its syntax is different than SC's, but conceptually it has much in common.
 NB: Be sure to check out the Further Info section at the bottom of this page.
 
 ## Basics
@@ -63,7 +63,7 @@ HelpBrowser.openBrowsePage;
 
 will open a the "help browser" page which lists all helpfiles in thematic categories. (Equivalently, press Shift-Cmd-D)
 
-The [Browse#Undocumented classes](../Browse.md#undocumented-classes) contains a list of all classes which have no helpfiles. This can be a good place to start looking for functionality which may already be implemented. Even if a class has no written helpfile, it will have an automatically generated stub listing the methods and their arguments, and also a help template for writing a real helpfile.
+The [Browse / Undocumented classes ](../Browse.md#undocumented-classes) contains a list of all classes which have no helpfiles. This can be a good place to start looking for functionality which may already be implemented. Even if a class has no written helpfile, it will have an automatically generated stub listing the methods and their arguments, and also a help template for writing a real helpfile.
 
 Looking in class definitions (select any class and press Cmd-j to open its class definition file) can help you to figure out what undocumented methods do.
 

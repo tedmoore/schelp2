@@ -100,7 +100,7 @@ SystemClock.play(r);
 )
 ```
 
-Note that the above example uses a precompiled [SynthDef](../Classes/SynthDef.md). This results in a lower CPU spike when Synths are created than SC2-style Spawning. It is possible to create SynthDefs on the fly, if this is necessary, but a great deal of variation can be achieved with arguments, or with UGens such as [Rand](../Classes/Rand.md) and [TRand](../Classes/TRand.md). See the section [SC3vsSC2#SynthDefsVsSynths](../Overviews/SC3vsSC2.md#synthdefsvssynths) for more detail.
+Note that the above example uses a precompiled [SynthDef](../Classes/SynthDef.md). This results in a lower CPU spike when Synths are created than SC2-style Spawning. It is possible to create SynthDefs on the fly, if this is necessary, but a great deal of variation can be achieved with arguments, or with UGens such as [Rand](../Classes/Rand.md) and [TRand](../Classes/TRand.md). See the section [SC3vsSC2 / SynthDefsVsSynths ](../Overviews/SC3vsSC2.md#synthdefsvssynths) for more detail.
 
 ```supercollider
 // SynthDefs on the fly

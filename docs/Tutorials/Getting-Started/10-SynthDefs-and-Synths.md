@@ -132,7 +132,7 @@ x.free; y.free; z.free;
 ```
 
 
-This [Browse#UGens](../../Browse.md#ugens) category link lists a number of such UGens.
+This [Browse / UGens ](../../Browse.md#ugens) category link lists a number of such UGens.
 
 The most common way of creating variables is through putting arguments into the UGen Graph Function. This allows you to set different values when the synth is created. These are passed in an array as the second argument to Synth-new. The array should contain pairs of arg names and values.
 
@@ -195,7 +195,7 @@ In general in methods which communicate with the server one can use Strings and 
 
 For more information see:
 
-[SynthDef](../../Classes/SynthDef.md), [Synth](../../Classes/Synth.md), [String](../../Classes/String.md), [Symbol](../../Classes/Symbol.md), [Literals](../../Reference/Literals.md), [Randomness](../../Guides/Randomness.md), [Browse#UGens](../../Browse.md#ugens)
+[SynthDef](../../Classes/SynthDef.md), [Synth](../../Classes/Synth.md), [String](../../Classes/String.md), [Symbol](../../Classes/Symbol.md), [Literals](../../Reference/Literals.md), [Randomness](../../Guides/Randomness.md), [Browse / UGens ](../../Browse.md#ugens)
 
 
 

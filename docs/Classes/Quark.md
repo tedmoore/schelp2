@@ -92,7 +92,7 @@ Classes that are defined by this Quark**Returns:** Array of Classes### `definesE
 Methods that this Quark defines that overwrite implementations in other packages including in Common.**Returns:** Array of Methods### `help`
 Open the help file. Either as specified in the quark file as 'schelp' or searches by the name of the quark.**Returns:** this### `changed`
 After un/installing or checking out, state is set to changed. code smell: this is for the gui**Returns:** Boolean### `runHook`
-Runs the function `hook` which is defined in the `.quark` file. This can be used for running a function before or after installation, see [UsingQuarks#Hooks](../Guides/UsingQuarks.md#hooks) for more information. In case the function can not be executed properly a warning will be printed and the update or installation process will be stopped.**Arguments:**
+Runs the function `hook` which is defined in the `.quark` file. This can be used for running a function before or after installation, see [UsingQuarks / Hooks ](../Guides/UsingQuarks.md#hooks) for more information. In case the function can not be executed properly a warning will be printed and the update or installation process will be stopped.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

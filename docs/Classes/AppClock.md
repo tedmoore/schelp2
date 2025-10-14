@@ -38,7 +38,7 @@ AppClock.sched(2.0, { "It is now % sec later".format(Main.elapsedTime - t).postl
 
 
 ### `schedAbs`
-Schedules a task to be performed at a particular time. Because `AppClock` is not intended to schedule with high precision, this time is approximate.When the scheduling time is up, the task's `awake` method is called. If the method returns a number, the task will be rescheduled for the time equal to the last scheduling time plus the returned value.See also: [Clock#Scheduling](../Classes/Clock.md#scheduling), [Object#-awake](../Classes/Object.md#-awake).
+Schedules a task to be performed at a particular time. Because `AppClock` is not intended to schedule with high precision, this time is approximate.When the scheduling time is up, the task's `awake` method is called. If the method returns a number, the task will be rescheduled for the time equal to the last scheduling time plus the returned value.See also: [Clock / Scheduling ](../Classes/Clock.md#scheduling), [Object#-awake](../Classes/Object.md#-awake).
 ```supercollider
 (
 t = Main.elapsedTime;

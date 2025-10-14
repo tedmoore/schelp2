@@ -11,7 +11,7 @@ This class is available only on Linux, and implements Linux platform-specific me
 ### Environment variables for Jack
 Among other things, this class makes it possible to set some environment variables in your Linux operating system to automate connecting the Jack Audio Server on startup.
 
-See [AudioDeviceSelection#Linux](../Reference/AudioDeviceSelection.md#linux) for more information on this.
+See [AudioDeviceSelection / Linux ](../Reference/AudioDeviceSelection.md#linux) for more information on this.
 
 
 
