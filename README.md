@@ -96,35 +96,6 @@ Then open http://localhost:8000 in your browser.
 make.bat html
 ```
 
-**Alternative (bash script):**
-```bash
-./build_docs.sh
-```
-
-**Manual build (all platforms):**
-```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Generate index
-python generate_sphinx_index.py
-
-# Copy config
-cp config.py docs/conf.py          # macOS/Linux
-copy config.py docs\conf.py        # Windows
-
-# Build HTML
-cd docs
-sphinx-build -b html . _build/html -j auto
-cd ..
-
-# Serve locally
-cd docs/_build/html
-python -m http.server 8000
-```
-
-Then open http://localhost:8000 in your browser.
-
 ## Screenshot of Sphinx 'readthedocs' styling
 
 ![Screenshot of Sphinx 'readthedocs' styling](./resources/doc-screenshot-example.jpg)

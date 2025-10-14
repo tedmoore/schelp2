@@ -31,10 +31,8 @@ install:
 
 # Prepare for build: generate index and copy config
 prepare: install
-	@echo "📝 Generating Sphinx index..."
-	@$(PYTHON) generate_sphinx_index.py
-	@echo "📋 Copying root config.py into docs/conf.py..."
-	@cp config.py docs/conf.py
+	@echo "📋 Copying docs_staging files to docs..."
+	@cp -r docs_staging/* docs/
 
 # Build HTML documentation
 html: prepare
