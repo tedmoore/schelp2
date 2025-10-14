@@ -135,6 +135,9 @@ This documentation is licensed under a Creative Commons Attribution Share Alike 
 """
     
     # Write the index.rst file
+    # Ensure the parent directory exists
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write(content)
     
