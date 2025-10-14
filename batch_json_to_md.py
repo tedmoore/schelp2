@@ -27,8 +27,16 @@ def main(input_dir, output_dir):
             if filename.endswith('.json'):
                 input_file = os.path.join(root, filename)
                 output_file = os.path.join(current_output_dir, filename.replace('.json', '.md'))
-                print(f"{converted_files+1} Converting {input_file} to {output_file}")
-                json_to_md(input_file, output_file)
+                
+                # Calculate current directory relative to output root for link generation
+                # Use forward slashes for consistency with web paths
+                if rel_path == '.':
+                    current_dir = None
+                else:
+                    current_dir = rel_path.replace(os.sep, '/')
+                
+                print(f"{converted_files+1} Converting {input_file} to {output_file} (dir: {current_dir})")
+                json_to_md(input_file, output_file, current_dir)
                 converted_files += 1
 
     print(f"Converted {converted_files} files")

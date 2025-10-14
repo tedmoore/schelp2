@@ -219,7 +219,7 @@ ${{ node.text }}$
 
 {#- Related -#}
 {% macro render_related(node) -%}
-**Related:** {% for child in node.children %}{% if child.id == "STRING" %}{%- set display_name = child.text.replace("Classes/", "").replace("Guides/", "").replace("Tutorials/", "").replace("Reference/", "") -%}[{{ display_name }}](../{{ child.text }}.md){% if not loop.last %}, {% endif %}{% endif %}{% endfor %}
+**Related:** {% for child in node.children %}{% if child.id == "STRING" %}{%- set display_name = child.text.replace("Classes/", "").replace("Guides/", "").replace("Tutorials/", "").replace("Reference/", "") -%}[{{ display_name }}]({{ child.text | relative_path }}.md){% if not loop.last %}, {% endif %}{% endif %}{% endfor %}
 
 {% endmacro %}
 
@@ -237,16 +237,16 @@ ${{ node.text }}$
 {#- Section with level -#}
 {#- Section/Subsection/Subsubsection -#}
 {% macro render_section(node, level=2) -%}
-{%- set heading = "#" * level %}
+{% set heading = "#" * level %}
 
 {{ heading }} {{ node.text }}
-{% for child in node.children -%}
+{% for child in node.children %}
 {{ render_node(child) }}
-{%- if child.id in ["PROSE", "DEFINITIONLIST", "LIST", "NUMBEREDLIST", "SUBSECTION", "SUBSUBSECTION", "CODE"] %}
+{% if child.id in ["PROSE", "DEFINITIONLIST", "LIST", "NUMBEREDLIST", "SUBSECTION", "SUBSUBSECTION", "CODE"] %}
 
-{% endif -%}
+{% endif %}
 {%- endfor -%}
-{%- endmacro %}
+{% endmacro %}
 
 {#- Class Methods -#}
 {% macro render_classmethods(node) %}
@@ -370,9 +370,9 @@ ${{ node.text }}$
 {%- if "#" in target -%}
 {%- set path_parts = target.split("#") -%}
 {%- set anchor = path_parts[1] | lower | replace(" ", "-") -%}
-[{{ display }}](../{{ path_parts[0] }}.md#{{ anchor }})
+[{{ display }}]({{ path_parts[0] | relative_path }}.md#{{ anchor }})
 {%- else -%}
-[{{ display }}](../{{ target }}.md)
+[{{ display }}]({{ target | relative_path }}.md)
 {%- endif -%}
 {%- endif -%}
 {%- endmacro %}
