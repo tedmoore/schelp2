@@ -219,7 +219,7 @@ ${{ node.text }}$
 
 {#- Related -#}
 {% macro render_related(node) -%}
-**Related:** {% for child in node.children %}{% if child.id == "STRING" %}[{{ child.text.replace("Classes/", "").replace("Guides/", "").replace("Tutorials/", "").replace("Reference/", "") }}]({{ child.text }}.md){% if not loop.last %}, {% endif %}{% endif %}{% endfor %}
+**Related:** {% for child in node.children %}{% if child.id == "STRING" %}{%- set display_name = child.text.replace("Classes/", "").replace("Guides/", "").replace("Tutorials/", "").replace("Reference/", "") -%}[{{ display_name }}](../{{ child.text }}.md){% if not loop.last %}, {% endif %}{% endif %}{% endfor %}
 
 {% endmacro %}
 
@@ -471,13 +471,42 @@ ${{ node.text }}$
 
 {%- if rows -%}
 
-| {% for col in rows[0] %}{{ render_children(col) | trim }} | {% endfor %}
+| {% for col in rows[0] %}{{ render_table_cell(col) }} | {% endfor %}
 
 |{% for col in rows[0] %} --- |{% endfor %}
 
 {%- for row in rows[1:] %}
-| {% for col in row %}{{ render_children(col) | trim }} | {% endfor %}
+| {% for col in row %}{{ render_table_cell(col) }} | {% endfor %}
 
+{%- endfor -%}
+{%- endif -%}
+{%- endmacro %}
+
+{#- Helper macro to render table cell content without breaking table syntax -#}
+{% macro render_table_cell(node) -%}
+{%- if node.children -%}
+{%- for child in node.children -%}
+{%- if child.id == "NOTE" -%}
+**Note:** {{ render_children(child) | trim | replace("\n", " ") }}
+{%- elif child.id == "WARNING" -%}
+**⚠️ Warning:** {{ render_children(child) | trim | replace("\n", " ") }}
+{%- elif child.id == "TEXT" -%}
+{{ child.text | replace("\n", " ") }}
+{%- elif child.id == "LINK" -%}
+{{ render_link(child) }}
+{%- elif child.id == "CODE" -%}
+`{{ child.text }}`
+{%- elif child.id == "EMPHASIS" -%}
+*{{ child.text }}*
+{%- elif child.id == "STRONG" -%}
+**{{ child.text if child.text else render_children(child) }}**
+{%- elif child.id == "TELETYPE" -%}
+`{{ child.text if child.text else render_children(child) }}`
+{%- elif child.id == "NL" -%}
+ 
+{%- else -%}
+{{ render_children(child) | replace("\n", " ") }}
+{%- endif -%}
 {%- endfor -%}
 {%- endif -%}
 {%- endmacro %}
