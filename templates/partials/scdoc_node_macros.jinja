@@ -370,9 +370,9 @@ ${{ node.text }}$
 {%- if "#" in target -%}
 {%- set path_parts = target.split("#") -%}
 {%- set anchor = path_parts[1] | lower | replace(" ", "-") -%}
-[{{ display }}]({{ path_parts[0] }}.md#{{ anchor }})
+[{{ display }}](../{{ path_parts[0] }}.md#{{ anchor }})
 {%- else -%}
-[{{ display }}]({{ target }}.md)
+[{{ display }}](../{{ target }}.md)
 {%- endif -%}
 {%- endif -%}
 {%- endmacro %}
