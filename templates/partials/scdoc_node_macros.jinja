@@ -351,7 +351,8 @@ ${{ node.text }}$
 {%- set hash_parts = link_text.split("#") -%}
 {%- if hash_parts | length == 3 -%}
 {#- Format: path#anchor#display -#}
-{%- set target = hash_parts[0] ~ "#" ~ hash_parts[1] -%}
+{%- set anchor = hash_parts[1] | lower | replace(" ", "-") -%}
+{%- set target = hash_parts[0] ~ "#" ~ anchor -%}
 {%- set display = hash_parts[2] -%}
 {%- else -%}
 {#- Default: use the full text as both target and display -#}
@@ -363,11 +364,13 @@ ${{ node.text }}$
 {%- if target.startswith("http://") or target.startswith("https://") -%}
 [{{ display }}]({{ target }})
 {%- elif target.startswith("#") -%}
-[{{ display }}]({{ target }})
+{%- set anchor = target[1:] | lower | replace(" ", "-") -%}
+[{{ display }}](#{{ anchor }})
 {%- else -%}
 {%- if "#" in target -%}
 {%- set path_parts = target.split("#") -%}
-[{{ display }}]({{ path_parts[0] }}.md#{{ path_parts[1] }})
+{%- set anchor = path_parts[1] | lower | replace(" ", "-") -%}
+[{{ display }}]({{ path_parts[0] }}.md#{{ anchor }})
 {%- else -%}
 [{{ display }}]({{ target }}.md)
 {%- endif -%}
@@ -380,12 +383,13 @@ ${{ node.text }}$
 {%- endmacro %}
 
 {#- Code Block -#}
-{% macro render_codeblock(node) -%}
+{% macro render_codeblock(node) %}
 
 ```supercollider
 {{ node.text }}
 ```
-{%- endmacro %}
+
+{% endmacro %}
 
 {#- Examples -#}
 {% macro render_examples(node) -%}
@@ -429,10 +433,10 @@ ${{ node.text }}$
 {%- endmacro %}
 
 {#- Definition List -#}
-{% macro render_definitionlist(node) -%}
+{% macro render_definitionlist(node) %}
 
-{%- for child in node.children -%}
-{%- if child.id == "DEFLISTITEM" %}
+{% for child in node.children -%}
+{% if child.id == "DEFLISTITEM" %}
 {{ render_deflistitem(child) }}
 {%- endif -%}
 {%- endfor -%}
@@ -440,7 +444,7 @@ ${{ node.text }}$
 
 {#- Definition List Item -#}
 {% macro render_deflistitem(node) -%}
-{%- for child in node.children -%}
+{% for child in node.children -%}
 {%- if child.id == "TERM" %}
 **{{ render_children(child) | trim }}**
 {% elif child.id == "DEFINITION" %}
@@ -451,9 +455,9 @@ ${{ node.text }}$
 {%- endmacro %}
 
 {#- Table -#}
-{% macro render_table(node) -%}
-{%- set rows = [] -%}
-{%- for child in node.children -%}
+{% macro render_table(node) %}
+{% set rows = [] -%}
+{% for child in node.children -%}
   {%- if child.id == "TABROW" -%}
     {%- set cols = [] -%}
     {%- for col in child.children -%}
