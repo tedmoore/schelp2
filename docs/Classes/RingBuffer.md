@@ -18,24 +18,45 @@ Create a new buffer.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `size` | Initial size. The collection will be able to hold one minus this number of values. |  
+| `size` | Initial size. The collection will be able to hold `size` (this arg) minus 1 number of values. |  
 | `collectionClass` | Defaults to the [Array](../Classes/Array.md) class. |  
 
 
 ## Instance Methods
 
 ### `array`
-The collection.### `readPos`
-Current read position.### `writePos`
-Current write position.### `maxSize`
-Maximum capacity.### `size`
-Alias of [readable](#readable).### `readable`
-Number of readble items.### `writable`
-Number of writable items.### `add`
-Add value and increase [writePos](#writepos). Do nothing if no items can be written.### `pop`
-Return next readable item and increase [readPos](#readpos). Return `nil` if no items can be read.### `overwrite`
-Add value and increase [writePos](#writepos) by overwriting oldest readable item.### `do`
+The collection.
+
+### `readPos`
+Current read position.
+
+### `writePos`
+Current write position.
+
+### `maxSize`
+Maximum capacity.
+
+### `size`
+Alias of [readable](#readable).
+
+### `readable`
+Number of readable items.
+
+### `writable`
+Number of writable items.
+
+### `add`
+Add value and increase [writePos](#writepos). Do nothing if no items can be written.
+
+### `pop`
+Return next readable item and increase [readPos](#readpos). Return `nil` if no items can be read.
+
+### `overwrite`
+Add value and increase [writePos](#writepos) by overwriting oldest readable item.
+
+### `do`
 Iterate over the currently readable items.
+
 ## Examples
 
 
