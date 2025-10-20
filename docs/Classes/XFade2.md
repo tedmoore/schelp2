@@ -13,6 +13,7 @@ Two channel equal power crossfader.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Two channel equal power crossfader.
 ## Examples
 
 
-```supercollider
+```
 { XFade2.ar(Saw.ar, SinOsc.ar, LFTri.kr(0.1)) }.play
 ```
 

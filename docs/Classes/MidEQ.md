@@ -11,6 +11,7 @@ Attenuates or boosts a frequency band.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Attenuates or boosts a frequency band.
 ## Examples
 
 
-```supercollider
+```
 // mixer parametric eq as wahwah
 { MidEQ.ar(Saw.ar(200, 0.2), FSinOsc.kr(1, 0, 24, 84).midicps, 0.3, 12) }.play
 

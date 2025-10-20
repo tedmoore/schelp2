@@ -10,7 +10,7 @@
 
 A Schroeder allpass filter is given by the difference equations
 
-```supercollider
+```
 s(t) = x(t) + k * s(t - D)
 y(t) = -k * s(t) + s(t - D)
 ```
@@ -22,6 +22,7 @@ This UGen quantizes the delay time to the nearest sample period, and will produc
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -38,7 +39,7 @@ This UGen quantizes the delay time to the nearest sample period, and will produc
 ## Examples
 
 
-```supercollider
+```
 // Since the allpass delay has no audible effect as a resonator on
 // steady state sound ...
 

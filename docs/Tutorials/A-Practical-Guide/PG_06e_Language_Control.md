@@ -13,7 +13,7 @@ Some patterns mimic language-style control methods: conditionals ( [Pif](../../C
 
 **`Pif(condition, iftrue, iffalse, default)`**
 : Evaluates a pattern `condition` that returns true or false. Then, one value is taken from the true or false branch before going back to evaluate the condition again. The `default` value or pattern comes into play when the true or false branch stops producing values (returns nil). If the `default` is not given, Pif returns control to the parent upon nil from either branch.
-```supercollider
+```
 p = Pbind(
     \degree, Pwhite(0, 11, inf),
         // odd numbered scale degrees get a shorter rhythmic value
@@ -25,7 +25,7 @@ p.stop;
 
 **`Pseed(randSeed, pattern)`**
 : Random number generators depend on seed values; setting a specific seed produces a repeatable stream of pseudorandom numbers. [Pseed](../../Classes/Pseed.md) sets the random seed before embedding `pattern`, effectively restarting the random number generator at the start of the pattern.
-```supercollider
+```
 p = Pbind(
         // the random seed is generated once, when creating the Pattern object
         // so the same random seed is used every time whenever this pattern object plays
@@ -50,7 +50,7 @@ r.stop;
 
 **`Pwhile(func, pattern)`**
 : Like while: as long as the function evaluates to true, the pattern is embedded. The function is checked once at the beginning and thereafter when the pattern comes to an end. If it's applied to an infinite pattern, there's no looping because the pattern never gives control back.
-```supercollider
+```
 // Pwhile and Ptrace
 (
 ~go = true;

@@ -11,6 +11,7 @@ Output silence.
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 

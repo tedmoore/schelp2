@@ -12,6 +12,7 @@ See also [CheckBadValues](../Classes/CheckBadValues.md), which allows you to dis
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 

@@ -13,6 +13,7 @@ Generates a single random float value in a sum of `n` uniform distributions from
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Generates a single random float value in a sum of `n` uniform distributions from
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-NRand", { |out = 0, n = 0|
     Out.ar(out,

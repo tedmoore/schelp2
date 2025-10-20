@@ -18,6 +18,7 @@ If you don't need very high or very low freqs, or use fixed freqs, [LFNoise2](..
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -30,7 +31,7 @@ If you don't need very high or very low freqs, or use fixed freqs, [LFNoise2](..
 ## Examples
 
 
-```supercollider
+```
 // try wiggling mouse quickly:
 // LFNoise2 overshoots when going from high to low freqs, LFDNoise changes smoothly.
 

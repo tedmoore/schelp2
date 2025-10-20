@@ -13,6 +13,7 @@ A two zero filter.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ A two zero filter.
 ## Examples
 
 
-```supercollider
+```
 { TwoZero.ar(WhiteNoise.ar(0.125), XLine.kr(20, 20000, 8), 1) }.play
 ```
 

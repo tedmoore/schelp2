@@ -11,7 +11,7 @@
 UGens to which an .ar message is sent run at the audio rate, by default, at 44,100 samples per second. Send the .ar message to unit generators when they're part of the audio chain that will be heard.
 
 
-```supercollider
+```
 SinOsc.ar(440, 0, 1);
 ```
 
@@ -22,7 +22,7 @@ SinOsc.ar(440, 0, 1);
 UGens to which a .kr message is appended run at the control rate.
 
 
-```supercollider
+```
 SinOsc.kr(440, 0, 1);
 ```
 
@@ -36,7 +36,7 @@ Use control rate ugens as modulators, that is, as signals that shape an audio si
 Here, a control rate SinOsc modulates the frequency of the audio rate Pulse wave.
 
 
-```supercollider
+```
 (
 SynthDef("anExample", {
     Out.ar(

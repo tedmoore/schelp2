@@ -15,6 +15,7 @@ See *Steven W Smith, The Scientist and Engineer's Guide to Digital Signal Proces
 ## Class Methods
 
 
+
 ### `ar`
 **Arguments:**
 
@@ -31,7 +32,7 @@ See *Steven W Smith, The Scientist and Engineer's Guide to Digital Signal Proces
 ## Examples
 
 
-```supercollider
+```
 // allocate three buffers
 (
 b = Buffer.alloc(s, 2048);
@@ -53,7 +54,7 @@ d.zero;
 
 
 
-```supercollider
+```
 (
 SynthDef(\conv_test, { |out, kernel, t_trig = 0|
     var input = Impulse.ar(1);
@@ -83,7 +84,7 @@ x.free;
 
 
 
-```supercollider
+```
 // longer crossfade
 (
 SynthDef(\conv_test2, { |out, kernel, t_trig = 0|
@@ -116,7 +117,7 @@ x.free;
 
 
 
-```supercollider
+```
 // next example
 
 b = Buffer.read(s, ExampleFiles.child);
@@ -132,7 +133,7 @@ b = Buffer.read(s, ExampleFiles.child);
 
 
 
-```supercollider
+```
 // another example
 
 (
@@ -167,7 +168,7 @@ g.free;
 
 
 
-```supercollider
+```
 // one last example
 (
 b = Buffer.alloc(s, 512, 1);

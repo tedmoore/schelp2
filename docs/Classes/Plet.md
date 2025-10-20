@@ -15,6 +15,7 @@ Using the [Pget](../Classes/Pget.md) class, the contents of this variable can th
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -27,22 +28,28 @@ Using the [Pget](../Classes/Pget.md) class, the contents of this variable can th
 
 ## Instance Methods
 
+
 ### `storeArgs`
+
 ### `embedInStream`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `inval` |  |  
+
 ### `pattern`
+
 ### `silent`
+
 ### `key`
+
 ### `return`
 
 ## Examples
 
 
-```supercollider
+```
 (
     /*
 

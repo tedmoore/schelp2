@@ -13,6 +13,7 @@ Generates a line from the start value to the end value.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -28,7 +29,7 @@ Generates a line from the start value to the end value.
 ## Examples
 
 
-```supercollider
+```
 // XLine is usually better than Line for frequency
 play({ SinOsc.ar(Line.kr(200, 17000, 10), 0, 0.1) });
 ```

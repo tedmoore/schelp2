@@ -13,6 +13,7 @@ A second order low pass filter.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ A second order low pass filter.
 ## Examples
 
 
-```supercollider
+```
 { LPF.ar(Saw.ar(200, 0.1), SinOsc.kr(XLine.kr(0.7, 300, 20), 0, 3600, 4000)) }.play;
 
 // kr:

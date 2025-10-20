@@ -14,6 +14,7 @@ E.g. If the source pattern has 5 elements and you choose a clump size of 2, the 
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ E.g. If the source pattern has 5 elements and you choose a clump size of 2, the 
 ## Examples
 
 
-```supercollider
+```
 // This will give you the sequence: [1, 2] [3] nil
 // Note that the last grouping is just the remainder of the pattern (in this case [3]).
 x = Pclump(2, Pseq([1, 2, 3], 1)).asStream;
@@ -37,7 +38,7 @@ x.next;
 
 Play some random chords:
 
-```supercollider
+```
 Pbind(
   \degree, Pclump(Pseq([3, 3, 4, 2, 4, 2, 4], inf), Pseq([1, 3, 5, 7, 9], 8), inf),
   \dur, 1).play

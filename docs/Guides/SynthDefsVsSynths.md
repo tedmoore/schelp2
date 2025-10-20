@@ -14,7 +14,7 @@ Another important distinction is between Synth in SC2 and [Synth](../Classes/Syn
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 // Compile a SynthDef and write it to disk

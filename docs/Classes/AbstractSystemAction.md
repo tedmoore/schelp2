@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `removeAll`
 Remove all items from registry.
 

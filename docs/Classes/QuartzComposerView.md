@@ -13,7 +13,7 @@
 QuartzComposerView allows for the rendering of Quartz Composer Compositions within SC on macOS. Quartz Composer is a visual programming environment for processing and rendering graphical data, which is distributed free of charge as part of Apple's XCode Development Tools. QC is highly optimised to work with the macOS graphics system, and in general should be more efficient than Pen. For more information on QC see: [https://developer.apple.com/library/mac/documentation/GraphicsImaging/Conceptual/QuartzComposerUserGuide/qc_intro/qc_intro.html](https://developer.apple.com/library/mac/documentation/GraphicsImaging/Conceptual/QuartzComposerUserGuide/qc_intro/qc_intro.html) and [http://en.wikipedia.org/wiki/Quartz_Composer](http://en.wikipedia.org/wiki/Quartz_Composer)
 You can access input and output ports using the methods setInputValue, getInputValue and getOutputValue, or (do to a slight of hand in the implementation, using the port keys as getters and setters directly. The following two lines of code are thus equivalent:
 
-```supercollider
+```
 myQCView.setInputValue(\valueIn, 1);
 myQCView.valueIn = 1;
 ```
@@ -23,42 +23,52 @@ myQCView.valueIn = 1;
 
 ## Instance Methods
 
+
 ### `path`
-Get or set the path of the currently composition as a [String](../Classes/String.md).### `inputKeys`
-Get the keys of the current composition's input ports.**Returns:** An [Array](../Classes/Array.md) of [Symbol](../Classes/Symbol.md)s.### `outputKeys`
-Get the keys of the current composition's output ports.**Returns:** An [Array](../Classes/Array.md) of [Symbol](../Classes/Symbol.md)s.### `start`
-Start rendering the loaded composition.### `stop`
-Stop rendering the loaded composition.### `setInputValue`
+Get or set the path of the currently composition as a [String](../Classes/String.md).
+### `inputKeys`
+Get the keys of the current composition's input ports.**Returns:** An [Array](../Classes/Array.md) of [Symbol](../Classes/Symbol.md)s.
+### `outputKeys`
+Get the keys of the current composition's output ports.**Returns:** An [Array](../Classes/Array.md) of [Symbol](../Classes/Symbol.md)s.
+### `start`
+Start rendering the loaded composition.
+### `stop`
+Stop rendering the loaded composition.
+### `setInputValue`
 Set the value of the input port specified by key.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `key` | A [String](../Classes/String.md) or [Symbol](../Classes/Symbol.md) matching the port's key. |  
 | `value` | The type of value must correspond to the type of the port, but Floats, Integers, and Booleans are converted if needed. (true = 1, false = 0) |  
+
 ### `getInputValue`
 Get the current value of an input port. The type of object returned will correspond to the port's type.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `key` | A [String](../Classes/String.md) or [Symbol](../Classes/Symbol.md) matching the port's key. |  
+
 ### `getOutputValue`
 Get the current value of an output port. The type of object returned will correspond to the port's type.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `key` | A [String](../Classes/String.md) or [Symbol](../Classes/Symbol.md) matching the port's key. |  
+
 ### `maxFPS`
 Set the maximum frames per second at which the composition will render.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `rate` | A [Float](../Classes/Float.md) or [Integer](../Classes/Integer.md) specifying the desired max frame rate. A value of 0 indicates no limit. |  
+
 ### `openInQC`
 Open the currently loaded composition in Quartz Composer. You will need to reload the composition into the view before any saved changes take effect.
 ## Examples
 
 
-```supercollider
+```
 ////////// Simple example
 (
 w = Window("Simple QC Test").front;

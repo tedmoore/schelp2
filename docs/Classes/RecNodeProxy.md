@@ -13,17 +13,22 @@ this is also created from a [NodeProxy](../Classes/NodeProxy.md), or an [Ndef](.
 
 ## Class Methods
 
+
 ### `new`
 see superclass
+
 ### `audio`
 see superclass
+
 ### `newFrom`
 instantiate a new proxy that listens to the in proxy.
 
 ## Instance Methods
 
+
 ### `open`
-open new file and initialize buffer on server### `record`
+open new file and initialize buffer on server
+### `record`
 start the recording synth.**Arguments:**
 
 | Argument | Description |
@@ -31,14 +36,17 @@ start the recording synth.**Arguments:**
 | `paused` | if paused is false start recording immediately. |  
 | `clock` | optional - the clock to use for scheduling recording ... |  
 | `quant` | ... if a non-nil quant is given. |  
+
 ### `close`
-stop recording, close file### `isRecording`
-see if recording right now### `wakeUp`
+stop recording, close file
+### `isRecording`
+see if recording right now
+### `wakeUp`
 until the proxy is not used by any output (either .play or .ar/.kr) it is not running on the server. you can wake it up to force it playing.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 a = RecNodeProxy.audio(s, 2);
@@ -62,7 +70,7 @@ a.stop;
 
 ### recording from some bus
 
-```supercollider
+```
 a = Bus.audio(s, 2);
 
 SynthDef("test", { |out| Out.ar(out, { WhiteNoise.ar(0.1) }.dup(2)) }).add;
@@ -87,7 +95,7 @@ n.close;
 
 ### instance creation from an existent node proxy
 
-```supercollider
+```
 b = NodeProxy.audio(s, 2);
 b.play; // listen to b
 b.source = { SinOsc.ar([400, 500], 0, 0.1) }; // play something
@@ -117,7 +125,7 @@ b.stop; // stop listen to b
 
 ### instance creation from an existent node proxy again
 
-```supercollider
+```
 b = NodeProxy.audio(s, 2);
 b.play; // listen to b
 b.source = { SinOsc.ar([400, 500], 0, 0.1) }; // play something
@@ -133,7 +141,7 @@ b.stop;    // stop listen
 
 ### recording from other sources
 
-```supercollider
+```
 s.boot;
 
 a = RecNodeProxy.audio(s, 2);

@@ -29,7 +29,7 @@ While a scheduled function or event is executing, logical time holds steady at t
 This sequencing example illustrates the difference. It's written deliberately inefficiently to expose the problem more clearly. Two copies of the same routine get started at the same time. On a theoretically perfect machine, in which operations take no time, we would hear both channels in perfect sync. No such machine exists, and this is obviously not the case when you listen. The routines also print out the logical time (clock.beats) and physical time (clock.elapsedBeats) just before playing a grain.
 
 
-```supercollider
+```
 s.boot;
 
 SynthDef(\sinGrain, { |out = 0, freq = 440, amp = 0.5, dur = 1|
@@ -55,7 +55,7 @@ SynthDef(\sinGrain, { |out = 0, freq = 440, amp = 0.5, dur = 1|
 This is the output:
 
 
-```supercollider
+```
     Left channel                     Right channel
 Logical vs Physical time         Logical vs Physical time
 95         95.001466112          95         95.002988196
@@ -74,7 +74,7 @@ Notice that even though the left and right channel patterns were scheduled for e
 This version is the same, but it generates each synth with a 1/4 second latency parameter:
 
 
-```supercollider
+```
 2.do({ |chan|
     var rout;
     rout = Routine({
@@ -102,7 +102,7 @@ The latency value should allow enough time for the event to execute and generate
 Pbind automatically imports a latency parameter from the server's latency variable. You can set the default latency for event patterns like this:
 
 
-```supercollider
+```
 myServer.latency = 0.2;  // 0.2 is the default
 ```
 
@@ -110,7 +110,7 @@ myServer.latency = 0.2;  // 0.2 is the default
 Here are three ways to play a synth with the latency parameter:
 
 
-```supercollider
+```
 // messaging style
 // s.nextNodeID is how to get the next unused node ID from the server
 s.sendBundle(latency, [\s_new, defName, s.nextNodeID, targetID, addAction, arguments]);

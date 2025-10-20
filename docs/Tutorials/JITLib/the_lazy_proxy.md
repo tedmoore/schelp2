@@ -8,21 +8,21 @@
 
 The class [NodeProxy](../../Classes/NodeProxy.md) (and [BusPlug](../../Classes/BusPlug.md)) uses a lazy evaluation scheme to derive its appropriate rate and numChannels from the first meaningful input that is assigned to it. see [NodeProxy](../../Classes/NodeProxy.md) and [ProxySpace](../../Classes/ProxySpace.md) helpfiles for basic info. So as long as the source is not set, the proxy is **neutral** :
 
-```supercollider
+```
 p = ProxySpace.push;
 ~x.isNeutral;
 ```
 
 as soon as the first time the source is set, it derives its bus arguments from that input
 
-```supercollider
+```
 ~x = { Array.fill(14, { SinOsc.kr(1.0.rand, 0, 100) }) }; //~x is now 14 channels control rate
 ~x;
 ```
 
 in order to reset these properties, clear is used:
 
-```supercollider
+```
 ~x.clear;
 //note that no other proxy should be reading from ~x when this is done:
 //for simplicity nodeproxy currently does not care for its children, only for its parents.
@@ -30,7 +30,7 @@ in order to reset these properties, clear is used:
 
 for a quick initialisation, also `defineBus` can be used:
 
-```supercollider
+```
 ~x.defineBus(\control, 5);
 // or in another way:
 ~x.kr(5)
@@ -38,20 +38,20 @@ for a quick initialisation, also `defineBus` can be used:
 
 the properties are also set when some other proxy reads from it:
 
-```supercollider
+```
 ~x = { LFPulse.kr * ~b.kr(7) }; //the first arg to kr / ar is the default number of channels
 ```
 
 if no number of channels is passed in, the default value is used:
 
-```supercollider
+```
 ~test.ar; // 2
 ~krtest.kr; // 1
 ```
 
 the default can be set in the class NodeProxy:
 
-```supercollider
+```
 NodeProxy.defaultNumAudio = 3;
 NodeProxy.defaultNumControl = 13;
 
@@ -65,7 +65,7 @@ NodeProxy.defaultNumControl = 1;
 
 also if a proxy is used as a map source, control rate is assumed:
 
-```supercollider
+```
 ~u;
 ~x.map(\zzz, ~u);
 ~u;
@@ -73,7 +73,7 @@ also if a proxy is used as a map source, control rate is assumed:
 
 when unary or binary operations are performed, the highest rate / numChannels is used to initialize all uninitialized proxies:
 
-```supercollider
+```
 ~x.clear;
 ~x.defineBus(\control, 5);
 ~x = ~e + ~f;
@@ -90,7 +90,7 @@ when unary or binary operations are performed, the highest rate / numChannels is
 
 if a rate-1 proxy is used as rate-2 input, the rate is converted and the channels are expanded in the usual multichannel expansion pattern:
 
-```supercollider
+```
 ~f.defineBus(\control);
 ~f.ar(2);
 
@@ -104,7 +104,7 @@ if a rate-1 proxy is used as rate-2 input, the rate is converted and the channel
 
 an offset can be passed in as second argument to ar/kr
 
-```supercollider
+```
 //modulate offset:
 p = ProxySpace.push(s.boot);
 

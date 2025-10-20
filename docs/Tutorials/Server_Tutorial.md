@@ -17,7 +17,7 @@ In order to run sound we need to start a server running. The easiest way to star
 The internal server runs in the same process as the SuperCollider application. It is internal to the program itself.
 
 
-```supercollider
+```
 // set the interpreter variable i to the internal server object.
 i = Server.internal;
 ```
@@ -32,7 +32,7 @@ The local server runs on the same machine as the SuperCollider application, but 
 
 
 
-```supercollider
+```
 // set the interpreter variable s to the local server object.
 s = Server.local;    // s is set to Server.default at startup of SuperCollider
 ```
@@ -41,7 +41,7 @@ s = Server.local;    // s is set to Server.default at startup of SuperCollider
 To boot the server you send it the boot message.
 
 
-```supercollider
+```
 s.boot;
 ```
 
@@ -49,7 +49,7 @@ s.boot;
 To quit the server send it the quit message.
 
 
-```supercollider
+```
 s.quit;
 ```
 
@@ -57,7 +57,7 @@ s.quit;
 We can also create a server to run. To create a server object we need to provide the IP address or the server and a port number. Port numbers are somewhat arbitrary but they should not conflict with common protocols like telnet, ftp http, etc. The IP address 127.0.0.1 is defined to mean the local host. This is the IP address to use for running a server on your own machine.
 
 
-```supercollider
+```
 // create another server object that will run on the local host using port #58009
 m = Server(\myServer, NetAddr("127.0.0.1", 58009));
 
@@ -70,7 +70,7 @@ m.quit; // quit the server
 It is not possible to boot a server on a remote machine, but if you have one running already or you know of one running, you can send messages to it. You create the server object using the IP address of the machine running the server and the port it is using.
 
 
-```supercollider
+```
 // create a server object for talking to the server running on a
 // remote machine having IP address 192.168.0.47 using port #57110
 r = Server(\myServer, NetAddr("192.168.0.47", 57110));
@@ -87,7 +87,7 @@ Now lets make some audio.
 Boot the server:
 
 
-```supercollider
+```
 s.boot;
 ```
 
@@ -95,7 +95,7 @@ s.boot;
 Create a [SynthDef](../Classes/SynthDef.md). A SynthDef is a description of a processing module that you want to run on the server. It can read audio from the server's audio buses, read control from the control buses and write control or audio back to buses. Here we will create a sine oscillator and send it to audio bus zero.
 
 
-```supercollider
+```
 (
 SynthDef("sine", { arg freq=800;
     var osc;
@@ -109,7 +109,7 @@ SynthDef("sine", { arg freq=800;
 Send the SynthDef to the server.
 
 
-```supercollider
+```
 s.sendSynthDef("sine");
 ```
 
@@ -117,7 +117,7 @@ s.sendSynthDef("sine");
 Start the sound. The `/s_new` command creates a new Synth which is an instance of the "sine" SynthDef. Each synth running on the server needs to have a unique ID. The simplest and safest way to do this is to get an ID from the server's NodeIDAllocator. This will automatically allow IDs to be reused, and will prevent conflicts both with your own nodes, and with nodes created automatically for purposes such as visual scoping and recording. Each synth needs to be installed in a Group. We install it in group one which is the default group. There is a group zero, called the RootNode, which contains the default group, but it is generally best not to use it as doing so can result in order of execution issues with automatically created nodes such as those mentioned above. (For more detail see the [default_group](../Reference/default_group.md), [RootNode](../Classes/RootNode.md), and [Order-of-execution](../Guides/Order-of-execution.md) helpfiles.)
 
 
-```supercollider
+```
 s.sendMsg("/s_new", "sine", x = s.nextNodeID, 1, 1);
 ```
 
@@ -125,7 +125,7 @@ s.sendMsg("/s_new", "sine", x = s.nextNodeID, 1, 1);
 Stop the sound.
 
 
-```supercollider
+```
 s.sendMsg("/n_free", x);
 ```
 
@@ -133,7 +133,7 @@ s.sendMsg("/n_free", x);
 Stop the server.
 
 
-```supercollider
+```
 s.quit;
 ```
 
@@ -143,7 +143,7 @@ SynthDef has three methods which send the def automatically, load which writes i
 Most generally useful and recommended is to use the method **add**, which sends or writes to disk only if it can't send, and it sends to all servers listed in the SynthDefLib (A server can be added by SynthDescLib.global.addServer(server)).
 
 
-```supercollider
+```
 (
 SynthDef("sine", { arg freq=800;
     var osc;
@@ -177,7 +177,7 @@ SynthDef("sine", { arg freq=800;
 It is useful to be able to specify parameters of a synth when it is created. Here a frequency argument is added to the sine SynthDef so that we can create it
 
 
-```supercollider
+```
 s.boot;
 
 (
@@ -193,7 +193,7 @@ SynthDef("sine", { arg freq;
 Play a 900 Hz sine wave.
 
 
-```supercollider
+```
 s.sendMsg("/s_new", "sine", x = s.nextNodeID, 1, 1, "freq", 900);
 
 s.sendMsg("/n_free", x);
@@ -203,7 +203,7 @@ s.sendMsg("/n_free", x);
 Play a 1000 Hz sine wave.
 
 
-```supercollider
+```
 s.sendMsg("/s_new", "sine", y = s.nextNodeID, 1, 1, "freq", 1000);
 
 s.sendMsg("/n_free", y);
@@ -213,7 +213,7 @@ s.sendMsg("/n_free", y);
 Playing three voices at once
 
 
-```supercollider
+```
 (
 s.sendMsg("/s_new", "sine", x = s.nextNodeID, 1, 1, "freq", 800);
 s.sendMsg("/s_new", "sine", y = s.nextNodeID, 1, 1, "freq", 1001);
@@ -231,7 +231,7 @@ s.sendMsg("/n_free", z);
 Playing three voices at once using bundles. Bundles allow you to send multiple messages with a time stamp. The messages in the bundle will be scheduled to be performed together. The time argument to sendBundle is an offset into the future from the current thread's logical time.
 
 
-```supercollider
+```
 (
 s.sendBundle(0.2,
     ["/s_new", "sine", x = s.nextNodeID, 1, 1, "freq", 800],
@@ -250,7 +250,7 @@ You can send messages to update the values of a Synth's arguments.
 Play a 900 Hz sine wave.
 
 
-```supercollider
+```
 s.sendMsg("/s_new", "sine", x = s.nextNodeID, 1, 1, "freq", 900);
 ```
 
@@ -258,7 +258,7 @@ s.sendMsg("/s_new", "sine", x = s.nextNodeID, 1, 1, "freq", 900);
 Change the frequency using the /n_set command. You send the node ID, the parameter name and the value.
 
 
-```supercollider
+```
 s.sendMsg("/n_set", x, "freq", 800);
 
 s.sendMsg("/n_set", x, "freq", 700);
@@ -273,7 +273,7 @@ s.sendMsg("/n_free", x);
 You can dynamically add and remove an effect to process another synth. In order to do this, the effect has to be added after the node to be processed.
 
 
-```supercollider
+```
 (
 // define a noise pulse
 SynthDef("tish", { arg freq = 1200, rate = 2;
@@ -320,7 +320,7 @@ This works because we added the effect after the other node. Sometimes you will 
 
 ## Mapping an Argument to a Control Bus
 
-```supercollider
+```
 (
 // define a control
 SynthDef("line", { arg i_bus=10, i_start=1000, i_end=500, i_time=1;
@@ -333,7 +333,7 @@ SynthDef("line", { arg i_bus=10, i_start=1000, i_end=500, i_time=1;
 Play a 900 Hz sine wave.
 
 
-```supercollider
+```
 s.sendMsg("/s_new", "sine", x = s.nextNodeID, 1, 1, "freq", 900);
 ```
 
@@ -341,7 +341,7 @@ s.sendMsg("/s_new", "sine", x = s.nextNodeID, 1, 1, "freq", 900);
 Put a frequency value on the control bus.
 
 
-```supercollider
+```
 s.sendMsg("/c_set", 10, x);
 ```
 
@@ -349,7 +349,7 @@ s.sendMsg("/c_set", 10, x);
 Map the node's freq argument to read from control bus #10.
 
 
-```supercollider
+```
 s.sendMsg("/n_map", x, \freq, 10);
 ```
 
@@ -357,7 +357,7 @@ s.sendMsg("/n_map", x, \freq, 10);
 Change the value on the control bus.
 
 
-```supercollider
+```
 s.sendMsg("/c_set", 10, 1200);
 ```
 
@@ -365,7 +365,7 @@ s.sendMsg("/c_set", 10, 1200);
 Start a control process that writes to bus #10. The [EnvGen](../Classes/EnvGen.md) doneAction will free this node automatically when it finishes.
 
 
-```supercollider
+```
 s.sendMsg("/s_new", "line", s.nextNodeID, 0, 1);
 ```
 
@@ -373,7 +373,7 @@ s.sendMsg("/s_new", "line", s.nextNodeID, 0, 1);
 Free the node.
 
 
-```supercollider
+```
 s.sendMsg("/n_free", x);
 ```
 
@@ -382,7 +382,7 @@ s.sendMsg("/n_free", x);
 
 ## Sequencing with Routines
 
-```supercollider
+```
 (
 var space, offset, timer, saw, envsaw, sampler, delay;
 
@@ -458,7 +458,7 @@ timer.sched(0,{
 
 ## Sequencing with Patterns
 
-```supercollider
+```
 (
 //sappy emo electronica example...
 Tempo.bpm = 120;

@@ -152,7 +152,7 @@ One of -u or -t must be supplied. Both may be supplied.
 
 ### Example
 
-```supercollider
+```
 scsynth -u 57117 >synth_log &
 
     Accept commands via UDP on port 57117.

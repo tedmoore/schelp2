@@ -16,6 +16,7 @@ OSCMessageDispatcher dispatches incoming OSC messages to matching functions, usi
 
 ## Instance Methods
 
+
 ### `value`
 Attempt to match an incoming OSC message with this dispatcher's responder funcs, and evaluate their functions for all matches found.**Arguments:**
 
@@ -25,6 +26,7 @@ Attempt to match an incoming OSC message with this dispatcher's responder funcs,
 | `time` | A [Float](../Classes/Float.md) indicating the time the incoming message was sent. |  
 | `addr` | A [NetAddr](../Classes/NetAddr.md) indicating the source of the message. |  
 | `recvPort` | An [Integer](../Classes/Integer.md) indicating the port on which the message was received. |  
+
 ### `typeKey`
 Returns `'OSC unmatched'`.**Returns:** A [Symbol](../Classes/Symbol.md).
 

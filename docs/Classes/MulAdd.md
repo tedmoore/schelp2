@@ -13,6 +13,7 @@ See also the discussion of mul and add arguments in the [UGen](../Classes/UGen.m
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 
@@ -22,7 +23,7 @@ See also the discussion of mul and add arguments in the [UGen](../Classes/UGen.m
 | `mul` | multiply with this value |  
 | `add` | add this value |  
 Same as:
-```supercollider
+```
 in.madd(mul, add)
 ```
 
@@ -34,7 +35,7 @@ in.madd(mul, add)
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 // The mul and add arguments of SinOsc themselves use MulAdd!

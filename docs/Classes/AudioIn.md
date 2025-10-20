@@ -17,6 +17,7 @@ Reads audio from the sound input hardware.
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -30,7 +31,7 @@ Reads audio from the sound input hardware.
 
 Patching input to output
 
-```supercollider
+```
 // patching input to output
 
 // beware of the feedback

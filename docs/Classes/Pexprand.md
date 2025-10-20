@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 
 > **Note:** lo and hi should both be positive or negative (their range should not cross 0).
@@ -24,7 +25,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
 var a;
 a = Pexprand.new(0.0001, 1, inf);

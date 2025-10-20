@@ -30,13 +30,15 @@ The first argument these functions receive is an unique identifier that specifie
 ## Class Methods
 
 
+
 ### `findPort`
 searches for a connected [MIDIEndPoint](../Classes/MIDIEndPoint.md) by name.
-```supercollider
+```
 // list connected ins:
 MIDIClient.init;
 MIDIClient.sources;
 ```
+
 
 
 ### `addFuncTo`
@@ -47,6 +49,7 @@ Add a [Function](../Classes/Function.md) or similar object to be evaluated whene
 | `what` | A [Symbol](../Classes/Symbol.md) indicating the message type to wait for, one of `'noteOn'` `'noteOff'`, `'polytouch'`, `'control'`, `'program'`, `'touch'`, `'bend'`, `'sysex'`, `'sysrt'`, `'smpte'`, or `'invalid'` (for invalid sysex messages). |  
 | `func` | A [Function](../Classes/Function.md) or similar object to be evaluated when a message of the specified type is received. See the setters below for the arguments which will be passed at evaluation time. |  
 
+
 ### `removeFuncFrom`
 Remove a [Function](../Classes/Function.md) or similar object from the list of those to be evaluated whenever a particular MIDI message is received. This method is preferable to the setters below, since it will leave any existing functions in place.**Arguments:**
 
@@ -54,6 +57,7 @@ Remove a [Function](../Classes/Function.md) or similar object from the list of t
 |----------|-------------|
 | `what` | A [Symbol](../Classes/Symbol.md) indicating the message type, one of `'noteOn'` `'noteOff'`, `'polytouch'`, `'control'`, `'program'`, `'touch'`, `'bend'`, `'sysex'`, `'sysrt'`, `'smpte'`, or `'invalid'` (for invalid sysex messages). |  
 | `func` | The [Function](../Classes/Function.md) or similar object to be removed. |  
+
 
 ### `replaceFuncTo`
 Replace a [Function](../Classes/Function.md) or similar object in the list to be evaluated whenever a particular MIDI message is received with another one. This method is preferable to the setters below, since it will not overwrite any existing functions.**Arguments:**
@@ -64,14 +68,17 @@ Replace a [Function](../Classes/Function.md) or similar object in the list to be
 | `func` | The [Function](../Classes/Function.md) or similar object to be replaced. |  
 | `newFunc` | A [Function](../Classes/Function.md) or similar object to be evaluated when a message of the specified type is received. See the setters below for the arguments which will be passed at evaluation time. |  
 
+
 ### `noteOnZeroAsNoteOff`
 By default this flag is `true` and SuperCollider interprets incoming MIDI noteOn message with velocity 0 as noteOff messages. In case you do not want this automatic translation, you can set this flag to `false`
+
 ### `connectAll`
 Connect to all possible MIDI inputs.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `verbose` | If set to true (default) it will print out the ports found in MIDIClient.init. |  
+
 
 ### `disconnectAll`
 Disconnect from all MIDI inputs.
@@ -81,6 +88,7 @@ The methods below allow you to register a function to respond to a particular me
 
 
 > **Note:** It is preferable to use the [#*addFuncTo](#*addfuncto), [#*removeFuncFrom](#*removefuncfrom) and [#*replaceFuncTo](#*replacefuncto) methods above instead of these methods, as they will not overwrite any functions added by system objects.
+
 
 
 ### `noteOn`
@@ -101,6 +109,7 @@ The methods below allow you to register a function to respond to a particular me
 **velocity**
 : 0 - 127 |  
 
+
 ### `noteOff`
 **Arguments:**
 
@@ -118,6 +127,7 @@ The methods below allow you to register a function to respond to a particular me
 
 **velocity**
 : 0 - 127 (typically 64 unless noteOff velocity is supported) |  
+
 
 ### `polytouch`
 **Arguments:**
@@ -137,6 +147,7 @@ The methods below allow you to register a function to respond to a particular me
 **pressure**
 : 0 - 127 |  
 
+
 ### `control`
 **Arguments:**
 
@@ -155,6 +166,7 @@ The methods below allow you to register a function to respond to a particular me
 **value**
 : 0 - 127 |  
 
+
 ### `program`
 **Arguments:**
 
@@ -169,6 +181,7 @@ The methods below allow you to register a function to respond to a particular me
 
 **programNumber**
 : 0 - 127 |  
+
 
 ### `touch`
 **Arguments:**
@@ -185,6 +198,7 @@ The methods below allow you to register a function to respond to a particular me
 **pressure**
 : 0 - 127 |  
 
+
 ### `bend`
 **Arguments:**
 
@@ -199,6 +213,7 @@ The methods below allow you to register a function to respond to a particular me
 
 **bend**
 : 0 - 16383 (14bits, the midpoint is 8192) |  
+
 
 ### `sysex`
 
@@ -215,6 +230,7 @@ The methods below allow you to register a function to respond to a particular me
 **data**
 : an [Int8Array](../Classes/Int8Array.md) (includes f0 and f7). See manufacturer references for details. |  
 
+
 ### `sysrt`
 | **index** | **data** | **message** | 
 | --- | --- | --- || 2 | 14bits | song pointer | | 3 | 7bits | song select | | 8 |  | midiclock | | 10 |  | start | | 11 |  | continue | | 12 |  | stop | **Arguments:**
@@ -230,6 +246,7 @@ The methods below allow you to register a function to respond to a particular me
 
 **data**
 : |  
+
 
 ### `smpte`
 Over MIDI, SMPTE is transmitted at 1/4 frame intervals four times faster than the frame rate.| **index** | **data** | 
@@ -253,7 +270,7 @@ Over MIDI, SMPTE is transmitted at 1/4 frame intervals four times faster than th
 
 ### Quick start for 1 port
 
-```supercollider
+```
 (
 MIDIIn.connect;    // init for one port midi interface
 // register functions:
@@ -299,7 +316,7 @@ MIDIIn.removeFuncFrom(\smpte, ~smpte);
 
 ### Quick start for 2 or more ports
 
-```supercollider
+```
 (
     var inPorts = 2;
     var outPorts = 2;
@@ -315,7 +332,7 @@ MIDIIn.removeFuncFrom(\smpte, ~smpte);
 
 ### example with sound
 
-```supercollider
+```
 MIDIIn.connect;
 s.boot;
 
@@ -366,7 +383,7 @@ MIDIIn.removeFuncFrom(\bend, ~bend);
 
 ### writing to the bus rather than directly to the synth
 
-```supercollider
+```
 // i used this and got acceptable latency for triggering synths live.
 // The latency might actually be less than sc2, but i haven't used it enough
 // to tell for sure yet.
@@ -431,7 +448,7 @@ MIDIIn.removeFuncFrom(\bend, ~bend);
 
 ### Keyboard Split for two voices
 
-```supercollider
+```
 // pbend to cutoff, mod to rez, 7 to amp
 // - matrix6k@somahq.com
 

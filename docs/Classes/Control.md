@@ -17,12 +17,14 @@ For a more concise combination of name, default value and lag, see [NamedControl
 
 ## Class Methods
 
+
 ### `kr`, `ir`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `values` | default values. |  
+
 
 ### `names`
 **Arguments:**
@@ -34,7 +36,7 @@ For a more concise combination of name, default value and lag, see [NamedControl
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef(\help_Control, { |freq = 200|
 
@@ -57,7 +59,7 @@ SynthDef(\help_Control, {
 What is passed into the ugenGraph function is an [OutputProxy](../Classes/OutputProxy.md), and its source is a Control.
 The main explicit use of Control is to allow Arrays to be sent to running Synths:
 
-```supercollider
+```
 // a synth def that has 4 partials
 (
 SynthDef(\help_Control, { |out = 0, i_freq|
@@ -133,7 +135,7 @@ Inside SynthDefs and UGen functions, symbols can be used to conveniently specify
 
 **`\name.kr(val, lag)`**
 : Return a control rate [NamedControl](../Classes/NamedControl.md) input with a default value (val), and if supplied, with a lag. If val is an array, the control will be multichannel.
-```supercollider
+```
 a = { SinOsc.ar(\freq.kr(440, 1.2)) }.play;
 a.set(\freq, 330);
 a.release;
@@ -150,7 +152,7 @@ a.release;
 
 **`\name.tr(val)`**
 : Return a [TrigControl](../Classes/TrigControl.md) input with a default value (val). If val is an array, the control will be multichannel.
-```supercollider
+```
 a = { Ringz.ar(T2A.ar(\trig.tr), \freq.kr(500, 1), 0.8) }.play;
 a.set(\freq, 330, \trig, 1);
 a.set(\freq, 830, \trig, 1);

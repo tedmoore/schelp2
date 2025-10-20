@@ -13,24 +13,35 @@ Keeps a reference to a stream that can be replaced while in use.
 
 ## Class Methods
 
+
 ### `new`
 create a new instance with a pattern (the source). The pattern should be an *event pattern* (see [Pdef](../Classes/Pdef.md))
+
 ### `default`
 a default source, if none is given. the default is a Pbind with resting notes of 1.0 beat duration.
+
 ### `defaultQuant`
 set the default quantization value for the class.
 
 ## Instance Methods
 
+
 ### `source`
-set the source (a pattern). If a quantization is given, schedule this change to the next beat (**pattern_**(..) is equivalent)### `clear`
-set the source to nil and stop playing### `clock`
-get or set the instance's default clock, used by [play](#play) if no other clock is specified. Defaults to TempoClock.default.### `quant`
-get or set the quantization value. can be an array [quant, phase, offset, outset]### `fadeTime`
-when the synthdefs that are used contain an `\amp` control, the patterns are replaced by crossfading the previous with the new over this time (in beats)### `envir`
-provide a default event for the Pdef. It is used to filter the incoming stream before it is passed to the source pattern. This is similar to [NodeProxy#-nodeMap](../Classes/NodeProxy.md#-nodemap). When set for the first time, the pattern is rebuilt.### `set`
+set the source (a pattern). If a quantization is given, schedule this change to the next beat (**pattern_**(..) is equivalent)
+### `clear`
+set the source to nil and stop playing
+### `clock`
+get or set the instance's default clock, used by [#-play](#-play) if no other clock is specified. Defaults to TempoClock.default.
+### `quant`
+get or set the quantization value. can be an array [quant, phase, offset, outset]
+### `fadeTime`
+when the synthdefs that are used contain an `\amp` control, the patterns are replaced by crossfading the previous with the new over this time (in beats)
+### `envir`
+provide a default event for the Pdef. It is used to filter the incoming stream before it is passed to the source pattern. This is similar to [NodeProxy#-nodeMap](../Classes/NodeProxy.md#-nodemap). When set for the first time, the pattern is rebuilt.
+### `set`
 set arguments in the default event. If there is none, it is created and the pattern is rebuilt.
 ### a) using as stream reference
+
 ### `embedInStream`
 Given a [Stream](../Classes/Stream.md) like e.g. [Routine](../Classes/Routine.md), yield all values from the pattern in the proxy before continuing. One pattern proxy can be used to produce values for any number of independent streams.**Arguments:**
 
@@ -38,8 +49,8 @@ Given a [Stream](../Classes/Stream.md) like e.g. [Routine](../Classes/Routine.md
 |----------|-------------|
 | `inval` | The inval is an [Event](../Classes/Event.md) and is passed into all substreams. It can be used to control how they behave from the outside. |  
 | `embed` | See [Object#-streamArg](../Classes/Object.md#-streamarg) for explanation. |  
-| `default` | Replacement for `nil` outputs of the source pattern. One use case is [endless](#endless).
-```supercollider
+| `default` | Replacement for `nil` outputs of the source pattern. One use case is [#-endless](#-endless).
+```
 a = EventPatternProxy.new;
 a.source = Pbind(\freq, Pgeom(100, Pwhite(1.01, 1.2), 4));
 r = Routine { |inval| loop { a.embedInStream(inval) } };
@@ -50,23 +61,24 @@ r.nextN(12, ()); // the next 12 values from r
 
 
 ### b) using as EventStreamPlayer
+
 ### `play`
-starts the EventPatternProxy and creates a player. if you want to play multiple instances, use [fork](#fork).**Arguments:**
+starts the EventPatternProxy and creates a player. if you want to play multiple instances, use [#-fork](#-fork).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `argClock` | play on a certain clock, e.g. a [TempoClock](../Classes/TempoClock.md). If nil uses this instance's [clock](#clock), which in turn defaults to TempoClock.default. |  
+| `argClock` | play on a certain clock, e.g. a [TempoClock](../Classes/TempoClock.md). If nil uses this instance's [#-clock](#-clock), which in turn defaults to TempoClock.default. |  
 | `protoEvent` | an event to be used as a first input to the chain |  
 | `quant` | can be an array of [quant, phase, offset, outset], or an instance of [Quant](../Classes/Quant.md). |  
 | `doReset` | if set to true, play will restart the stream if already running (a [Boolean](../Classes/Boolean.md)).
-```supercollider
+```
 // using a protoEvent
 Pdef(\x, Pbind(\dur, 0.1));
 Pdef(\x).trace.play(protoEvent: (freq: 1000));
 ```
 
 
-```supercollider
+```
 // using a different clock: here a Scheduler
 Pdef(\x, Pbind(\dur, Pwhite(0.1, 0.2, inf), \count, Pseries()));
 a = Scheduler(TempoClock.default);
@@ -74,12 +86,16 @@ Pdef(\x).trace.play(a);
 a.advance(0.2);
 ``` |  
 
+
 ### `stop`
 stops the player
+
 ### `player`
 the current player (if the Pdef is simply used in other streams this is `nil`)
+
 ### `pause`, `resume`, `reset`
 perform player method
+
 ### `isPlaying`
 returns true if Pdef is running. if a Pdef is playing and its stream ends, it will schedule a stream for playing as soon as a new one is assigned to it.
 
@@ -88,7 +104,7 @@ returns true if Pdef is running. if a Pdef is playing and its stream ends, it wi
 
 ### a) embedding EventPatternProxy in streams
 
-```supercollider
+```
 (
 SynthDef("Pdefhelp", {
     arg out, freq, sustain = 1, amp = 0.1, pan;
@@ -163,7 +179,7 @@ x.stop;
 
 ### b) playing EventPatternProxy
 
-```supercollider
+```
 s.boot;
 
 (

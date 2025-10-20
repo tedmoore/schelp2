@@ -23,6 +23,7 @@ Generates a sine wave. Uses a wavetable lookup oscillator with linear interpolat
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -37,7 +38,7 @@ Generates a sine wave. Uses a wavetable lookup oscillator with linear interpolat
 ## Examples
 
 
-```supercollider
+```
 // create an audio-rate sine wave at 200 Hz,
 // starting with phase 0 and an amplitude of 0.5
 { SinOsc.ar(200, 0, 0.5) }.play;

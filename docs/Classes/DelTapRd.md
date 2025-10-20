@@ -18,6 +18,7 @@ Tap a delay line from a [DelTapWr](../Classes/DelTapWr.md) UGen.
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -32,5 +33,5 @@ Tap a delay line from a [DelTapWr](../Classes/DelTapWr.md) UGen.
 
 ## Examples
 
-See [DelTapWr / examples ](../Classes/DelTapWr.md#examples) for examples.
+See [DelTapWr#examples](../Classes/DelTapWr.md#examples) for examples.
 

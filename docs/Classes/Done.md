@@ -43,6 +43,7 @@ Another way to free a synth when some UGen is done playing is to use [FreeSelfWh
 ## Class Methods
 
 
+
 ### `kr`
 **Arguments:**
 
@@ -54,7 +55,7 @@ Another way to free a synth when some UGen is done playing is to use [FreeSelfWh
 
 The 'done' flag can be used to trigger other things in the same synth:
 
-```supercollider
+```
 (
 SynthDef("Done-help", { |out, t_trig|
     var line, a, b;
@@ -74,7 +75,7 @@ Synth("Done-help"); // note that this synth doesn't have it's own doneAction, so
 
 The 'done' flag can be used to trigger a delayed freeing of the current synth, which is not possible by using doneActions alone:
 
-```supercollider
+```
 play {
     var env = Line.kr(1, 0, 2);
     var sig = PinkNoise.ar(env);

@@ -6,9 +6,10 @@
 
 **Related:** [Monitor](../Classes/Monitor.md), [Bus](../Classes/Bus.md), [NodeProxy](../Classes/NodeProxy.md), [Ndef](../Classes/Ndef.md), [ProxySpace](../Classes/ProxySpace.md)
 
+
 ### `playN`
 playN is a multichannel play method for [Monitor](../Classes/Monitor.md) and [NodeProxy](../Classes/NodeProxy.md) (see also: [ProxySpace](../Classes/ProxySpace.md), [Ndef](../Classes/Ndef.md)) that supports playing proxy outputs over **non-adjacent channels**; somewhat like a splitter/line mixer.
-```supercollider
+```
 // examples
 
 s.boot;

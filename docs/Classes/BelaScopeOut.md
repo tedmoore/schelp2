@@ -15,6 +15,7 @@ This UGen effectively sends audio signals to Bela Oscilloscope, analogously to h
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 

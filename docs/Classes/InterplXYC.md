@@ -13,7 +13,7 @@ Takes sets of x, y and curve values and returns a new instance of InterplEnv. x 
 ## Examples
 
 
-```supercollider
+```
 a = InterplXYC([0, 0, \lin], [1, 2, \sin], [2, 0]);
 a.plot;
 

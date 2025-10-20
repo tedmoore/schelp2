@@ -15,6 +15,7 @@ There can only be one audio rate and one control rate LocalIn per SynthDef. The 
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ There can only be one audio rate and one control rate LocalIn per SynthDef. The 
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var source, local;

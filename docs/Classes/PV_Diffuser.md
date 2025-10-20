@@ -13,6 +13,7 @@ Adds a different constant random phase shift to each bin. When triggered, it sel
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Adds a different constant random phase shift to each bin. When triggered, it sel
 ## Examples
 
 
-```supercollider
+```
 (
 // trig with MouseY crossing center of screen
 {

@@ -13,6 +13,7 @@ OSCArgMatcher matches an argument template to a [Function](../Classes/Function.m
 
 ## Class Methods
 
+
 ### `new`
 Make a new OSCArgsMatcher**Arguments:**
 
@@ -23,6 +24,7 @@ Make a new OSCArgsMatcher**Arguments:**
 
 
 ## Instance Methods
+
 
 ### `value`
 Test if an incoming message's arguments match, and if so evaluate this object's function. In normal usage (within an OSCFunc) this is done behind the scenes.**Arguments:**
@@ -37,7 +39,7 @@ Test if an incoming message's arguments match, and if so evaluate this object's 
 ## Examples
 
 
-```supercollider
+```
 // Basic example (standalone use)
 m = OSCArgsMatcher([1, nil, 2], { 'matches!'.postln });
 m.value(['/myAddress', 1, 3, 2], 0.0, NetAddr.localAddr, NetAddr.langPort); // matches!

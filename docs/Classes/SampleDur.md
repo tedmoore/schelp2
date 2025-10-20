@@ -13,6 +13,7 @@ Returns the current sample duration of the server. Equivalent to 1/SampleRate.
 
 ## Class Methods
 
+
 ### `ir`
 
 

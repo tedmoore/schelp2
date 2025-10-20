@@ -23,7 +23,7 @@ If a piece of code runs into an unexpected condition, it creates an exception ob
 
 ### Common syntax in other languages for exception handling is:
 
-```supercollider
+```
 try { ...code... }
 catch { ...exception handler... }
 ```
@@ -32,7 +32,7 @@ catch { ...exception handler... }
 Specific languages may have other variants. The SuperCollider compiler doesn't have room for the "catch" keyword, so the syntax is simpler:
 
 
-```supercollider
+```
 try { ...code... } { ...exception handler... };
 ```
 
@@ -40,7 +40,7 @@ try { ...code... } { ...exception handler... };
 With "try", "if" the error cannot be handled, you have to re-throw the error explicitly:
 
 
-```supercollider
+```
 try { ...code... } { |error|
     if(test: can I handle the error?) {
         handle gracefully
@@ -52,7 +52,7 @@ try { ...code... } { |error|
 SuperCollider includes a variant, borrowed from Scheme, in which the exception is always fatal, but the preceding code might have allocated some resources that need to be released before reporting the error. For example, you might open a file and do some processing on it that might encounter an error. Good practice is to close the file before the error halt, which you can do this way:
 
 
-```supercollider
+```
 file = File(path, "r");
 protect {
     work with the file here, which might cause an error
@@ -67,7 +67,7 @@ With "protect" the second function will execute even if there is no error, and a
 In Java, you can catch specific classes of exception. You can simulate this usage with the following construction:
 
 
-```supercollider
+```
 // Java-style
 
 try { }
@@ -89,7 +89,7 @@ try { } { |error|
 Following is an example that recovers from a failed attempt to write into an immutable array, by re-attempting the write on a copy of the array.
 
 
-```supercollider
+```
 (
 ~inPlaceSub = { |array, find, replace|
     array.do({ |item, i|

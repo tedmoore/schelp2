@@ -11,7 +11,7 @@
 SuperCollider implements a number of UGens supporting Fast Fourier Transform (FFT) based processing. The most basic of these are FFT and IFFT (inverse-FFT) which convert data between the time and frequency domains:
 
 
-```supercollider
+```
 chain = FFT(buffer, input)
 ```
 
@@ -19,7 +19,7 @@ chain = FFT(buffer, input)
 
 
 
-```supercollider
+```
 output = IFFT(chain)
 ```
 
@@ -38,7 +38,7 @@ where `f` is the frequency corresponding to the window size, and `N` is the wind
 The `FFT` UGen returns a signal (usually called **chain**) is constant at `-1`, only when a new FFT window starts, the signal equals the buffer number. This is how subsequent FFT UGens can write to that buffer and know when to do this. The FFT information is not in the chain signal, but in the buffer.
 
 
-```supercollider
+```
 // the FFT return signal is -1, and for each starting window,
 // it is the FFT buffer number
 
@@ -64,7 +64,7 @@ In between an FFT and an IFFT one can chain together a number of Phase Vocoder U
 See [#PV and FFT UGens in the Standard Library](#pv-and-fft-ugens-in-the-standard-library) for a list of UGens.
 
 
-```supercollider
+```
 (
 {
   var in, chain;
@@ -80,7 +80,7 @@ See [#PV and FFT UGens in the Standard Library](#pv-and-fft-ugens-in-the-standar
 In order to expand PV UGens for a multichannel input signal, an appropriate array of buffers must be provided (not a multichannel buffer):
 
 
-```supercollider
+```
 (
 {
   var in, chain;
@@ -100,7 +100,7 @@ For more examples, see [#Multichannel Expansion with FFT UGens](#multichannel-ex
 PV UGens write their output data *in place*, i.e. back into the same buffer from which they read. PV UGens which require two buffers write their data into the first buffer, usually called 'bufferA'.
 
 
-```supercollider
+```
 (
 {
   var inA, chainA, inB, chainB, chain;
@@ -121,7 +121,7 @@ d.free;
 A similar example using a soundfile:
 
 
-```supercollider
+```
 // read the soundfile into a buffer
 d = Buffer.read(s, ExampleFiles.child);
 
@@ -152,7 +152,7 @@ Because each PV UGen overwrites the output of the previous one, it is necessary 
 
 
 
-```supercollider
+```
 (
 {
     var in, in2, chainA, chainB, chainC;
@@ -176,7 +176,7 @@ Because each PV UGen overwrites the output of the previous one, it is necessary 
 PV processes can also share a single FFT UGen to process a signal in parallel. In the following example, 'chain0' and 'chain1' share the same FFT UGen. SuperCollider automatically copies the FFT data from 'chain' into hidden LocalBufs inside the Synth. In the following example, if the [PV_PhaseShift](../Classes/PV_PhaseShift.md) UGen were operating directly on `chainA`, then the two [IFFT](../Classes/IFFT.md) units would produce the same signal, which, when added together, would reinforce each other. Instead, the sound is nearly silent -- proving that `chainB` is in a different buffer, even though the function does not explicitly create it.
 
 
-```supercollider
+```
 (
 x = { var inA, chainA, chainB;
     inA = LFClipNoise.ar(100);
@@ -198,7 +198,7 @@ x = { var inA, chainA, chainB;
 Note that PV UGens convert as needed between cartesian (complex) and polar representations, therefore when using multiple PV UGens it may be impossible to know in which form the values will be at any given time. FFT produces complex output (see above). The following, however, returns a reliable magnitude plot:
 
 
-```supercollider
+```
 c = Buffer.alloc(s,2048,1);
 
 (
@@ -236,7 +236,7 @@ x.free;
 It is possible to manipulate the FFT data directly within a synth graph (if there doesn't already exist a PV UGen which will do what you want), using the methods pvcalc, pvcalc2, pvcollect. Here's an example which uses the methods [SequenceableCollection#-clump](../Classes/SequenceableCollection.md#-clump) and [SequenceableCollection#-flop](../Classes/SequenceableCollection.md#-flop) to rearrange the order of the spectral bins:
 
 
-```supercollider
+```
 c = Buffer.read(s, ExampleFiles.child);
 
 (
@@ -265,7 +265,7 @@ x.free; c.free;
 Care must be taken when using multichannel expansion with FFT UGens, as they require separate buffers. Code such as this can be deceptive:
 
 
-```supercollider
+```
 chain = FFT(bufnum, { WhiteNoise.ar(0.2) }.dup);
 ```
 
@@ -275,7 +275,7 @@ The above may seem to work, but does not. It does result in two FFT UGens, but a
 When using multichannel expansion with FFT UGens it is necessary to ensure that each one writes to a different buffer. Here's an example of one way to do this:
 
 
-```supercollider
+```
 (
 SynthDef("help-multichannel FFT", { |out=0| // bufnum is an array
     var in, chain;
@@ -311,7 +311,7 @@ b.free;
 Note that dup on a UGen just makes a reference to that UGen, because UGen defines -copy to simply return the receiver. (See [UGen](../Classes/UGen.md) for more detail.)
 
 
-```supercollider
+```
 a = SinOsc.ar;
 a.dup[1] === a
 

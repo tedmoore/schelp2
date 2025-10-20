@@ -13,6 +13,7 @@ Returns a stream that returns values from the `func`.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Returns a stream that returns values from the `func`.
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b, c;
 a = Pfuncn({ exprand(0.1, 2.0) + #[1, 2, 3, 6].choose }, 2);
@@ -36,7 +37,7 @@ Pseq([a, b], inf).asStream.nextN(20).postln;
 
 Sound example
 
-```supercollider
+```
 (
 SynthDef(\help_sinegrain,
     { |out = 0, freq = 440, sustain = 0.05|

@@ -13,6 +13,7 @@
 - or if the setting controller knows the previous value and sends it along. the idea here is that if the controller knows it did the last value change, it has authority to jump now.
 
 Typical uses would be switching to a new preset, then using a faderbox, and avoiding sudden controller jumps that could occur (soft takeover).
+
 ### `softPut`
 **Arguments:**
 
@@ -30,7 +31,7 @@ Typical uses would be switching to a new preset, then using a faderbox, and avoi
 ## Examples
 
 
-```supercollider
+```
 (
 e = (amp: 0.1, dur: 0.2);
 Tdef(\test, {
@@ -61,7 +62,7 @@ e.softPut(\dur, 0.05);    // so this always really sets.
 
 
 
-```supercollider
+```
     // PatternProxies ( e.g. Tdefs, Pdefs) have a softSet method, which
     // forwards softPut to their envirs:
 
@@ -89,7 +90,7 @@ Pdef(\test).softSet(\dur, 0.05, spec: [0.03, 3, \exp]); // not OK with that spec
 
 
 
-```supercollider
+```
     // softPut and softSet can be risky - one can lose a parameter when moving a controller
     // too quickly. So, if we know the last value (e.g. because the same controller
     // knows it has set to that value), it is OK to jump:

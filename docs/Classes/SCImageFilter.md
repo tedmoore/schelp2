@@ -14,9 +14,10 @@ currently this class represents the CoreImage Filters you can apply to a SCImage
 ## Class Methods
 
 
+
 ### `new`
 
-```supercollider
+```
 f = SCImageFilter.new(\CIStarShineGenerator);
 f.attributes;
 
@@ -32,9 +33,10 @@ f.values; //
 | `filterName` | The filter name [Symbol](../Classes/Symbol.md) or [String](../Classes/String.md) |  
 | `args` | The filter name [Symbol](../Classes/Symbol.md) or [String](../Classes/String.md) |  
 
+
 ### `filterCategories`
 Returns a Dictionary containing all the filters associated by categories.
-```supercollider
+```
 // getting filter categories (dictionary)
 (
     SCImageFilter.filterCategories.keysDo({ |cat|
@@ -70,11 +72,12 @@ n;
 
 ## Instance Methods
 
+
 ### `attributes`
 returns an [IdentityDictionary](../Classes/IdentityDictionary.md) containing for each association:- the attribute/property name as the key.
 - the SuperCollider [Class](../Classes/Class.md) you should use as an argument to set the attribute.
 Once you know the attributes you can set them like using normal instance setters, use the name and append '_'.
-```supercollider
+```
 (
 f = SCImageFilter.new(\CIStarShineGenerator);
 f.attributes.keysValuesDo({ |k, v|
@@ -86,9 +89,10 @@ f.center_([200, 200]);
 f.radius_(200*0.05);
 ```
 
+
 ### `attributeRange`
 get the numerical range and the default Value for an attribute. returns an Array as `[min, max, default]`. min, max, or default may be a [Float](../Classes/Float.md), a [Color](../Classes/Color.md), an [Array](../Classes/Array.md) or [Nil](../Classes/Nil.md).
-```supercollider
+```
 // a SCImageFilter
 f = SCImageFilter.new(\CIFlashTransition);
 
@@ -106,9 +110,10 @@ f.attributes.keysDo({ |attr|
 )
 ```
 
+
 ### `values`
 returns all the values you set for each attributes. If a value is not explicitly set for an attribute, it will be set to default when applied to the SCImage.
-```supercollider
+```
 (
     f = SCImageFilter.new(\CIStarShineGenerator);
     f.center_([200, 200]);
@@ -121,15 +126,17 @@ returns all the values you set for each attributes. If a value is not explicitly
 )
 ```
 
+
 ### `set`
 set the attributes for this SCImageFilter
-```supercollider
+```
 (
     f = SCImageFilter.new(\CIStarShineGenerator);
     f.set(\center, [200, 200], \radius, 200*0.05, \color, Color.blue, \crossWidth, 2.0);
     f.values.postln;
 )
 ```
+
 
 ### `enable`
 enable or not the Filter when applied to a SCImage.**Arguments:**
@@ -141,7 +148,7 @@ enable or not the Filter when applied to a SCImage.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 // thor's fast experimentation request
 // example with the filters array which allows you to use filters without applying them in place
 // convenient for RT use / test or whatever...

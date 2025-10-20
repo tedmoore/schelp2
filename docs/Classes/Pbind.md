@@ -14,19 +14,20 @@ The keys used in a Pbind are usually determined by [Event](../Classes/Event.md)'
 
 ## Class Methods
 
+
 ### `new`
 The arguments to Pbind are an alternating sequence of keys and patterns.
-```supercollider
+```
 Pbind(\note, Pseq([0, 4, 7]), \amp, 0.1, \dur, 0.2).play
 ```
 
 The message `new` converts keyword arguments into key value pairs, so that we can write:
-```supercollider
+```
 Pbind(note: Pseq([0, 4, 7]), amp: 0.1, dur: 0.2).play
 ```
 
 A pattern can also be bound to an array of keys. In this case, the pattern must specify a sequence whose elements are arrays with at least as many elements as there are keys.
-```supercollider
+```
 Pbind([\note, \amp], Pseq([[0, 0.05],  [4, 0.5],  [7, 0.1]]), dur: 0.2).play
 ```
 
@@ -34,11 +35,13 @@ Pbind([\note, \amp], Pseq([[0, 0.05],  [4, 0.5],  [7, 0.1]]), dur: 0.2).play
 
 ## Instance Methods
 
+
 ### `patternpairs`
 The defined key value pairs mapping symbols to value patterns.
-```supercollider
+```
 Pbind(x:7, y:Pseq([1, 2, 3])).patternpairs
 ```
+
 
 ### `embedInStream`
 From within a [Stream](../Classes/Stream.md) like e.g. [Routine](../Classes/Routine.md), yield all events from this pattern before continuing. One pattern can be used to produce values for any number of independent streams.**Arguments:**
@@ -46,7 +49,7 @@ From within a [Stream](../Classes/Stream.md) like e.g. [Routine](../Classes/Rout
 | Argument | Description |
 |----------|-------------|
 | `inevent` | An event that is passed into all substreams and is used by them to produce the output events.
-```supercollider
+```
 a = Pbind(note: Pseq([0, 4, 7]), amp: 0.1, dur: 0.2);
 r = Routine { |inevent| (note:9, dur: 1).yield;  a.embedInStream(inevent);  };
 r.nextN(5, (x:7)); // passing in an event for the next 5 values from r, \x of 7 is passed through the Pbind stream
@@ -55,7 +58,7 @@ r.nextN(5, (x:7)); // passing in an event for the next 5 values from r, \x of 7 
 ## Examples
 
 
-```supercollider
+```
 (
 a = Pbind(
     x:    Pseq([1, 2, 3]),
@@ -73,7 +76,7 @@ x.next(()); // end: nil
 
 
 
-```supercollider
+```
 // sound examples
 
 // using the default synth def
@@ -96,7 +99,7 @@ Pbind(
 
 The keys can be specified as keyword arguments, as above, or as a sequence of keys to patterns provided as arguments. Additionally, when an array of keys is provided, the pattern with be unpacked into two streams (see following example). However, this does not work when using keyword arguments, and therefore must go before them. For historical reasons, you are more likely to see the sequence of keys to patterns rather than keyword arguments.
 
-```supercollider
+```
 // Both of these do the same thing.
 Pbind(a: Pseq([1, 2, 3]), dur: 1).trace.play
 Pbind(\a, Pseq([1, 2, 3]), \dur, 1).trace.play
@@ -133,7 +136,7 @@ The keys used in a Pbind are determined by the [SynthDef](../Classes/SynthDef.md
 A [SynthDef](../Classes/SynthDef.md) assigns a name to an interconnection of unit generators to be run as a synth on a server. It also assigns **control names** to the synth's control inputs. In the following example the SynthDef \test has control inputs **out**, **freq**, **amp**, **nharms**, **pan**, and **gate**.
 
 
-```supercollider
+```
 SynthDef(\test, { |out, freq = 440, amp = 0.1, nharms = 10, pan = 0, gate = 1|
     var audio = Blip.ar(freq, nharms, amp);
     var env = Linen.kr(gate, doneAction: Done.freeSelf);
@@ -251,7 +254,7 @@ Event implements a layered specification scheme for some of these controls. In t
 
 
 
-```supercollider
+```
 (
 // the SynthDef
 SynthDef(\test, { |out, freq = 440, amp = 0.1, nharms = 10, pan = 0, gate = 1|
@@ -298,7 +301,7 @@ While the play method is actually defined in the class [Pattern](../Classes/Patt
 The [EventStreamPlayer](../Classes/EventStreamPlayer.md) provides realtime control through **mute**, **unmute**, **stop**, **play** and **reset**.
 
 
-```supercollider
+```
 (
 SynthDef(\cfstring1, { |i_out, freq = 360, gate = 1, pan, amp = 0.1|
     var out, eg, fc, osc, a, b, w;
@@ -345,7 +348,7 @@ e.play;
 In addition, the stream the EventStreamPlayer plays can be altered while it is running through the method **stream_(aStream)**.
 
 
-```supercollider
+```
 (
 e.stream = Pbind(
     \degree, Pseq([0, 1, 2, 4, 6, 3, 4, 8], inf),
@@ -380,7 +383,7 @@ e.stream = Pbind(
 Here is an example with more bindings. Here we have added a filter with cutoff and resonance arguments. You will need to hit command '.' before executing the next few pbind ex. without having them stack up. also, due to the synthdef's and synthdeclib, if the server is shut down you will have to reload the synthdef and re-read the synthdesclib.
 
 
-```supercollider
+```
 (
 SynthDef(\acid, { |out, freq = 1000, gate = 1, pan = 1, cut = 4000, rez = 0.8, amp = 1|
     Out.ar(out,
@@ -404,7 +407,7 @@ Pbind(\instrument, \acid, \dur, Pseq([0.25, 0.5, 0.25], inf), \root, -12,
 The [ListPattern](../Classes/ListPattern.md)s can be put around Event Streams to create sequences of Event Streams.
 
 
-```supercollider
+```
 (
 Pseq([
     Pbind(\instrument, \acid, \dur, Pseq([0.25, 0.5, 0.25], 4), \root, -24,
@@ -422,7 +425,7 @@ Pseq([
 'Pseq' in the above ex. can be any pattern object:
 
 
-```supercollider
+```
 (
 Prand([
     Pbind(\instrument, \acid, \dur, Pseq([0.25, 0.5, 0.25], 4), \root, -24,
@@ -446,7 +449,7 @@ If we supply an array for **any** argument, the synth node will automatically re
 The only **exception** to this is: `\instrument` and `\dur`. For the general schema, see also: [Multichannel-Expansion](../Guides/Multichannel-Expansion.md).
 
 
-```supercollider
+```
 // When we provide the 'root' argument an array, we should hear a chord.
 // the synth def is defined above
 (
@@ -480,7 +483,7 @@ Pbind(
 
 
 
-```supercollider
+```
 // so this does not expand:
 Pbind(\degree, [Pseq([0, 2, 3], inf), Pseq([2, 4, 5, 6], inf)]).play;
 
@@ -490,7 +493,7 @@ Pbind(\degree, Pseq([[0, 2], [2, 4], [3, 5], [0, 6]], inf)).play;
 
 
 
-```supercollider
+```
 // transform an array of patterns into a pattern that returns arrays, use Ptuple:
 a = [Pseq([1, 2, 3], inf), Prand([100, 299, 399], inf), Pseries(0, 6, inf)];
 b = Ptuple(a);
@@ -499,13 +502,13 @@ b.asStream.nextN(8)
 
 
 
-```supercollider
+```
 Pbind(\degree, Ptuple([Pseq([0, 2, 3], inf), Pseq([2, 4, 5, 6], inf)])).play;
 ```
 
 
 
-```supercollider
+```
 // an example: instead of \degree, [p1, p2] you write \degree, Ptuple([p1, p2])
 (
 Pdef(\x,
@@ -527,7 +530,7 @@ Pdef(\x,
 Using [Pdef](../Classes/Pdef.md) (provided by [JITLib](../Overviews/JITLib.md)) makes it easy to replace patterns on the fly:
 
 
-```supercollider
+```
 (
 Pdef(\buckyball).play;
 )
@@ -560,7 +563,7 @@ Pdef.remove(\buckyball);
 Assignment to effect processors can be achieved by setting the 'out' argument to the desired efx's input bus. The effect Synth must also be created. Synth.new is one way of doing this.
 
 
-```supercollider
+```
 (
 // efx synthdef- dig the timing on the delay and the pbind. :-P
 SynthDef(\pbindefx, { |out, in, time1 = 0.25, time2 = 0.5|
@@ -599,7 +602,7 @@ Pbind(\instrument, \acid, \out, 20, \dur, Pseq([0.25, 0.5, 0.25], inf), \root, [
 
 ### Additional examples
 
-```supercollider
+```
 (
 SynthDef(\berlinb, { |out = 0, freq = 80, amp = 0.01, pan = 0, gate = 1|
     var synth, env;

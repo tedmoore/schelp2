@@ -12,13 +12,15 @@ A view that allows setting a numerical value by means of moving a sliding handle
 ## Class Methods
 
 
+
 ### `new`
- When a new Slider is created, its [orientation](#orientation) is determined by the initial size: if it is wider than high, the orientation will be horizontal, otherwise it will be vertical.
+ When a new Slider is created, its [#-orientation](#-orientation) is determined by the initial size: if it is wider than high, the orientation will be horizontal, otherwise it will be vertical.
 
 ## Instance Methods
 
 
 ### Data
+
 ### `value`
  Numerical value between 0 and 1, represented by the handle position within the groove.**Arguments:**
 
@@ -26,17 +28,20 @@ A view that allows setting a numerical value by means of moving a sliding handle
 |----------|-------------|
 | `` | A Float. |  
 
+
 ### `valueAction`
- Sets [value](#value) and triggers [action](#action).
+ Sets [#-value](#-value) and triggers [#-action](#-action).
+
 ### `increment`
- Increments the value by [step](#step) multiplied by 'factor'.**Arguments:**
+ Increments the value by [#-step](#-step) multiplied by 'factor'.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `factor` | Any number. |  
 
+
 ### `decrement`
- Decrements the value by [step](#step) multiplied by 'factor'.**Arguments:**
+ Decrements the value by [#-step](#-step) multiplied by 'factor'.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -44,6 +49,7 @@ A view that allows setting a numerical value by means of moving a sliding handle
 
 
 ### Appearance
+
 ### `orientation`
  The orientation of the Slider - the direction in which the handle moves. The default value depends on the size of the view when created.**Arguments:**
 
@@ -51,12 +57,14 @@ A view that allows setting a numerical value by means of moving a sliding handle
 |----------|-------------|
 | `` | One of the two Symbols: \horizontal or \vertical. |  
 
+
 ### `thumbSize`
- The size of the handle - its width or height, depending on [orientation](#orientation).**Arguments:**
+ The size of the handle - its width or height, depending on [#-orientation](#-orientation).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An Integer amount of pixels. |  
+
 
 ### `background`
  The color of the background.**Arguments:**
@@ -64,6 +72,7 @@ A view that allows setting a numerical value by means of moving a sliding handle
 | Argument | Description |
 |----------|-------------|
 | `` | A Color. |  
+
 
 ### `knobColor`
  The color of the handle.**Arguments:**
@@ -74,31 +83,36 @@ A view that allows setting a numerical value by means of moving a sliding handle
 
 
 ### Interaction
+
 ### `step`
- The amount by which the value will changed when [increment](#increment) or [decrement](#decrement) is called, or when related keys are pressed.**Arguments:**
+ The amount by which the value will changed when [#-increment](#-increment) or [#-decrement](#-decrement) is called, or when related keys are pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
+
 
 ### `pixelStep`
  The absolute amount by which the value would change if the handle moved by one pixel.**Returns:** A Float.
+
 ### `shift_scale`
- The factor by which [step](#step) is multiplied when incrementing or decrementing the value by keyboard while the Shift key is pressed.**Arguments:**
+ The factor by which [#-step](#-step) is multiplied when incrementing or decrementing the value by keyboard while the Shift key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
+
 
 ### `ctrl_scale`
- The factor by which [step](#step) is multiplied when incrementing or decrementing the value by keyboard while the Ctrl key is pressed.**Arguments:**
+ The factor by which [#-step](#-step) is multiplied when incrementing or decrementing the value by keyboard while the Ctrl key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
 
+
 ### `alt_scale`
- The factor by which [step](#step) is multiplied when incrementing or decrementing the value by keyboard while the Alt key is pressed.**Arguments:**
+ The factor by which [#-step](#-step) is multiplied when incrementing or decrementing the value by keyboard while the Alt key is pressed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -106,26 +120,31 @@ A view that allows setting a numerical value by means of moving a sliding handle
 
 
 ### Actions
+
 ### `action`
  The action object evaluated whenever the user moves the handle.
+
 ### `defaultKeyDownAction`
  Implements the default effects of key presses as follows:| **Key** | **Effect** | 
 | --- | --- || r | valueAction_(1.0.rand) | | n | valueAction_(0) | | x | valueAction_(1) | | c | valueAction_(0.5) | | ] | increment | | [ | decrement | | up arrow | increment | | down arrow | decrement | | right arrow | increment | | left arrow | decrement | 
 
 ### Drag and drop
+
 ### `defaultGetDrag`
-**Returns:** The [value](#value).
+**Returns:** The [#-value](#-value).
+
 ### `defaultCanReceiveDrag`
 **Returns:** True if the current drag data is a number.
+
 ### `defaultReceiveDrag`
- Sets [valueAction](#valueaction) to the current drag data.
+ Sets [#-valueAction](#-valueaction) to the current drag data.
 
 ## Examples
 
 
 ### Show the slider value in a NumberBox
 
-```supercollider
+```
 (
 w = Window.new.front;
 c = NumberBox(w, Rect(20, 20, 150, 20));
@@ -152,7 +171,7 @@ a.action.value;
 
 ### Use a Spec to round and map the output range
 
-```supercollider
+```
 (
 w = Window.new.front;
 b = ControlSpec(-50, 50, \linear, 0.01); // min, max, mapping, step
@@ -174,7 +193,7 @@ a.action.value;
 
 ### Change the stepsize of the slider, selected via a PopUpMenu
 
-```supercollider
+```
 (
 w = Window.new.front;
 a = ["0", "0.0625", "0.125", "0.25", "0.5", "1"];
@@ -197,7 +216,7 @@ c = NumberBox(w, Rect(20, 20, 100, 20));
 
 ### Use the slider view to accept key actions
 
-```supercollider
+```
 ( // select the slider, type something and watch the post window
 w = Window.new;
 c = Slider(w, Rect(0, 0, 100, 30));
@@ -215,7 +234,7 @@ w.front;
 This is useful for adding things to existing frameworks that have action functions already.
 
 
-```supercollider
+```
 (
 w = Window.new("A Slider");
 a = Slider.new(w, Rect(40, 10, 300, 30));
@@ -241,7 +260,7 @@ a.action = nil;
 
 ### Use Slider for triggering sounds
 
-```supercollider
+```
 (
 s.waitForBoot({
 
@@ -274,7 +293,7 @@ s.waitForBoot({
 
 ### Change background color of Window
 
-```supercollider
+```
 (
 w = Window("RGB fader", Rect(100, 500, 400, 400))
     .front;

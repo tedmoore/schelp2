@@ -13,12 +13,13 @@ Skips an initial (count) number of events from a pattern.
 
 ## Class Methods
 
+
 ### `new`
 drops **count** elements of the **pattern** from the stream.
 ## Examples
 
 
-```supercollider
+```
 (
 p = Pdrop(2, Pseq([1, 2, 3, 4], 6));
 q = p.asStream.nextN(20).postln;

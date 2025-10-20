@@ -17,8 +17,10 @@ A [ServerMeterView](../Classes/ServerMeterView.md) is a modular widget for showi
 
 ## Class Methods
 
+
 ### `height`
 Get the height in pixels of the standard [ServerMeterView](../Classes/ServerMeterView.md) widget**Returns:** an [Integer](../Classes/Integer.md)
+
 ### `getWidth`
 Get the width in pixels of a [ServerMeterView](../Classes/ServerMeterView.md) widget with the given number of inputs and outputs**Arguments:**
 
@@ -28,6 +30,7 @@ Get the width in pixels of a [ServerMeterView](../Classes/ServerMeterView.md) wi
 | `numOuts` | number of outputs used to calculate the width |  
 | `server` | the server |  
 **Returns:** an [Integer](../Classes/Integer.md)
+
 ### `new`
 Create a new [ServerMeterView](../Classes/ServerMeterView.md) instance**Arguments:**
 
@@ -42,17 +45,21 @@ Create a new [ServerMeterView](../Classes/ServerMeterView.md) instance**Argument
 
 ## Instance Methods
 
+
 ### `view`
-get the [CompositeView](../Classes/CompositeView.md) used to construct the various elements of the [ServerMeterView](../Classes/ServerMeterView.md) widget**Returns:** a [CompositeView](../Classes/CompositeView.md)### `remove`
-Removes this [ServerMeterView](../Classes/ServerMeterView.md) from its parent view (if any) and then destroys it. Once this method is called you can no longer use this [ServerMeterView](../Classes/ServerMeterView.md).### `start`
-Enable the monitoring of input/outputs**Returns:** this [ServerMeterView](../Classes/ServerMeterView.md)### `stop`
+get the [CompositeView](../Classes/CompositeView.md) used to construct the various elements of the [ServerMeterView](../Classes/ServerMeterView.md) widget**Returns:** a [CompositeView](../Classes/CompositeView.md)
+### `remove`
+Removes this [ServerMeterView](../Classes/ServerMeterView.md) from its parent view (if any) and then destroys it. Once this method is called you can no longer use this [ServerMeterView](../Classes/ServerMeterView.md).
+### `start`
+Enable the monitoring of input/outputs**Returns:** this [ServerMeterView](../Classes/ServerMeterView.md)
+### `stop`
 Disable the monitoring of input/outputs**Returns:** this [ServerMeterView](../Classes/ServerMeterView.md)
 ## Examples
 
 
 ### Simple Usage
 
-```supercollider
+```
 // make a window and embed a ServerMeterView inside of it.
 w = Window.new("Server Levels");
 ServerMeterView.new(s, w, 0@0, 2, 2);
@@ -64,7 +71,7 @@ w.front; // show the window
 
 ### A More Complex Example
 
-```supercollider
+```
 // make a GUI to monitor two servers running simultaneously
 s = Server.local;
 q = Server.internal;

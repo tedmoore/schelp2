@@ -14,6 +14,7 @@ The measure is calculated linearly. For some applications you may wish to conver
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ The measure is calculated linearly. For some applications you may wish to conver
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

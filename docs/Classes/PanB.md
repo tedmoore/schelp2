@@ -13,6 +13,7 @@ Ambisonic B format panner. Output channels are in order W, X, Y, Z.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Ambisonic B format panner. Output channels are in order W, X, Y, Z.
 ## Examples
 
 
-```supercollider
+```
 // You'll only hear the first two channels on a stereo setup.
 play({
     #w, x, y, z = PanB.ar(WhiteNoise.ar, LFSaw.kr(0.5, pi), FSinOsc.kr(0.31, 0.5pi), 0.3);

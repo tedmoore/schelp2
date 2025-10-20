@@ -14,6 +14,7 @@ LocalOut writes to buses that are local to the enclosing synth. The buses should
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ LocalOut writes to buses that are local to the enclosing synth. The buses should
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var source, local;

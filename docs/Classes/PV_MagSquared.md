@@ -13,6 +13,7 @@ Squares the magnitudes and renormalizes to previous peak. This makes weak bins w
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Squares the magnitudes and renormalizes to previous peak. This makes weak bins w
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

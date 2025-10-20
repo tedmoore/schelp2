@@ -12,7 +12,7 @@ An integer bit field indicating the modifier keys in effect. You can examine ind
 | 65536 NSAlphaShiftKeyMask | Set if Caps Lock key is pressed. | 
 | --- | --- || 131072 NSShiftKeyMask | Set if Shift key is pressed. | | 262144 NSControlKeyMask | Set if Control key is pressed. | | 524288 NSAlternateKeyMask | Set if Option or Alternate key is pressed. | | 1048576 NSCommandKeyMask | Set if Command key is pressed. | | 2097152 NSNumericPadKeyMask | Set if any key in the numeric keypad is pressed. The numeric keypad is generally on the right side of the keyboard. | | 4194304 NSHelpKeyMask | Set if the Help key is pressed. | | 8388608 NSFunctionKeyMask | Set if any function key is pressed. The function keys include the F keys at the top of most keyboards (F1, F2, and so on) and the navigation keys in the center of most keyboards (Help, Forward Delete, Home, End, Page Up, Page Down, and the arrow keys). | | Arrow keys | Arrow keys have an extra modifier value of 10485760 so for a shift arrow key do a bitwise 'or' with the shift mask: `10485760 | 131072 = 10616832 // this is the mask for shift arrow key` | Three usage examples, direct and with helper methods `isCaps`, `isShift`, `isCtrl`, `isAlt`, `isCmd`, `isNumPad`, `isHelp`, `isFun`:
 
-```supercollider
+```
 (
 w = Window.new.front; w.addFlowLayout;
 

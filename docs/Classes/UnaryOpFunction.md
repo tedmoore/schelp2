@@ -13,7 +13,7 @@ Operating on functions instead of numbers, what results is not a result of the c
 ## Examples
 
 
-```supercollider
+```
 a = 2.sqrt; // result is square root of two (approximate floating point).
 a = { b }.sqrt; // result is  a UnaryOpFunction
 b = 2;
@@ -24,7 +24,7 @@ a.value; // again, with a different value.
 
 
 
-```supercollider
+```
 // sound example
 (
 var a = { 19.rand };

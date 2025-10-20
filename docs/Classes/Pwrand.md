@@ -13,7 +13,7 @@ Returns one item from the list at random for each repeat, the probability for ea
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pwrand.new([1, 2, 3], [1, 3, 5].normalizeSum, 6);    // return 6 items

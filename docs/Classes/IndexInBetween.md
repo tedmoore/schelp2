@@ -15,6 +15,7 @@ IndexInBetween is the complement of [IndexL](../Classes/IndexL.md).
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ IndexInBetween is the complement of [IndexL](../Classes/IndexL.md).
 ## Examples
 
 
-```supercollider
+```
 (
 // autotune.
 {

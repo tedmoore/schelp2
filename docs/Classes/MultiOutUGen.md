@@ -17,6 +17,7 @@ This is a superclass for all UGens with multiple outputs. MultiOutUGen creates t
 
 ## Instance Methods
 
+
 ### `initOutputs`
 Create an array of OutputProxies for the outputs.**Arguments:**
 

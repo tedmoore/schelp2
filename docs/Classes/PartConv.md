@@ -16,6 +16,7 @@ Normalisation factors difficult to anticipate; convolution piles up multiple cop
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -30,7 +31,7 @@ Normalisation factors difficult to anticipate; convolution piles up multiple cop
 ## Examples
 
 
-```supercollider
+```
 // preparation; essentially, allocate an impulse response buffer, then
 // follow a special buffer preparation step to set up the data the plugin needs.
 // Different options are provided commented out for loading impulse responses from soundfiles.

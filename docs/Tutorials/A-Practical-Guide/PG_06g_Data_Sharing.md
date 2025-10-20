@@ -19,7 +19,7 @@ Within a Pbind, value patterns can easily read from other values that have alrea
 
 **`Pkey(key)`**
 : Read the `key` in the input event. Outputs values until the input event doesn't contain the key (i.e., the value is nil). There is no `repeats` argument. If you need to limit the number of values, wrap Pkey in [Pfin](../../Classes/Pfin.md).
-```supercollider
+```
 p = Pkey(\a).asStream;
 
 // The input value is an event with \a = 2, \b = 3; code::next:: result is 2
@@ -31,7 +31,7 @@ p.next((a: 2, b: 3));    // returns 6 == 2 * 3
 ```
 
 In this simple example, staccato vs. legato is calculated based on scale degree: lower notes are longer and higher notes are shorter. That only scratches the surface of this technique!Be aware that Pkey can only look backward to keys stated earlier in the Pbind definition. Pbind processes the keys in the order given. In the example, it would not work to put `legato` first and have it refer to `degree` coming later, because the degree value is not available yet.
-```supercollider
+```
 // something simple - the higher the note, the shorter the length
 (
 p = Pbind(
@@ -59,7 +59,7 @@ These patterns represent three different strategies to persist information from 
 
 **`Pfset(func, pattern, cleanupFunc)`**
 : When embedded, [Pfset](../../Classes/Pfset.md) creates an environment and populates it using environment variable assignments in the provided function. For every `next` call, the values in the preset environment are inserted into the event prototype before evaluating the child pattern. This is one way to set defaults for the pattern. It could also be used to load objects on the server, although this takes some care because the object would be reloaded every time the Pfset is played and you are responsible for freeing objects created this way in the cleanupFunc. (Pproto is another way; see [A-Practical-Guide/PG_06f_Server_Control](../../Tutorials/A-Practical-Guide/PG_06f_Server_Control.md) .)
-```supercollider
+```
 (
 SynthDef(\playbuf, { |bufnum, start, dur = 1, amp = 0.2, out|
     var    sig = PlayBuf.ar(1, bufnum, BufRateScale.ir(bufnum), 0, start);
@@ -93,7 +93,7 @@ p.stop;
 
 **`Plambda(pattern, scope)`**
 : Maintains an 'eventScope' environment, that is attached to events while they're being processed. Values can be assigned into the event scope using Plet(key, pattern, return), and read from scope using `Pget(key, default, repeats)`. Pget is somewhat similar to Pkey, but it has a `repeats` argument controlling the number of return values as well as a `default` that will be used if the given key is not found in the event scope.A unique feature of [Plambda](../../Classes/Plambda.md) / [Plet](../../Classes/Plet.md) / [Pget](../../Classes/Pget.md) is the ability for Plet to assign one value to the event scope and return another value to the main event simultaneously. Plet assigns the value from its `pattern` into the event scope. The `return` argument is optional; if provided, it gives the value to return back to Pbind.Plambda removes the eventScope before returning the final event to the caller. You can see the scope by tracing the inner pattern.
-```supercollider
+```
 p = Plambda(
     Pbind(
         \a, Plet(\z, Pseries(0, 1, inf), Pseries(100, -1, inf)),
@@ -105,7 +105,7 @@ p.next(());
 ```
 
 Something similar can be done with Pkey, by using intermediate values in the event that don't correspond to any SynthDef control names. There's no harm in having extra values in the event that its synth will not use; only the required ones are sent to the server. Often this is simpler than Plambda, but there might be cases where Plambda is the only way.
-```supercollider
+```
 p = Pbind(
     \z, Pseries(0, 1, inf),
     \a, Pseries(100, -1, inf),
@@ -130,7 +130,7 @@ The solution is a timing offset mechanism, which delays the sound of an event by
 | **Beat** | **Client timing** | **Server timing** | 
 | --- | --- | --- || 0.9 | Bass event calculated | (bass event delayed by 0.1, nothing happens here) | | 1.0 | Chord event calculated | Both bass and chord make sound | 
 
-```supercollider
+```
 (
 TempoClock.default.tempo = 1;
 
@@ -174,7 +174,7 @@ TempoClock.default.tempo = 1;
 The chord pattern demonstrates some of the ways higher-level logic can be expressed in patterns. The goal is to transpose the notes of the root position triad over the bass note by octave so that the notes all fall within the octave beneath a top note (chosen by stepwise motion). `Pkey(\topNote) - Pkey(\bassTriadNotes)` gives the number of transposition steps to bring the triad notes up to the top note; then the transposition steps are truncated to the next lower octave ( `x div: 7` is integer division producing an octave number; multiplying by 7 gives the number of scale degrees for that octave).
 
 
-```supercollider
+```
 f = { |topNote, triad|
     var    x;
     x = (topNote - triad).debug("initial transposition steps");
@@ -197,7 +197,7 @@ The above example breaks one of the design principles of patterns. Ideally, it s
 It is possible, using [Ptpar](../../Classes/Ptpar.md) and [Penvir](../../Classes/Penvir.md), to create independent environments for event storage as part of the pattern itself. By default, Penvir creates a new copy of its environment for each stream, guaranteeing independence. While the pattern is running, `~lastBassEvent = event` saves the event in the stream's copy of the storage environment, and it's available to both Pbinds because both are under control of Penvir (indirectly through Ptpar).
 
 
-```supercollider
+```
 (
 p = Penvir((), Ptpar([
     0.0, Pbind(

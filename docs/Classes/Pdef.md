@@ -12,7 +12,7 @@ Pdef registers patterns by key. All accesses to the registered patterns go throu
 Pdef is a class that provides an interface to its superclass [EventPatternProxy](../Classes/EventPatternProxy.md), keeping a reference to a stream that can be replaced while playing. One pattern may be used in many streams in different places. A change in the pattern definition propagates through all streams.
 Pdef and Pdefn use separate global collections.
 
-```supercollider
+```
 Pdef(key)    // returns the instance
 Pdef(key, pat)    // stores the pattern and returns the instance, like Tdef and Ndef.
 ```
@@ -23,7 +23,7 @@ For **non-event patterns** [Pdefn](../Classes/Pdefn.md) is used instead. For ano
 
 ### First Example
 
-```supercollider
+```
 s.boot;
 
 Pdef(\x, Pbind(\note, Pbrown(0, 6, 0.1, inf)));
@@ -42,11 +42,13 @@ Pdef(\x, Pbind(\freq, Pseq([1000, 1923, 245.2, 1718] / 1.2 + 0.1, inf)));
 
 ## Class Methods
 
+
 ### `all`
 A global [IdentityDictionary](../Classes/IdentityDictionary.md) with all proxies.
 
 
 ### Creation
+
 ### `new`
 Store the pattern in a global dictionary under key, replacing its pattern with the new one. If the pattern is a **function**, Pdef creates a [PlazyEnvir](../Classes/PlazyEnvir.md) internally that dynamically creates the pattern returned from the function, applying the arguments from the inevent.Using ***new(key)** you can access the pattern at that key (if none is given, a default silent event is created)**Arguments:**
 
@@ -54,7 +56,7 @@ Store the pattern in a global dictionary under key, replacing its pattern with t
 |----------|-------------|
 | `key` | An identifier for the proxy. Usually, it is a [Symbol](../Classes/Symbol.md). The key transparently accesses the global [IdentityDictionary](../Classes/IdentityDictionary.md). |  
 | `item` | An object for (re)defining the source of the proxy. If `nil`, the proxy is returned unmodified.
-```supercollider
+```
 (
 SynthDef(\Pdefhelp, { |out, freq, sustain = 1, amp = 1, pan|
     var env = EnvGen.kr(Env.perc(0.01, sustain), 1, doneAction: Done.freeSelf);
@@ -79,14 +81,19 @@ Pdef(\x, Pbind(\instrument, \Pdefhelp, \note, Pseq([0, 4, 7, 3, 0, 1, 0], inf)))
 Pdef(\y, Pdef(\stut) <> (pattern: Pdef(\x), dup: Pseq([2, 2, 4, 3], inf)) <> (dur: 0.1, legato: 0.2)).play;
 ``` |  
 
+
 ### `default`
 Default source, if none is given. The default is an Event.silent of 1.0 beat duration.
+
 ### `removeAll`
 Remove all proxies from the global dictionary ([#*all](#*all))
+
 ### `clear`
 Clear all proxies, setting their source to silence.
+
 ### `all`
 Set or return the environment ([IdentityDictionary](../Classes/IdentityDictionary.md)) that stores all Pdefs.
+
 ### `defaultQuant`
 Set the default quantisation for new instances (default: 1.0). This can be an array [quant, phase, timingOffset, outset]
 
@@ -97,8 +104,10 @@ Set the default quantisation for new instances (default: 1.0). This can be an ar
 ### Changing the definition / setting the source
 One pattern may have many streams in different places. A change in the pattern definition Pdef propagates through all streams. The change does not have to be immediate - there is a scheme to schedule when the change becomes effective: a **quant** and **clock** (like elsewhere) and a **condition**.
 
+
 ### `clock`
-get or set the instance's default clock, used by [play](#play) if no other clock is specified. Defaults to TempoClock.default.
+get or set the instance's default clock, used by [#-play](#-play) if no other clock is specified. Defaults to TempoClock.default.
+
 ### `quant`
 Set the quantisation time for beat accurate scheduling.**Arguments:**
 
@@ -106,27 +115,37 @@ Set the quantisation time for beat accurate scheduling.**Arguments:**
 |----------|-------------|
 | `val` | can be an array **[quant, phase, timingOffset, outset]**, or just **[quant, phase]** etc. |  
 
+
 ### `condition`
 Provide a condition under which the pattern is switched when a new one is inserted. The stream value and a count value is passed into the function.
+
 ### `count`
 Create and update condition that simply counts up to n and switches the pattern then
+
 ### `reset`
 Switch the pattern immediately (stuck conditions can be subverted by this).
+
 ### `fadeTime`
 When the synthdefs that are used contain an `\amp` control, the patterns are replaced by crossfading the previous with the new over this time (in beats)
+
 ### `envir`
 Set the event for the Pdef. It is used to filter the incoming stream before it is passed to the source pattern. This is similar to [NodeProxy#-nodeMap](../Classes/NodeProxy.md#-nodemap). When set for the first time, the pattern is rebuilt.
+
 ### `set`
 Set arguments in the default event. If there is none, it is created and the pattern is rebuilt.
+
 ### `map`
 Map Pdefn to the keys in the event.
+
 ### `clear`
 Set the source to nil
+
 ### `endless`
 Returns a [Prout](../Classes/Prout.md) that plays the proxy endlessly, replacing **nil** with a **default** value (silent event). This allows to create streams that idle on until a new pattern is inserted.
 
 ### Pdef as stream reference
 A single Pdef may serve as a definition for multiple streams. These methods show how to fork off separate streams from one instance. Even if they run in different contexts, their definition may still be changed.
+
 
 ### `fork`
 Play an independent stream in parallel.**Arguments:**
@@ -137,22 +156,29 @@ Play an independent stream in parallel.**Arguments:**
 | `quant` | can be an array of [quant, phase, offset], or a [Quant](../Classes/Quant.md) value. |  
 | `protoEvent` | An [Event](../Classes/Event.md) to pass in that is used by the substream |  
 **Returns:** an [EventStreamPlayer](../Classes/EventStreamPlayer.md).
+
 ### `embed`
 Pass a value (typically an [Event](../Classes/Event.md)) into the pattern inval, and embed the Pdef in the stream.
+
 ### `embedInStream`
 just like any pattern, embeds itself in stream
 
 ### Pdef as EventStreamPlayer
-For live coding, each Pdef also may control one instance that plays one stream off it. This is an [EventStreamPlayer](../Classes/EventStreamPlayer.md), accessible in the instance variable [player](#player).
+For live coding, each Pdef also may control one instance that plays one stream off it. This is an [EventStreamPlayer](../Classes/EventStreamPlayer.md), accessible in the instance variable [#-player](#-player).
+
 
 ### `play`
 Starts the Pdef and creates a player. (See: [EventPatternProxy#-play](../Classes/EventPatternProxy.md#-play))
+
 ### `stop`
 Stops the player
+
 ### `player`
 Return the current player (if the Pdef is simply used in other streams this is nil)
+
 ### `pause`, `resume`, `reset`
 Perform this method on the player.
+
 ### `isPlaying`
 Returns true if player is running. If a Pdef is playing and its stream ends, it will schedule a stream for playing **as soon as a new one is assigned to it**. If it is stopped by **stop**, it won't.
 
@@ -161,7 +187,7 @@ Returns true if player is running. If a Pdef is playing and its stream ends, it 
 
 ### Pdef as stream reference
 
-```supercollider
+```
 s.boot;
 
 (
@@ -245,7 +271,7 @@ x.stop;
 
 ### Pdef as EventStreamPlayer
 
-```supercollider
+```
 (
 // load a synthdef
 s.boot;
@@ -327,7 +353,7 @@ PdefAllGui(18);
 Pdefs can be used recursively under the condition that the stream call structure allows it. a structure like the following works:
 
 
-```supercollider
+```
 Pdef(\x, Pseq([Pbind(\instrument, \gpdef), Pdef(\x)], inf));
 Pdef(\x).play;
 ```
@@ -336,7 +362,7 @@ Pdef(\x).play;
 but the following would crash, because `.embedInStream` is called recursively with no limit:
 
 
-```supercollider
+```
 // Pdef(\y, Pseq([Pdef(\y), Pbind(\instrument, \gpdef)], inf));
 ```
 
@@ -355,7 +381,7 @@ quant can be: **[quant, phase, timingOffset, outset]**
 
 
 
-```supercollider
+```
 (
 Pdef(\x).quant_([8, 0, 0, 1]);
 Pdef(\y).quant_([8, 0.5, 0, 1]); // phase: half a beat
@@ -412,12 +438,12 @@ Pdef(\x, Pbind(\degree, Pseq((0..7), inf)).trace(\degree));
 
 
 ### Update condition
-In order to be able to switch to a new pattern under a certain [condition](#condition), the instance variable condition can be set to a function that returns a boolean. Value and a count index are passed to the function. The condition is always valid for the **next pattern** inserted. For stuck conditions, the [reset](#reset) message can be used.
+In order to be able to switch to a new pattern under a certain [#-condition](#-condition), the instance variable condition can be set to a function that returns a boolean. Value and a count index are passed to the function. The condition is always valid for the **next pattern** inserted. For stuck conditions, the [#-reset](#-reset) message can be used.
 
-As counting up (such as *"every nth event, a swap can happen"*) is a common task, there is a method for this, called [count](#count)(n).
+As counting up (such as *"every nth event, a swap can happen"*) is a common task, there is a method for this, called [#-count](#-count)(n).
 
 
-```supercollider
+```
 Pdef(\x).play;
 Pdef(\x).quant = 0; // we don't want quant here.
 Pdef(\x, Pbind(\degree, Pseq((0..5), inf), \dur, 0.3)).condition_({ |val, i| i.postln % 6 == 0 });
@@ -434,7 +460,7 @@ Pdef(\x, Pbind(\degree, Pseq((0..7) + 5.rand, inf), \dur, 0.3)).count(8);
 
 ### reset
 
-```supercollider
+```
 // reset to change immediately:
 Pdef(\x).reset;
 ```

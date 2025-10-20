@@ -11,6 +11,7 @@ Converts the FFT frames to their complex conjugate (i.e. reverses the sign of th
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -21,7 +22,7 @@ Converts the FFT frames to their complex conjugate (i.e. reverses the sign of th
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

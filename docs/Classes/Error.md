@@ -9,7 +9,7 @@
 Error and its subclasses separate different types of error is that can occur in the SuperCollider program into distinct classes, so that they can be reported differently to the user.
 Anywhere that an error must be reported to the user and execution must stop, an error object must be created and thrown.
 
-```supercollider
+```
 (
 var file, path = "betcha-this-file-doesnt-exist.txt";
 if((file = File(path, "r")).isOpen) {
@@ -24,7 +24,7 @@ if((file = File(path, "r")).isOpen) {
 
 For backward compatibility, `.die()` creates the error for you.
 
-```supercollider
+```
 "Keyboard not found. Press F1 to Resume.".die;
 ```
 

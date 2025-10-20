@@ -8,6 +8,7 @@
 ## Description
 The [plot method](../Overviews/Methods.md#plot) provides the ability to plot data in a GUI window. The method is implemented in the [ArrayedCollection](../Classes/ArrayedCollection.md) class but is also available for other classes for convenience, including [Function](../Classes/Function.md), [Bus](../Classes/Bus.md), [Env](../Classes/Env.md), [Buffer](../Classes/Buffer.md), [SoundFile](../Classes/SoundFile.md), [Wavetable](../Classes/Wavetable.md).
 
+
 ### `plot`
 All arguments are optional.
 > **Note:** The arguments available vary from object to object. The below list is only for explanation of possible arguments.
@@ -34,7 +35,7 @@ If `minval` and/or `maxval` are set to `nil` (this is default, except for [Buffe
 
 
 
-```supercollider
+```
 // Arrays
 [5, 6, 7, 6.5, 4.5, 3.5].plot("Some data")
 [5, 6, 7, 6.5, 4.5, 3.5].plot("Some data, in stereo", numChannels:2)

@@ -13,6 +13,7 @@ At each iteration, Ptuple returns a tuple (array) combining the output of each o
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ At each iteration, Ptuple returns a tuple (array) combining the output of each o
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pseq([1, 2, 3], inf);

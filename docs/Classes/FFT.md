@@ -11,7 +11,7 @@
 The fast fourier transform analyzes the frequency content of a signal, which can be useful for audio analysis or for frequency-domain sound processing (phase vocoder).
 
 > **Note:** FFT and [IFFT](../Classes/IFFT.md) UGens require a buffer to store the frequency-domain data. This buffer must have exactly one channel. *Multichannel buffers are never supported.*To do FFT processing on a multichannel signal, provide an array of mono buffers, one for each channel. Then, FFT/IFFT will perform [Multichannel-Expansion](../Guides/Multichannel-Expansion.md), to process each channel separately.
-```supercollider
+```
 // NO: The buffer has two channels -- this will not work
 fft = FFT(LocalBuf(2048, 2), aStereoSignal);
 
@@ -30,6 +30,7 @@ See also [FFT-Overview#Multichannel Expansion with FFT UGens](../Guides/FFT-Over
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -46,7 +47,7 @@ See also [FFT-Overview#Multichannel Expansion with FFT UGens](../Guides/FFT-Over
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var in, chain;

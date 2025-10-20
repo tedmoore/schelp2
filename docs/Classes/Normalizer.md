@@ -13,6 +13,7 @@ Normalizes the input amplitude to the given level. Normalizer will not overshoot
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Normalizes the input amplitude to the given level. Normalizer will not overshoot
 ## Examples
 
 
-```supercollider
+```
 (
 // example signal to process
 {

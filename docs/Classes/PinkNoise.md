@@ -18,6 +18,7 @@ Internally, this UGen calculates its output by means of the Voss-McCartney algor
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -29,7 +30,7 @@ Internally, this UGen calculates its output by means of the Voss-McCartney algor
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-PinkNoise", { |out = 0|
     Out.ar(out,

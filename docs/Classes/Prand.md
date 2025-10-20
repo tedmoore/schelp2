@@ -13,7 +13,7 @@ Embed one item from the list at random for each repeat.
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Prand([1, 2, 3, 4, 5], 6);    // return 6 items

@@ -19,6 +19,7 @@ Takes an FFT chain and extracts a single scalar value as a demand-rate stream. T
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 
@@ -29,7 +30,7 @@ Takes an FFT chain and extracts a single scalar value as a demand-rate stream. T
 | `binindex` | the integer index of the bin you want to query |  
 | `whichmeasure` | 0 for magnitude and 1 for phase. None of these arguments can be modulated. |  
 
-```supercollider
+```
 // Let's extract the DC component - i.e. the magnitude at binindex zero.
 (
 {

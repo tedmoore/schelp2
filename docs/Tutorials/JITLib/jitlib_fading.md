@@ -17,7 +17,7 @@
 - [f)](#f)_own_output_responsibility) own out channel with 'out' arg: the control ugen with the name 'out' is set to the output channel number of the proxy.
 
 
-```supercollider
+```
 p = ProxySpace.push(s.boot);
 
 ~out.play;
@@ -34,7 +34,7 @@ s.sendMsg("/n_set", 1980, \gate, 0);
 
 ## a) automatic fade envelope generation
 
-```supercollider
+```
 // no inner envelope and audio / control rate output
 (
 ~out = { PinkNoise.ar([1,1]*0.1) };
@@ -50,7 +50,7 @@ s.sendMsg("/n_set", 1980, \gate, 0);
 
 ## b) automatic free instead of crossfade
 
-```supercollider
+```
 // inner envelope that cannot free the synth, the synth is freed when a new
 // function is assigned.
 (
@@ -75,7 +75,7 @@ s.sendMsg("/n_set", 1980, \gate, 0);
 
 ## c) custom fade envelope
 
-```supercollider
+```
 // when a gate arg is provided, and the env can free the synth, this envelope
 // is supposed to be the fade envelope for the synth: no extra fade env is created.
 
@@ -92,7 +92,7 @@ s.sendMsg("/n_set", 1980, \gate, 0);
 
 ## d) SynthDef name assignment
 
-```supercollider
+```
 // if a symbol is used as input, the defname of a def on the server is supposed
 // to represent a SynthDef that has a gate, an out input and can free itself.
 (
@@ -126,7 +126,7 @@ SynthDef("test", { arg gate=1, out, fadeTime=1;
 
 
 
-```supercollider
+```
 // if the synthdef has a fixed duration envelope, it won't use the proxy's fadeTime
 (
 SynthDef("test", { arg gate=1, out;
@@ -145,7 +145,7 @@ SynthDef("test", { arg gate=1, out;
 
 ## e) own free responsibility
 
-```supercollider
+```
 //inner envelope that can free the synth, no extra fade env is created:
 (
 ~out = { arg t_trig; EnvGen.kr(Env.asr, t_trig, doneAction: Done.freeSelf) * PinkNoise.ar([1,1]) };
@@ -173,7 +173,7 @@ SynthDef("test", { arg gate=1, out;
 
 ## f) own output responsibility
 
-```supercollider
+```
 // the arg name 'out' can be used to output through the right channel.
 // of course with this one can get problems due to a wrong number of channels
 // or deliberate hacks.

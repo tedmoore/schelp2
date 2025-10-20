@@ -6,25 +6,28 @@
 
 You can see which classes implement a specific method by clicking on the method name.
 There are a number of methods that incrementally build up (or reduce down) collections like arrays or events. Nil responds by creating a collection, so that variables do not need to be initialized. Nil is just the "ground" (default case) from which the rest is bootstrapped.
+
 ### `add`
 Returns an array with the value. This makes it unnecessary to initialize when adding to a variable.
-```supercollider
+```
 x = nil;
 x = x.add(8);  // returns an array
 x = x.add(7); // appends to the array
 ```
 
+
 ### `addAll`
 Returns an array with all the values. This makes it unnecessary to initialize when adding to a variable.
-```supercollider
+```
 x = nil;
 x = x.addAll([0, 2, 1, 2]);  // returns an array
 x = x.addAll(7); // single objects are converted to an array and appended
 ```
 
+
 ### `remove`
 For nil, it just returns nil. This makes it unnecessary to initialize when removing from a variable and adding to it again.
-```supercollider
+```
 x = nil;
 x.remove(1); // stays nil, returns nil
 x = x.addAll([0, 2, 1]);  // returns an array
@@ -32,9 +35,10 @@ x.remove(1); // returns 1
 x;
 ```
 
+
 ### `++`
 Returns an array with all the values. This makes it unnecessary to initialize when adding to a variable.
-```supercollider
+```
 x = nil;
 x = x ++ [7, 8, 9]; // returns the receiver
 x = x ++ [3, 0, 1, 2]; // adds to the array
@@ -43,9 +47,10 @@ x = x ++ [3, 0, 1, 2]; // adds to the array
 
 > **Note:** Note that, unlike with addAll, the second operand must be a collection in order to function in this way.
 
+
 ### `addFunc`
 Returns a function or a FunctionList. This method is used to add multiple functions to already existing ones.
-```supercollider
+```
 f = nil;
 f = f.addFunc { "----------****".scramble };
 f = f.addFunc { 1.0.rand };
@@ -61,9 +66,10 @@ a.action = a.action.addFunc { "I am so very moved".postln };
 a.addFuncTo(\action, { "Now, I am finally really moved".postln }); // shorter alternative
 ```
 
+
 ### `removeFunc`
 This method is used to remove multiple functions from already existing ones. For Nil, it just returns itself.
-```supercollider
+```
 f = { 1.0.rand };
 g = { "you have produced a random value".postln };
 f = f.addFunc(g);
@@ -72,9 +78,10 @@ f.removeFunc(g);
 f.value;
 ```
 
+
 ### `transformEvent`
 This method is used to operate on events which are passed through the system as an argument.
-```supercollider
+```
 // for Nil: return the argument unmodified (an event).
 nil.transformEvent((x: 8));
 // for Dictionary (and thus for Event): add to the argument.

@@ -9,7 +9,7 @@
 This pattern is mainly used in two cases:
 
 **using an event pattern as a stream directly**
-: ```supercollider
+: ```
 a = Pbind(\note, Prand([1, 2, 3], inf)).asStream;
 a.next; // returns nil
 a = Pevent(Pbind(\note, Prand([1, 2, 3], inf))).asStream;
@@ -17,14 +17,14 @@ a.next; // returns an event
 ```
 
 **setting some default values before they are processed by the pattern**
-: ```supercollider
+: ```
 Pevent(Pbind(\harmonic, Pseq([24, 25, 29, 30], inf)), (octave: 3, dur: 0.2)).trace.play;
 ```
 
 
 Pevent is a simpler form of [Pchain](../Classes/Pchain.md), so that these are equivalent:
 
-```supercollider
+```
 Pevent(pattern, event)
 Pchain(pattern, event)
 pattern <> event
@@ -33,6 +33,7 @@ pattern <> event
 By contrast to Pchain, Pevent uses an [Event#*default](../Classes/Event.md#*default) if nothing is provided.
 
 ## Class Methods
+
 
 ### `new`
 **Arguments:**
@@ -45,7 +46,7 @@ By contrast to Pchain, Pevent uses an [Event#*default](../Classes/Event.md#*defa
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef(\help_sinegrain,
     { |out = 0, freq = 440, sustain = 0.05|

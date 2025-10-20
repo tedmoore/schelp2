@@ -14,12 +14,13 @@ The patterns bound to keys are referred to as value patterns and the Pbindf itse
 
 ## Class Methods
 
+
 ### `new`
 The arguments to Pbindf is the initial pattern followed by an alternating sequence of keys and patterns. A pattern can also be bound to an array of keys. In this case, the pattern must specify a sequence whose elements are arrays with at least as many elements as there are keys.
 ## Examples
 
 
-```supercollider
+```
 (
 a = Pbind(\x, Pseq([1, 2, 3]), \zzz, 9000); // input stream
 b = Pbindf(a, \y, Prand([100, 300, 200], inf), \zzz, 99);

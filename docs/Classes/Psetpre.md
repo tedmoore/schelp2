@@ -10,7 +10,7 @@
 
 Sets a value in an event, before it is passed up the stream. To set the value after it has been passed to the stream, use [Pset](../Classes/Pset.md).
 
-```supercollider
+```
 (
 var a, b;
 a = Psetpre(\freq, 801, Pbind(\dur, 0.5));
@@ -24,6 +24,7 @@ x = a.asStream;
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -36,7 +37,7 @@ x = a.asStream;
 ## Examples
 
 
-```supercollider
+```
 // Psetpre does not override incoming values:
 
 (

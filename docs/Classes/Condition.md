@@ -7,34 +7,40 @@
 
 ## Class Methods
 
+
 ### `new`
 Create a new instance, set the **test** variable.
 
 ## Instance Methods
 
+
 ### `test`
-Answer whether the condition will block or not (boolean).### `wait`
+Answer whether the condition will block or not (boolean).
+### `wait`
 Wait until the condition is true and signalled. This only works in a Routine. This method yields a symbol (\hang), so that the clock doesn't reschedule the Routine.
-```supercollider
+```
 c = Condition(false); fork { 0.5.wait; "started ...".postln; c.wait;  "... and finished.".postln };
 c.test = true;
 c.signal;
 ```
 
+
 ### `hang`
 Wait for **value** time, regardless of test. This only works in a Routine. This method yields a symbol (\hang), so that the clock doesn't reschedule the Routine.
-```supercollider
+```
 c = Condition.new; fork { 0.5.wait; "started ...".postln; c.hang;  "... and finished.".postln };
 c.unhang;
 ```
 
+
 ### `signal`
-If [test](#test) is true, reschedule blocked threads.### `unhang`
+If [#-test](#-test) is true, reschedule blocked threads.
+### `unhang`
 Resume threads.
 ## Examples
 
 
-```supercollider
+```
 (
 c = Condition.new(false);
 
@@ -73,7 +79,7 @@ c.test = false;
 
 
 
-```supercollider
+```
 // the same, using hang
 
 (
@@ -101,7 +107,7 @@ c.unhang;
 
 Waiting for Synths to end (waitForFree) uses a Condition implicitly:
 
-```supercollider
+```
 (
 SynthDef(\help, { |out|
     var mod = LFNoise2.kr(ExpRand(0.5, 2)) * 0.5;

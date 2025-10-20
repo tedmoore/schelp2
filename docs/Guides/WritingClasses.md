@@ -11,7 +11,7 @@ This is an overview of idioms used in writing classes. It is not a tutorial on w
 There is also an overview of the current full [ClassTree](../Overviews/ClassTree.md).
 
 > **Note:** Class definitions are statically compiled when you launch SuperCollider or "recompile the library." This means that class definitions must be saved into a file with the extension .sc, in a disk location where SuperCollider looks for classes. Saving into the main class library (SCClassLibrary) is generally not recommended. It's preferable to use either the user or system extension directories.
-```supercollider
+```
 Platform.userExtensionDir;   // Extensions available only to your user account
 Platform.systemExtensionDir; // Extensions available to all users on the machine
 ```
@@ -24,7 +24,7 @@ It is not possible to enter a class definition into an interpreter window and ex
 To avoid having to write the same code several times, classes can **inherit** implementations from their **superclasses**.
 
 
-```supercollider
+```
 MyClass : SomeSuperclass {
 
 }
@@ -34,7 +34,7 @@ MyClass : SomeSuperclass {
 Without specifying a superclass, [Object](../Classes/Object.md) is assumed as the default superclass.
 
 
-```supercollider
+```
 MyClass { // : Object is implied
 
 }
@@ -51,7 +51,7 @@ This is why in the above example, the message `new` can be called without being 
 Each object instance responds to its **instance methods**. Instance methods are called in the local context of the object. Within instance methods, the keyword `this` refers to the instance itself.
 
 
-```supercollider
+```
 MyClass {
 
     instanceMethod { | argument |
@@ -68,7 +68,7 @@ MyClass {
 This could then be used as follows:
 
 
-```supercollider
+```
 a = MyClass.new // returns a new instance
 a.instanceMethod // posts "hello instance"
 ```
@@ -77,7 +77,7 @@ a.instanceMethod // posts "hello instance"
 To return from the method use `^` (caret). Multiple exit points also possible. If no `^` is specified, the method will return the instance (and in the case of Class methods, will return the class). There is no such thing as returning void in SuperCollider.
 
 
-```supercollider
+```
 MyClass {
     someMethod {
         ^returnObject
@@ -104,7 +104,7 @@ An object's **class methods** are defined alongside its instance methods. They a
 A [Class](../Classes/Class.md) is itself an object. It is what all instances of it have in common. Class methods are the instance methods of the object's class. That's why within class methods, the keyword `this` refers to the class.
 
 
-```supercollider
+```
 MyClass {
     *classMethod { | argument |
         this.anotherClassMethod(argument)
@@ -121,7 +121,7 @@ MyClass {
 This could then be used as follows:
 
 
-```supercollider
+```
 MyClass.classMethod // posts "hello class"
 ```
 
@@ -133,7 +133,7 @@ MyClass.classMethod // posts "hello class"
 To change the behaviour inherited from the superclass, methods can be overridden. Note that an object looks always for the method it has defined first and then looks in the superclass. Here `MyClass.value(2)` will return 6, not 4:
 
 
-```supercollider
+```
 SomeSuperclass {
     calculate { |in| ^in * 2 }
     value { |in| ^this.calculate(in) }
@@ -148,7 +148,7 @@ MyClass : SomeSuperclass {
 The keyword `super` can be used to call methods on the superclass
 
 
-```supercollider
+```
 SomeSuperclass {
 
     value {
@@ -173,7 +173,7 @@ MyClass : SomeSuperclass {
 `Object.new` will return a new object. When overriding the class method `.new` you must call the superclass, which in turn calls its superclass, up until `Object.new` is called and an object is actually created and its memory allocated.
 
 
-```supercollider
+```
 MyClass {
     // This is a normal constructor method.
     *new { ^super.new }
@@ -188,7 +188,7 @@ In this case note that `super.new` calls the method `new` on the superclass and 
 Instance can have variables associated with them — known as members is other languages.
 
 
-```supercollider
+```
 Foo {
     var a, b, c; // Instance variables.
 }
@@ -202,7 +202,7 @@ Rather than calling the method `new` a call to [Object#*newCopyArgs](../Classes/
 The code below allows the call–site to decide the initial value of `c` and defaults `a` to 10 and `b` to 20.
 
 
-```supercollider
+```
 Foo {
     var a, b, c;
     *new { |myC| ^super.newCopyArgs(a: 10, b: 20, c: myC) }
@@ -212,10 +212,10 @@ Foo {
 
 If initialisation logic that prepares the arguments before assignment is required, ideally, it should go before the call to `super.newCopyArgs`. This way the final object never exists in an invalid state — an alternative is the use of an `init` method and shall be shown shortly.
 
-However, when there is a hierarchy of classes, `newCopyArgs` requires that all the base class arguments be passed in the order they are defined.  This makes changing the base class difficult. Here is one way to mitigate this issue using variable keyword arguments [Functions / Variable Arguments ](../Reference/Functions.md#variable-arguments) and [Object#-superPerformArgs](../Classes/Object.md#-superperformargs).
+However, when there is a hierarchy of classes, `newCopyArgs` requires that all the base class arguments be passed in the order they are defined.  This makes changing the base class difficult. Here is one way to mitigate this issue using variable keyword arguments [Functions#Variable Arguments](../Reference/Functions.md#variable-arguments) and [Object#-superPerformArgs](../Classes/Object.md#-superperformargs).
 
 
-```supercollider
+```
 Base {
     var <>a, <>b;
     *new { |a, b ...args, kwargs|
@@ -235,7 +235,7 @@ Derived : Base {
 Calling `Derived(1, 2, 3)` will set `a` to `1`, `b` to `2`, and `c` to 3. Here are some more examples:
 
 
-```supercollider
+```
 Derived(c: 10) // a: nil, b: nil, c: 10
 Derived(1, 2, c: 10) // a: 1, b: 2, c: 10
 Derived(d: 10) // If 'd' existed somewhere in the hierarchy, it would be assigned the value 10.
@@ -247,7 +247,7 @@ Although this approach might seem complex, the benefit is that the new instance 
 Should it be desirable to remove instance variables of the base class in the future, it is good to require that only keyword arguments be used. This can be achieved by removing the named arguments and throwing an error if `args` is not empty. One disadvantage here is that autocomplete in the IDE will not work.
 
 
-```supercollider
+```
 Foo {
     *new { |... args, kwargs| 
         if(args.empty.not) { Error().throw };
@@ -262,7 +262,7 @@ Another benefit is that the instance is never in an incomplete state: either all
 The disadvantages come when you have complex initialisation logic where the arguments in `Derived` require knowledge of the arguments in `Base`. Traditionally in SuperCollider this has been solved with an `init` method as seen below, although a 'builder' pattern might be considered for complex cases.
 
 
-```supercollider
+```
 Base {
     var a, b;
     *new {|a, b| ^super.new.init(a, b) }
@@ -278,7 +278,7 @@ Base {
 This works but becomes more complex in inheritance chains.
 
 
-```supercollider
+```
 Base {
     var a, b;
     *new {|a, b| ^super.new.init(a, b) }
@@ -312,7 +312,7 @@ While the `init` pattern is the most flexible, care must be taken as inside the 
 Class variables are accessible within class methods and in any instance methods.
 
 
-```supercollider
+```
 MyClass {
     classvar myClassvar;
 
@@ -326,7 +326,7 @@ MyClass {
 Initializations on class level (e.g. to set up `classvar`s) can be implemented by overloading the [Class#*initClass](../Classes/Class.md#*initclass) method.
 
 
-```supercollider
+```
 MyClass {
     classvar myClassvar;
 
@@ -349,7 +349,7 @@ See also: [Polymorphism](../Guides/Polymorphism.md)
 Two completely unrelated objects can respond to the same messages and therefore be used together in the same code. For example, [Function](../Classes/Function.md) and [Event](../Classes/Event.md) have no common superclass apart from the general class [Object](../Classes/Object.md). But both respond to the message `play`. Instead of inheriting all methods, you can simply implement some of the same methods in your class.
 
 
-```supercollider
+```
 MyClass {
     var count = 0;
     value {
@@ -369,7 +369,7 @@ a.value; // returns 1
 Often, an object passes control to one of the objects it has in its instance variables. Because these objects can be of any kind, this is a very flexible way to achieve a wide range of functionalities. For example, a [Button](../Classes/Button.md) has an `action` instance variable, which may hold anything that responds to the message `value`.
 
 
-```supercollider
+```
 MyClass {
     var action;
     *new { |action|
@@ -400,7 +400,7 @@ Often, variables like `action` above are filled with custom objects that belong 
 In a variable declaration, variables can be directly initialized. Only [Literals](../Reference/Literals.md) may be used to initialize variables this way. This means that it is not possible to chain assignments (e.g. `var x = 9; var y = x + 1`).
 
 
-```supercollider
+```
 MyClass {
     classvar all = #[];
     var x = 8;
@@ -416,7 +416,7 @@ MyClass {
 An instance variable is accessible **from all instance methods** of this class and its subclasses. A class variable, by contrast, is accessible **from all class and instance methods** of this class and its subclasses. Instance variables will shadow class variables of the same name.
 
 
-```supercollider
+```
 MyClass {
     classvar x = 0, y = 1;
     var x = 1;
@@ -431,7 +431,7 @@ MyClass {
 Subclasses can override class variable declarations (but not instance variables). Then the class variables of the superclass are not accessible in the subclass anymore.
 
 
-```supercollider
+```
 SomeSuperclass {
     classvar x = 0;
 
@@ -458,7 +458,7 @@ MyClass : SomeSuperclass {
 SuperCollider demands that variables are not accessible outside of the class or instance. A method must be added to explicitly give access:
 
 
-```supercollider
+```
 MyClass : SomeSuperclass {
     var myVariable;
 
@@ -476,7 +476,7 @@ MyClass : SomeSuperclass {
 These are referred to as getter and setter methods. SuperCollider allows these methods to be easily added by adding `<` or `>`.
 
 
-```supercollider
+```
 MyClass {
     var <getMe, >setMe, <>getMeOrSetMe;
 }
@@ -486,7 +486,7 @@ MyClass {
 This provides the following methods:
 
 
-```supercollider
+```
 someObject.getMe;
 someObject.setMe_(value);
 ```
@@ -495,7 +495,7 @@ someObject.setMe_(value);
 And it also allows us to say:
 
 
-```supercollider
+```
 someObject.setMe = value;
 
 someObject.getMeOrSetMe_(5);
@@ -506,7 +506,7 @@ someObject.getMeOrSetMe;
 A getter or setter method created in this fashion may be overridden in a subclass by explicitly defining the method. Setter methods should take only one argument to support both ways of expression consistently. eg.
 
 
-```supercollider
+```
 MyClass {
 
     variable_ { | newValue |
@@ -526,7 +526,7 @@ A setter method should always return the receiver. This allows us to be sure tha
 Constants are variables, that, well, don't vary. They can only be assigned initially.
 
 
-```supercollider
+```
 MyClass {
     const <zero = 0;
 }
@@ -543,7 +543,7 @@ MyClass.zero // returns 0
 Methods may be added to Classes in separate files. This is equivalent to Categories in Objective-C. By convention, the file name starts with a lower case letter: the name of the method or feature that the methods are supporting.
 
 
-```supercollider
+```
 + Class {
 
     newMethod {
@@ -564,7 +564,7 @@ Methods may be added to Classes in separate files. This is equivalent to Categor
 Classes defined with `[slot]` can use the syntax `myClass[...]` which will call `myClass.new` and then `this.add(each)` for each item in the square brackets.
 
 
-```supercollider
+```
 MyClass[] {
     var <allOfThem;
     add { |item|
@@ -585,7 +585,7 @@ a.allOfThem; // [1, 2, 3]
 By default when postln is called on an class instance the name of the class is printed in a post window. When `postln` or `asString` is called on a class instance, the class then calls `printOn` which by default returns just the object's class name. This should be overridden to obtain more useful information.
 
 
-```supercollider
+```
 MyTestPoint {
     var <x, <y;
 
@@ -601,7 +601,7 @@ MyTestPoint {
 
 
 
-```supercollider
+```
 a = MyTestPoint(2, 3)
 ```
 
@@ -613,7 +613,7 @@ a = MyTestPoint(2, 3)
 A call to `asCompileString` should return a string which when evaluated creates the exact same instance of the class. To define a custom behaviour one should either override `storeOn` or `storeArgs`. The method `storeOn` should return the string that evaluated creates the instance of the current object. The method `storeArgs` should return an array with the arguments to be passed to `TheClass.new`. In most cases this method can be used instead of `storeOn`.
 
 
-```supercollider
+```
 // either
 MyTestPoint {
     var <x, <y;
@@ -645,7 +645,7 @@ MyTestPoint {
 
 
 
-```supercollider
+```
 MyTestPoint(2, 3).asCompileString;
 ```
 
@@ -663,7 +663,7 @@ Private methods are marked by a prefix `pr`, e.g. `prBundleSize`. This is just a
 When a message is received that is undefined, the receiver calls the method `doesNotUnderstand`. Normally this throws an error. By overriding `doesNotUnderstand`, it is possible to catch those calls and use them. For an example, see the class definition of `IdentityDictionary`.
 
 
-```supercollider
+```
 MyClass {
 
     doesNotUnderstand { | selector... args, kwargs |
@@ -678,7 +678,7 @@ MyClass {
 
 
 
-```supercollider
+```
 a = MyClass();
 a.someMethodThatDoesNotExist
 ```

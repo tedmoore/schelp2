@@ -13,6 +13,7 @@ Passes only bins whose magnitude is above a threshold.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Passes only bins whose magnitude is above a threshold.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 

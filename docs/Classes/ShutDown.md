@@ -13,6 +13,7 @@ ShutDown registers functions to perform an action before system shut down.
 
 ## Class Methods
 
+
 ### `run`
 Call the object in order.
 

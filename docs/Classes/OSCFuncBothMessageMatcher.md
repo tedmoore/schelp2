@@ -13,6 +13,7 @@ This is used by [OSCMessageDispatcher](../Classes/OSCMessageDispatcher.md) and [
 
 ## Class Methods
 
+
 ### `new`
 Make a new instance.**Arguments:**
 
@@ -24,6 +25,7 @@ Make a new instance.**Arguments:**
 **Returns:** An OSCFuncBothMessageMatcher.
 
 ## Instance Methods
+
 
 ### `value`
 Check to see if a message matches, and evaluate func if it does.**Arguments:**

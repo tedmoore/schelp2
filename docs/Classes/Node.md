@@ -26,9 +26,10 @@ Many of the methods below have two versions: a regular one which sends its corre
 ## Class Methods
 
 
+
 ### `addActions`
 **Returns:** the list of addActions as an event.Useful for converting addAction symbols to their corresponding integer codes.
-```supercollider
+```
 (
 Node.addActions.at(\addToTail)
 );
@@ -43,19 +44,25 @@ Node.addActions.at(\addToTail)
 ### Instance Variables
 The following getter methods also have corresponding setters, but they should be used with extreme care and only if you are sure you know what you're doing.
 
+
 ### `nodeID`
 **Returns:** the Node's node ID number.Normally you should not need to access this since instances of Node can be passed directly as [UGen](../Classes/UGen.md) inputs or [Synth](../Classes/Synth.md) args.
+
 ### `group`
 **Returns:** an instance of Group or RootNode corresponding to this Node's group on the server.
+
 ### `server`
 **Returns:** an instance of Server corresponding to this Node's server app.
+
 ### `isPlaying`
 **Returns:** a boolean indicating if this node is currently on the server, providing this Node has been registered with a [NodeWatcher](../Classes/NodeWatcher.md).N.B. If this Node has not been registered this will likely be false in any case.
+
 ### `isRunning`
 **Returns:** a boolean indicating if this node is currently on the server, providing this Node has been registered with a [NodeWatcher](../Classes/NodeWatcher.md).N.B. If this Node has not been registered this will likely be false in any case.
 
 ### Node Commands
 See the Node Commands section in [Server-Command-Reference](../Reference/Server-Command-Reference.md) for the OSC equivalents of the methods outlined below.
+
 
 ### `free`, `freeMsg`
 Stop this Node and free it from its parent group on the server. Once a Node has been freed, you cannot restart it.**Arguments:**
@@ -64,16 +71,17 @@ Stop this Node and free it from its parent group on the server. Once a Node has 
 |----------|-------------|
 | `sendFlag` | a boolean indicating whether the free message should be sent. If false an n_free message will not be sent to this Node's server, but its isPlaying and isRunning variables will be set to false. The default for sendFlag is true. |  
 If this Node is a [Group](../Classes/Group.md) this will free all Nodes within the Group.
-```supercollider
+```
 s.boot;
 x = Synth("default");
 x.free;
 ```
 
 
+
 ### `run`, `runMsg`
 Set the running state of this Node according to a boolean. False will pause the node without freeing it. The default is true.If this Node is a Group this will set the running state of all Nodes within the Group.
-```supercollider
+```
 s.boot;
 (
 x = SynthDef("help-node-set", { |freq = 440, out = 0|
@@ -86,9 +94,10 @@ x.free;
 ```
 
 
+
 ### `set`, `setMsg`
 Set controls in this Node to values.Controls are defined in a SynthDef as args or instances of [Control](../Classes/Control.md). They are specified here using symbols, strings, or indices, and are listed in pairs with values. If this Node is a Group this will set all Nodes within the Group.
-```supercollider
+```
 s.boot;
 (
 x = SynthDef("help-node-set", { |freq = 440, out = 0|
@@ -101,7 +110,7 @@ x.free;
 ```
 
 Values that are arrays are sent using the OSC array type-tags ($[ and $]). These values will be assigned to subsequent controls in the manner of setn.
-```supercollider
+```
 s.boot;
 (
 x = SynthDef("help-node-set", { |freq = #[440, 450, 460], out = 0|
@@ -115,9 +124,10 @@ x.free;
 ```
 
 
+
 ### `setn`, `setnMsg`
 Set sequential ranges of controls in this Node to values.Controls are defined in a SynthDef as args or instances of [Control](../Classes/Control.md). They are specified here using symbols, strings, or indices, and are listed in pairs with arrays of values. If this Node is a Group this will setn all Nodes within the Group.
-```supercollider
+```
 s.boot;
 (
 x = SynthDef("help-node-setn", {
@@ -131,11 +141,13 @@ x.free;
 ```
 
 
+
 ### `fill`, `fillMsg`
 Set sequential ranges of controls in this Node to a single value.Controls are defined in a SynthDef as args or instances of [Control](../Classes/Control.md). They are specified here using symbols, strings, or indices, and are listed in groups of three along with an integer indicating the number of controls to set, and the value to set them to. If this Node is a Group this will fill all Nodes within the Group.
+
 ### `map`, `mapMsg`
 Map controls in this Node to read from control or audio rate [Bus](../Classes/Bus.md)es.Controls are defined in a SynthDef as args or instances of [Control](../Classes/Control.md) or its subclasses. They are specified here using symbols, strings, or indices, and are listed in pairs with Bus objects. The number of sequential controls mapped corresponds to the Bus' number of channels.If this Node is a Group this will map all Nodes within the Group.Note that with mapMsg if you mix audio and control rate busses you will get an Array of two messages rather than a single message. Integer bus indices are assumed to refer to control buses. To map a control to an audio bus, you must use a Bus object.
-```supercollider
+```
 s.boot;
 (
 b = Bus.control(s, 1); b.set(880);
@@ -161,20 +173,23 @@ x.free; b.free;
 ```
 
 
+
 ### `mapn`, `mapnMsg`
 Map sequential ranges of controls in this Node to read from control rate Buses.This is similar to map above, but you specify the number of sequential Controls to map. If this Node is a Group this will mapn all Nodes within the Group.
+
 ### `release`, `releaseMsg`
-This method causes the receiver to be freed after the specified amount of time. This is a convenience method which assumes that the synth contains an envelope generator (an EnvGen, Linen, or similar UGen) running a sustaining envelope (see [Env / Sustained Envelope Creation Methods ](../Classes/Env.md#sustained-envelope-creation-methods)) and that this envelope's gate argument is set to a control called `\gate`.**Arguments:**
+This method causes the receiver to be freed after the specified amount of time. This is a convenience method which assumes that the synth contains an envelope generator (an EnvGen, Linen, or similar UGen) running a sustaining envelope (see [Env#Sustained Envelope Creation Methods](../Classes/Env.md#sustained-envelope-creation-methods)) and that this envelope's gate argument is set to a control called `\gate`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `releaseTime` | The amount of time in seconds during which the node will release. If set to a value `<= 0`, the synth will release immediately. A `nil` value will cause the synth to release using its envelope's normal release stage(s).
 > **Note:** Providing a releaseTime != nil doesn't trigger a normal release, but a different behavior called forced release. This difference is particularly important for envelopes with a multi-node release stage, i.e. whose releaseNode is not their last node. See [](../Classes/EnvGen.md#forced-release). |  
 If the receiver is a Group, all nodes within the group will be released.
-```supercollider
+```
 x = { |gate = 1| BrownNoise.ar(0.5) * EnvGen.kr(Env.cutoff(1), gate, doneAction: Done.freeSelf) }.play;
 x.release(5); // override the Env's specified 1 second release time
 ```
+
 
 
 ### `query`
@@ -184,7 +199,7 @@ Sends an n_query message to the server, which will reply with a message containi
 |----------|-------------|
 | `action` | An optional Function to be called. If the node is a `Synth`, the function will take the arguments `serverCmd, nodeID, parent, prev, next, isGroup`. If the node is a `Group`, the function will take the arguments `serverCmd, nodeID, parent, prev, next, isGroup, head, tail`. Providing a function here will bypass `query`'s normal behaviour, i.e., the usual node information will not be posted. |  
 This information will be printed to the post window. (See also the queryAllNodes method of Server.) "parent" indicates the Node's enclosing group. If "prev" or "next" are equal to -1 that indicates that there are no other nodes in the enclosing group before or after this one, respectively.
-```supercollider
+```
 g = Group.new;
 x = Synth.head(g, "default");
 x.query;
@@ -194,9 +209,10 @@ x.free; g.free;
 ```
 
 
+
 ### `trace`
 Causes a synth to print out the values of the inputs and outputs of its unit generators for one control period to the post window. Causes a group to print the node IDs and names of each node in the group for one control period.
-```supercollider
+```
 g = Group.new;
 x = Synth.head(g, \default);
 x.trace;
@@ -205,9 +221,10 @@ x.free; g.free;
 ```
 
 
+
 ### `register`
 Registers the node at the [NodeWatcher](../Classes/NodeWatcher.md) object.This will enable two variables, isPlaying and isRunning, which you can use for checking purposes.
-```supercollider
+```
 (
 b = s.makeBundle(false, {
     a = Group.new(s); // create a node object
@@ -231,25 +248,33 @@ a.isRunning;
 ### Changing the order of execution
 The following methods can be used to change the Node's place in the order of execution. See the [Order-of-execution](../Guides/Order-of-execution.md) help file for more information on this important topic. See [Server-Command-Reference](../Reference/Server-Command-Reference.md) for the OSC equivalents of these methods.
 
+
 ### `moveAfter`, `moveAfterMsg`
 Move this Node to be directly after aNode. N.B. n_after, the OSC message which this method encapsulates, allows already freed nodes as targets. This is so that one may attempt a series of moves, with the last successful one taking effect. For this reason this method will fail silently if either the target or this node have already been freed. If you will need to check, you may register the relevant nodes with a NodeWatcher.
+
 ### `moveBefore`, `moveBeforeMsg`
 Move this Node to be directly before aNode. N.B. n_before, the OSC message which this method encapsulates, allows already freed nodes as targets. This is so that one may attempt a series of moves, with the last successful one taking effect. For this reason this method will fail silently if either the target or this node have already been freed. If you will need to check, you may register the relevant nodes with a NodeWatcher.
+
 ### `moveToHead`, `moveToHeadMsg`
 If aGroup is a Group then this method will move this Node to the head of that Group. If it is nil this will move this Node to the head of the default_group of this Node's Server.
+
 ### `moveToTail`, `moveToTailMsg`
 If aGroup is a Group then this method will move this Node to the tail of that Group. If it is nil this will move this Node to the tail of the default_group of this Node's Server.
 
 ### Other Methods
+
 ### `asTarget`
 **Returns:** this Node. See the [asTarget](../Reference/asTarget.md) help file for more details.
+
 ### `printOn`
 Prints this Node's [Class](../Classes/Class.md) ([Synth](../Classes/Synth.md) or [Group](../Classes/Group.md)) and nodeID on stream.
+
 ### `hash`
 **Returns:** server.hash bitXor: nodeID.hash
+
 ### `==`
 **Returns:** true if this Node and aNode have the same nodeID and the same Server object, otherwise returns false.Under certain circumstances this Node and aNode might not be the same object, even though this returns true.
-```supercollider
+```
 g = Group.basicNew(s, 1); // the default group of s
 h = Group.basicNew(s, 1); // and again
 g == h;     // true
@@ -257,16 +282,18 @@ g === h;    // false
 ```
 
 
+
 ### `onFree`
 Evaluate function when this Node is freed.
-```supercollider
+```
 { PinkNoise.ar(1) * Line.kr(1, 0, 2, doneAction: Done.freeSelf) }.play.onFree { "done".postln };
 ```
 
 
+
 ### `waitForFree`
 Wait until this Node is freed. Should be used inside a Routine or similar.
-```supercollider
+```
 (
 fork {
     { SinOsc.ar(440 ! 2) * Line.kr(0, 1, 5, doneAction: Done.freeSelf) }.play.waitForFree;
@@ -276,7 +303,7 @@ fork {
 ```
 
 
-```supercollider
+```
 (
 SynthDef(\help, { |out|
     var mod = LFNoise2.kr(Rand(1, 6)) * 0.2;

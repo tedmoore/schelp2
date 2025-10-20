@@ -18,7 +18,7 @@ Further reading: [NodeProxy](../../Classes/NodeProxy.md), [ProxySpace](../../Cla
 
 ### using a Ref as a proxy
 
-```supercollider
+```
 // reference example
 
 // create a new Ref object
@@ -68,7 +68,7 @@ currentEnvironment.postln; // the value is stored in the environment
 
 ### using a Function as a proxy
 
-```supercollider
+```
 // a function can serve the same purpose
 
 y = nil; // empty y first
@@ -94,7 +94,7 @@ For interactive programming it can be useful to be able to use something before 
 
 
 
-```supercollider
+```
 // boot the server
 s.boot;
 
@@ -125,7 +125,7 @@ z.clear;
 In order to provide a simple way of creating node proxies, a proxy space can be used. So the above reads like this:
 
 
-```supercollider
+```
 p = ProxySpace.push(s.boot); // store proxy space in p so it can be accessed easily.
 ~z.play;
 
@@ -147,7 +147,7 @@ p.pop;
 Another, very common way to access node proxies is [Ndef](../../Classes/Ndef.md) (this is the same as the above, just written with Ndef):
 
 
-```supercollider
+```
 Ndef(\z).play;
 
 Ndef(\z, Ndef(\y).sin * 0.2);

@@ -19,13 +19,14 @@ SCImage currently supports most formats including tiff, bmp, gif, jpeg, png, tga
 ## Class Methods
 
 
+
 ### `new`
 Creates a new SCImage instance. multiple stands here for multiple arguments.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `multiple` | May be a...- [Number](../Classes/Number.md) to create an **empty** image of size multiple as width and height
-```supercollider
+```
 i = SCImage.new(400);        // Create a 400x400 pixels SCimage.
 i.dump;
 i.free;
@@ -37,7 +38,7 @@ i.free;
 
 
 - [Point](../Classes/Point.md) to create an **empty** image of size multiple.x as width and multiple.y as height
-```supercollider
+```
 i = SCImage.new(400@200);    // Create a 400x200 pixels SCimage.
 i.dump;
 i.free;
@@ -45,7 +46,7 @@ i.free;
 
 
 - [String](../Classes/String.md) to create an image from a **local file** or from an **URL** (http://, ftp://, [file:///)](../file:///).md)
-```supercollider
+```
 //    Path string
 i = SCImage.new("/Library/Desktop Pictures/Ripples Blue.jpg");
 [i.width, i.height].postln;
@@ -58,9 +59,10 @@ i.url;
 i.free;
 ``` |  
 
+
 ### `color`
 Creates a new SCImage instance filled with the specified color.
-```supercollider
+```
 i = SCImage.color(400, 200, Color.blue(0.9, 0.1));
 i.plot(freeOnClose: true);
 ```
@@ -71,9 +73,10 @@ i.plot(freeOnClose: true);
 |----------|-------------|
 | `args` | multiple arguments. the last argument should be a valid [Color](../Classes/Color.md) |  
 
+
 ### `open`
 Creates a new SCImage instance from the local file at **path**.
-```supercollider
+```
 (
 i = SCImage.open("/Library/Desktop Pictures/Ripples Blue.jpg");
 i.plot(freeOnClose: true);
@@ -82,18 +85,20 @@ i.url.postln;
 ```
 
 
+
 ### `openURL`
 Creates a new SCImage instance from a valid image at the specified URL **path**.
-```supercollider
+```
 i = SCImage.openURL("file:///Library/Desktop%20Pictures/Ripples%20Blue.jpg");
 i.url;
 w = i.plot(freeOnClose: true);
 ```
 
 
+
 ### `fromImage`
 Creates a new SCImage instance from another SCImage.
-```supercollider
+```
 i = SCImage.new(SCDoc.helpSourceDir +/+ "images/vduck2.jpg");
 j = SCImage.fromImage(i);
 i.dump;
@@ -103,9 +108,10 @@ j.dump;
 ```
 
 
+
 ### `fromWindow`
 Creates a new SCImage from a portion of a SCWindow. this can be used to capture either a window or a specific SCView.
-```supercollider
+```
 // WINDOW Example:
 // First create a window and draw inside of it
 (
@@ -162,25 +168,29 @@ Creates a new SCImage from a portion of a SCWindow. this can be used to capture 
 
 
 ### Class variables and attributes
+
 ### `formats`
 returns all the valid image formats as an [Array](../Classes/Array.md)
-```supercollider
+```
 SCImage.formats;
 ```
 
 
+
 ### `compositingOperations`
 returns all the valid compositing operations you can use when drawing an SCImage as an [Array](../Classes/Array.md)
-```supercollider
+```
 SCImage.compositingOperations;
 ```
 
 
+
 ### `interpolations`
 returns an [Array](../Classes/Array.md) of the different levels of interpolation you can specify when drawing an SCImage.
-```supercollider
+```
 SCImage.interpolations;
 ```
+
 
 
 ### `closeAllPlotWindows`
@@ -191,17 +201,22 @@ close all the SCImage plot windows currently opened.
 
 
 ### commons / general attributes
+
 ### `width`
 returns or set the width of the receiver
+
 ### `height`
 returns or set the height of the receiver
+
 ### `setSize`
 set the size of the receiver
+
 ### `bounds`
 returns the bounds of the receiver.
+
 ### `free`
 deallocate the receiver. this method is useful if you want to manage and reclaim yourself resources. otherwise you do not need to call this method since each object is automatically garbage collected.
-```supercollider
+```
 i = SCImage.new("/Library/Desktop Pictures/Ripples Blue.jpg");
 SCImage.all;
 i.free;
@@ -209,9 +224,10 @@ SCImage.all;
 ```
 
 
+
 ### `scalesWhenResized`
 flag to tell or set if the receiver should update its bitmap representation to scale when a resize operation if performed
-```supercollider
+```
 (
     i = SCImage.new("/Library/Desktop Pictures/Ripples Blue.jpg");
     i.bounds.postln; // getting the dimensions
@@ -230,9 +246,10 @@ a.close; w.close; i.free;
 ```
 
 
+
 ### `url`
 returns or set the url of the receiver. Returning only if any where supplied at creation, otherwise returns nil. Setting may be used for different purpose but try to supply a valid one since it is used for archiving the image as an object.
-```supercollider
+```
 i = SCImage.new("http://www.google.com/intl/en_ALL/images/logo.gif");
 i.url;
 i.plot;
@@ -240,11 +257,13 @@ i.free;
 ```
 
 
+
 ### `accelerated`
 if true, the receiver currently use the CoreImage model, possibly caching its data on GPU, if not the bitmap model. Set it to switch representation.> **⚠️ Warning:** this method should never be used directly unless you know perfectly what you are doing. Since the SCImage will switch internally and manage itself the syncronization between representations.
+
 ### `interpolation`
 get or set the level of interpolation used when rendering the image - it has not effect when the SCImage is accelerated. see [#*interpolations](#*interpolations) for a valid range of values.
-```supercollider
+```
 (
 i = SCImage.new(SCDoc.helpSourceDir +/+ "images/vduck2.jpg");
 w = i.plot;
@@ -288,9 +307,10 @@ i.free;
 
 
 ### saving and archiving
+
 ### `write`
 write the SCImage to a file.
-```supercollider
+```
 i = SCImage.new("/Library/Desktop Pictures/Ripples Blue.jpg");
 i.dump
 i.write("~/Desktop/my_image.png");
@@ -321,9 +341,10 @@ i.free;
 
 
 ### rendering
+
 ### `plot`
 plots the image in a SCWindow.
-```supercollider
+```
 i = SCImage.new("/Library/Desktop Pictures/Ripples Blue.jpg");
 w = i.plot;
 w.close;
@@ -346,11 +367,13 @@ SCImage.new("/Library/Desktop Pictures/Ripples Blue.jpg").plot("Hello", freeOnCl
 | `background` | additional background to apply to the SCWindow. may be useful for artifacts due to alpha / compositing... |  
 | `showInfo` | shows pixel coordinates while the mouse is over the image's plot window. |  
 
+
 ### `lockFocus`
 sets the receiver as the current graphic context. So you can use SCPen to draw inside of it.
+
 ### `unlockFocus`
 restore the graphic context state. the receiver is not anymore the current graphic context.
-```supercollider
+```
 (
     j = SCImage.new(400, 300);
 
@@ -379,12 +402,13 @@ j.free;
 ```
 
 
+
 ### `draw`
 shortcut for drawing inside an image. equivalent to :- receiver.lockFocus
 - aFunction
 - receiver.unlockFocus
 
-```supercollider
+```
 (
     j = SCImage.new(400, 300);
     j.draw({ |image|
@@ -420,9 +444,10 @@ j.free;
 ```
 
 
+
 ### `drawStringAtPoint`
 renders *correctly* a String inside an SCImage :) `// to fix to have a compliant interface`
-```supercollider
+```
 (
     var width, height, tgHeight, ratio, str, font, color, strb, targetWidth = 400, shadowColor, run = true;
     shadowColor = Color.black;
@@ -453,9 +478,10 @@ renders *correctly* a String inside an SCImage :) `// to fix to have a compliant
 ```
 
 
+
 ### `drawAtPoint`
 render the image or a portion of it in the current graphic context.
-```supercollider
+```
 (
     var operation = 'sourceOver', fraction = 1.0, i, w;
 
@@ -501,9 +527,10 @@ render the image or a portion of it in the current graphic context.
 | `operation` | the compositing operation to use. `'sourceOver'` is the default. |  
 | `fraction` | the opacity to use, ranging from 0.0 (fully transparent) to 1.0 (fully opaque) |  
 
+
 ### `drawInRect`
 render the image or a portion of it in a specified rectangle of the current graphic context. This may stretch the image depending on the destination rect.
-```supercollider
+```
 (
     i = SCImage.new(
         // "http://supercollider.sourceforge.net/theme/sc01/icon.supercollider.gif"
@@ -527,9 +554,10 @@ render the image or a portion of it in a specified rectangle of the current grap
 | `operation` | the compositing operation to use. `'sourceOver'` is the default. |  
 | `fraction` | the opacity to use, ranging from 0.0 (fully transparent) to 1.0 (fully opaque) |  
 
+
 ### `tileInRect`
 tile the image or a portion of it in a specified rectangle of the current graphic context. This may stretch the image depending on the destination rect.
-```supercollider
+```
 (
     i = SCImage.new(
         // "http://supercollider.sourceforge.net/theme/sc01/icon.supercollider.gif"
@@ -556,9 +584,10 @@ tile the image or a portion of it in a specified rectangle of the current graphi
 
 
 ### Instance Methods / accessing and setting pixels
+
 ### `setPixel`
 fill a pixel located at x @ y.
-```supercollider
+```
 i = SCImage.color(60, 60, Color.blue(0.1, 0.1));
 w = i.plot;
 i.setPixel([255, 0, 0, 255].asRGBA, 0, 0); // setting red
@@ -573,9 +602,10 @@ i.free;
 |----------|-------------|
 | `rgbaInteger` | an 32 bit [Integer](../Classes/Integer.md) containing color information packed as 8bit RGBA |  
 
+
 ### `getPixel`
 retrieve the pixel value at x @ y as a RGBA integer
-```supercollider
+```
 // A simple example on how to manipulate pixels with SCImage
 b = Int32Array[
     Integer.fromRGBA(255, 0, 0, 255), // red
@@ -618,10 +648,13 @@ p = a.getColor(1, 0); // more explicit - but same here
 ```
 
 
+
 ### `setColor`
 fill the pixel located at x @ y with the specified **color**.
+
 ### `getColor`
 retrieve the pixel value at x @ y as a [Color](../Classes/Color.md).
+
 ### `pixels`
 retrieve or set all the pixels of the receiver.
 > **Note:** Carefull: the returned Array is a [Int32Array](../Classes/Int32Array.md) of size receiver.width * receiver.height containing all pixel values as 32bit Integer
@@ -632,9 +665,10 @@ retrieve or set all the pixels of the receiver.
 |----------|-------------|
 | `array` | an [Int32Array](../Classes/Int32Array.md) of size receiver.width * receiver.height containing all pixel values as 32bit Integer |  
 
+
 ### `loadPixels`
-load all the pixels of the receiver in an array. it is better and faster to call this function instead of [pixels](#pixels) if you plan to retrieve frequently the pixel data (since it won't allocate a new array everytime !)
-```supercollider
+load all the pixels of the receiver in an array. it is better and faster to call this function instead of [#-pixels](#-pixels) if you plan to retrieve frequently the pixel data (since it won't allocate a new array everytime !)
+```
 // exec one line at a time
 i = SCImage.new(
     // "http://supercollider.sourceforge.net/theme/sc01/icon.supercollider.gif"
@@ -661,9 +695,10 @@ p;
 | `region` | the targeted rectangular region. (nil by default, meaning full size) |  
 | `start` | the start index of the array. |  
 
+
 ### `setPixels`
 set the pixels in a specific portion of the receiver.
-```supercollider
+```
 (
     i = SCImage.new(20@20);
     i.pixels_(
@@ -700,9 +735,10 @@ set the pixels in a specific portion of the receiver.
 ### Instance Methods / Attributes for SCImageFilter support
 see [SCImageFilter](../Classes/SCImageFilter.md) for more info
 
+
 ### `applyFilters`
 apply an array of [SCImageFilter](../Classes/SCImageFilter.md) to the image. this should be considered as an in place operation, meaning the SCImage is altered after it.
-```supercollider
+```
 // ******** Built In CoreImage Generators ********
 // Generators are not filters, they actually create an image but do not need an input image
 // you just have to create an image of a new size
@@ -769,19 +805,23 @@ w = a.plot(freeOnClose: true, background: Color.black);
 | `crop` | the crop region to finally use. This may be required for extending bounds since some SCImageFilter / CoreImageFilters require to set a wider region (to be applied correctly) or may create a huge image. Setting crop to nil sets no crop region. In case the current maximum size of a filtered SCImage is 4096 / 4096. Any larger size will be clipped. by default crop is constrained to the receiver bounds. |  
 | `region` | option to constrain the filter to a specific region IN the SCImage. |  
 
+
 ### `filteredWith`
-returns a new SCImage, copy of the receiver filtered with an array of SCImageFilter. arguments are the same as [applyFilters](#applyfilters) (except for **region**).
+returns a new SCImage, copy of the receiver filtered with an array of SCImageFilter. arguments are the same as [#-applyFilters](#-applyfilters) (except for **region**).
 > **Note:** Beware: you are responsible for freeing the newly created SCImage !!!
 
 
+
 ### `filters`
-filters is the instance variable that holds the array of SCImageFilter attached to the receiver. This is a convenient for applying filters out place and changing the SCImageFilter's attributes. see [addFilter](#addfilter), [removeFilter](#removefilter)see [SCImageFilter](../Classes/SCImageFilter.md) for an example on how to use the **filters** array.
+filters is the instance variable that holds the array of SCImageFilter attached to the receiver. This is a convenient for applying filters out place and changing the SCImageFilter's attributes. see [#-addFilter](#-addfilter), [#-removeFilter](#-removefilter)see [SCImageFilter](../Classes/SCImageFilter.md) for an example on how to use the **filters** array.
+
 ### `addFilter`
 you can also attach filters to the receiver for real-time changing operations. In this case the receiver will create a cache before each rendering to maintain its previous state, and allowing you to use filters without applying them in place. The cache is managed directly by the receiver. you can add several filters to the receiver, the first filter in the array is the first applied in the rendering chain.see [SCImageFilter](../Classes/SCImageFilter.md) for an example on how to use **addFilter**.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `filter` | a SCImageFilter to apply before rendering of the image |  
+
 
 ### `removeFilter`
 see [SCImageFilter](../Classes/SCImageFilter.md) for an example on how to use **removeFilter**.**Arguments:**
@@ -790,11 +830,13 @@ see [SCImageFilter](../Classes/SCImageFilter.md) for an example on how to use **
 |----------|-------------|
 | `filter` | the SCImageFilter to remove from the rendering chain. |  
 
+
 ### `flatten`
-if [filters](#filters) is not zero sized, this method will apply all those filters in place. if the image is accelerated this method force a bitmap representation of the receiver.
+if [#-filters](#-filters) is not zero sized, this method will apply all those filters in place. if the image is accelerated this method force a bitmap representation of the receiver.
+
 ### `invert`
 invert the receiver
-```supercollider
+```
 (
 i = SCImage.new("/Library/Desktop Pictures/Ripples Blue.jpg");
 i.invert;
@@ -803,9 +845,10 @@ i.plot(freeOnClose: true);
 ```
 
 
+
 ### `crop`
 crop the receiver
-```supercollider
+```
 (
 i = SCImage.new("/Library/Desktop Pictures/Ripples Blue.jpg");
 i.crop(Rect(10, 10, 120, 100));
@@ -822,6 +865,7 @@ i.plot(freeOnClose: true);
 
 ### Instance Methods / Attributes for SCImageKernel support
 see [SCImageKernel](../Classes/SCImageKernel.md) for examples and more info.
+
 
 ### `applyKernel`
 apply a Kernel in place. the receiver is modified after this call.**Arguments:**
@@ -850,7 +894,7 @@ you can now use a SCImage as a valid view background. 16 drawing modes are defin
 
 
 
-```supercollider
+```
 (
     b = 1.0;
     a = SCImage.new(SCDoc.helpSourceDir +/+ "images/vduck2.jpg");

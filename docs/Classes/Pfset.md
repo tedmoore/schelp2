@@ -13,6 +13,7 @@ Good for setting default values or loading server objects.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Good for setting default values or loading server objects.
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pfset({
@@ -40,7 +41,7 @@ x = a.asStream;
 
 Pfset does not override values placed into the event by the inner pattern:
 
-```supercollider
+```
 (
 var a, b;
 a = Pfset({
@@ -54,7 +55,7 @@ x = a.asStream;
 
 Sound example
 
-```supercollider
+```
 (
 SynthDef(\sinegrain,
     { |out = 0, freq = 440, sustain = 0.02|

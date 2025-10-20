@@ -13,6 +13,7 @@ Outputs the minimum value received at the input. When a trigger occurs at the re
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Outputs the minimum value received at the input. When a trigger occurs at the re
 ## Examples
 
 
-```supercollider
+```
 (
 {
     SinOsc.ar(

@@ -60,7 +60,7 @@ A **cleanupFunction** that deallocates resources when the pattern ends or is sto
 
 ### Example 1, loading and granulating a sound file.
 
-```supercollider
+```
 (
 SynthDef(\help_playbuf, { |out = 0, bufnum = 0, rate = 1, startPos = 0, amp = 0.1, sustain = 1, pan = 0, loop = 1|
     var audio;
@@ -100,7 +100,7 @@ a.play;
 
 ### Example 2, loading a waveform buffer and modifying it in performance.
 
-```supercollider
+```
 (
 SynthDef(\osc, { |out = 0, bufnum = 0, numbufs = 8, sustain = 1, freq = 500, amp = 0.1, pan = 0|
     var audio;
@@ -144,7 +144,7 @@ b.play
 
 ### Example 3, loading a waveshaper buffer and modifying it in performance.
 
-```supercollider
+```
 (
 SynthDef(\shaper, { |out = 0, bufnum = 0, numbufs = 8, sustain = 1, freq = 500, amp = 0.1, pan = 0|
     var audio;
@@ -185,7 +185,7 @@ c.play
 
 ### Example 4, using an effect with parallel control.
 
-```supercollider
+```
 (
 SynthDef(\echo, { |out = 0, maxdtime = 0.2, dtime = 0.2, decay = 2, gate = 1|
     var env, in;

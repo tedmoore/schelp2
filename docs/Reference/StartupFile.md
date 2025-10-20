@@ -18,7 +18,7 @@ Once the class library is finished compiling the interpreter looks for a file at
 
 A common example would be to alter the options of the local and internal Servers:
 
-```supercollider
+```
 // placing the following code in the file will cause these modifications to be made
 // at startup (see also: ServerOptions)
 

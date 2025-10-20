@@ -11,6 +11,7 @@ When CoinGate receives a trigger, it tosses a coin and either passes the trigger
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -22,7 +23,7 @@ When CoinGate receives a trigger, it tosses a coin and either passes the trigger
 ## Examples
 
 
-```supercollider
+```
 (
 a = SynthDef("help-TCoin", { |out = 0, prob = 0.5|
     var trig;

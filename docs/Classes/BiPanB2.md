@@ -10,7 +10,7 @@
 
 Encode a two channel signal to two dimensional ambisonic B-format. This puts two channels at opposite poles of a 2D ambisonic field. This is one way to map a stereo sound onto a soundfield. It is equivalent to:
 
-```supercollider
+```
 PanB2(inA, azimuth, gain) + PanB2(inB, azimuth + 1, gain)
 ```
 
@@ -18,6 +18,7 @@ PanB2(inA, azimuth, gain) + PanB2(inB, azimuth + 1, gain)
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -32,7 +33,7 @@ PanB2(inA, azimuth, gain) + PanB2(inB, azimuth + 1, gain)
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var w, x, y, p, q, a, b, c, d;

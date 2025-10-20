@@ -14,6 +14,7 @@ Plays back break point envelope contours (levels, times, shapes) given by demand
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -34,7 +35,7 @@ Plays back break point envelope contours (levels, times, shapes) given by demand
 ## Examples
 
 
-```supercollider
+```
 // frequency envelope with random times
 (
     {

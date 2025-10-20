@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -21,7 +22,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
 a = Ppatmod(
     Pseq([0, 0, 0, 0], 1),

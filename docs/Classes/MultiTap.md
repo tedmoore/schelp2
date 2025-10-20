@@ -17,6 +17,7 @@ This is a wrapper which creates a multiple tap delay line using [RecordBuf](../C
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -32,7 +33,7 @@ This is a wrapper which creates a multiple tap delay line using [RecordBuf](../C
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.alloc(s, s.sampleRate);
 (

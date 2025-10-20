@@ -13,6 +13,7 @@ Pspawner allows a routine to dynamically start and stop subpatterns.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -40,7 +41,7 @@ Pspawner allows a routine to dynamically start and stop subpatterns.
 ## Examples
 
 
-```supercollider
+```
 // example 1: a simple Pspawner
 
 (

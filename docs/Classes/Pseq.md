@@ -13,7 +13,7 @@ Cycles over a list of values. The repeats variable gives the number of times to 
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pseq([1, 2, 3], 2);    // repeat twice
@@ -25,7 +25,7 @@ b = a.asStream;
 
 Pseq also has an offset argument which gives a starting offset into the list.
 
-```supercollider
+```
 (
 var a, b;
 a = Pseq([1, 2, 3, 4], 3, 2);    // repeat 3, offset 2
@@ -37,7 +37,7 @@ b = a.asStream;
 
 You can pass a function for the repeats variable that gets evaluated when the stream is created.
 
-```supercollider
+```
 (
 var a, b;
 a = Pseq([1, 2], { rrand(1, 3) });    // repeat 1, 2, or 3 times
@@ -49,7 +49,7 @@ b = a.asStream;
 
 If you specify the value inf for the repeats variable, then it will repeat indefinitely.
 
-```supercollider
+```
 (
 var a, b;
 a = Pseq([1, 2, 3], inf);    // infinite repeat
@@ -61,7 +61,7 @@ b = a.asStream;
 
 Pseq used as a sequence of pitches:
 
-```supercollider
+```
 (
 SynthDef(\help_sinegrain,
     { |out = 0, freq = 440, sustain = 0.05|

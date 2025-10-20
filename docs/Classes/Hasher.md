@@ -11,6 +11,7 @@ Returns a unique output value from -1 to +1 for each input value according to a 
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Returns a unique output value from -1 to +1 for each input value according to a 
 ## Examples
 
 
-```supercollider
+```
 { Hasher.ar(Line.ar(0, 1, 1), 0.2) }.play;
 
 // Even adding a small amount to the input can result in a very different output. Compare these two examples:

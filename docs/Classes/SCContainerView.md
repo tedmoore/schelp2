@@ -23,6 +23,7 @@ Container views are meant for placing and grouping child views and widgets. Whil
 
 
 ### Accessing Instance and Class Variables
+
 ### `decorator`
 An automatic layout management for a container. Currently the only one existing is [FlowLayout](../Classes/FlowLayout.md).
 > **Note:** Crucial Library also has a useful layout tool called GridLayout.
@@ -33,6 +34,7 @@ An automatic layout management for a container. Currently the only one existing 
 |----------|-------------|
 | `arg1` |  |  
 
+
 ### `addFlowLayout`
 A convenience utility which sets decorator to [FlowLayout](../Classes/FlowLayout.md) and returns the decorator. See [FlowLayout](../Classes/FlowLayout.md) for examples.**Arguments:**
 
@@ -41,10 +43,12 @@ A convenience utility which sets decorator to [FlowLayout](../Classes/FlowLayout
 | `margin` | An instance of [Point](../Classes/Point.md). |  
 | `gap` | An instance of [Point](../Classes/Point.md). |  
 
+
 ### `children`
 An array containing all the views (children) contained in the container.
 
 ### Adding and Removing Subviews
+
 ### `add`
 Adds a view to children. The placement of the child view will depend on the decorator, and the child's bounds. Normally you don't need to call this directly, since subviews call it automatically when you create them.**Arguments:**
 
@@ -52,11 +56,13 @@ Adds a view to children. The placement of the child view will depend on the deco
 |----------|-------------|
 | `child` |  |  
 
+
 ### `removeAll`
 Removes all children from the view.
 
 ### Subclassing and Internal Methods
 The following methods are usually not used directly or are called by a primitive. Programmers can still call or override these as needed.
+
 
 ### `init`
 **Arguments:**
@@ -66,12 +72,14 @@ The following methods are usually not used directly or are called by a primitive
 | `argParent` |  |  
 | `argBounds` |  |  
 
+
 ### `prRemoveChild`
 Private method.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `child` |  |  
+
 
 ### `prClose`
 Private method.

@@ -238,8 +238,9 @@ ${{ node.text }}$
 {#- Section/Subsection/Subsubsection -#}
 {% macro render_section(node, level=2) -%}
 {% set heading = "#" * level %}
+{% set section_title = (node.text or "") | regex_replace('\\[([0-9])\\]', '\\1.') %}
 
-{{ heading }} {{ node.text }}
+{{ heading }} {{ section_title }}
 {% for child in node.children %}
 {{ render_node(child) }}
 {% if child.id in ["PROSE", "DEFINITIONLIST", "LIST", "NUMBEREDLIST", "SUBSECTION", "SUBSUBSECTION", "CODE"] %}
@@ -385,7 +386,7 @@ ${{ node.text }}$
 {#- Code Block -#}
 {% macro render_codeblock(node) %}
 
-```supercollider
+```
 {{ node.text }}
 ```
 

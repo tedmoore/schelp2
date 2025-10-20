@@ -13,29 +13,40 @@ An Environment is an IdentityDictionary with additional features that allow it t
 
 ## Class Methods
 
+
 ### `stack`
 Maintains a stack of Environments accessed by [#*push](#*push) and [#*pop](#*pop).
+
 ### `make`
 Creates a new Environment and sends make message.
+
 ### `use`
 Creates a new Environment and sends use message.
+
 ### `push`
 Saves [#currentEnvironment](#currentenvironment) on the stack.
+
 ### `pop`
 Restores [#currentEnvironment](#currentenvironment) from the stack.
 
 ## Instance Methods
 
+
 ### `make`
-Evaluates the function within the environment, returns the environment.### `use`
-Evaluates the function within the environment, returns the return value of the function.### `push`
-Saves the receiver on the stack.### `pop`
-Restores [#currentEnvironment](#currentenvironment) from the stack.### `linkDoc`
+Evaluates the function within the environment, returns the environment.
+### `use`
+Evaluates the function within the environment, returns the return value of the function.
+### `push`
+Saves the receiver on the stack.
+### `pop`
+Restores [#currentEnvironment](#currentenvironment) from the stack.
+### `linkDoc`
 Links the environment to the current document, so that it is the currentEnvironment only when one document is in focus. See: [Document#-envir](../Classes/Document.md#-envir)**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `doc` | The document to link to, defaults to the current document ([Document#*current](../Classes/Document.md#*current)). If the document has focus or no document is given, the environment is pushed immediately. |  
+
 ### `unlinkDoc`
 Uninks the environment to the current document, so that it is the currentEnvironment only when one document is in focus. See: [Document#-envir](../Classes/Document.md#-envir)**Arguments:**
 
@@ -47,12 +58,14 @@ Uninks the environment to the current document, so that it is the currentEnviron
 ## PseudoVariables (global variables)
 These are not methods, but global variables.
 
-> **⚠️ Warning:** In general, you should not manipulate these variables directly. Instead, use the [use](#use), [push](#push) and [#*pop](#*pop) methods.
+> **⚠️ Warning:** In general, you should not manipulate these variables directly. Instead, use the [#-use](#-use), [#-push](#-push) and [#*pop](#*pop) methods.
+
 ### `currentEnvironment`
 determines environment used by "~" syntax, [#valueEnvir](#valueenvir), and [#valueArrayEnvir](#valuearrayenvir)
+
 ### `topEnvironment`
 initial value of [#currentEnvironment](#currentenvironment). `~environmentVariables` placed here can be used as "global variables," as long as the topEnvironment remains the currentEnvironment.
-```supercollider
+```
 ~abc = 10;  // Environment variable (acting like a global var)
 
 currentEnvironment;  // abc is there
@@ -80,8 +93,10 @@ Thus, ~abc is not truly a global variable because it is inaccessible if its envi
 
 
 ## Related Messages
+
 ### `valueEnvir`
 evaluates a function, looking up unspecified arguments in [#currentEnvironment](#currentenvironment)
+
 ### `valueArrayEnvir`
 same as [#valueEnvir](#valueenvir), but with arguments in an array
 
@@ -98,7 +113,7 @@ The messages [#*make](#*make)(function) and [#*use](#*use)(function) replace [#c
 For example
 
 
-```supercollider
+```
 (
 a = Environment.make({
     ~a = 100;
@@ -113,7 +128,7 @@ a.postln;
 creates an environment, while
 
 
-```supercollider
+```
 a.use({
     ~a + ~b + ~c
 }).postln;
@@ -129,7 +144,7 @@ evaluates the function within that environment.
 When Functions are evaluated with [#valueEnvir](#valueenvir) and [#valueArrayEnvir](#valuearrayenvir) unspecified arguments are looked up in the current Environment. If the argument is not found in the Environment its default value is used.
 
 
-```supercollider
+```
 (
 var f;
 
@@ -154,7 +169,7 @@ Environment.use({
 Now here is how this can be used with an instrument function. Environments allow you to define instruments without having to worry about argument ordering conflicts. Even though the three functions below have the freq, amp and pan args declared in different orders it does not matter, because [#valueEnvir](#valueenvir) looks them up in the environment.
 
 
-```supercollider
+```
 s.boot;
 
 (
@@ -201,7 +216,7 @@ orc = Environment.make {
 Local variables declared in functions, and class and instance variables, use lexical scope. That is, the context in which they are understood depends on where the declaration is read during compilation. Asynchronous functions -- any function that will execute outside (later than) the current execution flow -- carry their lexically scoped variables with them.
 
 
-```supercollider
+```
 f = { var a = "got it"; { a.postln }.defer(0.5) };
 f.value;
 ```
@@ -212,7 +227,7 @@ Asynchronous functions include any scheduled function, responder function associ
 Environment variables have dynamic scope; they are read from whichever environment is current, whether or not it was the current environment when the function was declared. For instance, the following fails because e is no longer the current environment when the deferred function wakes up.
 
 
-```supercollider
+```
 e = (a: "got it", f: { { ~a.postln }.defer(0.5) });
 e.use { e.f };
 ```
@@ -221,7 +236,7 @@ e.use { e.f };
 [Function's inEnvir](../Classes/Function.md#-inenvir) method attaches a function to a specific environment. If no environment is given, the current environment at the time of executing inEnvir is the default.
 
 
-```supercollider
+```
 e = (a: "got it", f: { { ~a.postln }.inEnvir.defer(0.5) });
 e.use { e.f };
 ```
@@ -236,7 +251,7 @@ Environment's **know** variable holds a [Boolean](../Classes/Boolean.md) value c
 The default for know is false for Environment, and true for [Event](../Classes/Event.md).
 
 
-```supercollider
+```
 e = Environment[
     'someVariable' -> 5,
     'printMe' -> { |self, string| string.postln }
@@ -249,7 +264,7 @@ e.know = true;
 More typically, Events are used to define such prototypes because the syntax is simpler.
 
 
-```supercollider
+```
 e = (someVariable: 5, printMe: { |self, string| string.postln });
 ```
 
@@ -259,7 +274,7 @@ An object prototype looks up the method selector in the Environment to decide wh
 Most objects are simply returned -- the method call behaves like a getter for any other object.
 
 
-```supercollider
+```
 e.someVariable;
 // same as
 e.at('someVariable');
@@ -270,7 +285,7 @@ e['someVariable'];
 If the selector is a setter, e.g. **someVariable_(value)** or **someVariable = value**, the new value is put into the Environment.
 
 
-```supercollider
+```
 e.someVariable = 10;
 // same as
 e.put('someVariable', 10);
@@ -280,7 +295,7 @@ e.put('someVariable', 10);
 If the Environment item is a function, it is evaluated as if it were a method definition. The first argument passed into the function is the Environment that holds the function; arguments to the method call follow as the second, third etc. arguments passed into the function.
 
 
-```supercollider
+```
 e.printMe("Oh hai wrldz");
 // same as
 e['printMe'].value(e, "Oh hai wrldz");
@@ -290,7 +305,7 @@ e['printMe'].value(e, "Oh hai wrldz");
 The function may access objects in the Environment using the first function argument.
 
 
-```supercollider
+```
 e.mul2 = { |z| z.someVariable * 2 };
 e.mul2;
 ```
@@ -299,7 +314,7 @@ e.mul2;
 Environment variables inside a function will refer to the currently active environment -- not to the Environment being addressed. This is to allow the object prototype to interact with the [#currentEnvironment](#currentenvironment).
 
 
-```supercollider
+```
 e.mul2 = { |z| ~someVariable * 2 };
 // this will throw an error because ~someVariable is nil in the currentEnvironment
 e.mul2;
@@ -309,7 +324,7 @@ e.mul2;
 If you wish to access objects in the environment using environment variable syntax, 'use' the environment within the function.
 
 
-```supercollider
+```
 e.mul2 = { |z| z.use { ~someVariable * 2 } };
 e.mul2;
 ```
@@ -317,7 +332,7 @@ e.mul2;
 
 
 > **Note:** Be careful to avoid method names that are defined in any of the superclasses of environment (or event). Object prototyping works by trapping method selectors that are not already defined as class library methods. Using a generic method selector such as 'stop' or 'reset' will cause the corresponding class library method to respond, and the items in the environment will never be checked.Assigning a value into an environment using a setter -- **name_()** or **.name = ...** -- posts a warning message if the name is already defined in the class library.
-```supercollider
+```
 e.reset = { "My reset function".postln };
 
 // prints:

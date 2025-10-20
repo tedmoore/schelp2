@@ -11,6 +11,7 @@ Linearly searches a buffer for a value (i.e., loops over the frames in the buffe
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -22,7 +23,7 @@ Linearly searches a buffer for a value (i.e., loops over the frames in the buffe
 ## Examples
 
 
-```supercollider
+```
 (
 var max = 300;
 t = Array.series(max, 0, 1).curdle(0.06).scramble.flat;

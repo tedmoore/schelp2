@@ -11,7 +11,7 @@
 This is a resonant filter whose impulse response is like that of a sine wave with a [Decay2](../Classes/Decay2.md) envelope over it. It is possible to control the attacktime and decaytime.
 Formlet is equivalent to:
 
-```supercollider
+```
 Ringz(in, freq, decaytime) - Ringz(in, freq, attacktime)
 ```
 
@@ -24,6 +24,7 @@ The great advantage to this filter over FOF is that there is no limit to the num
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -40,7 +41,7 @@ Note that if attacktime == decaytime then the signal cancels out and if attackti
 ## Examples
 
 
-```supercollider
+```
 // A reminder of the order of args and their default values:
 // Formlet.ar(in: 0.0, freq: 440.0, attacktime: 1.0, decaytime: 1.0, mul: 1.0, add: 0.0)
 

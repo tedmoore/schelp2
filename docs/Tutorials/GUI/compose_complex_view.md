@@ -31,7 +31,7 @@ This is the simplest example about view composition: a [Slider](../../Classes/Sl
 **Please note that this example is 'unsafe'**: there is no mechanism preventing to enter high values inside the [TextField](../../Classes/TextField.md): any float number is valid. You are still responsible to clip values to the correct range when using a [TextField](../../Classes/TextField.md). Entering a non-valid number in the [TextField](../../Classes/TextField.md) will set the value to 0.0 (because converting a non-float [String](../../Classes/String.md) with `.asFloat` returns 0.0).
 
 
-```supercollider
+```
 (
 var value = 1;
 var displayValue = { |value|
@@ -96,7 +96,7 @@ Both the [Slider](../../Classes/Slider.md) and the [TextField](../../Classes/Tex
 In this particular example, I also implement a switch statement which **allows the window to respond to keyboard inputs**. Since both [Slider](../../Classes/Slider.md) and [TextField](../../Classes/TextField.md) natively respond to keyboard inputs events, we have to manipulate Views focus to specify the context of the events.
 
 
-```supercollider
+```
 (
 // Specifying default value, and its range
 var valueDefault = 440;
@@ -206,7 +206,7 @@ To do this, we can **combine two simple building blocks**: some [Button](../../C
 A [StackLayout](../../Classes/StackLayout.md) allows to **insert several graphical contexts on top of each other**, as you would pile some drawings on top of each other. You can chose to only display one of them, or all of them, in which case you can see a view under another view. This is similar to the layer system you can find in drawing softwares.
 
 
-```supercollider
+```
 (
 var tabView = UserView();
 var stackLayout = StackLayout();
@@ -263,7 +263,7 @@ The window is first split vertically in two: a main view, and a small menu that 
 For each of our subviews (in our example, a [MultiSliderView](../../Classes/MultiSliderView.md) and a [StaticText](../../Classes/StaticText.md)), we are creating two [Button](../../Classes/Button.md)s: one that hides the view, and is situated in the same layout as the view it is hiding, and one inside the menu, that displays it back. They control the views visibility, and they also control the visibility of the menu.
 
 
-```supercollider
+```
 (
 var window = Window(
     "Visibility Toggle",

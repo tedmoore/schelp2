@@ -13,6 +13,7 @@ Lindenmayer system pattern for selfsimilar structures. Its **dictionary (or even
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -21,7 +22,7 @@ Lindenmayer system pattern for selfsimilar structures. Its **dictionary (or even
 | `pattern` | starting value |  
 | `dict` | a dictionary or an event. |  
 | `levels` | number of levels
-```supercollider
+```
 IdentityDictionary[
     elem1 -> [otherElements],
     elem2 -> [otherElements],
@@ -33,7 +34,7 @@ IdentityDictionary[
 
 The examples use the `()` shortcut for [Event](../Classes/Event.md).
 
-```supercollider
+```
 // A generative song
 (
 // Scale degrees going up

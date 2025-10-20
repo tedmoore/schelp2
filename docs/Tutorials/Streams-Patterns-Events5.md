@@ -14,7 +14,7 @@ The protoEvent contains default values for many useful parameters.
 The default protoEvent is `Event.default`. It provides default bindings for duration, envelope, instrument, making a very simple Pattern directly playable:
 
 
-```supercollider
+```
 (
 // an endless sequence of middle Cs
 Pbind.new.play
@@ -25,7 +25,7 @@ Pbind.new.play
 By adding other bindings, you can override the defaults in the protoEvent.
 
 
-```supercollider
+```
 (
 // duration 0.25 beats (16th notes)
 Pbind( \dur, 0.25 ).play
@@ -34,7 +34,7 @@ Pbind( \dur, 0.25 ).play
 
 
 
-```supercollider
+```
 (
 // specifying the pitch in terms of midinote
 // see also The pitch model below
@@ -62,7 +62,7 @@ The way this works is due to the default values bound to the Symbols of the pitc
 The lowest level Symbol in the pitch model is `'freq'`. The default binding for `'freq'` is a [Function](../Classes/Function.md) which calculates the frequency by getting the value of `'midinote'`, adding a transpose value and converting it to Hertz using `midicps`.
 
 
-```supercollider
+```
     ~freq = {
         (~midinote.value + ~ctranspose).midicps;
     };
@@ -72,7 +72,7 @@ The lowest level Symbol in the pitch model is `'freq'`. The default binding for 
 If you compose with `'freq'` directly then this default function is overridden.
 
 
-```supercollider
+```
 (
 Pbind(
     \dur, 0.25,
@@ -85,7 +85,7 @@ Pbind(
 Event.default's `'finish'` function sends the value message to the current binding of `'freq'` in order to get the value for the frequency and adds a detune value to it which transposes the frequency in Hertz.
 
 
-```supercollider
+```
 (
 Pbind(
     \dur, 0.25,
@@ -99,7 +99,7 @@ Pbind(
 The next level is `'midinote'` which is by default bound to this function:
 
 
-```supercollider
+```
     ~midinote = {
         (~note.value + ~gtranspose + (~octave * divs) + ~root)
                 * 12.0 / ~stepsPerOctave;
@@ -110,7 +110,7 @@ The next level is `'midinote'` which is by default bound to this function:
 This function gets the value bound to `'note'` which is a value expressed in some equal temperament, not necessarily 12. It adds a gamut transpose value `'gtranspose'`, and scales from the number of notes per octave being used into 12 notes per octave MIDI key values. If you compose with `'midinote'` directly then that will override this function.
 
 
-```supercollider
+```
 (
 Pbind(
     \dur, 0.2,
@@ -123,7 +123,7 @@ Pbind(
 Another level higher is `'note'` which is defined by default by this function:
 
 
-```supercollider
+```
     ~note = {
         var divs;
         divs = ~stepsPerOctave;
@@ -135,7 +135,7 @@ Another level higher is `'note'` which is defined by default by this function:
 This function derives the note value from the next higher level variables which specify a pitch from a scale. These variables are defined as follows:
 
 
-```supercollider
+```
     ~stepsPerOctave = 12.0;
 ```
 
@@ -143,7 +143,7 @@ This function derives the note value from the next higher level variables which 
 The number of equal divisions of an octave for this tuning. The equal temperament defined by this variable is known as the gamut. If you wanted to work in cents for example you could set this to 1200.0.
 
 
-```supercollider
+```
     ~octave = 5.0;
 ```
 
@@ -151,7 +151,7 @@ The number of equal divisions of an octave for this tuning. The equal temperamen
 The current octave. Middle C is the lowest note in octave 5.
 
 
-```supercollider
+```
     ~root = 0.0;
 ```
 
@@ -159,7 +159,7 @@ The current octave. Middle C is the lowest note in octave 5.
 The root of the scale given in equal divisions defined by `~stepsPerOctave`.
 
 
-```supercollider
+```
     ~scale = #[0, 2, 4, 5, 7, 9, 11]; // diatonic major scale
 ```
 
@@ -167,7 +167,7 @@ The root of the scale given in equal divisions defined by `~stepsPerOctave`.
 A set of scale pitches given in equal divisions defined by `~stepsPerOctave`.
 
 
-```supercollider
+```
     ~degree = 0;
 ```
 
@@ -175,7 +175,7 @@ A set of scale pitches given in equal divisions defined by `~stepsPerOctave`.
 A scale degree index into the `~scale`. 0 is the root and the scale wraps in the manner defined by `degreeToKey`.
 
 
-```supercollider
+```
     ~mtranspose = 0;
 ```
 
@@ -183,7 +183,7 @@ A scale degree index into the `~scale`. 0 is the root and the scale wraps in the
 A modal transposition value that is added to the scale degree.
 
 
-```supercollider
+```
     ~gtranspose = 0;
 ```
 
@@ -191,7 +191,7 @@ A modal transposition value that is added to the scale degree.
 A gamut transposition value that is added to the gamut pitch.
 
 
-```supercollider
+```
     ~ctranspose = 0;
 ```
 
@@ -202,7 +202,7 @@ A chromatic transposition value expressed in semitones.
 
 ## Pitch model Examples
 
-```supercollider
+```
 (
 // a simple scale degree sequence
 Pbind(
@@ -345,7 +345,7 @@ Pbind(
 Duration is expressed in beats and is bound to the `'dur'` symbol. The sustain time of a note can be expressed directly in beats or by using a legato value which is multiplied by the note duration to get the sustain time.
 
 
-```supercollider
+```
 (
 // changing duration
 Pbind(

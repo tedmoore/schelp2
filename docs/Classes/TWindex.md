@@ -11,6 +11,7 @@ When triggered, returns a random index value based on array as a list of probabi
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -23,7 +24,7 @@ When triggered, returns a random index value based on array as a list of probabi
 ## Examples
 
 
-```supercollider
+```
 // assuming normalized values
 (
 a = SynthDef("help-TWindex", { |out, w1 = 0.0, w2 = 0.5, w3 = 0.5|

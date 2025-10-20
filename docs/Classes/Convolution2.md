@@ -15,6 +15,7 @@ See also [http://www.dspguide.com/ch18.htm](http://www.dspguide.com/ch18.htm) by
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -30,7 +31,7 @@ See also [http://www.dspguide.com/ch18.htm](http://www.dspguide.com/ch18.htm) by
 ## Examples
 
 
-```supercollider
+```
 ( // allocate three buffers
 b = Buffer.alloc(s, 2048);
 c = Buffer.alloc(s, 2048);
@@ -149,7 +150,7 @@ b.sine1(1.0/[1, 2, 3, 4, 5, 6], true, true, true);
 
 Instead of triggering the kernel update yourself, as in the first example, you can use a UGen trigger signal to do so. In the next example, we use two Convolution2 UGens in order to continuously and smoothly change the impulse response: [RecordBuf](../Classes/RecordBuf.md) is used to record a random frequency [Saw](../Classes/Saw.md) oscillator every `trigPeriod` seconds. Right after the recording (trigPeriod gets delayed by the buffer duration [BufDur](../Classes/BufDur.md), using the [TDelay](../Classes/TDelay.md) UGen) the two convolution UGens alternatively update their kernels (using two triggers convTrigs). At the frequency of the kernel updates a crossfader [XFade2](../Classes/XFade2.md) moves between conv1 and conv2, using a triangle oscillator [LFTri](../Classes/LFTri.md) at half the trigger frequency as a panning input. The result is a constantly shifting spectral colorization of the Dust impulses:
 
-```supercollider
+```
 b = Buffer.alloc(s, 2048, 1, _.zeroMsg);
 (
 x = { |i_kernel, density = 100, trigPeriod = 5.0, cutOff = 1000, minFreq = 200, maxFreq = 2000|

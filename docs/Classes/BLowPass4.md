@@ -18,6 +18,7 @@ The B equalization suite is based on the Second Order Section ([SOS](../Classes/
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -32,7 +33,7 @@ The B equalization suite is based on the Second Order Section ([SOS](../Classes/
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 (
 z = {

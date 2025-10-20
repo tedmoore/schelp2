@@ -13,16 +13,17 @@ keeps a reference to a [Pbind](../Classes/Pbind.md) in which single keys can be 
 
 ## Class Methods
 
+
 ### `new`
 Return a new instance of PbindProxy with the given patternpairs. Unlike [Pbindef](../Classes/Pbindef.md), it has no internal name.
-```supercollider
+```
 a = PbindProxy(\note, Pseq([0, 7, 9], inf), \dur, 0.2).play;
 a.set(\note, Pseq([0, 6, 10]));
 a.stop;
 ```
 
 It also supports keyword argument syntax:
-```supercollider
+```
 a = PbindProxy(note: Pseq([0, 7, 9]), dur: 0.2).play;
 a.stop;
 ```
@@ -31,20 +32,24 @@ a.stop;
 
 ## Instance Methods
 
+
 ### `source`
-returns the wrapper for the Pbind### `set`
-set the given patternpairs.### `at`
+returns the wrapper for the Pbind
+### `set`
+set the given patternpairs.
+### `at`
 return a pattern at that key. this can be used to set quant value individually, so different elementary patterns can be quantized differently.
-```supercollider
+```
 x.at(\freq).quant = 2;
 ```
+
 
 ### `quant`
 set the quant of all elementary patterns, or return the quant value of the source pattern.
 ## Examples
 
 
-```supercollider
+```
 (
     SynthDef(\Pdefhelp, { |out, freq, sustain = 1, amp = 1, pan|
         var env, u = 1;

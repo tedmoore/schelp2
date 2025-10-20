@@ -13,6 +13,7 @@ Bounces sound between two outputs… Like a ping-pong ball. PingPong is actually
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -27,7 +28,7 @@ Bounces sound between two outputs… Like a ping-pong ball. PingPong is actually
 ## Examples
 
 
-```supercollider
+```
 (
 s = Server.local;
 s.waitForBoot({

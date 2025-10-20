@@ -14,7 +14,7 @@ The simplest way is to look at an existing help file or class document, and read
 > **Note:** The help files should use UTF-8 encoding!
 
 
-All tags that are used for document metadata should be entered at the top of the document source file, before any section or other text. See [SCDocSyntax / Header tags ](../Reference/SCDocSyntax.md#header-tags)
+All tags that are used for document metadata should be entered at the top of the document source file, before any section or other text. See [SCDocSyntax#Header tags](../Reference/SCDocSyntax.md#header-tags)
 
 In the header, you must specify the title, summary and categories parts of the header.
 
@@ -28,7 +28,7 @@ Use regular text in sections and subsections, and possible other tags for lists,
 ### Documenting new classes
 When you navigate to an undocumented class, it will contain an schelp template that can be filled in and saved to HelpSource/Classes/ClassName.schelp.
 
-A list of all undocumented classes can be seen here: [Browse / Undocumented classes ](../Browse.md#undocumented-classes) (auto-generated).
+A list of all undocumented classes can be seen here: [Browse#Undocumented classes](../Browse.md#undocumented-classes) (auto-generated).
 
 
 
@@ -136,7 +136,7 @@ Try to find good categories for the doc you are writing/converting. If a suitabl
 For UGens, you should use the existing categories like UGens>Filter>Nonlinear. View the current categories like this:
 
 
-```supercollider
+```
 Ball.categories
 ```
 
@@ -179,7 +179,7 @@ Each extension should have their own HelpSource folder with files that should be
 Example file layout:
 
 
-```supercollider
+```
 MyQuark/HelpSource/Classes/MyClass1.schelp
 MyQuark/HelpSource/Classes/MyClass2.schelp
 MyQuark/HelpSource/Guides/MyGuide.schelp
@@ -216,7 +216,7 @@ URL's are automagically converted to links.
 The `link::` tag is used for cross-reference between docs. It uses a simple namespace, example:
 
 
-```supercollider
+```
 See also link::Classes/SinOsc:: for a nice oscillator.
 Or take a look at link::Browse#UGens:: for a full list.
 The link::Overviews/Methods#play#play method:: is often very useful.
@@ -226,7 +226,7 @@ The link::Overviews/Methods#play#play method:: is often very useful.
 Anchors can be inserted manually with `anchor::name::` and referenced like this:
 
 
-```supercollider
+```
 link::Foo/Bar#hello::
 ```
 
@@ -234,7 +234,7 @@ link::Foo/Bar#hello::
 or to jump to an anchor in this document:
 
 
-```supercollider
+```
 link::#hello::
 ```
 
@@ -246,7 +246,7 @@ All methods get anchor names prefixed with `*` for class methods and `-` for ins
 One can change the rendered text of the link by using another `#` character:
 
 
-```supercollider
+```
 Also see link::Classes/SinOsc##a nice oscillator::
 ```
 
@@ -254,7 +254,7 @@ Also see link::Classes/SinOsc##a nice oscillator::
 A link to specific methods:
 
 
-```supercollider
+```
 Take a look at link::Classes/SinOsc#*ar:: and link::Classes/Function#-play::
 ```
 
@@ -264,7 +264,7 @@ Renders as: [SinOsc#*ar](../Classes/SinOsc.md#*ar) and [Function#-play](../Class
 The [Methods](../Overviews/Methods.md) overview is dynamic and allows a specific method to be shown, by using the methodname as anchor, for example to get a list of all classes implementing `play` :
 
 
-```supercollider
+```
 All classes implementing code::play:: can be seen link::Overviews/Methods#play#here::.
 ```
 
@@ -274,7 +274,7 @@ Renders as: All classes implementing `play` can be seen [here](../Overviews/Meth
 The [Browse](../Browse.md) page is also dynamic, and can take a category tree as anchor name:
 
 
-```supercollider
+```
 For more filters, see link::Browse#UGens>Filters::
 ```
 
@@ -291,7 +291,7 @@ The easiest way to contribute to the documentation is:
  2. Clone your repository
 
 
-```supercollider
+```
     git clone --recursive https://github.com/{your_username}/supercollider.git
 ```
 
@@ -299,7 +299,7 @@ The easiest way to contribute to the documentation is:
  3. Create a branch for doc updates
 
 
-```supercollider
+```
     git checkout -b doc_updates
 ```
 
@@ -307,7 +307,7 @@ The easiest way to contribute to the documentation is:
  4. Do your update, commit your changes and push to github
 
 
-```supercollider
+```
     git push origin -u doc_updates
 ```
 

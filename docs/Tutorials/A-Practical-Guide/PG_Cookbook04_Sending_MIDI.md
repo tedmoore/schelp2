@@ -15,7 +15,7 @@ The `\midi` event type supports the following commands, chosen in the event by t
 If you want to synchronize events played by a MIDI device and events played by the SuperCollider server, the MIDIOut object's latency must match the server latency. You can set the latency any time to affect all future events.
 
 
-```supercollider
+```
 MIDIClient.init;    // if not already done
 
 (

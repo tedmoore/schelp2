@@ -16,6 +16,7 @@ On the other hand, it is tireless, relatively general (though obviously best at 
 ## Class Methods
 
 
+
 ### `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ On the other hand, it is tireless, relatively general (though obviously best at 
 | `chain` | [fft] Audio input to track, already passed through an FFT UGen; the expected size of FFT is 1024 for 44100 and 48000 sampling rate, and 2048 for double those. No other sampling rates are supported. |  
 | `lock` | [sk] If this argument is greater than 0.5, the tracker will lock at its current periodicity and continue from the current phase. Whilst it updates the model's phase and period, this is not reflected in the output until lock goes back below 0.5. |  
 **Returns:** Four k-rate outputs:
-```supercollider
+```
 #quarternotetick, eighthnotetick, sixteenthnotetick, tempo = BeatTrack.kr(chain, 0)
 ```
 
@@ -36,7 +37,7 @@ On the other hand, it is tireless, relatively general (though obviously best at 
 ## Examples
 
 
-```supercollider
+```
 // this is a one minute pop song; you should load something equivalent for testing
 d = Buffer.read(s, "/Volumes/data/stevebeattrack/samples/100.wav");
 
@@ -75,7 +76,7 @@ a.set(\lock, 0); // unfix, back to tracking
 
 track audio in (try clapping a beat or beatboxing, but allow up to 6 seconds for tracking to begin) and spawning stuff at quarters, eighths and sixteenths:
 
-```supercollider
+```
 (
 SynthDef(\help_beattrack2, { |out|
     var trackb, trackh, trackq, tempo;

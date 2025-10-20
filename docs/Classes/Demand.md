@@ -15,6 +15,7 @@ When there is a trigger at the reset input, the demand rate UGens in the list ar
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ When there is a trigger at the reset input, the demand rate UGens in the list ar
 | `reset` | Trigger. Resets the list of UGens when triggered. |  
 | `demandUGens` | List of demand-rate UGens to get values from. When the shortest stream ends, this ugen will set the ['done' flag](../Classes/Done.md). |  
 By design, a reset trigger only resets the demand ugens; it does not reset the value at Demand's output. Demand continues to hold its value until the next value is demanded, at which point its output value will be the first expected item in the list. To jump to the start value upon receipt of a reset trigger, one can add (+) the two triggers together:
-```supercollider
+```
 (
 a = { |t_trig, t_reset|
     var    d = Demand.kr(t_trig + t_reset, t_reset, Dseries(0, 1, inf));
@@ -37,7 +38,7 @@ a.set(\t_reset, 1);    // goes immediately back to 0
 ```
 
 One demand ugen represents a single stream of values, so that embedding the same ugen twice calls this stream twice. To isolate a demand ugen, use a function:
-```supercollider
+```
 {
 var a, b, t = Impulse.kr(2);
 a = { Dseq([1, 2, 3, 4, 5], inf) } * 100;
@@ -50,7 +51,7 @@ Demand.kr(t, 0, [a, b]).poll(t)
 ## Examples
 
 
-```supercollider
+```
 // examples
 
 (

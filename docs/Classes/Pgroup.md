@@ -10,7 +10,7 @@
 
 The group is released when the stream has ended. The group's **release** is delayed (default 0.1 beats) until after the last note releases. But, Pgroup does not know how long the synths' envelopes last. You can extend the lag by putting the number of beats into the event prototype's `\groupReleaseTime` key:
 
-```supercollider
+```
 Pgroup(...).play(protoEvent: Event.default.put(\groupReleaseTime, releaseLag));
 ```
 
@@ -19,7 +19,7 @@ Pgroup(...).play(protoEvent: Event.default.put(\groupReleaseTime, releaseLag));
 ## Examples
 
 
-```supercollider
+```
 p = Pbind(\degree, Prand((0..7), inf), \dur, 0.3, \legato, 0.2);
 
  // watch the node structure as it changes

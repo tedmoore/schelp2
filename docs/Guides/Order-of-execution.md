@@ -14,7 +14,7 @@ Order of execution in this context doesn't mean the order in which statements ar
 If you have on the server:
 
 
-```supercollider
+```
     synth 1 ---> synth 2
 ```
 
@@ -26,7 +26,7 @@ If you don't have any synths that use In.ar, you don't have to worry about order
 The rule is simple: if you have a synth on the server (i.e. an "effect") that depends on the output from another synth (the "source"), the effect must appear later in the chain of nodes on the server than the source.
 
 
-```supercollider
+```
     source ---> effect
 ```
 
@@ -34,14 +34,14 @@ The rule is simple: if you have a synth on the server (i.e. an "effect") that de
 If you have:
 
 
-```supercollider
+```
     effect ---> source
 ```
 
 
 The effect synth will not hear the source synth, and you won't get the results you want.
 
-![server.png / A diagram of a typical server configuration ](server.png#A diagram of a typical server configuration)
+![server.png#A diagram of a typical server configuration](server.png#A diagram of a typical server configuration)
 On the server external signals can be received by synths from "public" input busses (one in the represented case), while the different synths must be connected to "public" out audio busses (two in the case) in order to output a signal externally to the soundcard (see Bus). Other busses (both control and audio) are internal. In general, busses can be thought as roughly analogous to sends, busses, or submixes on an analog mixer, or as pipes allowing one to route "flowing" signals. If a synth is connected to a bus at a certain point (thus "flowing" into it) a synth taking the signal from the same bus at a subsequent point will take as input the flowing signal (along with anything else previously output to the bus), just as would occur with a water pipe.
 
 
@@ -50,7 +50,7 @@ On the server external signals can be received by synths from "public" input bus
 There is always a default Server, which can be accessed or set through the class method Server.default. At startup this is set to be the local Server, and is also assigned to the interpreter variable s.
 
 
-```supercollider
+```
 // execute the following and watch the post window
 s === Server.default;
 s === Server.local;
@@ -115,7 +115,7 @@ Using Synth.new without an addAction will result in the default addAction. (You 
 
 ### Moving nodes
 
-```supercollider
+```
     .moveBefore
     .moveAfter
     .moveToHead
@@ -126,7 +126,7 @@ Using Synth.new without an addAction will result in the default addAction. (You 
 If you need to change the order of execution after synths and groups have been created, you can do this using move messages.
 
 
-```supercollider
+```
     ~fx = Synth.tail(s, "fx");
     ~src = Synth.tail(s, "src");  // effect will not be heard b/c it's earlier
     ~src.moveBefore(~fx);   // place the source before the effect
@@ -140,7 +140,7 @@ If you need to change the order of execution after synths and groups have been c
 Groups can be moved in the same way as synths. When you move a group, all the synths in that group move with it. This is why groups are such an important tool for managing order of execution. (See the Group helpfile for details on this and other convenient aspects of Groups.)
 
 
-```supercollider
+```
     Group 1 ---> Group 2
 ```
 
@@ -168,7 +168,7 @@ Before you start coding, plan out what you want and decide where the synths need
 A common configuration is to have a routine playing nodes, all of which need to be processed by a single effect. Plus, you want this effect to be separate from other things running at the same time. To be sure, you should place the synth -> effect chain on a private audio bus, then transfer it to the main output.
 
 
-```supercollider
+```
     [Lots of synths] ----> effect ----> transfer
 ```
 
@@ -176,7 +176,7 @@ A common configuration is to have a routine playing nodes, all of which need to 
 This is a perfect place to use a group:
 
 
-```supercollider
+```
     Group ( [lots of synths] ) ----> effect ----> transfer
 ```
 
@@ -184,7 +184,7 @@ This is a perfect place to use a group:
 To make the structure clearer in the code, one can also make a group for the effect (even if there's only one synth in it):
 
 
-```supercollider
+```
     Group ( [lots of synths] ) ----> Group ( [effect] ) ----> transfer
 ```
 
@@ -194,7 +194,7 @@ I'm going to throw a further wrench into the example by modulating a parameter (
 So, at the beginning of your program:
 
 
-```supercollider
+```
 s.boot;
 
 (
@@ -305,7 +305,7 @@ Because of this it is often useful to allocate a separate bus for feedback. With
 The following example demonstrates this issue with In.kr:
 
 
-```supercollider
+```
 (
 SynthDef("help-Infreq", { arg bus;
     Out.ar(0, FSinOsc.ar(In.kr(bus), 0, 0.5));

@@ -16,7 +16,7 @@ for more information on chaos theory henon formulas:
 "[https://en.wikipedia.org/wiki/Hénon_map"](https://en.wikipedia.org/wiki/Hénon_map")
 sclang code translation:
 
-```supercollider
+```
 (
 var a = 1.4, b = 0.3, x0 = 0, x1 = 1, size = 64;
 plot(size.collect { var aux = 1 - (a * (x1 ** 2)) + (b * x0); x0 = x1; x1 = aux; aux });
@@ -27,6 +27,7 @@ plot(size.collect { var aux = 1 - (a * (x1 ** 2)) + (b * x0); x0 = x1; x1 = aux;
 
 
 ## Class Methods
+
 
 ### `ar`
 **Arguments:**
@@ -42,7 +43,7 @@ plot(size.collect { var aux = 1 - (a * (x1 ** 2)) + (b * x0); x0 = x1; x1 = aux;
 ## Examples
 
 
-```supercollider
+```
 // default initial params
 { HenonC.ar(MouseX.kr(20, SampleRate.ir)) * 0.2 !2 }.scope(s);
 

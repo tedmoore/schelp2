@@ -13,6 +13,7 @@ A digital implementation of the Moog VCF (filter).> *The design of this filter i
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -28,7 +29,7 @@ A digital implementation of the Moog VCF (filter).> *The design of this filter i
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 // Play it with the mouse...
 x = { MoogFF.ar(WhiteNoise.ar(01.1), MouseY.kr(100, 10000, 1), MouseX.kr(0, 4)) }.play(s);

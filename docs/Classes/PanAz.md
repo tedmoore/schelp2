@@ -13,6 +13,7 @@ Multichannel equal power panner.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -30,7 +31,7 @@ Multichannel equal power panner.
 Despite a certain similarity, [Pan2](../Classes/Pan2.md) and [PanAz](../Classes/PanAz.md) with 2 channels behave differently.
 
 
-```supercollider
+```
 // one full cycle for PanAz: from -1 to 1
 { PanAz.ar(2, DC.ar(1), Line.ar(-1, 1, 0.1), orientation: 0) }.plot(0.1)
 // comparing with Pan2
@@ -43,7 +44,7 @@ Despite a certain similarity, [Pan2](../Classes/Pan2.md) and [PanAz](../Classes/
 The same in one plot window:
 
 
-```supercollider
+```
 (
 {
     [
@@ -59,7 +60,7 @@ The same in one plot window:
 In other words, while `Pan2` needs a position change of `2` from channel `0` to `1`
 
 
-```supercollider
+```
 { Pan2.ar(DC.ar(1), Line.ar(-1, 1, 0.1)) }.plot(0.1)
 // we need a position change of 1 in PanAz:
 { PanAz.ar(2, DC.ar(1), Line.ar(0, 1, 0.1), orientation: 0) }.plot(0.1)
@@ -69,7 +70,7 @@ In other words, while `Pan2` needs a position change of `2` from channel `0` to 
 In one plot window:
 
 
-```supercollider
+```
 (
 {
     [
@@ -86,7 +87,7 @@ In one plot window:
 
 Five channel circular panning with first channel on the left
 
-```supercollider
+```
 (
 {
     PanAz.ar(

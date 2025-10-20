@@ -13,6 +13,7 @@ Returns a stream that behaves like a brownian motion.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Returns a stream that behaves like a brownian motion.
 ## Examples
 
 
-```supercollider
+```
 (
 var a;
 a = Pbrown(0.0, 1.0, 0.1, inf);
@@ -47,7 +48,7 @@ a.asStream.nextN(1000).plot;
 
 
 
-```supercollider
+```
 // sound example
 (
 SynthDef(\help_sinegrain,

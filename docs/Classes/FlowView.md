@@ -10,7 +10,7 @@
 
 In the simplest respect this is a lazy contraction of this:
 
-```supercollider
+```
 w = GUI.window.new;
 w.view.decorator = FlowLayout.new(w.bounds);
 w.front;
@@ -19,7 +19,7 @@ w.front;
 
 [FlowView](../Classes/FlowView.md) add some features to this setup.
 
-```supercollider
+```
 (
 f = FlowView.new;
 
@@ -41,6 +41,7 @@ GUI.slider.new(f, Rect(0, 0, 100, 100));
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -55,10 +56,12 @@ GUI.slider.new(f, Rect(0, 0, 100, 100));
 
 ## Instance Methods
 
+
 ### `startRow`
-Start a new row.### `indentedRemaining`
+Start a new row.
+### `indentedRemaining`
 The maximum space that is left, starting at the current cursor position.
-```supercollider
+```
 (
 f = FlowView.new;
 
@@ -93,10 +96,11 @@ GUI.slider.new(f, f.indentedRemaining)
     .background = Color.blue(alpha: 0.2)
 )
 ```
+
 
 ### `used`
 The area used so far, rounded up to the nearest rectangle plus margin.
-```supercollider
+```
 (
 w = GUI.window.new;
 w.front;
@@ -134,9 +138,10 @@ GUI.compositeView.new(w, f.used)
 )
 ```
 
+
 ### `flow`
 Insert a sub flow view into the current view.
-```supercollider
+```
 (
 f = FlowView.new;
 
@@ -156,9 +161,10 @@ g = f.flow({ |g|
 |----------|-------------|
 | `func` | (describe argument here) |  
 | `bounds` | (describe argument here) |  
+
 ### `comp`
 Insert a sub composite view into the current view.
-```supercollider
+```
 (
 f = FlowView.new;
 
@@ -185,7 +191,7 @@ f.startRow;
 ## Examples
 
 
-```supercollider
+```
 // note: some of the following examples use ActionButton from the crucialib
 
 // tests

@@ -13,6 +13,7 @@ Continuously cycles through the range of numbers, starting over from the beginni
 
 ## Class Methods
 
+
 ### `new`
 make a new instance, with lo and hi values.**Arguments:**
 
@@ -24,13 +25,15 @@ make a new instance, with lo and hi values.**Arguments:**
 
 ## Instance Methods
 
+
 ### `alloc`
-Allocate next number. After hi value returns lo.**Returns:** (describe returnvalue here)### `init`
+Allocate next number. After hi value returns lo.**Returns:** (describe returnvalue here)
+### `init`
 Reset allocator to its initial state.
 ## Examples
 
 
-```supercollider
+```
 a = RingNumberAllocator.new(3, 5)
 7.do {a.alloc.post } // 3453453
 a.init

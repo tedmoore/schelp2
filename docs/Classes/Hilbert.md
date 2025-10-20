@@ -13,6 +13,7 @@ Returns two channels with the original signal and a copy of that signal that has
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Returns two channels with the original signal and a copy of that signal that has
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 s.scope;
 a = { Hilbert.ar(SinOsc.ar(100)) * -20.dbamp }.play;

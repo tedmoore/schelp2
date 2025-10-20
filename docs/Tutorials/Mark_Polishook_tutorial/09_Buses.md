@@ -9,7 +9,7 @@
 By default, SuperCollider has 1024 buses for audio signals and 16,384 for control signals. The buses, which are items in an array, are what SuperCollider uses to represent audio and control rate data.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
-```supercollider
+```
 // the array of audio buses (channels)
 [ channel0, channel1, channel2, channel3, channel4, ... , ..., ..., etc., ... channel127 ]
 
@@ -22,7 +22,7 @@ By default, SuperCollider has 1024 buses for audio signals and 16,384 for contro
 Use an Out ugen at the audio rate to put data into an audio bus.
 
 
-```supercollider
+```
 (
 SynthDef("dataForABus", {
     Out.ar(
@@ -39,7 +39,7 @@ Synth("dataForABus");
 A SynthDef browser
 
 
-```supercollider
+```
 (
 SynthDescLib.global.read;
 SynthDescLib.global.browse;
@@ -55,7 +55,7 @@ shows 1 channel of output on channel 0.
 Send an .ar message to an In ugen to get data from an audio bus.
 
 
-```supercollider
+```
 (
 SynthDef("dataFromABus", {
     Out.ar(

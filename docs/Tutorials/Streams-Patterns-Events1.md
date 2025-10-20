@@ -16,7 +16,7 @@ A stream represents a lazy sequence of values. The next value in the sequence is
 A stream can be any object that responds to the next and reset messages. Any object that responds to these messages can act as a stream. It happens that the class [Object](../Classes/Object.md) defines next and reset for all objects. In Object, both next and reset are defined to return `this`. Thus any object is by default a stream that represents an infinite sequence of itself.
 
 
-```supercollider
+```
 7.next.postln;    // 7 responds to next by returning itself
 ```
 
@@ -29,7 +29,7 @@ In addition to the default streams implemented by [Object](../Classes/Object.md)
 A generally useful subclass of Stream is the class [FuncStream](../Classes/FuncStream.md) which allows the user to provide functions to execute in response to next and reset. Here is a FuncStream that represents an infinite random sequence:
 
 
-```supercollider
+```
 (
 var a;
 a = FuncStream.new({ #[1, 2, 3, 4].choose });
@@ -43,7 +43,7 @@ Another useful subclass of Stream is [Routine](../Classes/Routine.md) which is a
 Here is a Routine that represents a finite sequence of values:
 
 
-```supercollider
+```
 (
 var a;
 a = Routine.new({
@@ -57,7 +57,7 @@ a = Routine.new({
 and another:
 
 
-```supercollider
+```
 (
 var a;
 a = Routine.new({
@@ -78,7 +78,7 @@ Stream is a subclass of [AbstractFunction](../Classes/AbstractFunction.md) which
 Applying a unary operator to a stream:
 
 
-```supercollider
+```
 (
 var a, b;
 // a is a stream that counts from 0 to 9
@@ -94,7 +94,7 @@ b = a.squared;    // stream b is a square of the stream a
 Using a binary operator on a stream:
 
 
-```supercollider
+```
 (
 var a, b;
 // a is a stream that counts from 0 to 9
@@ -110,7 +110,7 @@ b = a + 100;    // add a constant value to stream a
 Using a binary operator on two streams:
 
 
-```supercollider
+```
 (
 var a, b, c;
 // a is a stream that counts from 0 to 9
@@ -135,7 +135,7 @@ Streams respond to the messages `collect`, `select`, and `reject` by returning a
 The `collect` message returns a stream that is modified by a function in the same way as the collect message sent to a [Collection](../Classes/Collection.md) returns a modified Collection.
 
 
-```supercollider
+```
 (
 var a, b;
 // a is a stream that counts from 0 to 9
@@ -152,7 +152,7 @@ b = a.collect({ arg item; if (item.even, { item + 100 },{ item }); });
 The `select` message creates a stream that passes only items that return true from a user supplied function.
 
 
-```supercollider
+```
 (
 var a, b;
 // a is a stream that counts from 0 to 9
@@ -169,7 +169,7 @@ b = a.select({ arg item; item.odd; });
 The `reject` message creates a stream that passes only items that return false from a user supplied function.
 
 
-```supercollider
+```
 (
 var a, b;
 // a is a stream that counts from 0 to 9
@@ -189,7 +189,7 @@ b = a.reject({ arg item; item.odd; });
 Here is a sound example to show how you might use Streams to generate musical material.
 
 
-```supercollider
+```
 (
     s = Server.local;
     SynthDef(\help_SPE1, { arg i_out=0, freq;

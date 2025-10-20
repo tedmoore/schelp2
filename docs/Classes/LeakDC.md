@@ -13,6 +13,7 @@ This is a linear filter that removes DC bias from a signal. Specifically, this i
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ This is a linear filter that removes DC bias from a signal. Specifically, this i
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a;

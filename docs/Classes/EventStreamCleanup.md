@@ -26,7 +26,7 @@ Some examples of patterns that create state that lasts over several events. They
 - [Pspawner](../Classes/Pspawner.md) (schedules streams and releases them after some time)
 
 
-```supercollider
+```
 // wrap a pattern in a stop condition
 (
 f = { |pat, condition|
@@ -56,10 +56,12 @@ Pn(x).play; // loop it.
 
 ## Class Methods
 
+
 ### `new`
 Create a new instance.
 
 ## Instance Methods
+
 
 ### `addFunction`
 Add a new cleanup function which will be called when the stream is made to end somewhere downstreams. This is called only in patterns that create resources that need to be released (e.g. [Pmono](../Classes/Pmono.md) or [Pfx](../Classes/Pfx.md)).**Arguments:**
@@ -68,12 +70,14 @@ Add a new cleanup function which will be called when the stream is made to end s
 |----------|-------------|
 | `event` | The outevent that is passed on downstreams and which communicates to any stream-ending pattern what needs to be done to release the resources. **It must be yielded after update!** |  
 | `function` | The function that is called for cleanup. E.g. `{ group.free }`. |  
-**Returns:** a [CallOnce](../Classes/CallOnce.md) that executes the cleanup `function` at most once. Should it be necessary to execute the cleanup outside of the control of `EventStreamCleanup`, the CallOnce returned should be used instead of the original `function`, so that other referents are informed of the execution of the cleanup.### `update`
+**Returns:** a [CallOnce](../Classes/CallOnce.md) that executes the cleanup `function` at most once. Should it be necessary to execute the cleanup outside of the control of `EventStreamCleanup`, the CallOnce returned should be used instead of the original `function`, so that other referents are informed of the execution of the cleanup.
+### `update`
 For every new event, the cleanup must be updated to receive information from any input stream further up. This method is called from all streams that may stop early (e.g. [Pmono](../Classes/Pmono.md) or [Pfindur](../Classes/Pfindur.md)).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `event` | The outevent from the input stream. **It must be yielded after update!** |  
+
 ### `exit`
 Run all functions that have been collected over time, adding appropriate information to the event, in case it is passed on as an inevent.**Arguments:**
 
@@ -81,9 +85,12 @@ Run all functions that have been collected over time, adding appropriate informa
 |----------|-------------|
 | `event` | The inevent that is passed through to the outer stream |  
 | `freeNodes` | Used internally. |  
-**Returns:** An event. In embedInStream, this event must be returned (`^cleanup.exit(inevent)`)### `functions`
-A collections of cleanup functions.### `clear`
-Empty the cleanup functions, without evaluating them.### `terminate`
+**Returns:** An event. In embedInStream, this event must be returned (`^cleanup.exit(inevent)`)
+### `functions`
+A collections of cleanup functions.
+### `clear`
+Empty the cleanup functions, without evaluating them.
+### `terminate`
 Run all functions that have been collected over time without adding information to an event.**Arguments:**
 
 | Argument | Description |
@@ -93,7 +100,7 @@ Run all functions that have been collected over time without adding information 
 ## Examples
 
 
-```supercollider
+```
 // some code from the class library
 
 // here is a pattern that can end the stream externally after a number of steps

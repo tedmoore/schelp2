@@ -13,6 +13,7 @@ Randomly generates the values -1 or +1 at a rate given by the nearest integer di
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Randomly generates the values -1 or +1 at a rate given by the nearest integer di
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-LFClipNoise", { |out = 0|
     Out.ar(out,

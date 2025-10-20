@@ -13,6 +13,7 @@ Generates a random float value in uniform distribution from `lo` to `hi` each ti
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Generates a random float value in uniform distribution from `lo` to `hi` each ti
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var trig = Dust.kr(10);

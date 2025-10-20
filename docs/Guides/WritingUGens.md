@@ -16,7 +16,7 @@ Before we proceed to the real UGens, we'll take a quick detour for the sake of c
 The below example has only a `.ar` method, but you can just as easily have both `.ar` and `.kr`  methods.
 
 
-```supercollider
+```
 BoringMixer {
     *ar { arg left, right;
         ^(left + right) * 0.5;
@@ -169,7 +169,7 @@ Do not allocate memory from the OS via `malloc` / `free` or `new`/ `delete`. Ins
 Minimal example, C style:
 
 
-```supercollider
+```
 struct MyUnit : public Unit {
   float* m_values;
   float* m_moreValues;
@@ -197,7 +197,7 @@ void MyUnit_Dtor(MyUnit* unit) {
 Or, in C++ class style:
 
 
-```supercollider
+```
 namespace MyUnit {
   // 1. Use initializer list to ensure pointers are initialized to nullptr
   MyUnit::MyUnit():

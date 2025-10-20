@@ -13,6 +13,7 @@ Read a control signal from a bus with a lag.
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 

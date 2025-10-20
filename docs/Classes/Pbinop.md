@@ -14,6 +14,7 @@ Examples of binary operators are: +, -, /, *, min, max, hypot ...
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -27,7 +28,7 @@ Examples of binary operators are: +, -, /, *, min, max, hypot ...
 ## Examples
 
 
-```supercollider
+```
 (
 var a;
 a = Pbinop(\hypot, Pseries(0, 1, 12), Pseries(3, -1, 12));
@@ -56,7 +57,7 @@ max(Pwhite(-10, 10, inf), Pseq([0, 2, 3, 4]));
 
 
 
-```supercollider
+```
 // sound example
 (
 SynthDef(\help_sinegrain,

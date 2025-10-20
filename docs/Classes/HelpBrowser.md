@@ -23,26 +23,35 @@ Unlike the help browser built into SCIDE, the HelpBrowser offers vim-like keyboa
 ## Class Methods
 
 
+
 ### `instance`
 The singleton HelpBrowser instance.
+
 ### `new`
 Create a new HelpBrowser instance with given home URL.
+
 ### `defaultHomeUrl`
 Get or set the default home URL.
+
 ### `openNewWindows`
 Get or set the default for "open in new windows" toggle.
+
 ### `goTo`
 Go to url with singleton instance or a new window, depending on the `openNewWindows` setting.
+
 ### `openHelpFor`
 Open the relevant help page for given text in the singleton HelpBrowser instance.
+
 ### `openSearchPage`
 Open the help search page with given text in the singleton HelpBrowser instance.
+
 ### `openBrowsePage`
 Open the category browser page in the singleton HelpBrowser instance.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `category` | An optional String to start at specified category, like "UGens>Filters" |  
+
 
 ### `openHelpForMethod`
 Open help for specified method.**Arguments:**
@@ -54,16 +63,22 @@ Open help for specified method.**Arguments:**
 
 ## Instance Methods
 
+
 ### `homeUrl`
-Get or set the home URL.### `window`
+Get or set the home URL.
+### `window`
 The GUI window for this HelpBrowser.Mainly useful for when you need to show the browser:
-```supercollider
+```
 HelpBrowser.instance.window.front;
 ```
 
+
 ### `goTo`
-Go to specific URL. If the URL points to a file under [SCDoc#*helpTargetDir](../Classes/SCDoc.md#*helptargetdir) it will be rendered on demand if needed.### `goHome`
-Go to the home URL.### `goBack`
-Go back.### `goForward`
+Go to specific URL. If the URL points to a file under [SCDoc#*helpTargetDir](../Classes/SCDoc.md#*helptargetdir) it will be rendered on demand if needed.
+### `goHome`
+Go to the home URL.
+### `goBack`
+Go back.
+### `goForward`
 Go forward.
 

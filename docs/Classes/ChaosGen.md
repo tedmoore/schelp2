@@ -11,7 +11,7 @@ These chaotic UGens generally each represent a deterministic set of equations, w
 To learn more, start here: [http://en.wikipedia.org/wiki/Chaos_theory](http://en.wikipedia.org/wiki/Chaos_theory)
 To see all classes which derive from the ChaosGen class, run this line:
 
-```supercollider
+```
 ChaosGen.allSubclasses.do(_.postln)
 ```
 

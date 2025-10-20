@@ -29,13 +29,14 @@ NodeProxyEditor provides controls for handling and editing a node proxy and its 
 
 
 ### Creation
+
 ### `new`
 Returns a new instance for a given proxy. If a window (win) or a composite view is given, it uses this.
 
 ## Examples
 
 
-```supercollider
+```
     // preparation
 s.boot;
 p = ProxySpace.push(s);
@@ -143,7 +144,7 @@ Spec.add(\intv, ControlSpec(0, 24, \lin, 0.01, 0)); n.fullUpdate;
 
 ### You can drag and drop proxies between NodeProxyEditors
 
-```supercollider
+```
 (
 // p = ProxySpace.push(s.boot);
 

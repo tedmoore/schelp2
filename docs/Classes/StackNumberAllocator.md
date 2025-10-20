@@ -13,6 +13,7 @@ Number allocator within a specified range.
 
 ## Class Methods
 
+
 ### `new`
 make a new instance, with lo and hi values.**Arguments:**
 
@@ -24,9 +25,12 @@ make a new instance, with lo and hi values.**Arguments:**
 
 ## Instance Methods
 
+
 ### `init`
-Reset allocator to its initial state.### `alloc`
-Allocate next number. After hi value returns nil.### `free`
+Reset allocator to its initial state.
+### `alloc`
+Allocate next number. After hi value returns nil.
+### `free`
 Set the next value of the allocator to the arbitrary `inIndex` (could be any object). Then continue with the counter.**Arguments:**
 
 | Argument | Description |
@@ -36,7 +40,7 @@ Set the next value of the allocator to the arbitrary `inIndex` (could be any obj
 ## Examples
 
 
-```supercollider
+```
 o = StackNumberAllocator(0, 100);
 o.alloc // return the next value (evaluate multiple times)
 

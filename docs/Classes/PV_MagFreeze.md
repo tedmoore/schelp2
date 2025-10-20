@@ -11,6 +11,7 @@ Freezes magnitudes at current levels when `freeze` > 0.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -22,7 +23,7 @@ Freezes magnitudes at current levels when `freeze` > 0.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 

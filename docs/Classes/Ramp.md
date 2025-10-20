@@ -11,14 +11,14 @@
 Break a continuous signal into linearly interpolated segments with specific durations.
 Feeding Ramp with noise is similar to [LFNoise1](../Classes/LFNoise1.md)
 
-```supercollider
+```
 Ramp.kr(WhiteNoise.kr(1), 0.5)
 ```
 
 
 is equal to:
 
-```supercollider
+```
 LFNoise1.kr(1 / 0.5)
 ```
 
@@ -27,6 +27,7 @@ For smoothing out control signals, take a look at [Lag](../Classes/Lag.md) and [
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -41,7 +42,7 @@ For smoothing out control signals, take a look at [Lag](../Classes/Lag.md) and [
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 (
 // used to lag pitch

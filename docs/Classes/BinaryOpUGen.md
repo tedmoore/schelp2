@@ -10,7 +10,7 @@
 
 BinaryOpUGens are created as the result of a binary operator applied to a [UGen](../Classes/UGen.md).
 
-```supercollider
+```
 (SinOsc.ar(200) * ClipNoise.ar).dump;
 (SinOsc.ar(200).thresh(0.5)).dump;
 ```
@@ -22,6 +22,7 @@ See [Operators](../Overviews/Operators.md) for an overview of common operators.
 
 
 ## Class Methods
+
 
 
 ### `new`
@@ -40,7 +41,7 @@ return a new instance that applies the operator `selector` to the UGens `a` and 
 ## Examples
 
 
-```supercollider
+```
 a = WhiteNoise.ar; // a WhiteNoise
 b = a + 2; // a BinaryOpUGen.
 b.operator; // +
@@ -61,7 +62,7 @@ b.operator; // +
 The operators `>, >=, <, <=` are particularly useful for triggering. They should not be confused with their use in conditionals. Compare:
 
 
-```supercollider
+```
 if(1 > 0) { "1 is greater than 0".postln }; // > returns a boolean
 ```
 
@@ -69,7 +70,7 @@ if(1 > 0) { "1 is greater than 0".postln }; // > returns a boolean
 with
 
 
-```supercollider
+```
 // trigger an envelope
 (
 {
@@ -86,7 +87,7 @@ See [Operators](../Overviews/Operators.md) or the implementation of these in [Ab
 Since the equality operator (`==`) is used to distinguish objects including UGens, it cannot be used to create a BinaryOpUGen by application. Instead, to get a trigger value each time two signals are the same (instead of just finding out whether two UGens are the same), one can instantiate a BinaryOpUGen directly:
 
 
-```supercollider
+```
 (
 {
     var a = SinOsc.ar(1).round(0.1);

@@ -7,6 +7,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -18,7 +19,7 @@ structurally related: [Pshuf](../Classes/Pshuf.md)
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a, freq, trig;

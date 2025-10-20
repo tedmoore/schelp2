@@ -27,7 +27,7 @@ Frequently used classes:  [Tdef](../Classes/Tdef.md) (for tasks), [ProxySpace](.
 For additional functionality, see also **JITLib extensions Quark**. To install it, run the following:
 
 
-```supercollider
+```
 "JITLibExtensions".include;
 ```
 
@@ -59,23 +59,23 @@ This tutorial focusses on some basic concepts used in JITLib. There are many pos
 
 ## Overview of the different classes and techniques
 - **Defs**: One way or style of access is the def-classes (Pdef, Ndef etc.). It binds a symbol to an object in a specific way:
-```supercollider
+```
 Pdef(\name)        //returns the proxy
 ```
 
 
-```supercollider
+```
 Pdef(\name, object)    //sets the source and returns the proxy
 ```
 
 the rest of the behaviour depends on its use.client side: [Pdef](../Classes/Pdef.md), [Pdefn](../Classes/Pdefn.md), [Tdef](../Classes/Tdef.md), [Pbindef](../Classes/Pbindef.md), [Psym](../Classes/Psym.md), [Pnsym](../Classes/Pnsym.md), [Fdef](../Classes/Fdef.md)server side: [Ndef](../Classes/Ndef.md)
 - **Environments**: Another way, for server side NodeProxies, is an environment that returns placeholders on demand:
-```supercollider
+```
 ProxySpace.push
 ```
 
 
-```supercollider
+```
 ~out = { ...}
 ```
 
@@ -126,7 +126,7 @@ helpfile: [ProxySpace](../Classes/ProxySpace.md) for the use together with other
 
 ## Networking
 - in remote and local networks thanks to sc-architecture node proxies can be **used on any server**, as long as it notifies the client and has a correctly initialized default node. **Note that the number of logins or the client id should be set**.
-```supercollider
+```
     s.options.maxLogins = 16; // an ensemble with up to 16 servers
 ```
 

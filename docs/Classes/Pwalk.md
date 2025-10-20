@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -27,7 +28,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
 a = Pwalk(
     Array.series(20, 0, 1),        // integers, 0-19

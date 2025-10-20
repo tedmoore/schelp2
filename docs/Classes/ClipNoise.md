@@ -13,6 +13,7 @@ Generates noise whose values are either -1 or 1. This produces the maximum energ
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Generates noise whose values are either -1 or 1. This produces the maximum energ
 ## Examples
 
 
-```supercollider
+```
 { ClipNoise.ar(0.2) }.play;
 ```
 

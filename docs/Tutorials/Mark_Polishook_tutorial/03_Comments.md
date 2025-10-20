@@ -15,7 +15,7 @@ Comments are descriptive remarks that are meant to be read by humans but ignored
 To write a comment in SuperCollider, either precede text with
 
 
-```supercollider
+```
 //
 ```
 
@@ -23,7 +23,7 @@ To write a comment in SuperCollider, either precede text with
 as in
 
 
-```supercollider
+```
 // Everything up to the end of the line is a comment
 ```
 
@@ -31,7 +31,7 @@ as in
 or place text on one or more lines between
 
 
-```supercollider
+```
 /* and */
 ```
 
@@ -39,7 +39,7 @@ or place text on one or more lines between
 as in
 
 
-```supercollider
+```
 /*
 
 This

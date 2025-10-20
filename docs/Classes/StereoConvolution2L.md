@@ -16,6 +16,7 @@ See Steven W Smith, The Scientist and Engineer's Guide to Digital Signal Process
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -33,7 +34,7 @@ See Steven W Smith, The Scientist and Engineer's Guide to Digital Signal Process
 ## Examples
 
 
-```supercollider
+```
 (
 // allocate three buffers
 b = Buffer.alloc(s, 2048);

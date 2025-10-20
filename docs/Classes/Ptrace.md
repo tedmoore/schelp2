@@ -11,7 +11,7 @@
 Print out the results of a stream while returning the original values.
 Tracing a pattern is most commonly done by using the **.trace** method directly on the pattern like this:
 
-```supercollider
+```
 Pbind(\degree, Pwhite(0, 10)).trace.play
 ```
 
@@ -19,6 +19,7 @@ Pbind(\degree, Pwhite(0, 10)).trace.play
 
 
 ## Class Methods
+
 
 ### `new`
 **Arguments:**
@@ -33,19 +34,22 @@ Pbind(\degree, Pwhite(0, 10)).trace.play
 
 ## Instance Methods
 
+
 ### `storeArgs`
+
 ### `embedInStream`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `inval` |  |  
+
 ### `key`
 
 ## Examples
 
 
-```supercollider
+```
 (
 // An event pattern playing random scale degrees
 p = Pbind(\dur, 0.125, \degree, Pwhite(0, 10));

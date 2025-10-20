@@ -8,7 +8,7 @@ The following is a list of all server commands and their arguments.
 Each command has a command number which can be sent to the server as a 32 bit integer instead of an OSC style string. Command numbers are listed at the end of this document.
 If a command's description contains the word **Asynchronous**, then that command will be passed to a background thread to complete so as not to steal CPU time from the audio synthesis thread. All asynchronous commands send a reply to the client when they are completed. Many asynchronous commands can contain an OSC message or bundle to be executed upon completion. eg.
 
-```supercollider
+```
     ["/d_load", "synthdefs/void.scsyndef",
         ["/s_new", "void", 1001, 1, 0] // completion message
     ]
@@ -993,7 +993,7 @@ These flags can be added together to create a unique single integer flag that de
 **cheby**
 : | **int** | flags, see above | 
 | --- | --- || N * |  | Fills a buffer with a series of chebyshev polynomials, which can be defined as:
-```supercollider
+```
 cheby(n) = amplitude * cos(n * acos(x))
 ```
 
@@ -1022,7 +1022,7 @@ The first float value specifies the amplitude for n = 1, the second float value 
 These are the currently defined command numbers. More may be added to the end of the list in the future.
 
 
-```supercollider
+```
 enum {
     cmd_none = 0,
 

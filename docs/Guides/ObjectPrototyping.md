@@ -13,7 +13,7 @@ Object prototyping is a middle ground that lets you build class–like structure
 Instance variable–like things can be created by just adding keys to an [IdentityDictionary](../Classes/IdentityDictionary.md)
 
 
-```supercollider
+```
 a = (meow: 10)
 a.meow // 10
 a.meow = 20;
@@ -24,7 +24,7 @@ a.meow // 20;
 Unlike normal classes, you can create new instance variables at runtime.
 
 
-```supercollider
+```
 a = (meow: 10)
 a.woof = 4;
 a.woof // 4
@@ -40,17 +40,17 @@ By assigning a function to a key, you can call that function as if it were a nor
 However, the [IdentityDictionary](../Classes/IdentityDictionary.md) is passed into the function as the first argument. Usually, we call this argument `self` as it performs a similar role to the keyword `this`.
 
 
-```supercollider
+```
 a = ( speak: { |self, adverb| "I say '%' %.".format(self.word, adverb) } );
 a.word = "meow";
 a.speak(adverb: "loudly") // I say 'meow' loudly.
 ```
 
 
-[Functions / Variable Arguments ](../Reference/Functions.md#variable-arguments) also work.
+[Functions#Variable Arguments](../Reference/Functions.md#variable-arguments) also work.
 
 
-```supercollider
+```
 a = ( speak: {|self... words, kwargs| "I say '%' %.".format(words, kwargs.asDict[\adverb]) } );
 
 a.speak("meow", "woof", adverb: "loudly") // I say "[meow, woof]" loudly.
@@ -63,7 +63,7 @@ a.speak("meow", "woof", adverb: "loudly") // I say "[meow, woof]" loudly.
 There is no direct way to mimic a constructor, but this isn't a problem, as we can simply make a function that returns the [IdentityDictionary](../Classes/IdentityDictionary.md).
 
 
-```supercollider
+```
 (
 var makeSpeaker = { |word|
     (
@@ -87,7 +87,7 @@ dog.speak("quietly").postln; // I say "woof" quietly.
 These can be implemented inside the constructor function as normal variables, however, you don't add them to the dictionary.
 
 
-```supercollider
+```
 (
 var makeSpeaker = {
     var secretWords = "I'm a cat";
@@ -116,7 +116,7 @@ The first, is that any key, including 'methods', can be overridden at any time. 
 The second drawback is that you cannot have a key with the same name as a method in [Event](../Classes/Event.md) or any parent class, otherwise the real class's method will be called, not the pseudo–method you have written.
 
 
-```supercollider
+```
 a = (numChannels: 10)
 a.numChannels // 1
 ```
@@ -129,7 +129,7 @@ There are two ways to mitigate this. **One**, use longer keys or names in snake 
 **Two**, assign outside of the brackets, where a warning will be generated.
 
 
-```supercollider
+```
 a = ();
 a.numChannels = 30; // WARNING: ...
 ```
@@ -143,7 +143,7 @@ This is implemented with [IdentityDictionary#-'parent' and 'proto' variables](..
 This is done by assigning the `parent` to another dictionary to lookup keys in.
 
 
-```supercollider
+```
 a = (word: "meow" );
 b = (speak: {|self| "I say \"%\".".format(self.word) } );
 b.parent = a; // assign 'a' as a parent.

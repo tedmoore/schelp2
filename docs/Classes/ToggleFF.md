@@ -13,6 +13,7 @@ Toggles between 0 and 1 upon receiving a trigger.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Toggles between 0 and 1 upon receiving a trigger.
 ## Examples
 
 
-```supercollider
+```
 (
 play({
     SinOsc.ar((ToggleFF.ar(Dust.ar(XLine.kr(1, 1000, 60))) * 400) + 800, 0, 0.1)

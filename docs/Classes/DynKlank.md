@@ -18,6 +18,7 @@ Unlike [Klank](../Classes/Klank.md), all parameters in DynKlank can be changed i
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -48,7 +49,7 @@ Four resonators each at maximum amplitude of 1.0 and ring times of 1 second, dif
 
 
 
-```supercollider
+```
 { DynKlank.ar(`[[800, 1071, 1153, 1723], nil, [1, 1, 1, 1]], Impulse.ar(2, 0, 0.1)) }.play;
 
 { DynKlank.ar(`[[800, 1071, 1353, 1723], nil, [1, 1, 1, 1]], Dust.ar(8, 0.1)) }.play;
@@ -61,7 +62,7 @@ Four resonators each at maximum amplitude of 1.0 and ring times of 1 second, dif
 
 Changing parameters in realtime:
 
-```supercollider
+```
 (
 // change freqs and ringtimes with mouse
 {    var freqs, ringtimes;

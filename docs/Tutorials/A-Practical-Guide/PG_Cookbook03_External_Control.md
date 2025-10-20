@@ -13,7 +13,7 @@
 The best approach is to save an incoming value into a variable, and then use [Pfunc](../../Classes/Pfunc.md) to access the variable for each event.
 
 
-```supercollider
+```
 (
 ~legato = 1;
 c = MIDIFunc.cc({ |value, num, chan, src|
@@ -37,7 +37,7 @@ c.free;
 If Pfunc `{  }` is bothersome in the Pbind, a [PatternProxy](../../Classes/PatternProxy.md) or [Pdefn](../../Classes/Pdefn.md) could also serve the purpose.
 
 
-```supercollider
+```
 (
 ~legato = PatternProxy(1);
 c = MIDIFunc.cc({ |value, num, chan, src|
@@ -71,7 +71,7 @@ It's very unlikely that an action function would be triggered exactly in sync wi
 
 ### Triggering a pattern by a GUI
 
-```supercollider
+```
 (
 var    pattern = Pbind(
         \degree, Pseries(7, Pwhite(1, 3, inf) * Prand(#[-1, 1], inf), inf).fold(0, 14)
@@ -107,7 +107,7 @@ p.stop;
 
 ### Triggering a pattern by MIDI
 
-```supercollider
+```
 (
 var    pattern = Pbind(
         \degree, Pseries(7, Pwhite(1, 3, inf) * Prand(#[-1, 1], inf), inf).fold(0, 14)
@@ -141,7 +141,7 @@ Triggering a pattern based on audio amplitude is a bit trickier -- not because i
 The actual threshold depends on the incoming signal, so the example pops up a quick and dirty window to see the measured amplitude and set the threshold and decay accordingly. The synth listens by default to the first hardware input bus, but you can change it the following in the code to use a different input bus:
 
 
-```supercollider
+```
     inbus: s.options.numOutputBusChannels
 ```
 
@@ -149,7 +149,7 @@ The actual threshold depends on the incoming signal, so the example pops up a qu
 In this configuration, the first trigger starts the pattern and the second trigger stops it. You might want the pattern to play while the input signal is above the threshold, and stop when the signal drops to a quieter level. The comparison `amp >= thresh` can send a trigger only when the signal goes from softer to lower, so if we want the pattern to stop when the signal becomes quiet, we need to send a trigger when crossing the threshold in both directions.
 
 
-```supercollider
+```
     var    amp = Amplitude.kr(In.ar(inbus, 1), attackTime: 0.01, releaseTime: decay),
         trig = HPZ1.kr(amp >= thresh);
     SendTrig.kr(trig.abs, 1, trig);
@@ -161,7 +161,7 @@ In this configuration, the first trigger starts the pattern and the second trigg
 For this example, triggers are measured only when the signal rises above the threshold.
 
 
-```supercollider
+```
 (
 var    pattern = Pbind(
         \degree, Pseries(7, Pwhite(1, 3, inf) * Prand(#[-1, 1], inf), inf).fold(0, 14)

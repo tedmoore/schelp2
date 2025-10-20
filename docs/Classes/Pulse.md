@@ -13,6 +13,7 @@ Band limited pulse wave generator with pulse width modulation.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Band limited pulse wave generator with pulse width modulation.
 ## Examples
 
 
-```supercollider
+```
 // modulate frequency
 { Pulse.ar(XLine.kr(40, 4000, 6), 0.1, 0.2) }.play;
 

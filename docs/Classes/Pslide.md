@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pslide([1, 2, 3, 4, 5], inf, 3, 1, 0);

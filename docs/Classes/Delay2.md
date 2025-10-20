@@ -13,6 +13,7 @@ Delays the input by two samples.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -28,7 +29,7 @@ The output sequence is:For audio-rate signals the delay is one audio frame, and 
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var z = Dust.ar(1000);

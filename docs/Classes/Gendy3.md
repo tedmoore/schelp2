@@ -15,6 +15,7 @@ SuperCollider implementation by Nick Collins
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -36,7 +37,7 @@ All parameters can be modulated at control rate except for `initCPs` which is us
 ## Examples
 
 
-```supercollider
+```
 // LOUD! defaults like a rougher Gendy1
 { Pan2.ar(Gendy3.ar(mul: 0.1)) }.play
 

@@ -11,6 +11,7 @@ Generates a set of harmonics around a formant frequency at a given fundamental f
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -25,7 +26,7 @@ The frequency inputs are read at control rate only, so if you use an audio rate 
 ## Examples
 
 
-```supercollider
+```
 // modulate fundamental frequency, formant freq stays constant
 { Formant.ar(XLine.kr(400, 1000, 8), 2000, 800, 0.125) }.play
 

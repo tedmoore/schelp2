@@ -7,7 +7,7 @@
 In SC2, Spawn and TSpawn were two of the most powerful and commonly used UGens. In SC3 the idea of a top level Synth in which everything is spawned is no longer valid. Synthesis is always running (at least as long as a server is) and new Synths can be created on the fly. This arrangement results in even greater flexibility than in SC2, but requires a slightly different approach.
 In SC3 one can create Synths at any time simply by executing blocks of code.
 
-```supercollider
+```
 // do this
 (
 x = SynthDef("Help-SynthDef", { arg out = 0;
@@ -33,7 +33,7 @@ x.free;
 
 Clocks, such as [SystemClock](../Classes/SystemClock.md), provide a way to schedule things at arbitrary points in the future. This is similar to `Synth.sched` in SC2.
 
-```supercollider
+```
 (
 SystemClock.sched(2.0, {
     "2.0 seconds later".postln; // this could be any code, including Synth creation
@@ -44,7 +44,7 @@ SystemClock.sched(2.0, {
 
 In SC3 time-based sequences of events can be implemented using Routines. A [Routine](../Classes/Routine.md) which yields a number can be scheduled using a clock:
 
-```supercollider
+```
 (
 var w, r;
 
@@ -71,7 +71,7 @@ Note that this implementation avoids one of the stranger aspects of the SC2 appr
 Both [SystemClock](../Classes/SystemClock.md) and [AppClock](../Classes/AppClock.md) (a less accurate version which can call Cocoa primitives) have only class methods. Thus one does not create instances of them. If you need to have an individual clock to manipulate (for instance to manipulate the tempi of different sequences of events) you can use [TempoClock](../Classes/TempoClock.md).
 A simple SC2 Spawn example is shown below, followed by its translation into SC3 style code.
 
-```supercollider
+```
 // This will not execute in SC3
 (
 Synth.play({
@@ -100,9 +100,9 @@ SystemClock.play(r);
 )
 ```
 
-Note that the above example uses a precompiled [SynthDef](../Classes/SynthDef.md). This results in a lower CPU spike when Synths are created than SC2-style Spawning. It is possible to create SynthDefs on the fly, if this is necessary, but a great deal of variation can be achieved with arguments, or with UGens such as [Rand](../Classes/Rand.md) and [TRand](../Classes/TRand.md). See the section [SC3vsSC2 / SynthDefsVsSynths ](../Overviews/SC3vsSC2.md#synthdefsvssynths) for more detail.
+Note that the above example uses a precompiled [SynthDef](../Classes/SynthDef.md). This results in a lower CPU spike when Synths are created than SC2-style Spawning. It is possible to create SynthDefs on the fly, if this is necessary, but a great deal of variation can be achieved with arguments, or with UGens such as [Rand](../Classes/Rand.md) and [TRand](../Classes/TRand.md). See the section [SC3vsSC2#SynthDefsVsSynths](../Overviews/SC3vsSC2.md#synthdefsvssynths) for more detail.
 
-```supercollider
+```
 // SynthDefs on the fly
 s.boot;
 (
@@ -125,7 +125,7 @@ r = Routine.new({
 
 Note the alternative syntax for playing a Routine. `aClock.play(aRoutine)` and `aRoutine.play(aClock)` are functionally equivalent. The two make different things more or less convenient, like sending messages to the [Routine](../Classes/Routine.md) or [Clock](../Classes/Clock.md). (See the play helpfile for a more detailed discussion.) For instance:
 
-```supercollider
+```
 (
 // this, that and the other
 r = Routine.new({var i = 0; { ("this: " ++ i).postln; i = i + 1; 1.yield; }.loop });
@@ -157,7 +157,7 @@ c.stop;            // stop c, destroy its scheduler, and release its OS thread
 
 For convenience pauseable scheduling can be implemented with a [Task](../Classes/Task.md). `Task.new` takes two arguments, a function and a clock, and creates it's own [Routine](../Classes/Routine.md). If you don't specify a clock, it will create a [TempoClock](../Classes/TempoClock.md) for you. Since you don't have to explicitly create a [Clock](../Classes/Clock.md) or [Routine](../Classes/Routine.md), use of [Task](../Classes/Task.md) can result in code that is a little more compact.
 
-```supercollider
+```
 (
 t = Task.new({
     inf.do({ arg i;
@@ -180,7 +180,7 @@ t.pause;        // Same as t.stop
 
 TSpawn's functionality can be replicated with [SendTrig](../Classes/SendTrig.md) and [OSCFunc](../Classes/OSCFunc.md). See their individual helpfiles for details on their arguments and functionality.
 
-```supercollider
+```
 s.boot;
 (
 // this Synth will send a trigger to the client app

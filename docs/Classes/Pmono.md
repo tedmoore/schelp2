@@ -14,7 +14,7 @@ If event[\id] is not nil, Pmono simply directs its pattern changes to that node 
 ## Examples
 
 
-```supercollider
+```
 p = Pmono(\default, \dur, 0.2, \freq, Pwhite(1, 8) * 100).play
 
 p.stop
@@ -46,7 +46,7 @@ p.stop;
 A related approach is to instantiate a Synth yourself and then set its values by using an [Event](../Classes/Event.md) whose "type" is `\set`, as illustrated here. The user is responsible for ensuring proper synchronization between [Synth](../Classes/Synth.md) creation and pattern execution.
 
 
-```supercollider
+```
 // First we create something to control
 x = { |freq = 440, amp = 0.6| MoogFF.ar(PinkNoise.ar(amp), freq).dup }.play;
 
@@ -75,7 +75,7 @@ For more details on the `\set` event type, see its description in Chapter 8, [Ev
 SynthDefs allow alternate sets of default values to be defined (see "Variants" in [SynthDef](../Classes/SynthDef.md) help). Most event patterns, such as Pbind, specify the variant using the variant key in the output events. (Note that variants are always optional.) In Pmono, the mechanism is different because the SynthDef name, including variant suffix, must be known before evaluating the first event. So, the variant suffix is provided in the first Pmono argument:
 
 
-```supercollider
+```
 Pmono('synthDefName.variant', pairs...)
 ```
 

@@ -36,7 +36,7 @@ Every state consists of an item and an array of integer indices of possible **ne
 
 next states: nil is terminal
 
-```supercollider
+```
 (
 SynthDef(\help_sinegrain,
     { |out = 0, freq = 440, sustain = 0.05|

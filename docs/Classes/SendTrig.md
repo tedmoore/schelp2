@@ -17,6 +17,7 @@ This command is the mechanism that synths can use to trigger events in clients. 
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -29,7 +30,7 @@ This command is the mechanism that synths can use to trigger events in clients. 
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

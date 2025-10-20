@@ -12,7 +12,7 @@ A non-interpolating sound generator based on the difference equation:
 
 sclang code translation:
 
-```supercollider
+```
 (
 var a = 1, b = -1, c = -0.75, xi = 0, size = 64;
 plot(size.collect { xi = (a * (xi ** 2)) + (b * xi) + c; xi });
@@ -23,6 +23,7 @@ plot(size.collect { xi = (a * (xi ** 2)) + (b * xi) + c; xi });
 
 
 ## Class Methods
+
 
 ### `ar`
 **Arguments:**
@@ -40,14 +41,14 @@ plot(size.collect { xi = (a * (xi ** 2)) + (b * xi) + c; xi });
 ## Examples
 
 
-```supercollider
+```
 // default params
 { QuadN.ar(SampleRate.ir/4) * 0.2 }.play(s);
 ```
 
 
 
-```supercollider
+```
 // logistic map
 // equation: x1 = -r*x0^2 + r*x0
 (
@@ -60,7 +61,7 @@ plot(size.collect { xi = (a * (xi ** 2)) + (b * xi) + c; xi });
 
 
 
-```supercollider
+```
 // logistic map as frequency control
 (
 { var r;

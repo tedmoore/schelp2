@@ -35,6 +35,7 @@ These steps are illustrated in the Examples section. In general, only the "Objec
 ## Class Methods
 
 
+
 ### `ar`
 **Arguments:**
 
@@ -52,7 +53,7 @@ These steps are illustrated in the Examples section. In general, only the "Objec
 ## Examples
 
 
-```supercollider
+```
 s.boot; // start the server
 (
 // something to record
@@ -79,7 +80,7 @@ SynthDef("help-Diskin-2chan", { |out, bufnum = 0|
 
 ### Object Style
 
-```supercollider
+```
 // start something to record
 x = Synth("bubbles");
 
@@ -114,7 +115,7 @@ x.free; b.close; b.free; // cleanup
 
 ### Messaging Style
 
-```supercollider
+```
 // The same thing done in Messaging Style (less overhead but without the convenience of objects)
 // This does nothing different from the Messaging Style example.
 // If any of the following is confusing, stick to Object Style

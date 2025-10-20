@@ -14,6 +14,7 @@ Download allows you to download a file from a specified URL
 ## Class Methods
 
 
+
 ### `new`
 Create and start a new Download.**Arguments:**
 
@@ -25,20 +26,25 @@ Create and start a new Download.**Arguments:**
 | `errorFunc` | A [Function](../Classes/Function.md) to evaluate if the download fails due to an error. |  
 | `progressFunc` | A [Function](../Classes/Function.md) to process the download's progress. This Function will be passed two arguments, the bytes received, and the total bytes. |  
 **Returns:** A new Download.
+
 ### `cancelAll`
 Cancel all active Downloads.
 
 ## Instance Methods
 
+
 ### `cancel`
-Cancel the download.### `errorFunc`
-Get or set the error [Function](../Classes/Function.md).### `finishedFunc`
-Get or set the download finished [Function](../Classes/Function.md).### `progressFunc`
+Cancel the download.
+### `errorFunc`
+Get or set the error [Function](../Classes/Function.md).
+### `finishedFunc`
+Get or set the download finished [Function](../Classes/Function.md).
+### `progressFunc`
 Get or set the download progress [Function](../Classes/Function.md).
 ## Examples
 
 
-```supercollider
+```
 (
 var url = "https://scottwilson.ca/files/flame.mp3";
 var localPath = Platform.defaultTempDir +/+ url.split($/).last;

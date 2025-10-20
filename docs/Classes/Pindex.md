@@ -13,6 +13,7 @@ This allows an [ArrayedCollection](../Classes/ArrayedCollection.md) to be access
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ This allows an [ArrayedCollection](../Classes/ArrayedCollection.md) to be access
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef(\help_pindex, { |out, amp = 0.1, freq = 440, gate = 1|
     var son = Saw.ar(freq * [0.99, 1, 1.01]).mean;

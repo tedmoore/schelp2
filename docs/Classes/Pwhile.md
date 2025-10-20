@@ -11,6 +11,7 @@ Repeatedly **embed** a [Stream](../Classes/Stream.md) while the result of `func`
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -22,7 +23,7 @@ Repeatedly **embed** a [Stream](../Classes/Stream.md) while the result of `func`
 ## Examples
 
 
-```supercollider
+```
 (
 z = true;
 a = Pwhile({ z }, Pseq(#[1, 2, 3]));

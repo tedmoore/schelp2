@@ -13,7 +13,7 @@ Takes an array of [x, y] pairs and a curve value for all break points. x values 
 ## Examples
 
 
-```supercollider
+```
 a = InterplPairs([[0, 1], [1, 2], [2, 0]], \sin);
 a.plot;
 

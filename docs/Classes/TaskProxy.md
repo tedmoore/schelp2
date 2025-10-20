@@ -13,47 +13,66 @@ Keeps a reference to a task (time pattern) that can be replaced while playing. I
 
 ## Class Methods
 
+
 ### `new`
 create a new instance with a function (the source). the source should be a **routine function** (see [Tdef](../Classes/Tdef.md)) or a **pattern** of time values.
+
 ### `default`
 a default source, if none is given. the default is a loop that does nothing with a 1.0 beat wait time.
+
 ### `defaultQuant`
 set the default quantization value for the class. (default: 1.0). can be a pair [quant, offset]
 
 ## Instance Methods
 
+
 ### `source`
-set the source. If a quantization is given, schedule this change to the next beat the object is a **routine function**, which is evaluated in a protected way, so that failure will notify the proxy that it has stopped. The object can also be a **pattern** of time values.### `clear`
-set the source to nil### `clock`
-get or set the instance's default clock, used by [play](#play) if no other clock is specified. Defaults to TempoClock.default.### `quant`
-get or set the quantization value. can be a pair [quant, offset]### `condition`
-provide a condition under which the pattern is switched when a new one is inserted. the stream value and a count is passed into the function. the methods **count_(n)** simply counts up to n and switches the pattern then### `reset`
-switch the pattern immediately. (stuck conditions can be subverted by this)### `envir`
-provide a default environment for the proxy. If given, it is used as an environment for the routine function. When set for the first time, the routine pattern is rebuilt.### `set`
-set arguments in the environment. If there is none, it is created and the routine pattern is rebuilt.### `endless`
+set the source. If a quantization is given, schedule this change to the next beat the object is a **routine function**, which is evaluated in a protected way, so that failure will notify the proxy that it has stopped. The object can also be a **pattern** of time values.
+### `clear`
+set the source to nil
+### `clock`
+get or set the instance's default clock, used by [#-play](#-play) if no other clock is specified. Defaults to TempoClock.default.
+### `quant`
+get or set the quantization value. can be a pair [quant, offset]
+### `condition`
+provide a condition under which the pattern is switched when a new one is inserted. the stream value and a count is passed into the function. the methods **count_(n)** simply counts up to n and switches the pattern then
+### `reset`
+switch the pattern immediately. (stuck conditions can be subverted by this)
+### `envir`
+provide a default environment for the proxy. If given, it is used as an environment for the routine function. When set for the first time, the routine pattern is rebuilt.
+### `set`
+set arguments in the environment. If there is none, it is created and the routine pattern is rebuilt.
+### `endless`
 returns a [Prout](../Classes/Prout.md) that plays the proxy endlessly, replacing **nil** with a **default** value (1 s. wait time). This allows to create streams that idle on until a new pattern is inserted.
 ### a) using it as stream reference
+
 ### `source`
 set the routine function / pattern (internally done by *new(key, obj)
+
 ### `embedInStream`
 just like any stream, embeds itself in stream
 
 ### b) using it as EventStreamPlayer
+
 ### `play`
 starts the TaskProxy and creates a player. if you want to play multiple instances, use **.playOnce(clock, protoEvent, quant)****Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `argClock` | which clock to use. if nil then use this instance's [clock](#clock), which in turn defaults to TempoClock.default. |  
+| `argClock` | which clock to use. if nil then use this instance's [#-clock](#-clock), which in turn defaults to TempoClock.default. |  
 | `doReset` | A [Boolean](../Classes/Boolean.md) |  
 | `quant` | can be an array of [quant, phase] |  
 
+
 ### `stop`
 stops the player
+
 ### `player`
 the current player (if the TaskProxy is simply used in other streams this is nil)
+
 ### `pause`, `resume`, `reset`
 perform player method
+
 ### `isPlaying`
 returns true if TaskProxy is running. if a TaskProxy is playing and its stream ends, it will schedule a stream for playing as soon as a new one is assigned to it.
 
@@ -62,7 +81,7 @@ returns true if TaskProxy is running. if a TaskProxy is playing and its stream e
 
 ### a) using TaskProxy as a player
 
-```supercollider
+```
 // create an empty Tdef and play it.
 x = TaskProxy.new;
 x.play;
@@ -91,7 +110,7 @@ x.stop;
 
 
 
-```supercollider
+```
 // sound example
 
 (
@@ -169,7 +188,7 @@ y.stop;
 
 ### b) embedding TaskProxy into other Tasks / Routines
 
-```supercollider
+```
 (
 #a, c = { TaskProxy.new } ! 2;
 a.source = { "one".postln; 1.wait; "two".postln };

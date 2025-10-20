@@ -39,7 +39,7 @@ Ppar and its cousins are good for a fixed set of parallel patterns -- that is, y
 
 **`Pspawn(pattern, spawnProtoEvent)`**
 : Supports most of the features of Pspawner, but uses a pattern to control the Spawner object instead of a Routine function.This example uses [Pspawner](../../Classes/Pspawner.md) to trigger overlapping scale segments at different speeds. Unlike Ppar, which could handle a fixed number before stopping, Pspawner can keep going indefinitely.
-```supercollider
+```
 (
 p = Pspawner({ |sp|    // sp = the Spawner object
     loop {
@@ -63,7 +63,7 @@ p.stop;
 ```
 
 The same, written using [Pspawn](../../Classes/Pspawn.md) :
-```supercollider
+```
 (
 p = Pspawn(Pbind(
     \method, \par,        // embed patterns in parallel

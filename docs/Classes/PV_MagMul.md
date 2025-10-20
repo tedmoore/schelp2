@@ -13,6 +13,7 @@ Multiplies magnitudes of two inputs and keeps the phases of the first input.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Multiplies magnitudes of two inputs and keeps the phases of the first input.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 

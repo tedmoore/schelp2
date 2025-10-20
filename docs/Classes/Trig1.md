@@ -13,6 +13,7 @@ When a nonpositive to positive transition occurs at the input, Trig1 outputs 1 f
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ When a nonpositive to positive transition occurs at the input, Trig1 outputs 1 f
 ## Examples
 
 
-```supercollider
+```
 { Trig1.ar(Dust.ar(1), 0.2) * FSinOsc.ar(800, 0.5) }.play
 
 

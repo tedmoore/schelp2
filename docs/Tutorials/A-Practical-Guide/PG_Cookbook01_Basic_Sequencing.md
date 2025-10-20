@@ -17,7 +17,7 @@ The first is brute force, listing all the scale degrees mechanically in order. T
 The example demonstrates the use of the `\scale` and `\root` event keys to define tonality. Root = 2 is D, and the scale defines a natural minor mode. The degree sequence also uses accidentals. Subtracting 0.1 from an integer scale degree flattens the note by a semitone; adding 0.1 raises by a semitone. -0.9 is 0.1 higher than -1; a natural minor scale degree below the tonic is a flat 7, and a half step higher than that is the leading tone.
 
 
-```supercollider
+```
 (
 TempoClock.default.tempo = 84/60;
 
@@ -61,7 +61,7 @@ In a SynthDef, using an array as the input to a UGen expands the UGen into an ar
 The `\degree` pattern applies a set of chord intervals to a melody that's always on top. It's a compound pattern, Pseries(...) + Prand(...), where Pseries returns a single number and Prand returns an array. As with regular math operations, a number plus an array is an array. If the current Pseries value is 7 and Prand returns [0, -3, -5], the result is [7, 4, 2] and you would hear a C major triad in first inversion.
 
 
-```supercollider
+```
 (
 p = Pbind(
     \degree, Pseries(7, Pwhite(1, 3, inf) * Prand(#[-1, 1], inf), inf).fold(0, 14)
@@ -85,13 +85,13 @@ Note the use of `add` to prepare the SynthDef. Without it, most of the SynthDef 
 It's worth noting that the pattern runs in beats, whose real duration in seconds depends on the clock's tempo. The SynthDef, however, always measures time in seconds. This example keeps things simple by setting the clock to 1 beat per second. If the tempo needs to be something else, though, the `\time` key should be divided by the tempo:
 
 
-```supercollider
+```
     \time, Pkey(\delta) / Pfunc { thisThread.clock.tempo },
 ```
 
 
 
-```supercollider
+```
 (
 b = Buffer.read(s, ExampleFiles.child);
 

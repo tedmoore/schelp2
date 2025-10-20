@@ -17,6 +17,7 @@ For precise control over the attack, decay, and level of `Decay2` see [#Onset co
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -31,7 +32,7 @@ For precise control over the attack, decay, and level of `Decay2` see [#Onset co
 ## Examples
 
 
-```supercollider
+```
 // Used as an envelope
 play{ Decay2.ar(Impulse.ar(XLine.kr(1,50,20), 0.25), 0.01, 0.2, FSinOsc.ar(600)) };
 // Compare to Decay
@@ -41,7 +42,7 @@ play{ Decay.ar(Impulse.ar(XLine.kr(1,50,20), 0.25), 0.2, FSinOsc.ar(600), 0) };
 
 Since `Decay2` is equivalent to the difference of two [Decay](../Classes/Decay.md)s, swapping the **attackTime** and **decayTime** inverts the envelope:
 
-```supercollider
+```
 (
 plot({
     var attack = 0.001, decay = 0.01;
@@ -62,7 +63,7 @@ It can be useful to parameterize `Decay2` so that its peak value is `1.0`, and t
 A `riseScale` value of `0.0` gives a sharp onset time of just one sample, making it nearly equivalent to [Decay](../Classes/Decay.md). A value of just less than `1.0` (it cannot be equal to `1.0`) will generate the latest possible onset time, which is ~15% of the **decayTime**.
 
 
-```supercollider
+```
 (
 var t60, riseScale, riseFac, normFac;
 
@@ -98,7 +99,7 @@ plot({
 In the previous example, note that `t60` is "approximate" because, while the *rate* of decay converges to that of the corresponding decay time, the actual time when the impulse response decays to -60 dB will be delayed as `riseScale` increases. This is apparent when looking at the impulse response on a decibel scale, with increasing values for `riseScale`.
 
 
-```supercollider
+```
 (
 var t60, riseScale, riseFac, normFac;
 
@@ -130,7 +131,7 @@ plot(
 The longest possible rise time is constrained to ~15% of the **decayTime**. This maximum rise time, as well as exact rise time for a given `riseScale` factor, can be calculated as follows:
 
 
-```supercollider
+```
 (
 var t60, riseScale, riseFac, riseTime, maxRiseTime;
 

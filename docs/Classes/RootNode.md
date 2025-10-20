@@ -12,7 +12,7 @@ A RootNode is the Group with the nodeID of 0 which is always present on each Ser
 It is always playing, and always running, cannot be freed, or moved anywhere.
 Caching is used so that there is always one RootNode per [Server](../Classes/Server.md).
 
-```supercollider
+```
 s = Server.local;
 
 a = RootNode(s);
@@ -24,7 +24,7 @@ a === b; // identical object
 
 sending `"/s_new"` messages to the server, the target 0 is what is represented by this object.
 
-```supercollider
+```
 s.sendMsg("/s_new", "default", -1, 0, 0); // the last argument is the target id
 ```
 

@@ -7,7 +7,7 @@
 SuperCollider has nested scoping of variables. A function can refer not only to its own arguments and variables, but also to those declared in any enclosing (defining) contexts.
 For example, the function defined below within makeCounter can access all of the arguments and variables declared in `makeCounter`. Other code can call the returned function at some later time and it can access and update the values contained in `makeCounter` at the time when the inner function was instantiated.
 
-```supercollider
+```
 (
 var makeCounter;
 makeCounter = { arg curVal=0, stepVal=1;
@@ -31,7 +31,7 @@ z = makeCounter.value(99, 100);
 
 x and z are functions which refer to different instances of the variables curVal and stepVal
 
-```supercollider
+```
 x.value.postln; // posts 10
 x.value.postln; // posts 11
 z.value.postln; // posts 99

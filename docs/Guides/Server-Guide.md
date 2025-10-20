@@ -19,7 +19,7 @@ Server apps running on the local machine have two UNIX environment variables: `S
 These can be set within SC using the getenv and setenv methods of class [String](../Classes/String.md).
 
 
-```supercollider
+```
 // all defs in this directory will be loaded when a local server boots
 "SC_SYNTHDEF_PATH".setenv("~/scwork/".standardizePath);
 "echo $SC_SYNTHDEF_PATH".unixCmd;
@@ -69,7 +69,7 @@ One common variant of this approach is multiple clients using the same server. I
 In order to use a remote server with tcp one should first boot the remote server using the `-t` option e.g. as follows:
 
 
-```supercollider
+```
 // on machine running the server
 (
 s.options.protocol = \tcp; // set to use tcp
@@ -83,7 +83,7 @@ s.boot;
 then run the following code:
 
 
-```supercollider
+```
 // on remote machine connecting to server
 (
 o = ServerOptions.new;

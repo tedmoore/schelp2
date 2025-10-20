@@ -15,7 +15,7 @@ An easy way to audition synthesis processes is to test them within a function. T
 Boot (turn on) the server
 
 
-```supercollider
+```
 s.boot;
 ```
 
@@ -23,7 +23,7 @@ s.boot;
 Run this example, and look at the scope window.
 
 
-```supercollider
+```
 // test a synthesis process in a function
 (
     {
@@ -40,7 +40,7 @@ Run this example, and look at the scope window.
 Code can be transfered from a test function into a synthdef. In the following example, the code from the function (above) is the second argument to the Out ugen.
 
 
-```supercollider
+```
 (
 SynthDef("ringMod", {
     Out.ar(
@@ -62,7 +62,7 @@ Synth("ringMod")
 Expand a ugen to two channels with an array in any of the argument (control) slots.
 
 
-```supercollider
+```
 { Saw.ar([500, 933], 0.1) }.scope;
 ```
 
@@ -70,7 +70,7 @@ Expand a ugen to two channels with an array in any of the argument (control) slo
 Another (longer) way to write the same thing is
 
 
-```supercollider
+```
 { [ Saw.ar(500, 0.1), Saw.ar(933, 0.1)] }.scope;
 ```
 
@@ -78,7 +78,7 @@ Another (longer) way to write the same thing is
 Expand a ugen to three channels by adding values to the array.
 
 
-```supercollider
+```
 { Saw.ar([500, 933, 2033], 0.1) }.scope;
 
 // 4 channels

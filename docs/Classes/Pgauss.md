@@ -13,6 +13,7 @@ This pattern uses the Box-Muller transform to generate a gaussian distribution f
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ This pattern uses the Box-Muller transform to generate a gaussian distribution f
 ## Examples
 
 
-```supercollider
+```
 (
 var a;
 a = Pgauss(0.0, 100, inf);

@@ -14,6 +14,7 @@ Limiter, unlike Compander, is completely transparent for an in range signal.
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Limiter, unlike Compander, is completely transparent for an in range signal.
 ## Examples
 
 
-```supercollider
+```
 (
 // example signal to process
 {

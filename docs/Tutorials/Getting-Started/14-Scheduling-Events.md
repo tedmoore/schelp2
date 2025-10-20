@@ -21,7 +21,7 @@ Scheduling means to tell the clock to execute something at some time in the futu
 Let's have SuperCollider say hello, 5 seconds from now.
 
 
-```supercollider
+```
 SystemClock.sched(5, { "hello".postln });
 ```
 
@@ -31,7 +31,7 @@ Notice that when you do this, 'SystemClock' prints immediately. Every time you r
 **sched** does *relative* scheduling. The actual time when the function runs is x seconds (or beats, for TempoClock) later than the time the .sched call occurred. It is also possible to schedule for an exact time point, provided you know what time it is on the clock. **schedAbs** handles *absolute* scheduling.
 
 
-```supercollider
+```
 (
 var timeNow = TempoClock.default.beats;
 "Time is now: ".post; timeNow.postln;
@@ -47,7 +47,7 @@ Note that we have moved to TempoClock, since this is the most commonly used. Whi
 For fun, change the tempo and run the last example again:
 
 
-```supercollider
+```
 (
 var timeNow;
 TempoClock.default.tempo = 2;    // 2 beats/sec, or 120 BPM
@@ -70,7 +70,7 @@ Inside a scheduled function, you might want to know which clock is running the f
 Once you know the clock, you can find out what time it is using **beats** :
 
 
-```supercollider
+```
 SystemClock.beats;
 TempoClock.default.beats;
 AppClock.beats;
@@ -84,7 +84,7 @@ thisThread.clock.beats;
 Suppose we schedule "hello" by itself.
 
 
-```supercollider
+```
 TempoClock.default.sched(5, "hello");
 ```
 
@@ -92,7 +92,7 @@ TempoClock.default.sched(5, "hello");
 Nothing happens. That's because "hello" is just a value -- it doesn't do anything. The lesson is that it makes sense to schedule objects that will *take some action*.
 
 
-```supercollider
+```
 Function
 Routine
 Task
@@ -107,7 +107,7 @@ Routines and Tasks will be covered in the next section, and Functions we have al
 If you schedule function that returns a number, the clock will treat that number as the amount of time before running the function again.
 
 
-```supercollider
+```
 // fires many times (but looks like it should fire just once)
 TempoClock.default.sched(1, { rrand(1, 3).postln; });
 ```
@@ -118,7 +118,7 @@ This will keep going forever, until you stop it with cmd-.
 If you want the function to run only once, make sure to end the function with 'nil':
 
 
-```supercollider
+```
 // fires once
 TempoClock.default.sched(1, { rrand(1, 3).postln; nil });
 ```

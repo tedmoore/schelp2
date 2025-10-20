@@ -13,6 +13,7 @@ Returns a stream that behaves like a geometric brownian motion.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Returns a stream that behaves like a geometric brownian motion.
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pgbrown(0.0, 1.0, 0.2, inf);

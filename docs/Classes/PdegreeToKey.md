@@ -13,6 +13,7 @@ Returns a series of notes derived from an index into a scale.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Returns a series of notes derived from an index into a scale.
 ## Examples
 
 
-```supercollider
+```
 (
 Pbind(\note, PdegreeToKey(
             Pseq([1, 2, 3, 2, 5, 4, 3, 4, 2, 1], 2),

@@ -13,6 +13,7 @@ Audio to control rate converter. Only needed in specific cases.
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 

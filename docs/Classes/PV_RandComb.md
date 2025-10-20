@@ -13,6 +13,7 @@ Randomly clear bins.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Randomly clear bins.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 c = Buffer.read(s, ExampleFiles.child);
 

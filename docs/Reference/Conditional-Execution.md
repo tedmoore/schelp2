@@ -59,7 +59,7 @@ If `falseFunc` is not present and `expr` is false, then the `.if` method returns
 
 #### Syntax
 
-```supercollider
+```
 // function call notation
 if(expr, trueFunc, falseFunc);
 if(0 < 3, {"aha"} {"brb"}); 
@@ -81,7 +81,7 @@ expr.if(trueFunc, falseFunc);
 
 #### Examples
 
-```supercollider
+```
 // function call notation with trailing argument block
 // note the indentation and linebreaks,
 // which are recommended, but not mandatory.
@@ -132,7 +132,7 @@ Function also implements a `case` method which allows for conditional evaluation
 
 #### Syntax
 
-```supercollider
+```
 // { testFuncBody1 } is technically the receiver.
 // trailing receiver and argument block notation
 // (possible because receiver and all arguments are Functions):
@@ -162,7 +162,7 @@ case(
 
 #### Example
 
-```supercollider
+```
 (
 var i, x;
 i = [0, 7, 2, 329, 4, 5000].choose;
@@ -181,7 +181,7 @@ x.postln;
 or
 
 
-```supercollider
+```
 (
 case(
     {[true,false].choose}, {"first test was true"},
@@ -214,7 +214,7 @@ The switch statement will automatically be inlined if two conditions are met:
 
 #### Syntax
 
-```supercollider
+```
 // function call syntax with trailing argument blocks
 // linebreaks are optional but recommended
 switch(value)
@@ -241,7 +241,7 @@ switch(value,
 
 #### Examples
 
-```supercollider
+```
 //function call syntax without trailing arguments 
 (
 var x = 0; //also try 1
@@ -278,7 +278,7 @@ switch (z.postln,
 or:
 
 
-```supercollider
+```
 (
 var x, z;
 z = [0, 7, 2, 329, 4, 5000].choose;
@@ -301,7 +301,7 @@ x.postln;
 The following code will inline, but will compare by identity:
 
 
-```supercollider
+```
 (
 switch(1)
     { 1.0 } { "yes" }
@@ -313,7 +313,7 @@ switch(1)
 The identity comparison `1 === 1.0` returns false.  While 1.0 and 1 represent the same numeric value, one is a Float and the other is an Integer, so they cannot be identical. On the other hand, if we prevent inlining by declaring a variable within one of the functions, the code will compare by equality: `1 == 1.0` returns true. 
 
 
-```supercollider
+```
 (
 // 'var x' prevents inlining
 switch(1)
@@ -336,7 +336,7 @@ Note the distinction to `if`:  `testFunc` is a Function (which returns itself), 
 
 #### Syntax
 
-```supercollider
+```
 // function call with receiver and argument as trailing function block
 // this is _different_ from C!
 while { testFuncBody } { loopFuncBody };
@@ -359,7 +359,7 @@ while({ testFuncBody }, { loopFuncBody });
 
 #### Example
 
-```supercollider
+```
 (
 i = 0;
 while { i < 5 } { i = i + 1; "boing".postln };
@@ -376,7 +376,7 @@ while { i < 5 } { i = i + 1; "boing".postln };
 
 
 ## Other Control Structures
-Conditional expressions are a type of control structures; another useful type are iterations such as `.do` and `.for`.  These are discussed separately in the page on [iteration](../Reference/loop.md) (also see [Collection / Iteration ](../Classes/Collection.md#iteration)). Finally, the methods [Function#-try](../Classes/Function.md#-try) and [Function#-protect](../Classes/Function.md#-protect) are technically conditional expressions,  but their intended use is in the handling of exceptions, which is why their are discussed in [Exception](../Classes/Exception.md) rather than here.
+Conditional expressions are a type of control structures; another useful type are iterations such as `.do` and `.for`.  These are discussed separately in the page on [iteration](../Reference/loop.md) (also see [Collection#Iteration](../Classes/Collection.md#iteration)). Finally, the methods [Function#-try](../Classes/Function.md#-try) and [Function#-protect](../Classes/Function.md#-protect) are technically conditional expressions,  but their intended use is in the handling of exceptions, which is why their are discussed in [Exception](../Classes/Exception.md) rather than here.
 
 
 
@@ -386,7 +386,7 @@ Conditional expressions are a type of control structures; another useful type ar
 
 ### Failure to inline: Functions include variable declaration.
 
-```supercollider
+```
 (
 {
     if(6 == 9) {
@@ -401,7 +401,7 @@ Conditional expressions are a type of control structures; another useful type ar
 
 
 This returns the following warning,> *You can switch on and off the above warning (see: [LanguageConfig#*postInlineWarnings](../Classes/LanguageConfig.md#*postinlinewarnings)):
-```supercollider
+```
 LanguageConfig.postInlineWarnings_(true) // warn
 LanguageConfig.postInlineWarnings_(false) // ignore it.
 ```
@@ -418,7 +418,7 @@ That is, entries 5 and 7 are proper function calls, which are costly (i.e., slow
 Here is the opposite example, where inlining has taken place:
 
 
-```supercollider
+```
 (
 {
     if(6 == 9) {
@@ -441,12 +441,12 @@ Entries 5 and 12 are jump statements, instructing to jump to entries 15 and 19 r
 
 
 ## Audio Control Structures: Do not use .if etc. in Synths!
-The control structures discussed here is intended for use in sclang (i.e., language/client), not in scsynth (i.e., server).  Use of .if in signal processing contexts may appear to work in simple cases but is **not advised**.  Intead, use [Select](../Classes/Select.md) or [SelectX](../Classes/SelectX.md) and related classes. Also see [UserFAQ / SynthDef Issues ](../Guides/UserFAQ.md#synthdef-issues) for more details.
+The control structures discussed here is intended for use in sclang (i.e., language/client), not in scsynth (i.e., server).  Use of .if in signal processing contexts may appear to work in simple cases but is **not advised**.  Intead, use [Select](../Classes/Select.md) or [SelectX](../Classes/SelectX.md) and related classes. Also see [UserFAQ#SynthDef Issues](../Guides/UserFAQ.md#synthdef-issues) for more details.
 
 The following code runs (does not produce an error), but is **not good usage**, because it is not very obvious what is going on: 
 
 
-```supercollider
+```
 (
     var freq = 100;
     {
@@ -462,7 +462,7 @@ The following code runs (does not produce an error), but is **not good usage**, 
 Here, the receiver LFTri is a UGen.  The UGen class in turn implements an [UGen#-if](../Classes/UGen.md#-if) method by translating it into a linear crossfade using binary operators:
 
 
-```supercollider
+```
     if { arg trueUGen, falseUGen;
         ^(this * (trueUGen - falseUGen)) + falseUGen;
     }
@@ -472,7 +472,7 @@ Here, the receiver LFTri is a UGen.  The UGen class in turn implements an [UGen#
 The regular [Boolean#-if](../Classes/Boolean.md#-if) discussed above does *not* crossfade.  Hence, if the crossfade is desired, it is better practice to make this explicit by using [LinSelectX](../Classes/LinSelectX.md): 
 
 
-```supercollider
+```
 (
     var freq = 100;
     {
@@ -488,7 +488,7 @@ The regular [Boolean#-if](../Classes/Boolean.md#-if) discussed above does *not* 
 On the other hand, in the case where not a crossfade but a simple either/or analogous to language-side `Boolean.if` is desired, [Select](../Classes/Select.md) is preferable:
 
 
-```supercollider
+```
 (
     var freq = 100;
     { Select.ar(
@@ -515,7 +515,7 @@ While the receiver notation reflects the implementation in SuperCollider most cl
 
 
 
-```supercollider
+```
 //if-statement in SuperCollider, function call notation with trailing argument block 
 if (condition) { 
     trueFuncBody
@@ -536,7 +536,7 @@ This means, **first**, that the use of trailing argument syntax implies that `ex
 In examples:
 
 
-```supercollider
+```
 ::
 
 subsubsection:: Receiver blocks (.case, .while)
@@ -575,7 +575,7 @@ Unlike other common programming languages, conditional expressions (`.if`, `.cas
 Whereas in SuperCollider, both analogous cases work:
 
 
-```supercollider
+```
 (
 var a = "oink"
 a = if([true,false].choose, {"gobbledeegook"});
@@ -593,7 +593,7 @@ a.postln;
 However, this does not change the syntactic requirement that the assignment statement, when it is an argument to a conditional expression, must be a Function. In other words, the following is wrong:
 
 
-```supercollider
+```
  ( 
 var a = "oink";
     if([true,false].choose, a = "gobbledeegook"); //syntax error

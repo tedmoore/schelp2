@@ -91,7 +91,7 @@ Any of the matching values may be one of the following:
 For instance, the following example would respond to note on messages from any port, channels 2 and 7 only, even numbered note numbers only, and only velocity values greater than 50.
 
 
-```supercollider
+```
 NoteOnResponder({ |src, chan, num, vel| [src, chan, num, vel].postln },
     nil,    // any port
     [2, 7],    // midi channels 2 or 7 only
@@ -108,7 +108,7 @@ MIDIResponders automatically initialize the MIDIClient with 1 standard device. T
 Just call .remove on the responder.
 
 
-```supercollider
+```
 c = CCResponder({ ... }, num: 1);    // respond to any modwheel
 
 c.remove;        // stop this responder
@@ -118,7 +118,7 @@ c.remove;        // stop this responder
 Or remove all of a specific class:
 
 
-```supercollider
+```
 CCResponder.removeAll
 NoteOnResponder.removeAll
 NoteOffResponder.removeAll
@@ -131,7 +131,7 @@ ProgramChange.removeAll
 or remove all midi responders in all classes:
 
 
-```supercollider
+```
 MIDIResponder.removeAll
 ```
 

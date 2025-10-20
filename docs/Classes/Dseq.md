@@ -14,6 +14,7 @@ See [Pseq](../Classes/Pseq.md) for structurally related equivalent.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ See [Pseq](../Classes/Pseq.md) for structurally related equivalent.
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a, freq, trig;

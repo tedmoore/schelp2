@@ -13,6 +13,7 @@ A (12TET major/minor) key tracker based on a pitch class profile of energy acros
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ A (12TET major/minor) key tracker based on a pitch class profile of energy acros
 ## Examples
 
 
-```supercollider
+```
 // The following files are test materials on my machine; you will subsitute your own filenames here
 // A major
 d = Buffer.read(s, "/Volumes/data/stevebeattrack/samples/100.wav");
@@ -62,7 +63,7 @@ d = Buffer.read(s, "/Users/nickcollins/Desktop/ML/training_wav/78.wav")
 
 
 
-```supercollider
+```
 // alternating major and minor chords as a test
 (
 {
@@ -87,7 +88,7 @@ d = Buffer.read(s, "/Users/nickcollins/Desktop/ML/training_wav/78.wav")
 
 
 
-```supercollider
+```
 // Nice to hear what KeyTrack thinks:
 
 d = Buffer.read(s, "/Users/nickcollins/Desktop/ML/training_wav/78.wav")
@@ -117,7 +118,7 @@ d = Buffer.read(s, "/Users/nickcollins/Desktop/ML/training_wav/78.wav")
 
 
 
-```supercollider
+```
 /*
 Research Notes:
 See the MIREX2006 audio key tracking competition and Emilia Gomez's PhD thesis, Tonal Description of Music Audio Signals

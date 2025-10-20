@@ -26,6 +26,7 @@ The following keyboard shortcuts may be used when focused on the Stethoscope dis
 ## Class Methods
 
 
+
 ### `new`
  Create a Stethoscope, either as a window, or placed on a given parent view.**Arguments:**
 
@@ -34,16 +35,17 @@ The following keyboard shortcuts may be used when focused on the Stethoscope dis
 | `server` | A valid Server (either a local or the internal server), or `nil`, in which case the `Server.default` is used. |  
 | `numChannels` | An integer. Default value is 2. |  
 | `index` | The offset index. An Integer. Default is nil. |  
-| `bufsize` | The size of the analysis buffer. Default is 4096. See also [bufsize](#bufsize). |  
-| `zoom` | Horizontal magnification of the displayed wave. Default is 1. See also [xZoom](#xzoom). |  
+| `bufsize` | The size of the analysis buffer. Default is 4096. See also [#-bufsize](#-bufsize). |  
+| `zoom` | Horizontal magnification of the displayed wave. Default is 1. See also [#-xZoom](#-xzoom). |  
 | `rate` | \audio or \control. Default is \audio. |  
 | `view` | The optional parent view. Default is nil. If nil, then it will open in its own Window. |  
 | `bufnum` | The id number of the Buffer to analyze. Default value is nil. If nil, then a Buffer of size bufSize is allocated. discussion:  Example:
-```supercollider
+```
 s.boot
 { SinOsc.ar([330, 440], 0, 0.4) }.play;
 Stethoscope(s, 2);
 ``` |  
+
 
 ### `isValidServer`
  Tests whether Stethoscope can operate on the given server (any local server. See [Server#-isLocal](../Classes/Server.md#-islocal)).**Arguments:**
@@ -52,13 +54,15 @@ Stethoscope(s, 2);
 |----------|-------------|
 | `` | A [Server](../Classes/Server.md). |  
 **Returns:** A Boolean.
+
 ### `ugenScopes`
  Returns an array of the running ugen scopes.
-```supercollider
+```
 s.boot
 { [SinOsc.ar.scope, WhiteNoise.ar(0.5).scope]*0.1 }.scope(2);
 Stethoscope.ugenScopes; // returns the ugen scopes
 ```
+
 
 
 ### `tileBounds`
@@ -68,14 +72,17 @@ Stethoscope.ugenScopes; // returns the ugen scopes
 
 
 ### Data
+
 ### `server`
  The server on which the scope operates.
+
 ### `rate`
  Whether to operate on audio or control busses.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | One of the two symbols: `\audio` or `\control`. |  
+
 
 ### `index`
  The starting index of the busses to scope.**Arguments:**
@@ -84,15 +91,18 @@ Stethoscope.ugenScopes; // returns the ugen scopes
 |----------|-------------|
 | `` | An Integer. |  
 
+
 ### `numChannels`
- The amount of adjacent busses to scope (from [index](#index) on).**Arguments:**
+ The amount of adjacent busses to scope (from [#-index](#-index) on).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An Integer. |  
 
+
 ### `bufsize`
- Defines the maximum allowed [cycle](#cycle).
+ Defines the maximum allowed [#-cycle](#-cycle).
+
 ### `cycle`
 
 > **Note:** Only available in Qt GUI
@@ -100,8 +110,10 @@ Stethoscope.ugenScopes; // returns the ugen scopes
  The exact scoping period, in signal frames. Reciprocal to what is also known as *sweep speed* in analog oscilloscopes. It is dynamically adjustable while the scope is running. Data from scoped signals will be accumulated into a buffer until it reaches `cycle` amount frames, at which point the buffering will immediately restart. The view will repeatedly display the entire buffer; it may skip a cycle if the drawing is too slow to keep up with the speed of incoming data, but the cycle boundaries will never shift with respect to signals. If you are scoping a periodic signal, setting `cycle` to match the signal's period will keep the waveform locked in place.
 
 ### Display
+
 ### `window`
  The (parent) Window of the scope.
+
 ### `bounds`
  The position and size of the window. The position is relative to the bottom-left corner of the screen.**Arguments:**
 
@@ -109,17 +121,18 @@ Stethoscope.ugenScopes; // returns the ugen scopes
 |----------|-------------|
 | `` | A [Rect](../Classes/Rect.md), or any object responding to the [.asRect](../Search.md#asrect) method. The width less than 264 will be changed to 264, the minimum width. |  
 **Returns:** A Rect.
-```supercollider
+```
 s.scope.bounds_(Rect(100, 200, 500, 600));
 s.scope.bounds_([100, 200, 500, 600]);
 s.scope.bounds_(Size(500, 600));
 ```
 
 
-```supercollider
+```
 s.scope.bounds_(Rect(0, 0, 500, 600));
 s.scope.bounds_(500@600);
 ```
+
 
 
 ### `size`
@@ -129,16 +142,20 @@ s.scope.bounds_(500@600);
 |----------|-------------|
 | `` | An Integer (the window is square). |  
 
+
 ### `toggleSize`
  Toggle between small and large size.
+
 ### `zoom`
- A synonym for [xZoom](#xzoom).
+ A synonym for [#-xZoom](#-xzoom).
+
 ### `xZoom`
- Magnifies the displayed wave horizontally to the given factor. This sets [cycle](#cycle) to `1024 * xZoom.reciprocal`.**Arguments:**
+ Magnifies the displayed wave horizontally to the given factor. This sets [#-cycle](#-cycle) to `1024 * xZoom.reciprocal`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
+
 
 ### `yZoom`
  Magnifies the displayed wave vertically to the given factor.**Arguments:**
@@ -146,6 +163,7 @@ s.scope.bounds_(500@600);
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
+
 
 ### `style`
  The plotting style:- 0 = the channels are vertically spaced
@@ -159,21 +177,24 @@ s.scope.bounds_(500@600);
 
 
 ### Operation
+
 ### `run`
  Starts the scope, if not already running.
+
 ### `quit`
  Closes the window, and cleans up any used synths and buffers.
 
 ### Convenience
+
 ### `setProperties`
- Sets several properties at once: [numChannels](#numchannels), [index](#index), [bufsize](#bufsize), [zoom](#zoom), and [rate](#rate).
+ Sets several properties at once: [#-numChannels](#-numchannels), [#-index](#-index), [#-bufsize](#-bufsize), [#-zoom](#-zoom), and [#-rate](#-rate).
 
 ## Examples
 
 
 ### A step-by-step example
 
-```supercollider
+```
 s.boot;
 (
 {
@@ -216,7 +237,7 @@ c.scope;
 
 ### Multi-channel Lissajou plots
 
-```supercollider
+```
 (
 { 
     var f = { |l,h| SinOsc.kr(0.1, {pi.rand}).range(l, h) } ;
@@ -237,7 +258,7 @@ c.style = 2;
 You can pass your own view in to add a stethoscope to it:
 
 
-```supercollider
+```
 w = Window.new("my own scope", Rect(20, 20, 400, 500));
 w.view.decorator = FlowLayout(w.view.bounds);
 c = Stethoscope.new(s, view: w.view);

@@ -17,7 +17,7 @@ Changes that happen to NodeProxy, most importantly setting its source, are norma
 generally, every node proxy can have its own time base, usually a tempo clock. the clock is responsible for the timing of insertion of new functions, per default at the next beat of the clock.
 
 
-```supercollider
+```
 p = ProxySpace.push(s.boot);
 ~x.play; ~y.play;
 
@@ -60,7 +60,7 @@ When inserting a new function into the proxy, the synthdef is built, sent to the
 In order to be able to control the offset/quant point of insertion, the 'quant' instance variable can be used, which can be either a number or an array of the form [quant, offset], just like in pattern.play(quant).
 
 
-```supercollider
+```
 ~z.play; ~y.play;
 ~z = { Ringz.ar(Impulse.ar(2), exprand(300, 3400 ! 2), 0.08).dup * 0.2 };
 ~y.quant = [1, 0.3]; // offset of 0.3, quant of 1.0
@@ -78,7 +78,7 @@ quant and offset scheduling is used for the following operations: **play**, **pu
 a ProxySpace has the method [ProxySpace#-makeTempoClock](../../Classes/ProxySpace.md#-maketempoclock), which creates an instance of [TempoBusClock](../../Classes/TempoBusClock.md) together with a node proxy (~tempo) which it keeps in sync.
 
 
-```supercollider
+```
 p.makeTempoClock(2.0); // create a new tempoclock with 2 beats/sec
 ~y.play; ~x.play;
 ~y.quant = 1; // set the quant back to 1 and the offset to 0
@@ -99,7 +99,7 @@ p.clock.tempo = 2.2; // set the tempo to 2.2
 for efficiency, NodeProxy uses a normal Out UGen for writing to its bus. If sample accurate playback is needed ([OffsetOut](../../Classes/OffsetOut.md)), the ProxySynthDef class variable [ProxySynthDef#-sampleAccurate](../../Classes/ProxySynthDef.md#-sampleaccurate) can be set to true. Note that for audio through from external sources, this creates a delay for up to one block (e.g. about 1 ms.)
 
 
-```supercollider
+```
 // example
 
 ProxySynthDef.sampleAccurate = false;

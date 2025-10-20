@@ -17,6 +17,7 @@ Read a DC-coupled analog input connected to a sensor (e.g.: a potentiometer or C
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -25,6 +26,7 @@ Read a DC-coupled analog input connected to a sensor (e.g.: a potentiometer or C
 | `analogPin` | Analog pin number to read. Pin numbers begin at 0. This value can be modulated at audiorate. |  
 | `mul` |  |  
 | `add` |  |  
+
 
 ### `kr`
 **Arguments:**
@@ -38,7 +40,7 @@ Read a DC-coupled analog input connected to a sensor (e.g.: a potentiometer or C
 ## Examples
 
 
-```supercollider
+```
 // modulate frequency of a sine oscillator
 
 (

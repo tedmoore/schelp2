@@ -13,6 +13,7 @@ Lag2 is equivalent to Lag.kr(Lag.kr(in, time), time), thus resulting in a smooth
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Lag2 is equivalent to Lag.kr(Lag.kr(in, time), time), thus resulting in a smooth
 ## Examples
 
 
-```supercollider
+```
 // used to lag pitch
 (
 SynthDef(\lag2ud_help, { |out, freq = 300, lagup = 1, lagdown = 5|

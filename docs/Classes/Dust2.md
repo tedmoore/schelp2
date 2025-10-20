@@ -13,6 +13,7 @@ Generates random impulses from -1 to +1.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Generates random impulses from -1 to +1.
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-Dust2", { |out = 0|
     Out.ar(out,

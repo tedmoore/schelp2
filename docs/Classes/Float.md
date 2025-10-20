@@ -8,7 +8,7 @@
 
 A 64-bit double precision floating point number. Float inherits most of its behaviour from its superclass, [SimpleNumber](../Classes/SimpleNumber.md).
 
-```supercollider
+```
 // generate 10 random floats between 0 and 1
 { 1.0.rand }.dup(10)
 
@@ -32,12 +32,15 @@ Note that despite its name, [FloatArray](../Classes/FloatArray.md) only holds 32
 
 ## Class Methods
 
+
 ### `from32Bits`
 **Returns:** a new Float from a 32-bit word.
+
 ### `from64Bits`
 **Returns:** a new Float from a 64-bit word.
 
 ## Instance Methods
+
 
 ### `do`
 iterates a [Function](../Classes/Function.md) from `0` to `this - 1`. See also: [Integer#-do](../Classes/Integer.md#-do), [Collection#-do](../Classes/Collection.md#-do)**Arguments:**
@@ -45,12 +48,14 @@ iterates a [Function](../Classes/Function.md) from `0` to `this - 1`. See also: 
 | Argument | Description |
 |----------|-------------|
 | `function` | The function to iterate. |  
+
 ### `reverseDo`
 iterates function from `this - 1` to 0**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `function` | The function to iterate. |  
+
 ### `clip`
 Return this if lo <= this <= hi, otherwise return the nearest boundary: lo if this < lo, hi if this > hi.**Arguments:**
 
@@ -58,6 +63,7 @@ Return this if lo <= this <= hi, otherwise return the nearest boundary: lo if th
 |----------|-------------|
 | `lo` | The low threshold of clipping. |  
 | `hi` | The high threshold of clipping. |  
+
 ### `fold`
 Fold this to [lo, hi].**Arguments:**
 
@@ -65,6 +71,7 @@ Fold this to [lo, hi].**Arguments:**
 |----------|-------------|
 | `lo` | The low threshold of folding. |  
 | `hi` | The high threshold of folding. |  
+
 ### `wrap`
 Wrap this around [lo, hi) such that it falls in range. Equivalent to (this % (hi - lo)) + lo.**Arguments:**
 
@@ -72,29 +79,39 @@ Wrap this around [lo, hi) such that it falls in range. Equivalent to (this % (hi
 |----------|-------------|
 | `lo` | The low threshold (inclusive) of wrapping. |  
 | `hi` | The high threshold (exclusive) of wrapping. |  
+
 ### `coin`
 Let *x* be the receiver clipped to the range [0, 1]. With probability *x*, return true. With probability 1 - *x*, return false.**Returns:** a [Boolean](../Classes/Boolean.md)
-```supercollider
+```
 0.2.coin; // 20 % chance for true.
 ```
 
-See also: [Randomness](../Guides/Randomness.md)### `xrand2`
-**Returns:** a random float from this.neg to this, excluding the value exclude.### `modSeaside`
-**Returns:** the same result as `this.mod(aNumber, adverb)`; provided for compatibility with [Integer#-modSeaside](../Classes/Integer.md#-modseaside).### `isFloat`
-**Returns:** `true` since this is a Float.### `asFloat`
-**Returns:** `this` since this is a Float.### `as32Bits`
-**Returns:** an Integer which is the bit pattern of this as a 32bit single precision float### `high32Bits`
-**Returns:** an Integer which is the bit pattern of high 32-bits of the 64-bit double precision floating point value### `low32Bits`
-**Returns:** an Integer which is the bit pattern of high 32-bits of the 64-bit double precision floating point value### `asCompileString`
+See also: [Randomness](../Guides/Randomness.md)
+### `xrand2`
+**Returns:** a random float from this.neg to this, excluding the value exclude.
+### `modSeaside`
+**Returns:** the same result as `this.mod(aNumber, adverb)`; provided for compatibility with [Integer#-modSeaside](../Classes/Integer.md#-modseaside).
+### `isFloat`
+**Returns:** `true` since this is a Float.
+### `asFloat`
+**Returns:** `this` since this is a Float.
+### `as32Bits`
+**Returns:** an Integer which is the bit pattern of this as a 32bit single precision float
+### `high32Bits`
+**Returns:** an Integer which is the bit pattern of high 32-bits of the 64-bit double precision floating point value
+### `low32Bits`
+**Returns:** an Integer which is the bit pattern of high 32-bits of the 64-bit double precision floating point value
+### `asCompileString`
 **Returns:** a string that when interpreted matches the receiver, if the number is within the range given in `storeOn`.
-```supercollider
+```
 a = 2.81882773638;
 a.asCompileString.interpret == a;
 ```
 
+
 ### `asStringPrec`
 Returns a string representation of the number, with the desired precision (i.e. number of significant figures).
-```supercollider
+```
 // example:
 pi
 pi.asStringPrec(3)
@@ -104,9 +121,10 @@ pi.asStringPrec(6)
 7.4.asStringPrec(50)
 ```
 
+
 ### `dump`
 
-```supercollider
+```
 -1.0.dump
 ```
 
@@ -117,7 +135,7 @@ In SuperCollider, Floats are 64 bits wide. Because an [Integer](../Classes/Integ
 Therefore, in some situations it can be useful to calculate with floats also when only whole numbers are needed. You can use 64-bit floats for integer calculations in the range `± 9007199254740992`, or about `±2^53`. Sometimes one can go even further (see example below).
 
 
-```supercollider
+```
 // compare factorial:
 f = { |x| if(x < 2) { x } { x * f.(x - 1) } };
 f.(14); // integer
@@ -133,7 +151,7 @@ f.(18.0) / f.(17.0) == 18 // true
 Here is a classical example for an algorithm:
 
 
-```supercollider
+```
 // euclidean algorithm
 (
 g = { |a, b|
@@ -162,7 +180,7 @@ g.(x, 3); // still happens to be correct, but better not count on it …
 Testing the limits of 64-bit float (2^53)
 
 
-```supercollider
+```
 a = 2 ** 53 - 1
 b = a + 1;
 c = a + 2;

@@ -13,7 +13,7 @@ The Delay, Comb, and Allpass family of ugens create time-based effects to give a
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-```supercollider
+```
 // 2 synthdefs - the 1st to make grains and the 2nd to delay them
 
 // the synthdef that makes the grains is on the left channel
@@ -70,7 +70,7 @@ Synth.head(~effects, "aDelay");
 Comb and Allpass filters are examples of ugens that feed some of their output back into their input. Allpass filters change the phase of signals passed through them. For this reason, they're useful even though don't seem to differ much from comb filters.
 
 
-```supercollider
+```
 /////////////////////////////////////////////////////////////////////////////////////////
 // TURN ON THE INTERNAL SERVER!!
 // first a comb filter and then an allpass with (with the same parameters) - compare them
@@ -103,7 +103,7 @@ Comb and Allpass filters are examples of ugens that feed some of their output ba
 
 
 
-```supercollider
+```
 /////////////////////////////////////////////////////////////////////////////////////////
 //
 // first a comb example and then an allpass
@@ -147,7 +147,7 @@ The next example is by James McCartney. It comes from the *Why Supercollider 2.0
 The example is more or less a Schroeder reverb - a signal passed through a parallel bank of comb filters which then pass through a series of allpass filters.
 
 
-```supercollider
+```
 (
 {
 var s, z, y;
@@ -172,7 +172,7 @@ s+(0.2*y)
 The following shows one way to divide the JMC example into components.
 
 
-```supercollider
+```
 (
 SynthDef("filteredDust", {
     Out.ar(
@@ -235,7 +235,7 @@ s.queryAllNodes;
 Or, use groups to control the order of execution.
 
 
-```supercollider
+```
 (
 ~source = Group.tail(s);
 ~proc1 = Group.tail(s);
@@ -273,7 +273,7 @@ SuperCollider version 1.0 was completely rewritten to make it both more expressi
 **Why use a text based language rather than a graphical language?**There are at least two answers to this. **Dynamism** : Most graphical synthesis environments use statically allocated unit generators. In SuperCollider, the user can create structures which spawn events dynamically and in a nested fashion. Patches can be built dynamically and parameterized not just by floating point numbers from a static score, but by other graphs of unit generators as well. Or you can construct patches algorithmically on the fly. This kind of fluidity is not possible in a language with statically allocated unit generators. **Brevity** : In SuperCollider, symmetries in a patch can be exploited by either multichannel expansion or programmatic patch building. For example, the following short program generates a patch of 49 unit generators. In a graphical program this might require a significant amount of time and space to wire up. Another advantage is that the size of the patch below can be easily expanded or contracted just by changing a few constants.
 
 
-```supercollider
+```
 (
 {
     // 10 voices of a random sine percussion sound :

@@ -20,6 +20,7 @@ Note that many of these UGens have doneActions, which are another way of accompl
 ## Class Methods
 
 
+
 ### `kr`
 **Arguments:**
 
@@ -30,7 +31,7 @@ Note that many of these UGens have doneActions, which are another way of accompl
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 // simple example

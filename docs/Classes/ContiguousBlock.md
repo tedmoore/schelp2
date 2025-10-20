@@ -10,10 +10,11 @@
 
 A ContiguousBlock is a range of addresses (generally integers >= 0) used in a [ContiguousBlockAllocator](../Classes/ContiguousBlockAllocator.md). ContiguousBlockAllocator is used in [Server](../Classes/Server.md) to manage buffer numbers and audio/control bus indices.
 `ContiguousBlock(10, 2)` spans address indices 10 and 11.
-Additionally, a ContiguousBlock may be marked as in use or free. See [used](#used).
+Additionally, a ContiguousBlock may be marked as in use or free. See [#-used](#-used).
 
 
 ## Class Methods
+
 
 ### `new`
 Returns a new instance.**Arguments:**
@@ -26,13 +27,20 @@ Returns a new instance.**Arguments:**
 
 ## Instance Methods
 
+
 ### `start`
-The starting address of the block.### `size`
-The number of addresses covered in the block.### `address`
-A synonym for `start`.**Returns:** The starting address of the block.### `lastAddress`
-The last address covered within this block: `ContiguousBlock(10, 2).lastAddress` returns 11.### `nextAddress`
-The starting address immediately following this block. `ContiguousBlock(10, 2).lastAddress` returns 12, because an adjoining block following this block must begin at address 12.### `used`
-Boolean. `true` indicates that the block is in use, and `false` that it is available.### `adjoins`
+The starting address of the block.
+### `size`
+The number of addresses covered in the block.
+### `address`
+A synonym for `start`.**Returns:** The starting address of the block.
+### `lastAddress`
+The last address covered within this block: `ContiguousBlock(10, 2).lastAddress` returns 11.
+### `nextAddress`
+The starting address immediately following this block. `ContiguousBlock(10, 2).lastAddress` returns 12, because an adjoining block following this block must begin at address 12.
+### `used`
+Boolean. `true` indicates that the block is in use, and `false` that it is available.
+### `adjoins`
 Answers `true` if this block touches or overlaps with the argument, and `false` if there is a gap between the two blocks.**Arguments:**
 
 | Argument | Description |
@@ -40,6 +48,7 @@ Answers `true` if this block touches or overlaps with the argument, and `false` 
 | `block` | A second `ContiguousBlock`. |  
 **Returns:** Boolean.
 ### Operations
+
 ### `join`
 Given two adjoining blocks, combines them into a single block. If the blocks do not adjoin, the result is `nil`.**Arguments:**
 
@@ -47,6 +56,7 @@ Given two adjoining blocks, combines them into a single block. If the blocks do 
 |----------|-------------|
 | `block` | A second `ContiguousBlock`. |  
 **Returns:** A new ContiguousBlock, spanning the full range of both input blocks.
+
 ### `split`
 Divides a ContiguousBlock into two new blocks.**Arguments:**
 
@@ -68,7 +78,7 @@ Divides a ContiguousBlock into two new blocks.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 c = ContiguousBlock(10, 2);
 d = ContiguousBlock(6, 3);
 e = ContiguousBlock(6, 4);

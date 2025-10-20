@@ -13,6 +13,7 @@ Output copies bins with the maximum magnitude of the two inputs.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Output copies bins with the maximum magnitude of the two inputs.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 

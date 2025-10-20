@@ -15,9 +15,10 @@ EnvirGui displays all keys and values of an environment, so one can change them 
 
 
 ### Creation
+
 ### `new`
 create a new EnvirGui NdefParamGui
-```supercollider
+```
 // simple example
 g = EnvirGui.new(nil, 5);    // empty with 5 slots
 g.parent.alwaysOnTop_(true);
@@ -57,50 +58,62 @@ g.close;
 
 
 ### Instance Variables
+
 ### `numItems`
 how many envir items to display
+
 ### `envir`
 the envir displayed - actually an alias for object.
+
 ### `zone`
 the composite view the envirgui makes for itself
+
 ### `paramViews`
 the paramViews that display the values:- Single numbers appear in an [EZSlider](../Classes/EZSlider.md),
 - pairs of numbers will be shown in an [EZRanger](../Classes/EZRanger.md),
 - all other values are shown as compileStrings in an [EZText](../Classes/EZText.md).
 See [ParamView](../Classes/ParamView.md) for details.
+
 ### `specs`
-a local dictionary of the specs used for display ranges of numerical parameters by the paramViews of this envirgui. See the [getSpec](#getspec) method for details.
+a local dictionary of the specs used for display ranges of numerical parameters by the paramViews of this envirgui. See the [#-getSpec](#-getspec) method for details.
+
 ### `editKeys`
 the keys of the currently displayed items in the dict.
+
 ### `keysRotation`
 if the size of envir exceeds numItems, the keys displayed can be rotated: e.g. with 10 keys displayed on 5 paramViews, keysRotation 0 means show keys (0..4), keysRotation 2 means show keys (2..6), etc.**gui elements present if requested in options**
+
 ### `docBut`, `knowBut`, `parentBut`, `protoBut`
 
 
 ### Some Methods
+
 ### `object`
 set the environment to show**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `obj` | can be nil, a dictionary, an environment, or an event.
-```supercollider
+```
 g = EnvirGui((freq: 120, \amp: 0.2, \pan: -0.5), 12, nil, bounds: Rect(20, 400, 220, 100));
 g.object_((a: 1, b: [2, 3], c: \symbol, d: [4, 5, 6], f: { "boing".postln }))
 ``` |  
 
+
 ### `envir`
 same as object_(obj)
+
 ### `name`
 if in its own window, set the window's name
-```supercollider
+```
 g.name_("Yoohoo");
 ```
 
 
+
 ### `getSpec`
 For editing, numerical parameters need control specs for the ranges on the gui. These can be set locally in the EnvirGui, or global specs will be looked up. If no local or global specs exist for that parameter name, getSpec makes a usable guess for them. (With JITLibExtensions, one can also look up specs attached to an object such as a proxy.)
-```supercollider
+```
 // inline example
 g = EnvirGui.new; g.parent.alwaysOnTop_(true);
 g.getSpec(\freq, 400);        // \freq exists as global spec, so use that
@@ -119,9 +132,10 @@ g.envir.put(\iFrek, 500);
 | `key` | the parameter name for which to find a spec |  
 | `value` | the current value of that param, which is used when guessing specs. |  
 
+
 ### `putSpec`
 add a spec for a given key, or (if it is a global key) override a global spec with a local one:
-```supercollider
+```
 // set a desired range and warp:
 g.putSpec(\iFrek, [10, 1000, \exp]);
 g.putSpec(\freq, [10, 1000, \exp]);
@@ -139,13 +153,16 @@ g.close
 ```
 
 **Keys with technical names can be replaced in the display with clearer names: method** replaceKeys the current list of keys to replace
+
 ### `addReplaceKey`
 add a key to replace and its replacer key
+
 ### `removeReplaceKey`
 remove a replacer key
+
 ### `showKeyFor`
 show
-```supercollider
+```
 e = (longFreq: 123, amp: 0.25);
 g = EnvirGui(e); g.parent.alwaysOnTop_(true);
 
@@ -162,31 +179,40 @@ g.removeReplaceKey(\longFreq)
 ```
 
 
+
 ### `highlight`
 highlight the paramview at a given index, by color and optional prefix
-```supercollider
+```
 g.highlight(0);
 g.highlight(0, ">>_");
 g.highlight(0, ">>_", Color.green(1, 0.6));
 ```
 
 
+
 ### `unhighlight`
 remove highlighting at an index g.unhighlight(0);
 
 ### Some internal methods
+
 ### `setByKeys`
 update the widgets for the current keys
+
 ### `showFields`
 show (num) active fields, make others invisible.
+
 ### `useRanger`
 set and get whether arrays of 2 number values should be displayed with EZRangers.**methods that make gui elements:**
+
 ### `makeViews`
+
 
 ### `makeOptionalViews`
 the method that makes all views specified in the options
+
 ### `makeNameView`, `makeKnowBut`, `makeDocBut`, `makeClrBut`, `makeProtoBut`, `makeParentBut`
 the methods that make the individual elements as specified**standard JITGui methods:**
+
 ### `accepts`, `setDefaults`, `getState`, `checkUpdate`, `updateButtons`
 
 
@@ -194,7 +220,7 @@ the methods that make the individual elements as specified**standard JITGui meth
 ## Examples
 
 
-```supercollider
+```
     // Setting envir variables in a Tdef:
 (
 Tdef(\text).set(\note, [0, 2, 7], \dur, { [0.1, 0.2, 0.4].choose }, \pan, 0, \amp, 0.1);

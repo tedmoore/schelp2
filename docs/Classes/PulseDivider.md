@@ -11,6 +11,7 @@ Outputs one impulse each time it receives a certain number of triggers at its in
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Outputs one impulse each time it receives a certain number of triggers at its in
 ## Examples
 
 
-```supercollider
+```
 SynthDef("help-PulseDivider", { |out = 0|
     var p, a, b;
     p = Impulse.ar(8);

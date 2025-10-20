@@ -11,7 +11,7 @@
 Navigate to the folder (the directory) in which SuperCollider resides and double-click on it (the red and white balloon icon). An untitled document with text such as
 
 
-```supercollider
+```
 init_OSC
 compiling class library..
     NumPrimitives = 548
@@ -38,7 +38,7 @@ appears in the top left of the screen. The document functions as a "Post Window,
 On the bottom of the screen are two more windows. One is called "localhost server" and the other is "internal server." Click on the "boot" button on the localhost server. The words "localhost" in the black box of the button turn red and the word "Boot" on the button changes to "Quit." More text, such as
 
 
-```supercollider
+```
 booting 57110
 SC_AudioDriver: numSamples=512, sampleRate=44100.000000
 start   UseSeparateIO?: 0

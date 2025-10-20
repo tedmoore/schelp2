@@ -7,6 +7,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -21,7 +22,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
 var a, c, w;
 a = Pbeta(0.0, 1.0, 0.1, 0.1, inf);

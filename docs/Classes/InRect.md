@@ -13,6 +13,7 @@ A pair of signals x and y are treated as a point (x, y) in 2-D; if they fall wit
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ A pair of signals x and y are treated as a point (x, y) in 2-D; if they fall wit
 ## Examples
 
 
-```supercollider
+```
 // We'll hear the sawtooth wave when the two sine oscillators are both in the region x = 0.0 to 0.5, y = 0.5 to 1.0
 (
 {

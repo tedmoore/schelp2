@@ -5,13 +5,13 @@
 **Categories:** JITLib>Tutorials
 
 
-```supercollider
+```
 { 10 + 6 * ~harry }.asCompileString;
 ```
 
 Many objects understand **.storeOn**, which a way to post their string that is needed to reproduce them by compilation. Sometimes one wants to store a certain configuration of a proxy space, which can be done if all functions used are closed functions.
 
-```supercollider
+```
 // an example how ProxySpace can document its current state:
 
 p = ProxySpace.push(s);
@@ -52,7 +52,7 @@ p.document([\ctl1]);    // document all dependants of ~ctl1
 
 Ndefs and NodeProxies can also store their full state as a code string:
 
-```supercollider
+```
 // Ndef with source
 Ndef(\x, { Saw.ar(\freq.kr(234), 0.1) });
 Ndef(\x).asCode;

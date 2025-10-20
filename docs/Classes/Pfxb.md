@@ -14,7 +14,7 @@ In difference to [Pfx](../Classes/Pfx.md), a **private effect bus** is provided 
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef(\echo, { |out = 0, maxdtime = 0.2, dtime = 0.2, decay = 2, gate = 1|
     var env, in;

@@ -15,7 +15,7 @@ This is related to the computer science concept of "function composition," in wh
 In mathematics, the `·` operator represents function composition.
 
 
-```supercollider
+```
 f(x) = x + 1
 g(x) = x * 2
 
@@ -26,7 +26,7 @@ g · f = g(f(x)) = (x + 1) * 2
 `g · f` means to evaluate `f` first, then pass its result to `g`. The `·` operator is written as `<>` in SuperCollider.
 
 
-```supercollider
+```
 f = { |x| x + 1 };
 g = { |x| x * 2 };
 
@@ -53,7 +53,7 @@ Event patterns can be similarly composed.
 
 **`Pchain(patterns)`**
 : Chains separate Pbind-style patterns together, so that all their key-value pairs go into the same event. For example, if one part of your code creates a Pbind instance `a = Pbind(\a, patternA)` and another part creates `b = Pbind(\b, patternB, \c, patternC)`, you could append `\b` and `\c` into the `\a` result using `Pchain(b, a)` . The subpatterns evaluate in reverse order, in keeping with function composition notation.For musical purposes, you could have one part of your code create a pattern defining rhythm and another part defining pitch material, then combine them with [Pchain](../../Classes/Pchain.md).
-```supercollider
+```
 ~rhythm = Pbind(
     \dur, Pwrand(#[0.125, 0.25, 0.5], #[0.3, 0.5, 0.2], inf),
     \legato, Pwrand(#[0.1, 0.6, 1.01], #[0.1, 0.3, 0.6], inf)
@@ -67,7 +67,7 @@ p.stop;
 ```
 
 That in itself has some good potential for algorithmic composition. Introducing [EventPatternProxy](../../Classes/EventPatternProxy.md) into the mix makes it possible to swap different melody and rhythm components in and out on the fly, with no interruption. We can even change the type of pattern ( [Pbind](../../Classes/Pbind.md), [Pmono](../../Classes/Pmono.md), [PmonoArtic](../../Classes/PmonoArtic.md) ) with no ill effect.
-```supercollider
+```
 ~rhythm = EventPatternProxy(Pbind(
     \dur, Pwrand(#[0.125, 0.25, 0.5], #[0.3, 0.5, 0.2], inf),
     \legato, Pwrand(#[0.1, 0.6, 1.01], #[0.1, 0.3, 0.6], inf)

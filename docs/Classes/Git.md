@@ -13,12 +13,14 @@ An interface to the git toolchain. For more information on git, see [http://git.
 
 ## Class Methods
 
+
 ### `new`
 creates a new instance of `Git`, pointing to an existing local git repository.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `localPath` | path to the git repository. |  
+
 
 ### `isGit`
 returns `true`, if a local directory is a git repository.**Arguments:**
@@ -27,6 +29,7 @@ returns `true`, if a local directory is a git repository.**Arguments:**
 |----------|-------------|
 | `localPath` |  |  
 
+
 ### `checkForGit`
 returns `true`, if the git toolchain is found on the system.
 
@@ -34,13 +37,16 @@ returns `true`, if the git toolchain is found on the system.
 
 
 ### info
+
 ### `branch`
 **Returns:** current branch name.
+
 ### `remote`, `url`
 **Returns:** url of the first remote that it finds.
+
 ### `remoteAsHttpUrl`
 Detects if the remote URI starts with `"git@"` or `"git:"` and remodels it to a valid `"https"` URI. Otherwise, it returns the unaltered remote.
-```supercollider
+```
 // git-style remote URI's are transformed to https
 Git().url_("git@github.com:foo/bar.git").remoteAsHttpUrl;
 Git().url_("https://github.com/foo/bar").remoteAsHttpUrl;
@@ -55,29 +61,38 @@ Git().url_("fooBar").remoteAsHttpUrl;
 ```
 
 **Returns:** remote URI formatted for `http` respectively `https` requests.
+
 ### `remoteLatest`
 **Returns:** hash of latest commit on the remote
+
 ### `localPath`
 **Returns:** path to local repository
+
 ### `tag`
 **Returns:** currently checked out tag
+
 ### `tags`
 **Returns:** avaliable tags
+
 ### `sha`
 **Returns:** hash of the currently checked out version
+
 ### `shaForTag`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `tag` | one of the tags returned by [tags](#tags) |  
+| `tag` | one of the tags returned by [#-tags](#-tags) |  
 **Returns:** hash of the given tag
+
 ### `isDirty`
 **Returns:** `true` if there are local changes
 
 ### perform actions on remote
+
 ### `fetch`
 perform a fetch from remote
+
 ### `checkout`
 perform a checkout from remote with argument `refspec`**Arguments:**
 
@@ -85,10 +100,12 @@ perform a checkout from remote with argument `refspec`**Arguments:**
 |----------|-------------|
 | `refspec` |  |  
 
+
 ### `pull`
 perform a pull from remote
+
 ### `clone`
-perform a clone from url into [localPath](#localpath)**Arguments:**
+perform a clone from url into [#-localPath](#-localpath)**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -99,7 +116,7 @@ perform a clone from url into [localPath](#localpath)**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 // create a Git that points to a Quark directory
 g = Git(Quarks.all.choose.localPath);
 

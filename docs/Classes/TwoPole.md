@@ -13,6 +13,7 @@ A two pole filter. This provides lower level access to setting of pole location.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ A two pole filter. This provides lower level access to setting of pole location.
 ## Examples
 
 
-```supercollider
+```
 { TwoPole.ar(WhiteNoise.ar(0.005), 2000, 0.95) }.play
 
 { TwoPole.ar(WhiteNoise.ar(0.005), XLine.kr(800, 8000, 8), 0.95) }.play

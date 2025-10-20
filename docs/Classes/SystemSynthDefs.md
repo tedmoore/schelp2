@@ -16,11 +16,13 @@ When playing functions anonymously ([Function#-play](../Classes/Function.md#-pla
 
 
 ### System SynthDefs
+
 ### `numChannels`
 The SystemSynthDefs class generates SynthDefs with different number of channels that are chosen according to need. This class variable specifies the maximum number of channels.
+
 ### `synthDefs`
 The list of non-temporary synthDefs generated.
-```supercollider
+```
 SystemSynthDefs.synthDefs.do { |x| x.name.postln }; // post the names of SynthDefs
 ```
 
@@ -28,19 +30,22 @@ SystemSynthDefs.synthDefs.do { |x| x.name.postln }; // post the names of SynthDe
 
 
 ### Temporary SynthDef names
+
 ### `generateTempName`
 Return a new temporary name
-```supercollider
+```
 SystemSynthDefs.generateTempName
 ```
 
 
+
 ### `tempNamePrefix`
 A prefix name that can be used to distinguish Synths from other names to avoid collision.
-```supercollider
+```
 a = { SinOsc.ar * 0.01 }.play;
 a.defName; // has the prefix 'temp__', followed by a number
 ```
+
 
 
 ### `maxTempDefNames`

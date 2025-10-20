@@ -13,6 +13,7 @@ Two channel linear panner. The signal is lowered as it pans from left (or right)
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Two channel linear panner. The signal is lowered as it pans from left (or right)
 ## Examples
 
 
-```supercollider
+```
 // hear the difference, LinPan having a slight drop in the middle (yeah, it's subtle)...
 { LinPan2.ar(SinOsc.ar(440), Line.kr(-1, 1, 5)) }.play;
 

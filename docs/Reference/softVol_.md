@@ -9,6 +9,7 @@
 ## Description
 
 Extension method to [NodeProxy](../Classes/NodeProxy.md) to set vol conditionally.
+
 ### `softVol`
 setter.**Arguments:**
 
@@ -24,7 +25,7 @@ setter.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 Ndef(\test, { |freq=200| Splay.ar(SinOsc.ar(freq * Array.rand(12, 0.95, 1.05))) });
 Ndef(\test).play(vol: 0.1);
 

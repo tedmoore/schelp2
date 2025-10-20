@@ -15,9 +15,10 @@ See [Clock](../Classes/Clock.md) for general explanation of how clocks operate.
 ## Class Methods
 
 
+
 ### `sched`
 The float you return specifies the delta to resched the function for. Returning nil will stop the task from being rescheduled.
-```supercollider
+```
 (
 SystemClock.sched(0.0, { |time|
     time.postln;
@@ -27,7 +28,7 @@ SystemClock.sched(0.0, { |time|
 ```
 
 
-```supercollider
+```
 (
 SystemClock.sched(2.0, {
     "2.0 seconds later".postln;
@@ -37,16 +38,18 @@ SystemClock.sched(2.0, {
 ```
 
 
+
 ### `clear`
 Clear the SystemClock's scheduler to stop it.
-```supercollider
+```
 SystemClock.clear;
 ```
 
 
+
 ### `schedAbs`
 
-```supercollider
+```
 (
 SystemClock.schedAbs((thisThread.seconds + 4.0).round(1.0), { |time|
     ("the time is exactly " ++ time.asString
@@ -56,9 +59,10 @@ SystemClock.schedAbs((thisThread.seconds + 4.0).round(1.0), { |time|
 ```
 
 
+
 ### `play`
 Calls to the GUI may not be made directly from actions triggered by SystemClock or incoming socket messages (OSCFunc).To get around this, use `{ }.defer`. This will execute the function using the AppClock and is equivalent to `AppClock.sched(0, function)`
-```supercollider
+```
 (
 var w, r;
 w = Window.new("trem", Rect(512, 256, 360, 130));

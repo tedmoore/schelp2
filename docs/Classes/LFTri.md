@@ -13,6 +13,7 @@ A non-band-limited triangle oscillator. Output ranges from -1 to +1.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ A non-band-limited triangle oscillator. Output ranges from -1 to +1.
 ## Examples
 
 
-```supercollider
+```
 // plot:
 { LFTri.ar(40) }.plot(0.1);
 { LFTri.ar(XLine.kr(1, 800, 0.1)) }.plot(0.1);

@@ -11,7 +11,7 @@ The following are some concepts borrowed from or inspired by J. Thinking about m
 iota fills an array with a counter
 
 
-```supercollider
+```
 z = Array.iota(2, 3, 3);
 z.rank; // 3 dimensions
 z.shape; // gives the sizes of the dimensions
@@ -24,7 +24,7 @@ z.shape;
 fill a multidimensional array
 
 
-```supercollider
+```
 // 2 dimensions
 Array.fill([3,3], { 1.0.rand.round(0.01) });
 Array.fill([2,3], {|i,j| i@j });
@@ -47,7 +47,7 @@ Array.fill([2, 2, 4, 2], {|...args| args.join });
 using dup to create arrays
 
 
-```supercollider
+```
 (1..4) dup: 3;
 100.rand dup: 10;
 {100.rand} dup: 10;
@@ -62,7 +62,7 @@ using dup to create arrays
 ! is an abbreviation of dup
 
 
-```supercollider
+```
 (1..4) ! 3;
 100.rand ! 10;
 {100.rand} ! 10;
@@ -77,7 +77,7 @@ using dup to create arrays
 other ways to do the same thing:
 
 
-```supercollider
+```
 // partial application
 _.squared ! 10;
 _.nthPrime ! 10;
@@ -94,7 +94,7 @@ _.nthPrime ! 10;
 Adverbs are a third argument passed to binary operators that modifies how they iterate over SequenceableCollections or Streams. See the [Adverbs](../Reference/Adverbs.md) help file for more information.
 
 
-```supercollider
+```
 [10, 20, 30, 40, 50] + [1, 2, 3]; // normal
 [10, 20, 30, 40, 50] +.f [1, 2, 3]; // folded
 [10, 20, 30, 40, 50] +.s [1, 2, 3]; // shorter
@@ -109,7 +109,7 @@ Adverbs are a third argument passed to binary operators that modifies how they i
 J has a concept called verb rank, which is probably too complex to understand and implement in SC, but operator depth is similar and simpler. A binary operator can be given a depth at which to operate. Negative depths iterate the opposite operand. These are better understood by example. It is not currently possible to combine adverb and depth.
 
 
-```supercollider
+```
 z = Array.iota(3,3);
 y = [100, 200, 300];
 z + y;
@@ -125,7 +125,7 @@ z +.-1 y; // z added to each element of y
 deepCollect operates a function at different dimensions or depths in an array.
 
 
-```supercollider
+```
 z = Array.iota(3, 2, 3);
 f = {|item| item.reverse };
 z.deepCollect(0, f);
@@ -147,7 +147,7 @@ z.deepCollect(2, f);
 slice can get sections of multidimensional arrays. nil gets all the indices of a dimension.
 
 
-```supercollider
+```
 z = Array.iota(4, 5);
 z.slice(nil, (1..3));
 z.slice(2, (1..3));
@@ -174,7 +174,7 @@ z.flop;
 generate a random array:
 
 
-```supercollider
+```
 z = {100.rand}.dup(10);
 ```
 
@@ -182,7 +182,7 @@ z = {100.rand}.dup(10);
 order returns an array of indices representing what would be the sorted order of the array:
 
 
-```supercollider
+```
 o = z.order;
 y = z[o]; // using the order as an index returns the sorted array
 ```
@@ -191,7 +191,7 @@ y = z[o]; // using the order as an index returns the sorted array
 calling order on the order returns an array of indices that returns the sorted array to the original scrambled order:
 
 
-```supercollider
+```
 p = o.order;
 x = y[p];
 ```
@@ -203,7 +203,7 @@ x = y[p];
 bubbling wraps an item in an array of one element. it takes the depth and levels as arguments.
 
 
-```supercollider
+```
 z = Array.iota(4,4);
 z.bubble;
 z.bubble(1);
@@ -217,7 +217,7 @@ z.bubble(2,2);
 similarly, unbubble unwraps an Array if it contains a single element.
 
 
-```supercollider
+```
 5.unbubble;
 [5].unbubble;
 [[5]].unbubble;
@@ -237,7 +237,7 @@ z.bubble(2).unbubble(2);
 the +++ operator takes each item from the second list and appends it to the corresponding item in the first list. If the second list is shorter, it wraps.
 
 
-```supercollider
+```
 z = Array.iota(5,2);
 z +++ [77,88,99];
 z +++ [[77,88,99]];
@@ -271,7 +271,7 @@ z = (1..4);
 reshapeLike allows you to make one nested array be restructured in the same manner as another.
 
 
-```supercollider
+```
 a = [[10,20],[30, 40, 50], 60, 70, [80, 90]];
 b = [[1, 2, [3, 4], [[5], 6], 7], 8, [[9]]];
 a.reshapeLike(b);
@@ -282,7 +282,7 @@ b.reshapeLike(a);
 If the lengths are different, the default behaviour is to wrap:
 
 
-```supercollider
+```
 a = [[10,20],[30, 40, 50]];
 b = [[1, 2, [3, 4], [[5], 6], 7], 8, [[9]]];
 a.reshapeLike(b);
@@ -292,7 +292,7 @@ a.reshapeLike(b);
 but you can specify other index operators:
 
 
-```supercollider
+```
 a.reshapeLike(b, \foldAt);
 
 a.reshapeLike(b, \clipAt);
@@ -307,7 +307,7 @@ a.reshapeLike(b, \at);
 maxSizeAtDepth allows you to check the maximum array size at a given depth dimension
 
 
-```supercollider
+```
 [[1, 2, 3], [[41, 52], 5, 6], 1, 2, 3].maxSizeAtDepth(2);
 [[1, 2, 3], [[41, 52], 5, 6], 1, 2, 3].maxSizeAtDepth(1);
 [[1, 2, 3], [[41, 52], 5, 6], 1, 2, 3].maxSizeAtDepth(0);
@@ -321,7 +321,7 @@ maxSizeAtDepth allows you to check the maximum array size at a given depth dimen
 flopDeep allows you to to invert the outermost dimension with a dimension at any depth. This is analogous to flop, which does the same for 2-dimensional arrays.
 
 
-```supercollider
+```
 [[1, 2, 3], [[41, 52], 5, 6]].flopDeep(2);
 [[1, 2, 3], [[41, 52], 5, 6]].flopDeep(1);
 [[1, 2, 3], [[41, 52], 5, 6]].flopDeep(0);
@@ -339,7 +339,7 @@ flopDeep allows you to to invert the outermost dimension with a dimension at any
 allTuples will generate all combinations of the sub arrays
 
 
-```supercollider
+```
 [[1, 2, 3], [4, 5], 6].allTuples;
 [[1, 2, 3], [4, 5, 6, 7], [8, 9]].allTuples;
 ```

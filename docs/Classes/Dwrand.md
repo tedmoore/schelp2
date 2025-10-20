@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -21,7 +22,7 @@ structurally related: [Pwrand](../Classes/Pwrand.md), [TWindex](../Classes/TWind
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a, freq, trig;

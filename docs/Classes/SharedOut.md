@@ -14,6 +14,7 @@ Reads from a control bus shared between the internal server and the SC client. C
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Reads from a control bus shared between the internal server and the SC client. C
 ## Examples
 
 
-```supercollider
+```
 (
 // only works with the internal server
 s = Server.internal;

@@ -13,6 +13,7 @@ Returns two channels with the original signal and a copy of that signal that has
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -20,7 +21,7 @@ Returns two channels with the original signal and a copy of that signal that has
 |----------|-------------|
 | `in` | The input signal to transform. |  
 | `buffer` | A Buffer to be used for the inter FFT processing. Best results with a size of 1024 or 2048. 1024 gives an acceptable result (though a little choppy), 2048 is much smoother but creates more delay.
-```supercollider
+```
 s.boot;
 s.scope;
 a = { HilbertFIR.ar(SinOsc.ar(100) * -20.dbamp, LocalBuf(2048)) }.play;

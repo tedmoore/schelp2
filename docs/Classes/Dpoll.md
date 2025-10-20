@@ -13,6 +13,7 @@ Print the current output value of a demand rate UGen.
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ the print-out is in the form: `label: value block offset: offset.`structurally r
 ## Examples
 
 
-```supercollider
+```
 { Duty.kr(0.5, 0, Dpoll(Dseries(0, 1, inf) * 2)); 0.0 }.play;
 
 // posts only when cursor is in right half of the screen

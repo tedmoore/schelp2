@@ -13,6 +13,7 @@ The output is mixed from an array of inputs, linearly interpolating from a numbe
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -22,7 +23,7 @@ The output is mixed from an array of inputs, linearly interpolating from a numbe
 | `array` | A collection of inputs. |  
 | `focus` | The "fuzziness" of the selection: the larger the focus, the less adjacent inputs are mixed in. |  
 | `wrap` | If set to true, index will wrap around the array of inputs (see also: [Array#-wrapAt](../Classes/Array.md#-wrapat)).
-```supercollider
+```
 (
 {
     var array = { Saw.ar(rrand(1.0, 3.0)) * Saw.ar(rrand(100.0, 3000.0)) } ! 8;
@@ -34,7 +35,7 @@ The output is mixed from an array of inputs, linearly interpolating from a numbe
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a;
@@ -56,7 +57,7 @@ The output is mixed from an array of inputs, linearly interpolating from a numbe
 
 
 
-```supercollider
+```
 // radio tuner
 // (jrh) (cc 2006)
 (

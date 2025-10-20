@@ -29,6 +29,7 @@ Once a Bela server is started with options.belaMaxScopeChannels > 0, it is possi
 
 ## Class Methods
 
+
 ### `scope`
 Send an array of UGen data to Bela's oscilloscope.**Arguments:**
 
@@ -37,7 +38,7 @@ Send an array of UGen data to Bela's oscilloscope.**Arguments:**
 | `channelOffset` | Bela's oscilloscope channel to start scoping on. This has to be a non-negative number, and can't be changed after scoping starts. |  
 | `signals` | Array of UGens to scope |  
 **Returns:** the array of `signals` passed in as an argument. This allows for transparent usage of `.belaScope()` in processing chains
-```supercollider
+```
 { BelaScope.scope(0, SinOsc.ar) }.play;
 // same using UGen::belaScope() shortcut method:
 { SinOsc.ar().belaScope(0) }.play
@@ -46,6 +47,7 @@ Send an array of UGen data to Bela's oscilloscope.**Arguments:**
 // scoping LFNoise0 before and after .range, while still using it to modulate SinOsc
 { SinOsc.ar(LFNoise0.kr(10).belaScope(0).range(20, 100).belaScope(1)) }.play
 ```
+
 
 
 ### `monitorBus`
@@ -59,7 +61,7 @@ Scope a Bus on Bela's oscilloscope**Arguments:**
 | `target` | Bela's SuperCollider server, or any node on that server. The bus is monitored **after** this target, or after this server's [RootNode](../Classes/RootNode.md) if a server is provided as target. |  
 | `rate` | A symbol. The default is `\audio`. Anything else will use control rate. |  
 **Returns:** A [Synth](../Classes/Synth.md) used to monitor the bus.
-```supercollider
+```
 // scope 2 channels from audio bus 4 on Bela Oscilloscope's channel 3
 BelaScope.monitorBus(3, 4, 2, ~belaServer)
 // same using Server::belaScope() shortcut method:
@@ -72,7 +74,7 @@ Bus(\audio, 4, 2, ~belaServer).belaScope(3)
 ## Examples
 
 
-```supercollider
+```
 ~belaServer = Server.remote(\Bela, NetAddr("192.168.6.2", 57110));
 
 // UGens: usage like .poll

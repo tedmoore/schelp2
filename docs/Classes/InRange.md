@@ -13,6 +13,7 @@ If `lo ≤ in ≤ hi`, output 1.0, otherwise output 0.0.
 
 ## Class Methods
 
+
 ### `ar`, `kr`, `ir`
 **Arguments:**
 
@@ -25,7 +26,7 @@ If `lo ≤ in ≤ hi`, output 1.0, otherwise output 0.0.
 ## Examples
 
 
-```supercollider
+```
 // See the trigger
 { InRange.kr(SinOsc.kr(1, 0, 0.2), -0.15, 0.15) }.scope;
 

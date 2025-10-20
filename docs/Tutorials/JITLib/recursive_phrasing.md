@@ -13,7 +13,7 @@ When the event type `\phrase` is passed in, the event looks for a pattern in `Pd
 
 When passing a *function* to Pdef it creates a PlazyEnvirN internally. Its function is evaluated in the context of the input event (see [PlazyEnvirN](../../Classes/PlazyEnvirN.md)) which should return a pattern or a stream. Note that this doesn't allow the usual access of the outer environment from within the function.
 
-```supercollider
+```
 (
 s.boot;
 

@@ -13,6 +13,7 @@ Alternates blocks of bins between the two inputs.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -27,7 +28,7 @@ Alternates blocks of bins between the two inputs.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 

@@ -15,6 +15,7 @@ In comparison to [PlayBuf](../Classes/PlayBuf.md) : PlayBuf plays through the bu
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -34,7 +35,7 @@ In comparison to [PlayBuf](../Classes/PlayBuf.md) : PlayBuf plays through the bu
 ## Examples
 
 
-```supercollider
+```
 (
 // read a whole sound into memory
 s = Server.local;

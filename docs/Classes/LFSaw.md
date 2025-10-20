@@ -13,6 +13,7 @@ A non-band-limited sawtooth oscillator. Output ranges from -1 to +1.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ A non-band-limited sawtooth oscillator. Output ranges from -1 to +1.
 ## Examples
 
 
-```supercollider
+```
 { LFSaw.ar(500, 1, 0.1) }.play
 
 // used as both Oscillator and LFO:
@@ -37,7 +38,7 @@ A non-band-limited sawtooth oscillator. Output ranges from -1 to +1.
 
 Display the special behaviour of the initial phase parameter:
 
-```supercollider
+```
  // three channels, three phases
 { LFSaw.ar(20, [0, 1, 2]) }.plot(0.1)
 ```

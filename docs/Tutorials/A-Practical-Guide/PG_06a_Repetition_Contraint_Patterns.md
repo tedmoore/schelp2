@@ -26,7 +26,7 @@ These patterns allow you to repeat single values, or (in the case of Pn) entire 
 
 **`Psubdivide(n, pattern)`**
 : Like Pdup, except the pattern value is divided by the number of repeats (so that the total time for the repeat cycle is the duration value from the source pattern).See also [Pstep](../../Classes/Pstep.md), described in [A-Practical-Guide/PG_06b_Time_Based_Patterns](../../Tutorials/A-Practical-Guide/PG_06b_Time_Based_Patterns.md). Pstep can be used like [Pdup](../../Classes/Pdup.md), but repetition is controlled by time rather than number of repeats per item.
-```supercollider
+```
 // play repeated notes with a different rhythmic value per new pitch
 // using Pdup
 p = Pbind(
@@ -89,7 +89,7 @@ Instead of prolonging a stream by repetition, these patterns use different metho
 
 **`Pfindur(dur, pattern, tolerance)`**
 : Like Pconst, but applying the "constrain" behavior to the event's rhythmic values. The source pattern runs up to the specified duration, then stops. This is very useful if you know how long a musical behavior should go on, but the number of events to fill up that time is not known.
-```supercollider
+```
 // Two variants on the same thing
 // Use Pconst or Pfindur to create 4-beat segments with randomized rhythm
 // Pconst and Pfindur both can ensure the total rhythm doesn't go above 4.0
@@ -112,7 +112,7 @@ p.stop;
 
 **`Psync(pattern, quant, maxdur, tolerance)`**
 : Like Pfindur, but does not have a fixed duration limit. Instead, it plays until either it reaches `maxdur` (in which case it behaves like Pfindur, adjusting the last event so the total duration matches `maxdur`), or the pattern stops early and the last event is rounded up to the next integer multiple of `quant`. This is hard to explain; a couple of examples might make it clearer.
-```supercollider
+```
 (
 // in this case, the pattern stops by reaching maxdur
 // elapsed time = 4

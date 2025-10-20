@@ -14,7 +14,7 @@ This usually takes the form of a while loop of the form: `while { /* condition i
 
 The following code illustrates these two approaches:
 
-```supercollider
+```
 // Version 1: `wait` without predicate -- while loop required
 (
 var c = CondVar();
@@ -74,10 +74,12 @@ In other languages, you may see that condition variables also use a mutex for sy
 
 ## Class Methods
 
+
 ### `new`
 Create a new instance.
 
 ## Instance Methods
+
 
 ### `wait`
 The behavior depends on whether a `predicate` is given. If no `predicate` is given, this method simply blocks the current thread until it is woken by `signalOne` or `signalAll`. Otherwise, this method is equivalent to `while { predicate.value.not } { cond.wait }`. In other words, the thread only blocks if the predicate is false, otherwise it blocks and only resumes once the thread has been signalled and the predicate is true.This method must only be called within a [Routine](../Classes/Routine.md) or Routine wrapper (for example, [Task](../Classes/Task.md)or [Tdef](../Classes/Tdef.md)).**Arguments:**
@@ -85,23 +87,27 @@ The behavior depends on whether a `predicate` is given. If no `predicate` is giv
 | Argument | Description |
 |----------|-------------|
 | `predicate` | A condition to be checked before blocking, and before resuming after being woken by `signalOne` or `signalAll`. If `predicate.value.not` is `true`, execution resumes. Typically, this is a Function that returns a Boolean.`predicate` is always executed on the thread which called `wait`. If evaluating the predicate throws an exception, the exception will propagate up on the thread which called `wait`, and the thread will no longer be waiting on this CondVar.When `wait` returns, the predicate was true. It may not be true later, for instance if it depends on external factors such as the system time or the state of the server. |  
-**Returns:** this object### `waitFor`
+**Returns:** this object
+### `waitFor`
 Similar to `wait`, but the thread will also be unblocked if the relative timeout `timeoutBeats` expires.If `predicate` is `nil`, this method blocks the current thread until it is woken by `signalOne` or `signalAll`, or the timeout expires. If `predicate` is not `nil`, this method returns immediately if `predicate.value` is true, and otherwise blocks either until the timeout expires, or until the thread is woken by `signalOne` or `signalAll` and `predicate.value` is true.Because the interpreter's thread scheduler is not preemptive, an expiring timeout will only wake the thread if other threads are idle. You are not guaranteed that the thread will be woken close to the timeout duration expiring, or even that it will be woken at all. This could happen, for example, if some other thread enters an infinite loop and never yields.This method must only be called within a [Routine](../Classes/Routine.md) or Routine wrapper (for example, [Task](../Classes/Task.md) or [Tdef](../Classes/Tdef.md)).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `timeoutBeats` | A duration in beats to wait before timing out. This value is converted according to the following rules: if its class is Integer or Float, it remainds unchanged; otherwise, if it responds to `asInteger`, this method is called; otherwise, if it responds to `asFloat`, this method is called. After this, if the resulting value is not an Integer or a Float, an error is thrown. An error is also thrown if the resulting value is `inf` or not a number (NaN). If the resulting value is less than or equal to 0, `waitFor` returns the result of `predicate.value`immediately if `predicate` is not nil and `false` otherwise.These strict checks are made to protect the thread which handles timeouts. |  
 | `predicate` | A condition to be checked before blocking, and before resuming after being woken by `signalOne` or `signalAll` or a timeout. Typically, this is a Function that returns a Boolean.`predicate` is always executed on the thread which called `wait`. If evaluating the predicate throws an exception, the exception will propagate up on the thread which called `wait`, and the thread will no longer be waiting on this CondVar. |  
-**Returns:** If the thread was woken because the timeout expired, then returns `predicate.value` if one was given and `false` if `predicate` was `nil`. Otherwise, returns `true`.In other words, if `predicate` is non-nil, a return value of `true` means that `predicate.value` was true when the thread resumed.### `signalOne`
-Wakes one thread waiting on this Condition. Threads are woken in the order in which they called `wait` or `waitFor`. If a thread is woken and was waiting with a predicate, and that predicate is still `false`, it will `wait` again and be placed at the end of the queue of threads waiting on this CondVar. Another thread will not be woken in that case.**Returns:** this object### `signalAll`
-Wakes all threads waiting on this Condition. Threads are woken in the order in which they called `wait` or `waitFor`. If threads were waiting with predicates and their predicates are still `false` after being woken, they will block again in the same order as before this method was called.**Returns:** this object### `shallowCopy`, `copy`, `deepCopy`
+**Returns:** If the thread was woken because the timeout expired, then returns `predicate.value` if one was given and `false` if `predicate` was `nil`. Otherwise, returns `true`.In other words, if `predicate` is non-nil, a return value of `true` means that `predicate.value` was true when the thread resumed.
+### `signalOne`
+Wakes one thread waiting on this Condition. Threads are woken in the order in which they called `wait` or `waitFor`. If a thread is woken and was waiting with a predicate, and that predicate is still `false`, it will `wait` again and be placed at the end of the queue of threads waiting on this CondVar. Another thread will not be woken in that case.**Returns:** this object
+### `signalAll`
+Wakes all threads waiting on this Condition. Threads are woken in the order in which they called `wait` or `waitFor`. If threads were waiting with predicates and their predicates are still `false` after being woken, they will block again in the same order as before this method was called.**Returns:** this object
+### `shallowCopy`, `copy`, `deepCopy`
 Throws a `ShouldNotImplementError`; CondVars cannot be copied, shallow copied, or deep copied.
 ## Examples
 
 
 ### Simple interactive example
 
-```supercollider
+```
 (
 c = CondVar();
 
@@ -134,7 +140,7 @@ The following example shows a CondVar used to manage a simple producer-consumer 
 The producer thread adds "tasks" to the queue, while the consumer thread removes and "processes" them. When there is no work to do, the consumer has to wait until work is available. When there is too much work to do, the producer thread should avoid creating more tasks. Try playing with the wait times for each thread to see what happens.
 
 
-```supercollider
+```
 (
 var full = CondVar(), empty = CondVar();
 var queue = Array();
@@ -206,7 +212,7 @@ fork {
 Here is another producer-consumer example with multiple producers and multiple consumers. Note how easily the code above can be generalized.
 
 
-```supercollider
+```
 (
 var full = CondVar(), empty = CondVar();
 var queue = Array();
@@ -270,7 +276,7 @@ numConsumers.do { |index|
 Sometimes, you want to wait on an external condition that may never come true, or you want to do something else in case you've been waiting for a long time. This is a good place to use `waitFor`. In our example, we're using a Routine that sometimes fails to set the desired condition to simulate this "unreliable" task. Some practical examples of this might be a long asynchronous task on the server or in a call to unixCmd that doesn't finish in time, or doesn't produce the result we were looking for.
 
 
-```supercollider
+```
 (
 var condition = CondVar();
 
@@ -301,7 +307,7 @@ fork {
 We can also rewrite this example so that we get signalled no matter what, but the condition might still not come true.
 
 
-```supercollider
+```
 (
 var condition = CondVar();
 var coinFlip = false;

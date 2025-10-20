@@ -9,37 +9,37 @@
 Partial application is a way to create a function by passing only some arguments to a method. The `_` character stands in for missing arguments and becomes an argument to the created function. It only applies to a single method, list, or dictionary call, not to a more complex nested expression.
 for example:
 
-```supercollider
+```
 f = _ + 2;
 ```
 
 f is now a function of one argument.
 
-```supercollider
+```
 f.value(7); // returns 9
 ```
 
 it is equivalent to having written:
 
-```supercollider
+```
 f = {|x| x + 2 };
 ```
 
 (except that there is no name 'x' declared)
 
-```supercollider
+```
 g = Point(_, _);
 ```
 
 g is a function of two arguments.
 
-```supercollider
+```
 g.value(3, 4);
 ```
 
 Here are some example usages of this in a collect message. Below each is written the equivalent function.
 
-```supercollider
+```
 (1..8).collect(_.isPrime);
 (1..8).collect {|x| x.isPrime };
 
@@ -60,7 +60,7 @@ Here are some example usages of this in a collect message. Below each is written
 ```
 
 
-```supercollider
+```
 f = (a:_, b:_); // f is a two argument function
 g = f.(_, 5);   // g is a partial application of f
 g.(7);          // get the answer
@@ -73,7 +73,7 @@ g.value(7);
 
 An example of what you can't do:
 
-```supercollider
+```
 (1..8).collect( Point(100 * _, 50) ); // nested expression won't work.
 // only the * gets partially applied, not the surrounding expression.
 

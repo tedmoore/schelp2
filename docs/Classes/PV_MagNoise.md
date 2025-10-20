@@ -13,6 +13,7 @@ Magnitudes are multiplied with noise.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Magnitudes are multiplied with noise.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 b = Buffer.read(s, ExampleFiles.child);

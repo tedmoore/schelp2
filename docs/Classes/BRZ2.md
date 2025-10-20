@@ -10,7 +10,7 @@
 
 A special case fixed filter. Implements the formula:
 
-```supercollider
+```
 out(i) = 0.5 * (in(i) + in(i - 2)).
 ```
 
@@ -19,6 +19,7 @@ This filter cuts out frequencies around ½ of the Nyquist frequency.
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -30,7 +31,7 @@ This filter cuts out frequencies around ½ of the Nyquist frequency.
 ## Examples
 
 
-```supercollider
+```
 // Compare:
 
 { WhiteNoise.ar(0.25) }.play;

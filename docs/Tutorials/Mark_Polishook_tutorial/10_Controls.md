@@ -8,7 +8,7 @@
 
 Evaluate
 
-```supercollider
+```
 (
 SynthDescLib.global.read;
 SynthDescLib.global.browse;
@@ -21,7 +21,7 @@ and examine the box that lists the controls for each synth.
 Use controls, which most often are defined as arguments in a ugenGraphFunc, to give information to a synth, either when it is created and/or after it is running. Supply default values to the arguments to make code more readable and to protect against user error (such as forgetting to supply a value to an argument).
 
 
-```supercollider
+```
 (
 // 3 arguments (controls) with default values
 SynthDef(
@@ -47,7 +47,7 @@ z.set(\freq, 700, \beatFreq, 2, \mul, 0.2);
 Write controls names and appropriate values in the array given as an argument to a synth. Control names can be given as symbols (a unique name within the SuperCollider system).
 
 
-```supercollider
+```
 Synth("withControls", [\freq, 440, \beatFreq, 0.5, \mul, 0.1]);
 ```
 
@@ -55,7 +55,7 @@ Synth("withControls", [\freq, 440, \beatFreq, 0.5, \mul, 0.1]);
 or as as strings (an array of characters)
 
 
-```supercollider
+```
 Synth("withControls", ["freq", 440, "beatFreq", 0.5, "mul", 0.1]);
 ```
 
@@ -71,7 +71,7 @@ See the [Symbol](../../Classes/Symbol.md) and [String](../../Classes/String.md) 
 A third way to pass controls to a synth is as
 
 
-```supercollider
+```
 Synth("withControls", [0, 440, 1, 1, 2, 0.1]);
 ```
 
@@ -86,7 +86,7 @@ In this case, the pattern is
 Use the `.set` message to change the value of a control while a synth is running.
 
 
-```supercollider
+```
 (
 SynthDef("resetMyControls", { arg freq = 440, mul = 0.22;
     Out.ar(
@@ -107,7 +107,7 @@ SynthDef("resetMyControls", { arg freq = 440, mul = 0.22;
 The '~' character before aSynth in the previous example defines an environment variable. An advantage to using an environment variable is that it doesn't have to be declared explicitly, as in
 
 
-```supercollider
+```
 var aSynth; // variables without the '~' MUST first be declared!!
 ```
 
@@ -122,7 +122,7 @@ In this usage, ~aSynth behaves like a global variable in other programming langu
 Use an array of lag times to state how long it takes to glide smoothly from one control value to another. Write the lag times in an array and place it in the synthdef after the ugenGraphFunc, as in
 
 
-```supercollider
+```
 (
 SynthDef("controlsWithLags", { arg freq1 = 440, freq2 = 443, mul = 0.12;
     Out.ar(
@@ -143,7 +143,7 @@ SynthDef("controlsWithLags", { arg freq1 = 440, freq2 = 443, mul = 0.12;
 The array of lagtimes means that the synthdef template with two components (discussed in [Mark_Polishook_tutorial/07_SynthDefs](../../Tutorials/Mark_Polishook_tutorial/07_SynthDefs.md))
 
 
-```supercollider
+```
 // a template for a synthdef with two components
 SynthDef(
     "aSynth",                // 1st argument is a name
@@ -155,7 +155,7 @@ SynthDef(
 can be revised to include three components.
 
 
-```supercollider
+```
 // a re-defined template for a synthdef _with an array of lagtimes
 // the class definition for the lagtime array calls it 'rates'
 SynthDef(

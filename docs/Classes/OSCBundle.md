@@ -13,11 +13,16 @@ A bundle object that allows to add preparation messages for async processes. If 
 
 ## Instance Methods
 
+
 ### `add`
-Add an osc message to the bundle.### `addAll`
-Add an array of osc messages to the bundle.### `addPrepare`
-Add a preparation osc message, which is sent before the bundle is sent.### `send`
-Send the bundle to a server. If preparation messages are given, they are sent, the process waits for their reception abd then sends the bundle.### `schedSend`
+Add an osc message to the bundle.
+### `addAll`
+Add an array of osc messages to the bundle.
+### `addPrepare`
+Add a preparation osc message, which is sent before the bundle is sent.
+### `send`
+Send the bundle to a server. If preparation messages are given, they are sent, the process waits for their reception abd then sends the bundle.
+### `schedSend`
 Like send, but the sending is synced to a given clock to the next beat.**Arguments:**
 
 | Argument | Description |
@@ -29,7 +34,7 @@ Like send, but the sending is synced to a given clock to the next beat.**Argumen
 ## Examples
 
 
-```supercollider
+```
 // create a new, empty instance
 a = OSCBundle.new;
 

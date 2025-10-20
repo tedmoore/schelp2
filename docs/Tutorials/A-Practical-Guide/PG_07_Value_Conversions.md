@@ -112,7 +112,7 @@ Following is a complete description of all elements of the pitch system. Feel fr
 See also the [Scale](../../Classes/Scale.md) class for a repository of scale configurations, and the possibility of non-ET tuning.
 
 
-```supercollider
+```
 (
 // approximate a major scale with a 19TET chromatic scale
 p = Pbind(

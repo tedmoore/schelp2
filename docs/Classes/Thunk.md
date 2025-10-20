@@ -11,6 +11,7 @@ Thunk, "past tense of think", can be used when a calculation may, or may not hav
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -21,12 +22,13 @@ Thunk, "past tense of think", can be used when a calculation may, or may not hav
 
 ## Instance Methods
 
+
 ### `value`
 return the value. If calculation is done, use previous value, otherwise do calculation.
 ## Examples
 
 
-```supercollider
+```
 // so for example, random values will result in a single instance:
 a = Thunk({ \done.postln; rrand(2.0, 8.0) });
 a.value; // posts "done"
@@ -35,7 +37,7 @@ a.value;
 
 
 
-```supercollider
+```
 // it is an AbstractFunction, so one can use it for math operations:
 
 a = Thunk({ rrand(2.0, 8.0) });
@@ -45,7 +47,7 @@ b.value;
 
 
 
-```supercollider
+```
 // lazy evaluation
 
 a = Thunk({ \done1.postln; Array.fill(10000, { |i| i + 6 % 5 * i / 2 }) }); // some calculation.

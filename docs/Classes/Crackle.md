@@ -13,6 +13,7 @@ A noise generator based on a chaotic function.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ A noise generator based on a chaotic function.
 ## Examples
 
 
-```supercollider
+```
 { Crackle.ar(1.95, 0.5) }.play;
 
 // modulate chaos parameter

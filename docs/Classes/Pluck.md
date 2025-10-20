@@ -11,6 +11,7 @@ A Karplus-Strong UGen
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -28,7 +29,7 @@ A Karplus-Strong UGen
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 // excitation signal is WhiteNoise, triggered twice a second with varying OnePole coef

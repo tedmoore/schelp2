@@ -5,7 +5,7 @@
 **Categories:** JITLib>Tutorials
 
 
-```supercollider
+```
 // todo. expand(numChannels) message
 
 p = ProxySpace.push(s.boot);

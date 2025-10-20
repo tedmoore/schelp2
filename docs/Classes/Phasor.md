@@ -20,6 +20,7 @@ Phasor is commonly used as an index control with [BufRd](../Classes/BufRd.md) an
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -34,7 +35,7 @@ Phasor is commonly used as an index control with [BufRd](../Classes/BufRd.md) an
 ## Examples
 
 
-```supercollider
+```
 // basic: ramp between 'start' and 'end'
 // note that the ramp ends at 9, not 10
 { Phasor.kr(0, 1, start: 0, end: 10) }.plot(0.03).plotMode_(\dlines)

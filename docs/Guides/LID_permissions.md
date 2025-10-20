@@ -23,7 +23,7 @@ After you have added the udev rules file, you can access the device after pluggi
 You can change the permission manually (as root) from the terminal with the command:
 
 
-```supercollider
+```
 sudo chmod 664 /dev/input/event*
 sudo chgrp plugdev /dev/input/event*
 ```
@@ -32,7 +32,7 @@ sudo chgrp plugdev /dev/input/event*
 Check the permissions with:
 
 
-```supercollider
+```
 "ls /dev/input/event* -lah".unixCmd;
 ```
 

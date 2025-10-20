@@ -13,6 +13,7 @@ Plazy evaluates a function that returns a pattern and embeds it in a stream.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Plazy evaluates a function that returns a pattern and embeds it in a stream.
 ## Examples
 
 
-```supercollider
+```
 (
 a = Plazy({
     var x, y;

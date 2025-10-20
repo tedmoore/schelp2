@@ -15,6 +15,7 @@ Its minimum value occurs when the phase `x = -1` and `x = 1`, and its maximum oc
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,15 +25,17 @@ Its minimum value occurs when the phase `x = -1` and `x = 1`, and its maximum oc
 | `width` | The width of the bell curve (its standard deviation).Practically speaking, a **width** `<= 0.25` will give minimum values near, but not equal to, zero.The bell curve becomes broader with increasing **width**. Beyond roughly `>= 0.25` the function has the appearance of being truncated, or, when **loop** `= 1`, the cycles begin to "overlap". Default: `0.1` |  
 | `iphase` | Initial offset phase offset in the range `[-1, 1]`. Default: 0 |  
 | `loop` | If **loop** `> 0`, the function repeats. Otherwise, it calls **doneAction** after one cycle. Default: 1 |  
-| `doneAction` | A `doneAction` value, which is evaluated at the end of a cycle (if **loop** `= 0`). `2` frees the synth. Default: `0` (continues running). See [Done / Actions ](../Classes/Done.md#actions) for more options. |  
-By default, the maximum value of `LFGauss` is `1`. The minimum value will depend on the **width**, and can by inspected with [minval](#minval).The function can be mapped to a specified range with [range](#range), which can be useful when using `LFGauss` as an envelope that may need to span a range of, e.g., `[0, 1]`.See the examples below for understanding and manipulating the [#Min and max values, curve width](#min-and-max-values,-curve-width).
+| `doneAction` | A `doneAction` value, which is evaluated at the end of a cycle (if **loop** `= 0`). `2` frees the synth. Default: `0` (continues running). See [Done#Actions](../Classes/Done.md#actions) for more options. |  
+By default, the maximum value of `LFGauss` is `1`. The minimum value will depend on the **width**, and can by inspected with [#-minval](#-minval).The function can be mapped to a specified range with [#-range](#-range), which can be useful when using `LFGauss` as an envelope that may need to span a range of, e.g., `[0, 1]`.See the examples below for understanding and manipulating the [#Min and max values, curve width](#min-and-max-values,-curve-width).
 
 ## Instance Methods
 
+
 ### `minval`
-Returns the function's lowest value for the given **width** parameter, which is `exp(1.0 / (-2.0 * width^2))`.### `range`
+Returns the function's lowest value for the given **width** parameter, which is `exp(1.0 / (-2.0 * width^2))`.
+### `range`
 Scales the output to the given range. This can be convenient when using `LFGauss` as an envelope (see [#examples](#examples) below).
-```supercollider
+```
 // high width, curve minimum around is 0.25
 { LFGauss.ar(0.01, 0.6) }.plot;
 // use .range to map the same function to a specified range
@@ -45,7 +48,7 @@ Scales the output to the given range. This can be convenient when using `LFGauss
 
 ### Example plots
 
-```supercollider
+```
 s.boot;
 
 // a 0.1 second grain
@@ -65,11 +68,11 @@ s.boot;
 
 
 ### Min and max values, curve width
-[minval](#minval) for a given **width** (assuming **iphase** `= 0`) is:
+[#-minval](#-minval) for a given **width** (assuming **iphase** `= 0`) is:
 
 `minval = exp(-1.0 / (2.0 * squared(width)))`
 
-**width** for a given [minval](#minval) is:
+**width** for a given [#-minval](#-minval) is:
 
 `width = sqrt(-1.0 / log(minval))`
 
@@ -78,7 +81,7 @@ s.boot;
 `(2 * sqrt(2 * log(2)) * width) = ca. 2.355 * width`
 
 
-```supercollider
+```
 // minval for a width of 0.1:
 (exp(1 / (-2.0 * squared(0.1)))) // 2e-22
 
@@ -119,7 +122,7 @@ sqrt(-1 / (2 * log(-60.dbamp))) // 0.269
 
 ### Sound examples
 
-```supercollider
+```
 // modulating duration
 { LFGauss.ar(XLine.kr(0.1, 0.001, 10), 0.03) * 0.2 }.play;
 
@@ -168,11 +171,11 @@ sqrt(-1 / (2 * log(-60.dbamp))) // 0.269
 
 ### Gabor Grain
 
-> **Note:** The gaussian function doesn't start with `0` – it asymptotically approaches it at `-inf` and `inf`. When using it as an envelope, it has to start at some smaller value, and it has an offset for this value. You can remove this offset by explicitly setting the [range](#range), e.g. to `[0, 1]` (this is the default).
+> **Note:** The gaussian function doesn't start with `0` – it asymptotically approaches it at `-inf` and `inf`. When using it as an envelope, it has to start at some smaller value, and it has an offset for this value. You can remove this offset by explicitly setting the [#-range](#-range), e.g. to `[0, 1]` (this is the default).
 
 
 
-```supercollider
+```
 // first, visualize LFGauss as a granular envelope on a sine oscillator
 (
 var freq = 1000;

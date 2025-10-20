@@ -18,7 +18,7 @@ SuperCollider provides some useful classes to automate processes. Some of them a
 Instead, you need to defer the modification by **encapsulating it in a deferred function**, that will be executed once SuperCollider resume its main context, see [Function#-defer](../../Classes/Function.md#-defer). Doing otherwise will crash the program:
 
 
-```supercollider
+```
 (
 var win = Window();
 var slider= Slider();

@@ -10,7 +10,7 @@ Before we can make any sound, we need to start or 'boot' a server application. T
 Notice that the white font on the black view on the bottom of the window has changed to green. This indicates that the server is running. The view also provides you with some information about CPU usage, and some other things which probably aren't too clear yet. More about them soon.
 Also take a look at the post window, where SC has given you some info, and let you know that it booted okay. For example:
 
-```supercollider
+```
 Booting server 'localhost' on address 127.0.0.1:57110.
 Number of Devices: 2
    0 : "Built-in Microph"
@@ -35,7 +35,7 @@ Shared memory server interface initialized
 If for some reason it failed to boot, there should be information printed about the error that occurred. If this happens, please reach out to the community for help: [https://supercollider.github.io#community](https://supercollider.github.io#community)
 By default you can refer to the localhost server in your code by using the letter `s`. You can send messages to start and stop it like so:
 
-```supercollider
+```
 s.quit;
 s.boot;
 ```
@@ -43,7 +43,7 @@ s.boot;
 Try this out and then leave the server running. Many examples in the documentation have `s.boot` at the beginning, but in general you should make sure the server is running before using any examples that generate audio, or otherwise access the server. In general the examples in this tutorial assume that the server is running.
 You can also refer to the default server with the text `Server.default`, for example:
 
-```supercollider
+```
 Server.default.boot;
 ```
 

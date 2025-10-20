@@ -18,6 +18,7 @@ here is the translation table between Kernel language Objects and SuperCollider 
 
 ## Class Methods
 
+
 ### `new`
 creates a new SCImageKernel**Arguments:**
 
@@ -30,10 +31,14 @@ creates a new SCImageKernel**Arguments:**
 
 ## Instance Methods
 
+
 ### `shader`
-get or set the shader string.### `values`
-get or set the values array. When setting the object indexes in the values Array must match the argument declaration order as defined in the main *kernel vec4 routine*. See [#examples](#examples) for more info.### `isValid`
-very basic verification to tell if all arguments of the shader are set.### `compile`
+get or set the shader string.
+### `values`
+get or set the values array. When setting the object indexes in the values Array must match the argument declaration order as defined in the main *kernel vec4 routine*. See [#examples](#examples) for more info.
+### `isValid`
+very basic verification to tell if all arguments of the shader are set.
+### `compile`
 compile the SCImageKernel object (and cache it).
 > **Note:** when rendered the first time, the kernel object is always compiled first. If you plan to change the shader string after, you must explicitely compile it to make it effective.
 
@@ -41,7 +46,7 @@ compile the SCImageKernel object (and cache it).
 ## Examples
 
 
-```supercollider
+```
 /**** Kernels ****/
 // very experimental
 // COLOR INVERSION SHADER EXAMPLE

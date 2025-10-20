@@ -8,7 +8,7 @@
 
 Integrates an input signal with a leak. The formula implemented is:
 
-```supercollider
+```
 out(0) = in(0) + (coef * out(-1))
 ```
 
@@ -16,6 +16,7 @@ out(0) = in(0) + (coef * out(-1))
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -30,7 +31,7 @@ out(0) = in(0) + (coef * out(-1))
 ## Examples
 
 
-```supercollider
+```
 { Integrator.ar(LFPulse.ar(300, 0.2, 0.1), MouseX.kr(0.001, 0.999, 1)) }.play
 
 // used as an envelope

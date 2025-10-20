@@ -13,6 +13,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 

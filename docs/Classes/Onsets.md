@@ -16,6 +16,7 @@ D. Stowell and M. D. Plumbley. Adaptive whitening for improved real-time audio o
 ## Class Methods
 
 
+
 ### `kr`
 **Arguments:**
 
@@ -68,7 +69,7 @@ Further options are available, which you are welcome to explore if you want. The
 ## Examples
 
 
-```supercollider
+```
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // Move the mouse to vary the threshold
 (

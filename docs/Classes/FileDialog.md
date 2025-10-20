@@ -15,6 +15,7 @@ This is the interface for your standard operating system modal file dialogs to o
 ## Class Methods
 
 
+
 ### `new`
 Create and display a dialog.**Arguments:**
 
@@ -36,7 +37,7 @@ Create and display a dialog.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 // By default, the selected paths are passed to okFunc as an array.
 (
 FileDialog({ |paths|

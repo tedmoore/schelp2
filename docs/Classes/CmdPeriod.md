@@ -13,22 +13,28 @@ CmdPeriod allows you to register objects to perform an action when the user pres
 
 ## Class Methods
 
+
 ### `add`
 Registers an object to be cleared when Cmd-. is pressed. This object will stay registered until it is explicitly removed, and will thus respond to additional presses of Cmd-.
+
 ### `remove`
 Removes an object that was previously registered.
+
 ### `removeAll`
 Removes all objects that have been registered.
+
 ### `doOnce`
 Registers an object to be evaluated once, and then unregistered.
+
 ### `objects`
 Get or set the list of objects that are called when CmdPeriod is evaluated.
+
 ### `era`
 The number of times CmdPeriod has been called since startup.
 ## Examples
 
 
-```supercollider
+```
 (
 f = { "foo".postln };
 g = { "bar".postln };

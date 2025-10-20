@@ -16,7 +16,7 @@ The basic idea of subtractive synthesis is similar to making coffee: something g
 Get a list of ugen filters in SuperCollider 3, by sending the .dumpClassSubtree message to the Filter class, as in
 
 
-```supercollider
+```
 Filter.dumpClassSubtree;
 ```
 
@@ -31,7 +31,7 @@ Filter.dumpClassSubtree;
 Use LPF, a low-pass filter to subtract high-frequency content from an input source.
 
 
-```supercollider
+```
 (
 SynthDef("subtractive", { arg out;
     Out.ar(
@@ -53,7 +53,7 @@ Synth("subtractive")
 RLPF, a resonant low-pass filter, removes high-frequency content and emphasizes the cutoff frequency.
 
 
-```supercollider
+```
 (
 SynthDef("passLowFreqs2", { arg out;
     Out.ar(
@@ -78,7 +78,7 @@ Resonz is a very, very, very strong filter. Use it to emphasize a frequency band
 Transform noise into pitch with a sharp cutoff.
 
 
-```supercollider
+```
 (
 SynthDef("noiseToPitch", { arg out = 0, mul = 1;
     Out.ar(

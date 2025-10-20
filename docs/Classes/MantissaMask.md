@@ -11,6 +11,7 @@ Masks off bits in the mantissa of the floating point sample value. This introduc
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Masks off bits in the mantissa of the floating point sample value. This introduc
 ## Examples
 
 
-```supercollider
+```
 // preserve only 3 bits of mantissa.
 { MantissaMask.ar(SinOsc.ar(SinOsc.kr(0.2, 0, 400, 500), 0, 0.4), 3) }.play
 

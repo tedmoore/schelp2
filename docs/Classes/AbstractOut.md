@@ -11,6 +11,7 @@
 
 ## Instance Methods
 
+
 ### `numOutputs`
 **Returns:** number of output buses (default: 0, overridden in subclasses)
 

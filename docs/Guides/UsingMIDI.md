@@ -84,7 +84,7 @@ Note, however, that MIDIIn provides no functionality for filtering incoming MIDI
 The technical problem is that every note on needs to save its synth object so that the note off message can end the right server-side node.
 
 
-```supercollider
+```
 s.boot;
 
 (

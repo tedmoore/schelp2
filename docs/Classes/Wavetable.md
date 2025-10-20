@@ -13,9 +13,10 @@ A Wavetable is a FloatArray in a special format used by SuperCollider's interpol
 
 ## Class Methods
 
+
 ### `sineFill`
 Fill a Wavetable of the given size with a sum of sines at the given amplitudes and phases. The Wavetable will be normalized.
-```supercollider
+```
 Wavetable.sineFill(512, 1.0/[1, 2, 3, 4, 5, 6]).plot;
 ```
 
@@ -26,6 +27,7 @@ Wavetable.sineFill(512, 1.0/[1, 2, 3, 4, 5, 6]).plot;
 | `size` | must be a power of 2. |  
 | `amplitudes` | an Array of amplitudes for each harmonic beginning with the fundamental. |  
 | `phases` | an Array of phases in radians for each harmonic beginning with the fundamental. |  
+
 
 ### `chebyFill`
 Fill a Wavetable of the given size with a sum of Chebyshev polynomials at the given amplitudes for use in waveshaping by the [Shaper](../Classes/Shaper.md) ugen.**Arguments:**
@@ -40,7 +42,7 @@ Fill a Wavetable of the given size with a sum of Chebyshev polynomials at the gi
 > **Note:** In previous versions, chebyFill always offset the curves to ensure the center value was zero. The zeroOffset argument was added in version 3.7, and the default behavior was changed, so that it no longer offsets.
 
 
-```supercollider
+```
 Wavetable.chebyFill(513, [1]).plot;
 
 // shifted to avoid DC offset when waveshaping a zero signal
@@ -89,9 +91,10 @@ x.free; b.do(_.free); b = nil;
 
 ## Instance Methods
 
+
 ### `plot`
 Plot the Wavetable in a window. The arguments are not required and if not given defaults will be used.
-```supercollider
+```
 Wavetable.sineFill(512, [0.5]).plot;
 Wavetable.sineFill(512, [1]).plot("Table 1", Rect(50, 50, 150, 450));
 ```
@@ -105,23 +108,24 @@ Wavetable.sineFill(512, [1]).plot("Table 1", Rect(50, 50, 150, 450));
 | `minval` | the minimum value in the plot. Defaults to the highest value in the data. |  
 | `maxval` | the maximum value in the plot. Defaults to the lowest value in the data. |  
 | `parent` | Either a [Window](../Classes/Window.md) or [View](../Classes/View.md) may be passed in - then the plot is embedded. Otherwise a new [Window](../Classes/Window.md) is created.
-```supercollider
+```
 (
 var w = Window("parent");
 Wavetable.sineFill(512, 1.0/[1, 2, 3, 4, 5, 6]).plot(parent: w);
 w.front
 )
 ``` |  
+
 ### `asSignal`
 Convert the Wavetable into a Signal.
-```supercollider
+```
 Wavetable.sineFill(512, [1]).asSignal.plot;
 ```
 
 
 ### Advanced notes: wavetable format
 
-```supercollider
+```
 Signal: [a0, a1, a2...]
 Wavetable: [2*a0-a1, a1-a0, 2*a1-a2, a2-a1, 2*a2-a3, a3-a2...]
 ```

@@ -17,7 +17,7 @@ SendTrig is originally intended to send a trigger message back to the client, so
 To print out the values, you need to create an OSCFunc as follows:
 
 
-```supercollider
+```
 o = OSCFunc({ |msg| msg.postln }, '/tr', s.addr);
 ```
 
@@ -25,7 +25,7 @@ o = OSCFunc({ |msg| msg.postln }, '/tr', s.addr);
 Each line of output is an array with four values: `['/tr', defNode, id (from SendTrig), value (from SendTrig)]`.
 
 
-```supercollider
+```
 {    var    freq;
     freq = LFNoise1.kr(2, 600, 800);
         // Impulse is needed to trigger the /tr message to be sent
@@ -44,7 +44,7 @@ o.free;  // when done, you need to clean up the OSCFunc
 If you need to track multiple values, SendReply can send arrays of values back to the client.
 
 
-```supercollider
+```
 l = List.new;
 o = OSCFunc({ |msg|
         // msg[3] is the first array value
@@ -76,7 +76,7 @@ l.flat.plot(numChannels: 2);
 Polling allows you to debug a SynthDef by printing samples of a UGen's output to the post window. To do this, use the .poll method (a shorthand for the Poll UGen), which prints 10 times per second by default.
 
 
-```supercollider
+```
 { LFNoise1.kr.poll; }.play;   // default poll
 ```
 
@@ -84,7 +84,7 @@ Polling allows you to debug a SynthDef by printing samples of a UGen's output to
 This can be too fast, so you can specify how many times per second the value should be printed.
 
 
-```supercollider
+```
 { LFNoise1.kr.poll(3); }.play;  // poll more slowly
 ```
 
@@ -92,7 +92,7 @@ This can be too fast, so you can specify how many times per second the value sho
 You can also poll arrays
 
 
-```supercollider
+```
 { [LFNoise1.kr, LFNoise1.kr].poll; }.play;  // poll an array
 ```
 
@@ -100,7 +100,7 @@ You can also poll arrays
 For more than one value or array at once, poll can become unwieldy, because so many values are printed to the screen that it is difficult to tell which is which. Labels help with this.
 
 
-```supercollider
+```
 { LFNoise1.kr.poll(3, "a value"); LFNoise1.kr.poll(5, "another value"); }.play;
 ```
 
@@ -108,7 +108,7 @@ For more than one value or array at once, poll can become unwieldy, because so m
 Debugging triggers doesn't work with regular polling, because the trigger will mostly occur in between polling intervals. The output itself can be supplied instead of the number of polls per second. This way, the value is only printed when there is a trigger, rather than at a regular interval.
 
 
-```supercollider
+```
 { var trig = Dust.kr; trig.poll(trig); }.play;
 ```
 
@@ -118,7 +118,7 @@ You can debug a value that changes infrequently in a similar way, using the Chan
 Note that it will skip changes that occur immediately after a previous change, because any trigger needs to revert back to zero before triggering again.
 
 
-```supercollider
+```
 { var steps = LFNoise0.kr; steps.poll(Changed.kr(steps); }.play;
 ```
 
@@ -126,7 +126,7 @@ Note that it will skip changes that occur immediately after a previous change, b
 You can also use a separate trigger. This is useful for having the most control over when a poll occurs.
 
 
-```supercollider
+```
 ~synth={ arg t_trig; [LFNoise1.kr, LFNoise1.kr].poll(t_trig); }.play;
 
 // the t_ in t_trig is shorthand to cause ~synth.set(\t_trig, 1) to trigger instead of set permanently
@@ -137,7 +137,7 @@ You can also use a separate trigger. This is useful for having the most control 
 All the examples above work the same for audio rate UGens.
 
 
-```supercollider
+```
 { LFNoise1.ar.poll; }.play;
 ```
 
@@ -149,7 +149,7 @@ All the examples above work the same for audio rate UGens.
 Another technique to watch control values is to output the signal to a control-rate bus. Then you can access the bus using [Bus#-get](../Classes/Bus.md#-get) or [Bus#-getSynchronous](../Classes/Bus.md#-getsynchronous). Saving the values into an Array or List is a little more straightforward with getSynchronous.
 
 
-```supercollider
+```
 b = Bus.control(s, 1);
 
 a = {
@@ -172,7 +172,7 @@ l.array.plot;  // to view the results graphically
 This works only with internal or local servers. For remote servers, the routine may be rewritten as follows.
 
 
-```supercollider
+```
 r = fork { loop { b.get({ |value| l.add(value) }); 0.1.wait } };
 ```
 
@@ -192,7 +192,7 @@ It takes some practice to read a synthdef trace, but it's the ultimate source of
 For a concrete example, let's look at a synthdef that doesn't work. The intent is to generate a detuned sawtooth wave and run it through a set of parallel resonant filters whose cut-off frequencies are modulating randomly. We run the synth and generate the trace (reproduced below).
 
 
-```supercollider
+```
 SynthDef(\resonz, { |out, freq = 440|
     var    sig, ffreq;
     sig = Saw.ar([freq, freq+1], 0.2);
@@ -280,7 +280,7 @@ The resonance frequency derives from multiplying an array by a LFNoise1. Tracing
 If you look very carefully at the trace, you will see another problem relating to multichannel expansion. The two components of the detuned sawtooth go into alternate Resonz'es, where we expected both to go, combined, into every Resonz. To fix it, the sawtooths need to be mixed as well.
 
 
-```supercollider
+```
 SynthDef(\resonz, { |out, freq = 440|
     var    sig, ffreq;
     sig = Mix.ar(Saw.ar([freq, freq+1], 0.2));
@@ -304,7 +304,7 @@ Some bugs result from OSC messages to the server being constructed incorrectly. 
 To use it, you need to quit the currently running local server, then create a new server using a DebugNetAddr instead of a regular NetAddr. Messages will be dumped into a new document window.
 
 
-```supercollider
+```
 s.quit;
 
 Server.default = s = Server.new('local-debug', DebugNetAddr("localhost", 57110));
@@ -343,7 +343,7 @@ See the [Understanding-Errors](../Guides/Understanding-Errors.md) help file for 
 There's also a graphic Inspector for error dumps, which is enabled with the following command:
 
 
-```supercollider
+```
 Exception.debug = true;        // enable
 Exception.debug = false;    // disable
 ```
@@ -358,7 +358,7 @@ In most cases, this will give you more information than a regular error dump. Us
 The most common approach is to insert statements to print the values of variables and expressions. Since the normal printing methods don't change the value of an expression, they can be placed in the middle of the statement without altering the processing flow. There's no significant difference between:
 
 
-```supercollider
+```
 if(a > 0) { positive.value(a) };
 ```
 
@@ -366,7 +366,7 @@ if(a > 0) { positive.value(a) };
 and
 
 
-```supercollider
+```
 if((a > 0).postln) { positive.value(a) };
 ```
 
@@ -374,7 +374,7 @@ if((a > 0).postln) { positive.value(a) };
 Common methods to use are:
 
 
-```supercollider
+```
 .postln
 .postcs        // post the object as a compile string
 .debug(caller)    // post the object along with a tag identifying the caller
@@ -382,7 +382,7 @@ Common methods to use are:
 
 
 
-```supercollider
+```
 (
 var    positiveFunc;
 positiveFunc = { |a|
@@ -406,7 +406,7 @@ Another advantage of .debug is that it's easier to search for them in your sourc
 To print multiple values at one time, wrap them in an array before using .debug or .postcs. Note that if any of the array members are collections, postln will hide them behind the class name: "an Array, a Dictionary" etc. Use postcs if you expect to be posting collections.
 
 
-```supercollider
+```
 [val1, val2, val3].debug(\myMethod);
 [\callerTag, val1, val2, val3].postcs;
 ```
@@ -421,7 +421,7 @@ By sprinkling these throughout your code, especially at the beginnings of functi
 If you discover that a particular method or function is being entered but you don't know how it got there, you can use the `.dumpBackTrace` method on any object. You'll get what looks like an error dump, but without the error. Execution continues normally after the stack dump.
 
 
-```supercollider
+```
 (
 var    positiveFunc;
 positiveFunc = { |a|
@@ -461,7 +461,7 @@ In a method definition, it's recommended to use `this.dumpBackTrace`; in a free-
 To see the results of a pattern, use the .trace method. Each output value from the pattern gets posted to the main output.
 
 
-```supercollider
+```
 s.boot;
 SynthDescLib.global.read;
 
@@ -476,7 +476,7 @@ p.stop;
 
 ### Debugging infinite loops or recursion
 
-```supercollider
+```
 while(true);
 ```
 
@@ -484,7 +484,7 @@ while(true);
 This is a bad idea. It will lock up SuperCollider and you will have to force quit. Sometimes this happens in your code and the reason isn't obvious. Debugging these situations is very painful because you might have to force quit, relaunch SuperCollider, and reload your code just to try again.
 
 
-```supercollider
+```
 f = { |func| func.value(func) };
 f.value(f);
 ```
@@ -497,7 +497,7 @@ In macOS, inserting "post" or "debug" calls will not help with infinite loops or
 One useful approach is to insert statements that will cause execution to halt. The easiest is .halt, but it provides you with no information about where or how it stopped, or how it got there. If you want a more descriptive message, make up an error and throw it:
 
 
-```supercollider
+```
 Error("myFunction-halt").throw;
 ```
 
@@ -507,7 +507,7 @@ When debugging code that crashes, place a line like this somewhere in the code. 
 Here is a rogues' gallery of infinite loop gotchas--things that don't look like infinite loops, but they will kill your code quicker than you can wish you hadn't just pushed the enter key:
 
 
-```supercollider
+```
 i = 0;
 while (i < 10) { i.postln; i = i+1 };     // crash
 ```
@@ -516,7 +516,7 @@ while (i < 10) { i.postln; i = i+1 };     // crash
 While loop syntax is different in SuperCollider from C. The above loop means to check whether i < 10 once, at the beginning of the loop, then loop if the value is true. Since the loop condition is evaluated only once, it never changes, so the loop never stops. The loop condition should be written inside a function, to wit:
 
 
-```supercollider
+```
 i = 0;
 while { i < 10 } { i.postln; i = i+1 };
 ```
@@ -525,7 +525,7 @@ while { i < 10 } { i.postln; i = i+1 };
 Routines and empty arrays:
 
 
-```supercollider
+```
 a = Array.new;
 r = Routine({
     loop {
@@ -541,7 +541,7 @@ This looks pretty innocent: iterate repeatedly over an array and yield each item
 Recursion is often used to walk through a tree structure. Tree structures are usually finite--no matter which branch you go down, eventually you will reach the end. If you have a data structure that is self-referential, you can easily get infinite recursion:
 
 
-```supercollider
+```
 a = (1..10);
 a.put(5, a);    // now one of the items of a is a itself
 a.postcs;        // crash--postcs has to walk through the entire collection, which loops on itself
@@ -551,7 +551,7 @@ a.postcs;        // crash--postcs has to walk through the entire collection, whi
 Self-referential data structures are sometimes an indication of poor design. If this is the case, avoid them.
 
 
-```supercollider
+```
 a = 0;
 SystemClock.sched(2, { a.postln });    // crashes when scheduler fires the function
 ```
@@ -562,7 +562,7 @@ When a scheduled function executes, if it returns a number, the function will be
 To fix it, make sure the function returns a non-number.
 
 
-```supercollider
+```
 a = 0;
 SystemClock.sched(2, { a.postln; nil });
 ```
@@ -575,7 +575,7 @@ SystemClock.sched(2, { a.postln; nil });
 Use formatting to help your eye locate debugging statements when it's time to remove them. SuperCollider code is usually indented. If you write your debugging statements fully left-justified, they're much easier to see.
 
 
-```supercollider
+```
 a = Array.new;
 r = Routine({
     loop {

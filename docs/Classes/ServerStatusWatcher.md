@@ -13,6 +13,7 @@ An object that observes a [Server](../Classes/Server.md) object by managing stat
 
 ## Class Methods
 
+
 ### `new`
 Creates a new ServerStatusWatcher.**Arguments:**
 

@@ -12,6 +12,7 @@ This is a better pitch follower than [ZeroCrossing](../Classes/ZeroCrossing.md),
 ## Class Methods
 
 
+
 ### `kr`
 **Arguments:**
 
@@ -36,7 +37,7 @@ The pitch follower executes periodically at the rate specified by `execFreq` in 
 ## Examples
 
 
-```supercollider
+```
 // (use headphones!)
 
 (
@@ -57,7 +58,7 @@ The pitch follower executes periodically at the rate specified by `execFreq` in 
 
 
 
-```supercollider
+```
 (
     SynthDef("pitchFollow2", { |out|
         var in, amp, freq, hasFreq, sound;

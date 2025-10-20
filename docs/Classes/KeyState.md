@@ -19,6 +19,7 @@ Respond to the state of a key.
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -36,7 +37,7 @@ Respond to the state of a key.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 // execute the code below to find out a key's keycode

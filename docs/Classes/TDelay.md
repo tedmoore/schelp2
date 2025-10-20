@@ -11,6 +11,7 @@ Delays a trigger by a given time. Any triggers which arrive in the time between 
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -22,7 +23,7 @@ Delays a trigger by a given time. Any triggers which arrive in the time between 
 ## Examples
 
 
-```supercollider
+```
 (
 {
     z = Impulse.ar(2);

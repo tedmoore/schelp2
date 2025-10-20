@@ -13,7 +13,7 @@ A non-interpolating sound generator based on the difference equation:
 The output signal is automatically scaled to a range of [-1, 1].
 sclang code translation:
 
-```supercollider
+```
 (
 var a = 1.1, c = 0.13, m = 1, xi = 0, size = 64;
 plot(size.collect { xi = (a * xi + c) % m });
@@ -24,6 +24,7 @@ plot(size.collect { xi = (a * xi + c) % m });
 
 
 ## Class Methods
+
 
 ### `ar`
 **Arguments:**
@@ -41,14 +42,14 @@ plot(size.collect { xi = (a * xi + c) % m });
 ## Examples
 
 
-```supercollider
+```
 // default initial params
 { LinCongN.ar(MouseX.kr(20, SampleRate.ir)) * 0.2 }.play(s);
 ```
 
 
 
-```supercollider
+```
 // randomly modulate params
 (
 { LinCongN.ar(
@@ -62,7 +63,7 @@ plot(size.collect { xi = (a * xi + c) % m });
 
 
 
-```supercollider
+```
 // as frequency control...
 (
 {

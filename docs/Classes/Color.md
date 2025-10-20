@@ -13,6 +13,7 @@ An object which stores red, green, blue, and alpha values in instance variables,
 
 ## Class Methods
 
+
 ### `new`
 Create a new instance with float values.**Arguments:**
 
@@ -22,6 +23,7 @@ Create a new instance with float values.**Arguments:**
 | `green` | An instance of [Float](../Classes/Float.md) between 0 and 1. |  
 | `blue` | An instance of [Float](../Classes/Float.md) between 0 and 1. |  
 | `alpha` | An instance of [Float](../Classes/Float.md) between 0 and 1. |  
+
 
 ### `new255`
 Create a new instance from 8-bit integer values between 0 and 255.**Arguments:**
@@ -33,12 +35,14 @@ Create a new instance from 8-bit integer values between 0 and 255.**Arguments:**
 | `blue` | An [Integer](../Classes/Integer.md) between 0 and 255. |  
 | `alpha` | An [Integer](../Classes/Integer.md) between 0 and 255. |  
 
+
 ### `fromArray`
 Same as `Color.new(*array)`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `array` | An instance of [Array](../Classes/Array.md). 1-4 values between 0 and 1. See [#*new](#*new). |  
+
 
 ### `fromHexString`
 Creates a new instance from a hex color string.**Arguments:**
@@ -47,17 +51,21 @@ Creates a new instance from a hex color string.**Arguments:**
 |----------|-------------|
 | `string` | A [String](../Classes/String.md). |  
 The string should be a 6 character web color, or a 3 character CSS style color. A preceding # is optional.
-```supercollider
+```
 Color.fromHexString("#FF6600");
 ```
 
 
+
 ### `black`
 Nothing is darker.
+
 ### `white`
 Nothing is lighter.
+
 ### `clear`
 Nothing is more clear.
+
 ### `gray`
 American shades of grey.**Arguments:**
 
@@ -65,6 +73,7 @@ American shades of grey.**Arguments:**
 |----------|-------------|
 | `gray` | Shades between 0 (black) and 1 (white) as [Float](../Classes/Float.md). |  
 | `alpha` | Transparency of gray between 0 and 1 as [Float](../Classes/Float.md). |  
+
 
 ### `grey`
 British shades of grey.**Arguments:**
@@ -74,6 +83,7 @@ British shades of grey.**Arguments:**
 | `grey` | Shades between 0 (black) and 1 (white) as [Float](../Classes/Float.md). |  
 | `alpha` | Transparency of grey between 0 and 1 as [Float](../Classes/Float.md). |  
 
+
 ### `red`, `green`, `blue`, `cyan`, `magenta`, `yellow`
 Create a new red, green, blue, cyan, magenta or yellow Color.**Arguments:**
 
@@ -82,6 +92,7 @@ Create a new red, green, blue, cyan, magenta or yellow Color.**Arguments:**
 | `val` | An instance of [Float](../Classes/Float.md) between 0 and 1, where 1 is the bright, fully saturated color, and 0 is black. |  
 | `alpha` | Transparency between 0 and 1 as [Float](../Classes/Float.md). |  
 
+
 ### `rand`
 A random RGB Color where the colors are randomly chosen between `lo` and `hi`. See [#*new](#*new).**Arguments:**
 
@@ -89,6 +100,7 @@ A random RGB Color where the colors are randomly chosen between `lo` and `hi`. S
 |----------|-------------|
 | `lo` | An instance of [Float](../Classes/Float.md) between 0 and 1. |  
 | `hi` | An instance of [Float](../Classes/Float.md) between 0 and 1. |  
+
 
 ### `hsv`
 Maps hsv and alpha values to rgb between 0 and 1.**Arguments:**
@@ -103,26 +115,31 @@ Maps hsv and alpha values to rgb between 0 and 1.**Arguments:**
 
 ## Instance Methods
 
+
 ### `red`, `green`, `blue`, `alpha`
-Get/set one of the instance variables, `red`, `green`, `blue`, or `alpha`.**Returns:** An instance of [Float](../Classes/Float.md) between 0 and 1.### `hexString`
+Get/set one of the instance variables, `red`, `green`, `blue`, or `alpha`.**Returns:** An instance of [Float](../Classes/Float.md) between 0 and 1.
+### `hexString`
 Returns a [String](../Classes/String.md) containing a 6 character web color code, preceded by a #.
-```supercollider
+```
 Color(1.0, 0.4).hexString;
 ```
 
+
 ### `==`
 Binary operator.
-```supercollider
+```
 // returns true
 Color.new255(0, 0, 255, 255) == Color.new(0, 0, 1, 1)
 ```
 
+
 ### `scaleByAlpha`
 Returns a Color, where `red`, `green`, and `blue` are scaled by the `alpha` value, and alpha is set to 1.
-```supercollider
+```
 // returns true:
 Color(1, 0.5, 1, 0.5).scaleByAlpha == Color(0.5, 0.25, 0.5, 1)
 ```
+
 
 ### `blend`
 Interpolates the `red`, `green`, `blue`, and `alpha` values of two Colors, linearly weighting between the first and the second.**Arguments:**
@@ -131,6 +148,7 @@ Interpolates the `red`, `green`, `blue`, and `alpha` values of two Colors, linea
 |----------|-------------|
 | `that` | A second Color. |  
 | `blend` | 0 means only this, while 1 means only that. |  
+
 ### `vary`
 Returns a random variation of a Color.**Arguments:**
 
@@ -140,12 +158,14 @@ Returns a random variation of a Color.**Arguments:**
 | `lo` | Low-clips the RGB variation here. |  
 | `hi` | High-clips the RGB variation here. |  
 | `alphaVal` | Varies the alpha value +/- this amount, and clips it between 0 and 1. |  
+
 ### `complementary`
 Returns the complementary color.
-```supercollider
+```
 // returns true:
 Color(1, 0.5, 1, 0.5).complementary == Color(0.0, 0.5, 0.0, 0.5)
 ```
+
 
 ### `multiply`
 **Arguments:**
@@ -154,6 +174,7 @@ Color(1, 0.5, 1, 0.5).complementary == Color(0.0, 0.5, 0.0, 0.5)
 |----------|-------------|
 | `aColor` | An instance of Color. |  
 | `opacity` | A value between 0 and 1. Default value is 1.0. |  
+
 ### `divide`
 **Arguments:**
 
@@ -161,6 +182,7 @@ Color(1, 0.5, 1, 0.5).complementary == Color(0.0, 0.5, 0.0, 0.5)
 |----------|-------------|
 | `aColor` | An instance of Color. |  
 | `opacity` | A value between 0 and 1. Default value is 1.0. |  
+
 ### `subtract`
 **Arguments:**
 
@@ -168,6 +190,7 @@ Color(1, 0.5, 1, 0.5).complementary == Color(0.0, 0.5, 0.0, 0.5)
 |----------|-------------|
 | `aColor` | An instance of Color. |  
 | `opacity` | A value between 0 and 1. Default value is 1.0. |  
+
 ### `add`
 **Arguments:**
 
@@ -175,6 +198,7 @@ Color(1, 0.5, 1, 0.5).complementary == Color(0.0, 0.5, 0.0, 0.5)
 |----------|-------------|
 | `aColor` | An instance of Color. |  
 | `opacity` | A value between 0 and 1. Default value is 1.0. |  
+
 ### `symmetricDifference`
 **Arguments:**
 
@@ -182,6 +206,7 @@ Color(1, 0.5, 1, 0.5).complementary == Color(0.0, 0.5, 0.0, 0.5)
 |----------|-------------|
 | `aColor` | An instance of Color. |  
 | `opacity` | A value between 0 and 1. Default value is 1.0. |  
+
 ### `screen`
 **Arguments:**
 
@@ -189,6 +214,7 @@ Color(1, 0.5, 1, 0.5).complementary == Color(0.0, 0.5, 0.0, 0.5)
 |----------|-------------|
 | `aColor` | An instance of Color. |  
 | `opacity` | A value between 0 and 1. Default value is 1.0. |  
+
 ### `lighten`
 **Arguments:**
 
@@ -196,6 +222,7 @@ Color(1, 0.5, 1, 0.5).complementary == Color(0.0, 0.5, 0.0, 0.5)
 |----------|-------------|
 | `aColor` | An instance of Color. |  
 | `opacity` | A value between 0 and 1. Default value is 1.0. |  
+
 ### `darken`
 **Arguments:**
 
@@ -203,6 +230,7 @@ Color(1, 0.5, 1, 0.5).complementary == Color(0.0, 0.5, 0.0, 0.5)
 |----------|-------------|
 | `aColor` | An instance of Color. |  
 | `opacity` | A value between 0 and 1. Default value is 1.0. |  
+
 ### `hueBlend`
 **Arguments:**
 
@@ -210,6 +238,7 @@ Color(1, 0.5, 1, 0.5).complementary == Color(0.0, 0.5, 0.0, 0.5)
 |----------|-------------|
 | `aColor` | An instance of Color. |  
 | `blend` | A value between 0 and 1. Default value is 0. |  
+
 ### `saturationBlend`
 **Arguments:**
 
@@ -217,6 +246,7 @@ Color(1, 0.5, 1, 0.5).complementary == Color(0.0, 0.5, 0.0, 0.5)
 |----------|-------------|
 | `aColor` | An instance of Color. |  
 | `blend` | A value between 0 and 1. Default value is 0. |  
+
 ### `valueBlend`
 **Arguments:**
 
@@ -224,18 +254,25 @@ Color(1, 0.5, 1, 0.5).complementary == Color(0.0, 0.5, 0.0, 0.5)
 |----------|-------------|
 | `aColor` | An instance of Color. |  
 | `blend` | A value between 0 and 1. Default value is 0. |  
+
 ### `asHSV`
-Returns an array with `[hue, saturation, value, alpha]`, as values between 0 and 1.### `asArray`
-Returns an array with `[red, green, blue, alpha]`, as values between 0 and 1.### `storeArgs`
-Returns an array with `[red, green, blue, alpha]`.### `setStroke`
-For use with [Pen](../Classes/Pen.md). Sets the `stroke` of [Pen](../Classes/Pen.md) to this.### `setFill`
-For use with [Pen](../Classes/Pen.md). Sets the `fill` of [Pen](../Classes/Pen.md) to this.### `set`
-For use with [Pen](../Classes/Pen.md). Sets the `stroke` and `fill` of [Pen](../Classes/Pen.md) to this.### `round`
+Returns an array with `[hue, saturation, value, alpha]`, as values between 0 and 1.
+### `asArray`
+Returns an array with `[red, green, blue, alpha]`, as values between 0 and 1.
+### `storeArgs`
+Returns an array with `[red, green, blue, alpha]`.
+### `setStroke`
+For use with [Pen](../Classes/Pen.md). Sets the `stroke` of [Pen](../Classes/Pen.md) to this.
+### `setFill`
+For use with [Pen](../Classes/Pen.md). Sets the `fill` of [Pen](../Classes/Pen.md) to this.
+### `set`
+For use with [Pen](../Classes/Pen.md). Sets the `stroke` and `fill` of [Pen](../Classes/Pen.md) to this.
+### `round`
 Round the color.
 ## Examples
 
 
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -264,7 +301,7 @@ w.refresh;
 
 ## X-windows colors
 
-```supercollider
+```
 'alice blue' -> Color.new255(240, 248, 255),
 'AliceBlue' -> Color.new255(240, 248, 255),
 'antique white' -> Color.new255(250, 235, 215),

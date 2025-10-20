@@ -14,6 +14,7 @@ This is useful in order to isolate a [Pfx](../Classes/Pfx.md).
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -28,7 +29,7 @@ This is useful in order to isolate a [Pfx](../Classes/Pfx.md).
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef(\echo, { |out = 0, maxdtime = 0.2, dtime = 0.2, decay = 2, gate = 1|
     var env, in;

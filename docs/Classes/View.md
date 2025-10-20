@@ -13,8 +13,9 @@ The view is the basic visible element of which the graphical user interface is c
 ## Class Methods
 
 
+
 ### `new`
-Creates a new instance of View and makes it a child of another View or Window, effectively placing it within the parent's visual space. If there is a [decorator](#decorator) installed on the parent, it will manage the position of the new View.
+Creates a new instance of View and makes it a child of another View or Window, effectively placing it within the parent's visual space. If there is a [decorator](#-decorator) installed on the parent, it will manage the position of the new View.
 > **Note:** The 'parent' argument may be omitted, in which case the view will be displayed as a window on its own, when [shown](../Classes/View.md#-front).The 'bounds' argument may be omitted, in which case the view will be created with its preferred size at position (0,0).If a parent is given and there is a layout installed on it, the layout will manage the position and size of this view and the 'bounds' argument will have no effect.
 
 **Arguments:**
@@ -24,12 +25,16 @@ Creates a new instance of View and makes it a child of another View or Window, e
 | `parent` | The instance of View or Window that the new View will become a child of. |  
 | `bounds` | A Rect or a Point describing size and position of the new View. If a Point is given, its coordinates will denote the view's size, while the view's position will be (0,0). Position is measured relative to the parent's top-left corner. |  
 
+
 ### `globalKeyDownAction`
- A settable class variable containing an object (e.g. an instance of Function or FunctionList) which is evaluated (i.e. [value](../Classes/Object.md#-value) method is called on it) whenever a key is pressed, independently of keyboard focus. See also [addAction](#addaction). When the action object is evaluated, it is passed the following arguments: view, char, modifiers, unicode, keycode, key.
+ A settable class variable containing an object (e.g. an instance of Function or FunctionList) which is evaluated (i.e. [value](../Classes/Object.md#-value) method is called on it) whenever a key is pressed, independently of keyboard focus. See also [#-addAction](#-addaction). When the action object is evaluated, it is passed the following arguments: view, char, modifiers, unicode, keycode, key.
+
 ### `globalKeyUpAction`
- A settable class variable containing an object (e.g. an instance of Function or FunctionList) which is evaluated (i.e. [value](../Classes/Object.md#-value) method is called on it) whenever a key is released, independently of keyboard focus. See also [addAction](#addaction). When the action object is evaluated, it is passed the following arguments: view, char, modifiers, unicode, keycode.
+ A settable class variable containing an object (e.g. an instance of Function or FunctionList) which is evaluated (i.e. [value](../Classes/Object.md#-value) method is called on it) whenever a key is released, independently of keyboard focus. See also [#-addAction](#-addaction). When the action object is evaluated, it is passed the following arguments: view, char, modifiers, unicode, keycode.
+
 ### `currentDrag`
  A class variable holding the content of the current drag. It is set by beginDrag.
+
 ### `currentDragString`
  A class variable holding the content of the current drag as ["compile string"](../Classes/Object.md#-ascompilestring). It is set by beginDrag.
 
@@ -37,45 +42,62 @@ Creates a new instance of View and makes it a child of another View or Window, e
 
 
 ### Hierarchy and existence
+
 ### `parent`
 **Returns:** The view's parent view, or nil if the view is a top view.
+
 ### `parents`
 **Returns:** An array of all the parents, grandparents, etc., of the view.
+
 ### `getParents`
-**Returns:** Same as [parents](#parents).
+**Returns:** Same as [parents](#-parents).
+
 ### `children`
 **Returns:** An array of all immediate children of the view.
+
 ### `remove`
  Removes the view from its parent view (if any) and destroys the view. After this method is called, the view is not usable anymore.
+
 ### `removeAll`
  Removes all the children of the view and destroys them. After this method is called, the former child views are not usable anymore.
+
 ### `close`
- If [deleteOnClose](#deleteonclose) is true, this method has the same effect as [remove](#remove), otherwise makes the view invisible.
+ If [#-deleteOnClose](#-deleteonclose) is true, this method has the same effect as [#-remove](#-remove), otherwise makes the view invisible.
+
 ### `isClosed`
 **Returns:** A Boolean stating whether the view has been destroyed.
+
 ### `notClosed`
 **Returns:** A Boolean, the opposite of 'isClosed'.
+
 ### `asView`
  Method that allows compatibility with Window and other classes that are not real subclasses of View, but implement a part of its interface.**Returns:** This view.
 
 ### Visibility
+
 ### `visible`
- Gets or sets whether the view is visible. Making a child view invisible means it does not occupy any space from the standpoint of the layout that contains it, so the layout will distribute the space the view occupied when visible among other views. When the view becomes visible again it is given back the same space. If the view has no parent, setting this to true has the same effect as [front](#front), and setting it to false closes the window without destroying it.**Arguments:**
+ Gets or sets whether the view is visible. Making a child view invisible means it does not occupy any space from the standpoint of the layout that contains it, so the layout will distribute the space the view occupied when visible among other views. When the view becomes visible again it is given back the same space. If the view has no parent, setting this to true has the same effect as [#-front](#-front), and setting it to false closes the window without destroying it.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean stating the visibility of the view. |  
 
+
 ### `front`
- If the view does not have a parent, displays it on the screen as a window (it has the same effect as setting [visible](#visible) to true), otherwise it has no effect.
+ If the view does not have a parent, displays it on the screen as a window (it has the same effect as setting [#-visible](#-visible) to true), otherwise it has no effect.
+
 ### `minimize`
  If the view is a window, hides it (only keep it present in the dock/taskbar/etc.).
+
 ### `unminimize`
  If the view is a window, restores the its previous state after being minimized.
+
 ### `fullScreen`
  If the view is a window, displays it full-screen.
+
 ### `endFullScreen`
  If the view is a window, restores its previous state after being displayed full-screen.
+
 ### `alwaysOnTop`
  If the view is a window, gets or sets whether it should always stay on top of other windows.**Arguments:**
 
@@ -85,20 +107,26 @@ Creates a new instance of View and makes it a child of another View or Window, e
 
 
 ### Size and position
+
 ### `bounds`
  Gets or sets both the position and the size of the view. The position is relative to the parent view's top-left corner. Some containers, such as HLayoutView and VLayoutView, will use only the width and height of a child view's bounds. The setter takes a Rect or a Point interpreted [as Rect](../Classes/Point.md#-asrect). The getter always returns a Rect.
+
 ### `absoluteBounds`
 **Returns:** A Rect describing the absolute position and the size of the view on the screen.
+
 ### `sizeHint`
 **Returns:** A Size describing the preferred size of the view to comfortably display its contents and allow useful interaction.
+
 ### `minSizeHint`
 **Returns:** A Size describing the minimum size of the view to be able to display its contents and allow any interaction.
+
 ### `maxSize`
  Set maximum allowed size of the view. The view will not be able to grow larger than this size, neither by user interaction nor programmatically.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `size` | A Size. |  
+
 
 ### `minSize`
  Set minimum allowed size of the view. The view will not be able to shrink smaller than this size, neither by user interaction nor programmatically.**Arguments:**
@@ -107,12 +135,14 @@ Creates a new instance of View and makes it a child of another View or Window, e
 |----------|-------------|
 | `size` | A Size. |  
 
+
 ### `fixedSize`
  Set both minimum and maximum allowed size of the view, thus making it non-resizable.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `size` | A Size. |  
+
 
 ### `fixedWidth`
  Set both minimum and maximum allowed width of the view, thus making it non-resizable.**Arguments:**
@@ -121,12 +151,14 @@ Creates a new instance of View and makes it a child of another View or Window, e
 |----------|-------------|
 | `width` | An Int. |  
 
+
 ### `fixedHeight`
  Set both minimum and maximum allowed height of the view, thus making it non-resizable.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `height` | An Int. |  
+
 
 ### `maxWidth`
  Set maximum allowed width of the view, the view will not be able to grow larger in width, neither by user interaction nor programmatically.**Arguments:**
@@ -135,12 +167,14 @@ Creates a new instance of View and makes it a child of another View or Window, e
 |----------|-------------|
 | `width` | An Int. |  
 
+
 ### `minWidth`
  Set minimum allowed width of the view, the view will not be able to shrink smaller in width, neither by user interaction nor programmatically.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `width` | An Int. |  
+
 
 ### `maxHeight`
  Set maximum allowed height of the view, the view will not be able to grow larger in height, neither by user interaction nor programmatically.**Arguments:**
@@ -149,12 +183,14 @@ Creates a new instance of View and makes it a child of another View or Window, e
 |----------|-------------|
 | `height` | An Int. |  
 
+
 ### `minHeight`
  Set minimum allowed height of the view, the view will not be able to shrink smaller in height, neither by user interaction nor programmatically.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `height` | An Int. |  
+
 
 ### `moveTo`
  Move the view to new position, preserving its size.**Arguments:**
@@ -164,6 +200,7 @@ Creates a new instance of View and makes it a child of another View or Window, e
 | `x` | An Int: the horizontal position of the new position. |  
 | `y` | An Int: the vertical position of the new position. |  
 
+
 ### `resizeTo`
  Resize the view, preserving its position.**Arguments:**
 
@@ -172,6 +209,7 @@ Creates a new instance of View and makes it a child of another View or Window, e
 | `width` | An Int: the new horizontal size of the view. |  
 | `height` | An Int: the new vertical size of the view. |  
 
+
 ### `resizeToBounds`
 **Arguments:**
 
@@ -179,8 +217,10 @@ Creates a new instance of View and makes it a child of another View or Window, e
 |----------|-------------|
 | `rect` | A Rect: the bounds to which the view will be resized. |  
 
+
 ### `resizeToHint`
- Resizes view to the bounds returned by [sizeHint](#sizehint).
+ Resizes view to the bounds returned by [#-sizeHint](#-sizehint).
+
 ### `resize`
  Determines what happens with the view's position and size when its parent is resized. See [GUI-Introduction#view](../Guides/GUI-Introduction.md#view) for further explanation.**Arguments:**
 
@@ -188,12 +228,14 @@ Creates a new instance of View and makes it a child of another View or Window, e
 |----------|-------------|
 | `` | An Int (1 to 9) defining the auto-resize behavior. See [Resize](../Reference/Resize.md) for a list of valid resize modes. |  
 
+
 ### `decorator`
  Get or set the decorator object, that automatically manages the positioning of new children of the view when they are created. See [GUI-Introduction#decorators](../Guides/GUI-Introduction.md#decorators) for further explanation.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An instance of a decorator class (e.g. FlowLayout). |  
+
 
 ### `addFlowLayout`
  A convenience method which sets decorator to a new instance of FlowLayout. See [FlowLayout](../Classes/FlowLayout.md) for examples.**Arguments:**
@@ -203,6 +245,7 @@ Creates a new instance of View and makes it a child of another View or Window, e
 | `margin` | A Point describing the [margin](../Classes/FlowLayout.md#-margin) of the FlowLayout. |  
 | `gap` | A Point describing the [gap](../Classes/FlowLayout.md#-gap) of the FlowLayout. |  
 **Returns:** The new FlowLayout instance.
+
 ### `flow`
  Creates a FlowView as a child of the view, and then evaluates the object given in the 'func' argument. It is most common to pass a Function for 'func' in which the FlowView is filled with other child views.**Arguments:**
 
@@ -211,12 +254,14 @@ Creates a new instance of View and makes it a child of another View or Window, e
 | `func` | The object that will be evaluated after the creation of the FlowView, passing the new FlowView instance as an argument. |  
 | `bounds` | A Rect to set as the bounds of the FlowView, or nil, implying the size of this view and position (0,0). After 'func' is evaluated, the FlowView will be resized to fit its contents and cast away any extra space it occupies. |  
 **Returns:** The new FlowView instance.
+
 ### `layout`
  Get or set the layout object, that automatically manages the position and the size of the children of the view dynamically, in relation to the view's size. See [GUI-Introduction#layouts](../Guides/GUI-Introduction.md#layouts) for further explanation.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An instance of a subclass of Layout. |  
+
 
 ### `mapToGlobal`
  Map a point relative to this view's top-left to absolute position on screen.**Arguments:**
@@ -227,6 +272,7 @@ Creates a new instance of View and makes it a child of another View or Window, e
 **Returns:** A Point describing the same position, but relative to the screen.
 
 ### Appearance
+
 ### `name`
  If the view is a window, sets its title**Arguments:**
 
@@ -234,12 +280,14 @@ Creates a new instance of View and makes it a child of another View or Window, e
 |----------|-------------|
 | `` | A String containing text for the window title. |  
 
+
 ### `alpha`
  If the view is a window, this controls its transparency.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `aFloat` | A Float between 0.0 (invisible) and 1.0 (opaque). |  
+
 
 ### `font`
 
@@ -251,6 +299,7 @@ Creates a new instance of View and makes it a child of another View or Window, e
 |----------|-------------|
 | `` | A Font. |  
 
+
 ### `background`
  Get or set the color of whatever is considered the background of the view.**Arguments:**
 
@@ -258,14 +307,15 @@ Creates a new instance of View and makes it a child of another View or Window, e
 |----------|-------------|
 | `` | A Color. |  
 
+
 ### `backgroundImage`
-Sets an Image as the view background. If you need more functionality, use [setBackgroundImage](#setbackgroundimage).**Arguments:**
+Sets an Image as the view background. If you need more functionality, use [#-setBackgroundImage](#-setbackgroundimage).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `image` | the Image to use. It will be fixed to the top left corner of the view. |  
 
-```supercollider
+```
 (
     ~bounds = Rect(10, 10, 150, 18);
     ~image = Image.new(SCDoc.helpSourceDir +/+ "images/Swamp.png");
@@ -276,6 +326,7 @@ Sets an Image as the view background. If you need more functionality, use [setBa
     ~image.free;
 )
 ```
+
 
 
 ### `setBackgroundImage`
@@ -289,7 +340,7 @@ Sets an Image as a valid view background, with 16 different drawing modes and op
 | `alpha` | opacity of the image. 0 <= alpha <= 1, and values outside of that range will be clipped |  
 | `fromRect` | the portion of the image to use. If nil, use the full image. |  
 
-```supercollider
+```
 (
     ~alpha = 1.0;
     ~image = Image.new(SCDoc.helpSourceDir +/+ "images/Swamp.png");
@@ -333,6 +384,7 @@ Sets an Image as a valid view background, with 16 different drawing modes and op
 ```
 
 
+
 ### `focusColor`
  Get or set the color used to display keyboard focus on the view.**Arguments:**
 
@@ -340,9 +392,10 @@ Sets an Image as a valid view background, with 16 different drawing modes and op
 |----------|-------------|
 | `` | A Color. |  
 
+
 ### `palette`
  Get or set the palette to be used by the view. When setting a palette, only those colors that have been set on the palette will take effect, other colors will be inherited from the parent view's palette. See also [QPalette#-hasColor](../Classes/QPalette.md#-hascolor). When getting a palette, it will return a new copy of the view's palette every time. Therefore, if you wish to change the view's palette, you have to set the changed palette back on the view:
-```supercollider
+```
     w = Window().front.layout_(HLayout(a = Slider()));
     a.action = { |a|
         a.palette = a.palette.buttonText_(if(a.value > 0.5){ Color.red }{ Color.green });
@@ -351,7 +404,7 @@ Sets an Image as a valid view background, with 16 different drawing modes and op
 ```
 
  To dynamically modify the view's palette, it is thus more efficient, if possible, to keep a palette instance to operate on. Note that this is also more efficient than using methods like [Slider#-knobColor](../Classes/Slider.md#-knobcolor), since internally they use the above approach:
-```supercollider
+```
     w = Window().front.layout_(HLayout(a = Slider()));
     p = QPalette();
     a.action = { |a|
@@ -366,16 +419,19 @@ Sets an Image as a valid view background, with 16 different drawing modes and op
 |----------|-------------|
 | `` | A QPalette. |  
 
+
 ### `refresh`
  Redraws the view and all its children.
 
 ### Common behavior
+
 ### `userCanClose`
  If the view is a window, sets or gets whether the user can close it via mouse or key actions.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
+
 
 ### `deleteOnClose`
  Sets or gets whether the view should be destroyed when closed.**Arguments:**
@@ -384,12 +440,14 @@ Sets an Image as a valid view background, with 16 different drawing modes and op
 |----------|-------------|
 | `` | A Boolean. |  
 
+
 ### `enabled`
  Sets or gets whether the view allows the user to interact with it. Usually, when a view is disabled it will be displayed differently (typically it will be greyed out).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
+
 
 ### `canFocus`
  Sets or gets whether the view can receive keyboard focus.**Arguments:**
@@ -398,6 +456,7 @@ Sets an Image as a valid view background, with 16 different drawing modes and op
 |----------|-------------|
 | `` | A Boolean. |  
 
+
 ### `focus`
  If 'flag' is true, gives keyboard focus to the view (if possible), otherwise removes the keyboard focus from it.**Arguments:**
 
@@ -405,8 +464,10 @@ Sets an Image as a valid view background, with 16 different drawing modes and op
 |----------|-------------|
 | `flag` | A Boolean. |  
 
+
 ### `hasFocus`
 **Returns:** A Boolean, stating whether the view currently has the keyboard focus.
+
 ### `acceptsMouse`
  Sets or gets whether the view responds to mouse interaction. If `false`, the view will be completely transparent for mouse and interaction will be possible with any view under. Defaults to `true`.**Arguments:**
 
@@ -414,8 +475,9 @@ Sets an Image as a valid view background, with 16 different drawing modes and op
 |----------|-------------|
 | `` | A Boolean. |  
 
+
 ### `acceptsMouseOver`
- If this is a top view, this variable defines whether the view and all its children receive mouse-over events. The default is `false`. See also: [mouseOverAction](#mouseoveraction).**Arguments:**
+ If this is a top view, this variable defines whether the view and all its children receive mouse-over events. The default is `false`. See also: [#-mouseOverAction](#-mouseoveraction).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -423,6 +485,7 @@ Sets an Image as a valid view background, with 16 different drawing modes and op
 
 
 ### Actions in general
+
 ### `action`
  Gets or sets the default action of the view, i.e. the object to be evaluated when the user interacts with the view in an essential way (e.g. a Button is clicked, a ListView item is selected, etc.).**Arguments:**
 
@@ -430,9 +493,12 @@ Sets an Image as a valid view background, with 16 different drawing modes and op
 |----------|-------------|
 | `func` | Any object to set as default action, usually a Function or a FunctionList. When evaluated, it will be passed the view as an argument. |  
 
+
 ### `doAction`
- Evaluates the default [action](#action).
+ Evaluates the default [action](#-action).
+
 ### `addAction`
+
 
 ### `removeAction`
  Adds/removes 'func' to or from the list of objects in the variable determined by 'selector'. If 'selector' is not an Array or a List, it will become one, containing the previous object plus 'func'. This is useful for adding functionality to existing frameworks that have action functions already.**Arguments:**
@@ -466,18 +532,25 @@ When the mouse action object is evaluated, it is passed one or more arguments fr
 - **clickCount** - the number of clicks within the system click time limit. At least 1.
 
 
+
 ### `mouseDownAction`
  The object to be evaluated when a mouse button is pressed on the view. The following arguments are passed at evaluation: **view, x, y, modifiers, buttonNumber, clickCount**. See [#Mouse actions](#mouse-actions) for explanation of arguments. The return value of evaluation controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details.
+
 ### `mouseUpAction`
  The object to be evaluated when a mouse button is released after it was pressed on the view. The following arguments are passed at evaluation: **view, x, y, modifiers, buttonNumber**. See [#Mouse actions](#mouse-actions) for explanation of arguments. The return value of evaluation controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details.
+
 ### `mouseMoveAction`
  The object to be evaluated whenever the mouse pointer moves after a mouse button was pressed on the view. The following arguments are passed at evaluation: **view, x, y, modifiers**. See [#Mouse actions](#mouse-actions) for explanation of arguments. The return value of evaluation controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details.
+
 ### `mouseOverAction`
- The object to be evaluated when the mouse pointer moves over the view with no mouse buttons pressed. The following arguments are passed at evaluation: **view, x, y**. See [#Mouse actions](#mouse-actions) for explanation of arguments. The object is evaluated only when [Window#-acceptsMouseOver](../Classes/Window.md#-acceptsmouseover) of the containing Window (or [acceptsMouseOver](#acceptsmouseover) of the top View) is `true`. The return value of evaluation controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details.
+ The object to be evaluated when the mouse pointer moves over the view with no mouse buttons pressed. The following arguments are passed at evaluation: **view, x, y**. See [#Mouse actions](#mouse-actions) for explanation of arguments. The object is evaluated only when [Window#-acceptsMouseOver](../Classes/Window.md#-acceptsmouseover) of the containing Window (or [#-acceptsMouseOver](#-acceptsmouseover) of the top View) is `true`. The return value of evaluation controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details.
+
 ### `mouseWheelAction`
  The object to be evaluated when the mouse wheel is used while the mouse is pointing onto the view. The following arguments are passed at evaluation: **view, x, y, modifiers, xDelta, yDelta**. See [#Mouse actions](#mouse-actions) for explanation of arguments. The xDelta and yDelta arguments express rotation in horizontal and vertical direction, respectively. The value is in degrees (typically, an event occurs every 15 degrees), and can be positive or negative, depending on the direction of rotation. The return value of evaluation controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details.
+
 ### `mouseEnterAction`
  The object to be evaluated when the mouse pointer enters the view. The following arguments are passed at evaluation: **view, x, y**. See [#Mouse actions](#mouse-actions) for explanation of arguments.
+
 ### `mouseLeaveAction`
  The object to be evaluated when the mouse pointer leaves the view. The following arguments are passed at evaluation: **view, x, y**. See [#Mouse actions](#mouse-actions) for explanation of arguments.
 
@@ -501,9 +574,10 @@ When the key action object is evaluated, it is passed one or more arguments from
 - **key** - An Integer denoting a key, corresponding to the "Key" enum of the Qt C++ API. Comparing this value is the most reliable way to check which key was pressed. For a list of possible values, see: [http://qt-project.org/doc/qt-4.8/qt.html#Key-enum](http://qt-project.org/doc/qt-4.8/qt.html#Key-enum).
 
 
+
 ### `keyDownAction`
- The object to be evaluated when a key is pressed. The following arguments are passed at evaluation: **view, char, modifiers, unicode, keycode, key**. See [#Key actions](#key-actions) for explanation of arguments. The return value of evaluation controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details. If no `keyDownAction` is set, [defaultKeyDownAction](#defaultkeydownaction) is called instead, and its return value controls the event propagation.
-```supercollider
+ The object to be evaluated when a key is pressed. The following arguments are passed at evaluation: **view, char, modifiers, unicode, keycode, key**. See [#Key actions](#key-actions) for explanation of arguments. The return value of evaluation controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details. If no `keyDownAction` is set, [#-defaultKeyDownAction](#-defaultkeydownaction) is called instead, and its return value controls the event propagation.
+```
 // open a new document that posts the parameters passed into the keydownAction function.
 (
 Document("test arguments").keyDownAction = { |doc, char, mod, unicode, keycode, key|
@@ -513,22 +587,28 @@ Document("test arguments").keyDownAction = { |doc, char, mod, unicode, keycode, 
 ```
 
 
+
 ### `keyUpAction`
- The object to be evaluated when a key is released. The following arguments are passed at evaluation: **view, char, modifiers, unicode, keycode, key**. See [#Key actions](#key-actions) for explanation of arguments. The return value of evaluation controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details. If no `keyUpAction` is set, [defaultKeyUpAction](#defaultkeyupaction) is called instead, and its return value controls the event propagation.
+ The object to be evaluated when a key is released. The following arguments are passed at evaluation: **view, char, modifiers, unicode, keycode, key**. See [#Key actions](#key-actions) for explanation of arguments. The return value of evaluation controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details. If no `keyUpAction` is set, [#-defaultKeyUpAction](#-defaultkeyupaction) is called instead, and its return value controls the event propagation.
+
 ### `keyModifiersChangedAction`
  The object to be evaluated when a modifier key is pressed or released. The following arguments are passed at evaluation: **view, modifiers**.
 
 ### Drag and drop
 Use the methods below to define or override how the view handles drag&drop operations.
 
+
 ### `beginDragAction`
- Sets or gets the object evaluated when a drag&drop operation is initiated. At evaluation, the following arguments will be passed: **view, x, y**. The view expects an object to be returned which will become the data subject to the drag&drop operation. Returning nil will prevent the drag&drop operation to begin. If this variable is nil (the default) the view's [defaultGetDrag](#defaultgetdrag) method is called instead.
+ Sets or gets the object evaluated when a drag&drop operation is initiated. At evaluation, the following arguments will be passed: **view, x, y**. The view expects an object to be returned which will become the data subject to the drag&drop operation. Returning nil will prevent the drag&drop operation to begin. If this variable is nil (the default) the view's [#-defaultGetDrag](#-defaultgetdrag) method is called instead.
+
 ### `canReceiveDragHandler`
- Sets or gets the object evaluated when the mouse pointer moves over the view while a drag&drop operation is taking place. At evaluation, the following arguments will be passed: **view, x, y**. The view expects the [drag&drop data](#*currentdrag) to be examined, and a Boolean returned stating whether the view can make use of that data. If true is returned, the data may be dropped on the view, otherwise the drop event will not be handled by this view. If this variable is nil (the default) the view's [defaultCanReceiveDrag](#defaultcanreceivedrag) method is called instead.
+ Sets or gets the object evaluated when the mouse pointer moves over the view while a drag&drop operation is taking place. At evaluation, the following arguments will be passed: **view, x, y**. The view expects the [drag&drop data](#*currentdrag) to be examined, and a Boolean returned stating whether the view can make use of that data. If true is returned, the data may be dropped on the view, otherwise the drop event will not be handled by this view. If this variable is nil (the default) the view's [#-defaultCanReceiveDrag](#-defaultcanreceivedrag) method is called instead.
+
 ### `receiveDragHandler`
- Sets or gets the object evaluated when a drag&drop operation finishes on this view. At evaluation, the following arguments will be passed: **view, x, y**. The [drag&drop data](#*currentdrag) is expected to be applied to the view in some way. If this variable is nil (the default) the view's [defaultReceiveDrag](#defaultreceivedrag) method is called instead.
+ Sets or gets the object evaluated when a drag&drop operation finishes on this view. At evaluation, the following arguments will be passed: **view, x, y**. The [drag&drop data](#*currentdrag) is expected to be applied to the view in some way. If this variable is nil (the default) the view's [#-defaultReceiveDrag](#-defaultreceivedrag) method is called instead.
+
 ### `dragLabel`
- Sets or gets the text displayed by the mouse pointer during the drag&drop operation. It is expected to be set while handling the beginning of the operation, i.e. in [beginDragAction](#begindragaction) or [defaultGetDrag](#defaultgetdrag).**Arguments:**
+ Sets or gets the text displayed by the mouse pointer during the drag&drop operation. It is expected to be set while handling the beginning of the operation, i.e. in [#-beginDragAction](#-begindragaction) or [#-defaultGetDrag](#-defaultgetdrag).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -539,7 +619,7 @@ Use the methods below to define or override how the view handles drag&drop opera
 These methods are used to add context menu and shortcut key support to a View.
 
 
-```supercollider
+```
 (
 View().layout_(HLayout(
     ~text = StaticText().string_("Right-click me").minWidth_(100)
@@ -554,6 +634,7 @@ View().layout_(HLayout(
 ```
 
 
+
 ### `setContextMenuActions`
  Set the [MenuAction](../Classes/MenuAction.md)s that should appear in the context menu for this view. This implicitly calls [View#-enableContextMenu](../Classes/View.md#-enablecontextmenu).**Arguments:**
 
@@ -561,12 +642,14 @@ View().layout_(HLayout(
 |----------|-------------|
 | `` | A list of one or more [MenuAction](../Classes/MenuAction.md)s. These will be shown when the context menu for this View is invoked by right-clicking.  In addition, the shortcut keys for these actions will be active in the context of this View. Calling this method with no actions will remove all context menus. |  
 
+
 ### `enableContextMenu`
  Enablement of context menu support for this View. If true and actions are attached, a right click will show the context menu. This property can enable and disable context menu support for a View without removing the attached actions.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean |  
+
 
 ### `insertMenuAction`
  Insert a [MenuAction](../Classes/MenuAction.md) into the list of attached actions.**Arguments:**
@@ -576,6 +659,7 @@ View().layout_(HLayout(
 | `action` | A [MenuAction](../Classes/MenuAction.md) to add. |  
 | `addBefore` | A [MenuAction](../Classes/MenuAction.md) or integer index value. The action will be inserted **before** this item in the list. By default, actions are inserted at the end of the list. |  
 
+
 ### `removeMenuAction`
  Remove a [MenuAction](../Classes/MenuAction.md) from the list of attached actions.**Arguments:**
 
@@ -583,8 +667,10 @@ View().layout_(HLayout(
 |----------|-------------|
 | `action` | A [MenuAction](../Classes/MenuAction.md) to add. |  
 
+
 ### `removeAllMenuActions`
  Remove all [MenuAction](../Classes/MenuAction.md)s from the view.
+
 ### `enableContextMenu`
  Enablement of context menu support for this View. If true and actions are attached, a right click will show the context menu. This property can enable and disable context menu support for a View without removing the attached actions.**Arguments:**
 
@@ -594,20 +680,27 @@ View().layout_(HLayout(
 
 
 ### Other actions and hooks
+
 ### `focusGainedAction`
  Sets or gets the object to be evaluated when the view gains the keyboard focus. It is passed the view as an argument.
+
 ### `focusLostAction`
  Sets or gets the object to be evaluated when the view looses the keyboard focus. It is passed the view as an argument.
+
 ### `toFrontAction`
  Sets or gets the object to be evaluated when the view becomes the active window. It is passed the view as an argument.
+
 ### `endFrontAction`
  Sets or gets the object to be evaluated when the view becomes the active window. It is passed the view as an argument.
+
 ### `onResize`
  Sets or gets the object to be evaluated when the view changes its size. It is passed the view as an argument.
+
 ### `onMove`
  Sets or gets the object to be evaluated when the view changes position relatively to its parent. It is passed the view as an argument.
+
 ### `onClose`
- Sets or gets the object to be evaluated when the view is destroyed (i.e. [closed](#close) or [removed](#remove)). It is passed the view as an argument.
+ Sets or gets the object to be evaluated when the view is destroyed (i.e. [closed](#-close) or [removed](#-remove)). It is passed the view as an argument.
 
 ### Handlers
 
@@ -616,72 +709,90 @@ View().layout_(HLayout(
 
 The following methods are the default handlers of key press and release events.
 
+
 ### `defaultKeyDownAction`
- The method called when a key is pressed and [keyDownAction](#keydownaction) is nil. Subclass it to define your own functionality on key presses. See [#Key actions](#key-actions) for explanation of arguments. The return value controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details.
+ The method called when a key is pressed and [#-keyDownAction](#-keydownaction) is nil. Subclass it to define your own functionality on key presses. See [#Key actions](#key-actions) for explanation of arguments. The return value controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details.
+
 ### `defaultKeyUpAction`
- The method called when a key is released and [keyUpAction](#keyupaction) is nil. Subclass it to define your own functionality on key-release. See [#Key actions](#key-actions) for explanation of arguments. The return value controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details.
+ The method called when a key is released and [#-keyUpAction](#-keyupaction) is nil. Subclass it to define your own functionality on key-release. See [#Key actions](#key-actions) for explanation of arguments. The return value controls the event propagation to parent view. See [#Key and mouse event processing](#key-and-mouse-event-processing) for details.
+
 ### `keyDown`
  Handles response to a key press event. First evaluates [#*globalKeyDownAction](#*globalkeydownaction).
 > **Note:** This method directly triggers the action and returns, forwarding the action's return value. See [#Key actions](#key-actions) for detailed explanation.
 
  See [#Key actions](#key-actions) for explanation of arguments.**Returns:** A Boolean, stating whether the event was handled or not (and will not or will propagate to the parent view, respectively), or the view, in which case it lets the Qt view implementation handle the event.
+
 ### `keyUp`
- Handles response to a key release event. Sets [keyTyped](#keytyped) to 'char', evaluates [#*globalKeyUpAction](#*globalkeyupaction), and then calls [handleKeyUpBubbling](#handlekeyupbubbling).
+ Handles response to a key release event. Sets [#-keyTyped](#-keytyped) to 'char', evaluates [#*globalKeyUpAction](#*globalkeyupaction), and then calls [#-handleKeyUpBubbling](#-handlekeyupbubbling).
 > **Note:** This method directly triggers the action and returns, forwarding the action's return value. See [#Key actions](#key-actions) for detailed explanation.
 
  See [#Key actions](#key-actions) for explanation of arguments.**Returns:** A Boolean, stating whether the event was handled or not (and will not or will propagate to the parent view, respectively), or the view, in which case it lets the Qt view implementation handle the event.
+
 ### `keyModifiersChanged`
- Handles response to a modifier key press or release event. Calls [handleKeyModifiersChangedBubbling](#handlekeymodifierschangedbubbling).
-> **Note:** Instead of calling [handleKeyModifiersChangedBubbling](#handlekeymodifierschangedbubbling), a modifier key press or release event also produces a normal key press or release event, and it is the handling of those events that will determine propagation to the parent.
+ Handles response to a modifier key press or release event. Calls [#-handleKeyModifiersChangedBubbling](#-handlekeymodifierschangedbubbling).
+> **Note:** Instead of calling [#-handleKeyModifiersChangedBubbling](#-handlekeymodifierschangedbubbling), a modifier key press or release event also produces a normal key press or release event, and it is the handling of those events that will determine propagation to the parent.
 
  See [#Key actions](#key-actions) for explanation of arguments.
+
 ### `keyTyped`
  An instance variable containing the key just typed (after it is released).
+
 ### `mouseDown`
- Handles response to a mouse button press event. Evaluates [mouseDownAction](#mousedownaction). See [#Mouse actions](#mouse-actions) for explanation of arguments.
+ Handles response to a mouse button press event. Evaluates [#-mouseDownAction](#-mousedownaction). See [#Mouse actions](#mouse-actions) for explanation of arguments.
+
 ### `mouseUp`
- Handles response to a mouse button release event. Evaluates [mouseDownAction](#mousedownaction). See [#Mouse actions](#mouse-actions) for explanation of arguments.
+ Handles response to a mouse button release event. Evaluates [#-mouseDownAction](#-mousedownaction). See [#Mouse actions](#mouse-actions) for explanation of arguments.
+
 ### `mouseMove`
- Handles response to mouse pointer moving after a mouse button has been pressed on the view. Evaluates [mouseMoveAction](#mousemoveaction). See [#Mouse actions](#mouse-actions) for explanation of arguments.
+ Handles response to mouse pointer moving after a mouse button has been pressed on the view. Evaluates [#-mouseMoveAction](#-mousemoveaction). See [#Mouse actions](#mouse-actions) for explanation of arguments.
+
 ### `mouseOver`
- Handles response to mouse pointer moving over the view with no mouse buttons pressed. Evaluates [mouseOverAction](#mouseoveraction). This method is called only if [Window#-acceptsMouseOver](../Classes/Window.md#-acceptsmouseover) of the containing Window (or, [acceptsMouseOver](#acceptsmouseover) of the top View) is `true`. See [#Mouse actions](#mouse-actions) for explanation of arguments.
+ Handles response to mouse pointer moving over the view with no mouse buttons pressed. Evaluates [#-mouseOverAction](#-mouseoveraction). This method is called only if [Window#-acceptsMouseOver](../Classes/Window.md#-acceptsmouseover) of the containing Window (or, [#-acceptsMouseOver](#-acceptsmouseover) of the top View) is `true`. See [#Mouse actions](#mouse-actions) for explanation of arguments.
+
 ### `mouseEnter`
- Handles response to mouse pointer entering the view. Evaluates [mouseEnterAction](#mouseenteraction).
+ Handles response to mouse pointer entering the view. Evaluates [#-mouseEnterAction](#-mouseenteraction).
+
 ### `mouseLeave`
- Handles response to mouse pointer leaving the view. Evaluates [mouseLeaveAction](#mouseleaveaction).
+ Handles response to mouse pointer leaving the view. Evaluates [#-mouseLeaveAction](#-mouseleaveaction).
+
 ### `defaultGetDrag`
 
 > **Note:** Not yet implemented
 
  The view's default method to determine the content of the drag&drop operation just initiated.**Returns:** The object to be set as [#*currentDrag](#*currentdrag). If nil is returned, the drag&drop operation will not begin.
+
 ### `defaultCanReceiveDrag`
 
 > **Note:** Not yet implemented
 
  The view's default evaluation whether the content of the ongoing drag&drop operation can be accepted.**Returns:** A Boolean stating whether [#*currentDrag](#*currentdrag) is useful. If false is returned, the drop will not be handled by this view.
+
 ### `defaultReceiveDrag`
 
 > **Note:** Not yet implemented
 
  The view's default handling of the data dropped on it (stored in [#*currentDrag](#*currentdrag)).
+
 ### `beginDrag`
- Handles initiation of a drag&drop operation. Evaluates [beginDragAction](#begindragaction) or calls [defaultGetDrag](#defaultgetdrag) if the former is nil, then stores the object returned into [#*currentDrag](#*currentdrag), and the object interpreted as ["compile string"](../Classes/Object.md#-ascompilestring) into [#*currentDragString](#*currentdragstring). Returns whether [#*currentDrag](#*currentdrag) is not nil.**Arguments:**
+ Handles initiation of a drag&drop operation. Evaluates [#-beginDragAction](#-begindragaction) or calls [#-defaultGetDrag](#-defaultgetdrag) if the former is nil, then stores the object returned into [#*currentDrag](#*currentdrag), and the object interpreted as ["compile string"](../Classes/Object.md#-ascompilestring) into [#*currentDragString](#*currentdragstring). Returns whether [#*currentDrag](#*currentdrag) is not nil.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `x` | Current horizontal position of the mouse pointer. |  
 | `y` | Current vertical position of the mouse pointer. |  
 **Returns:** A Boolean stating whether the drag&drop operation shall begin.
+
 ### `canReceiveDrag`
- Handles evaluation whether the view can accept the current drag&drop data. Evaluates [canReceiveDragHandler](#canreceivedraghandler) or calls [defaultCanReceiveDrag](#defaultcanreceivedrag) if the former is nil, then forwards the return value.**Arguments:**
+ Handles evaluation whether the view can accept the current drag&drop data. Evaluates [#-canReceiveDragHandler](#-canreceivedraghandler) or calls [#-defaultCanReceiveDrag](#-defaultcanreceivedrag) if the former is nil, then forwards the return value.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `x` | Current horizontal position of the mouse pointer. |  
 | `y` | Current vertical position of the mouse pointer. |  
 **Returns:** A Boolean stating whether the current drag&drop content can be dropped on the view.
+
 ### `receiveDrag`
- Handles the end of the drag&drop operation. Evaluates [receiveDragHandler](#receivedraghandler) or calls [defaultReceiveDrag](#defaultreceivedrag) if the former is nil, then sets [#*currentDrag](#*currentdrag) and [#*currentDragString](#*currentdragstring) to nil.**Arguments:**
+ Handles the end of the drag&drop operation. Evaluates [#-receiveDragHandler](#-receivedraghandler) or calls [#-defaultReceiveDrag](#-defaultreceivedrag) if the former is nil, then sets [#*currentDrag](#*currentdrag) and [#*currentDragString](#*currentdragstring) to nil.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

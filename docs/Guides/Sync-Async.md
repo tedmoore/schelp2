@@ -10,7 +10,7 @@ In SC2 this was relatively simple to handle. One scheduled synchronous tasks dur
 In SC3 the separation of language and synth apps creates a problem: How does one side know that the other has completed necessary tasks, or in other words, how does the left hand know if the right is finished? The flexibility gained by the new architecture introduces another layer of complexity, and an additional demand on the user.
 A simple way to deal with this is to execute code in blocks. In the following code, for instance, each block or line of code is dependent upon the previous one being completed.
 
-```supercollider
+```
 // Execute these one at a time
 
 // Boot the server
@@ -39,7 +39,7 @@ x = nil;
 In the previous example it was necessary to use interpreter variables (the variables a-z, which are declared at compile time) in order to refer to previously created objects in later blocks or lines of code. If one had declared a variable within a block of code (i.e. `var mySynth;`) then it would have only persisted within that scope. (See the helpfile [Scope](../Reference/Scope.md) for more detail.)
 This style of working, executing lines or blocks of code one at a time, can be very dynamic and flexible, and can be quite useful in a performance situation, especially when improvising. But it does raise the issues of scope and persistence. Another way around this that allows for more descriptive variable names is to use environment variables (i.e. names that begin with ~, so `~mysynth;` see the [Environment](../Classes/Environment.md) helpfile for details). However, in both methods you become responsible for making sure that objects and nodes do not persist when you no longer need them.
 
-```supercollider
+```
 (
 SynthDef("Help-SynthDef", { arg out = 0;
     Out.ar(out, PinkNoise.ar(0.1))
@@ -61,7 +61,7 @@ currentEnvironment.removeAt(\mysynth);
 
 But what if you want to have one block of code which contains a number of synchronous and asynchronous tasks. The following will cause an error, as the [SynthDef](../Classes/SynthDef.md) that the server needs has not yet been received.
 
-```supercollider
+```
 // Doing this all at once produces the error "FAILURE /s_new SynthDef not found"
 (
 var name;
@@ -77,7 +77,7 @@ Synth.new(name, s);
 
 A crude solution would be to schedule the dependant code for execution after a seemingly sufficient delay using a clock.
 
-```supercollider
+```
 // This one works since the def gets to the server app first
 (
 var name;
@@ -94,7 +94,7 @@ SystemClock.sched(0.05, {Synth.new(name, s);}); // create a Synth after 0.05 sec
 Although this works, it's not very elegant or efficient. What would be better would be to have the next thing execute immediately upon the previous thing's completion. To explore this, we'll look at an example which is already implemented.
 You may have realized that first example above was needlessly complex. SynthDef-play will do all of this compilation, sending, and Synth creation in one stroke of the enter key.
 
-```supercollider
+```
 // All at once
 (
 SynthDef("Help-SynthDef", { arg out = 0;
@@ -105,7 +105,7 @@ SynthDef("Help-SynthDef", { arg out = 0;
 
 Let's take a look at the method definition for SynthDef-play and see what it does.
 
-```supercollider
+```
     play { arg target,args,addAction=\addToTail;
         var synth, msg;
         target = target.asTarget;
@@ -120,7 +120,7 @@ Let's take a look at the method definition for SynthDef-play and see what it doe
 This might seem a little complicated if you're not used to mucking about in class definitions, but the important part is the second argument to `this.send(target.server, msg);`. This argument is a completion message, it is a message that the server will execute when the send action is complete. In this case it says create a synth node on the server which corresponds to the [Synth](../Classes/Synth.md) object I've already created, when and only when the def has been sent to the server app. (See the helpfile [Server-Command-Reference](../Reference/Server-Command-Reference.md) for details on messaging.)
 Many methods in SC have the option to include completion messages. Here we can use SynthDef-send to accomplish the same thing as SynthDef-play:
 
-```supercollider
+```
 // Compile, send, and start playing
 (
 SynthDef("Help-SynthDef", { arg out=0;
@@ -133,7 +133,7 @@ s.sendMsg("n_free", x);
 
 The completion message needs to be an OSC message, but it can also be some code which when evaluated returns one:
 
-```supercollider
+```
 // Interpret some code to return a completion message. The .value is needed.
 // This and the preceding example are essentially the same as SynthDef.play
 (
@@ -147,7 +147,7 @@ x.free;
 If you prefer to work in 'messaging' style, this is pretty simple. If you prefer to work in 'object' style, you can use the commands like `newMsg`, `setMsg`, etc. with objects to create appropriate server messages. The two proceeding examples show the difference. See the [NodeMessaging](../Guides/NodeMessaging.md) helpfile for more detail.
 In the case of [Buffer](../Classes/Buffer.md) objects a function can be used as a completion message. It will be evaluated and passed the [Buffer](../Classes/Buffer.md) object as an argument. This will happen after the [Buffer](../Classes/Buffer.md) object is created, but before the message is sent to the server. It can also return a valid OSC message for the server to execute upon completion.
 
-```supercollider
+```
 (
 SynthDef("help-Buffer",{ arg out=0, bufnum;
     Out.ar(
@@ -173,7 +173,7 @@ b.free;
 
 The main purpose of completion messages is to provide OSC messages for the server to execute immediately upon completion. In the case of [Buffer](../Classes/Buffer.md) there is essentially no difference between the following:
 
-```supercollider
+```
 (
 b = Buffer.alloc(s, 44100,
     completionMessage: { arg buffer; ("bufnum:" + buffer).postln; }
@@ -189,7 +189,7 @@ b = Buffer.alloc(s, 44100);
 
 One can also evaluate a function in response to a 'done' message, or indeed any other one, using an [OSCFunc](../Classes/OSCFunc.md). See its help file for details.
 
-```supercollider
+```
 (
 SynthDef("help-SendTrig",{
     SendTrig.kr(Dust.kr(1.0), 0, 0.9);

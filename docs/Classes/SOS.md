@@ -10,7 +10,7 @@
 
 A standard second order filter section. Filter coefficients are given directly rather than calculated for you. Formula is equivalent to:
 
-```supercollider
+```
 out(i) = (a0 * in(i)) + (a1 * in(i-1)) + (a2 * in(i-2)) + (b1 * out(i-1)) + (b2 * out(i-2))
 ```
 
@@ -18,6 +18,7 @@ out(i) = (a0 * in(i)) + (a1 * in(i-1)) + (a2 * in(i-2)) + (b1 * out(i-1)) + (b2 
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -36,7 +37,7 @@ out(i) = (a0 * in(i)) + (a1 * in(i-1)) + (a2 * in(i-2)) + (b1 * out(i-1)) + (b2 
 ## Examples
 
 
-```supercollider
+```
 // example: same as TwoPole
 (
 {

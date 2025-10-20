@@ -13,12 +13,14 @@ Layout is the abstract superclass of all layouts. Any layout can be installed on
 
 ## Instance Methods
 
+
 ### `spacing`
 The amount of empty pixels left between the managed views.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `spacing` | An integer representing the spacing in pixels. |  
+
 ### `margins`
 The amount of empty pixels left between the edges of the parent view and the managed children.**Arguments:**
 
@@ -29,7 +31,7 @@ The amount of empty pixels left between the edges of the parent view and the man
 ## Examples
 
 
-```supercollider
+```
 w = Window.new;
 w.layout = HLayout(TextView().string_("One"), TextView().string_("Two"));
 w.layout.spacing = 20;

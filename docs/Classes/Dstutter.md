@@ -15,6 +15,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var freq, trig;

@@ -14,7 +14,7 @@ Subdivides each duration by each subdivision and yields that value n times. A su
 ## Examples
 
 
-```supercollider
+```
 (
 a = Psubdivide(
     Pseq(#[1,1,1,1,1,2,2,2,2,2,0,1,3,4,0], inf),
@@ -68,7 +68,7 @@ Routine({
 
 Frequencies like being divided too.
 
-```supercollider
+```
 (
 a = Psubdivide(
     Pseq(#[1,1,1,1,1,2,2,2,2,2,3,3,3,3,4,4,0,4,4], inf),

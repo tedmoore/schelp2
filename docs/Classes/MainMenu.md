@@ -15,7 +15,7 @@ This class allows control over items displayed in the sclang application-level m
 
 > **⚠️ Warning:** The behavior of this class changed in version 3.10.2. Menu items for controlling the process and servers will not be added and updated by default, as in versions 3.10.0 and 3.10.1. Those items can still be created by calling `initBuiltInMenus`. This behavior may change again in a future version.
 
-```supercollider
+```
 (
 ~testTone = MenuAction("Test Tone", {
     { SinOsc.ar(400) * 0.1 }.play;
@@ -33,10 +33,12 @@ MainMenu.unregister(~testTone); // to remove
 ## Class Methods
 
 
+
 ### `initBuiltInMenus`
  Initialize menu items under the main "SuperCollider" menu that enable process and server monitoring and control:- Stop - same as Cmd/Ctrl-Period
 - Servers - a submenu listing available servers, with items for controlling each. The default server will be noted, and selecting the name of a server in this menu will set it as the default.
 - Quit - quit sclang process
+
 
 ### `register`
  Register a MenuAction to a main application menu. This menu item will exist for the duration of the app, or until .unregister is called for the action.**Arguments:**
@@ -52,6 +54,7 @@ MainMenu.register provides an easy way to register global menu items, in a way t
 - Quarks
 - Help
  If registering menu items for a Quark, consider registering as a sub-menu of the Quarks menu. This can easily be done using the [#*registerQuarkMenu](#*registerquarkmenu) method.
+
 ### `registerQuarkMenu`
  Convenience method for registering a menu of functionality related to a Quark.  It will appear as a sub-menu under the main Quarks menu.**Arguments:**
 
@@ -59,6 +62,7 @@ MainMenu.register provides an easy way to register global menu items, in a way t
 |----------|-------------|
 | `quarkName` | A String, the name of the quark |  
 | `menu` | A [Menu](../Classes/Menu.md), a menu. |  
+
 
 ### `unregister`
  Remove a MenuAction that has been registered previously.
@@ -70,8 +74,10 @@ MainMenu.register provides an easy way to register global menu items, in a way t
 |----------|-------------|
 | `` | A MenuAction. |  
 
+
 ### `otherMenus`
  A list of menus to append to the set of main application menus.> **⚠️ Warning:** This is intended for standalone SuperCollider applications, and should not be used to register menus during normal SC usage.
+
 ### `add`
  Adds a menu to `otherMenus`.**Arguments:**
 
@@ -79,12 +85,14 @@ MainMenu.register provides an easy way to register global menu items, in a way t
 |----------|-------------|
 | `menu` | A [Menu](../Classes/Menu.md). |  
 
+
 ### `remove`
  Removes a menu to `otherMenus`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `menu` | A [Menu](../Classes/Menu.md). |  
+
 
 ### `insert`
  Inserts a menu in `otherMenus` at the given index.**Arguments:**
@@ -94,6 +102,7 @@ MainMenu.register provides an easy way to register global menu items, in a way t
 | `index` | Index. An [Integer](../Classes/Integer.md). |  
 | `menu` | A [Menu](../Classes/Menu.md). |  
 
+
 ### `clear`
  Clears `otherMenus`. The main application menus are unaffected.**Arguments:**
 
@@ -101,12 +110,13 @@ MainMenu.register provides an easy way to register global menu items, in a way t
 |----------|-------------|
 | `menu` | A [Menu](../Classes/Menu.md). |  
 
+
 ### `applicationMenu`
  The main SuperCollider application menu.> **⚠️ Warning:** This is intended for standalone SuperCollider applications, and should not be used to register menus during normal SC usage.
 ## Examples
 
 
-```supercollider
+```
 (
 ~show = MenuAction("Show Window", {
     ~window ?? {

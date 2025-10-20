@@ -14,6 +14,7 @@ The reported peak will always be positive, i.e. the absolute value  of the signa
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ The reported peak will always be positive, i.e. the absolute value  of the signa
 ## Examples
 
 
-```supercollider
+```
 (
 {
     SinOsc.ar(

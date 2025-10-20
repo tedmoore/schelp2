@@ -13,7 +13,7 @@ I've probably bored you enough with technical details, so let's get back to maki
 Let's go back to our sound example, or rather a slightly simplified version of it. Check that the localhost server is running, execute the code below and then press Cmd-. when you've had enough.
 
 
-```supercollider
+```
 { SinOsc.ar(440, 0, 0.2) }.play;
 ```
 
@@ -33,7 +33,7 @@ All classes begin with upper-case letters, so it's pretty easy to identify them 
 Classes are what you use to make objects. They're like a template. You do this through class methods such as 'new', or, in the case of our SinOsc class above, 'ar'. Such methods return an object, an instance, and the arguments affect what its data will be, and how it will behave. Now take another look at the example in question:
 
 
-```supercollider
+```
 SinOsc.ar(440, 0, 0.2)
 ```
 
@@ -59,7 +59,7 @@ Get the idea? There's also another similar arg called 'add' (also generally unex
 Okay, with all this in mind, let's review our example, with comments:
 
 
-```supercollider
+```
 (
 {             // Open the Function
     SinOsc.ar(    // Make an audio rate SinOsc
@@ -77,7 +77,7 @@ Okay, with all this in mind, let's review our example, with comments:
 Here's another example of polymorphism, and how powerful it is. When creating Functions of UGens, for many arguments you don't have to use fixed values, you can in fact use other UGens! Below is an example which demonstrates this:
 
 
-```supercollider
+```
 (
 { var ampOsc;
     ampOsc = SinOsc.kr(0.5, 1.5pi, 0.5, 0.5);
@@ -100,11 +100,11 @@ The phase of 1.5pi (this just means 1.5 * pi) means 3/4 of the way through its c
 ![Functions-and-Sound-04.png](Functions-and-Sound-04.png)
 And what we have in the end is a SinOsc that fades gently in and out. Shifting the phase just means that we start quiet and fade in. We're effectively using ampOsc as what is called an amplitude *envelope*. There are other ways of doing the same thing, some of them simpler, but this demonstrates the principle.
 
-Patching together UGens in this way is the basic way that you make sound in SC. For an overview of the various types of UGens available in SC, see [Browse / UGens ](../../Browse.md#ugens) or [Tour_of_UGens](../../Guides/Tour_of_UGens.md).
+Patching together UGens in this way is the basic way that you make sound in SC. For an overview of the various types of UGens available in SC, see [Browse#UGens](../../Browse.md#ugens) or [Tour_of_UGens](../../Guides/Tour_of_UGens.md).
 
 For more information see:
 
-[Functions](../../Reference/Functions.md), [Function](../../Classes/Function.md), [Browse / UGens ](../../Browse.md#ugens) [Tour_of_UGens](../../Guides/Tour_of_UGens.md)
+[Functions](../../Reference/Functions.md), [Function](../../Classes/Function.md), [Browse#UGens](../../Browse.md#ugens) [Tour_of_UGens](../../Guides/Tour_of_UGens.md)
 
 
 

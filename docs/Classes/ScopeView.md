@@ -18,21 +18,26 @@ It is optimized to efficiently perform frequent plotting of the contents of a [B
 
 ## Instance Methods
 
+
 ### `bufnum`
- The number of the Buffer to plot. To set up the ScopeView object for plotting, one needs to set a valid buffer number and tell a [ScopeOut2](../Classes/ScopeOut2.md) UGen to write to it. Before the view starts periodically plotting the buffer, however, one needs to assign it a [Server](../Classes/Server.md) object and call the [start](#start) method on it. If the ScopeOut2 UGen stops writing or an invalid buffer number is set, the plotting will pause.**Arguments:**
+ The number of the Buffer to plot. To set up the ScopeView object for plotting, one needs to set a valid buffer number and tell a [ScopeOut2](../Classes/ScopeOut2.md) UGen to write to it. Before the view starts periodically plotting the buffer, however, one needs to assign it a [Server](../Classes/Server.md) object and call the [#-start](#-start) method on it. If the ScopeOut2 UGen stops writing or an invalid buffer number is set, the plotting will pause.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An integer. |  
+
 ### `server`
  An instance of ScopeView must be assigned to a particular server for it to work.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A [Server](../Classes/Server.md) object |  
+
 ### `start`
- Tells the ScopeView object to start plotting.### `stop`
- Tells the ScopeView object to stop plotting. Plotting can be resumed anytime with the [#start](#start) method.### `style`
+ Tells the ScopeView object to start plotting.
+### `stop`
+ Tells the ScopeView object to stop plotting. Plotting can be resumed anytime with the [#start](#start) method.
+### `style`
  The plotting style:- 0 = the channels are vertically spaced
 - 1 = the channels are overlaid
 - 2 = lissajou; each pair of channels is used for 2D plotting (as streams of x and y coordinates).
@@ -41,36 +46,42 @@ It is optimized to efficiently perform frequent plotting of the contents of a [B
 | Argument | Description |
 |----------|-------------|
 | `` | One of the above Integers. |  
+
 ### `xZoom`
  The scaling factor on the horizontal axis.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
+
 ### `yZoom`
  The scaling factor on the vertical axis.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
+
 ### `x`
  The horizontal offset.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
+
 ### `y`
  The vertical offset.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
+
 ### `fill`
  Fill area under scope.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
+
 ### `waveColors`
  The colors used to plot each of the channels.**Arguments:**
 
@@ -83,7 +94,7 @@ It is optimized to efficiently perform frequent plotting of the contents of a [B
 
 ### A step-by-step example
 
-```supercollider
+```
 // boot the server (if not already booted)
 s.boot;
 
@@ -142,7 +153,7 @@ c.style = 2; // x/y
 This explains all the options:
 
 
-```supercollider
+```
 (
 s.waitForBoot({
     var func, sdef1, sdef2, syn1, syn2, startButton ;

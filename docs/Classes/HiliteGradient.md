@@ -17,6 +17,7 @@ A linear color fade between an outside and an inside color.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -31,7 +32,7 @@ A linear color fade between an outside and an inside color.
 ## Examples
 
 
-```supercollider
+```
 // basic usage
 (
 w = Window.new.front;

@@ -16,6 +16,7 @@ TWChoose is a composite of [TWindex](../Classes/TWindex.md) and [Select](../Clas
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -29,7 +30,7 @@ TWChoose is a composite of [TWindex](../Classes/TWindex.md) and [Select](../Clas
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a;

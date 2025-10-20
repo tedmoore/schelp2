@@ -21,6 +21,7 @@ Reads digital data from a digital sensor input (e.g.: a button or trigger input)
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -29,6 +30,7 @@ Reads digital data from a digital sensor input (e.g.: a button or trigger input)
 | `digitalPin` | Digital pin number to read. Pin numbers begin at 0. This value cannot be modulated. |  
 | `mul` |  |  
 | `add` |  |  
+
 
 ### `kr`
 **Arguments:**
@@ -42,7 +44,7 @@ Reads digital data from a digital sensor input (e.g.: a button or trigger input)
 ## Examples
 
 
-```supercollider
+```
 // turn on and off a sine oscillator
 
 (

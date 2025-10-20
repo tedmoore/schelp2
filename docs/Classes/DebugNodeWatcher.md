@@ -14,7 +14,7 @@ For debugging, it can be useful to see every node start and end. It doesn't requ
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 d = DebugNodeWatcher(s);

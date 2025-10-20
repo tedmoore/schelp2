@@ -13,13 +13,15 @@ Operating on functions instead of numbers, what results is not a result of the c
 
 ## Instance Methods
 
+
 ### `value`
-Executes each of the operand functions and then performs the selector on the result.### `valueArray`
-the same as [value](#value)
+Executes each of the operand functions and then performs the selector on the result.
+### `valueArray`
+the same as [#-value](#-value)
 ## Examples
 
 
-```supercollider
+```
 // example
 a = 5 + 7; // result is 12.
 a = { b } + 7; // result is  a BinaryOpFunction
@@ -31,7 +33,7 @@ a.value; // again, with a different value.
 
 
 
-```supercollider
+```
 // sound example
 (
 var a = { 19.rand };

@@ -14,6 +14,7 @@ Internally, the absolute value of the signal is used, to prevent underreporting 
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Internally, the absolute value of the signal is used, to prevent underreporting 
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 // no decay

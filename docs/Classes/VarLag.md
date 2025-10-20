@@ -14,6 +14,7 @@ Similar to [Lag](../Classes/Lag.md) but with other curve shapes than exponential
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -32,7 +33,7 @@ Similar to [Lag](../Classes/Lag.md) but with other curve shapes than exponential
 ## Examples
 
 
-```supercollider
+```
 (
 // used to lag pitch
 {
@@ -51,7 +52,7 @@ Similar to [Lag](../Classes/Lag.md) but with other curve shapes than exponential
 
 
 
-```supercollider
+```
 (
 x = play { |amp = 0, time = 0, curve = 0, warp = 5|
     PinkNoise.ar(VarLag.kr(amp, time, curve, warp) ! 2)

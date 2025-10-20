@@ -14,6 +14,7 @@ Cursor tracking UGen.
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ Cursor tracking UGen.
 ## Examples
 
 
-```supercollider
+```
 { SinOsc.ar(MouseY.kr(40, 10000, 1), 0, 0.1) }.play;
 ```
 

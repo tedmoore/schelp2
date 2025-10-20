@@ -13,6 +13,7 @@ Generates a single random integer value in uniform distribution from `lo` to `hi
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Generates a single random integer value in uniform distribution from `lo` to `hi
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-IRand", {
     Out.ar(

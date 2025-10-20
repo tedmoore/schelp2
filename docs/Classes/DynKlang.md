@@ -15,6 +15,7 @@ Unlike Klang, parameters in `specificationsArrayRef` can be changed after it has
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -35,7 +36,7 @@ Unlike Klang, parameters in `specificationsArrayRef` can be changed after it has
 ## Examples
 
 
-```supercollider
+```
 // frequency modulation
 (
 play {

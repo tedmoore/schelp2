@@ -21,6 +21,7 @@ EZKnob is wrapper class which creates an (optional) [StaticText](../Classes/Stat
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -41,7 +42,7 @@ EZKnob is wrapper class which creates an (optional) [StaticText](../Classes/Stat
 | `gap` | A [Point](../Classes/Point.md). By default, the view tries to get its parent's gap, otherwise it defaults to `2@2`. Setting it overrides these. |  
 | `margin` | A [Point](../Classes/Point.md). This will inset the bounds occupied by the subviews of view. |  
 
-```supercollider
+```
 (
 w = Window.new.front;
 g = EZKnob(w,        // parent
@@ -66,12 +67,16 @@ The contained views can be accessed via the EZKnob instance variables: `labelVie
 
 
 ### Accessing Instance Variables
+
 ### `numberView`
 **Returns:** the `numberView`
+
 ### `knobView`
 **Returns:** the `knobView`
+
 ### `labelView`
 Set/get the `labelView`
+
 ### `action`
 A function to be evaluated when the value changes. Te first argument will be the EZKnob.**Arguments:**
 
@@ -79,14 +84,19 @@ A function to be evaluated when the value changes. Te first argument will be the
 |----------|-------------|
 | `arg1` | An instance of [Function](../Classes/Function.md) or [FunctionList](../Classes/FunctionList.md). Default value is `nil`. |  
 
+
 ### `value`
 The value of the knob
+
 ### `centered`
 Sets/gets whether the knob is in centered mode. See [Knob](../Classes/Knob.md).
+
 ### `round`
 Rounds the values in the number box.
+
 ### `controlSpec`
 An instance of [ControlSpec](../Classes/ControlSpec.md) for scaling the values.
+
 ### `value`
 Gets/sets the list/menu to the index at value. Does not perform the action.**Arguments:**
 
@@ -94,10 +104,13 @@ Gets/sets the list/menu to the index at value. Does not perform the action.**Arg
 |----------|-------------|
 | `val` | An [Integer](../Classes/Integer.md). |  
 
+
 ### `doAction`
 Performs the action at the current index and the global action.
+
 ### `set`
 Set the args after creation. You can only set the label if it was not nil from the beginning.
+
 ### `visible`
 Sets/gets if the component views are visible.**Arguments:**
 
@@ -107,6 +120,7 @@ Sets/gets if the component views are visible.**Arguments:**
 
 
 ### Changing Appearance
+
 ### `setColors`
 **Arguments:**
 
@@ -121,6 +135,7 @@ Sets/gets if the component views are visible.**Arguments:**
 | `knobColors` | An instance of [Color](../Classes/Color.md). The `knobColors` of the knob view. |  
 | `background` | An instance of [Color](../Classes/Color.md). The `background` of the enclosing view. |  
 
+
 ### `font`
 Set the Font used by all the views.**Arguments:**
 
@@ -132,7 +147,7 @@ Set the Font used by all the views.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 (    // basic use
     w = Window.new.front;
     g = EZKnob(w, 50@90, " test  ", \freq, { |a| a.value.postln });

@@ -13,7 +13,7 @@ NdefMixer is nearly identical to [ProxyMixer](../Classes/ProxyMixer.md), except 
 ## Examples
 
 
-```supercollider
+```
 n = NdefMixer(s);
 n.parent.alwaysOnTop_(true); // show mixer in front of IDE
 

@@ -29,7 +29,7 @@ see [Node](../Classes/Node.md), [Synth](../Classes/Synth.md), and [Group](../Cla
 the equivalent of
 
 
-```supercollider
+```
 n = s.nextNodeID;
 s.sendMsg("/s_new", "default", n);
 s.sendMsg("/n_free", n);
@@ -39,7 +39,7 @@ s.sendMsg("/n_free", n);
 is
 
 
-```supercollider
+```
 n = Synth("default");
 n.free;
 ```
@@ -48,7 +48,7 @@ n.free;
 when passing arguments:
 
 
-```supercollider
+```
 n = s.nextNodeID;
 s.sendMsg("/s_new", "default", n, 0, 0, "freq", 850);
 s.sendMsg("/n_set", n, "freq", 500);
@@ -59,7 +59,7 @@ s.sendMsg("/n_free", n);
 it is
 
 
-```supercollider
+```
 n = Synth("default", [\freq, 850]);
 n.set(\freq, 500)
 n.free;
@@ -69,7 +69,7 @@ n.free;
 note that Symbols may be used instead of Strings:
 
 
-```supercollider
+```
 n = s.nextNodeID;
 s.sendMsg(\s_new, \default, n, 0, 0, \freq, 850);
 s.sendMsg(\n_set, n, \freq, 500);
@@ -80,7 +80,7 @@ s.sendMsg(\n_free, n);
 and:
 
 
-```supercollider
+```
 n = Synth(\default, [\freq, 850]);
 n.set(\freq, 500)
 n.free;
@@ -94,7 +94,7 @@ The encapsulation of node objects results in a certain generalization, meaning t
 In certain cases, such as for granular synthesis it is recommended to use messages directly, because there is no benefit to be gained from the node objects (i.e. no need to message them) and they add cpu load to the client side.
 
 
-```supercollider
+```
 (
 SynthDef("grain", {
     Out.ar(0, Line.kr(0.1, 0, 0.01, doneAction: Done.freeSelf) * FSinOsc.ar(12000))
@@ -123,7 +123,7 @@ Apart from such cases it is a matter of taste whether you want to use the combin
 Note that [Function-play](../Classes/Function.md#-play) and [SynthDef-play](../Classes/SynthDef.md#-play) return a synth object that can be used to send messages to.
 
 
-```supercollider
+```
 x = { arg freq=1000; Ringz.ar(Crackle.ar(1.95, 0.1), freq, 0.05) }.play(s);
 x.set(\freq, 1500);
 x.free;
@@ -136,7 +136,7 @@ x.free;
 Several node messages accept lists of values to map onto the controls of Synth nodes, as in some of the examples already given:
 
 
-```supercollider
+```
 s.sendMsg(\s_new, \default, n, 0, 0, \freq, 850);
 n = Synth(\default, [\freq, 850]);
 ```
@@ -145,7 +145,7 @@ n = Synth(\default, [\freq, 850]);
 Argument lists generally appear as alternating pairs, with the control identifier preceding the value. Usually the control identifier is a name, as above, but it could also be an integer index. (Using integers is slightly faster for the server, but it makes the code harder to read and can introduce bugs if the SynthDef structure changes.) One way to find out control indices is to .add the SynthDef into a [SynthDescLib](../Classes/SynthDescLib.md), then get the list of all controls out of the [SynthDesc](../Classes/SynthDesc.md).
 
 
-```supercollider
+```
     (
         SynthDef(\controlList, { |out = 0, freq = 440, amp = 0.1, detune = #[0.999, 1.001], gate = 1|
             var    sig = Mix(Saw.ar(freq * (detune ++ [1]), amp)),
@@ -161,7 +161,7 @@ Argument lists generally appear as alternating pairs, with the control identifie
 Prints:
 
 
-```supercollider
+```
 SynthDesc 'controlList'
 Controls:
 ControlName  P 0 freq control 440
@@ -179,7 +179,7 @@ The list shows that the 'freq' control has index 0, 'amp' is 1 and so on. Detune
 SynthDefs with a large number of controls may need a little extra code to print the entire list.
 
 
-```supercollider
+```
 SynthDescLib.global[\controlList].controls.do(_.postln); ""
 ```
 
@@ -191,7 +191,7 @@ Prior to SuperCollider 3.3, the only way to set array arguments by name was usin
 note the characters $[ and $] delimiting the array in the list:
 
 
-```supercollider
+```
 n = s.nextNodeID;
 s.sendMsg(\s_new, \controlList, n, 0, 0, \detune, $[, 0.95, 1.005, $], \freq, 220);
 s.sendMsg(\n_set, n, \gate, 0);
@@ -205,7 +205,7 @@ s.sendMsg(\n_set, n, \gate, 0);
 the Node object automatically inserts $[ and $] for you:
 
 
-```supercollider
+```
 n = Synth(\controlList, [\detune, [0.95, 1.005], \freq, 220]);
 n.set(\detune, [0.99, 1.01]);
 n.release;
@@ -219,7 +219,7 @@ n.release;
 Supplying an array for an argument in an event already has another meaning: multichannel expansion, in which a separate node is created for each array item. If all items of the array should be sent to the same node, then the array argument should be enclosed in another array level:
 
 
-```supercollider
+```
 (instrument: \controlList, freq: 220, detune: [[0.95, 1.005]], sustain: 2).play;
 ```
 

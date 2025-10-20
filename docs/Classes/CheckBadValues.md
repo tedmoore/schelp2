@@ -11,6 +11,7 @@ This [UGen](../Classes/UGen.md) tests for infinity, NaN (not a number), and deno
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ The default post mode is 2. Post mode 1 is retained for backward compatibility; 
 ## Examples
 
 
-```supercollider
+```
 { CheckBadValues.kr(SinOsc.ar); 0 }.play // nothing wrong here
 
 { CheckBadValues.kr(1 / 0, 1).poll; 0 }.play // check infinity

@@ -12,7 +12,7 @@ Generally a **proxy** is a placeholder for something. A node proxy is a placehol
 NodeProxy is used internally in [ProxySpace](../Classes/ProxySpace.md) and it is a superclass of [Ndef](../Classes/Ndef.md), allowing to easily access and combine a large number of placeholders.
 Graphical editor for a node proxy: [NdefGui](../Classes/NdefGui.md).
 
-> **Note:** NodeProxy plays on a *private bus*. If you want to **hear** the output, use [play](#play) and [stop](#stop). To free inner players and stop listen: [end](#end). Entirely removing all inner settings: [clear](#clear)
+> **Note:** NodeProxy plays on a *private bus*. If you want to **hear** the output, use [#-play](#-play) and [#-stop](#-stop). To free inner players and stop listen: [#-end](#-end). Entirely removing all inner settings: [#-clear](#-clear)
 
 
 
@@ -28,7 +28,7 @@ Graphical editor for a node proxy: [NdefGui](../Classes/NdefGui.md).
 
 ### First Example
 
-```supercollider
+```
 s.boot;
 
 a = NodeProxy.new.play; // play to hardware output.
@@ -54,9 +54,10 @@ b.clear(3);
 
 
 ### Creation
+
 ### `new`
 Return a new instance of NodeProxy.
-```supercollider
+```
 // new node proxy
 a = NodeProxy(s, \audio, 4);
 a.numChannels;
@@ -81,6 +82,7 @@ a.numChannels; // nil.
 ### Accessing Class Variables
 
 
+
 ### `defaultFadeTime`
 The overlap time between successive source replacements which all instances have by default. Each instance has its own value which can be set via `fadeTime_`.
 
@@ -90,6 +92,7 @@ The overlap time between successive source replacements which all instances have
 
 
 ### Listening to the output
+
 
 
 
@@ -104,9 +107,10 @@ releases the synths and stops playback.**Arguments:**
 
 ### Embedding and Combining the proxy
 
+
 ### `<--`
 Usage: **proxyA <-- proxyB**. Set proxyA source to proxyB and play proxyA. If proxyB was playing, fade it out. This is convenient in the following situation:
-```supercollider
+```
 b = NodeProxy.new.play;
 b.source = { PinkNoise.ar(0.2.dup) };
 // now I want to filter b through a new proxy.
@@ -117,14 +121,16 @@ a.clear; b.clear;
 ```
 
 
+
 ### `<<>`
 Chaining. Usage: **proxyA <<> proxyB    <<> proxyC <<> ...** . Map proxyC source to proxyB `\in` argument, and proxyB to proxyA's in argument.
-```supercollider
+```
 a = NodeProxy.new.play;
 a.source = { RLPF.ar(\in.ar(0!2), [4600, 7000], 0.1) };
 b = NodeProxy.new.source_ { Impulse.ar([5, 7] / 2) };
 a <<> b;
 ```
+
 
 
 ### `<>>`
@@ -135,9 +141,10 @@ NodeProxy keeps a number of slots which can be sources and are mixed on the same
 
 See the list under section [#Supported sources](#supported-sources)
 
+
 ### `source`
 Play a new synth through proxy and release/remove any old ones.
-```supercollider
+```
 a = NodeProxy(s);
 a.play;
 a.source = { Pulse.ar(130, Saw.kr(0.3)) * 0.1 }; // change this line while running
@@ -159,7 +166,7 @@ See also: [BusPlug#-ar](../Classes/BusPlug.md#-ar), [BusPlug#-value](../Classes/
 Here is a simple example, using Ndef (NodeProxy works similarly):
 
 
-```supercollider
+```
 Ndef(\maus, { MouseX.kr });
 Ndef(\haus, { Pan2.ar(Blip.ar(Ndef.kr(\maus, 1) * 70), SinOsc.kr(Ndef.ar(\maus, 1) * 5)) }).play;
 ```
@@ -172,7 +179,7 @@ Ndef(\haus, { Pan2.ar(Blip.ar(Ndef.kr(\maus, 1) * 70), SinOsc.kr(Ndef.ar(\maus, 
 With elastic reshaping, you can use the parent to expand the child, if you omit the number of channels in the routing:
 
 
-```supercollider
+```
 Ndef(\maus, { MouseX.kr });
 Ndef(\haus, { Blip.ar(Ndef.kr(\maus) * 70) }).play;
 Ndef(\haus).reshaping = \elastic;
@@ -190,7 +197,7 @@ Three parameters are automatically specified if they don't exist in a given UGen
 If a UGen function that is passed to the proxy has its own envelope, and if this envelope can free the synth, the node proxy uses this envelope instead of making its own. If you provide a `fadeTime` argument, the proxy's fadeTime will be used.
 
 
-```supercollider
+```
 Ndef(\sound).fadeTime = 3;
 (
 Ndef(\sound, { |fadeTime = 1, gate = 1|
@@ -203,9 +210,10 @@ Ndef(\sound, { |fadeTime = 1, gate = 1|
 
 
 ### Making copies
+
 ### `copy`
 copies the hidden internal state to make the new proxy independent of the old, but will keep the reference to the source object. The rendered SynthDef is cached, which makes this method more efficient than simply assigning the same function to a new proxy. By design, the monitor is copied, but is not running (use play to start it in the same configuration).
-```supercollider
+```
 a = NodeProxy(s);
 a.source = { |freq = 444| Blip.ar(freq * [1, 1.03], 200) * 0.1 };
 a.play;
@@ -219,7 +227,7 @@ b.set(\freq, 222);
 > **Note:** If needed, you can also copy parts of a proxy, such as the [Monitor](../Classes/Monitor.md) (which usually routes the output back onto hardware busses) and the [NodeMap](../Classes/NodeMap.md), which keeps a mapping and setting scope.
 
 
-```supercollider
+```
 s.scope(4);
 a = NodeProxy(s);
 a.source = { |freq = 234| Blip.ar(freq * [1, 1.03], 20) * 0.5 };
@@ -235,6 +243,7 @@ a.stop;
 ```
 
 
+
 ### `copyState`
 Copy the internal settings of one proxy into another. Old state is cleared.**Arguments:**
 
@@ -244,10 +253,11 @@ Copy the internal settings of one proxy into another. Old state is cleared.**Arg
 
 
 ### Reshaping
+
 ### `reshaping`
 Determines how to behave when a new source is added. Current options:| nil | Once initialized, keep the same bus - this is the default | 
 | --- | --- || \elastic | On a change, shrink and grow according to need, replace bus. The monitor and child proxies are adjusted. | | \expanding | On a change, only grow according to need, replace bus. The monitor and child proxies are adjusted. | 
-```supercollider
+```
 a = NodeProxy(s);
 a.reshaping = \elastic;
 a.play(0, 2); // play stereo
@@ -256,9 +266,10 @@ a.numChannels; // 8
 ```
 
 
+
 ### `mold`
-Adjust the proxy to a given rate / numChannels. If there are any child proxies that have elastic [reshaping](#reshaping), they are adjusted accordingly.
-```supercollider
+Adjust the proxy to a given rate / numChannels. If there are any child proxies that have elastic [#-reshaping](#-reshaping), they are adjusted accordingly.
+```
 a = NodeProxy(s);
 a.play;
 a.source = { BPF.ar(Impulse.ar({ rrand(1.0, 2.0) } ! a.numChannels), (0..5).nthPrime * 300, 0.01) * 20 };
@@ -270,14 +281,19 @@ a.numChannels; // 8
 
 
 ### Other ways to set or change the sources
+
 ### `prime`
-Set source without starting the synth. To start it, [send](#send) can be used later. Running synths are released and proxy is initialized if still neutral.
+Set source without starting the synth. To start it, [#-send](#-send) can be used later. Running synths are released and proxy is initialized if still neutral.
+
 ### `add`
 Add a new source to the present ones
+
 ### `removeAt`
 Remove the object at index i and its synths, if they exist. If no index is supplied, remove them all.
+
 ### `removeLast`
 Remove the last object and its synths, if they exist.
+
 ### `put`
 Set the source by index. Objects can be inserted at any index, only the order of indices is relevant. Internally, NodeProxy uses an [Order](../Classes/Order.md) to access the sources.**Arguments:**
 
@@ -287,8 +303,8 @@ Set the source by index. Objects can be inserted at any index, only the order of
 | `obj` | A valid source (see [#Supported sources](#supported-sources)). |  
 | `channelOffset` | using a multichannel setup it can be useful to set this, when the objects numChannels is smaller than the proxy |  
 | `extraArgs` | Arguments that can be sent with the object directly (not cached) |  
-| `now` | if set to false, only prepare the source and do not start the object (see [prime](#prime))
-```supercollider
+| `now` | if set to false, only prepare the source and do not start the object (see [#-prime](#-prime))
+```
 // put can be used with the array indexing syntax:
 a = NodeProxy.new.play;
 a[0] = { SinOsc.ar(Rand(200, 899)) * 0.1.dup };
@@ -303,16 +319,21 @@ a.clear;
 
 
 ### Controlling the running processes
+
 ### `pause`
 Pause all objects and set proxy to paused
+
 ### `resume`
 If paused, start all objects
+
 ### `rebuild`
 Rebuild all SynthDefs from sources.
+
 ### `orderNodes`
-Arrange the order of groups from this to the last. This can be important when external input is filtered in order to **minimize latency**. Note that if a [parentGroup](#parentgroup) was provided, the nodes must be in the same parentGroup.
+Arrange the order of groups from this to the last. This can be important when external input is filtered in order to **minimize latency**. Note that if a [#-parentGroup](#-parentgroup) was provided, the nodes must be in the same parentGroup.
 
 ### Release and cleaning up
+
 ### `free`
 Release all running synths and the group. If patterns are playing, stop them.**Arguments:**
 
@@ -321,6 +342,7 @@ Release all running synths and the group. If patterns are playing, stop them.**A
 | `fadeTime` | decay time for this action |  
 | `freeGroup` | a boolean |  
 
+
 ### `release`
 release running synths. If patterns are playing, stop them.**Arguments:**
 
@@ -328,12 +350,14 @@ release running synths. If patterns are playing, stop them.**Arguments:**
 |----------|-------------|
 | `fadeTime` | decay time for this action |  
 
+
 ### `clear`
 reset everything to nil, neutralizes rate/numChannels**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `fadeTime` | if a fadeTime is given, first fade out, then clear. |  
+
 
 ### `schedAfterFade`
 Calls a function after the fadeTime and server latency have passed. If the proxy specifies a `quant` value, the function is evaluated `fadeTime + latency` seconds after the next timepoint on the quant grid; otherwise, the fade delay begins immediately.**Arguments:**
@@ -344,48 +368,66 @@ Calls a function after the fadeTime and server latency have passed. If the proxy
 
 
 ### Accessing Instance Variables
+
 ### `sources`
 Returns an array of all sources
+
 ### `source`
 Returns the first source.
+
 ### `server`
 The node proxy's server (a [Server](../Classes/Server.md)).
+
 ### `bus`
 The node proxy's private bus (a [Bus](../Classes/Bus.md)). Because it has a private bus, it is not audible directly - monitoring it by (.play or playN) routes it to the hardware output channels.
+
 ### `rate`
 The bus rate (default: nil) The rate and number of channels is determined either when the instance is created (.control/.audio) or by lazy initialisation from the first source (see [JITLib/the_lazy_proxy](../Tutorials/JITLib/the_lazy_proxy.md))
+
 ### `numChannels`
 The bus numChannels (default: nil)
+
 ### `isNeutral`
 true if the proxy has no initialized bus.
+
 ### `group`
 The node proxy's group (a [Group](../Classes/Group.md)). This is maintained by the proxy and serves as a context in which all synths are placed.
+
 ### `parentGroup`
 Access the parentGroup (default: nil), which can be set to run the proxy's group in another group. This group has to be maintained (kept playing etc.) externally.
+
 ### `clock`
 A clock, which can be set to account for different timing schemes, such as beat accurate replacement of sources.
+
 ### `quant`
 A quant value, to specify quantizes replacement of sources. Compatible with the general use of quant in SuperCollider.
+
 ### `quantize`
 Synchronize the proxies by resending and adjusting to quant.
+
 ### `monitor`
 Access the [Monitor](../Classes/Monitor.md) object, which plays back the output of the proxy's private bus.
+
 ### `loaded`
 Returns true if the object has been initialized on the server, e.g. a synthDef has been stored.
+
 ### `paused`
 Returns true if the processes are paused.
+
 ### `awake`
-If set to false (default: true), a change of the source does not start a new synth immediately. This is useful when synths are triggered by [spawn](#spawn), and a change of sound should not duplicate sends.
+If set to false (default: true), a change of the source does not start a new synth immediately. This is useful when synths are triggered by [#-spawn](#-spawn), and a change of sound should not duplicate sends.
+
 ### `fadeTime`
 set the crossfade time. See: [JITLib/jitlib_fading](../Tutorials/JITLib/jitlib_fading.md) .
 
 ### Setting synth controls
+
 ### `set`, `map`, `setn`
 NodeProxy behaves like its [NodeMap](../Classes/NodeMap.md) and very similar to a [Synth](../Classes/Synth.md).
 > **Note:** Now the methods map, setn, mapn, and xmap are there just for backward compatibility reasons. Everything is done by set.
 
 
-```supercollider
+```
 a = NodeProxy(s); a.play;
 a.source = { Splay.ar(Blip.ar(\freq.kr(18 ! 4))) * 0.2 };
 a.set(\freq, [1, 3, 56, 13]);
@@ -409,6 +451,7 @@ a.clear; b.clear;
 **node proxy**
 : map subsequent control channels to the corresponding proxy output channel |  
 
+
 ### `seti`
 Set part of an arrayed control, analog to [Synth#-seti](../Classes/Synth.md#-seti).**Arguments:**
 
@@ -424,7 +467,7 @@ Set part of an arrayed control, analog to [Synth#-seti](../Classes/Synth.md#-set
 **value**
 : The new value to set, can be an array to set a range of elements. |  
 
-```supercollider
+```
 // 5 channel NodeProxy, for convenience initialized in an Ndef
 (
 Ndef(\sin).mold(5, \audio, \elastic);
@@ -466,16 +509,22 @@ Ndef.clear(10)
 ```
 
 
+
 ### `unset`, `unmap`
 Remove specified settings and unmap or unset the synths.
+
 ### `xset`
-set/map with a crossfade into the new setting. The crossfade time is the NodeProxy [fadeTime](#fadetime).
+set/map with a crossfade into the new setting. The crossfade time is the NodeProxy [#-fadeTime](#-fadetime).
+
 ### `lag`
-set the lag values of these args (identical to [setRates](#setrates)). To remove these settings, use: `lag(\key1, nil, key2, nil, ...)`
+set the lag values of these args (identical to [#-setRates](#-setrates)). To remove these settings, use: `lag(\key1, nil, key2, nil, ...)`
+
 ### `setRates`
 set the default rate (\tr, \ir, numerical) for synthDef arg. A rate of nil removes setting.
+
 ### `controlNames`
 Returns the [ControlName](../Classes/ControlName.md) objects of all slots, **except** the names of this list (default: `[\out, \i_out, \gate, \fadeTime]`, which are used internally). When the node proxy received a `set` for a given key, the `defaultValue` of the corresponding `ControlName` contains the object that was passed, which might be any object whatsoever.
+
 ### `controlKeys`
 Returns the keys (symbols) of all control names objects of all slots, **except** the names of this list. (default: none).**Arguments:**
 
@@ -484,15 +533,19 @@ Returns the keys (symbols) of all control names objects of all slots, **except**
 | `except` | list of names |  
 | `noInternalKeys` | If noInternalKeys is true (default: true), it ignores the keys `[\out, \i_out, \gate, \fadeTime]` . |  
 
+
 ### `getKeysValues`
 Get all key value pairs from both [NodeMap](../Classes/NodeMap.md) (the settings) and default arguments.
+
 ### `controlKeysValues`
 Get all key value pairs from default arguments.
+
 ### `findControlName`
 Search the source objects for a given control name symbol and return the [ControlName](../Classes/ControlName.md).
+
 ### `specs`
 Get the specs array from SynthDef metadata. Note that, for a NodeProxy with multiple sources, result will be a dictionary containing specs of ALL source SynthDefs.
-```supercollider
+```
 ~p = NodeProxy.audio(Server.default, 2);
 ~p.put(0, { SinOsc.ar(\freq.kr(100, spec: [50, 400])) });
 ~p.put(1, { WhiteNoise.ar(\noiseAmp.kr(0.1, spec: [0, 1])) });
@@ -504,6 +557,7 @@ Get the specs array from SynthDef metadata. Note that, for a NodeProxy with mult
 ### Sending synths to server explicitly
 Normally, processes (usually synths) are started when their respective source is added to the proxy. The processes can also be restarted, however, or the proxy can be used while asleep and the processes can then be started explicitly.
 
+
 ### `send`
 Send a new synth without releasing the old one. If the source is a stream or a pattern, it starts a new one.**Arguments:**
 
@@ -513,6 +567,7 @@ Send a new synth without releasing the old one. If the source is a stream or a p
 | `index` | What slot to send a new synth with. If nil, uses all. (default: nil) |  
 | `freeLast` | if to free the last synth at that index or not (default: true) |  
 
+
 ### `sendAll`
 Send all synths, or restart all objects.**Arguments:**
 
@@ -521,15 +576,18 @@ Send all synths, or restart all objects.**Arguments:**
 | `extraArgs` | Arguments used to set the synth. the argument list is applied to the synth only. |  
 | `freeLast` | if to free the last synth at that index or not (default: true) |  
 
+
 ### `sendEach`
 Like send, just iterating separately over the objects.
+
 ### `wakeUp`
 Until the proxy is not used by any output (either .play or .ar/.kr) it is not running on the server. you can wake it up to force it playing. Normally this is not needed.
 
 ### Storing as code
+
 ### `asCode`
 stores the proxy as executable code. see also [JITLib/jitlib_asCompileString](../Tutorials/JITLib/jitlib_asCompileString.md) for more examples.
-```supercollider
+```
 // Ndef
 Ndef(\a, { Saw.ar(12) }).asCode;
 
@@ -551,9 +609,10 @@ x.free;
 
 
 ### GUI
+
 ### `edit`
 Returns a new instance of [NodeProxyEditor](../Classes/NodeProxyEditor.md) for this proxy.
-```supercollider
+```
 a = NodeProxy.new;
 a.edit;
 
@@ -649,7 +708,7 @@ Definitions for other sources can be added - see: [NodeProxy_roles](../Reference
 
 For more, see [ProxySpace](../Classes/ProxySpace.md)
 
-```supercollider
+```
 ///////////////////// using node proxy with ugen functions /////////////////////
 
 s.boot;
@@ -785,7 +844,7 @@ c.free;    // free the control proxy c
 
 
 
-```supercollider
+```
 ///////////////////// channel offset/object index /////////////////////
 
 
@@ -800,7 +859,7 @@ a.end;
 
 
 
-```supercollider
+```
 ///////////////////// beat accurate playing /////////////////////
 
 
@@ -823,7 +882,7 @@ a.clear;
 
 
 
-```supercollider
+```
 ///////////////////// using patterns - event streams /////////////////////
 
 

@@ -15,6 +15,7 @@ For CSS styling, see [SCDocStyling](../Reference/SCDocStyling.md).
 
 ## Class Methods
 
+
 ### `renderOnStream`
 Renders a parsed document as HTML onto given stream.**Arguments:**
 
@@ -24,8 +25,10 @@ Renders a parsed document as HTML onto given stream.**Arguments:**
 | `doc` | An instance of [SCDocEntry](../Classes/SCDocEntry.md) |  
 | `root` | An instance of [SCDocNode](../Classes/SCDocNode.md) |  
 
+
 ### `renderToFile`
 Opens a file and passes it to [#*renderOnStream](#*renderonstream)
+
 ### `htmlForLink`
 Create a html string for the given scdoc link.**Arguments:**
 
@@ -34,6 +37,7 @@ Create a html string for the given scdoc link.**Arguments:**
 | `link` | An scdoc link, such as a document key like "Classes/SinOsc", or an URL, or link to other file installed with the help. |  
 | `escape` | a boolean to set whether to escape special characters. |  
 **Returns:** A String
+
 ### `makeArgString`
 Used internally.**Returns:** A [String](../Classes/String.md) representing the arguments (with defaults) for a [Method](../Classes/Method.md).
 

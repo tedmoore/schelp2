@@ -13,7 +13,7 @@ Before it actually runs a program, SuperCollider examines the code to ensure tha
 If syntax or grammar errors are found, SuperCollider writes a notification to the post window. Such messages are descriptive but terse.
 
 
-```supercollider
+```
 * ERROR: Parse error
    in file 'selected text'
    line 1 char 2 :

@@ -15,7 +15,7 @@ Some synthesis processes can be initiated with a unary message (a message with n
 For example, compare
 
 
-```supercollider
+```
 { SinOsc.ar(500, 0, 0.5) }.scope;
 ```
 
@@ -23,7 +23,7 @@ For example, compare
 to
 
 
-```supercollider
+```
 { SinOsc.ar(500, 0, 0.5).distort }.scope;
 ```
 
@@ -39,7 +39,7 @@ A: It's defined in the AbstractFunction class. The UGen class is a subclass of t
 Compare
 
 
-```supercollider
+```
 { SinOsc.ar(500, 0, 0.5) }.scope;
 ```
 
@@ -47,7 +47,7 @@ Compare
 to
 
 
-```supercollider
+```
 // .cubed is a unary operation
 { SinOsc.ar(500, 0, 0.5).cubed }.scope;
 ```

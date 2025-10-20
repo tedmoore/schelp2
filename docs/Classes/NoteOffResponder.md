@@ -17,6 +17,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -33,9 +34,10 @@
 
 ## Instance Methods
 
+
 ### `learn`
 Wait for the next noteOff message, reset self to match src, chan.
-```supercollider
+```
 (
 c = NoteOffResponder({ |src, chan, note, vel|
         [src, chan, note, vel].postln;
@@ -49,7 +51,7 @@ NoteOffResponder.removeAll
 ## Examples
 
 
-```supercollider
+```
 (
     c = NoteOffResponder({ |src, chan, note, vel|
         [src, chan, note, vel].postln;
@@ -66,7 +68,7 @@ c.remove
 
 
 
-```supercollider
+```
 (
     c = NoteOffResponder({ |src, chan, note, vel|
         [src, chan, note, vel].postln;

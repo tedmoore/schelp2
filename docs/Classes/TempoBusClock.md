@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 return a new instance.**Arguments:**
 
@@ -22,7 +23,7 @@ return a new instance.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 (
 a = { |tempo = 1| Ringz.ar(Impulse.ar(tempo), [501, 500], 1/tempo) }.play;
 t = TempoBusClock(a);

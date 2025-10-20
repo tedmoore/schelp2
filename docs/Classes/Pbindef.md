@@ -13,14 +13,14 @@ the difference to Pdef is that it allows to incrementally change the elementary 
 Pbindef and Pdef use the same global collection, while Pdef and Pdefn use separate ones.
 Pbindef inherits most methods from [Pdef](../Classes/Pdef.md). Overview: [JITLib](../Overviews/JITLib.md)
 
-```supercollider
+```
 Pbindef(\x, \note, Pseq([0, 7, 9]), \dur, 0.2).play;
 ```
 
 
 It also supports keyword argument syntax:
 
-```supercollider
+```
 Pbindef(\x, note: Pseq([0, 7, 9]), dur: 0.2).play;
 ```
 
@@ -29,12 +29,13 @@ Pbindef(\x, note: Pseq([0, 7, 9]), dur: 0.2).play;
 
 ## Class Methods
 
+
 ### `new`
 store the pattern in the global dictionary of [Pdef](../Classes/Pdef.md) under key. If there is already a Pdef of this key, replace its pattern with the new one. If there is already a **Pbindef** af this key, set the parameters only, or add a new one (the whole pattern is replaced).Using ***new(key)** you can access the pattern at that key (if none is there, a default pattern is created). see [Pdef](../Classes/Pdef.md).
 ## Examples
 
 
-```supercollider
+```
 (
     SynthDef(\Pdefhelp, { |out, freq, sustain = 1, amp = 1, pan|
         var env, u = 1;

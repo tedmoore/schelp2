@@ -13,7 +13,7 @@ Note: this is equivalent to pattern.wrap(lo, hi)
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef(\help_sinegrain,
     { |out = 0, freq = 440, sustain = 0.05|

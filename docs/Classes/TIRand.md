@@ -13,6 +13,7 @@ Generates a random integer value in uniform distribution from `lo` to `hi` each 
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Generates a random integer value in uniform distribution from `lo` to `hi` each 
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-TIRand", {
     var trig, outBus;

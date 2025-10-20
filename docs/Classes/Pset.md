@@ -10,7 +10,7 @@
 
 Pset sets a value in an event stream. It acts like one key in a [Pbindf](../Classes/Pbindf.md).
 
-```supercollider
+```
 (
 var a, b;
 a = Pset(\freq, 801, Pbind(\dur, 0.5));
@@ -24,6 +24,7 @@ x = a.asStream;
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -36,7 +37,7 @@ x = a.asStream;
 ## Examples
 
 
-```supercollider
+```
 // Pset overrides incoming values:
 
 (

@@ -18,6 +18,7 @@ Strict convolution with fixed kernel which can be updated using a trigger signal
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 

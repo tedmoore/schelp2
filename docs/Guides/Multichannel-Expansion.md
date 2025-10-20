@@ -9,7 +9,7 @@
 Multiple channels of audio are represented as [Array](../Classes/Array.md)s.
 
 
-```supercollider
+```
 s.boot;
 // one channel
 { Blip.ar(800,4,0.1) }.play;
@@ -26,7 +26,7 @@ All [UGen](../Classes/UGen.md)s have only a single output. This uniformity facil
 In order to implement multichannel output, UGens create a separate UGen known as an [OutputProxy](../Classes/OutputProxy.md) for each output. An OutputProxy is just a place holder for the output of a multichannel UGen. OutputProxies are created internally, you never need to create them yourself, but it is good to be aware that they exist so you'll know what they are when you run across them.
 
 
-```supercollider
+```
 // look at the outputs of Pan2:
 Pan2.ar(PinkNoise.ar(0.1), FSinOsc.kr(3)).dump;
 
@@ -40,7 +40,7 @@ play({ Pan2.ar(PinkNoise.ar(0.1), FSinOsc.kr(1)); });
 When an [Array](../Classes/Array.md) is given as an input to a unit generator it causes an array of multiple copies of that unit generator to be made, each with a different value from the input array. This is called multichannel expansion. All but a few special unit generators perform multichannel expansion. Only Arrays are expanded, no other type of Collection, not even subclasses of Array.
 
 
-```supercollider
+```
 { Blip.ar(500,8,0.1) }.play // one channel
 
 // the array in the freq input causes an Array of 2 Blips to be created :
@@ -55,7 +55,7 @@ Blip.ar([500,601],8,0.1).postln // two unit generators created.
 Multichannel expansion will propagate through the expression graph. When a unit generator constructor is called with an array of inputs, it returns an array of instances. If that array is the input to another constructor, then another array is created, and so on.
 
 
-```supercollider
+```
 { RLPF.ar(Saw.ar([100,250],0.05), XLine.kr(8000,400,5), 0.05) }.play;
 
 // the [100,250] array of frequency inputs to Saw causes Saw.ar to return
@@ -69,7 +69,7 @@ When a constructor is parameterized by two or more arrays, then the number of ch
 for example, the following:
 
 
-```supercollider
+```
 Pulse.ar([400, 500, 600],[0.5, 0.1], 0.2)
 ```
 
@@ -77,7 +77,7 @@ Pulse.ar([400, 500, 600],[0.5, 0.1], 0.2)
 is equivalent to:
 
 
-```supercollider
+```
 [ Pulse.ar(400,0.5,0.2), Pulse.ar(500,0.1,0.2), Pulse.ar(600,0.5,0.2) ]
 ```
 
@@ -85,7 +85,7 @@ is equivalent to:
 A more complex example based on the Saw example above is given below. In this example, the [XLine](../Classes/XLine.md) is expanded to two instances, one going from 8000 Hz to 400 Hz and the other going in the opposite direction from 500 Hz to 7000 Hz. These two XLines are 'married' to the two Saw oscillators and used to parameterize two copies of [RLPF](../Classes/RLPF.md). So on the left channel a 100 Hz Saw is filtered from 8000 Hz to 400 Hz and on the right channel a 250 Hz Saw is filtered from 500 Hz to 7000 Hz.
 
 
-```supercollider
+```
 { RLPF.ar(Saw.ar([100,250],0.05), XLine.kr([8000,500],[400,7000],5), 0.05) }.play;
 ```
 
@@ -95,7 +95,7 @@ A more complex example based on the Saw example above is given below. In this ex
 Many operators and methods also multichannel expand. For example all common math operators:
 
 
-```supercollider
+```
 { Saw.ar([100,250]) * [0.5,0.8] }.play;
 { Saw.ar(LFNoise1.kr(1).range(0,100) + [100,250]) }.play;
 ```
@@ -104,7 +104,7 @@ Many operators and methods also multichannel expand. For example all common math
 Also the various UGen convenience functions like `.clip2`, `.lag` and `.range` :
 
 
-```supercollider
+```
 { Saw.ar(LFNoise1.kr(1).range(100,[200,300])) }.play;
 { Saw.ar(LFPulse.kr(1).range(100,[200,300]).lag([0.1,0.2])) }.play;
 ```
@@ -115,7 +115,7 @@ The expansion is handled by wrapper-methods defined in [SequenceableCollection](
 You can use [Object#-multiChannelPerform](../Classes/Object.md#-multichannelperform) to do multichannel expansion with any method on any kind of object:
 
 
-```supercollider
+```
 ["foo","bar"].multiChannelPerform(\toUpper);
 ```
 
@@ -123,7 +123,7 @@ You can use [Object#-multiChannelPerform](../Classes/Object.md#-multichannelperf
 The shorter arrays wrap:
 
 
-```supercollider
+```
 ["foo","bar","zoo"].multiChannelPerform('++', ["l","ba"])
 ```
 
@@ -135,7 +135,7 @@ The shorter arrays wrap:
 The method flop swaps columns and rows, allowing to derive series of argument sets:
 
 
-```supercollider
+```
 (
 SynthDef("help_multichannel", { |out=0, freq=440, mod=0.1, modrange=20|
     Out.ar(out,
@@ -151,7 +151,7 @@ SynthDef("help_multichannel", { |out=0, freq=440, mod=0.1, modrange=20|
 
 
 
-```supercollider
+```
 (
 var freq, mod, modrange;
 
@@ -173,7 +173,7 @@ fork {
 Similarly, [Function:flop](../Classes/Function.md#-flop) and [Function:flop1](../Classes/Function.md#-flop1) return an unevaluated function that will expand to its arguments when evaluated.
 
 
-```supercollider
+```
 // multichannel expansion for if, here to protect from division by zero.
 // flop always returns an array
 f = { |a, b| if(b != 0) { a / b } { 0 } }.flop;
@@ -190,7 +190,7 @@ f.value(2, 4); // -> 0.5
 
 
 
-```supercollider
+```
 // multichannel expand a function that forks a task
 (
 SynthDef(\blip, { |out, freq|
@@ -220,7 +220,7 @@ a.value(5, [0.3, 0.3, 0.2], [12, 32, 64], [1000, 710, 700]);
 Multichannel expansion does not quite follow the scheme one might expect from the previously described. E.g. the following doesn't multichannel-expand properly:
 
 
-```supercollider
+```
 (
 SynthDef(\help_multichannel, { |out=0, freq=#[342, 145]|
     var env = EnvGate.new;
@@ -243,7 +243,7 @@ a = Pbind(
 Instead wrap arrayed args in an extra pair of square brackets:
 
 
-```supercollider
+```
 a.stop;
 
 // freq in both channels set as expected
@@ -260,7 +260,7 @@ a = Pbind(
 Under the hood this is a consequence of how .flop prepares the given args to be passed to the Synth:
 
 
-```supercollider
+```
 // single square brackets
 [\freq, [342, 145]].flop
 // --> [ [ freq, 342 ], [ freq, 145 ] ]
@@ -281,7 +281,7 @@ Some UGens create stereo output from mono input, and might not behave as expecte
 For example, [Pan2](../Classes/Pan2.md) :
 
 
-```supercollider
+```
 { Pan2.ar(SinOsc.ar([500,600]),[-0.5,0.5]) }.play;
 ```
 
@@ -289,7 +289,7 @@ For example, [Pan2](../Classes/Pan2.md) :
 The expectation here might be that the two sines would get individual pan positions. And they do, but Pan2 expands into two stereo ugens nested in an outer array, resulting in a total of four output channels. `play` will add an [Out](../Classes/Out.md) UGen for each of them, resulting in both Pan2's writing to the same output bus:
 
 
-```supercollider
+```
 Pan2.ar(SinOsc.ar([500,600]),[-0.5,0.5])
 
 // prints:
@@ -300,7 +300,7 @@ Pan2.ar(SinOsc.ar([500,600]),[-0.5,0.5])
 In this case, the solution is simply to sum the nested four channels into a single stereo-channel:
 
 
-```supercollider
+```
 { Pan2.ar(SinOsc.ar([500,600]),[-0.5,0.5]).sum }.play;
 ```
 
@@ -308,7 +308,7 @@ In this case, the solution is simply to sum the nested four channels into a sing
 If we take a look at the resulting UGen graph of the code above, we can see that it is correct. The two Pan2 is mixed together to create a single stereo output:
 
 
-```supercollider
+```
 { Pan2.ar(SinOsc.ar([500,600]),[-0.5,0.5]).sum }.asSynthDef.dumpUGens
 
 // prints:
@@ -329,7 +329,7 @@ If we take a look at the resulting UGen graph of the code above, we can see that
 Some unit generators such as [Klank](../Classes/Klank.md) require arrays of values as inputs. Since all arrays are expanded, you need to protect some arrays by a [Ref](../Classes/Ref.md) object. A Ref instance is an object with a single slot named 'value' that serves as a holder of an object. `Ref.new(object)` is one way to create a Ref, but there is a syntactic shortcut. The backquote ``` is a unary operator that is equivalent to calling `Ref.new(something)`. So to protect arrays that are inputs to a Klank or similar UGens you write:
 
 
-```supercollider
+```
 Klank.ar(`[[400,500,600],[1,2,1]], z)
 ```
 
@@ -337,7 +337,7 @@ Klank.ar(`[[400,500,600],[1,2,1]], z)
 You can still create multiple Klanks by giving it an array of Ref'ed arrays.
 
 
-```supercollider
+```
 Klank.ar([ `[[400,500,600],[1,2,1]],  `[[700,800,900],[1,2,1]] ], z)
 ```
 
@@ -345,7 +345,7 @@ Klank.ar([ `[[400,500,600],[1,2,1]],  `[[700,800,900],[1,2,1]] ], z)
 is equivalent to:
 
 
-```supercollider
+```
 [ Klank.ar(`[[400,500,600],[1,2,1]], z),  Klank.ar(`[[700,800,900],[1,2,1]], z)]
 ```
 
@@ -353,7 +353,7 @@ is equivalent to:
 Also the Refs multichannelExpand when passed to a Klank:
 
 
-```supercollider
+```
 Klank.ar(`[[[400,500,600], [700,800,900]],[1,2,1]], z)
 ```
 
@@ -361,7 +361,7 @@ Klank.ar(`[[[400,500,600], [700,800,900]],[1,2,1]], z)
 , which is is equivalent to:
 
 
-```supercollider
+```
 [ Klank.ar(`[[400,500,600],[1,2,1]], z),  Klank.ar(`[[700,800,900],[1,2,1]], z)]
 ```
 
@@ -372,7 +372,7 @@ Klank.ar(`[[[400,500,600], [700,800,900]],[1,2,1]], z)
 The [Mix](../Classes/Mix.md) object provides the means for reducing multichannel arrays to a single channel.
 
 
-```supercollider
+```
 Mix.new([a, b, c]) // array of channels
 ```
 
@@ -380,7 +380,7 @@ Mix.new([a, b, c]) // array of channels
 or
 
 
-```supercollider
+```
 [a, b, c].sum
 ```
 
@@ -388,7 +388,7 @@ or
 is equivalent to:
 
 
-```supercollider
+```
 a + b + c  // mixed to one
 ```
 
@@ -396,7 +396,7 @@ a + b + c  // mixed to one
 Mix is more efficient than using + since it can perform multiple additions at a time. But the main advantage is that it can deal with situations where the number of channels is arbitrary or determined at runtime.
 
 
-```supercollider
+```
 // three channels of Pulse are mixed to one channel
 { Mix.new(  Pulse.ar([400, 501, 600], [0.5, 0.1], 0.1) ) }.play
 ```
@@ -405,7 +405,7 @@ Mix is more efficient than using + since it can perform multiple additions at a 
 Multi channel expansion works differently for Mix. Mix takes one input which is an array (one not protected by a Ref). That array does not cause copies of Mix to be made. All elements of the array are mixed together in a single Mix object. On the other hand if the array contains one or more arrays then multi channel expansion is performed one level down. This allows you to mix an array of stereo (two element) arrays resulting in one two channel array. For example:
 
 
-```supercollider
+```
 Mix.new( [ [a, b], [c, d], [e, f] ] ) // input is an array of stereo pairs
 ```
 
@@ -413,7 +413,7 @@ Mix.new( [ [a, b], [c, d], [e, f] ] ) // input is an array of stereo pairs
 is equivalent to:
 
 
-```supercollider
+```
 // mixed to a single stereo pair
 [ Mix.new( [a, c, e] ), Mix.new( [b, d, f] ) ]
 ```
@@ -424,7 +424,7 @@ Currently it is not recursive. You cannot use Mix on arrays of arrays of arrays.
 Here's a final example illustrating multi channel expansion and Mix. By changing the variable 'n' you can change the number of voices in the patch. How many voices can your machine handle?
 
 
-```supercollider
+```
 (
 {
     var n;

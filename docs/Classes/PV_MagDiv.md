@@ -12,6 +12,7 @@ Divides magnitudes of two inputs and keeps the phases of the first input.
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Divides magnitudes of two inputs and keeps the phases of the first input.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

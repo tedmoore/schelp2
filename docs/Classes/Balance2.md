@@ -14,6 +14,7 @@ Equal power panning balances two channels. By panning from left (pos = -1) to ri
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ Equal power panning balances two channels. By panning from left (pos = -1) to ri
 ## Examples
 
 
-```supercollider
+```
 // a stereo signal, both channels at 0dB
 { [SinOsc.ar(440), SinOsc.ar(440)] }.play
 

@@ -13,6 +13,7 @@ Allows input signal value to pass when gate is positive, otherwise holds last va
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Allows input signal value to pass when gate is positive, otherwise holds last va
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 // Control rate so as not to whack your speakers with DC
 { Gate.kr(WhiteNoise.kr(1, 0), LFPulse.kr(1.333, 0.5)) }.scope(zoom: 20);

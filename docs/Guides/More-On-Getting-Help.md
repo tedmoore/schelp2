@@ -10,14 +10,14 @@
 > **Note:** This help file uses the key commands for macOS; on other systems, please substitute the Shortcuts as necessary
 
 
-Listed below are a few techniques for tracking down documentation and functionality. Note: If some of the terms used below (e.g. class, method, inheritance, etc.) are unclear to you, you may wish to read the [Glossary](../Guides/Glossary.md) and [Browse / Language ](../Browse.md#language) helpfiles for detail on some of these concepts. Reading a general tutorial on Object Oriented Programming at some point could also be useful, as could reading a FAQ, etc. about Smalltalk. Smalltalk is the general purpose OOP language upon which the design of the SuperCollider language is based. Its syntax is different than SC's, but conceptually it has much in common.
+Listed below are a few techniques for tracking down documentation and functionality. Note: If some of the terms used below (e.g. class, method, inheritance, etc.) are unclear to you, you may wish to read the [Glossary](../Guides/Glossary.md) and [Browse#Language](../Browse.md#language) helpfiles for detail on some of these concepts. Reading a general tutorial on Object Oriented Programming at some point could also be useful, as could reading a FAQ, etc. about Smalltalk. Smalltalk is the general purpose OOP language upon which the design of the SuperCollider language is based. Its syntax is different than SC's, but conceptually it has much in common.
 NB: Be sure to check out the Further Info section at the bottom of this page.
 
 ## Basics
 As you've probably already learned selecting any text and pressing Cmd-d will open the corresponding helpfile. Usually helpfiles are either concept related, or document particular classes. In the SC language classes begin with capital letters. Try Cmd-d on the following (double click on the first word; the stuff after the two slashes is a comment):
 
 
-```supercollider
+```
 Class // this is a class
 ```
 
@@ -39,7 +39,7 @@ Class // this is a class
 Methods begin with lower-case letters, as do many other things in the language.
 
 
-```supercollider
+```
 play // Cmd-d on this will open a helpfile detailing different implementations of this method
 ```
 
@@ -56,19 +56,19 @@ Note that many helpful methods print information to the 'post window'. Unless yo
 Executing the following
 
 
-```supercollider
+```
 HelpBrowser.openBrowsePage;
 ```
 
 
 will open a the "help browser" page which lists all helpfiles in thematic categories. (Equivalently, press Shift-Cmd-D)
 
-The [Browse / Undocumented classes ](../Browse.md#undocumented-classes) contains a list of all classes which have no helpfiles. This can be a good place to start looking for functionality which may already be implemented. Even if a class has no written helpfile, it will have an automatically generated stub listing the methods and their arguments, and also a help template for writing a real helpfile.
+The [Browse#Undocumented classes](../Browse.md#undocumented-classes) contains a list of all classes which have no helpfiles. This can be a good place to start looking for functionality which may already be implemented. Even if a class has no written helpfile, it will have an automatically generated stub listing the methods and their arguments, and also a help template for writing a real helpfile.
 
 Looking in class definitions (select any class and press Cmd-j to open its class definition file) can help you to figure out what undocumented methods do.
 
 
-```supercollider
+```
 Array // Try Cmd-j on this
 ```
 
@@ -78,7 +78,7 @@ Since many methods use other classes, you may need to continue your search in ot
 Executing the method dumpInterface on any class will list its class and instance methods and their arguments (if any).
 
 
-```supercollider
+```
 Array.dumpInterface; // Look at the post window (the one that opened when you started SC)
 ```
 
@@ -88,7 +88,7 @@ Note that since the SuperCollider language is object-oriented many classes inher
 The method dumpFullInterface applied to any Class will list all class and instance methods that a class responds to, sorted by the class in which they are implemented. This will include inherited methods. Methods overridden in a subclass are listed under the subclass.
 
 
-```supercollider
+```
 Array.dumpFullInterface;
 ```
 
@@ -96,7 +96,7 @@ Array.dumpFullInterface;
 This can be a lot of information, so dumpAllMethods or class.dumpAllMethods will show only instance and class methods respectively.
 
 
-```supercollider
+```
 Array.class.dumpAllMethods; // Only class methods that this responds to (including inherited ones)
 Array.dumpAllMethods;         // Only instance methods (including inherited ones)
 ```
@@ -105,7 +105,7 @@ Array.dumpAllMethods;         // Only instance methods (including inherited ones
 There is also a graphical Class browser which will show all methods, arguments, subclasses, instance variables and class variables. Using the browser's buttons you can easily navigate to the class' superclass, subclasses, class source, method source, helpfile (if there is one), check references or implementation of methods.
 
 
-```supercollider
+```
 SequenceableCollection.browse;
 ```
 
@@ -113,7 +113,7 @@ SequenceableCollection.browse;
 Selecting any method and pressing Cmd-y will open a window with a list of all the classes that implement that method. (See the [Polymorphism](../Guides/Polymorphism.md) helpfile for detail on why different classes might implement methods with the same name.)
 
 
-```supercollider
+```
 select // try it on this method
 ```
 
@@ -121,7 +121,7 @@ select // try it on this method
 Similarly, selecting any text and typing shift-cmd-y will open a window showing all references to the selected text, i.e. each place it is used within the class library. (This will not find methods calls compiled with special byte codes like 'value'.)
 
 
-```supercollider
+```
 // try it on these
 asStream
 Window
@@ -131,7 +131,7 @@ Window
 In the resulting window selecting any class and method and pressing Cmd-j will take you to that method definition in that class definition. For example try selecting Pattern-select in the window resulting from the previous example. Note that SC supports defining methods in separate files, so a class' methods may be defined in more than one place. If you try Cmd-j on the following you will see that it will open a file called dumpFullInterface.sc rather than one called Class.sc (its main class definition file). The + Class {.... syntax indicates that these are additional methods.
 
 
-```supercollider
+```
 Class-dumpFullInterface
 ```
 
@@ -139,7 +139,7 @@ Class-dumpFullInterface
 If you know that a class responds to a particular message, you can use findRespondingMethod to find out which class it inherits the corresponding method from.
 
 
-```supercollider
+```
 Array.findRespondingMethodFor('select'); // you can Cmd-j on the result in the post window
 ```
 
@@ -147,7 +147,7 @@ Array.findRespondingMethodFor('select'); // you can Cmd-j on the result in the p
 Similarly, helpFileForMethod will open the helpfile of the class in which the responding method is defined (if the helpfile exists). Note that this does not guarantee that the method is documented therein. As noted above, some documentation is incomplete, and some methods are 'private' or not intended for general use.
 
 
-```supercollider
+```
 Array.helpFileForMethod('select'); // this will open the Collection helpfile; scroll down for select
 ```
 

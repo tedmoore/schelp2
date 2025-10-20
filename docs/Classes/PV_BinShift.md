@@ -13,6 +13,7 @@ Shift and scale the positions of the bins. Can be used as a very crude frequency
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Shift and scale the positions of the bins. Can be used as a very crude frequency
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

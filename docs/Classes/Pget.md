@@ -13,6 +13,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,10 +26,15 @@
 
 ## Instance Methods
 
+
 ### `default`
+
 ### `storeArgs`
+
 ### `key`
+
 ### `repeats`
+
 ### `embedInStream`
 **Arguments:**
 
@@ -39,7 +45,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
     /*
 

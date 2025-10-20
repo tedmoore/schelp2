@@ -8,7 +8,7 @@ basic live coding techniques ("object style") without the use of JITLib
 more to come..
 using a simple environment. this looks just like ProxySpace, but works differently. for the difference, see [JITLib/jitlib_basic_concepts_01](../../Tutorials/JITLib/jitlib_basic_concepts_01.md) and [JITLib/jitlib_basic_concepts_02](../../Tutorials/JITLib/jitlib_basic_concepts_02.md).
 
-```supercollider
+```
 d = (); // create a new environment
 d.push; // push it to current
 

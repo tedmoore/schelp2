@@ -13,6 +13,7 @@ FreqShift implements single sideband amplitude modulation, also known as frequen
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -27,7 +28,7 @@ FreqShift implements single sideband amplitude modulation, also known as frequen
 ## Examples
 
 
-```supercollider
+```
 // shifting a 100Hz tone by 1 Hz rising to 500Hz
 { FreqShift.ar(SinOsc.ar(100), XLine.kr(1, 500, 5), 0, [0.1, 0.1]) }.play(s);
 
@@ -53,7 +54,7 @@ b = Buffer.read(s, ExampleFiles.child);
 send a SynthDef, run the routine then send a different SynthDef
 
 
-```supercollider
+```
 // simple detune & pitchmod via FreqShift
 (
 SynthDef(\frqShift1, { |out, freq, detune = 1.5|

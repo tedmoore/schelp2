@@ -9,7 +9,7 @@
 ## Description
 
 
-```supercollider
+```
 (
 a = FlowVar.new;
 fork {
@@ -28,6 +28,7 @@ a.value = 2;
 
 ## Class Methods
 
+
 ### `new`
 Return a new instance,**Arguments:**
 
@@ -37,6 +38,7 @@ Return a new instance,**Arguments:**
 
 
 ## Instance Methods
+
 
 ### `value`
 Set the value bound to the FlowVar.The getter returns the value bound to the FlowVar. If the value is not yet available, hold execution (this requires the method to be called from within a [Routine](../Classes/Routine.md) or similar thread.).**Arguments:**

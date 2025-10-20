@@ -14,6 +14,7 @@ The term "delay" is often used in electronic music to refer to a delay line with
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -28,7 +29,7 @@ The term "delay" is often used in electronic music to refer to a delay line with
 ## Examples
 
 
-```supercollider
+```
 (
 // Dust randomly triggers Decay to create an exponential
 // decay envelope for the WhiteNoise input source

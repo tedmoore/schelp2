@@ -11,7 +11,7 @@
 In its simplest form, frequency modulation (FM) synthesis - famous since the Yamaha DX7 of the 1980's - uses one oscillator to modulate the frequency of another. The modulating oscillator in FM synthesis usually runs at the audio rate and its amplitude often is shaped by an envelope or other controller, such as a low frequency oscillator.
 
 
-```supercollider
+```
 (
 SynthDef("fm1", { arg bus = 0, freq = 440, carPartial = 1, modPartial = 1, index = 3, mul = 0.05;
 
@@ -55,7 +55,7 @@ s.queryAllNodes;
 
 ## FM synthesis and reverb
 
-```supercollider
+```
 // ... a reverb adapted from the "01 Why SuperCollider document" in the SC2 distribution
 (
 SynthDef("preDelay", { arg inbus = 2;
@@ -111,7 +111,7 @@ s.queryAllNodes;
 Dividing the "fm" synth def into two pieces, a synthdef for a modulator and a synthdef for the carrier, gives more functionality - carrier signals can shaped by two or more modulators.
 
 
-```supercollider
+```
 (
 SynthDef("carrier", { arg inbus = 2, outbus = 0, freq = 440, carPartial = 1, index = 3, mul = 0.2;
 
@@ -166,7 +166,7 @@ s.queryAllNodes;
 
 ## Reverberation and frequency modulation
 
-```supercollider
+```
 (
 var freq;
 // generate a random base frequency for the carriers and the modulators

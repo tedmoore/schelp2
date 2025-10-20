@@ -13,6 +13,7 @@ Encodes a mono signal to 2-dimensional ambisonic B-format.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Encodes a mono signal to 2-dimensional ambisonic B-format.
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var w, x, y, p, a, b, c, d;

@@ -11,6 +11,7 @@ Returns the median of the last length input points. This non-linear filter is go
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Returns the median of the last length input points. This non-linear filter is go
 ## Examples
 
 
-```supercollider
+```
 // a signal with impulse noise.
 { Saw.ar(500, 0.1) + Dust2.ar(100, 0.9) }.play;
 

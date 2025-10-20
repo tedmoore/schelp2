@@ -13,18 +13,21 @@ PdefnGui displays a PdefnGui, and allows editing and evaluating its code.
 
 ## Class Methods
 
+
 ### `observedClass`
 Pdefn
 
 ## Instance Methods
 
-**JITGui methods:**### `accepts`
-test whether object can be displayed### `getState`, `checkUpdate`
+**JITGui methods:**
+### `accepts`
+test whether object can be displayed
+### `getState`, `checkUpdate`
 
 ## Examples
 
 
-```supercollider
+```
 g = PdefnGui();
 Pdefn(\abc, [1, 2, 3]);
 g.object_(Pdefn(\abc));

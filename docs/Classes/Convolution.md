@@ -14,6 +14,7 @@ See also [http://www.dspguide.com/ch18.htm](http://www.dspguide.com/ch18.htm) by
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -28,7 +29,7 @@ See also [http://www.dspguide.com/ch18.htm](http://www.dspguide.com/ch18.htm) by
 ## Examples
 
 
-```supercollider
+```
 (
 
 {

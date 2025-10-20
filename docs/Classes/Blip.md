@@ -16,6 +16,7 @@ It is improved from other implementations in that it will crossfade in a control
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -29,7 +30,7 @@ It is improved from other implementations in that it will crossfade in a control
 ## Examples
 
 
-```supercollider
+```
 // modulate frequency
 { Blip.ar(XLine.kr(20000, 200, 6), 100, 0.2) }.play;
 

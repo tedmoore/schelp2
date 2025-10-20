@@ -14,6 +14,7 @@ When there is a trigger at the reset input, the demand rate UGens in the list an
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ When there is a trigger at the reset input, the demand rate UGens in the list an
 ## Examples
 
 
-```supercollider
+```
 (
     {
         var freq;
@@ -58,7 +59,7 @@ When there is a trigger at the reset input, the demand rate UGens in the list an
 
 Resetting the demand ugens:
 
-```supercollider
+```
 (
     {
         var freq;
@@ -89,7 +90,7 @@ Resetting the demand ugens:
 
 Demand ugen as audio oscillator:
 
-```supercollider
+```
 (
     {
         var a, n = 5, m = 64;
@@ -112,7 +113,7 @@ Demand ugen as audio oscillator:
 
 single sample feedback: a lin cong algorithm:
 
-```supercollider
+```
 (
 b = Buffer.alloc(s, 1);
 {

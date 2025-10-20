@@ -19,6 +19,7 @@ See the [Server-Architecture](../Reference/Server-Architecture.md) and [Bus](../
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -30,7 +31,7 @@ See the [Server-Architecture](../Reference/Server-Architecture.md) and [Bus](../
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-out", { |out = 0, freq = 440|
     var source;

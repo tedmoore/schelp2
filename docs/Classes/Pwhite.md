@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -21,7 +22,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
 var a;
 a = Pwhite(0.0, 1.0, inf);

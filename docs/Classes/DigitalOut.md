@@ -21,6 +21,7 @@ Writes digital data to a digital output (e.g.: an LED or a trigger/gate output).
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -30,6 +31,7 @@ Writes digital data to a digital output (e.g.: an LED or a trigger/gate output).
 | `output` | Value to write out to the pin - the value will be 1 when the argument is larger than 0, otherwise 0. |  
 | `mul` |  |  
 | `add` |  |  
+
 
 ### `kr`
 **Arguments:**
@@ -44,7 +46,7 @@ Writes digital data to a digital output (e.g.: an LED or a trigger/gate output).
 ## Examples
 
 
-```supercollider
+```
 // write a sine oscillator's output to a pin
 
 (

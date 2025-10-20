@@ -11,6 +11,7 @@ A demand-rate analog to [Pconst](../Classes/Pconst.md). It outputs values from t
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -23,7 +24,7 @@ A demand-rate analog to [Pconst](../Classes/Pconst.md). It outputs values from t
 ## Examples
 
 
-```supercollider
+```
 // fast notes of random duration for 0.5 seconds
 // then a single note for 0.5 seconds
 (

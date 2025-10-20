@@ -15,7 +15,7 @@ Many subclasses override the guiClass method to specify a different class, one t
 It is the simplest display, it is just the object asString.
 The .gui method is called on your model:
 
-```supercollider
+```
 // standard usage
 theModel.gui(parent, bounds)
 
@@ -31,6 +31,7 @@ In addition to those steps the model/gui dependencies are managed, defaults (nil
 
 ## Class Methods
 
+
 ### `new`
 Create a gui controller object but does not yet create the views / window. Call .gui to create the views.**Arguments:**
 
@@ -41,6 +42,7 @@ Create a gui controller object but does not yet create the views / window. Call 
 
 ## Instance Methods
 
+
 ### `guiBody`
 When implementing subclasses this is the primary and often the only method that needs to be implemented. The ObjectGui parent class takes care of setting up all windows and dependencies and then the guiBody method adds views to the layout. It is normal to declare instance variables in the ObjectGui subclass that are used to store the widgets so they can be updated later.**Arguments:**
 
@@ -49,13 +51,15 @@ When implementing subclasses this is the primary and often the only method that 
 | `layout` | Usually a FlowView : a parent view with a FlowLayout to add views to. |  
 | `bounds` | nil or a Rect. |  
 | `... args` | More args may be passed here. |  
-**Returns:** this### `update`
+**Returns:** this
+### `update`
 When the model is changed and the .changed method is called then .update is called on all dependants including this gui object. Update the views you have placed in the guiBody.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `theChanged` | The model. Within your gui class the model is already in the instance variable 'model'. |  
 | `theChanger` | Depends on the conventions of how .changed was called. If an object called someModel.changed(this) then it is supplying itself as the changer and will be passed through here. Sometimes a flag is used: someModel.changed('points') and the gui may know of and participate in that convention. Sometimes no changer is passed in. |  
+
 ### `gui`
 The standard method to create a view / window. Usually you call yourModel.gui(parent, bounds) and this creates the gui (of the related ObjectGui subclass) and then theObjectGui.gui(parent, bounds) is called, forwarding the arguments. So this method is what receives the forwarded (parent, bounds) from the initial call to theModel.gui(parent, bounds). Usually you do not call this manually and would avoid reimplementing it.**Arguments:**
 
@@ -64,7 +68,8 @@ The standard method to create a view / window. Usually you call yourModel.gui(pa
 | `parent` | parent view : nil, a Window, a FlowView or any other usable container view. |  
 | `bounds` | nil or a Rect. The default of nil will offer the entire bounds to the guiBody method and then shrink the view size afterwards to the exact size of the contents that were actually added. |  
 | `... args` | More args may be passed into theModel.gui(parent, bounds, anArg, moreArg) and will be forwarded to guiBody. |  
-**Returns:** this### `guify`
+**Returns:** this
+### `guify`
 This converts a supplied parent and bounds into a usable parent container view on a window. It creates a window if needed.**Arguments:**
 
 | Argument | Description |
@@ -72,21 +77,27 @@ This converts a supplied parent and bounds into a usable parent container view o
 | `parent` | parent view or nil |  
 | `bounds` | desired bounds or nil |  
 | `title` | window title IF a new window is being created. if there is a parent view then title is ignored. |  
-**Returns:** converted parent### `model`
+**Returns:** converted parent
+### `model`
 set a new model. This allows to use a single gui and dynamically swap in a different model of the same class. The old model releases the gui as a dependant and the new model adds the gui as a dependent. Then the views are updated.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `newModel` | The new object |  
-**Returns:** (returnvalue)### `dragSource`
-The default implementation of writeName places a nameplate on the gui that is draggable. This method is an accessor for that dragSource object.**Returns:** a GUi.dragSource### `viewDidClose`
-This is called when the parent view closes. It releases dependants.**Returns:** this### `background`
-Each ObjectGui subclass may implement a default background color.**Returns:** a color### `writeName`
+**Returns:** (returnvalue)
+### `dragSource`
+The default implementation of writeName places a nameplate on the gui that is draggable. This method is an accessor for that dragSource object.**Returns:** a GUi.dragSource
+### `viewDidClose`
+This is called when the parent view closes. It releases dependants.**Returns:** this
+### `background`
+Each ObjectGui subclass may implement a default background color.**Returns:** a color
+### `writeName`
 ObjectGui by default makes a nameplate with the name of the model. Implement this in subclasses if a different name style or no nameplate is desired. Note: this may change in the near future. So many classes override this to shut off the name.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `layout` | The layout to place the nameplate on. Probably the same as is being passed to guiBody |  
+
 ### `prWriteName`
 The default write name implementation. You could call this from a subclass if you are primarily implementing writeName to customize what name is shown or to add other items to that area.**Arguments:**
 
@@ -98,7 +109,7 @@ The default write name implementation. You could call this from a subclass if yo
 ## Examples
 
 
-```supercollider
+```
 YourSimpleGuiClass : ObjectGui {
 
     guiBody { |layout|

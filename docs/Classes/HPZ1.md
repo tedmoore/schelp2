@@ -10,7 +10,7 @@
 
 A special case fixed filter. Implements the formula:
 
-```supercollider
+```
 out(i) = 0.5 * (in(i) - in(i-1))
 ```
 
@@ -19,6 +19,7 @@ Which is a two point differentiator.
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -32,7 +33,7 @@ Which is a two point differentiator.
 ## Examples
 
 
-```supercollider
+```
 // Compare:
 
 { WhiteNoise.ar(0.25) }.play;

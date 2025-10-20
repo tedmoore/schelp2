@@ -13,6 +13,7 @@ Pseg defines a function of time as a breakpoint envelope using the same paramete
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -27,7 +28,7 @@ Pseg defines a function of time as a breakpoint envelope using the same paramete
 ## Examples
 
 
-```supercollider
+```
 // change a parameter
 (
 Pbind(

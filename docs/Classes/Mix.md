@@ -15,12 +15,14 @@ Mix will mix an array of channels down to a single channel or an array of arrays
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `array` | The array of channels or arrays. |  
+
 
 ### `fill`
 **Arguments:**
@@ -33,7 +35,7 @@ Mix will mix an array of channels down to a single channel or an array of arrays
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 { Mix.new([PinkNoise.ar(0.1), FSinOsc.ar(801, 0.1), LFSaw.ar(40, 0.1)]) }.play

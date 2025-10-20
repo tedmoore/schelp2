@@ -16,6 +16,7 @@ This can also be achieved by creating a [Signal](../Classes/Signal.md) object an
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -30,7 +31,7 @@ This can also be achieved by creating a [Signal](../Classes/Signal.md) object an
 ## Examples
 
 
-```supercollider
+```
 (
 s = Server.local;
 b = Buffer.alloc(s, 512, 1);

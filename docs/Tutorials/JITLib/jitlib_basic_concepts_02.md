@@ -18,7 +18,7 @@ This document covers:
 
 ## a) normal environment lookup
 
-```supercollider
+```
 currentEnvironment.postln; // anEnvironment (if not, you haven't left it from last helppage..)
 
 ~a; // access the environment: there is nothing stored: nil
@@ -52,7 +52,7 @@ further readings: [Environment](../../Classes/Environment.md)
 one can replace the current environment with a special type of environment, a ProxySpace. this environment represents processes that play audio on a server.
 
 
-```supercollider
+```
 p = ProxySpace.new(s);    // create a new environment, store it in variable p for now.
 p.push;            // push it, so i becomes the current environment.
 currentEnvironment.postln;
@@ -70,7 +70,7 @@ p.postln;    // now there are two empty placeholders in the environment.
 
 ## c) using the proxyspace to change processes on the fly
 
-```supercollider
+```
 // boot the server
 s.boot;
 
@@ -179,7 +179,7 @@ further readings: [JITLib/proxyspace_examples](../../Tutorials/JITLib/proxyspace
 By default, bus initialization of a node proxy happens as soon as it is used for the first time. Later inputs are adjusted to this bus, as far as it is possible.
 
 
-```supercollider
+```
 ~z2 = { LFNoise0.kr([1, 2, 3, 4]) }; // a four channel control rate proxy
 ~z2.bus.postln;
 
@@ -198,7 +198,7 @@ By default, bus initialization of a node proxy happens as soon as it is used for
 This initialisation happens whenever the proxy is first used. Later, the proxy can be accessed with other rate/numChannels combinations as needed (rates are converted, numChannels are extended by wrapping, sources with too many channels are wrapped).
 
 
-```supercollider
+```
 ~u.play(0, 2);    // initialize 2 audio channels (default). 0 is the output bus number.
         // if the proxy is not initialized, play defaults to 2 channels.
         // here it is explicitly given only to make it more clear.
@@ -222,7 +222,7 @@ This initialisation happens whenever the proxy is first used. Later, the proxy c
 
 
 
-```supercollider
+```
 ~u.mold(1); // reshape to mono.
 ```
 
@@ -230,7 +230,7 @@ This initialisation happens whenever the proxy is first used. Later, the proxy c
 It can be useful to explicitly initialize proxies that use variable type inputs:
 
 
-```supercollider
+```
 ~b.kr(8); ~c.ar;    // explicit initialisation
 p.postln;        // post the whole proxy space
 ```
@@ -240,7 +240,7 @@ p.postln;        // post the whole proxy space
 
 ## e) moving out of the proxy space
 
-```supercollider
+```
 // play the audio:
 ~x.play;
 
@@ -285,7 +285,7 @@ currentEnvironment.clear;
 using proxy space as an access scheme for node proxies can get in the way of the normal use of environments as pseudo variables. Here are some ways to cope with this.
 
 
-```supercollider
+```
 //////////////    EnvirDocument is currently unavailable ////////////
 //// if you want to keep using the current environment as usual, you can restrict the
 //// scope of proxyspace to one document (note: this is mac-only currently)

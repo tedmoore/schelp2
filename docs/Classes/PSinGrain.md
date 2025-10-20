@@ -12,6 +12,7 @@ Very fast sine grain with a parabolic envelope.
 ## Class Methods
 
 
+
 ### `ar`
 **Arguments:**
 

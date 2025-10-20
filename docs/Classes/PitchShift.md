@@ -11,6 +11,7 @@ A time domain granular pitch shifter. Grains have a triangular amplitude envelop
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -27,7 +28,7 @@ A time domain granular pitch shifter. Grains have a triangular amplitude envelop
 ## Examples
 
 
-```supercollider
+```
 (
 play({
     z = Blip.ar(800, 6, 0.1);

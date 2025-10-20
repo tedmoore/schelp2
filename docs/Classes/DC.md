@@ -13,6 +13,7 @@ This UGen simply outputs the initial value you give it.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -23,7 +24,7 @@ This UGen simply outputs the initial value you give it.
 ## Examples
 
 
-```supercollider
+```
 // won't work (the output is 0.5*0.0), which is why we need the DC UGen!
 { 0.5 }.play
 

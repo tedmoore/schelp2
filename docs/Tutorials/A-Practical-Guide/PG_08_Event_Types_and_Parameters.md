@@ -44,7 +44,7 @@ Before looking at the event types themselves, let's go over some standard parame
 > **Note:** Changing the tempo will affect all patterns playing on the same clock.
 
 
-```supercollider
+```
 Pbind(
     \curve, Pseg(Pseq([0, 1, 0], 1), 15),
     \degree, Pwhite(-7, 0, inf) + Pkey(\curve).linlin(0, 1, 0, 14).asInteger,
@@ -114,7 +114,7 @@ Pbind(
 
 **strum**
 : If multiple notes are produced (usually a chord, given by providing an array to one of the pitch parameters), `\strum` is the number of beats to delay each successive note onset. When using `\strum`, another key is active, `\strumEndsTogether`. If false (the default), each strummed node will play for its full duration and the releases will be staggered. If true, the releases will occur at the same time.
-```supercollider
+```
 p = Pbind(
         // array is "multichannel expanded" into one Synth each
     \degree, #[2, 5, 8, 11, 13, 16],
@@ -176,7 +176,7 @@ There are two ways to specify argument names: by *instrument* and by *argument a
 
 **args**
 : By default, the `\args` key contains the control names for the default synthdef. To take argument names from the instrument name, you must override this default with an empty array (or any non-collection object).
-```supercollider
+```
 (
 SynthDef(\event_set, { |freq = 440, gate = 1, amp = 0.1, lagTime = 0.1,
         ffreq = 2000, detune = 1.005, out = 0|
@@ -207,7 +207,7 @@ a.free;
 - *By argument names* :
 **args**
 : Provide a list of the Synth argument names as an array here, e.g. `[\freq, \amp, \pan]`. There is no need to provide the instrument name this way.
-```supercollider
+```
 a = Synth(\event_set);
 
 (
@@ -354,7 +354,7 @@ All of these buffer event types expect the buffer number to be provided. They wi
 These event types uniquely have automatic cleanup event types associated with them. Playing one of these event types allocates a server resource. Later, the resource may be freed by changing the event type to the corresponding cleanup type and playing the event again. While the resource is active, the event can be used as a reference to the resource in other events or Synth messaging.
 
 
-```supercollider
+```
 // create a buffer
 b = (type: \allocRead, path: ExampleFiles.child).play;
 
@@ -617,7 +617,7 @@ See the Pproto example in [A-Practical-Guide/PG_06f_Server_Control](../../Tutori
 : An array of Symbols, listing the Event types to be performed.
 
 
-```supercollider
+```
 MIDIClient.init;
 m = MIDIOut(0);
 
@@ -637,7 +637,7 @@ m = MIDIOut(0);
 : The list of variable names to set in the receiver. The receiver should have a setter method -- variableName_ -- for each of these. New values will be looked up in the event.
 
 
-```supercollider
+```
 // Visualize Brownian motion
 w = Window("Brownian motion", Rect(10, 100, 500, 50));
 x = Slider(w, Rect(10, 15, 480, 20));

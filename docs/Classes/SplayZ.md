@@ -14,6 +14,7 @@ SplayZ spreads an array of channels across a ring of channels. Optional spread a
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -27,6 +28,7 @@ SplayZ spreads an array of channels across a ring of channels. Optional spread a
 | `center` |  |  
 | `orientation` |  |  
 | `levelComp` |  |  
+
 
 ### `arFill`
 **Arguments:**
@@ -46,7 +48,7 @@ SplayZ spreads an array of channels across a ring of channels. Optional spread a
 ## Examples
 
 
-```supercollider
+```
 (
 x = { |spread = 1, level = 0.2, width = 2, center = 0.0|
  SplayZ.ar(

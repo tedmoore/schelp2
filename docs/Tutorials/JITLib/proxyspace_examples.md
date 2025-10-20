@@ -11,7 +11,7 @@
 
 ### preparing the environment
 
-```supercollider
+```
 (
 s.boot;
 p = ProxySpace.push(s);
@@ -24,7 +24,7 @@ p = ProxySpace.push(s);
 
 ### playing and monitoring
 
-```supercollider
+```
 // play some output to the hardware busses, this could be any audio rate key.
 ~out.play;
 
@@ -43,7 +43,7 @@ p = ProxySpace.push(s);
 
 ### setting the node controls
 
-```supercollider
+```
 ~out = { arg rate = 2; Pan2.ar(PinkNoise.ar(0.1), LFClipNoise.kr(rate)) };
 ~out.set(\rate, 30);
 ~out = { arg rate = 2; Pan2.ar(Dust.ar(2000, 0.2), LFClipNoise.kr(rate)) };
@@ -56,7 +56,7 @@ p = ProxySpace.push(s);
 
 ### referencing between proxies
 
-```supercollider
+```
 ~lfo = { LFNoise2.kr(30, 300, 500) };
 ~out = { SinOsc.ar(~lfo.kr, 0, 0.15) };
 ~out = { SinOsc.ar(~lfo.kr * [1, 1.2], 0, 0.1) * Pulse.ar(~lfo.kr * [0.1, 0.125], 0.5) };
@@ -71,7 +71,7 @@ p = ProxySpace.push(s);
 
 ### math
 
-```supercollider
+```
 // unary operators
 ~lfo2 = { SinOsc.kr(0.5, 0, 600, 100) };
 ~lfo = ~lfo2.abs;
@@ -94,7 +94,7 @@ currentEnvironment.free; // free all node proxies
 
 ### waking up a network of proxies
 
-```supercollider
+```
 // hit cmd-. to stop all nodes
 // start again
 ~out.play;
@@ -108,7 +108,7 @@ currentEnvironment.free; // free all node proxies
 (one buffer size delay)
 
 
-```supercollider
+```
 ~out = { SinOsc.ar([220, 330], ~out.ar(2).reverse * LFNoise2.kr(0.5, 4pi), 0.4) };
 
 // there is no immediacy: hear the buffer size cycle
@@ -137,7 +137,7 @@ currentEnvironment.free; // free all node proxies
 
 ### multiple control
 
-```supercollider
+```
 (
 ~out = { arg freqOffest;
     var ctl;
@@ -164,7 +164,7 @@ currentEnvironment.free; // free all node proxies
 
 ### mixing
 
-```supercollider
+```
 ~out1 = { SinOsc.ar(600, 0, 0.1) };
 ~out2 = { SinOsc.ar(500, 0, 0.1) };
 ~out3 = { SinOsc.ar(400, 0, 0.1) };
@@ -189,7 +189,7 @@ currentEnvironment.free; // free all node proxies
 
 ### restoring / erasing
 
-```supercollider
+```
 ~out.free; // this frees the group, not the play synth x
 ~out.send; // resends all synths
 ~out.free;
@@ -212,7 +212,7 @@ for more on the proxy slots see: [JITLib/jitlib_basic_concepts_03](../../Tutoria
 
 ### garbage collecting
 
-```supercollider
+```
 // often there are proxies playing that are not used anymore - this is good,
 // because they might be used again at any time.
 // this shows how to free unused proxies, such as ~out1, ~out2.
@@ -243,7 +243,7 @@ p.postln; // empty space.
 
 ### execution order
 
-```supercollider
+```
 // you can .play .kr or .ar also a name that is not yet used.
 // the rate is guessed as far as possible. on this topic see also: [the_lazy_proxy]
 
@@ -268,7 +268,7 @@ currentEnvironment.clear; // clear every proxy in this environment and remove th
 
 ### setting the xfade time
 
-```supercollider
+```
 ~out.play;
 
 ~out.fadeTime = 4;
@@ -288,7 +288,7 @@ currentEnvironment.clear; // clear every proxy in this environment and remove th
 
 ### setting and mapping arguments
 
-```supercollider
+```
 ~out.play;
 
 ~out = { arg freq=500, ffreq=120; SinOsc.ar(freq*[1,1.1], SinOsc.ar(ffreq, 0, pi), 0.2) };
@@ -373,7 +373,7 @@ currentEnvironment.clear; // clear every proxy in this environment and remove th
 for a more systematic overview see: [JITLib/jitlib_fading](../../Tutorials/JITLib/jitlib_fading.md)
 
 
-```supercollider
+```
 // you have the responsibility for the right number of channels and output rate
 // you have to supply an 'out' argument so it can be mapped to the right channel.
 
@@ -451,7 +451,7 @@ SynthDef("staub", { arg out;
 
 ### using patterns
 
-```supercollider
+```
 // example
 
 (
@@ -533,7 +533,7 @@ p.clock.tempo = 1.0
 
 
 
-```supercollider
+```
 // pause and resume do not work yet.
 
 
@@ -578,7 +578,7 @@ Instr(\test,
 
 ### spawning
 
-```supercollider
+```
 ~out.play;
 ~out.awake = false; // allow sound object assignment without immediate sending
 
@@ -645,7 +645,7 @@ currentEnvironment.clear;
 see also [JITLib/jitlib_efficiency](../../Tutorials/JITLib/jitlib_efficiency.md)
 
 
-```supercollider
+```
 ~out.play;
 
 (
@@ -704,7 +704,7 @@ can be done while the server is not running: with p.wakeUp or p.play
 the environment can be played back.
 
 
-```supercollider
+```
 // quit server:
 
 s.quit;
@@ -744,7 +744,7 @@ s.waitForBoot({
 
 ### external access
 
-```supercollider
+```
 q[\in][1] = { Impulse.ar(2, 0, 0.5) }; // adding a synth at index 1
 
 // equivalent to
@@ -759,7 +759,7 @@ q.at(\in).put(1, { Impulse.ar(7, 0, 0.5) });
 (must be on one server)
 
 
-```supercollider
+```
 (
 q.use({
     ~freq = 100 + p[\freq] / 2;
@@ -775,7 +775,7 @@ q.use({
 (see also: [RecNodeProxy](../../Classes/RecNodeProxy.md))
 
 
-```supercollider
+```
 r = p.record(\out, "proxySpace.aiff");
 
 // start recording
@@ -794,7 +794,7 @@ r.close;
 
 ### push/pop
 
-```supercollider
+```
 // make p the currentEnvironment
 p.push;
 
@@ -827,7 +827,7 @@ p.clear;
 
 ### nodeproxy with numbers as input
 
-```supercollider
+```
 p = ProxySpace.push(s.boot);
 
 

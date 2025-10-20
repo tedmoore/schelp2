@@ -11,6 +11,7 @@ FIXME: APF description.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 

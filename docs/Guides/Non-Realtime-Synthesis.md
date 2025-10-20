@@ -37,7 +37,7 @@ It is recommended to use a [Score](../Classes/Score.md) object to run NRT proces
 
 
 
-```supercollider
+```
 (
 var server = Server(\nrt,
     options: ServerOptions.new
@@ -78,7 +78,7 @@ Each command is an array, e.g. `['/n_set', 1000, 'gate', 0]`.
 Each command is bound to a time by placing it in another array, with the time (a floating point number, in beats) first:
 
 
-```supercollider
+```
 [143.2647423, ['/n_set', 1000, 'gate', 0]]
 ```
 
@@ -103,7 +103,7 @@ Consult help files for the server abstraction classes for additional "...Msg" me
 If you save the result of `Synth.basicNew(...)` in a variable, then you can free it later using either [Node#-freeMsg](../Classes/Node.md#-freemsg) or [Node#-releaseMsg](../Classes/Node.md#-releasemsg), e.g.:
 
 
-```supercollider
+```
 [1.0, (x = Synth.basicNew(\default, server)).newMsg(args: [freq: 200])],
 [2.0, x.releaseMsg]
 ```
@@ -112,7 +112,7 @@ If you save the result of `Synth.basicNew(...)` in a variable, then you can free
 For [SynthDef](../Classes/SynthDef.md), there is no `addMsg` or `recvMsg` method. Add SynthDefs into the Score as follows:
 
 
-```supercollider
+```
 [0.0, ['/d_recv', SynthDef(...).asBytes]]
 ```
 
@@ -120,7 +120,7 @@ For [SynthDef](../Classes/SynthDef.md), there is no `addMsg` or `recvMsg` method
 Very large SynthDefs will need to be written to disk and *not* rendered as OSC messages in the Score. The SuperCollider language client limits the size of a single OSC message to 65516 bytes. If a SynthDef exceeds this limit, creation of the Score object will fail with the error message `ERROR: makeSynthMsgWithTags: buffer overflow`. Resolve this error message as follows:
 
 
-```supercollider
+```
 (
 SynthDef(\veryLarge, {
     // ... very large UGen graph...
@@ -144,7 +144,7 @@ x = Score([
 To render the Score, use the [Score#-recordNRT](../Classes/Score.md#-recordnrt) method. Here is a rough template, followed by an explanation of the `recordNRT` parameters.
 
 
-```supercollider
+```
 (
 a = Score(...);
 
@@ -214,7 +214,7 @@ If you are repeatedly rendering NRT scores, you can set `Score.options = ServerO
 If you do not give a path, `recordNRT` will generate one for you in the system's temporary file location. These files are not automatically deleted after rendering. Some systems may automatically clean up old temporary files after some time. Otherwise, you can take it into your own hands:
 
 
-```supercollider
+```
 var oscPath = PathName.tmp +/+ "mytempscore";
 
 x = Score([ ... ]);
@@ -232,7 +232,7 @@ x.recordNRT(oscFilePath: oscPath, ..., action: {
 Some code requires a number of SynthDefs that are assumed to exist on the server ([SystemSynthDefs](../Classes/SystemSynthDefs.md)). When booting a server in realtime mode, they are sent automatically. In non-realtime mode, they need to be added to the score explicitly:
 
 
-```supercollider
+```
 x = Score.new;
 x.addSystemSynthDefs;
 ```
@@ -257,7 +257,7 @@ Therefore, your Score must include instructions to prepare these resources.
 It is a very common mistake to load a buffer into a realtime server, and then run a non-realtime server, and find that resources are not available. For instance, this example adds a SynthDef in the normal way (added in memory only), and the SynthDef is not automatically transferred to the NRT server.
 
 
-```supercollider
+```
 // Incorrect
 (
 SynthDef(\NRTsine, { |out, freq = 440|
@@ -293,7 +293,7 @@ server.remove;
 
 
 
-```supercollider
+```
 File.delete(PathName.tmp +/+ "nrt-help-fail.wav");
 ```
 
@@ -314,7 +314,7 @@ The good news is that a NRT server does not have to wait for "heavy" operations 
 The preceding example, for simplicity, adds only one synth. Another approach is to create the initial Score with "setup" messages, and add further Synth messages for notes.
 
 
-```supercollider
+```
 (
 var server = Server(\nrt,
     options: ServerOptions.new
@@ -366,7 +366,7 @@ Applying a custom effect to a very long audio file is an especially good use of 
 The example audio file is not very long, but processing here is almost instantaneous.
 
 
-```supercollider
+```
 (
 var server,
 inputFile = SoundFile.openRead(ExampleFiles.child);
@@ -415,7 +415,7 @@ Event patterns can be converted into Scores by `asScore`. (Note that `asScore` i
 First, a simple example using the default SynthDef. Note that the default SynthDef is not stored to disk by default, so it is necessary to include it in the score. The slight time offset in `asScore` is necessary to be sure that the SynthDef message comes first.
 
 
-```supercollider
+```
 (
 x = Pbind(
     \freq, Pexprand(200, 800, inf),
@@ -441,7 +441,7 @@ x.recordNRT(
 To use Buffers and Buses, it is recommended to avoid conflicts with real-time server instances by creating a Server object just for the non-realtime process. It is not necessary to boot this server, only to use its allocators. After rendering, you may safely `remove` the server instance.
 
 
-```supercollider
+```
 (
 var server = Server(\nrt,
     options: ServerOptions.new
@@ -505,7 +505,7 @@ An NRT server may also be used to extract analytical data from a sound file. The
 
 
 
-```supercollider
+```
 // Example: Extract onsets into a buffer.
 
 (
@@ -590,7 +590,7 @@ If, for some reason, you need to write the OSC command file yourself without usi
 
 
 
-```supercollider
+```
 f = File(PathName.tmp +/+ "Cmds.osc", "w");
 
 // start a sine oscillator at 0.2 seconds.
@@ -622,7 +622,7 @@ File.delete(PathName.tmp +/+ "Cmds.osc");
 In this example, a control bus and LFO map is used to have various affects on the source sound.
 
 
-```supercollider
+```
 (
 var nrtserver = Server(\nrt,
     options: ServerOptions.new

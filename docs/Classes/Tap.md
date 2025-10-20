@@ -15,6 +15,7 @@ Tap uses the [PlayBuf](../Classes/PlayBuf.md) UGen internally
 ## Class Methods
 
 
+
 ### `ar`
 **Arguments:**
 
@@ -27,7 +28,7 @@ Tap uses the [PlayBuf](../Classes/PlayBuf.md) UGen internally
 ## Examples
 
 
-```supercollider
+```
 // Create a buffer.
 b = Buffer.alloc(s, s.sampleRate, 1); // enough space for one second of mono audio
 

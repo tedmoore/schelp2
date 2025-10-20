@@ -16,6 +16,7 @@ Overview: [JITLib](../Overviews/JITLib.md)
 
 
 ### Creation
+
 ### `new`
 **Arguments:**
 
@@ -31,7 +32,7 @@ Overview: [JITLib](../Overviews/JITLib.md)
 ## Examples
 
 
-```supercollider
+```
 (
 Tdef(\a, { |e| 100.do { |i| i.postln; 0.5.wait } });
 Tdef(\b, { |e| 100.do { |i| Tdef(\a).set(\otto, 8.rand); exprand(0.1, 3.0).wait } });

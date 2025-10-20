@@ -24,14 +24,14 @@ The above implementation is simple to use, because it only requires to register 
 
 Using the NotificationCenter class, a connection between a subject and an observer to perform an action in response to a message is created by the following code:
 
-```supercollider
+```
 NotificationCenter.register(subject, message, observer, action)
 ```
 
 
 To notify observers that a subject has changed, the NotificationCenter must call the method `notify` :
 
-```supercollider
+```
 NotificationCenter.notify(subject, message, <optional arguments>...);
 ```
 
@@ -43,7 +43,7 @@ Any object that has been registered as observer to the subject issuing the notif
 When a Server boots or quits, it notifies its observers sending them the message \newAllocators:
 
 
-```supercollider
+```
 NotificationCenter.notify(server, \newAllocators)
 ```
 
@@ -51,7 +51,7 @@ NotificationCenter.notify(server, \newAllocators)
 Therefore any object that wants to perform an action when a server boots or quits, can use NotificationCenter to register the action using the following code:
 
 
-```supercollider
+```
 // using default server as subject and a symbol as observer:
 NotificationCenter.register(Server.default, \newAllocators, \yourself, {
     // Substitute anything more meaningful here:
@@ -65,14 +65,19 @@ NotificationCenter.register(Server.default, \newAllocators, \yourself, {
 ## Class Methods
 
 
+
 ### `notify`
 The object emits a message and may also pass extra args.
+
 ### `register`
 An interested client can register the action function for the object/message notification. A listener may only register one action per object/message notification.
+
 ### `unregister`
 Remove the registrations.
+
 ### `registerOneShot`
 After the notification has been emitted and handled, automatically unregister.
+
 ### `registrationExists`
 Simply confirms if a registration is already in place.
 

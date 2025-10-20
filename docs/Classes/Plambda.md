@@ -11,6 +11,7 @@ Used in combination with [Plet](../Classes/Plet.md) and [Pget](../Classes/Pget.m
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -22,7 +23,7 @@ Used in combination with [Plet](../Classes/Plet.md) and [Pget](../Classes/Pget.m
 ## Examples
 
 
-```supercollider
+```
 /*
 
 A simple example:

@@ -18,6 +18,7 @@ A message is sent to all notified clients. See [Server](../Classes/Server.md).
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -31,7 +32,7 @@ A message is sent to all notified clients. See [Server](../Classes/Server.md).
 ## Examples
 
 
-```supercollider
+```
 (
 {
     SendReply.kr(Impulse.kr(3), '/the_answer', [40, 41, 42, 43] + MouseX.kr, 1905);
@@ -88,7 +89,7 @@ OSCdef(\listener, { |msg|
 Sometimes, we need to know when a message was sent. Because `SendReply` can send only messages (which have no timestamp) and no bundles (which have), we can't use the `time` argument of the [OSCdef](../Classes/OSCdef.md)'s function. Instead, you can send a time stamp with the data, by using the [Sweep](../Classes/Sweep.md) UGen.
 
 
-```supercollider
+```
 (
 { SendReply.ar(Impulse.ar(4), "/reply", [Sweep.ar, SinOsc.ar(0.3)]); 0 }.play;
 OSCdef(\x, { |msg|

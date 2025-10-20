@@ -17,6 +17,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -32,9 +33,10 @@
 
 ## Instance Methods
 
+
 ### `learn`
 Wait for the next aftertouch message, reset self to match src, chan.
-```supercollider
+```
 (
 c = TouchResponder({ |src, chan, value|
         [src, chan, value].postln;
@@ -48,7 +50,7 @@ TouchResponder.removeAll
 ## Examples
 
 
-```supercollider
+```
 (
     c = TouchResponder({ |src, chan, val|
         [src, chan, val].postln;
@@ -64,7 +66,7 @@ c.remove
 
 
 
-```supercollider
+```
 (
     c = TouchResponder({ |src, chan, val|
         [src, chan, val].postln;

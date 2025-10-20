@@ -8,7 +8,7 @@
 
 Breaking synthesis processes into parts that accomplish small well-defined tasks encourages modular design and component reuse (the oop mantra).
 
-```supercollider
+```
 (
 // read a soundfile from disk
 b = Buffer.read(s, ExampleFiles.child);
@@ -53,7 +53,7 @@ BufRateScale and BufDur are of a family of ugens that inherit from InfoUGenBase 
 To see the complete list of such ugens, evaluate
 
 
-```supercollider
+```
 InfoUGenBase.dumpClassSubtree;
 ```
 
@@ -61,7 +61,7 @@ InfoUGenBase.dumpClassSubtree;
 It returns
 
 
-```supercollider
+```
 InfoUGenBase
 [
   NumRunningSynths
@@ -84,7 +84,7 @@ InfoUGenBase
 Evaluate
 
 
-```supercollider
+```
 BufInfoUGenBase.dumpClassSubtree;
 ```
 
@@ -92,7 +92,7 @@ BufInfoUGenBase.dumpClassSubtree;
 and it returns
 
 
-```supercollider
+```
 BufInfoUGenBase
 [
   BufChannels
@@ -112,7 +112,7 @@ BufInfoUGenBase
 The next example uses three synthsdefs to make a chain. The first synthdef is a sample player that loops through a buffer. The second synthdef ring modulates its input. The third synthdef applies a lowpass filter.
 
 
-```supercollider
+```
 (
 // read a soundfile
 b = Buffer.read(s, ExampleFiles.child);
@@ -191,7 +191,7 @@ s.queryAllNodes;
 
 
 
-```supercollider
+```
 // a diagram
 
     RootNode
@@ -207,7 +207,7 @@ s.queryAllNodes;
 
 
 
-```supercollider
+```
 // Changing argument (control) values effects timbre
 (
  ~theSource.set(\rateScale, 0.95.rrand(1.05), \mul, 0.051.rrand(0.07));

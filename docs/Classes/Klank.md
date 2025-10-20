@@ -22,6 +22,7 @@ Klank is a bank of Ringz filters. [Formlet](../Classes/Formlet.md) is equivalent
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -52,7 +53,7 @@ Four resonators each at maximum amplitude of 1.0 and ring times of 1 second, dif
 
 
 
-```supercollider
+```
 { Klank.ar(`[[800, 1071, 1153, 1723], nil, [1, 1, 1, 1]], Impulse.ar(2, 0, 0.1)) }.play;
 
 { Klank.ar(`[[800, 1071, 1353, 1723], nil, [1, 1, 1, 1]], Dust.ar(8, 0.1)) }.play;
@@ -65,7 +66,7 @@ Four resonators each at maximum amplitude of 1.0 and ring times of 1 second, dif
 
 Three resonators at maximum amplitude of 1.0, random frequency and ring times. Excited by two pulses at 2 and 2.5 Hz:
 
-```supercollider
+```
 (
 play({
     Klank.ar(`[
@@ -80,7 +81,7 @@ play({
 
 [Multichannel-Expansion](../Guides/Multichannel-Expansion.md) via an array of specs (note the ` before the opening bracket of the parameter array!):
 
-```supercollider
+```
 (
 {
 Klank.ar([ // the multichannel-expansion
@@ -97,7 +98,7 @@ Klank.ar([ // the multichannel-expansion
 
 A SynthDef that generates 4 partials used in different configurations:
 
-```supercollider
+```
 (
 SynthDef(\help_Klank, { |out = 0, i_freq|
     var klank, n, harm, amp, ring;
@@ -147,7 +148,7 @@ a = Synth(\help_Klank, [
 
 Advanced examples:
 
-```supercollider
+```
 // -- overlap texture
 (
 SynthDef("help-KlankOverlapTexture",

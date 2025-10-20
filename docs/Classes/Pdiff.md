@@ -13,7 +13,7 @@ A pattern that returns the difference between the current and previous values of
 ## Examples
 
 
-```supercollider
+```
 p = Pbind(
     \degree, Pxrand([0, 2, 3, 4, 6, 7], 12),
     \dur, Pdiff(Pkey(\degree)).abs/4,

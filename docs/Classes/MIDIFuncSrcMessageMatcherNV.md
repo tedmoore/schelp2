@@ -16,6 +16,7 @@ This is used by [MIDIMessageDispatcherNV](../Classes/MIDIMessageDispatcherNV.md)
 
 ## Instance Methods
 
+
 ### `value`
 Check to see if a message matches, and evaluate func if it does.**Arguments:**
 

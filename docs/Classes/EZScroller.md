@@ -12,7 +12,7 @@ EZScroller is used JITLib guis like [NodeProxyEditor](../Classes/NodeProxyEditor
 ## Examples
 
 
-```supercollider
+```
 (
 w = Window.new("EZScroller test", Rect(100, 400, 200, 100)).front;
 // 5 displays

@@ -15,7 +15,7 @@
 It is traditional when learning a new programming language to start with a simple program called 'Hello World'. This just makes the program print the text 'Hello World!' to well, wherever it prints text. In SC that's a place called the post window. The post window is the one that opened up when you first started SC, and a bunch of stuff was printed there which looks something like this:
 
 
-```supercollider
+```
 init_OSC
 compiling class library..
     NumPrimitives = 587
@@ -36,7 +36,7 @@ Class tree inited in 0.14 seconds
 Don't worry too much about what all that means just now, just keep in mind that this is where SC will send you information. It's also where we'll get the result of our Hello World program, which you can see below:
 
 
-```supercollider
+```
 "Hello World!".postln;
 ```
 
@@ -46,7 +46,7 @@ To execute it, simply click to place the cursor somewhere on the same line as th
 If all went well, you should see this in the post window.
 
 
-```supercollider
+```
 Hello World!
 -> Hello World!
 ```
@@ -63,7 +63,7 @@ Why did it print twice? Well, when you execute code in SC, it always posts the r
 So in this case we didn't really need the `postln` bit. But in the following example we would. Select both lines of text by clicking and dragging over them, and then execute, i.e. press Ctrl-Enter (Cmd-Return on macOS).
 
 
-```supercollider
+```
 "Hello there, I'm SuperCollider!".postln;
 "Hello World!".postln;
 ```
@@ -74,7 +74,7 @@ The first line, 'Hello there, I'm SuperCollider!' would not have printed if we d
 In general, when you are meant to execute several lines of code at the same time they will be surrounded by parentheses, as in the example below. You can have your cursor anywhere in this region (or on the line of the parentheses on macOS), then double-click and press Ctrl-Enter or Shift-Enter (Cmd-Return or Shift-Return on macOS) - this selects the whole region and executes it. Try it out on the example below.
 
 
-```supercollider
+```
 (
 "Call me,".postln;
 "Ishmael.".postln;
@@ -89,7 +89,7 @@ When code is not surrounded by parentheses it is generally intended to be execut
 Note that each of the lines within the block of code ends with a semi-colon. This is very important when executing multiple lines of code. Try what happens when you execute following variant of the almost identical code.
 
 
-```supercollider
+```
 (
 "Call me?".postln
 "Ishmael.".postln;
@@ -100,7 +100,7 @@ Note that each of the lines within the block of code ends with a semi-colon. Thi
 Executing the code above results in a 'Parse Error'. With an error of this kind, the dot in the error message shows you where SC ran into trouble. Here it happens just after `"Ishmael."`.
 
 
-```supercollider
+```
 ERROR: syntax error, unexpected STRING, expecting DOTDOT or ':' or ',' or ')'
 in interpreted text
 line 3 char 10:

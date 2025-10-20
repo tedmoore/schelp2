@@ -13,6 +13,7 @@ Generates noise whose spectrum has equal power at all frequencies.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Generates noise whose spectrum has equal power at all frequencies.
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-WhiteNoise", { |out = 0|
     Out.ar(out,

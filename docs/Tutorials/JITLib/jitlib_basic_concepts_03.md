@@ -14,7 +14,7 @@ internal structure of the node proxy, node order and the parameter context
 
 A NodeProxy has two internal contexts in which the objects are inserted: The group, which is on the server, and the nodeMap, which is a client side parameter context. As the group can contain an order of synths, there is a client side representation, in which the source objects are stored (see [Order](../../Classes/Order.md)).
 
-```supercollider
+```
 // make new space
 p = ProxySpace.push(s.boot);
 ~z.play; ~y.ar; // explicitly initialize proxies
@@ -25,7 +25,7 @@ p = ProxySpace.push(s.boot);
 One node proxy can hold several objects in an execution order. The index can be any positive integer.
 
 
-```supercollider
+```
 // the initial slot (0) is used when assigning directly.
 // ~y is still unused, we will add it later.
 
@@ -51,7 +51,7 @@ One node proxy can hold several objects in an execution order. The index can be 
 multiple assignment
 
 
-```supercollider
+```
 // the function is assigned to the slots from 1 to 4
 ~z[1..4] = { SinOsc.ar(exprand(300, 600), 0, LFTri.kr({exprand(1, 3)} ! 3).sum.max(0)) * 0.1 };
 
@@ -71,7 +71,7 @@ multiple assignment
 
 ## b) fade time
 
-```supercollider
+```
 // setting the fadeTime will allow cross fades.
 // in case of an audio rate proxy the fade is pseudo-gaussian
 // in case of a control rate proxy it is linear.
@@ -102,7 +102,7 @@ there are a couple of messages a NodeProxy understands that are related to play,
 this pair of messages is related to the monitoring function of the proxy. play starts monitoring, stop ends the monitoring. *if the proxy group is playing* (this can be tested with .isPlaying), play will not affect the proxie's internal behaviour in any way. Only if it is not playing (e.g because one has freed the group by cmd-period) it starts the synths/objects in the proxy. Stop never affects the internal state of the proxy.
 
 
-```supercollider
+```
 // first hit cmd-period.
 ~z = { max(SinOsc.ar(ExpRand(3, 160)), Saw.ar([304, 304.3])) * 0.1 };
 ~z.play;        // monitor the proxy
@@ -115,7 +115,7 @@ this pair of messages is related to the monitoring function of the proxy. play s
 You can pass a vol argument to play to adjust the monitor volume without affecting the proxy internal bus volume.
 
 
-```supercollider
+```
 ~z.play(vol:0.3);
 // while playing you can set the volume also:
 ~z.vol = 0.8;
@@ -129,7 +129,7 @@ You can pass a vol argument to play to adjust the monitor volume without affecti
 this pair of messages controls the synths within the proxy. It does not affect the monitoring (see above). send starts a new synth, release releases the synth. **send** by default releases the last synth. if the synth frees itself (doneAction 2) **spawn** can be used.
 
 
-```supercollider
+```
 // first hit cmd-period.
 ~z.play; // monitor. this starts also the synth, if the group wasn't playing.
 
@@ -152,7 +152,7 @@ this pair of messages controls the synths within the proxy. It does not affect t
 in order to free the synths and the group together, **free** is used:
 
 
-```supercollider
+```
 ~z.free; // this does also not affect the monitoring.
 ~z.play; // monitor. as the group was not playing, this starts the proxy.
 ```
@@ -161,7 +161,7 @@ in order to free the synths and the group together, **free** is used:
 in order to free the synths and the group, stop playback, **end** is used.
 
 
-```supercollider
+```
 ~z.end(3); // end in 3 sec
 ```
 
@@ -169,7 +169,7 @@ in order to free the synths and the group, stop playback, **end** is used.
 in order to rebuild the synthdef on the server, use **rebuild**. this is of course far less efficient than *send*, but it can make sense; e.g. the synthdef has random elements. UGens like Rand(300, 400) create new random values on every send, while client-side random functions like exprand(1, 1.3) only get built once; to force new decisions with these, one can use **rebuild**.
 
 
-```supercollider
+```
 (
 ~z = {
     Splay.ar(
@@ -196,7 +196,7 @@ in order to rebuild the synthdef on the server, use **rebuild**. this is of cour
 when paused, a node proxy still stays active, but every synth that is started is paused until the proxy is resumed again.
 
 
-```supercollider
+```
 ~z.play;
 
 ~z.pause; // pause the synth.
@@ -217,7 +217,7 @@ Note that pause/resume causes clicks with audio rate proxies, which do not happe
 clear removes all synths, the group, the monitor and releases the bus number.
 
 
-```supercollider
+```
 ~z.clear;
 ~z.bus;        // no bus
 ~z.isNeutral;    // not initialized.
@@ -234,7 +234,7 @@ note that when other processes use the nodeproxy these are not notified. So clea
 what happens to function arguments?
 
 
-```supercollider
+```
 ~y.play;
 ~y = { arg freq=500; SinOsc.ar(freq * [1, 1.1]) * 0.1 };
 ```
@@ -243,7 +243,7 @@ what happens to function arguments?
 now the argument 'freq' is a control in the synth (just like in SynthDef) which you can change by the **'set'** message.
 
 
-```supercollider
+```
 ~y.set(\freq, 440);
 
 // unlike in synths, this context is kept and applied to every new synth:
@@ -255,7 +255,7 @@ now the argument 'freq' is a control in the synth (just like in SynthDef) which 
 the message **xset** is a variant of set, to crossfade the change using the current fadeTime:
 
 
-```supercollider
+```
 ~y.fadeTime = 3;
 ~y.xset(\freq, 600);
 
@@ -269,7 +269,7 @@ the message **xset** is a variant of set, to crossfade the change using the curr
 the parameter context also can keep bus mappings. a control can be mapped to any *control proxy* :
 
 
-```supercollider
+```
 ~c = { MouseX.kr(300, 800, 1) };
 ~y.map(\freq, ~c);
 
@@ -282,7 +282,7 @@ the parameter context also can keep bus mappings. a control can be mapped to any
 the message **xmap** is a variant of map, to crossfade the change using the current fadeTime:
 
 
-```supercollider
+```
 ~y.set(\freq, 440);
 ~y.xmap(\freq, ~c);
 ```
@@ -291,7 +291,7 @@ the message **xmap** is a variant of map, to crossfade the change using the curr
 to remove a setting or a mapping, use unmap / unset.
 
 
-```supercollider
+```
 ~y.unmap;
 ```
 
@@ -299,7 +299,7 @@ to remove a setting or a mapping, use unmap / unset.
 also multichannel controls can be mapped to a multichannel proxy using **map** :
 
 
-```supercollider
+```
 ~c2 = { [MouseX.kr(300, 800, 1), MouseY.kr(300, 800, 1)] };
 ~y = { arg freq=#[440, 550]; SinOsc.ar(freq) * SinOsc.ar(freq + 3) * 0.05 };
 ~y.map(\freq, ~c2);
@@ -309,7 +309,7 @@ also multichannel controls can be mapped to a multichannel proxy using **map** :
 the parameter context can be examined:
 
 
-```supercollider
+```
 ~y.nodeMap;
 
 // apart from the parameters explicitly set,

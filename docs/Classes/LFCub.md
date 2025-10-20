@@ -13,6 +13,7 @@ A sine like shape made of two cubic pieces. Smoother than [LFPar](../Classes/LFP
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ A sine like shape made of two cubic pieces. Smoother than [LFPar](../Classes/LFP
 ## Examples
 
 
-```supercollider
+```
 { LFCub.ar(LFCub.kr(LFCub.kr(0.2, 0, 8, 10), 0, 400, 800), 0, 0.1) }.play
 { LFCub.ar(LFCub.kr(0.2, 0, 400, 800), 0, 0.1) }.play
 { LFCub.ar(800, 0, 0.1) }.play

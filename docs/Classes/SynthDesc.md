@@ -15,7 +15,7 @@ SynthDescs are needed by the event stream system, so when using [Pbind](../Class
 SynthDescs are created by [SynthDescLib](../Classes/SynthDescLib.md), by reading a compiled synth def file.
 
 
-```supercollider
+```
 SynthDescLib.global.read("synthdefs/default.scsyndef");
 SynthDescLib.global.synthDescs.at(\default)
 SynthDescLib.global.at(\default) // shortcut, same as line above
@@ -36,7 +36,7 @@ SynthDescLib.global.at(\default) // shortcut, same as line above
 
 
 
-```supercollider
+```
 (
 SynthDef("test", { |out, freq, xFade|
     XOut.ar(out, xFade, SinOsc.ar(freq))
@@ -48,7 +48,7 @@ SynthDef("test", { |out, freq, xFade|
 Browse the properties of SynthDescs:
 
 
-```supercollider
+```
 SynthDescLib.global.browse;
 ```
 
@@ -68,7 +68,7 @@ Currently only the 'specs' key is reserved. Other keys may be used as needed for
 Metadata are specified when creating a [SynthDef](../Classes/SynthDef.md). If the SynthDef is .store'd (or .add'd) into a SynthDescLib, the metadata become part of the SynthDesc as well. Thereafter, the metadata can be accessed through SynthDescLib:
 
 
-```supercollider
+```
 SynthDescLib.global[\synthDefName].metadata
 ```
 
@@ -95,7 +95,7 @@ Other plug-ins may be written at a later date, to support sharing metadata with 
 You may specify a global default metadata plug-in as follows:
 
 
-```supercollider
+```
 SynthDesc.mdPlugin = ... plug-in class name ...;
 ```
 
@@ -109,7 +109,7 @@ Metadata are not written when using `SynthDef().load(server)`. This is because S
 You may write a function to populate entries into the metadata automatically, based on the SynthDesc object. This function executes when reading a SynthDesc from disk, when using .add, and before writing a metadata file (in .store).
 
 
-```supercollider
+```
 SynthDesc.populateMetadataFunc = { |synthdesc|
     ... do work here ...
 };
@@ -135,7 +135,7 @@ There should be only one metadata file at a time. However, in the case of confli
 
 ### Metadata Examples
 
-```supercollider
+```
 s.boot;
 
 d = SynthDef(\mdDemo, { |out, freq, cutoff, volume, gate = 1|
@@ -191,41 +191,52 @@ e[\mdDemo].makeWindow;
 ## Class Methods
 
 
+
 ### `read`
-Adds all synthDescs in a path to a dict. You should not use this method or *readFile to read SynthDescs into a SynthDescLib. Use [SynthDescLib / read ](../Classes/SynthDescLib.md#read) or [SynthDescLib / readStream ](../Classes/SynthDescLib.md#readstream) instead.
+Adds all synthDescs in a path to a dict. You should not use this method or *readFile to read SynthDescs into a SynthDescLib. Use [SynthDescLib#read](../Classes/SynthDescLib.md#read) or [SynthDescLib#readStream](../Classes/SynthDescLib.md#readstream) instead.
 
 ## Instance Methods
 
+
 ### `name`
-**Returns:** the name of the SynthDef### `controls`
+**Returns:** the name of the SynthDef
+### `controls`
 **Returns:** an array of instances of [ControlName](../Classes/ControlName.md), each of which have the following fields: name, index, rate, defaultValue
-```supercollider
+```
 SynthDescLib.global.at(\default).controlNames.postln;
 ```
 
+
 ### `controlDict`
-An [IdentityDictionary](../Classes/IdentityDictionary.md) of the [ControlName](../Classes/ControlName.md)'s, indexed by name. This can be used for fast lookup of control index by name, for example to set a specific element of a multichannel control.### `controlNames`
-**Returns:** an array of Strings with the names of controls### `outputs`
-**Returns:** an array of [IODesc](../Classes/IODesc.md) that describes the available outputs.### `inputs`
-**Returns:** an array of [IODesc](../Classes/IODesc.md) that describes the available inputs.### `hasGate`
-is true if the Synthdef has a gate input### `canFreeSynth`
+An [IdentityDictionary](../Classes/IdentityDictionary.md) of the [ControlName](../Classes/ControlName.md)'s, indexed by name. This can be used for fast lookup of control index by name, for example to set a specific element of a multichannel control.
+### `controlNames`
+**Returns:** an array of Strings with the names of controls
+### `outputs`
+**Returns:** an array of [IODesc](../Classes/IODesc.md) that describes the available outputs.
+### `inputs`
+**Returns:** an array of [IODesc](../Classes/IODesc.md) that describes the available inputs.
+### `hasGate`
+is true if the Synthdef has a gate input
+### `canFreeSynth`
 is true if the [Synth](../Classes/Synth.md) can free itself (via some means, usually a doneAction)This can be used to decide if to remove a Synth directly via free-message.
-```supercollider
+```
 SynthDescLib.global.at(\default).canFreeSynth;
 ```
 
+
 ### `outputData`
 Returns an array of events with information about any UGens that write to a bus (such as [Out](../Classes/Out.md) etc.). This includes the rate and number of channels of the UGen. If its first input is a control, also the corresponding control name is provided.
-```supercollider
+```
 a = SynthDef(\x, { |out, freq = 440| Out.ar(out, SinOsc.ar(freq)) }).add;
 a.desc.outputData;
 a = SynthDef(\x, { |out, freq = 440| Out.ar(out + 7, SinOsc.ar(freq)) }).add; // no controlName in this case
 a.desc.outputData;
 ```
 
+
 ### `msgFunc`
 the function which is used to create an array of arguments for playing a synth def in patterns
-```supercollider
+```
 SynthDescLib.global.synthDescs.at(\default).msgFunc.postcs;
 ```
 

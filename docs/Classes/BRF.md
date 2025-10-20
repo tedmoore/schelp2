@@ -13,6 +13,7 @@ A second order band reject filter.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ A second order band reject filter.
 ## Examples
 
 
-```supercollider
+```
 { BRF.ar(Saw.ar(200, 0.1), FSinOsc.kr(XLine.kr(0.7, 300, 20), 0, 3800, 4000), 0.3) }.play;
 
 { BRF.ar(Saw.ar(200, 0.5), MouseX.kr(100, 10000, 1), 0.3) }.play;

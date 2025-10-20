@@ -21,7 +21,7 @@ Instance variables may only be directly accessed and changed from within the cla
 Getter and setter methods may be defined in the declaration of the instance variable. A getter message for an instance variable is created by typing a less than sign `<` before the variable name. A setter message is created by typing a greater than `>` sign before the variable name. If both occur then they must occur in the order `<>`.
 
 
-```supercollider
+```
 var a, <b, >c, <>d;
 ```
 
@@ -46,7 +46,7 @@ var a, <b, >c, <>d;
 
 
 
-```supercollider
+```
 Point {
     // x and y are instance variables which have both getter and setter methods
     // and default to zero.
@@ -89,7 +89,7 @@ Class Methods are methods that implement messages sent to the class object. A co
 [Object](../Classes/Object.md) defines the method `isKindOf`:
 
 
-```supercollider
+```
 anObject.isKindOf(aClass)
 ```
 
@@ -99,7 +99,7 @@ It returns true if the object is of the class or one of its subclasses.
 To determine if an object is specifically of type aClass, but not one of its subclasses, use the `class` instance variable and the identity equals sign:
 
 
-```supercollider
+```
 anObject.class === aClass
 ```
 

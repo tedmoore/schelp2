@@ -18,11 +18,12 @@ When the plotter window has focus, the following keyboard shortcuts can be used 
 
 
 ### Method extensions
-Plotter extends other classes with methods. To see what classes implements plot, see [Methods / plot ](../Overviews/Methods.md#plot)
+Plotter extends other classes with methods. To see what classes implements plot, see [Methods#plot](../Overviews/Methods.md#plot)
+
 
 ### `plot`
 
-```supercollider
+```
 // plot array
 [1, 6, 2, -5, 2].plot;
 (0..100).normalize(0, 8pi).sin.plot;
@@ -42,9 +43,10 @@ Env.perc(0.4, 0.6).plot;
 ```
 
 
+
 ### `plotGraph`
 
-```supercollider
+```
 { |x| sin(x) }.plotGraph(300, 0, 2*pi);
 { |x| sin(1/x) * x }.plotGraph(from: 0.0001, to: 0.2);
 ```
@@ -55,6 +57,7 @@ Env.perc(0.4, 0.6).plot;
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -64,7 +67,7 @@ Env.perc(0.4, 0.6).plot;
 | `bounds` | The window bounds (a [Rect](../Classes/Rect.md)). |  
 | `parent` | Either a [Window](../Classes/Window.md) / [View](../Classes/View.md) may be passed in - then the plot is embedded. Otherwise a new [Window](../Classes/Window.md) is created. |  
 
-```supercollider
+```
 (
 a = Plotter("the plot", Rect(600, 30, 800, 250));
 a.value = (0..1000).normalize(0, 14pi).curdle(0.01).scramble.flat.sin;
@@ -77,6 +80,7 @@ a.value = (0..1000).normalize(0, 14pi).curdle(0.01).scramble.flat.sin;
 
 
 ### Embedding in another view
+
 ### `makeWindow`
 Open given plotter in a new window or within a given composite view.See the [#Embedding in another View or GUI](#embedding-in-another-view-or-gui) example.**Arguments:**
 
@@ -87,6 +91,7 @@ Open given plotter in a new window or within a given composite view.See the [#Em
 
 
 ### Plot properties
+
 ### `plotMode`
 Get/Set the style of data display. This can be an array of different modes for multi-channel data. Available modes:| `\points` | draw data points as circles with a dot in the middle | 
 | --- | --- || `\dots` | draw data points as filled circles | | `\lines, \linear` | lines connect data points | | `\plines` | lines connect data points, marked also by `\points` | | `\dlines` | lines connect data points, marked also by `\dots` | | `\stems` | PCM-style vertical lines from zero to the data point | | `\pstems` | vertical lines from zero to the data points, marked also by `\points` | | `\dstems` | vertical lines from zero to the data points, marked also by `\dots` | | `\filled` | fills the area under a waveform, and assumes a bipolar signal (filled to the zero-crossing) | | `\pfilled` | `\filled`, marked also by `\points` | | `\dfilled` | `\filled`, marked also by `\dots` | | `\levels` | sample-and-hold style horizontal lines from the data point extending over the sample interval | | `\steps` | "step interpolation": `\levels` connected by vertical lines | | `\bars` | bar graph with filled bars | **Arguments:**
@@ -95,7 +100,7 @@ Get/Set the style of data display. This can be an array of different modes for m
 |----------|-------------|
 | `modes` | A [Symbol](../Classes/Symbol.md) or an [Array](../Classes/Array.md) of [Symbol](../Classes/Symbol.md)s.If `modes.size < numChannels`, the plots will *wrap* around the array of modes. |  
 **Returns:** An [Array](../Classes/Array.md) of [Symbol](../Classes/Symbol.md)s, unless there is only one mode specified or if all modes of a multi-channel plot are the same, in which case a single [Symbol](../Classes/Symbol.md) is returned.
-```supercollider
+```
 p = (0..20).scramble.plot;
 p.plotMode = \points;
 p.plotMode = \plines;
@@ -136,6 +141,7 @@ p.superpose_(true);
 ```
 
 
+
 ### `plotColor`
 Set or get the colors of your data plot.**Arguments:**
 
@@ -143,7 +149,7 @@ Set or get the colors of your data plot.**Arguments:**
 |----------|-------------|
 | `colors` | This can be an [Array](../Classes/Array.md) of [Color](../Classes/Color.md)s for multichannel data, or a single [Color](../Classes/Color.md) to map to all channels.If `colors.size < numChannels`, the plots will *wrap* around the array of colors. |  
 **Returns:** An [Array](../Classes/Array.md) of [Color](../Classes/Color.md)s, unless there is only one color specified or if all colors of a multi-channel plot are the same, in which case a [Color](../Classes/Color.md) is returned.
-```supercollider
+```
 // Colorize channels
 (
 d = 4.collect({ |i|
@@ -168,34 +174,40 @@ var freq = 100;
 ```
 
 
+
 ### `superpose`
 If `true`, plotter displays channels overlaid on a single plot. (keyboard shortcut: s)
-```supercollider
+```
 a = { (0..30).scramble }.dup(2).plot;
 a.superpose = true;
 ```
 
 
+
 ### `axisLabelX`
 Get/set the label for the x-axes. Can be a [String](../Classes/String.md) or an [Array](../Classes/Array.md) of [String](../Classes/String.md)s, or `nil` to remove the label. See [#Axis labels](#axis-labels) example below.
+
 ### `axisLabelY`
 Get/set the label for the y-axes. Can be a [String](../Classes/String.md) or an [Array](../Classes/Array.md) of [String](../Classes/String.md)s, or `nil` to remove the label. See [#Axis labels](#axis-labels) example below.
+
 ### `showUnits`
-Get/set whether the corresponding [ControlSpec#-units](../Classes/ControlSpec.md#-units) are displayed as labels. The state of [unitLocation](#unitlocation) determines whether the units are shown as axis labels or appended to the tick labels.**Arguments:**
+Get/set whether the corresponding [ControlSpec#-units](../Classes/ControlSpec.md#-units) are displayed as labels. The state of [#-unitLocation](#-unitlocation) determines whether the units are shown as axis labels or appended to the tick labels.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `bool` | A `Boolean`. |  
 When enabling `showUnits`, axis or tick labels will only be updated to show the units when the `axisLabelX/Y` or grid `labelAppendString` properties are `nil`, empty, or were previously set to show the spec units — i.e. `showUnits` won't overwrite a label that has been explicitly set.See [#Unit labels](#unit-labels) example below.
+
 ### `unitLocation`
-Get/set the label type on which the `Spec` [ControlSpec#-units](../Classes/ControlSpec.md#-units) are shown.See the Discussion in [showUnits](#showunits) about the interraction with pre-existing labels at the **location**, and [#Unit labels](#unit-labels) example below.**Arguments:**
+Get/set the label type on which the `Spec` [ControlSpec#-units](../Classes/ControlSpec.md#-units) are shown.See the Discussion in [#-showUnits](#-showunits) about the interraction with pre-existing labels at the **location**, and [#Unit labels](#unit-labels) example below.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `location` | A `Symbol`, `\axis` or `\ticks`, to show the units as the axis label or appended to each of the tick labels, respectively. |  
 
+
 ### `setProperties`
-Set properties of all plot views. Defaults are taken from `GUI.skins.at(\plot);`> **⚠️ Warning:** It's preferrable to use Plotter's instance methods when possible to set Plot properties to ensure proper behavior when using [superpose](#superpose).**Arguments:**
+Set properties of all plot views. Defaults are taken from `GUI.skins.at(\plot);`> **⚠️ Warning:** It's preferrable to use Plotter's instance methods when possible to set Plot properties to ensure proper behavior when using [#-superpose](#-superpose).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -212,7 +224,7 @@ Set properties of all plot views. Defaults are taken from `GUI.skins.at(\plot);`
 - gridOnX ([Boolean](../Classes/Boolean.md))
 - gridOnY ([Boolean](../Classes/Boolean.md)) |  
 Example:
-```supercollider
+```
 (
 a = { (0..30).scramble }.dup(2).plot;
 a.setProperties(
@@ -230,10 +242,12 @@ GUI.skins.at(\plot); // defaults
 ```
 
 
+
 ### `plots`
 **Returns:** An [Array](../Classes/Array.md) of [Plot](../Classes/Plot.md)s.
 
 ### Grid properties
+
 ### `setGridProperties`
 Set one or more properties of the `DrawGridX` or `DrawGridY` used by all `Plots`.**Arguments:**
 
@@ -243,7 +257,7 @@ Set one or more properties of the `DrawGridX` or `DrawGridY` used by all `Plots`
 | `... propertyPairs` | Key value pairs, listed as successive arguments, of the properties to change and their new values. The property key is a `Symbol`.Any of setters of `DrawGridX` or `DrawGridY` can be used. Here is a subset of useful properties:| `\labelAnchor` | A `Symbol` denoting the point on the label's bounding [Rect](../Classes/Rect.md) that anchors to the point where the grid line meets the base of the axis. `\center, \top, \bottom, \left, \right, \topLeft, \topRight, \bottomLeft, \bottomRight, \leftTop, \rightTop, \leftBottom, \rightBottom`. | 
 | --- | --- || `\labelOffset` | A [Point](../Classes/Point.md) describing the offset of the `\labelAnchor` from the point where the grid line meets the base of the axis. The positive direction for the `x` and `y` dimensions is right and down, respectively. | | `\labelAlign` | Alignment of the text within its bounding `Rect`: `\left`, `\center`, or `\right`. | | `\constrainLabelExtents` | A `Boolean` specifying whether the tick labels at either end of the axis are constrained by, or can extend beyond, the grid bounds. | | `\drawBaseLine` | A `Boolean` whether a line is drawn at the minimum extent of this **axis**. | | `\drawBoundingLines` | A `Boolean` whether a line is drawn at both ends of the extent of this **axis**. | | `\drawBoundingRect` | A `Boolean` whether a `Rect` is drawn around the bounds of the grid area. | | `\labelAppendString` | A string to append to all of the axis's tick labels. | | `\tickSpacing` | Set the *minimum* spacing between grid lines ("ticks") for each axis. See [DrawGrid#-tickSpacing](../Classes/DrawGrid.md#-tickspacing) for details. | | `\numTicks` | Set the *approximate* number of grid lines ("ticks") for each axis. See [DrawGrid#-numTicks](../Classes/DrawGrid.md#-numticks) for details. | | `\font` | A [Font](../Classes/Font.md) (including size) to be used for the tick labels. | | `\fontColor` | The [Color](../Classes/Color.md) of the tick labels. | | `\gridColor` | The [Color](../Classes/Color.md) of the axis grid lines. | The properties `\drawBaseLine`, `\drawBoundingLines`, or `\drawBoundingRect` are mutually exlusive — setting any of them to true will set the others two to `false`. In the context of `Plotter`, setting `\drawBoundingRect` on one axis to `true` has the same appearance of setting `\drawBoundingLines` on *both* axes to `true`. |  
 This is a convenience method to set the grid properties for *all* `Plot`s to the same values. An Example:
-```supercollider
+```
 (
 var plotter = [10, 34, 167].collect({ |freq|
     101.collect{ |i| sin((i/1000) * 2pi * freq) }
@@ -263,7 +277,7 @@ plotter.setGridProperties(\x,
 ```
 
 To set the properties of grids on each `Plot` separately, iterate over the plots:
-```supercollider
+```
 (
 var plotter, labelAnchors;
 plotter = [10, 34, 167].collect({ |freq|
@@ -282,15 +296,16 @@ plotter.updatePlotBounds;
 ```
 
 
+
 ### `getGridProperty`
-Get the value of a grid property. See [setGridProperties](#setgridproperties) for a list of available properties.**Arguments:**
+Get the value of a grid property. See [#-setGridProperties](#-setgridproperties) for a list of available properties.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `axis` | A `Symbol` denoting the axis whose grid you're modifying: `\x` or `\y`. |  
 | `property` | The property name as a `Symbol`. |  
-As a convenience method, `getGridProperty` assumes that properties across all `Plot`s are the same (as would be the case if set by [setGridProperties](#setgridproperties)) so returns a single value. Alternatively, properties from individual plot grids can be collected by iterating over the plots:
-```supercollider
+As a convenience method, `getGridProperty` assumes that properties across all `Plot`s are the same (as would be the case if set by [#-setGridProperties](#-setgridproperties)) so returns a single value. Alternatively, properties from individual plot grids can be collected by iterating over the plots:
+```
 ( // inspect the \labelAnchor of each DrawGridX
 var plotter  = [10, 34, 167].collect({ |freq|
     101.collect{ |i| sin((i/1000) * 2pi * freq) }
@@ -303,15 +318,17 @@ plotter.plots.collect({ |plot|
 ```
 
 
+
 ### `drawGridBoundingRect`
 Set whether a [Rect](../Classes/Rect.md) is drawn around the boundary of the grid. Setting to `false` disables any bounding grid lines (including "base" lines).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `bool` | A `Boolean`. |  
-In some cases, the [GridLines](../Classes/GridLines.md) of the grid will not fall on the minimum or maximum of it's spec's range. Using [drawGridBaseLines](#drawgridbaselines) or [drawGridBoundingRect](#drawgridboundingrect) will give the appearance of grid lines at the lower end ("base") of the grid, or at both ends of the grid, respectively.
+In some cases, the [GridLines](../Classes/GridLines.md) of the grid will not fall on the minimum or maximum of it's spec's range. Using [#-drawGridBaseLines](#-drawgridbaselines) or [#-drawGridBoundingRect](#-drawgridboundingrect) will give the appearance of grid lines at the lower end ("base") of the grid, or at both ends of the grid, respectively.
+
 ### `drawGridBaseLines`
-Set whether a line is drawn at the lower extent of the grid axes. Setting to `false` disables any bounding grid lines (including a bounding `Rect`). See also the Discussion in [drawGridBoundingRect](#drawgridboundingrect).**Arguments:**
+Set whether a line is drawn at the lower extent of the grid axes. Setting to `false` disables any bounding grid lines (including a bounding `Rect`). See also the Discussion in [#-drawGridBoundingRect](#-drawgridboundingrect).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -319,25 +336,28 @@ Set whether a line is drawn at the lower extent of the grid axes. Setting to `fa
 
 
 ### Data display properties
+
 ### `specs`
 Set or get the [spec](../Classes/ControlSpec.md) for the y-axis (codomain).
-```supercollider
+```
 a = { (40..3000).scramble }.dup(2).plot;
 a.specs = \freq.asSpec;
 ```
 
 See also the [#Explicit domain and axis specs](#explicit-domain-and-axis-specs) example below.
+
 ### `domainSpecs`
 Set or get the [spec](../Classes/ControlSpec.md) for the x-axis (domain).
-```supercollider
+```
 a = { (40..300).scramble }.dup(2).plot;
 a.domainSpecs = \freq.asSpec;
 ```
 
-See also the [#Explicit domain and axis specs](#explicit-domain-and-axis-specs) example below.When setting your `Plotter` [value](#value), the default **domainSpecs** is a linear spec in the range `[0, value.size-1]` (i.e. the indices of the values). Therefore, your values are displayed as evenly sampled between the `minval` and `maxval`, unless you have explicitly set the [domain](#domain) values.If a new [value](#value) is set, you will need to update your domainSpecs.
+See also the [#Explicit domain and axis specs](#explicit-domain-and-axis-specs) example below.When setting your `Plotter` [#-value](#-value), the default **domainSpecs** is a linear spec in the range `[0, value.size-1]` (i.e. the indices of the values). Therefore, your values are displayed as evenly sampled between the `minval` and `maxval`, unless you have explicitly set the [#-domain](#-domain) values.If a new [#-value](#-value) is set, you will need to update your domainSpecs.
+
 ### `domain`
-Set/get the x-axis positions of your data points. The size of the `domainArray` must equal the size of your [value](#value) array, i.e. a domain value specified for each data point.
-```supercollider
+Set/get the x-axis positions of your data points. The size of the `domainArray` must equal the size of your [#-value](#-value) array, i.e. a domain value specified for each data point.
+```
 (
 var data, domain, plot;
 domain = 25.collect({ rrand(0, 50) }).sort;
@@ -349,10 +369,11 @@ plot.domain_(domain);
 )
 ```
 
-See also the [#Explicit domain and axis specs](#explicit-domain-and-axis-specs) example below.Domain values are mapped into the range of the [domainSpecs](#domainspecs), so need not be evenly distributed. If [domain](#domain) is set to `nil`, your values are displayed as evenly sampled between the `minval` and `maxval` of the [domainSpecs](#domainspecs).Currently, for multichannel data plots, it's assumed that all channels of data share a single [domain](#domain). I.e. `domainArray` must be an [Array](../Classes/Array.md) of rank 1.If a new [value](#value) is set, you will need to update your [domain](#domain).
+See also the [#Explicit domain and axis specs](#explicit-domain-and-axis-specs) example below.Domain values are mapped into the range of the [#-domainSpecs](#-domainspecs), so need not be evenly distributed. If [#-domain](#-domain) is set to `nil`, your values are displayed as evenly sampled between the `minval` and `maxval` of the [#-domainSpecs](#-domainspecs).Currently, for multichannel data plots, it's assumed that all channels of data share a single [#-domain](#-domain). I.e. `domainArray` must be an [Array](../Classes/Array.md) of rank 1.If a new [#-value](#-value) is set, you will need to update your [#-domain](#-domain).
+
 ### `resolution`
 Set the minimum number of pixels between data points (default: 1)
-```supercollider
+```
 // Changing plot resolution (x-axis)
 p = 5000.collect({ |i| sinPi(i * 0.0025) }).plot;
 p.resolution_(5).refresh;  // 5px
@@ -364,12 +385,14 @@ p.resolution_(1).refresh;  // default
 
 
 ### Plot data
+
 ### `value`
 Return or set the data values. Data may be numerical arrays of up to 3 dimensions.
-```supercollider
+```
 a = [1, 4, 2, 7, 4].dup(2).plot;
 a.value;
 ```
+
 
 
 ### `setValue`
@@ -385,24 +408,28 @@ Set the data values, with additional arguments determining how the plot is updat
 | `maxval` | (Optional) The maximum value displayed on the y-axis. |  
 | `defaultRange` | (Optional) A default range for the y-axis in the case that the max and min values of the data are identical. |  
 
+
 ### `findSpecs`
 If `true`, specs are derived from new data (using min and max values) automatically. Default: `true`.
+
 ### `data`
 Reference to the current internal data (with shape up to depth of 3).
 
 ### Edit mode
+
 ### `editMode`
 If the edit mode is set to true, the data may be edited via cursor.
-```supercollider
+```
 a = (0..20).plot;
 a.editMode = true; // now edit the data by clicking into the plot..
 a.value; // the updated values
 ```
 
 
+
 ### `editFunc`
 Supply a function which is evaluated when editing data. The function is called with the arguments: `plotter`, `plotIndex`, `index`, `val`, `x`, `y`.Example:
-```supercollider
+```
 (
 a = { (0..10).scramble.normalize }.dup(2).plot;
 a.editMode = true;
@@ -427,6 +454,7 @@ a.parent.onClose = { x.release };
 ```
 
 
+
 ### `cursorPos`
 **Returns:** The last cursorPos (a [Point](../Classes/Point.md)).
 
@@ -434,7 +462,7 @@ a.parent.onClose = { x.release };
 ## Examples
 
 
-```supercollider
+```
 (
 a = Plotter("the plot", Rect(600, 30, 600, 400));
 a.value = (0..100).normalize(0, 8pi).sin;
@@ -477,7 +505,7 @@ a.superpose = false;
 
 ### Object .plot methods
 
-```supercollider
+```
 // Array:plot
 (
 a = (4 ** (-5..0)).postln.plot;
@@ -521,7 +549,7 @@ s.waitForBoot({
 
 ### Explicit domain and axis specs
 
-```supercollider
+```
 // data
 a = (50..90).midicps.scramble.plot;
 // specs (y-axis)
@@ -590,7 +618,7 @@ p.domainSpecs_([1, 1000, \exp].asSpec);
 
 ### Axis labels
 
-```supercollider
+```
 (
 p = 4.collect({
     100.collect({ rrand(0, 1.0) })
@@ -619,7 +647,7 @@ p.axisLabelX_(nil);
 The units of the grid specs are shown as labels, either axis labels or appended to tick labels. Unit labels won't overwrite preexisting labels, and can be disabled altogether.
 
 
-```supercollider
+```
 ( // units displayed in the axis labels by default
 p = (4 ** (-1.5, -1.25 .. 0)).plot;
 p.specs = \delay.asSpec.minval_(0.1);
@@ -655,7 +683,7 @@ p.unitLocation = \ticks;
 
 ### Embedding in another View or GUI
 
-```supercollider
+```
 (
 var w, z, p, d, func;
 w = Window("plot panel", Rect(20, 30, 520, 450));
@@ -682,7 +710,7 @@ w.front;
 The default styles are kept (and may be overridden) in `GUI.skins.at(\plot)`. See also [GUI](../Classes/GUI.md) help.
 
 
-```supercollider
+```
 // specify plot layout
 (
 GUI.skins.plot.gridLinePattern = FloatArray[1, 0];

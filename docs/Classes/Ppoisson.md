@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -20,7 +21,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
 var a, c, w;
 a = Ppoisson(1.0, inf);

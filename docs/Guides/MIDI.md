@@ -16,7 +16,7 @@ Begin with the [UsingMIDI](../Guides/UsingMIDI.md) help file.
 
 
 > **Note:** **IMPORTANT:** Before MIDI can be received, SuperCollider needs to be told to connect to the MIDI subsystem and connect to the available devices.
-```supercollider
+```
 MIDIClient.init;
 MIDIIn.connectAll;
 ```
@@ -63,7 +63,7 @@ See the [MIDIOut](../Classes/MIDIOut.md) help file for details.
 
 MIDI input:
 
-```supercollider
+```
 (
 MIDIClient.init;
 MIDIIn.connectAll;
@@ -79,7 +79,7 @@ m.free;
 
 MIDI output:
 
-```supercollider
+```
 (
 MIDIClient.init;
 m = MIDIOut(0, MIDIClient.destinations.at(0).uid);
@@ -90,7 +90,7 @@ m.noteOn(0, 60, 60);
 
 Receiving system exclusive messages:
 
-```supercollider
+```
 ~sysexFunc = { |uid, data|
     // 'data' holds the sysex packet as 8-bit integers
 };

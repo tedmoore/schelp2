@@ -8,14 +8,14 @@
 
 The class Post is a stream destination. Its main use is that it can sometimes make code more readable and execution slightly more efficient.
 
-```supercollider
+```
 Post <<< a << " " <<< b << " " <<< c << " " <<< d << Char.nl;
 ```
 
 
 vs
 
-```supercollider
+```
 (a.asCompileString + b.asCompileString + c.asCompileString + d.asCompileString).postln;
 ```
 
@@ -25,51 +25,58 @@ vs
 
 ## Class Methods
 
+
 ### `<<`
 Post as string
-```supercollider
+```
 Post << "string";
 ```
 
 
+
 ### `<<<`
 Post as compile string
-```supercollider
+```
 Post <<< "string";
 ```
 
 
+
 ### `comma`
 Prints a comma
-```supercollider
+```
 Post.comma;
 ```
 
 
+
 ### `space`
 Prints a space
-```supercollider
+```
 Post.space;
 ```
 
 
+
 ### `nl`
 Prints a newline
-```supercollider
+```
 Post.nl;
 ```
 
 
+
 ### `ff`
 Prints the char $\f
-```supercollider
+```
 Post.ff;
 ```
 
 
+
 ### `tab`
 Prints a tab
-```supercollider
+```
 Post.tab;
 ```
 
@@ -77,7 +84,7 @@ Post.tab;
 ## Examples
 
 
-```supercollider
+```
 a = "a string";
 b = 'a symbol';
 c = 4;

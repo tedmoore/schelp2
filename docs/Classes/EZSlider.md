@@ -20,6 +20,7 @@ EZSlider's number box scrolls by default, using the step size of the [ControlSpe
 
 
 ### Creation / Class Methods
+
 ### `new`
 **Arguments:**
 
@@ -40,7 +41,7 @@ EZSlider's number box scrolls by default, using the step size of the [ControlSpe
 | `gap` | A [Point](../Classes/Point.md). By default, the view tries to get its parent's gap, otherwise it defaults to `2@2`. Setting it overrides these. |  
 | `margin` | A [Point](../Classes/Point.md). This will inset the bounds occupied by the subviews of view. |  
 
-```supercollider
+```
 (
 w = Window.new.front;
 g = EZSlider(w,         // parent
@@ -66,22 +67,29 @@ The contained views can be accessed via the EZSlider instance variables: `labelV
 
 
 ### Accessing Instance and Class Variables
+
 ### `numberView`
 Returns the numberView.
+
 ### `action`
 A [Function](../Classes/Function.md) or [FunctionList](../Classes/FunctionList.md) to be evaluated when the value changes. The first argument will be the EZSlider.
+
 ### `value`
 The value of the slider.
+
 ### `round`
 Rounds the values in the number box.
+
 ### `controlSpec`
 An instance of ControlSpec for scaling the values.
+
 ### `value`
 Gets/sets the list/menu to the index at value. Does not perform the action.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `val` | An [Integer](../Classes/Integer.md). |  
+
 
 ### `valueAction`
 Sets the value and performs the action at the index value and the global action.**Arguments:**
@@ -90,10 +98,13 @@ Sets the value and performs the action at the index value and the global action.
 |----------|-------------|
 | `val` | An [Integer](../Classes/Integer.md). |  
 
+
 ### `doAction`
 Performs the action at the current index and the global action.
+
 ### `set`
 Set the args after creation. You can only set the label if it was not nil from the beginning.
+
 ### `visible`
 Sets/gets it the component views are visible.**Arguments:**
 
@@ -103,6 +114,7 @@ Sets/gets it the component views are visible.**Arguments:**
 
 
 ### Changing Appearance
+
 ### `setColors`
 **Arguments:**
 
@@ -118,6 +130,7 @@ Sets/gets it the component views are visible.**Arguments:**
 | `knobColor` | An instance of [Color](../Classes/Color.md). The `knobColor` of the knob view. |  
 | `background` | An instance of [Color](../Classes/Color.md). The `background` of the enclosing view. |  
 
+
 ### `font`
 Set the Font used by all the views.**Arguments:**
 
@@ -129,7 +142,7 @@ Set the Font used by all the views.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 (    // basic use
     w = Window.new.front;
     g = EZSlider(w, 400@16, " test  ", \freq, unitWidth: 30, numberWidth: 60, layout: \horz);

@@ -11,18 +11,25 @@ PriorityQueue implements a priority queue data structure, which is used to build
 
 ## Instance Methods
 
+
 ### `put`
-Puts the item in the queue at the given time.### `topPriority`
-Returns the time of the earliest item in the queue.### `pop`
-Returns the earliest item in the queue.### `clear`
-Empty the queue.### `isEmpty`
-Return a [Boolean](../Classes/Boolean.md) whether the queue is empty.### `notEmpty`
-Return a [Boolean](../Classes/Boolean.md) whether the queue is not empty.### `removeValue`
+Puts the item in the queue at the given time.
+### `topPriority`
+Returns the time of the earliest item in the queue.
+### `pop`
+Returns the earliest item in the queue.
+### `clear`
+Empty the queue.
+### `isEmpty`
+Return a [Boolean](../Classes/Boolean.md) whether the queue is empty.
+### `notEmpty`
+Return a [Boolean](../Classes/Boolean.md) whether the queue is not empty.
+### `removeValue`
 Remove all instances of value from the queue.
 ## Examples
 
 
-```supercollider
+```
 (
 var p;
 p = PriorityQueue.new;

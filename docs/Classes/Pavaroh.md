@@ -13,7 +13,7 @@ The pakad is often a natural consequence of the notes of arohana / avarohana (as
 ## Examples
 
 
-```supercollider
+```
 (
 Pbind(\note, Pavaroh(
             Pseq([1, 2, 3, 2, 5, 4, 3, 4, 2, 1], 2),

@@ -11,6 +11,7 @@ A running sum over a user specified number of samples, useful for running RMS po
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -22,7 +23,7 @@ A running sum over a user specified number of samples, useful for running RMS po
 ## Examples
 
 
-```supercollider
+```
 // distorts of course - would need scaling
 { RunningSum.ar(SoundIn.ar) }.play
 
@@ -37,7 +38,7 @@ A running sum over a user specified number of samples, useful for running RMS po
 
 
 
-```supercollider
+```
 // RMS Power
 (
 {
@@ -53,14 +54,14 @@ A running sum over a user specified number of samples, useful for running RMS po
 
 
 
-```supercollider
+```
 // shortcut in class
 { RunningSum.rms(SoundIn.ar) }.play
 ```
 
 
 
-```supercollider
+```
 // play around
 (
 {

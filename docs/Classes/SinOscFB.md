@@ -14,6 +14,7 @@ Please note: The frequency of SinOscFB can be modulated at control rate. When tr
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ Please note: The frequency of SinOscFB can be modulated at control rate. When tr
 ## Examples
 
 
-```supercollider
+```
 { SinOscFB.ar(440, MouseX.kr(0, 4))*0.1 }.play
 
 

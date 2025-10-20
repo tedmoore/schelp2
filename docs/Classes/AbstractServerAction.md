@@ -17,6 +17,7 @@ This is an **abstract superclass** for singletons like [ServerQuit](../Classes/S
 
 ## Class Methods
 
+
 ### `functionSelector`
 Subclasses return specific function selectors for objects that implement this as interface. Selectors are:- doOnServerBoot - [ServerBoot](../Classes/ServerBoot.md)
 - doOnServerQuit - [ServerQuit](../Classes/ServerQuit.md)
@@ -25,22 +26,25 @@ not for registry with a server, but analogous are:- doOnCmdPeriod - [CmdPeriod](
 - doOnStartUp - [StartUp](../Classes/StartUp.md)
 - doOnShutDown - [ShutDown](../Classes/ShutDown.md)
 
+
 ### `add`
 Add an action or object for registry.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `object` | Can either be a [Function](../Classes/Function.md) to be evaluated (as first arg the server is passed in), or an [Object](../Classes/Object.md) that implements the message returned by [functionSelector](#functionselector). **One object is only registered once**, so that multiple additions don't cause multiple calls. |  
+| `object` | Can either be a [Function](../Classes/Function.md) to be evaluated (as first arg the server is passed in), or an [Object](../Classes/Object.md) that implements the message returned by [#-functionSelector](#-functionselector). **One object is only registered once**, so that multiple additions don't cause multiple calls. |  
 | `server` | Server for which to register. If the symbol **\default** is passed in, the action is called for the current default server. If the symbol **\all** is passed in, the action is called for all current servers. If server is nil, it is added to \all. |  
+
 
 ### `remove`
 Remove an item or object from registry. If server is nil, remove from **all** key.
+
 ### `removeServer`
 Remove all items that are registered for a given server.
 ## Examples
 
 
-```supercollider
+```
 // ServerBoot
 s.boot;
 f = { |server| "------------The server '%' has booted.------------\n".postf(server) };
@@ -58,7 +62,7 @@ ServerBoot.removeAll; // clear all
 
 
 
-```supercollider
+```
 // ServerQuit
 s.boot;
 f = { |server| "------------The server '%' has quit.------------\n".postf(server) };
@@ -75,7 +79,7 @@ ServerQuit.removeAll; // clear all
 
 
 
-```supercollider
+```
 // ServerTree
 s.quit;
 f = { |server| "-------The server '%' has initialised tree.-------\n".postf(server) };

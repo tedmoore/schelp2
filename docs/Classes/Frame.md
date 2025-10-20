@@ -12,7 +12,7 @@ Since Frames are often created on the stack, it is too dangerous to allow access
 Frame instances are inaccessible to the user.
 For error handling routines, the relevant information from a Frame can be transferred into a DebugFrame object which can safely be inspected.
 
-```supercollider
+```
     this.getBackTrace.inspect
 ```
 

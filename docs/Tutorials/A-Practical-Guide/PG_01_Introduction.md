@@ -122,7 +122,7 @@ For a simple example, let's count upward starting from 0. We don't know how high
 Writing everything out, it looks like this. [Routine](../../Classes/Routine.md) is used because this is a control structure that can interrupt what it's doing and remember where it was, so that it can pick up again at exactly that point. You can get some numbers out of it, and call it again later and it will keep counting from the last number returned. (This is an example of a [Stream](../../Classes/Stream.md). You can find more about Streams in [Streams-Patterns-Events1](../../Tutorials/Streams-Patterns-Events1.md).)
 
 
-```supercollider
+```
 a = Routine {
     var    i = 0;
     loop {
@@ -138,7 +138,7 @@ a.nextN(10);
 SuperCollider's built-in control structures allow some simplification.
 
 
-```supercollider
+```
 a = Routine {
     (0..).do { |i|
         i.yield;
@@ -152,7 +152,7 @@ a.nextN(10);
 But wouldn't it be nice just to say, "Give me an infinite series of numbers starting with 0, increasing by 1"? With [Pseries](../../Classes/Pseries.md), you can. (Here, keyword addressing of the arguments is used for clarity, but `start`, `step` and `length` can be omitted.)
 
 
-```supercollider
+```
 a = Pseries(start: 0, step: 1, length: inf).asStream;
 
 a.nextN(10);
@@ -190,7 +190,7 @@ A pattern is supposed to describe behavior, and in general, evaluating the patte
 This explains an easy "gotcha" with patterns -- forgetting to turn the pattern into a stream doesn't get the expected result. Since a pattern doesn't have any concept of a current state, calling `next` on it is meaningless, so `next` does what it does for most objects: return the receiver object itself. The method `asStream` creates the stream conforming to the pattern's specification, and calling `next` on the stream advances to its next state and returns the new value.
 
 
-```supercollider
+```
 p = Pseries(0, 1, 10);
 p.next;    // always returns the Pseries, not actual numbers
 
@@ -202,7 +202,7 @@ q.next;    // calling this repeatedly gets the desired increasing integers
 There is a concrete benefit to this strict division of labor. Since the stream does not modify the original pattern, any number of streams can be made from the same blueprint. All of those streams maintain their own independent states, and they can operate concurrently without interfering with each other.
 
 
-```supercollider
+```
 r = p.asStream;
 r.next;    // starts from zero, even though q already gave out some numbers
 

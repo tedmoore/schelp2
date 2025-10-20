@@ -10,6 +10,7 @@
 ## Class Methods
 
 
+
 ### `ar`
 **Arguments:**
 
@@ -34,7 +35,7 @@ All args except numChannels and trigger are polled at grain creation time.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

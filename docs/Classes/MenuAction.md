@@ -13,6 +13,7 @@ A MenuAction represents a single action that can occupy multiple [Menu](../Class
 
 ## Class Methods
 
+
 ### `new`
  Create a new Action. Note that one action may occupy multiple menus and toolbars.**Arguments:**
 
@@ -20,6 +21,7 @@ A MenuAction represents a single action that can occupy multiple [Menu](../Class
 |----------|-------------|
 | `string` | The name of the action. This will be its display name if added to a menu. |  
 | `function` | A function to perform when the action is activated. |  
+
 
 ### `separator`
  An action that represents a menu or toolbar separator. These are not selectable or clickable.**Arguments:**
@@ -31,66 +33,77 @@ A MenuAction represents a single action that can occupy multiple [Menu](../Class
 
 ## Instance Methods
 
+
 ### `string`
  A string representing the name of the action. This is used as text when it is placed in menus, and on toolbars if it does not have an icon.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A String |  
+
 ### `menu`
  A Menu. If present, this action acts as a submenu, or a pop-up menu when placed on a toolbar.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A [Menu](../Classes/Menu.md) |  
+
 ### `shortcut`
  A string representing the keyboard shortcut to trigger this action. Keyboard shortcuts are available when an action is attached to a [ToolBar](../Classes/ToolBar.md), or when it's part of the context menu for a View (see [View#-setContextMenuActions](../Classes/View.md#-setcontextmenuactions))  Shortcut strings are of the form e.g. "Ctrl+M", "Shift+Alt+space" etc. See [https://doc.qt.io/qt-5/qkeysequence.html#details](https://doc.qt.io/qt-5/qkeysequence.html#details) for more info.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A String |  
+
 ### `checked`
  Indicates whether the action is checked or unchecked.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A boolean. |  
+
 ### `toolTip`
  A string to display when hovering over the menu item / button.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A String |  
+
 ### `separator`
  Indicates whether the action is a separator.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
+
 ### `iconVisible`
  Indicates whether the icon for this action will be visible.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
+
 ### `checkable`
  Indicates that the action shows a checkbox and is checkable.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean |  
+
 ### `enabled`
  Indicates that the action is enabled; otherwise it will be greyed out and uninteractive.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean |  
+
 ### `icon`
  An [Image](../Classes/Image.md) associated with the action - to be shown next to the name of the action in both menus and toolbars.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An [Image](../Classes/Image.md) |  
+
 ### `font`
  The font used to display the action's name. Note that special fonts may or may not be displayed depending on OS and context (e.g. system menu, context menu, toolbar). For example, OSX application menus will honor italicized fonts, but not the font family itself.**Arguments:**
 
@@ -110,7 +123,7 @@ A MenuAction represents a single action that can occupy multiple [Menu](../Class
  **Events example**
 
 
-```supercollider
+```
 (
 m = Menu(
     a = MenuAction("Option A"),
@@ -134,7 +147,7 @@ m.onClose_({ a.removeDependant(f); b.removeDependant(f) }).front;
 
 **Simple checkable menu item**
 
-```supercollider
+```
 (
 ~view = View().layout_(HLayout(
     Button()
@@ -162,7 +175,7 @@ m.onClose_({ a.removeDependant(f); b.removeDependant(f) }).front;
 
 **Action help strings**
 
-```supercollider
+```
 (
 ~view = View(bounds: 300@100).layout_(VLayout(
     Button()
@@ -195,7 +208,7 @@ m.onClose_({ a.removeDependant(f); b.removeDependant(f) }).front;
 
 **A more complex example**
 
-```supercollider
+```
 (
 s.waitForBoot {
     ~startIcon = Image(40).draw({

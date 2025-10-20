@@ -139,13 +139,13 @@ The most obvious thing one would want to do with a pattern is to give it a list 
 
 **`Pser(list, repeats, offset)`**
 : Play through the list as many times as needed, but output only `repeats` items.
-```supercollider
+```
 Pseq(#[1, 2, 3], 4).asStream.all;    // 12 items = 4 repeats * 3 items
 Pser(#[1, 2, 3], 4).asStream.all;    // 4 items only
 ```
 
 [Pseq](../../Classes/Pseq.md) is an obvious choice for streaming out known pitch and rhythm values.Before playing a Pbind pattern such as this, make sure the server is booted.
-```supercollider
+```
 s.boot;
 
 (
@@ -157,7 +157,7 @@ p = Pbind(
 ```
 
 To stop the examples in this file, use the "stop" keyboard shortcut (cmd-. on macOS, alt-. on Windows, check documentation for other editors). Or:
-```supercollider
+```
 p.stop;
 ```
 
@@ -181,7 +181,7 @@ A variation, [Pslide](../../Classes/Pslide.md), plays overlapping segments of th
 : if true (default), indexing wraps around if goes past beginning or end. If false, the pattern stops if it hits a nil element or goes outside the list bounds.
 
 If `step == 1`, then the first segment is at `start`, the second at `start + 1`, and so on.
-```supercollider
+```
 Pslide(#[1, 2, 3, 4, 5, 6, 7, 8], 10, 3, 1, 0, false).asStream.all;
 
 // or, to show the segments as separate arrays
@@ -206,7 +206,7 @@ p = Pbind(
 
 **`Prand(list, repeats)`**
 : Choose items from the list randomly (same as `list.choose`).
-```supercollider
+```
 // Prand: given scale degrees (pentatonic) with equal probability of each
 (
 p = Pbind(
@@ -218,7 +218,7 @@ p = Pbind(
 
 **`Pxrand(list, repeats)`**
 : Choose randomly, but never repeat the same item twice in immediate succession.
-```supercollider
+```
 // Pxrand: same as above but never repeats a pitch twice in a row
 (
 p = Pbind(
@@ -230,7 +230,7 @@ p = Pbind(
 
 **`Pshuf(list, repeats)`**
 : Shuffle the list in random order, and use the same random order `repeats` times. Like `list.scramble`.
-```supercollider
+```
 // Pshuf: randomly ordered once and repeated
 (
 p = Pbind(
@@ -242,7 +242,7 @@ p = Pbind(
 
 **`Pwrand(list, weights, repeats)`**
 : Choose randomly, according to weighted probabilities (same as `list.wchoose(weights)`).
-```supercollider
+```
 // Pwrand: these probabilities favor triadic notes from scale degrees
 (
 p = Pbind(
@@ -266,13 +266,13 @@ These are opposing operations: interlacing means splitting arrays and merging th
 
 **`Place(list, repeats, offset)`**
 : Take one from each item in the main array item in succession. Hard to explain, easier to see:
-```supercollider
+```
 Place([0, [1, 2], [3, 4, 5]], 3).asStream.all;
 --> [ 0, 1, 3, 0, 2, 4, 0, 1, 5 ]
 ```
 
 If we turn this into a matrix and read vertically, the original arrays are clearly visible:
-```supercollider
+```
 Place([0, [1, 2], [3, 4, 5]], 3).clump(3).do(_.postln);
 
 [ 0, 1, 3 ]    // leftmost column: 0 from first Place item
@@ -282,7 +282,7 @@ Place([0, [1, 2], [3, 4, 5]], 3).clump(3).do(_.postln);
 
 **`Ppatlace(list, repeats, offset)`**
 : Take one value from each sub-pattern in order.
-```supercollider
+```
 // Hanon exercise
 (
 p = Pbind(
@@ -299,7 +299,7 @@ That's also a taste of things to come: Patterns can be nested.
 
 **`Ptuple(list, repeats)`**
 : Get one value from each item in the array, and return all of them as an array of values.
-```supercollider
+```
 // Chords
 // \degree receives [7, 9, 4], then [6, 7, 4] successively, expanded to chords on the server
 (
@@ -328,7 +328,7 @@ Now, let's move to patterns that produce values mathematically, without using a 
 
 **`Pgeom(start, grow, length)`**
 : Geometric series, successively multiplying the current value by `grow`.
-```supercollider
+```
 // Use Pseries for a scale and Pgeom for an accelerando
 (
 p = Pbind(
@@ -339,13 +339,13 @@ p = Pbind(
 ```
 
 **Third-party extension alert** : If you want an arithmetic or geometric series to start at one number and end at another specific number, the step size/multiplier must be calculated from the endpoints and the number of items desired. The **ddwPatterns** quark includes a convenience method, `fromEndpoints`, for both Pseries and Pgeom that performs this calculation. It's necessary to give an exact number of repeats, at least two and less than infinity.
-```supercollider
+```
 p = Pgeom.fromEndpoints(0.5, 0.1, 15);    // error if ddwPatterns not installed
 p.postcs;
 ```
 
 Prints:
-```supercollider
+```
 Pgeom(0.5, 0.89140193218427, 15)
 ```
 
@@ -397,7 +397,7 @@ Pgeom(0.5, 0.89140193218427, 15)
 To see a distribution, make a histogram out of it.
 
 
-```supercollider
+```
 Pmeanrand(0.0, 1.0, inf).asStream.nextN(10000).histo(200, 0.0, 1.0).plot;
 ```
 

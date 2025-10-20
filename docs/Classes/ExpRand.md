@@ -13,6 +13,7 @@ Generates a single random float value in an exponential distributions from `lo` 
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Generates a single random float value in an exponential distributions from `lo` 
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-ExpRand", { |out = 0|
     Out.ar(out,

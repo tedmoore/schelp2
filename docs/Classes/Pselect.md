@@ -15,6 +15,7 @@ This is the pattern library's equivalent of [select](../Classes/Collection.md#-s
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ This is the pattern library's equivalent of [select](../Classes/Collection.md#-s
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pselect({ |item| item != 2 }, Pseq(#[1, 2, 3], inf));
@@ -38,7 +39,7 @@ x = a.asStream;
 
 The message `select` returns a Pselect when passed to a pattern.
 
-```supercollider
+```
 (
 var a, b;
 a = Pseq(#[1, 2, 3], inf).select({ |item| item != 2 });

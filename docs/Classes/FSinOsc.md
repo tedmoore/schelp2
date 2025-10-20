@@ -14,6 +14,7 @@ Very fast sine wave generator (2 PowerPC instructions per output sample!) implem
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -28,7 +29,7 @@ Very fast sine wave generator (2 PowerPC instructions per output sample!) implem
 ## Examples
 
 
-```supercollider
+```
 { FSinOsc.ar(800) * 0.2 }.play;
 
 { FSinOsc.ar(XLine.kr(200, 4000, 1)) * 0.2 }.play;

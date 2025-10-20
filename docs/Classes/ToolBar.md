@@ -14,7 +14,7 @@ A ToolBar is similar to a [Menu](../Classes/Menu.md), with several key differenc
 - By default, MenuActions that have icons show ONLY the icon. MenuActions with text will appear as a text button. This can be changed using the toolButtonStyle property.
 
 
-```supercollider
+```
 (
 View().fixedWidth_(300).layout_(HLayout(
     ToolBar(
@@ -31,6 +31,7 @@ View().fixedWidth_(300).layout_(HLayout(
 
 ## Class Methods
 
+
 ### `new`
  Create a new ToolBar containing one or more actions.**Arguments:**
 
@@ -41,12 +42,14 @@ View().fixedWidth_(300).layout_(HLayout(
 
 ## Instance Methods
 
+
 ### `orientation`
  The horizontal or vertical orientation of the ToolBar**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A [QOrientation](../Classes/QOrientation.md) |  
+
 ### `toolButtonStyle`
  Controls whether the toolbar shows icons, text, or both.**Arguments:**
 
@@ -54,7 +57,7 @@ View().fixedWidth_(300).layout_(HLayout(
 |----------|-------------|
 | `` | An integer; one of the values of [QToolButtonStyle](../Classes/QToolButtonStyle.md). |  
 
-```supercollider
+```
 (
 ~icon = Image(64).draw({ Pen.fillOval(Rect(0, 0, 64, 64)) });
 ~styles = QToolButtonStyle.classVarNames;
@@ -74,7 +77,7 @@ View().fixedWidth_(300).layout_(HLayout(
 ## Examples
 
 
-```supercollider
+```
 (
 s.waitForBoot {
     ~synth = nil;

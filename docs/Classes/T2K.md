@@ -13,6 +13,7 @@ Converts audio rate trigger into control rate trigger, using the maximum trigger
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Converts audio rate trigger into control rate trigger, using the maximum trigger
 ## Examples
 
 
-```supercollider
+```
 // this does not work:
 (
 {

@@ -13,6 +13,7 @@ All pass delay line with linear interpolation which uses a buffer for its intern
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -26,7 +27,7 @@ All pass delay line with linear interpolation which uses a buffer for its intern
 ## Examples
 
 
-```supercollider
+```
 // allocate buffer
 b = Buffer.alloc(s, 44100, 1);
 

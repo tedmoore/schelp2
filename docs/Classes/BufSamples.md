@@ -10,7 +10,7 @@
 
 Returns the current number of allocated samples. A sample is not the same as a frame (compare with [BufFrames](../Classes/BufFrames.md)); a frame includes the samples in each channel of the buffer. Only for a mono buffer are samples the same as frames.
 
-```supercollider
+```
 samples = frames * numChannels
 ```
 
@@ -18,6 +18,7 @@ samples = frames * numChannels
 
 
 ## Class Methods
+
 
 ### `kr`, `ir`
 **Arguments:**
@@ -29,7 +30,7 @@ samples = frames * numChannels
 ## Examples
 
 
-```supercollider
+```
 // example; this buffer is mono, so the number of samples matches the number of frames
 b = Buffer.read(s, ExampleFiles.child);
 

@@ -14,7 +14,7 @@ For tab delimited files use [TabFileReader](../Classes/TabFileReader.md). For se
 ## Examples
 
 
-```supercollider
+```
 (
 // write a test file:
 f = File("CSVReadTest.sc", "w");

@@ -13,6 +13,7 @@
 - or if the setting controller knows the previous value and sends it along. the idea here is that if the controller knows it did the last value change, it has authority to jump now.
 
 Typical uses would be switching to a preset, then using a faderbox, and avoiding sudden controller jumps that could occur (soft takeover).
+
 ### `softSet`
 **Arguments:**
 
@@ -30,7 +31,7 @@ Typical uses would be switching to a preset, then using a faderbox, and avoiding
 ## Examples
 
 
-```supercollider
+```
 Ndef(\test, { |freq=200| Splay.ar(SinOsc.ar(freq * Array.rand(12, 0.95, 1.05))) });
 Ndef(\test).play(vol: 0.1);
 

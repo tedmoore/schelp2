@@ -33,7 +33,7 @@ Let's look at how these classes implement the value message.
 Here's the value method in class [Object](../Classes/Object.md) :
 
 
-```supercollider
+```
 value { ^this }
 ```
 
@@ -41,7 +41,7 @@ value { ^this }
 It simply returns itself. Since all classes inherit from class Object this means that unless a class overrides `value`, the object will respond to `value` by returning itself.
 
 
-```supercollider
+```
 5.postln;            // posts itself
 5.value.postln;        // value returns itself
 'a symbol'.postln;
@@ -58,7 +58,7 @@ It simply returns itself. Since all classes inherit from class Object this means
 In class [Function](../Classes/Function.md) the value method is a primitive:
 
 
-```supercollider
+```
 value { arg ... args;
     _FunctionValue
     // evaluate a function with args
@@ -70,7 +70,7 @@ value { arg ... args;
 `_FunctionValue` is a C code primitive, so it is not possible to know just by looking at it what it does. However what it does is to evaluate the function and return the result.
 
 
-```supercollider
+```
 { 5.squared }.postln;            // posts Instance of Function
 { 5.squared }.value.postln;        // posts 25
 ```
@@ -83,7 +83,7 @@ value { arg ... args;
 The [Ref](../Classes/Ref.md) class provides a way to create an indirect reference to an object. It can be used to pass a value by reference. Ref objects have a single instance variable called `value`. The `value` method returns the value of the instance variable `value`. Here is a part of the class definition for Ref:
 
 
-```supercollider
+```
 Ref : AbstractFunction
 {
     var <>value;
@@ -110,7 +110,7 @@ Ref : AbstractFunction
 Here is how it responds :
 
 
-```supercollider
+```
 Ref.new(123).postln;
 Ref.new(123).value.postln;
 ```
@@ -130,7 +130,7 @@ Ref also implements a message called `dereference` which is another good example
 
 
 
-```supercollider
+```
 5.value.postln;
 { 5.squared }.value.postln;
 Ref.new(123).value.postln;
@@ -151,7 +151,7 @@ Yet another example of polymorphism is play. Many different kinds of objects kno
 
 ### Function
 
-```supercollider
+```
 { PinkNoise.ar(0.1) }.play;
 ```
 
@@ -161,7 +161,7 @@ Yet another example of polymorphism is play. Many different kinds of objects kno
 
 ### AppClock
 
-```supercollider
+```
 (
 var w, r;
 w = Window.new("trem", Rect(512, 256, 360, 130));
@@ -186,7 +186,7 @@ AppClock.play(r);
 
 ### SynthDef
 
-```supercollider
+```
 (
 x = SynthDef("Help-SynthDef", { arg out=0;
     Out.ar(out, PinkNoise.ar(0.1))
@@ -200,7 +200,7 @@ x = SynthDef("Help-SynthDef", { arg out=0;
 
 ### Pattern
 
-```supercollider
+```
 Pbind(\degree, Pseq([0, 1, 2, 3],inf)).play;
 ```
 

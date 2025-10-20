@@ -13,6 +13,7 @@ Shift and stretch the positions of only the magnitude of the bins. Can be used a
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Shift and stretch the positions of only the magnitude of the bins. Can be used a
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 

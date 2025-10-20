@@ -13,6 +13,7 @@ Splay spreads an array of channels across the stereo field. Optional arguments a
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,6 +28,7 @@ Splay spreads an array of channels across the stereo field. Optional arguments a
 - float between `0.0` and `1.0` : smooth tuning of levelComp factor:- `0.0` is none -> factor 1
 - `0.5` is equal power -> factor (1/n).squared
 - `1.0` is equal amplitude -> factor (1/n) |  
+
 
 ### `arFill`
 In analogy to Mix:arFill, this method takes a function that produces the channels. The counting index is passed to it.**Arguments:**
@@ -44,7 +46,7 @@ In analogy to Mix:arFill, this method takes a function that produces the channel
 
 Basic usage:
 
-```supercollider
+```
 // splay 10 chans of sound into 2
 (
 x = { |spread = 1, level = 0.2, center = 0.0|
@@ -93,7 +95,7 @@ x = { |spread = 1, level = 0.2, center = 0.0|
 
 For a full discussion, see [LevelComp](../Classes/LevelComp.md); here is an overview of the levelComp variants:
 
-```supercollider
+```
 // default is equal power comp: level / (numchans.sqrt)
 Splay.ar(ins, spread, level, center); // true is default
 // write it explicitly for clarity

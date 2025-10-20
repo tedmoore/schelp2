@@ -4,11 +4,12 @@
 
 **Categories:** External Control
 
-This class provides basic support for serial port communication. Ports are opened with [#*new](#*new) and closed with [close](#close).
-Each SerialPort object uses an 8KB internal buffer and reads data as soon as it is available. If the data is not read out of the buffer and the buffer fills up, incoming bytes will be dropped. Use [rxErrors](#rxerrors) to get a count of the number of bytes dropped.
-Since it is constantly polling the port for available data, a SerialPort object knows almost immediately when the port has been lost. When this happens, it will call the [doneAction](#doneaction) callback and mark itself as closed.
+This class provides basic support for serial port communication. Ports are opened with [#*new](#*new) and closed with [#-close](#-close).
+Each SerialPort object uses an 8KB internal buffer and reads data as soon as it is available. If the data is not read out of the buffer and the buffer fills up, incoming bytes will be dropped. Use [#-rxErrors](#-rxerrors) to get a count of the number of bytes dropped.
+Since it is constantly polling the port for available data, a SerialPort object knows almost immediately when the port has been lost. When this happens, it will call the [#-doneAction](#-doneaction) callback and mark itself as closed.
 
 ## Class Methods
+
 
 
 ### `new`
@@ -25,54 +26,67 @@ Creates and opens the port. Throws if creation fails; this may be because the po
 | `xonxoff` | A [Boolean](../Classes/Boolean.md) indicating whether to use software flow control (XON/XOFF signals). |  
 | `exclusive` | A [Boolean](../Classes/Boolean.md) indicating whether to open the device exclusively. This option is not implemented on Windows. |  
 `crtscts` and `xonxoff` cannot both be true; `*new` will throw an error if both are set.
+
 ### `devices`
 Retrieve an array of available devices represented as [Strings](../Classes/String.md). On macOS and Linux, this list is obtained using a number of regular expression rules on files in the `/dev/` directory. On Windows, this is obtained using a registry key. The matching rules are designed to be identical to that of the Arduino IDE.For backward compatibility, if `SerialPort.devicePattern` is not nil, `SerialPort.devicePattern.pathMatch` is returned instead of the default behavior.
-```supercollider
+```
 SerialPort.devices;
 ```
 
 
+
 ### `listDevices`
 Prints the list of available devices, one per line. Shorthand for `SerialPort.devices.do(_.postln)`.
-```supercollider
+```
 SerialPort.listDevices;
 ```
 
 
+
 ### `devicePattern`
 If set to a non-nil value, `SerialPort.devicePattern` instead returns `SerialPort.devicePattern.patchMatch`. That is, the value of this class variable is used as a file glob.This is a legacy feature and no longer recommended. File globbing alone is not powerful enough to capture a general set of possible serial port paths, and this level of customization was not necessary for `SerialPort.devices`. If you need to refine the results returned by `SerialPort.devices`, it is better to do your own matching or filtering.
+
 ### `closeAll`
-Calls [close](#close) on all ports.
+Calls [#-close](#-close) on all ports.
+
 ### `cleanupAll`
 Deprecated; use [#*closeAll](#*closeall) instead.
 
 ## Instance Methods
 
+
 ### `isOpen`
-Whether this object represents a valid serial port connection.### `next`
-Read a byte from the device. Non-blocking read.### `read`
-Read a byte from the device. Blocking read.### `rxErrors`
-RX (receive) errors since last query. An RX error occurs when the internal buffer is completely full. This count is reset to 0 every time this method is called.### `put`
+Whether this object represents a valid serial port connection.
+### `next`
+Read a byte from the device. Non-blocking read.
+### `read`
+Read a byte from the device. Blocking read.
+### `rxErrors`
+RX (receive) errors since last query. An RX error occurs when the internal buffer is completely full. This count is reset to 0 every time this method is called.
+### `put`
 Write a byte to the device. Always blocks.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `byte` | An [Integer](../Classes/Integer.md) or [Char](../Classes/Char.md). Only values in the range from 0 to `2**databits - 1` may be written. If a value out of that range is passed to `put`, only the lowest bits will be used. |  
 | `timeout` | Unused, deprecated. |  
-**Returns:** A [Boolean](../Classes/Boolean.md) indicating whether the write was successful.### `putAll`
+**Returns:** A [Boolean](../Classes/Boolean.md) indicating whether the write was successful.
+### `putAll`
 Write multiple bytes to the device.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `bytes` | Collection may be [Int8Array](../Classes/Int8Array.md) or [String](../Classes/String.md). |  
 | `timeout` | Unused, deprecated. |  
+
 ### `doneAction`
-A [Function](../Classes/Function.md) which will be evaluated if the port gets closed (maybe unexpectedly so, due to hardware failure or accidental disconnection). This allows you to for example to make a backup solution and activate it (like using fake input data for your algorithm, or trying to reopen the device). By default it will post a message reading "SerialPort X was closed".### `close`
+A [Function](../Classes/Function.md) which will be evaluated if the port gets closed (maybe unexpectedly so, due to hardware failure or accidental disconnection). This allows you to for example to make a backup solution and activate it (like using fake input data for your algorithm, or trying to reopen the device). By default it will post a message reading "SerialPort X was closed".
+### `close`
 Closes the port.
 ## Examples
 
 
-```supercollider
+```
 (
 p = SerialPort(
     "/dev/tty.usbserial-181",
@@ -111,7 +125,7 @@ First load the sketch Examples/Communication/Dimmer. See [http://www.arduino.cc/
 
 
 
-```supercollider
+```
 (
 p = SerialPort(
     "/dev/tty.usbserial-A800crTT",    // edit to match your port. SerialPort.listDevices
@@ -144,7 +158,7 @@ First load the sketch Examples/Communication/Graph. See [http://www.arduino.cc/e
 
 
 
-```supercollider
+```
 (
 p = SerialPort(
     "/dev/tty.usbserial-A800crTT",    // edit to match your port. SerialPort.listDevices

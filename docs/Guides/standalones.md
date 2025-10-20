@@ -31,7 +31,7 @@ Creating more complex user-oriented applications with SC was possible in version
 
 
 > **Note:** Known working versions for making standalones: **SC3.8.0, SC3.9dev from branch [2a105f1]**
-```supercollider
+```
 "https://supercollider.github.io/download".openOS;
 ```
 
@@ -65,7 +65,7 @@ This guide is a set of scripts for creating a SuperCollider-based Standalone app
 
 ### Naming, copying, and fixing up the new app
 
-```supercollider
+```
 // TO PREPARE, CHECK YOUR CURRENT config in Preferences->Interpreter:
 // you should be using the internal SCClassLibrary and HelpSource,
 // not an external git repository!
@@ -165,7 +165,7 @@ Quit the new standalone and go back to the starting app to do:
 
 
 
-```supercollider
+```
 (
 // 4. write a class extension file to look for the startupFile
 // in the app, in Platform.resourceDir for self-containment.
@@ -321,7 +321,7 @@ LanguageConfig.includePaths.last.pathMatch.postln;
 
 
 
-```supercollider
+```
 // IN THE NEW APP, DO:
 Quarks.install("https://github.com/adcxyz/Standalone");
 // reboot interpreter, then do

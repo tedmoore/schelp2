@@ -13,6 +13,7 @@ Continuously play a longer soundfile from disk. This requires a buffer to be pre
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -28,7 +29,7 @@ This UGen will set the ['done' flag](../Classes/Done.md) when finished playing.
 ## Examples
 
 
-```supercollider
+```
 b = Buffer.cueSoundFile(s, ExampleFiles.apollo11, 0, 1);
 
 x = { VDiskIn.ar(1, b, LFNoise2.kr(0.2).range(0.5, 2), loop: 1) }.play;
@@ -86,7 +87,7 @@ x.free; b.close; b.free; o.free; // clean up eventually
 
 The same example in OSC Messaging style, see [NodeMessaging](../Guides/NodeMessaging.md)
 
-```supercollider
+```
 // allocate a disk i/o buffer
 s.sendMsg("/b_alloc", 0, 65536, 1);
 

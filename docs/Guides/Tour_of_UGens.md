@@ -2,7 +2,7 @@
 
 *Signal Processing in SuperCollider*
 
-**Related:** [Browse / UGens ](../Browse#UGens.md)
+**Related:** [Browse#UGens](../Browse#UGens.md)
 
 **Categories:** UGens, Server>Nodes
 
@@ -25,7 +25,7 @@
 
 Note: The [category browser](../Browse.md#ugens) contains a category for UGens, which provides another useful way to get an overview of the available UGens, including those which were created since this tour was written.
 
-```supercollider
+```
 (
 s.boot;
 )
@@ -40,7 +40,7 @@ s.boot;
 
 **[LFPar](../Classes/LFPar.md), [LFCub](../Classes/LFCub.md), [LFTri](../Classes/LFTri.md), [LFSaw](../Classes/LFSaw.md), [Impulse](../Classes/Impulse.md)**
 : arguments: `frequency, phase, mul, add`
-```supercollider
+```
 // parabolic approximation of sine
 { LFPar.ar(LFPar.kr(LFPar.kr(0.2,0,8,10),0, 400,800),0,0.1) }.scope(1, zoom: 4);
 { LFPar.ar(LFPar.kr(0.2, 0, 400,800),0,0.1) }.scope(1, zoom: 4);
@@ -50,7 +50,7 @@ s.boot;
 ```
 
 
-```supercollider
+```
 // cubic approximation of sine
 { LFCub.ar(LFCub.kr(LFCub.kr(0.2,0,8,10),0, 400,800),0,0.1) }.scope(1, zoom: 4);
 { LFCub.ar(LFCub.kr(0.2, 0, 400,800),0,0.1) }.scope(1, zoom: 4);
@@ -59,7 +59,7 @@ s.boot;
 ```
 
 
-```supercollider
+```
 { LFTri.ar(LFTri.kr(LFTri.kr(0.2,0,8,10),0, 400,800),0,0.1) }.scope(1, zoom: 4);
 { LFTri.ar(LFTri.kr(0.2, 0, 400,800),0,0.1) }.scope(1, zoom: 4);
 { LFTri.ar(800,0,0.1) }.scope(1, zoom: 4);
@@ -67,7 +67,7 @@ s.boot;
 ```
 
 
-```supercollider
+```
 { LFSaw.ar(LFSaw.kr(LFSaw.kr(0.2,0,8,10),0, 400,800),0,0.1) }.scope(1, zoom: 4);
 { LFSaw.ar(LFSaw.kr(0.2, 0, 400,800),0,0.1) }.scope(1, zoom: 4);
 { LFSaw.ar(100,0,0.1) }.scope(1, zoom: 4);
@@ -75,7 +75,7 @@ s.boot;
 ```
 
 
-```supercollider
+```
 { Impulse.ar(LFTri.kr(LFTri.kr(0.2,0,8,10),0, 400,800),0,0.1) }.scope(1, zoom: 4);
 { Impulse.ar(LFTri.kr(0.2, 0, 400,800),0,0.1) }.scope(1, zoom: 4);
 { Impulse.ar(100,0,0.1) }.scope(1, zoom: 4);
@@ -84,28 +84,28 @@ s.boot;
 
 **[LFPulse](../Classes/LFPulse.md), [VarSaw](../Classes/VarSaw.md)**
 : arguments: `frequency, phase, width, mul, add`
-```supercollider
+```
 { LFPulse.ar(LFPulse.kr(LFPulse.kr(0.2,0,0.5,8,10),0,0.5, 400,800),0,0.5,0.1) }.scope(1, zoom: 4);
 { LFPulse.ar(LFPulse.kr(3, 0, 0.3, 200, 200), 0, 0.2, 0.1) }.scope(1, zoom: 4);
 { LFPulse.ar(XLine.kr(100,15000,6),0,0.5,0.1) }.scope(1, zoom: 4);
 ```
 
 
-```supercollider
+```
 // pulse width modulation
 { LFPulse.ar(100,0,MouseY.kr(0,1),0.1) }.scope(1, zoom: 4);
 { LFPulse.ar(100,0,LFTri.kr(0.2,0,0.5,0.5),0.1) }.scope(1, zoom: 4);
 ```
 
 
-```supercollider
+```
 { VarSaw.ar(VarSaw.kr(VarSaw.kr(0.2,0,0.2,8,10),0,0.2, 400,800),0,0.2,0.1) }.scope(1, zoom: 4);
 { VarSaw.ar(VarSaw.kr(0.2, 0, 0.2, 400,800),0,0.2,0.1) }.scope(1, zoom: 4);
 { VarSaw.ar(XLine.kr(100,15000,6),0,0.2,0.1) }.scope(1, zoom: 4);
 ```
 
 
-```supercollider
+```
 // pulse width modulation
 { VarSaw.ar(100,0,MouseY.kr(0,1),0.1) }.scope(1, zoom: 4);
 { VarSaw.ar(100,0,LFTri.kr(0.2,0,0.5,0.5),0.1) }.scope(1, zoom: 4);
@@ -113,7 +113,7 @@ s.boot;
 
 **[SyncSaw](../Classes/SyncSaw.md)**
 : arguments: `syncFreq, sawFreq, mul, add`
-```supercollider
+```
 { SyncSaw.ar(100, MouseX.kr(100, 1000), 0.1) }.scope(1, zoom: 4);
 { SyncSaw.ar(100, Line.kr(100, 800, 12), 0.1) }.scope(1, zoom: 4);
 ```
@@ -129,7 +129,7 @@ s.boot;
 
 **[SinOsc](../Classes/SinOsc.md), [FSinOsc](../Classes/FSinOsc.md)**
 : arguments: `frequency, phase, mul, add`
-```supercollider
+```
 { SinOsc.ar(SinOsc.kr(SinOsc.kr(0.2,0,8,10),0, 400,800),0,0.1) }.scope(1, zoom: 4);
 { SinOsc.ar(SinOsc.kr(0.2, 0, 400,800),0,0.1) }.scope(1, zoom: 4);
 { SinOsc.ar(800,0,0.1) }.scope(1, zoom: 4);
@@ -137,7 +137,7 @@ s.boot;
 ```
 
 
-```supercollider
+```
 { FSinOsc.ar(800,0,0.1) }.scope(1, zoom: 4);
 // FSinOsc should not be frequency modulated.
 // Since it is based on a filter at the edge of stability, it will blow up:
@@ -146,7 +146,7 @@ s.boot;
 
 **[Blip](../Classes/Blip.md)**
 : arguments: `frequency, numHarmonics, mul, add`
-```supercollider
+```
 { Blip.ar(XLine.kr(20000,200,6),100,0.2) }.scope(1);
 { Blip.ar(XLine.kr(100,15000,6),100,0.2) }.scope(1); // no aliasing
 // modulate number of harmonics
@@ -155,14 +155,14 @@ s.boot;
 
 **[Saw](../Classes/Saw.md)**
 : arguments: `frequency, mul, add`
-```supercollider
+```
 { Saw.ar(XLine.kr(20000,200,6),0.2) }.scope(1);
 { Saw.ar(XLine.kr(100,15000,6),0.2) }.scope(1); // no aliasing
 ```
 
 **[Pulse](../Classes/Pulse.md)**
 : arguments: `frequency, width, mul, add`
-```supercollider
+```
 { Pulse.ar(XLine.kr(20000,200,6),0.3,0.2) }.scope(1);
 { Pulse.ar(XLine.kr(100,15000,6),0.3,0.2) }.scope(1); // no aliasing
 
@@ -175,7 +175,7 @@ s.boot;
 
 **[Klang](../Classes/Klang.md) - sine oscillator bank**
 : arguments: ``[ frequencies, amplitudes, phases ], mul, add`
-```supercollider
+```
 { Klang.ar(`[ [800, 1000, 1200],[0.3, 0.3, 0.3],[pi,pi,pi]], 1, 0) * 0.4}.scope(1);
 
 { Klang.ar(`[ {exprand(400, 2000)}.dup(16), nil, nil ], 1, 0) * 0.04 }.scope(1);
@@ -190,7 +190,7 @@ s.boot;
 [Osc](../Classes/Osc.md), [COsc](../Classes/COsc.md), [VOsc](../Classes/VOsc.md), [VOsc3](../Classes/VOsc3.md) - uses a buffer allocated on the server.
 
 
-```supercollider
+```
 (
 b = Buffer.alloc(s, 2048, 1, bufnum: 80);
 b.sine1(1.0/(1..6), true, true, true);
@@ -201,7 +201,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[Osc](../Classes/Osc.md)**
 : arguments: `buffer number, frequency, phase, mul, add`
-```supercollider
+```
 { Osc.ar(80, 100, 0, 0.1) }.scope(1, zoom:4);
 
 b.sine1(1.0/(1..12));
@@ -221,7 +221,7 @@ b.sine1({1.0.rand2.cubed}.dup(24).round(1e-3).postln);
 
 **[COsc](../Classes/COsc.md) - two oscillators, detuned**
 : arguments: `buffer number, frequency, beat frequency, mul, add`
-```supercollider
+```
 b.sine1(1.0/(1..6), true, true, true);
 
 { COsc.ar(80, 100, 1, 0.1) }.scope(1, zoom:4);
@@ -230,7 +230,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[VOsc](../Classes/VOsc.md) - multiple wave table crossfade oscillators**
 : arguments: `buffer number, frequency, phase, mul, add`
-```supercollider
+```
 (
 // allocate tables 80 to 87
 8.do {|i| s.sendMsg(\b_alloc, 80+i, 1024); };
@@ -263,7 +263,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[VOsc3](../Classes/VOsc3.md) - three VOscs summed.**
 : arguments: `buffer number, freq1, freq2, freq3, beat frequency, mul, add`
-```supercollider
+```
 // chorusing
 { VOsc3.ar(MouseX.kr(80,87), 120, 121.04, 119.37, 0.2) }.scope(1, zoom:4);
 
@@ -283,7 +283,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[LFNoise0](../Classes/LFNoise0.md), [LFNoise1](../Classes/LFNoise1.md), [LFNoise2](../Classes/LFNoise2.md), [LFClipNoise](../Classes/LFClipNoise.md)**
 : arguments: `frequency, mul, add`
-```supercollider
+```
 { LFClipNoise.ar(MouseX.kr(200, 10000, 1), 0.125) }.scope(1);
 { LFNoise0.ar(MouseX.kr(200, 10000, 1), 0.25) }.scope(1);
 { LFNoise1.ar(MouseX.kr(200, 10000, 1), 0.25) }.scope(1);
@@ -305,7 +305,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[ClipNoise](../Classes/ClipNoise.md), [WhiteNoise](../Classes/WhiteNoise.md), [PinkNoise](../Classes/PinkNoise.md), [BrownNoise](../Classes/BrownNoise.md), [GrayNoise](../Classes/GrayNoise.md)**
 : arguments: `mul, add`
-```supercollider
+```
 { ClipNoise.ar(0.2) }.scope(1);
 { WhiteNoise.ar(0.2) }.scope(1);
 { PinkNoise.ar(0.4) }.scope(1);
@@ -322,7 +322,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[Dust](../Classes/Dust.md), [Dust2](../Classes/Dust2.md)**
 : arguments: `density, mul, add`
-```supercollider
+```
 { Dust.ar(MouseX.kr(1,10000,1), 0.4) }.scope(1, zoom:4);
 { Dust2.ar(MouseX.kr(1,10000,1), 0.4) }.scope(1, zoom:4);
 ```
@@ -336,7 +336,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[Crackle](../Classes/Crackle.md)**
 : arguments: `chaosParam, mul, add`
-```supercollider
+```
 { Crackle.ar(MouseX.kr(1,2), 0.5) }.scope(1);
 ```
 
@@ -352,7 +352,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[LPF](../Classes/LPF.md), [HPF](../Classes/HPF.md) - 12 dB / octave**
 : arguments: `in, freq, mul, add`
-```supercollider
+```
 { LPF.ar(WhiteNoise.ar, MouseX.kr(1e2,2e4,1), 0.2) }.scope(1);
 { HPF.ar(WhiteNoise.ar, MouseX.kr(1e2,2e4,1), 0.2) }.scope(1);
 { LPF.ar(Saw.ar(100), MouseX.kr(1e2,2e4,1), 0.2) }.scope(1);
@@ -368,7 +368,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[BPF](../Classes/BPF.md), [BRF](../Classes/BRF.md) - 12 dB / octave**
 : arguments: `in, freq, rq, mul, add`rq is the reciprocal of the Q of the filter, or in other words: the bandwidth in Hertz = rq * freq.
-```supercollider
+```
 { BPF.ar(WhiteNoise.ar, MouseX.kr(1e2,2e4,1), 0.4, 0.4) }.scope(1);
 { BRF.ar(WhiteNoise.ar, MouseX.kr(1e2,2e4,1), 0.4, 0.2) }.scope(1);
 { BPF.ar(Saw.ar(100), MouseX.kr(1e2,2e4,1), 0.4, 0.4) }.scope(1);
@@ -387,7 +387,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[RLPF](../Classes/RLPF.md), [RHPF](../Classes/RHPF.md) - 12 dB / octave**
 : arguments: `in, freq, rq, mul, add`
-```supercollider
+```
 { RLPF.ar(WhiteNoise.ar, MouseX.kr(1e2,2e4,1), 0.2, 0.2) }.scope(1);
 { RHPF.ar(WhiteNoise.ar, MouseX.kr(1e2,2e4,1), 0.2, 0.2) }.scope(1);
 { RLPF.ar(Saw.ar(100), MouseX.kr(1e2,2e4,1), 0.2, 0.2) }.scope(1);
@@ -396,7 +396,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[Resonz](../Classes/Resonz.md) - resonant band pass filter with uniform amplitude**
 : arguments: `in, freq, rq, mul, add`
-```supercollider
+```
 // modulate frequency
 { Resonz.ar(WhiteNoise.ar(0.5), XLine.kr(1000,8000,10), 0.05) }.scope(1);
 
@@ -409,7 +409,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[Ringz](../Classes/Ringz.md) - ringing filter.**
 : arguments: `in, frequency, ring time, mul, add`Internally it is the same as Resonz but the bandwidth is expressed as a ring time.
-```supercollider
+```
 { Ringz.ar(Dust.ar(3, 0.3), 2000, 2) }.scope(1, zoom:4);
 
 { Ringz.ar(WhiteNoise.ar(0.005), 2000, 0.5) }.scope(1);
@@ -431,7 +431,7 @@ b.sine1(1.0/(1..6), true, true, true);
 ### Simpler Filters
 
 **[OnePole](../Classes/OnePole.md), [OneZero](../Classes/OneZero.md) - 6 dB / octave**
-: ```supercollider
+: ```
 { OnePole.ar(WhiteNoise.ar(0.5), MouseX.kr(-0.99, 0.99)) }.scope(1);
 { OneZero.ar(WhiteNoise.ar(0.5), MouseX.kr(-0.49, 0.49)) }.scope(1);
 ```
@@ -444,7 +444,7 @@ b.sine1(1.0/(1..6), true, true, true);
 ### NonLinear Filters
 
 **[Median](../Classes/Median.md), [Slew](../Classes/Slew.md)**
-: ```supercollider
+: ```
 // a signal with impulse noise.
 { Saw.ar(500, 0.1) + Dust2.ar(100, 0.9) }.scope(1);
 // after applying median filter
@@ -464,13 +464,13 @@ b.sine1(1.0/(1..6), true, true, true);
 ### Formant Filter
 
 **[Formlet](../Classes/Formlet.md) - A filter whose impulse response is similar to a FOF grain.**
-: ```supercollider
+: ```
 { Formlet.ar(Impulse.ar(MouseX.kr(2,300,1), 0, 0.4), 800, 0.01, 0.1) }.scope(1, zoom:4);
 ```
 
 **[Klank](../Classes/Klank.md) - resonant filter bank**
 : arguments: ``[ frequencies, amplitudes, ring times ], mul, add`
-```supercollider
+```
 { Klank.ar(`[[200, 671, 1153, 1723], nil, [1, 1, 1, 1]], Impulse.ar(2, 0, 0.1)) }.play;
 
 { Klank.ar(`[[200, 671, 1153, 1723], nil, [1, 1, 1, 1]], Dust.ar(8, 0.1)) }.play;
@@ -493,7 +493,7 @@ b.sine1(1.0/(1..6), true, true, true);
 ## Distortion
 
 **abs, max, squared, cubed**
-: ```supercollider
+: ```
 { SinOsc.ar(300, 0, 0.2) }.scope(1);
 { SinOsc.ar(300, 0, 0.2).abs }.scope(1);
 { SinOsc.ar(300, 0, 0.2).max(0) }.scope(1);
@@ -502,7 +502,7 @@ b.sine1(1.0/(1..6), true, true, true);
 ```
 
 **distort, softclip, clip2, fold2, wrap2,**
-: ```supercollider
+: ```
 { SinOsc.ar(300, 0, MouseX.kr(0.1,80,1)).distort * 0.2 }.scope(1);
 { SinOsc.ar(300, 0, MouseX.kr(0.1,80,1)).softclip * 0.2 }.scope(1);
 { SinOsc.ar(300, 0, MouseX.kr(0.1,80,1)).clip2(1) * 0.2 }.scope(1);
@@ -512,13 +512,13 @@ b.sine1(1.0/(1..6), true, true, true);
 ```
 
 **scaleneg**
-: ```supercollider
+: ```
 { SinOsc.ar(200, 0, 0.2).scaleneg(MouseX.kr(-1,1)) }.scope(1);
 ```
 
 **waveshaping by phase modulating a 0 Hz sine oscillator**
 : (currently there is a limit of 8pi)
-```supercollider
+```
 (
 {
     var in;
@@ -530,7 +530,7 @@ b.sine1(1.0/(1..6), true, true, true);
 
 **[Shaper](../Classes/Shaper.md) - input is used to look up a value in a table.**
 : Chebyshev polynomials are typically used to fill the table.
-```supercollider
+```
 s.sendMsg(\b_alloc, 80, 1024); // allocate table
 // fill with chebyshevs
 s.listSendMsg([\b_gen, 80, \cheby, 7] ++ {1.0.rand2.squared}.dup(6));
@@ -547,7 +547,7 @@ s.listSendMsg([\b_gen, 80, \cheby, 7] ++ {1.0.rand2.squared}.dup(6));
 
 ## Panning
 
-```supercollider
+```
 (
 s.quit;
 s.options.numOutputBusChannels = 8;
@@ -560,32 +560,32 @@ s.boot;
 
 **[Pan2](../Classes/Pan2.md) - equal power stereo pan a mono source**
 : arguments: `in, pan position, level`pan controls typically range from -1 to +1
-```supercollider
+```
 { Pan2.ar(BrownNoise.ar, MouseX.kr(-1,1), 0.3) }.scope(2);
 { Pan2.ar(BrownNoise.ar, SinOsc.kr(0.2), 0.3) }.scope(2);
 ```
 
 **[LinPan2](../Classes/LinPan2.md) - linear pan a mono source (not equal power)**
 : arguments: `in, pan position, level`
-```supercollider
+```
 { LinPan2.ar(BrownNoise.ar, MouseX.kr(-1,1), 0.3) }.scope(2);
 { LinPan2.ar(BrownNoise.ar, SinOsc.kr(0.2), 0.3) }.scope(2);
 ```
 
 **[Balance2](../Classes/Balance2.md) - balance a stereo source**
 : arguments: `left in, right in, pan position, level`
-```supercollider
+```
 { Balance2.ar(BrownNoise.ar, BrownNoise.ar, MouseX.kr(-1,1), 0.3) }.scope(2);
 ```
 
 **[Pan4](../Classes/Pan4.md) - equal power quad panner**
-: ```supercollider
+: ```
 { Pan4.ar(BrownNoise.ar, MouseX.kr(-1,1), MouseY.kr(1,-1), 0.3) }.scope(4);
 ```
 
 **[PanAz](../Classes/PanAz.md) - azimuth panner to any number of channels**
 : arguments: `num channels, in, pan position, level, width`
-```supercollider
+```
 { PanAz.ar(5, BrownNoise.ar, MouseX.kr(-1,1), 0.3, 2) }.scope(5);
 
 // change width to 3
@@ -594,12 +594,12 @@ s.boot;
 
 **[XFade2](../Classes/XFade2.md) - equal power cross fade between two inputs**
 : arguments: `in1, in2, crossfade, level`
-```supercollider
+```
 { XFade2.ar(BrownNoise.ar, SinOsc.ar(500), MouseX.kr(-1,1), 0.3) }.scope(1);
 ```
 
 **[PanB2](../Classes/PanB2.md) and [DecodeB2](../Classes/DecodeB2.md) - 2D ambisonics panner and decoder**
-: ```supercollider
+: ```
 (
 {
     var w, x, y, p, lf, rf, rr, lr;
@@ -618,7 +618,7 @@ s.boot;
 ```
 
 **[Rotate2](../Classes/Rotate2.md) - rotate a sound field of ambisonic or even stereo sound.**
-: ```supercollider
+: ```
 (
 {
     // rotation of stereo sound via mouse
@@ -638,7 +638,7 @@ s.boot;
 ## Reverbs
 
 **[FreeVerb](../Classes/FreeVerb.md)**
-: ```supercollider
+: ```
 (
 {
     // play with the room size
@@ -652,7 +652,7 @@ s.boot;
 ```
 
 **[GVerb](../Classes/GVerb.md)**
-: ```supercollider
+: ```
 (
 {
     // play with the room size
@@ -674,7 +674,7 @@ s.boot;
 - L - linear interpolation
 - C - cubic interpolation
 arguments: `in, maximum delay time, current delay time, mul, add`
-```supercollider
+```
 (
 // Dust randomly triggers Decay to create an exponential
 // decay envelope for the WhiteNoise input source
@@ -686,7 +686,7 @@ DelayN.ar(z, 0.1, 0.1, 1, z); // input is mixed with delay via the add input
 ```
 
 
-```supercollider
+```
 (
 {
 z = Decay.ar(Impulse.ar(2,0,0.4), 0.3, WhiteNoise.ar);
@@ -697,7 +697,7 @@ DelayL.ar(z, 0.3, MouseX.kr(0,0.3), 1, z); // input is mixed with delay via the 
 
 **[CombN](../Classes/CombN.md), [CombL](../Classes/CombL.md), [CombC](../Classes/CombC.md) - feedback delays**
 : arguments: `in, maximum delay time, current delay time, echo decay time, mul, add`
-```supercollider
+```
 // used as an echo.
 { CombN.ar(Decay.ar(Dust.ar(1,0.5), 0.2, WhiteNoise.ar), 0.2, 0.2, 3) }.scope(1, zoom:4);
 
@@ -724,7 +724,7 @@ DelayL.ar(z, 0.3, MouseX.kr(0,0.3), 1, z); // input is mixed with delay via the 
 
 **[AllpassN](../Classes/AllpassN.md), [AllpassL](../Classes/AllpassL.md), [AllpassC](../Classes/AllpassC.md) - allpass delay**
 : arguments: `in, maximum delay time, current delay time, echo decay time, mul, add`
-```supercollider
+```
 (
 {
     var z;
@@ -737,7 +737,7 @@ DelayL.ar(z, 0.3, MouseX.kr(0,0.3), 1, z); // input is mixed with delay via the 
 
 **[PlayBuf](../Classes/PlayBuf.md) - buffer playback**
 : arguments: `numChannels, buffer number, rate, trigger, start pos, loop`
-```supercollider
+```
 // read sound
 b = Buffer.read(s, ExampleFiles.child);
 
@@ -748,7 +748,7 @@ b = Buffer.read(s, ExampleFiles.child);
 ```
 
 
-```supercollider
+```
 // trigger one shot on each pulse
 (
 {
@@ -769,7 +769,7 @@ b = Buffer.read(s, ExampleFiles.child);
 ```
 
 
-```supercollider
+```
 // mouse control of trigger rate and startpos
 (
 {
@@ -819,7 +819,7 @@ b.free;
 
 **[TGrains](../Classes/TGrains.md) - granulation of a buffer**
 : arguments: `numChannels, trigger, buffer number, rate, center pos, dur, pan, amp, interpolation`
-```supercollider
+```
 // read sound
 b = Buffer.read(s, ExampleFiles.child);
 
@@ -935,7 +935,7 @@ b.free;
 
 **[GrainSin](../Classes/GrainSin.md) - sine grain**
 : arguments: `numChannels, trigger, dur, freq, pan, envbufnum`
-```supercollider
+```
 ( // using default window
 {
     var trigrate, winsize, trig;
@@ -973,7 +973,7 @@ see also [GrainFM](../Classes/GrainFM.md), [GrainBuf](../Classes/GrainBuf.md) an
 
 **[Decay](../Classes/Decay.md) - triggered exponential decay**
 : arguments: `in, decay time, mul, add`
-```supercollider
+```
 { WhiteNoise.ar * Decay.ar(Impulse.ar(1), 0.9, 0.2) }.scope(1, zoom:4);
 { WhiteNoise.ar * Decay.ar(Dust.ar(3), 0.9, 0.2) }.scope(1, zoom:4);
 { SinOsc.ar(Decay.ar(Dust.ar(4), 0.5, 1000, 400), 0, 0.2) }.scope(1, zoom:4);
@@ -981,19 +981,19 @@ see also [GrainFM](../Classes/GrainFM.md), [GrainBuf](../Classes/GrainBuf.md) an
 
 **[Decay2](../Classes/Decay2.md) - triggered exponential attack and exponential decay**
 : arguments: `trigger, attack time, decay time, mul, add`
-```supercollider
+```
 { WhiteNoise.ar * Decay2.ar(Impulse.ar(1), 0.2, 0.9, 0.2) }.scope(1, zoom:4);
 { WhiteNoise.ar * Decay2.ar(Dust.ar(3), 0.2, 0.9, 0.2) }.scope(1, zoom:4);
 ```
 
 **[Lag](../Classes/Lag.md)**
 : arguments: `trigger, duration`
-```supercollider
+```
 { SinOsc.ar(Lag.ar(LFPulse.ar(2,0,0.5,800,400), MouseX.kr(0,0.5)), 0, 0.2) }.scope(1, zoom:4);
 ```
 
 **[Integrator](../Classes/Integrator.md) - leaky integrator**
-: ```supercollider
+: ```
 { SinOsc.ar(Integrator.ar(Dust2.ar(8), 0.99999, 200, 800), 0, 0.2) }.scope(1)
 ```
 
@@ -1006,7 +1006,7 @@ see also [GrainFM](../Classes/GrainFM.md), [GrainBuf](../Classes/GrainBuf.md) an
 
 **[Trig](../Classes/Trig.md), [Trig1](../Classes/Trig1.md) - timed duration gate**
 : arguments: `trigger, duration`
-```supercollider
+```
 // amplitude determined by amplitude of trigger
 { Trig.ar(Dust.ar(2), 0.2) * FSinOsc.ar(800, 0, 0.4) }.scope(1, zoom:4);
 // amplitude always the same.
@@ -1015,7 +1015,7 @@ see also [GrainFM](../Classes/GrainFM.md), [GrainBuf](../Classes/GrainBuf.md) an
 
 **[TDelay](../Classes/TDelay.md) - delays a trigger. only delays one pending trigger at a time.**
 : arguments: `trigger, delay time`
-```supercollider
+```
 (
 {
     var trig;
@@ -1028,20 +1028,20 @@ see also [GrainFM](../Classes/GrainFM.md), [GrainBuf](../Classes/GrainBuf.md) an
 
 **[Latch](../Classes/Latch.md) - sample and hold**
 : arguments: `in, trigger`
-```supercollider
+```
 { Blip.ar(Latch.ar(WhiteNoise.ar, Impulse.ar(9)) * 400 + 500, 4, 0.2) }.play;
 { Blip.ar(Latch.ar(SinOsc.ar(0.3), Impulse.ar(9)) * 400 + 500, 4, 0.2) }.play;
 ```
 
 **[Gate](../Classes/Gate.md) - pass or hold**
 : arguments: `in, trigger`
-```supercollider
+```
 { Blip.ar(Gate.ar(LFNoise2.ar(40), LFPulse.ar(1)) * 400 + 500, 4, 0.2) }.scope(1, zoom:4);
 ```
 
 **[PulseCount](../Classes/PulseCount.md) - count triggers**
 : arguments: `trigger, reset`
-```supercollider
+```
 (
 {
 SinOsc.ar(
@@ -1054,7 +1054,7 @@ SinOsc.ar(
 
 **[PulseDivider](../Classes/PulseDivider.md)**
 : arguments: `trigger, div, start`
-```supercollider
+```
 (
 {
     var p, a, b;
@@ -1069,7 +1069,7 @@ SinOsc.ar(
 
 **[EnvGen](../Classes/EnvGen.md) - envelope generator**
 : envelope is specified using an instance of the [Env](../Classes/Env.md) class.
-```supercollider
+```
 { EnvGen.kr(Env.perc, doneAction: Done.freeSelf) * SinOsc.ar(880,0,0.2) }.play;
 { EnvGen.kr(Env.perc(1,0.005,1,4), doneAction: Done.freeSelf) * SinOsc.ar(880,0,0.2) }.play;
 
@@ -1106,7 +1106,7 @@ FFT, IFFT and the phase vocoder ugens.
 [FFT](../Classes/FFT.md) calculates the spectrum of a sound, puts it into a buffer, and outputs a trigger each time the buffer is ready to process. The PV UGens process the spectrum when they receive the trigger. [IFFT](../Classes/IFFT.md) converts the spectrum back into sound.
 
 
-```supercollider
+```
 // alloc a buffer for the FFT
 b = Buffer.alloc(s,2048,1);
 // read a sound
@@ -1200,7 +1200,7 @@ c = Buffer.read(s, ExampleFiles.child);
 Building a sense of space into a sound by setting up phase differences between the speakers.
 
 
-```supercollider
+```
 { var x; x = BrownNoise.ar(0.2); [x,x] }.scope(2); // correlated
 { {BrownNoise.ar(0.2)}.dup }.scope(2); // not correlated
 
@@ -1258,7 +1258,7 @@ Building a sense of space into a sound by setting up phase differences between t
 
 ### Parallel Structures
 
-```supercollider
+```
 (
 {
     // mixing sine oscillators in parallel
@@ -1332,7 +1332,7 @@ Building a sense of space into a sound by setting up phase differences between t
 
 ### Serial structures
 
-```supercollider
+```
 (
 play {
     var sig, chain;

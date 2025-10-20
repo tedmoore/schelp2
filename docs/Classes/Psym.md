@@ -13,6 +13,7 @@ for non-event patterns see [Pnsym](../Classes/Pnsym.md). Overview: [JITLib](../O
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,12 +25,13 @@ for non-event patterns see [Pnsym](../Classes/Pnsym.md). Overview: [JITLib](../O
 
 ## Instance Methods
 
+
 ### `dict`
 set the dictionary to be used.
 ## Examples
 
 
-```supercollider
+```
 (
 // load a synthdef
 s.boot;

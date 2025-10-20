@@ -17,6 +17,7 @@ If you don't need very high or very low freqs, or use fixed freqs, [LFClipNoise]
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -29,7 +30,7 @@ If you don't need very high or very low freqs, or use fixed freqs, [LFClipNoise]
 ## Examples
 
 
-```supercollider
+```
 // try wiggling the mouse quickly;
 // LFNoise frequently seems stuck, LFDNoise changes smoothly.
 

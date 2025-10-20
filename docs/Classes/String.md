@@ -11,14 +11,14 @@
 String represents an array of [Chars](../Classes/Char.md).
 Strings can be written literally using double quotes:
 
-```supercollider
+```
 "my string".class
 ```
 
 
 A sequence of string literals will be concatenated together:
 
-```supercollider
+```
 x = "hel" "lo";
 y = "this is a\n"
     "multiline\n"
@@ -26,7 +26,7 @@ y = "this is a\n"
 ```
 
 
-Backslash is the escape character. See [Literals / Characters ](../Reference/Literals.md#characters).
+Backslash is the escape character. See [Literals#Characters](../Reference/Literals.md#characters).
 
 ### Character encodings
 Note that, while Char does not support encodings aside from ASCII—such as multi-byte encodings like UTF-8 and UTF-16, or the full Latin-1 (ISO 8859-1) character set—Chars with negative values are perfectly legal, and may be strung together in strings that use these encodings.
@@ -41,8 +41,10 @@ The SuperCollider IDE uses UTF-8 (a superset of ASCII) to decode and display str
 
 
 
+
 ### `readNew`
 Read the entire contents of a [File](../Classes/File.md) and return them as a new String.
+
 ### `scDir`
 Deprecated alias for `Platform.resourceDir`. Please use [Platform#*resourceDir](../Classes/Platform.md#*resourcedir) instead.
 
@@ -50,21 +52,23 @@ Deprecated alias for `Platform.resourceDir`. Please use [Platform#*resourceDir](
 
 
 ### Accessing characters
+
 ### `@`, `at`
 Strings respond to .at in a manner similar to other indexed collections. Each element is a [Char](../Classes/Char.md).
-```supercollider
+```
 "ABCDEFG".at(2)
 ```
 
 
+
 ### `ascii`
 Returns an Array of ASCII values of the Strings's characters.
-```supercollider
+```
 "wertvoll".ascii // [119, 101, 114, 116, 118, 111, 108, 108]
 ```
 
 Note that if a string contains multi-byte UTF-8 characters, this array will not be of the same length as the number of visible characters, nor will it necessarily be an array of valid 7-bit ASCII values.
-```supercollider
+```
 // "face with tears of joy" is Unicode codepoint U+1F602, which is encoded in UTF-8 as hex value 0xF09F9882
 a = "😂";
 
@@ -82,36 +86,42 @@ b.collect(_.asHexString(2)) // [F0, 9F, 98, 82]
 
 
 ### Comparing strings
+
 ### `compare`
 Returns an integer less than, equal to or greater than zero, depending on whether the receiver should be sorted before the argument, is equal to the argument or should be sorted after the argument. This is a case sensitive compare.
+
 ### `<`
 Returns a [Boolean](../Classes/Boolean.md) whether the receiver should be sorted before the argument.
-```supercollider
+```
 "same" < "samf"
 ```
 
 
+
 ### `>`
 Returns a [Boolean](../Classes/Boolean.md) whether the receiver should be sorted after the argument.
-```supercollider
+```
 "same" > "samf"
 ```
 
 
+
 ### `<=`
 Returns a [Boolean](../Classes/Boolean.md) whether the receiver should be sorted before the argument, including the same string.
-```supercollider
+```
 "same" <= "same"
 "same" <= "samf"
 ```
 
 
+
 ### `>=`
 Returns a [Boolean](../Classes/Boolean.md) whether the receiver should be sorted after the argument, including the same string.
-```supercollider
+```
 "same" >= "same"
 "same" >= "samf"
 ```
+
 
 
 ### `==`
@@ -119,15 +129,16 @@ Returns a [Boolean](../Classes/Boolean.md) whether the two Strings are equal.
 > **Note:** This method is (now) case sensitive!
 
 
-```supercollider
+```
 "same" == "same"
 "same" == "Same"; // false
 ```
 
 
+
 ### `!=`
 Returns a [Boolean](../Classes/Boolean.md) whether the two Strings are not equal.
-```supercollider
+```
 "same" != "same"; // false
 "same" != "Same";
 ```
@@ -138,7 +149,7 @@ Returns a [Boolean](../Classes/Boolean.md) whether the two Strings are not equal
 With fuzzy comparison, the strings don't need to match exactly - we can work out how similar they are, and make decisions based on that. This behaviour is inherited from the [SequenceableCollection#-editDistance](../Classes/SequenceableCollection.md#-editdistance), and is documented fully there, but to provide an example:
 
 
-```supercollider
+```
 "hello".editDistance("hallo"); // 1 (substitution)
 "hello".editDistance("hell"); // 1 (deletion)
 "hello".editDistance("helloo"); // 1 (addition)
@@ -149,64 +160,73 @@ With fuzzy comparison, the strings don't need to match exactly - we can work out
 
 
 ### Posting strings
+
 ### `post`
 Prints the string to the current post window.
-```supercollider
+```
 "One".post; "Two".post; "";
 ```
 
 
+
 ### `postln`
 Prints the string and a carriage return to the current post window.
-```supercollider
+```
 "One".postln; "Two".postln; "";
 ```
 
 
+
 ### `postc`, `postcln`
-As [post](#post) and [postln](#postln), but formatted as a comment.
-```supercollider
+As [#-post](#-post) and [#-postln](#-postln), but formatted as a comment.
+```
 "This is a comment.".postcln;
 ```
 
 
+
 ### `postf`
 Prints a formatted string with arguments to the current post window. The % character in the format string is replaced by a string representation of an argument. To print a % character use \\% .
-```supercollider
+```
 postf("this % a %. pi = %, list = %\n", "is", "test", pi.round(1e-4), (1..4))
 
 this is a test. pi = 3.1416, list = [1, 2, 3, 4]
 ```
 
 
+
 ### `postcs`
-As [postln](#postln), but posts the [compileString](#ascompilestring) of the receiver.
-```supercollider
+As [#-postln](#-postln), but posts the [compileString](#-ascompilestring) of the receiver.
+```
 List[1, 2, ["comment", [3, 2]], { 1.0.rand }].postcs;
 ```
 
 
+
 ### `error`
 Prepends an error banner and posts the string.
-```supercollider
+```
 "Do not press this button again".error;
 ```
 
 
+
 ### `warn`
 Prepends a warning banner and posts the string.
-```supercollider
+```
 "Do not press this button again".warn;
 ```
+
 
 
 ### `inform`
 Legacy method (although due to widespread use, it will not be removed). This is identical to `postln`.
 
 ### Interpreting strings as code
+
 ### `compile`
 Compiles a String containing legal SuperCollider code and returns a Function.
-```supercollider
+```
 (
 var f;
 f = "2 + 1".compile.postln;
@@ -215,25 +235,28 @@ f.value.postln;
 ```
 
 
+
 ### `interpret`
 Compile and execute a String containing legal SuperCollider code, returning the result.
-```supercollider
+```
 "2 + 1".interpret.postln;
 ```
 
 
+
 ### `interpretPrint`
 Compile, execute and print the result of a String containing legal SuperCollider code.
-```supercollider
+```
 "2 + 1".interpretPrint;
 ```
 
 
 
 ### Converting strings
+
 ### `asCompileString`
 Returns a String formatted for compiling.
-```supercollider
+```
 (
 var f;
 f = "myString";
@@ -243,9 +266,10 @@ f.asCompileString.postln;
 ```
 
 
+
 ### `asSymbol`
 Return a [Symbol](../Classes/Symbol.md) derived from the String.
-```supercollider
+```
 (
 var z;
 z = "myString".asSymbol.postln;
@@ -254,33 +278,36 @@ z.class.postln;
 ```
 
 
+
 ### `asInteger`
 Returns an [Integer](../Classes/Integer.md) derived from the String. Strings beginning with non-numeric characters return 0. 
-```supercollider
+```
 "4".asInteger
 ```
 
-  The method `.asInteger` does not understand scientific notation (e.g., `2e3` for `2000`),  and simply ignores all characters in the string after its first nonnumeric character  (excepting signs `+,-` at the beginning of the string).  If you use scientific notation, use [asFloat](#asfloat) instead.
-```supercollider
+  The method `.asInteger` does not understand scientific notation (e.g., `2e3` for `2000`),  and simply ignores all characters in the string after its first nonnumeric character  (excepting signs `+,-` at the beginning of the string).  If you use scientific notation, use [#-asFloat](#-asfloat) instead.
+```
 "2e3".asInteger // -> 2
 ```
 
 
+
 ### `asFloat`
 Returns a [Float](../Classes/Float.md) derived from the String. Strings beginning with non-numeric characters return 0. 
-```supercollider
+```
 "4.3".asFloat
 ```
 
-  The method `.asFloat` understands scientific notation (e.g., `2e3` for `2000`, `2e-3` for `0.002`), and accepts uppercase `E` and lowercase `e`. By contrast, the method [asInteger](#asinteger) does *not* accept scientific notation.
-```supercollider
+  The method `.asFloat` understands scientific notation (e.g., `2e3` for `2000`, `2e-3` for `0.002`), and accepts uppercase `E` and lowercase `e`. By contrast, the method [#-asInteger](#-asinteger) does *not* accept scientific notation.
+```
 "2e3".asFloat // -> 2000.0
 ```
 
 
+
 ### `asSecs`
 Return a [Float](../Classes/Float.md) based on converting a time string in format `(ddd:)hh:mm:ss(.z)`, where `z` is any sequence of digits. This is the inverse method to [SimpleNumber#-asTimeString](../Classes/SimpleNumber.md#-astimestring).
-```supercollider
+```
 "00:00:59.900".asSecs; // hh:mm:ss.zzz
 "1:1:1.1".asSecs; // h:m:s.z
 "001:00:00:00.001".asSecs; // ddd:hh:mm:ss.zzz
@@ -299,18 +326,21 @@ Return a [Float](../Classes/Float.md) based on converting a time string in forma
 
 
 ### Concatenate strings
+
 ### `++`
 Return a concatenation of the two strings.
-```supercollider
+```
 "hello" ++ "word"
 ```
 
 
+
 ### `+`
 Return a concatenation of the two strings with a space between them.
-```supercollider
+```
 "hello" + "word"
 ```
+
 
 
 ### `+/+`
@@ -322,7 +352,7 @@ Concatenates `this` and `path`, as components of a filesystem path on the host o
 | Argument | Description |
 |----------|-------------|
 | `path` | Any object that can be converted to a string. Typically, either a String, [Symbol](../Classes/Symbol.md), or [PathName](../Classes/PathName.md).
-```supercollider
+```
 // On Windows, this produces "foo\\bar"; on other platforms, "foo/bar"
 "foo" +/+ "bar"
 
@@ -338,30 +368,34 @@ Concatenates `this` and `path`, as components of a filesystem path on the host o
 "foo" +/+ 'bar'
 ``` |  
 
+
 ### `catArgs`
 Concatenate this string with the following args.
-```supercollider
+```
 "These are some args: ".catArgs(\fish, SinOsc.ar, { 4 + 3 }).postln;
 ```
 
 
+
 ### `scatArgs`
-Same as [catArgs](#catargs), but with spaces in between.
-```supercollider
+Same as [#-catArgs](#-catargs), but with spaces in between.
+```
 "These are some args: ".scatArgs(\fish, SinOsc.ar, { 4 + 3 }).postln;
 ```
 
 
+
 ### `ccatArgs`
-Same as [catArgs](#catargs), but with commas in between.
-```supercollider
+Same as [#-catArgs](#-catargs), but with commas in between.
+```
 "a String".ccatArgs(\fish, SinOsc.ar, { 4 + 3 }).postln;
 ```
 
 
+
 ### `catList`, `scatList`, `ccatList`
-As [catArgs](#catargs), [scatArgs](#scatargs) and [ccatArgs](#ccatargs) above, but takes a Collection (usually a [List](../Classes/List.md) or an [Array](../Classes/Array.md)) as an argument.
-```supercollider
+As [#-catArgs](#-catargs), [#-scatArgs](#-scatargs) and [#-ccatArgs](#-ccatargs) above, but takes a Collection (usually a [List](../Classes/List.md) or an [Array](../Classes/Array.md)) as an argument.
+```
 "a String".ccatList([\fish, SinOsc.ar, { 4 + 3 }]).postln;
 ```
 
@@ -378,12 +412,13 @@ Note carefully the argument order:
 
 `findRegexp` follows the pattern established by [String#-find](../Classes/String.md#-find), where the receiver is the string to be searched. `matchRegexp` follows the pattern of [matchItem](../Reference/matchItem.md), where the receiver is the pattern to match and the first argument is the object to be tested. This is a common source of confusion, but it is based on this precedent.
 
+
 ### `matchRegexp`
-Perl regular expression matching (see [String / Regular expressions ](../Classes/String.md#regular-expressions)). Returns true if the receiver (a regular expression pattern) matches the string passed to it. The **start** is an offset where to start searching in the string (default: 0), **end** where to stop.
-> **Note:** This is `regexp.matchRegexp(stringToSearch)` and not the other way around! See above: [String / Regular expressions ](../Classes/String.md#regular-expressions).
+Perl regular expression matching (see [String#Regular expressions](../Classes/String.md#regular-expressions)). Returns true if the receiver (a regular expression pattern) matches the string passed to it. The **start** is an offset where to start searching in the string (default: 0), **end** where to stop.
+> **Note:** This is `regexp.matchRegexp(stringToSearch)` and not the other way around! See above: [String#Regular expressions](../Classes/String.md#regular-expressions).
 
 
-```supercollider
+```
 "c".matchRegexp("abcdefg", 2, 5); // true: substring exists
 "c".matchRegexp("abcdefg", 4, 5); // false: substring doesn't exist
 
@@ -404,15 +439,16 @@ Perl regular expression matching (see [String / Regular expressions ](../Classes
 ```
 
 
+
 ### `replaceRegexp`
 This method is used to replace parts of text.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `regex` | A perl regular expression (see [String / Regular expressions ](../Classes/String.md#regular-expressions)) with which to match the caller. |  
+| `regex` | A perl regular expression (see [String#Regular expressions](../Classes/String.md#regular-expressions)) with which to match the caller. |  
 | `with` | The [String](../Classes/String.md) to replace the found regex with. |  
 **Returns:** A [String](../Classes/String.md).
-```supercollider
+```
 // remove numbers
 "g8et t8ho9se 3num5b89ers ou06t o8f h12er56e!".replaceRegexp("[0-9]", "")
 -> get those numbers out of here!
@@ -427,24 +463,26 @@ This method is used to replace parts of text.**Arguments:**
 ```
 
 
+
 ### `findRegexp`
-Perl regular expression search (see [String / Regular expressions ](../Classes/String.md#regular-expressions)). This method searches exhaustively for matches and collects them into an array of pairs, in the format `[character index, matching string]`."Leftmost largest match": As in most flavors of regular expressions, `*` and `+` are greedy; if it is possible to have more than one overlapping match for a part of the regular expression, the match list will include only the leftmost and largest of them. In `"foobar".findRegexp("o+")`, `"o+"` may potentially have three matches: `"o"` at index 1 (second character), `"o"` at index 2, and `"oo"` at index 1. `findRegexp` will return only the last of these (`"oo"`), because it begins in the leftmost-possible matching position, and it is the longest possible match at that position.Note, though, that parentheses for grouping (a "marked sub-expression" or "capturing group") will produce a separate result: `"aaa".findRegexp("(a+)");` appears to produce duplicated results `[[0, aaa], [0, aaa]]`, but this is because the first match is for the parentheses and the second is for `a+`.To see the marked sub-expression results more clearly, consider:
-```supercollider
+Perl regular expression search (see [String#Regular expressions](../Classes/String.md#regular-expressions)). This method searches exhaustively for matches and collects them into an array of pairs, in the format `[character index, matching string]`."Leftmost largest match": As in most flavors of regular expressions, `*` and `+` are greedy; if it is possible to have more than one overlapping match for a part of the regular expression, the match list will include only the leftmost and largest of them. In `"foobar".findRegexp("o+")`, `"o+"` may potentially have three matches: `"o"` at index 1 (second character), `"o"` at index 2, and `"oo"` at index 1. `findRegexp` will return only the last of these (`"oo"`), because it begins in the leftmost-possible matching position, and it is the longest possible match at that position.Note, though, that parentheses for grouping (a "marked sub-expression" or "capturing group") will produce a separate result: `"aaa".findRegexp("(a+)");` appears to produce duplicated results `[[0, aaa], [0, aaa]]`, but this is because the first match is for the parentheses and the second is for `a+`.To see the marked sub-expression results more clearly, consider:
+```
 "foobar".findRegexp("(o*)(bar)");
 -> [[1, oobar], [1, oo], [3, bar]]
 ```
 
 `"oobar"` matches the entire regular expression. `"oo"` and `"bar"` match the first and second parenthesized sub-expressions, respectively.
-```supercollider
+```
 "foobar".findRegexp("o*bar");
 "32424 334 /**aaaaaa*/".findRegexp("/\\*\\*a*\\*/");
 "aaaabaaa".findRegexp("a+");
 ```
 
 **Returns:** A nested array, where each sub-array is a pair, `[character index, matching string]`. If there are no matches, an empty array.
+
 ### `findAllRegexp`
-Like [findAll](#findall), but use regular expressions (see [String / Regular expressions ](../Classes/String.md#regular-expressions)). Unlike findRegexp, it returns only the indices of the matches: `string.findAllRegexp(regexp)` returns the same as `string.findRegexp(regexp).flop.at(0)`.
-```supercollider
+Like [#-findAll](#-findall), but use regular expressions (see [String#Regular expressions](../Classes/String.md#regular-expressions)). Unlike findRegexp, it returns only the indices of the matches: `string.findAllRegexp(regexp)` returns the same as `string.findRegexp(regexp).flop.at(0)`.
+```
 "foobar".findAllRegexp("o*bar");
 "32424 334 /**aaaaaa*/".findAllRegexp("/\\*\\*a*\\*/");
 "foobar".findAllRegexp("(o*)(bar)");
@@ -452,9 +490,10 @@ Like [findAll](#findall), but use regular expressions (see [String / Regular exp
 ```
 
 **Returns:** An array of integer character indices pointing to all the possible matches.
+
 ### `findRegexpAt`
-Match a regular expression (see [String / Regular expressions ](../Classes/String.md#regular-expressions)) at the given offset, returning the match and the length of the match in an Array, or nil if it doesn't match. The match must begin right at the offset.
-```supercollider
+Match a regular expression (see [String#Regular expressions](../Classes/String.md#regular-expressions)) at the given offset, returning the match and the length of the match in an Array, or nil if it doesn't match. The match must begin right at the offset.
+```
 "foobaroob".findRegexpAt("o*b+", 0); // nil
 "foobaroob".findRegexpAt("o*b+", 1); // [oob, 3]
 "foobaroob".findRegexpAt("o*b+", 2); // [ob,  2]
@@ -468,34 +507,38 @@ Match a regular expression (see [String / Regular expressions ](../Classes/Strin
 **Returns:** An array `[matching string, length]` if a match is found at the specified offset; `nil` if the offset doesn't match.
 
 ### Searching strings
+
 ### `find`
 Returns the index of the string in the receiver, or nil if not found. If **ignoreCase** is true, find makes no difference between uppercase and lowercase letters. The **offset** is the point in the string where the search begins. string may be a String or a [Char](../Classes/Char.md).
-```supercollider
+```
 "These are several words".find("are").postln;
 "These are several words".find("fish").postln;
 ```
 
 
+
 ### `findBackwards`
-Same like [find](#find), but starts at the end of the string.
-```supercollider
+Same like [#-find](#-find), but starts at the end of the string.
+```
 // compare:
 "These words are several words".find("words"); // 6
 "These words are several words".findBackwards("words"); // 24
 ```
 
 
+
 ### `findAll`
 Returns the indices of the string in the receiver, or nil if not found.
-```supercollider
+```
 "These are several words which are fish".findAll("are").postln;
 "These are several words which are fish".findAll("fish").postln;
 ```
 
 
+
 ### `findSimilarIn`
 From a list of strings, find similar strings, sorted by edit distance and limited by similarity.
-```supercollider
+```
 "hi".findSimilarIn(["ho", "hu?", "hugs", "Hola", "else"], 2); // [ho, hu?]
 "hi".findSimilarIn(["ho", "hu?", "hugs", "Hola", "else"], 3); // [ho, hu?, hugs, Hola]
 "hi".findSimilarIn(["ho", "Hi", "hugs", "Hola", "else"], 3, prioritizeCapitalization: false); // [ho, Hi, hugs]
@@ -513,31 +556,37 @@ From a list of strings, find similar strings, sorted by edit distance and limite
 | `minSimilarity` | Keep only results whose [similarity](../Classes/SequenceableCollection.md#similarity) is larger than this value. If set to `nil`, all values are accepted. |  
 | `prioritizeCapitalization` | If true, calculated the edit distances on lower case versions. |  
 
+
 ### `contains`
 Returns a [Boolean](../Classes/Boolean.md) indicating if the String contains string.
-```supercollider
+```
 "These are several words".contains("are").postln;
 "These are several words".contains("fish").postln;
 ```
 
 
+
 ### `containsi`
-Same as [contains](#contains), but case insensitive.
-```supercollider
+Same as [#-contains](#-contains), but case insensitive.
+```
 "These are several words".containsi("ArE").postln;
 ```
 
 
+
 ### `containsStringAt`
 Returns a [Boolean](../Classes/Boolean.md) indicating if the String contains string beginning at the specified index.
-```supercollider
+```
 "These are several words".containsStringAt(6, "are").postln;
 ```
 
 
+
 ### `icontainsStringAt`
-Same as [containsStringAt](#containsstringat), but case insensitive.
+Same as [#-containsStringAt](#-containsstringat), but case insensitive.
+
 ### `beginsWith`
+
 
 ### `endsWith`
 Returns true if this string begins/ends with the specified other string.**Arguments:**
@@ -548,74 +597,85 @@ Returns true if this string begins/ends with the specified other string.**Argume
 **Returns:** A [Boolean](../Classes/Boolean.md)
 
 ### Manipulating strings
+
 ### `rotate`
 Rotate the string by n steps.
-```supercollider
+```
 "hello word".rotate(1)
 ```
 
 
+
 ### `scramble`
 Randomize the order of characters in the string.
-```supercollider
+```
 "hello word".scramble
 ```
 
 
+
 ### `replace`
-Like [tr](#tr), but with Strings as well as Chars as arguments.
-```supercollider
+Like [#-tr](#-tr), but with Strings as well as Chars as arguments.
+```
 "Here are several words which are fish".replace("are", "were");
 ```
 
 
+
 ### `format`
 Returns a formatted string with arguments. The % character in the format string is replaced by a string representation of an argument. To print a % character use \\% .
-```supercollider
+```
 format("this % a %. pi = %, list = %\n", "is", "test", pi.round(1e-4), (1..4))
 
 this is a test. pi = 3.1416, list = [1, 2, 3, 4]
 ```
 
 
+
 ### `escapeChar`
 Add the escape character (\) before any character of your choice.
-```supercollider
+```
 // escape spaces:
 "This will become a Unix friendly string".escapeChar($ ).postln;
 ```
 
 
+
 ### `quote`
 Return this string enclosed in double-quote (`"`) characters.
-```supercollider
+```
 "tell your" + "friends".quote + "not to tread onto the lawn"
 ```
 
 
+
 ### `zeroPad`
 Return this string enclosed in space characters.
-```supercollider
+```
 "spaces".zeroPad.postcs;
 ```
 
 
+
 ### `underlined`
 Return this string followed by dashes in the next line (`-`).
-```supercollider
+```
 "underlined".underlined;
 "underlined".underlined($~);
 ```
 
 
+
 ### `tr`
 Transliteration. Replace all instances of **from** with **to**.
-```supercollider
+```
 ":-(:-(:-(".tr($(, $)); // turn the frowns upside down
 ```
 
 
+
 ### `padLeft`
+
 
 ### `padRight`
 Pad this string with **string** so it fills **size** character.**Arguments:**
@@ -624,29 +684,32 @@ Pad this string with **string** so it fills **size** character.**Arguments:**
 |----------|-------------|
 | `size` | Number of characters to fill |  
 | `string` | Padding string
-```supercollider
+```
 "this sentence has thirty-nine letters".padRight(39, "-+");
 "this sentence has thirty-nine letters".padLeft(39, "-+");
 "this sentence more than thirteen letters".padRight(13, "-+"); // nothing to pad.
 ``` |  
 
+
 ### `toUpper`
 Return this string with uppercase letters.
-```supercollider
+```
 "Please, don't be impolite".toUpper;
 ```
 
 
+
 ### `toLower`
 Return this string with lowercase letters.
-```supercollider
+```
 "SINOSC".toLower;
 ```
 
 
+
 ### `stripRTF`
 Returns a new String with all RTF formatting removed.
-```supercollider
+```
 (
 // same as File-readAllStringRTF
 g = File("/code/SuperCollider3/build/Help/UGens/Chaos/HenonC.help.rtf", "r");
@@ -656,9 +719,10 @@ g.close;
 ```
 
 
+
 ### `split`
 Returns an Array of Strings split at the separator. The separator is a [Char](../Classes/Char.md), and is **not** included in the output array.
-```supercollider
+```
 "These are several words".split($ );
 
 // The default separator $/ is handy for Unix paths.
@@ -668,9 +732,10 @@ Returns an Array of Strings split at the separator. The separator is a [Char](..
 
 
 ### Stream support
+
 ### `printOn`
 Print the String on stream.
-```supercollider
+```
 "Print this on Post".printOn(Post);
 
 // equivalent to:
@@ -678,9 +743,10 @@ Post << "Print this on Post";
 ```
 
 
+
 ### `storeOn`
-Same as [printOn](#printon), but formatted [asCompileString](#ascompilestring).
-```supercollider
+Same as [#-printOn](#-printon), but formatted [#-asCompileString](#-ascompilestring).
+```
 "Store this on Post".storeOn(Post);
 
 // equivalent to:
@@ -693,7 +759,7 @@ Post <<< "Store this on Post";
 Where relevant, the current working directory is the same as the location of the SuperCollider app and the shell is the Bourne shell (sh). Note that the cwd, and indeed the shell itself, does not persist:
 
 
-```supercollider
+```
 "echo $0".unixCmd; // print the shell (sh)
 "pwd".unixCmd;
 "cd Help/".unixCmd;
@@ -707,7 +773,7 @@ Where relevant, the current working directory is the same as the location of the
 It is however possible to execute complex commands:
 
 
-```supercollider
+```
 "pwd; cd Help/; pwd".unixCmd;
 "export FISH=mackerel; echo $FISH".unixCmd;
 ```
@@ -716,15 +782,16 @@ It is however possible to execute complex commands:
 Also on os x applescript can be called via osascript:
 
 
-```supercollider
+```
 "osascript -e 'tell application \"Safari\" to activate'".unixCmd;
 ```
 
 
-Should you need an environment variable to persist you can use [setenv](#setenv).
+Should you need an environment variable to persist you can use [#-setenv](#-setenv).
 
 
 > **Note:** Despite the fact that the method is called 'unixCmd', **it does work in Windows**. The string must be a DOS command, however: "dir" rather than "ls" for instance.
+
 
 
 ### `unixCmd`
@@ -740,22 +807,25 @@ Executes an operating system command **asynchronously** using the standard shell
 Past documentation incorrectly stated that this method always returned the pid of the actual command.Note that `exec` is not available on Windows.
 
 Example:
-```supercollider
+```
 "ls Help".unixCmd;
 "echo one; sleep 1; echo two; sleep 1".unixCmd { |res, pid| [\done, res, pid].postln };
 ```
 
 
+
 ### `unixCmdGetStdOut`
-Similar to [unixCmd](#unixcmd) except that the stdout of the process is returned (**synchronously**) rather than sent to the post window.
-```supercollider
+Similar to [#-unixCmd](#-unixcmd) except that the stdout of the process is returned (**synchronously**) rather than sent to the post window.
+```
 ~listing = "ls Help".unixCmdGetStdOut; // Grab
 ~listing.reverse.as(Array).dupEach.join.postln; // Mangle
 ```
 
 
+
 ### `systemCmd`
 Executes an operating system command **synchronously** using the standard shell (`sh` on *nix, `cmd` on Windows).**Returns:** Error code of the system command
+
 ### `runInTerminal`
 Execute the String in a new terminal window (**asynchronously**).**Arguments:**
 
@@ -769,43 +839,50 @@ Execute the String in a new terminal window (**asynchronously**).**Arguments:**
 > **Note:** On Linux, it is possible to choose a specific terminal emulator to be used, otherwise sclang tries to find one by itself. See [LinuxPlatform#*runInTerminalCmd](../Classes/LinuxPlatform.md#*runinterminalcmd).
 
 Example:
-```supercollider
+```
 "echo ---------Hello delightful SuperCollider user----------".runInTerminal;
 ```
 
 
+
 ### `setenv`
-Set the environment variable indicated in the string to equal the String **value**. This value will persist until it is changed or SC is quit. Note that if **value** is a path you may need to call [standardizePath](#standardizepath) on it.
-```supercollider
+Set the environment variable indicated in the string to equal the String **value**. This value will persist until it is changed or SC is quit. Note that if **value** is a path you may need to call [#-standardizePath](#-standardizepath) on it.
+```
 // all defs in this directory will be loaded when a local server boots
 "SC_SYNTHDEF_PATH".setenv("~/scwork/".standardizePath);
 "echo $SC_SYNTHDEF_PATH".unixCmd;
 ```
 
 
+
 ### `getenv`
 Returns the value contained in the environment variable indicated by the String.
-```supercollider
+```
 "USER".getenv;
 ```
 
 
+
 ### `unsetenv`
 Set the environment variable to nil.
+
 ### `mkdir`
 Make a directory from the given path location.
+
 ### `pathMatch`
 Returns an [Array](../Classes/Array.md) containing all paths matching this String. Wildcards apply, non-recursive.
-```supercollider
+```
 Post << "Help/*".pathMatch;
 ```
 
 
+
 ### `load`
 Load and execute the file at the path represented by the receiver.
+
 ### `loadPaths`
-Perform [pathMatch](#pathmatch) on this String, then load and execute all paths in the resultant [Array](../Classes/Array.md).
-```supercollider
+Perform [#-pathMatch](#-pathmatch) on this String, then load and execute all paths in the resultant [Array](../Classes/Array.md).
+```
 // first prepare a file with some code...
 (
 File.use(Platform.defaultTempDir +/+ "loadPaths_example.scd", "w", { |file|
@@ -826,6 +903,7 @@ File.use(Platform.defaultTempDir +/+ "loadPaths_example.scd", "w", { |file|
 | `warn` | Post a warning if path doesn't point to any file. |  
 | `action` | If a function is passed, it is called with each path as argument. |  
 
+
 ### `loadRelative`
 Load and execute the file at the path represented by the receiver, interpreting the path as relative to the current document or text file. Requires that the file has been saved. This can be used e.g. to load initialization code from files in the same folder.**Arguments:**
 
@@ -834,18 +912,21 @@ Load and execute the file at the path represented by the receiver, interpreting 
 | `warn` | Warn if a file is not found. |  
 | `action` | A function that is called for each file path that is found. |  
 
+
 ### `resolveRelative`
 Convert the receiver from a relative path to an absolute path, relative to the current document or text file. Requires that the current text file has been saved. Absolute paths are left untransformed.
+
 ### `standardizePath`
 Expand ~ to your home directory, and resolve aliases on macOS. See [PathName](../Classes/PathName.md) for more complex needs. See [File#*realpath](../Classes/File.md#*realpath) if you want to resolve symlinks.
-```supercollider
+```
 "~/".standardizePath; // This will print your home directory
 ```
 
 
+
 ### `openOS`
 Open file, directory or URL via the operating system. On macOS this is implemented via `open`, on Linux via `xdg-open` and on Windows via `start`.
-```supercollider
+```
 Platform.userConfigDir.openOS;
 "http://supercollider.sf.net".openOS;
 ```
@@ -857,9 +938,10 @@ Also see [#-+/+](#-+/+) for path concatenation.
 
 The term "path separator" is a platform-independent term for the character(s) that can be used to separate components of a path. On Windows, both forward slash "/" and backward slash "\\" are path separators. On POSIX-based systems like macOS and Linux, only forward slash is allowed.
 
+
 ### `shellQuote`
-Return a new string suitable for use as a filename in a shell command, by enclosing it in single quotes (`'`). If the string contains any single quotes they will be escaped.You should use this method on a path before embedding it in a string executed by [unixCmd](#unixcmd) or [systemCmd](#systemcmd).
-```supercollider
+Return a new string suitable for use as a filename in a shell command, by enclosing it in single quotes (`'`). If the string contains any single quotes they will be escaped.You should use this method on a path before embedding it in a string executed by [#-unixCmd](#-unixcmd) or [#-systemCmd](#-systemcmd).
+```
 unixCmd("ls " + Platform.userExtensionDir.shellQuote)
 ```
 
@@ -867,10 +949,13 @@ unixCmd("ls " + Platform.userExtensionDir.shellQuote)
 > **Note:** This works well with shells such as **bash**, other shells might need different quotation/escaping. Apart from usage in the construction of shell commands, **escaping is not needed** for paths passed to methods like pathMatch(path) or File.open(path).
 
 
+
 ### `absolutePath`
+
 
 ### `asAbsolutePath`
 Return this path as an absolute path by prefixing it with [File#*getcwd](../Classes/File.md#*getcwd) if necessary.
+
 ### `asRelativePath`
 Return this path as relative to the specified path.**Arguments:**
 
@@ -878,27 +963,32 @@ Return this path as relative to the specified path.**Arguments:**
 |----------|-------------|
 | `relativeTo` | The path to make this path relative to. |  
 
+
 ### `withTrailingSlash`
 Appends a path separator if one is not already present.
+
 ### `withoutTrailingSlash`
 Removes a trailing path separator if one is present.
+
 ### `basename`
 Return the filename from a filesystem path.
-```supercollider
+```
 "Imaginary/Directory/fish.rtf".basename;
 ```
 
 
+
 ### `dirname`
 Return the directory name from a filesystem path.
-```supercollider
+```
 "Imaginary/Directory/fish.rtf".dirname;
 ```
 
 
+
 ### `splitext`
 Split off the extension from a filename or path and return both in an [Array](../Classes/Array.md) as [path or filename, extension].
-```supercollider
+```
 "fish.rtf".splitext;
 "Imaginary/Directory/fish.rtf".splitext;
 ```
@@ -906,49 +996,57 @@ Split off the extension from a filename or path and return both in an [Array](..
 
 
 ### YAML and JSON parsing
+
 ### `parseYAML`
 Parse this string as YAML/JSON.**Returns:** A nested structure of [Array](../Classes/Array.md)s (for sequences), [Dictionaries](../Classes/Dictionary.md) (for maps) and [String](../Classes/String.md)s (for scalars).
+
 ### `parseYAMLFile`
 Same as `parseYAML` but parse a file directly instead of a string. This is faster than reading a file into a string and then parse it.
+
 ### `parseJSON`
-This method is currently just an alias for [parseYAML](#parseyaml), in the future it will only accept valid JSON.**Returns:** A nested structure of [Array](../Classes/Array.md)s (for sequences), [Dictionaries](../Classes/Dictionary.md) (for maps) and [String](../Classes/String.md)s (for scalars).
-```supercollider
+This method is currently just an alias for [#-parseYAML](#-parseyaml), in the future it will only accept valid JSON.**Returns:** A nested structure of [Array](../Classes/Array.md)s (for sequences), [Dictionaries](../Classes/Dictionary.md) (for maps) and [String](../Classes/String.md)s (for scalars).
+```
 "{ \"a\": 1 }".parseYAML;
 "{ \"a\": 1 }".parseJSON;
 ```
 
 
+
 ### `parseJSONFile`
-This method is currently just an alias for [parseYAMLFile](#parseyamlfile), in the future it will only accept valid JSON files.
+This method is currently just an alias for [#-parseYAMLFile](#-parseyamlfile), in the future it will only accept valid JSON files.
 
 ### Document Support
+
 ### `newTextWindow`
 Create a new [Document](../Classes/Document.md) with this.
-```supercollider
+```
 "Here is a new Document".newTextWindow;
 ```
 
 
+
 ### `openDocument`
 Create a new [Document](../Classes/Document.md) from the path corresponding to this. The selection arguments will preselect the indicated range in the new window. Returns this.
-```supercollider
+```
 (
 String.filenameSymbol.asString.openDocument(10, 20)
 )
 ```
 
 
+
 ### `findHelpFile`
 Returns the path for the helpfile named this, if it exists, else returns nil.
-```supercollider
+```
 "Document".findHelpFile;
 "foobar".findHelpFile;
 ```
 
 
+
 ### `help`
-Performs [findHelpFile](#findhelpfile) on this, and opens the file it if it exists, otherwise opens the main helpfile.
-```supercollider
+Performs [#-findHelpFile](#-findhelpfile) on this, and opens the file it if it exists, otherwise opens the main helpfile.
+```
 "Document".help;
 "foobar".help;
 ```
@@ -956,6 +1054,7 @@ Performs [findHelpFile](#findhelpfile) on this, and opens the file it if it exis
 
 
 ### Misc methods
+
 ### `inspectorClass`
 Returns class [StringInspector](../Classes/StringInspector.md).
 
@@ -968,9 +1067,10 @@ See also: [Window](../Classes/Window.md), [UserView](../Classes/UserView.md), [C
 > **Note:** for cross-platform GUIs, use `Pen.stringAtPoint, Pen.stringInRect, Pen.stringCenteredIn, Pen.stringLeftJustIn, Pen.stringRightJustIn` instead.
 
 
+
 ### `draw`
 Draws the String at the current 0@0 [Point](../Classes/Point.md). If not transformations of the graphics state have taken place this will be the upper left corner of the window. See also [Pen](../Classes/Pen.md).
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -982,9 +1082,10 @@ w.refresh
 ```
 
 
+
 ### `drawAtPoint`
 Draws the String at the given [Point](../Classes/Point.md) using the [Font](../Classes/Font.md) and [Color](../Classes/Color.md) specified.
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -999,9 +1100,10 @@ w.refresh;
 ```
 
 
+
 ### `drawInRect`
 Draws the String into the given [Rect](../Classes/Rect.md) using the [Font](../Classes/Font.md) and [Color](../Classes/Color.md) specified.
-```supercollider
+```
 (
 w = Window.new.front;
 r = Rect(100, 100, 100, 100);
@@ -1015,9 +1117,10 @@ w.refresh;
 ```
 
 
+
 ### `drawCenteredIn`
 Draws the String into the given Rect using the Font and Color specified.
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -1035,9 +1138,10 @@ w.refresh;
 ```
 
 
+
 ### `drawLeftJustIn`
 Draws the String into the given Rect using the Font and Color specified.
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -1055,9 +1159,10 @@ w.refresh;
 ```
 
 
+
 ### `drawRightJustIn`
 Draws the String into the given [Rect](../Classes/Rect.md) using the [Font](../Classes/Font.md) and [Color](../Classes/Color.md) specified.
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -1073,6 +1178,7 @@ w.drawFunc = {
 w.refresh;
 )
 ```
+
 
 
 ### `bounds`

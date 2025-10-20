@@ -12,14 +12,18 @@ The standard scheduling model uses quant and phase to locate the starting time. 
 
 ## Class Methods
 
+
 ### `new`
 Explicitly create an instance of Quant, which may be used and reused. Phase and offset may be nil, in which case they are treated as 0. If quant is nil, it will schedule for the current time exactly.
 
 ## Instance Methods
 
+
 ### `quant`
-Quantization granularity. The routine will begin on the next integer multiple of this number after the baseBarBeat. If negative, it indicates the number of bars in the future to schedule (where the bar length is taken from the clock's beatsPerBar variable).### `phase`
-An offset to push the scheduling time into the middle of the bar. +1 is one beat later, -1 is one beat earlier. A negative phase is legal, but it might result in a scheduling time that is later than the current time, in which case scheduling will be incorrect. It's your responsibility to take this into account.### `timingOffset`
+Quantization granularity. The routine will begin on the next integer multiple of this number after the baseBarBeat. If negative, it indicates the number of bars in the future to schedule (where the bar length is taken from the clock's beatsPerBar variable).
+### `phase`
+An offset to push the scheduling time into the middle of the bar. +1 is one beat later, -1 is one beat earlier. A negative phase is legal, but it might result in a scheduling time that is later than the current time, in which case scheduling will be incorrect. It's your responsibility to take this into account.
+### `timingOffset`
 For use with patterns only -- this enables patterns to run slightly ahead of their sounding time on the clock, giving you control over the order in which threads execute.
 ## Examples
 
@@ -63,7 +67,7 @@ Certain objects convert themselves into Quant objects when used with [Routine#-p
 This simplifies the syntax:
 
 
-```supercollider
+```
 Routine({ ... }).play(quant: 4.0):: vs. code::Routine({ ... }).play(quant: Quant(4.0))
 ```
 
@@ -78,7 +82,7 @@ The timing offset is a positive number, usually small, that pushes the schedulin
 Two patterns, scheduled for the same quant and phase but with different timing offsets, should sound exactly together.
 
 
-```supercollider
+```
 (
 // timing offset = 0
 p = Pbind(\freq, 440, \pan, -1, \delta, 1.0, \sustain, 0.1).play(quant: [2, 0, 0]);
@@ -109,7 +113,7 @@ Your class should also have methods asQuant, offset and offset_. If your class i
 You can also use an Event for one shot scheduling. It should at least have an entry for nextTimeOnGrid, which will usually be a function taking the arguments "self" and "clock" that returns the absolute scheduling time. Any other values needed for that calculation should also be present in the Event.
 
 
-```supercollider
+```
 // schedule for a random number of beats after the next integer
 Pfuncn({ thisThread.clock.beats.debug("scheduled for"); nil }, 1)
     .play(quant: (

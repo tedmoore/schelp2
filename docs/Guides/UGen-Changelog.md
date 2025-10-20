@@ -30,7 +30,7 @@ Fixed initialization sample. No changes in output. Previously, calling AmpComp_n
 Fixed initialization sample. First sample of input was incorrectly added twice, fixing it causes a change in the first samples of output:
 
 
-```supercollider
+```
 { Decay.ar(Impulse.ar(0)) }.loadToFloatArray(1e-2, action:_.postcs)
 // 3.13: [1.9998, 1.9995, 1.9992]; 3.14: [1.0, 0.9998, 0.9996]
 // note that in 3.13 values are higher of exactly 1.0, other than being one sample too early
@@ -48,7 +48,7 @@ Fixed initialization sample. First sample of input was incorrectly added twice, 
 Fixed initialization sample. First sample of input was incorrectly added twice, fixing it causes a change in the first samples of output:
 
 
-```supercollider
+```
 { Decay2.ar(Impulse.ar(0), attackTime: 0) }.loadToFloatArray(1e-4, action:_.postln)
 // 3.13: [0.9998, 1.9995, 1.9992]; 3.14: [0.0, 0.9998, 0.9996]
 // note that in 3.13 values are higher of exactly 1.0, other than being one sample too early
@@ -71,7 +71,7 @@ Fixed initialization sample. First sample of input was incorrectly added twice, 
 
 
 
-```supercollider
+```
 // output changes:
 { Delay1.ar(Impulse.ar(0)) }.loadToFloatArray(1e-4, action:_.postln)
 // 3.13: [1.0, 1.0, 0.0,]; 3.14: [0.0, 1.0, 0.0]
@@ -85,7 +85,7 @@ Fixed initialization sample. First sample of input was incorrectly added twice, 
 Note: first sample can now be set by user
 
 
-```supercollider
+```
 { Delay1.ar(Impulse.ar(0), x1:10) }.loadToFloatArray(1e-4, action:_.postln)
 // 3.14: [10.0, 1.0, 0.0]
 { IEnvGen.ar(Env([Delay1.ar(Impulse.ar(0), x1: 10)]), 0) }.loadToFloatArray(1e-4, action:_.postln)
@@ -104,7 +104,7 @@ Note: first sample can now be set by user
 
 
 
-```supercollider
+```
 { Delay2.ar(Impulse.ar(0)) }.loadToFloatArray(1e-4, action:_.postln)
 // 3.13: [0.0, 1.0, 1.0, 0.0]; 3.14: [0.0, 0.0, 1.0, 0.0]
 ```
@@ -113,7 +113,7 @@ Note: first sample can now be set by user
 Note: first samples can now be set by user
 
 
-```supercollider
+```
 { Delay2.ar(Impulse.ar(0), x1:10, x2: 20) }.loadToFloatArray(1e-4, action:_.postln)
 // 3.14: [20.0, 10.0, 10.0, 0.0]
 { IEnvGen.ar(Env([Delay2.ar(Impulse.ar(0), x1: 10, x2: 20)]), 0) }.loadToFloatArray(1e-4, action:_.postln)
@@ -132,7 +132,7 @@ Note: first samples can now be set by user
 
 
 
-```supercollider
+```
 { EnvGen.kr(Env([0, 1], [ControlDur.ir*7])) }.loadToFloatArray(0.012, action:_.postln)
 // 3.13: [0.16, 0.33, 0.5, 0.66, 0.83, 1.0]
 // 3.14: [0.0, 0.14, 0.29, 0.42, 0.57, 0.71, 0.85, 1.0]
@@ -151,7 +151,7 @@ Note: first samples can now be set by user
 Example by @nhthn ([https://github.com/supercollider/supercollider/issues/2302)](https://github.com/supercollider/supercollider/issues/2302))
 
 
-```supercollider
+```
 (
 // CAUTION: THE FOLLOWING CAN BE EXTREMELY LOUD
 // set the following variable to true if you want to run this code
@@ -171,7 +171,7 @@ if (run) {
 sclang now only accepts audio-rate xy inputs for `InRect.ar`
 
 
-```supercollider
+```
 // accepted in 3.13, error in 3.14: x and y needs to be audio-rate
 { InRect.ar(0, 0, Rect(0,1,0,1)) }
 // accepted in both
@@ -186,7 +186,7 @@ sclang now only accepts audio-rate xy inputs for `InRect.ar`
 Fixed init sample calculation. Fixes initial phase output: it used to miss the first sample.
 
 
-```supercollider
+```
 { LFPulse.ar(SampleRate.ir/4) }.loadToFloatArray(2e-4, action:_.postln)
 // 3.13: [1, 0, 0, 1, 1, 0, 0, 1]
 // 3.14: [1, 1, 0, 0, 1, 1, 0, 0]
@@ -221,7 +221,7 @@ Fixed init sample calculation. Fixes initial phase output: it used to miss the f
 Fixed server crash and numeric blow-up with negative `width` (now negative `width` behaves exactly like positive).
 
 
-```supercollider
+```
 { PanAz.ar(2, DC.ar(1), width: -0.01) }.loadToFloatArray(1e-4, action: _.postln)
 // 3.13: server crash; 3.14: [0, 0]
 { PanAz.ar(2, DC.ar(1), width: -0.1) }.loadToFloatArray(1e-4, action: _.postln)
@@ -246,7 +246,7 @@ Fixed init sample when input is negative
 Fixed ignoring trigger on first sample, now Phasor starts from resetPos if triggered on first input sample.
 
 
-```supercollider
+```
 { Phasor.ar(1, 1, start: 0, end: 10, resetPos: 5) }.loadToFloatArray(1e-4, action: _.postln)
 // 3.13: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5]
 // 3.14: [5, 6, 7, 8, 9, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0]
@@ -260,7 +260,7 @@ Fixed ignoring trigger on first sample, now Phasor starts from resetPos if trigg
 Fixed init sample calculation. First sample of output changed for trigger on first sample and `div=1`
 
 
-```supercollider
+```
 { PulseDivider.ar(DC.ar(1), 1) }.loadToFloatArray(2e-4, action:_.postln)
 // 3.13: [0,0,0,0,0,0,0,0]; 3.14: [1,0,0,0,0,0,0,0]
 { PulseDivider.ar(Impulse.ar(SampleRate.ir/2), 1) }.loadToFloatArray(2e-4, action:_.postln)
@@ -286,7 +286,7 @@ In case of a memory allocation fail, now the UGen outputs all zeros, instead of 
 Fixed outputting 0 when triggered on first sample (it used to immediately increment to 1)
 
 
-```supercollider
+```
 // starts on 0
 { Sweep.ar(Impulse.ar(SampleRate.ir/4)) * SampleRate.ir }.loadToFloatArray(1e-4, action:_.postln)
 // 3.13: [1, 2, 3, 4, 0, 1, 2, 3, 0]
@@ -297,7 +297,7 @@ Fixed outputting 0 when triggered on first sample (it used to immediately increm
 Fixed increment behavior: now modulating `rate` affects the next sample calculation (instead of the current, for which the previous value of `rate` is used).
 
 
-```supercollider
+```
 // note that when rate changes to 1, Sweep doesn't increment anymore on the same sample, but on the next
 {
     var rate = Impulse.ar(SampleRate.ir/2);
@@ -316,7 +316,7 @@ Fixed increment behavior: now modulating `rate` affects the next sample calculat
 Fixed init sample calculation, affecting first sample of output. Used to ignore triggers on first sample, now it outputs them correctly
 
 
-```supercollider
+```
 { T2A.ar(Impulse.kr(0)) }.loadToFloatArray(1e-4, action:_.postln)
 // 3.13: [0.0, 0.0, 0.0, 0.0]; 3.14: [1.0, 0.0, 0.0, 0.0]
 ```
@@ -329,7 +329,7 @@ Fixed init sample calculation, affecting first sample of output. Used to ignore 
 Fix delay of trigger on first sample. Output changes only if TDelay has a trigger on its first sample of input. If delayTime > dt (where dt is the time between first and second trigger), the output re-aligns with the previous version at the second trigger.
 
 
-```supercollider
+```
 { var sr = SampleRate.ir; TDelay.ar(Impulse.ar(sr/2), 1/sr) }.loadToFloatArray(1e-4, action:_.postln)
 // 3.13: [1, 0, 0, 1, 0, 1, 0, 1]
 // 3.14: [0, 1, 0, 1, 0, 1, 0 ,1]
@@ -348,7 +348,7 @@ Fix delay of trigger on first sample. Output changes only if TDelay has a trigge
 Fix init sample calculation, fixes the first measured duration.
 
 
-```supercollider
+```
 { Timer.ar(Impulse.ar(SampleRate.ir/2)) * SampleRate.ir }.loadToFloatArray(2e-4, action:_.postln)
 // 3.13: [0, 0, 3, 3, 2, 2, 2, 2]; 3.14: [0, 0, 2, 2, 2, 2, 2, 2]
 
@@ -373,7 +373,7 @@ Fix init sample calculation, fixes the first measured duration.
 
 
 
-```supercollider
+```
 { ToggleFF.ar(Impulse.kr(0)) }.loadToFloatArray(3e-4, action: _.postln)
 // trig: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 // 3.13: [1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1] (random)
@@ -388,7 +388,7 @@ Fix init sample calculation, fixes the first measured duration.
 Fixed init sample calculation, fixes initial phase output: it used to miss the first sample.
 
 
-```supercollider
+```
 { Trig.ar(Impulse.ar(0), 4/SampleRate.ir) }.loadToFloatArray(2e-4, action:_.postln)
 // 3.13: [1, 1, 1, 0, 0, 0, 0]
 // 3.14: [1, 1, 1, 1, 0, 0, 0, 0]
@@ -405,7 +405,7 @@ Fixed init sample calculation, fixes initial phase output: it used to miss the f
 Fixed behavior for out-of-range initial phase: changes output if iphase is not within 0 and 1.
 
 
-```supercollider
+```
 { VarSaw.ar(SampleRate.ir/4, 10) }.loadToFloatArray(1e-4, action:_.postln)
 // 3.13: [-33.0, -30.0, -27.00, -24.0]; 3.14: [-1.0, 0.0, 1.0, 0.0]
 
@@ -418,7 +418,7 @@ Fixed behavior for out-of-range initial phase: changes output if iphase is not w
 Fixed init sample calculation: was hardcoded to 0, now it's equal to first output sample.
 
 
-```supercollider
+```
 { IEnvGen.ar(Env([VarSaw.ar(SampleRate.ir/4)]), 0) }.loadToFloatArray(0.0001, action:_.postln)
 // 3.13: init sample is 0.0, 3.14: init sample is -1.0
 ```

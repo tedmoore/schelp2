@@ -13,6 +13,7 @@ Given two inputs `a` and `b`, let `da[t] = abs(a[t] - a[t - 1])` and `db[t] = ab
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Given two inputs `a` and `b`, let `da[t] = abs(a[t] - a[t - 1])` and `db[t] = ab
 ## Examples
 
 
-```supercollider
+```
 (
 d = SynthDef("help-MostChange", { |out, amp = 1.0|
     var sound, in1, in2;

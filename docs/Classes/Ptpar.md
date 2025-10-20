@@ -13,6 +13,7 @@ Embeds several event streams so that they form a single output stream with all t
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Embeds several event streams so that they form a single output stream with all t
 ## Examples
 
 
-```supercollider
+```
 // see the delta values in the resulting events
 (
 var a, b, c, t;

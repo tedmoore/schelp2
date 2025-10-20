@@ -13,6 +13,7 @@ A sine-like shape made of two parabolas and the integral of a triangular wave. I
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ A sine-like shape made of two parabolas and the integral of a triangular wave. I
 ## Examples
 
 
-```supercollider
+```
 // a plot
 { LFPar.ar(Line.kr(100, 800, 0.1)) }.plot(0.1);
 

@@ -11,7 +11,7 @@
 The original, and most common spec (see [Spec](../Classes/Spec.md)). A ControlSpec is used by GUI sliders and knobs to specify the range and curve of the controls. ControlSpec may be used in many ways to map from linear 0..1 range to your desired range and back.
 The most common way to create a ControlSpec is by
 
-```supercollider
+```
 anObject.asSpec // the object may be an array or a symbol
 ```
 
@@ -19,6 +19,7 @@ anObject.asSpec // the object may be an array or a symbol
 
 
 ## Class Methods
+
 
 
 ### `new`
@@ -37,10 +38,12 @@ anObject.asSpec // the object may be an array or a symbol
 
 ## Instance Methods
 
+
 ### `map`
-Maps and constrains a **value** between 0 and 1 to the range between minval and maxval.### `unmap`
+Maps and constrains a **value** between 0 and 1 to the range between minval and maxval.
+### `unmap`
 Maps and constrains a **value** between minval and maxval to the range between 0 and 1.
-```supercollider
+```
 g = ControlSpec(0.01, 2000, \exp, 0.1, 220, "Hz");
 g.map(0.5); // convert from [0..1] to [0.01..2000]
 g.unmap(1000); // convert from [0.01..2000] to [0..1]
@@ -49,18 +52,25 @@ g.unmap(1000); // convert from [0.01..2000] to [0..1]
 g.unmap(g.map(0.5));
 ```
 
+
 ### `clipLo`
-The lower of maxval and minval.### `clipHi`
-The higher of maxval and minval.### `constrain`
-Returns `value.asFloat.clip(clipLo, clipHi).round(step)`.### `range`
-Returns `maxval - minval`.### `guessNumberStep`
-Used for EZ GUI classes for guessing a sensible **step** if none is specified.### `gridClass`
-Returns the [AbstractGridLines](../Classes/AbstractGridLines.md) subclass corresponding to the current spec, in particular its warp behavior.### `grid`
+The lower of maxval and minval.
+### `clipHi`
+The higher of maxval and minval.
+### `constrain`
+Returns `value.asFloat.clip(clipLo, clipHi).round(step)`.
+### `range`
+Returns `maxval - minval`.
+### `guessNumberStep`
+Used for EZ GUI classes for guessing a sensible **step** if none is specified.
+### `gridClass`
+Returns the [AbstractGridLines](../Classes/AbstractGridLines.md) subclass corresponding to the current spec, in particular its warp behavior.
+### `grid`
 Get/set an instance of the [AbstractGridLines](../Classes/AbstractGridLines.md) subclass that describes the range and warp behavior of the current spec, e.g. for use by [DrawGrid](../Classes/DrawGrid.md) for drawing grids in [Plotter](../Classes/Plotter.md).
 ## Examples
 
 
-```supercollider
+```
 g = ControlSpec(0.01, 2000, \exp, 0.1, 220, "Hz");
 
 // or alternatively
@@ -74,7 +84,7 @@ ControlSpec.specs[\myFreq] = ControlSpec(0.01, 2000, \exp, 0.01, 440, units: "Hz
 
 
 
-```supercollider
+```
 // array is used as arguments to ControlSpec.new(minval, maxval, warp, step, default)
 [300, 3000, \exponential, 100].asSpec.dump
 Instance of ControlSpec {    (0313FC08, gc = 00, fmt = 00, flg = 00, set = 03)
@@ -126,7 +136,7 @@ Instance of ControlSpec {    (0313FF18, gc = 00, fmt = 00, flg = 00, set = 03)
 
 
 
-```supercollider
+```
 // make a frequency spec with an exponential range from 20 to 20000,
 // give it a rounding of 30 (Hz)
 a = \freq.asSpec;
@@ -149,7 +159,7 @@ a.unmap(22.0);
 
 
 
-```supercollider
+```
 // like in envelopes, a CurveWarp is created by a number:
 
 a = [0, 1, -4].asSpec;
@@ -169,7 +179,7 @@ var invals = (0..10).normalize;
 
 
 
-```supercollider
+```
 // using spec for sliders:
 (
 var w, c, d;
@@ -189,7 +199,7 @@ c.action = {
 
 
 
-```supercollider
+```
 // ControlSpec-map can also be used to map ugens
 (
 var spec;

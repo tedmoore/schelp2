@@ -8,18 +8,18 @@
 
 The simplest synthesis processes use a single ugen.
 
-```supercollider
+```
 { Saw.ar(500, 0.1) }.scope;
 ```
 
 or
 
-```supercollider
+```
 { Formlet.ar(Saw.ar(22), 400, 0.01, 0.11, 0.022) }.scope
 ```
 
 Most of the SuperCollider help documents for the UGens show other such examples.
-[Browse / UGens ](../../Browse.md#ugens)
+[Browse#UGens](../../Browse.md#ugens)
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Many synthesis processes, because they use more than a few ugens, are often best divided into component parts. This can make code modular, reusable, and easier to read.
 The [Group](../../Classes/Group.md) class, which is the means to specify a collection of nodes, provides a mechanism through which to control several synths at once.
@@ -47,7 +47,7 @@ See the [Server-Architecture](../../Reference/Server-Architecture.md) document f
 By default, the localhost and internal servers each boot with two predefined groups: the [RootNode](../../Classes/RootNode.md) and the [default_group](../../Reference/default_group.md) (see their help files). To see this, start the localhost server and then evaluate
 
 
-```supercollider
+```
 s.queryAllNodes;
 ```
 
@@ -55,7 +55,7 @@ s.queryAllNodes;
 The next two lines
 
 
-```supercollider
+```
 Group(0)
         Group(1)
 ```
@@ -70,7 +70,7 @@ Group(0) is the rootnode group and Group(1) is the default_group. Group(1) is in
 New synths are attached by default to the head of the default_group.
 
 
-```supercollider
+```
 // 1st, evaluate a synthdef
 (
 SynthDef("ringModulation", {
@@ -98,7 +98,7 @@ s.queryAllNodes;
 
 
 
-```supercollider
+```
 Group(0)
         Group(1)
                 Synth 1003
@@ -108,7 +108,7 @@ Group(0)
 will appear in the transcript window. It shows Group(0) as the rootnode, Group(1) as the branching default_node and Synth 1003 (or some such number) as a leaf attached to the default_node.
 
 
-```supercollider
+```
 Rootnode - Group(0)
       |
       |
@@ -124,7 +124,7 @@ Synth 1003
 An example with two synths.
 
 
-```supercollider
+```
 // 1st, evaluate a synthdef
 (
 SynthDef("pitchFromNoise", { arg out = 0;
@@ -155,7 +155,7 @@ s.queryAllNodes;
 The printout in the transcript window
 
 
-```supercollider
+```
 Group(0)
         Group(1)
                 Synth 1005
@@ -168,7 +168,7 @@ shows that Group(0) is the rootnode and Group(1) is the default_node.
 Synth 1005 and 1004 (or similar such numbers) are leaves attached to the default_node. Synth 1005 is first in the list because of the way nodes are attached, by default, to the head of a list: Synth 1004, the "ringModulation" synth, was evaluated first and attached to the head of Group(1). Then Synth 1005, the "pitchFromNoise"s synth, was evaluated and placed at the head of the list (in front of Synth 1004).
 
 
-```supercollider
+```
     Rootnode - Group(0)
       |
       |
@@ -185,7 +185,7 @@ Synth 1005  Synth 1004
 It's the responsibility of the user to make sure that nodes on the server are ordered properly. For this reason, the two synths below must be evaluated in the order in which they're given - because the first synth is source material for the second synth, a filter that processes its input.
 
 
-```supercollider
+```
 (
 SynthDef("firstNode-source", {
     Out.ar(
@@ -226,7 +226,7 @@ s.queryAllNodes;
 Or, use .head and .tail messages to attach the nodes to the default_group).
 
 
-```supercollider
+```
 (
 Synth.head(s, "firstNode-source");
 Synth.tail(s, "secondNode-filter");
@@ -243,7 +243,7 @@ s.queryAllNodes;
 Or, assign the synths to groups.
 
 
-```supercollider
+```
 (
 ~source = Group.head(s);    // attach the group to the head of the default_node
 ~effect = Group.tail(s);    // attach the group to the tail of the default_node
@@ -260,7 +260,7 @@ Synth.head(~source, "firstNode-source");
 The idea is that the groups are attached first to the default_group in the desired order. The synths can then be evaluated in any order as long as they're attached to the appropriate group.
 
 
-```supercollider
+```
 // run the code to see a diagram of the nodes
 (
 s.queryAllNodes;
@@ -269,7 +269,7 @@ s.queryAllNodes;
 
 
 
-```supercollider
+```
     Rootnode
       |
       |
@@ -288,7 +288,7 @@ Synth    Synth
 Set a control for all of the synths in a group.
 
 
-```supercollider
+```
 // each of the synthdefs below has a control for amplitude (mul)
 (
 // build 3 synthdefs and a group

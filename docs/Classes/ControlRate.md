@@ -13,19 +13,20 @@ Get the current control rate of the server.
 
 ## Class Methods
 
+
 ### `ir`
 **Returns:** The current control rate of the server.equivalent to 1 / [ControlDur](../Classes/ControlDur.md)
 ## Examples
 
 
-```supercollider
+```
 { ControlRate.ir.poll }.play;
 ```
 
 
 compare ControlRate (.kr) and [SampleRate](../Classes/SampleRate.md) (.ar)
 
-```supercollider
+```
 ( 
 {
     var freq = 400;
@@ -49,7 +50,7 @@ compare ControlRate (.kr) and [SampleRate](../Classes/SampleRate.md) (.ar)
 
 listen to difference:
 
-```supercollider
+```
 (
 {
     K2A.ar(SinOsc.kr(400, mul: [1, 0]))
@@ -62,7 +63,7 @@ listen to difference:
 More about difference between .kr (control rate) and .ar (audio rate) can be found in [Mark_Polishook_tutorial/08_Rates](../Tutorials/Mark_Polishook_tutorial/08_Rates.md)
 play a sine tone at control rate
 
-```supercollider
+```
 { SinOsc.ar(ControlRate.ir) * 0.1 }.play;
 ```
 

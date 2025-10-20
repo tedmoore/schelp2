@@ -19,12 +19,14 @@ The following methods must be called within a [Window#-drawFunc](../Classes/Wind
 ### Construct path
 The following methods define paths. You will need to call [#*stroke](#*stroke) or [#*fill](#*fill) to actually draw them.
 
+
 ### `moveTo`
 Move the Pen to point.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `point` | An instance of [Point](../Classes/Point.md) |  
+
 
 ### `lineTo`
 Draw a line (define a path) from the current position to point.**Arguments:**
@@ -33,6 +35,7 @@ Draw a line (define a path) from the current position to point.**Arguments:**
 |----------|-------------|
 | `point` | An instance of [Point](../Classes/Point.md) |  
 
+
 ### `line`
 Draw a line (define a path) from p1 to p2. Current position will be p2.**Arguments:**
 
@@ -40,6 +43,7 @@ Draw a line (define a path) from p1 to p2. Current position will be p2.**Argumen
 |----------|-------------|
 | `p1` | An instance of [Point](../Classes/Point.md) |  
 | `p2` | An instance of [Point](../Classes/Point.md) |  
+
 
 ### `curveTo`
 Draws a cubic bezier curve from the current position to point. **cpoint1** and **cpoint2** are control points determining the curve's curvature.**Arguments:**
@@ -50,6 +54,7 @@ Draws a cubic bezier curve from the current position to point. **cpoint1** and *
 | `cPoint1` | An instance of [Point](../Classes/Point.md) |  
 | `cPoint2` | An instance of [Point](../Classes/Point.md) |  
 
+
 ### `quadCurveTo`
 Draws a quad bezier curve from the current position to point. **cpoint** is a control point determining the curve's curvature.**Arguments:**
 
@@ -57,6 +62,7 @@ Draws a quad bezier curve from the current position to point. **cpoint** is a co
 |----------|-------------|
 | `endPoint` | An instance of [Point](../Classes/Point.md) |  
 | `cPoint` | An instance of [Point](../Classes/Point.md) |  
+
 
 ### `arcTo`
 Draws an arc of a circle using a radius and tangent points.**Arguments:**
@@ -67,7 +73,7 @@ Draws an arc of a circle using a radius and tangent points.**Arguments:**
 | `point2` | The end point of the second tangent line. Its start point is point1. An instance of [Point](../Classes/Point.md) |  
 | `radius` | The radius of the arc. |  
 example:
-```supercollider
+```
 (
 var w = Window("arcTo", Rect(100, 200, 300, 300)).front;
 var r = 15;
@@ -86,9 +92,10 @@ w.drawFunc = { |v|
 ```
 
 
+
 ### `addArc`
 Draw an arc around the [Point](../Classes/Point.md) **center**, at **radius** number of pixels. **startAngle** and **arcAngle** refer to the starting angle and the extent of the arc, and are in radians [0..2pi].example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -106,9 +113,10 @@ w.refresh;
 ```
 
 
+
 ### `addWedge`
 Draw a wedge around the [Point](../Classes/Point.md) **center**, at **radius** number of pixels. **startAngle** and **sweepLength** refer to the starting angle and the extent of the arc, and are in radians [0..2pi].example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -126,9 +134,10 @@ w.refresh;
 ```
 
 
+
 ### `addAnnularWedge`
 Draw an annular wedge around the [Point](../Classes/Point.md) **center**, from **innerRadius** to **outerRadius** in pixels. **startAngle** and **sweepLength** refer to the starting angle and the extent of the arc, and are in radians [0..2pi].example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -152,9 +161,10 @@ w.refresh;
 ```
 
 
+
 ### `addRect`
 Adds a [Rect](../Classes/Rect.md) to the drawing.example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -173,14 +183,16 @@ w.refresh;
 ```
 
 
+
 ### `addOval`
 Adds an Oval shape that fits inside the [Rect](../Classes/Rect.md) to the current path.
 
 
 ### Draw the path
+
 ### `stroke`
 Outline the previous defined path.example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -203,9 +215,10 @@ w.refresh;
 ```
 
 
+
 ### `fill`
 Fill the previous defined path.example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -228,6 +241,7 @@ w.refresh;
 ```
 
 
+
 ### `draw`
 Draw the previous defined path using any of the following options:**Arguments:**
 
@@ -236,7 +250,7 @@ Draw the previous defined path using any of the following options:**Arguments:**
 | `style` | | 0 | fill | 
 | --- | --- || 1 | fill using even-odd rule | | 2 | stroke | | 3 | fill and stroke the current path | | 4 | fill and stroke using even-odd rule | |  
 example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -259,6 +273,7 @@ w.refresh;
 ```
 
 
+
 ### `fillStroke`
 Fill and stroke the current path. Shortcut to the draw(3) method.
 
@@ -266,20 +281,25 @@ Fill and stroke the current path. Shortcut to the draw(3) method.
 ### Construct and draw
 These methods do not require separate calls to [#*stroke](#*stroke) or [#*fill](#*fill).
 
+
 ### `strokeRect`
 Strokes a [Rect](../Classes/Rect.md) into the window.
+
 ### `fillRect`
 Draws a filled [Rect](../Classes/Rect.md) into the window.
+
 ### `strokeOval`
 Strokes an oval into the window.
+
 ### `fillOval`
 Draws a filled oval into the window.
 
 
 ### Gradients
+
 ### `fillAxialGradient`
 Fills an Axial gradient.example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.drawFunc = {
@@ -292,9 +312,10 @@ w.refresh;
 ```
 
 
+
 ### `fillRadialGradient`
 Fills a Radial gradient.example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.drawFunc = {
@@ -313,9 +334,10 @@ w.refresh;
 ### Graphics State Methods
 The following commands transform the graphics state, i.e. they effect all subsequent drawing commands. These transformations are cumulative, i.e. each command applies to the previous graphics state, not the original one.
 
+
 ### `translate`
 Translate the coordinate system to have its origin moved by x,yexample:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -336,7 +358,7 @@ w.refresh;
 ```
 
 Cumulative translations:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.clear);
@@ -354,9 +376,10 @@ w.refresh;
 ```
 
 
+
 ### `scale`
 Scales subsequent drawing. x and y are scaling factors (i.e. 1 is normal, 2 is double size, etc.).example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -378,9 +401,10 @@ w.refresh;
 ```
 
 
+
 ### `skew`
 Skews subsequent drawing. x and y are skewing factors (i.e. 1 is normal).example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -402,9 +426,10 @@ w.refresh;
 ```
 
 
+
 ### `rotate`
 Rotates subsequent drawing around the [Point](../Classes/Point.md) `x@y` by the amount **angle** in radians [0..2pi].example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -431,6 +456,7 @@ w.refresh;
 ```
 
 
+
 ### `matrix`
 Gets or sets the coordinate system transformation matrix.See [#Matrix example](#matrix-example) for an example.**Arguments:**
 
@@ -438,11 +464,13 @@ Gets or sets the coordinate system transformation matrix.See [#Matrix example](#
 |----------|-------------|
 | `matrixArray` | An array of the form `[zoomX, shearingY, shearingX, zoomY, translateX, translateY]` |  
 
+
 ### `width`
 Sets the width of the Pen for the whole stroke
+
 ### `use`
 Draw function, and then revert to the previous graphics state. This allows you to make complex transformations of the graphics state without having to explicitly revert to get back to 'normal'.example:
-```supercollider
+```
 (
 // modified by an example of Stefan Wittwer
 w = Window.new.front;
@@ -479,20 +507,25 @@ w.refresh
 ```
 
 
+
 ### `path`
 Make a path, consisting of the drawing made in function.
 > **Note:** Unfortunately not working for now... (there's no Pen.endPath which currently is used in this method)
 
 
+
 ### `beginPath`
 Discard any previous path.
+
 ### `beginTransparencyLayer`
 Begins a new transparency layer. Transparency layers are useful when you want to apply an effect to a group of objects or create a composite graphic. See [#Transparency layer example](#transparency-layer-example).
+
 ### `endTransparencyLayer`
 Ends the current transparency layer.
+
 ### `clip`
 Use the previously defined path as a clipping path.example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -525,9 +558,10 @@ w.refresh;
 ```
 
 
+
 ### `smoothing`
 Turns on/off anti-aliasing.example:
-```supercollider
+```
 (
 var w = Window("smoothing", Rect(100, 200, 500, 300)).front;
 w.view.background_(Color.white);
@@ -550,15 +584,18 @@ w.drawFunc = { |v|
 ```
 
 
+
 ### `setShadow`
 Will fill the current path with a shadow. You should use this option between Pen.push / Pen.pop (or Pen.use)
+
 ### `joinStyle`
 Set the lines joining style according to the defined options:| 0 | miter | 
 | --- | --- || 1 | round | | 2 | bevel | 
+
 ### `capStyle`
 Set the lines joining style according to the defined options:| 0 | butt | 
 | --- | --- || 1 | round | | 2 | square | example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background_(Color.white);
@@ -586,15 +623,19 @@ w.refresh;
 ```
 
 
+
 ### `alpha`
 Set the opacity level.
+
 ### `blendMode`
 Set the blending mode to use. See [#Blending modes](#blending-modes) for more information.
+
 ### `lineDash`
 Set the line dash pattern. pattern should be a [FloatArray](../Classes/FloatArray.md) of values that specify the lengths of the painted segments and not painted segments.
+
 ### `drawImage`
 Draw a bitmap image using the Image class.example:
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background = Color.red;
@@ -611,7 +652,7 @@ w.drawFunc_({
 
 Simple rotating and scaling:
 
-```supercollider
+```
 (
     w = Window("Pen Rotation and Scaling", Rect(128, 64, 360, 360));
     w.drawFunc = {
@@ -650,7 +691,7 @@ Simple rotating and scaling:
 
 Redraw at random interval, different every time:
 
-```supercollider
+```
 (
 var w, run = true;
 w = Window("my name is... panel", Rect(128, 64, 800, 800));
@@ -677,7 +718,7 @@ w.drawFunc = {
 
 
 
-```supercollider
+```
 (
 var w, run = true;
 w = Window("my name is... panel", Rect(128, 64, 800, 500));
@@ -708,7 +749,7 @@ w.drawFunc = {
 Uses random seed to 'store' data By reseting the seed each time the same random values and shapes are generated for each 'frame' These can then be subjected to cumulative rotation, etc., by simply incrementing the phase var.
 
 
-```supercollider
+```
 (
 // By James McCartney
 var w, h = 700, v = 700, seed, run = true, phase = 0;
@@ -757,7 +798,7 @@ w.drawFunc = {
 
 
 
-```supercollider
+```
 (
 var w, phase = 0, seed = Date.seed, run = true;
 w = Window("my name is... panel", Rect(128, 64, 800, 800));
@@ -806,7 +847,7 @@ w.drawFunc = {
 
 
 
-```supercollider
+```
 (
 var w, h = 800, v = 600, seed = Date.seed, phase = 0, zoom = 0.7, zoomf = 1, run = true;
 w = Window("affines", Rect(40, 40, h, v));
@@ -863,7 +904,7 @@ w.drawFunc = {
 
 ### Matrix example
 
-```supercollider
+```
 (
 var controlWindow, w;
 var r, a, b, c, d, matrix = [1, 0, 0, 1, 10, 10];
@@ -932,7 +973,7 @@ w.refresh;
 
 ### Transparency layer example
 
-```supercollider
+```
 (
 w = Window.new("Transparency Layer test", Rect(400, 400, 430, 450)).front;
 w.drawFunc = {
@@ -1011,7 +1052,7 @@ w.refresh;
 
 ### Blending modes
 
-```supercollider
+```
 /*
 different blend modes:
 --------------------

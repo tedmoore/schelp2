@@ -13,6 +13,7 @@ Makes a series of gaps in a spectrum.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Makes a series of gaps in a spectrum.
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var sig, chain;

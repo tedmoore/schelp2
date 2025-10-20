@@ -15,6 +15,7 @@ This beat tracker is designed to be flexible for user needs; you can try out dif
 ## Class Methods
 
 
+
 ### `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ This beat tracker is designed to be flexible for user needs; you can try out dif
 | `lock` | [sk] If this argument is greater than 0.5, the tracker will lock at its current periodicity and continue from the current phase. Whilst it updates the model's phase and period, this is not reflected in the output until lock goes back below 0.5. |  
 | `weightingscheme` | [s] Use (-2.5) for flat weighting of tempi, (-1.5) for compensation weighting based on the number of events tested (because different periods allow different numbers of events within the temporal window) or otherwise a bufnum from 0 upwards for passing an array of 120 individual tempo weights; tempi go from 60 to 179 bpm in steps of one bpm, so you must have a buffer of 120 values. |  
 **Returns:** Six k-rate outputs:
-```supercollider
+```
 #beattick, eighthtick, groovetick, tempo, phase, groove = BeatTrack2.kr(busindex, numfeatures)
 ```
 
@@ -39,7 +40,7 @@ This beat tracker is designed to be flexible for user needs; you can try out dif
 ## Examples
 
 
-```supercollider
+```
 // you should load something useful for testing, like a one minute pop song
 b = Buffer.read(s, ExampleFiles.child);
 
@@ -89,7 +90,7 @@ a.free;
 
 
 
-```supercollider
+```
 // same thing, trying with Onsets UGen raw output
 (
 a = SynthDef(\help_beattrack2_1, { |out, vol = 1.0, beepvol = 1.0, lock = 0, bufnum|
@@ -127,7 +128,7 @@ a = Synth(\help_beattrack2_1, [\bufnum, b]);
 
 
 
-```supercollider
+```
 // favour higher tempi in own weighting scheme
 (
 c = Array.fill(120, { |i| 0.5 + (0.5 * (i / 120)) });
@@ -137,7 +138,7 @@ e = Buffer.sendCollection(s, c, 1);
 
 
 
-```supercollider
+```
 // track audio in (try clapping a beat or beatboxing, but allow up to 6 seconds for tracking to begin) and spawning stuff at quarters, eighths and sixteenths
 (
 SynthDef(\help_beattrack2_2, { |out|
@@ -163,7 +164,7 @@ SynthDef(\help_beattrack2_2, { |out|
 
 
 
-```supercollider
+```
 // geometric tempo placement very similar to linear, and linear easier to deal with looking up related tempi at double and half speed
 (
 var startbps = 1, endbps = 3;

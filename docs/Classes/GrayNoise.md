@@ -15,6 +15,7 @@ Grey/gray noise does not have a standard definition as pink and white noise do. 
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Grey/gray noise does not have a standard definition as pink and white noise do. 
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-GrayNoise", { |out = 0|
     Out.ar(out,

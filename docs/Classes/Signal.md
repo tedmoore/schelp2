@@ -13,9 +13,10 @@ A Signal is a FloatArray that represents a sampled function of time buffer. Sign
 
 ## Class Methods
 
+
 ### `sineFill`
 Fill a Signal of the given size with a sum of sines at the given amplitudes and phases. The Signal will be normalized.
-```supercollider
+```
 Signal.sineFill(1000, 1.0/[1, 2, 3, 4, 5, 6]).plot;
 ```
 
@@ -26,6 +27,7 @@ Signal.sineFill(1000, 1.0/[1, 2, 3, 4, 5, 6]).plot;
 | `size` | the number of samples in the Signal. |  
 | `amplitudes` | an Array of amplitudes for each harmonic beginning with the fundamental. |  
 | `phases` | an Array of phases in radians for each harmonic beginning with the fundamental. |  
+
 
 ### `chebyFill`
 Fill a Signal of the given size with a sum of Chebyshev polynomials at the given amplitudes. For eventual use in waveshaping by the Shaper ugen; see [Shaper](../Classes/Shaper.md) helpfile and [Buffer:cheby](../Classes/Buffer.md#-cheby) too.**Arguments:**
@@ -40,7 +42,7 @@ Fill a Signal of the given size with a sum of Chebyshev polynomials at the given
 > **Note:** In previous versions, chebyFill always offset the curves to ensure the center value was zero. The zeroOffset argument was added in version 3.7, and the default behavior was changed, so that it no longer offsets.
 
 
-```supercollider
+```
 Signal.chebyFill(1000, [1]).plot;
 
 // shifted to avoid DC offset when waveshaping a zero signal
@@ -86,9 +88,10 @@ x.free; b.do(_.free); b = nil
 ```
 
 
+
 ### `hanningWindow`
 Fill a Signal of the given size with a Hanning window.
-```supercollider
+```
 Signal.hanningWindow(1024).plot;
 Signal.hanningWindow(1024, 512).plot;
 ```
@@ -100,9 +103,10 @@ Signal.hanningWindow(1024, 512).plot;
 | `size` | the number of samples in the Signal. |  
 | `pad` | the number of samples of the size that is zero padding. |  
 
+
 ### `hammingWindow`
 Fill a Signal of the given size with a Hamming window.> **⚠️ Warning:** In versions of SuperCollider before 3.11, the implementation of `Signal.hammingWindow` had incorrect coefficients. To get the old behavior back, use `Signal.hammingWindow_old`.
-```supercollider
+```
 Signal.hammingWindow(1024).plot;
 Signal.hammingWindow(1024, 512).plot;
 ```
@@ -114,9 +118,10 @@ Signal.hammingWindow(1024, 512).plot;
 | `size` | the number of samples in the Signal. |  
 | `pad` | the number of samples of the size that is zero padding. |  
 
+
 ### `welchWindow`
 Fill a Signal of the given size with a Welch window.
-```supercollider
+```
 Signal.welchWindow(1024).plot;
 Signal.welchWindow(1024, 512).plot;
 ```
@@ -128,9 +133,10 @@ Signal.welchWindow(1024, 512).plot;
 | `size` | the number of samples in the Signal. |  
 | `pad` | the number of samples of the size that is zero padding. |  
 
+
 ### `rectWindow`
 Fill a Signal of the given size with a rectangular window.
-```supercollider
+```
 Signal.rectWindow(1024).plot;
 Signal.rectWindow(1024, 512).plot;
 ```
@@ -142,11 +148,13 @@ Signal.rectWindow(1024, 512).plot;
 | `size` | the number of samples in the Signal. |  
 | `pad` | the number of samples of the size that is zero padding. |  
 
+
 ### `fftCosTable`
-Fourier Transform: Fill a Signal with the cosine table needed by the FFT methods. See also the instance methods [fft](#fft) and [ifft](#ifft).
-```supercollider
+Fourier Transform: Fill a Signal with the cosine table needed by the FFT methods. See also the instance methods [#-fft](#-fft) and [#-ifft](#-ifft).
+```
 Signal.fftCosTable(512).plot;
 ```
+
 
 
 ### `hammingWindow_old`
@@ -154,16 +162,18 @@ This used to be `Signal.hammingWindow`, but the coefficients were incorrect (mak
 
 ## Instance Methods
 
+
 ### `plot`
 Plot the Signal in a window. The arguments are not required and if not given defaults will be used.
-```supercollider
+```
 Signal.sineFill(512, [1]).plot;
 Signal.sineFill(512, [1]).plot("Signal 1", Rect(50, 50, 150, 450));
 ```
 
-For details, see [plot](../Reference/plot.md)### `play`
+For details, see [plot](../Reference/plot.md)
+### `play`
 Loads the signal into a buffer on the server and plays it. Returns the buffer so you can free it again.
-```supercollider
+```
 b = Signal.sineFill(512, [1]).play(true, 0.2);
 b.free;    // free the buffer again.
 ```
@@ -176,13 +186,14 @@ b.free;    // free the buffer again.
 | `mul` | volume at which to play it, 0.2 by default. |  
 | `numChannels` | if the signal is an interleaved multichannel file, number of channels, default is 1. |  
 | `server` | the server on which to load the signal into a buffer. |  
+
 ### `waveFill`
 Fill the Signal with a function evaluated over an interval.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `function` | a function that should calculate the value of a sample.
-```supercollider
+```
 (
 a = Signal.newClear(256);
 a.waveFill({ |x, old, i| sin(x) }, 0, 3pi);
@@ -204,7 +215,7 @@ The function is called with three arguments:
 : the sample index.
 
 As arguments, three values are passed to the function: the current input value (abscissa), the old value (if the signal is overwritten), and the index.
-```supercollider
+```
 (
 a = Signal.newClear(16);
 a.waveFill({ |x, prev, i| [x, prev, i].postln; sin(x).max(0) }, 0, 3pi);
@@ -213,82 +224,94 @@ a.plot;
 ``` |  
 | `start` | the starting value of the interval. |  
 | `end` | the ending value of the interval. |  
+
 ### `asWavetable`
 Convert the Signal into a Wavetable.
-```supercollider
+```
 Signal.sineFill(512, [1]).asWavetable.plot;
 ```
 
+
 ### `fill`
 Fill the Signal with a value.
-```supercollider
+```
 Signal.newClear(512).fill(0.2).plot;
 ```
 
+
 ### `scale`
 Scale the Signal by a factor **in place**.
-```supercollider
+```
 a = Signal[1, 2, 3, 4];
 a.scale(0.5); a;
 ```
 
+
 ### `offset`
 Offset the Signal by a value **in place**.
-```supercollider
+```
 a = Signal[1, 2, 3, 4];
 a.offset(0.5); a;
 ```
 
+
 ### `peak`
 Return the peak absolute value of a Signal.
-```supercollider
+```
 Signal[1, 2, -3, 2.5].peak;
 ```
 
+
 ### `normalize`
 Normalize the Signal **in place** such that the maximum absolute peak value is 1.
-```supercollider
+```
 Signal[1, 2, -4, 2.5].normalize;
 Signal[1, 2, -4, 2.5].normalize(0, 1);    // normalize only a range
 ```
 
+
 ### `normalizeTransfer`
 Normalizes a transfer function so that the center value of the table is offset to zero and the absolute peak value is 1. Transfer functions are meant to be used in the [Shaper](../Classes/Shaper.md) ugen.
-```supercollider
+```
 Signal[1, 2, 3, 2.5, 1].normalizeTransfer;
 ```
 
+
 ### `invert`
 Invert the Signal **in place**.
-```supercollider
+```
 a = Signal[1, 2, 3, 4];
 a.invert(0.5); a;
 ```
 
+
 ### `reverse`
 Reverse a subrange of the Signal **in place**.
-```supercollider
+```
 a = Signal[1, 2, 3, 4];
 a.reverse(1, 2); a;
 ```
 
+
 ### `fade`
 Fade a subrange of the Signal **in place**.
-```supercollider
+```
 a = Signal.fill(10, 1);
 a.fade(0, 3);        // fade in
 a.fade(6, 9, 1, 0);    // fade out
 ```
 
+
 ### `integral`
 Return the integral of a signal.
-```supercollider
+```
 Signal[1, 2, 3, 4].integral;
 ```
 
+
 ### `overDub`
 Add a signal to myself starting at the index. If the other signal is too long only the first part is overdubbed.
-```supercollider
+```
 a = Signal.fill(10, 100);
 a.overDub(Signal[1, 2, 3, 4], 3);
 
@@ -309,9 +332,10 @@ a = Signal.fill(4, 100);
 a.overDub(Signal[1, 2, 3, 4, 5, 6, 7, 8], -2);
 ```
 
+
 ### `overWrite`
 Write a signal to myself starting at the index. If the other signal is too long only the first part is overdubbed.
-```supercollider
+```
 a = Signal.fill(10, 100);
 a.overWrite(Signal[1, 2, 3, 4], 3);
 
@@ -332,9 +356,10 @@ a = Signal.fill(4, 100);
 a.overWrite(Signal[1, 2, 3, 4, 5, 6, 7, 8], -2);
 ```
 
+
 ### `blend`
 Blend two signals by some proportion.
-```supercollider
+```
 Signal[1, 2, 3, 4].blend(Signal[5, 5, 5, 0], 0);
 Signal[1, 2, 3, 4].blend(Signal[5, 5, 5, 0], 0.2);
 Signal[1, 2, 3, 4].blend(Signal[5, 5, 5, 0], 0.4);
@@ -344,9 +369,10 @@ Signal[1, 2, 3, 4].blend(Signal[5, 5, 5, 0], 2);
 
 
 ### Fourier Transform
+
 ### `fft`
 Perform an FFT on a real and imaginary signal in place. See also the class method [#*fftCosTable](#*fftcostable).
-```supercollider
+```
 (
 var size = 512;
 var real, imag, cosTable, frqAmpPhs, complex;
@@ -384,9 +410,10 @@ complex = fft(real, imag, cosTable);
 ```
 
 
+
 ### `ifft`
 Perform an inverse FFT on a real and imaginary signal in place. See also the class method [#*fftCosTable](#*fftcostable).
-```supercollider
+```
 (
 var real, imag, cosTable, complex, ifft;
 var size = 512;
@@ -420,11 +447,12 @@ ifft = complex.real.ifft(complex.imag, cosTable);
 Signal will respond to unary operators by returning a new Signal.
 
 
-```supercollider
+```
 x = Signal.sineFill(512, [0, 0, 0, 1]);
 [x, x.neg, x.abs, x.sign, x.squared, x.cubed, x.asin.normalize, x.exp.normalize, x.distort].flop.flat
     .plot(numChannels: 9);
 ```
+
 
 
 ### `neg`, `abs`, `sign`, `squared`, `cubed`, `sqrt`, `exp`, `log`, `log2`, `log10`, `sin`, `cos`, `tan`, `asin`, `acos`, `atan`, `sinh`, `cosh`, `tanh`, `distort`, `softclip`, `isPositive`, `isNegative`, `isStrictlyPositive`
@@ -434,7 +462,7 @@ x = Signal.sineFill(512, [0, 0, 0, 1]);
 Signal will respond to binary operators by returning a new Signal.
 
 
-```supercollider
+```
 (
 x = Signal.fill(512, { rrand(0.0, 1.0) });
 y = Signal.fill(512, { |i| (i * pi / 64).sin });
@@ -446,14 +474,18 @@ y = Signal.fill(512, { |i| (i * pi / 64).sin });
 
 
 
+
 ### `thresh`
 Thresholding replaces every value < threshold with 0.
 > **Note:** Before SuperCollider 3.13 this function was implemented incorrectly, evaluating the square of provided threshold. This behavior is now fixed, but note that older code might give different results.
 
 
+
 ### `+`, `-`, `*`, `/`, `div`, `pow`, `mod`, `min`, `max`, `ring1`, `ring2`, `ring3`, `ring4`, `difsqr`, `sumsqr`, `sqrdif`, `absdif`, `amclip`, `scaleneg`, `clip2`, `wrap2`, `excess`
 
+
 ### `%`, `**`
+
 
 ### `<!`
 

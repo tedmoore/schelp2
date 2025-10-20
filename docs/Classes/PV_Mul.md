@@ -10,7 +10,7 @@
 
 Complex Multiplication:
 
-```supercollider
+```
 (RealA * RealB) - (ImagA * ImagB),
 (ImagA * RealB) + (RealA * ImagB)
 ```
@@ -19,6 +19,7 @@ Complex Multiplication:
 
 
 ## Class Methods
+
 
 ### `new`
 **Arguments:**
@@ -31,7 +32,7 @@ Complex Multiplication:
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

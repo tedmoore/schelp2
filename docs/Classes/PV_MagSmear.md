@@ -11,6 +11,7 @@ Average a bin's magnitude with its neighbors.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -22,7 +23,7 @@ Average a bin's magnitude with its neighbors.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

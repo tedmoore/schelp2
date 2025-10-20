@@ -13,6 +13,7 @@ Combines magnitudes of first input and phases of the second input.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Combines magnitudes of first input and phases of the second input.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 

@@ -13,14 +13,16 @@ PdefnAllGui displays all current Pdefns as code. See also TdefAllGui for general
 
 ## Class Methods
 
+
 ### `observedClass`
 Pdefn
+
 ### `tpGuiClass`
 PdefnGui
 ## Examples
 
 
-```supercollider
+```
 PdefnAllGui(();
 Pdefn(\a, 1);
 Pdefn(\b, [1, 2, 3]);

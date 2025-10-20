@@ -14,7 +14,7 @@ In order to know more about objects as they are created by processes like tasks 
 calculating the sum of n subsequent squares
 
 
-```supercollider
+```
 var n = 8, x = 0;
 (1..n).do { |num| x = x + num.squared };
 x
@@ -24,7 +24,7 @@ x
 what happens while we are doing this?
 
 
-```supercollider
+```
 var n = 8, x = 0;
 (1..n).do { |num| x = x + num.squared.postln; };
 x
@@ -34,7 +34,7 @@ x
 or more in detail:
 
 
-```supercollider
+```
 var n = 8, x = 0;
 (1..n).do { |num| [\before, x].postln; x = x + num.squared; [\after, x].postln;};
 x
@@ -44,7 +44,7 @@ x
 when posting several values, some more verbose posts can be useful. postf formats a string and inserts values for %-characters. here separate statements are needed.
 
 
-```supercollider
+```
 var n = 8, x = 0;
 (1..n).do { |num| x = x + num.squared; "num: % num-squared: % new x: %\n".postf(num, num.squared, x) };
 x
@@ -54,7 +54,7 @@ x
 in some cases, postln will only post part of the data, or a simplified representation.
 
 
-```supercollider
+```
 // n times 200 random numbers
 // will just add ... etc ... after 123
 var n = 3;
@@ -65,7 +65,7 @@ var n = 3;
 posts the compile string, i.e. the code needed to recreate the receiver (here the array)
 
 
-```supercollider
+```
 var n = 3;
 (1..n).do { |num| { num.rand }.dup(200).postcs };
 ```
@@ -76,7 +76,7 @@ var n = 3;
 in streams, tasks and routines, this works just as well:
 
 
-```supercollider
+```
 fork {
     var n = 14;
     (1..n).do { |num|
@@ -88,7 +88,7 @@ fork {
 
 
 
-```supercollider
+```
 fork {
     var str = Routine { |in| 10.do { in = in.rand.yield } };
     12.0.do { |i|
@@ -102,7 +102,7 @@ fork {
 for creating a pattern that once it is used posts its values, the message trace can be used (in returns a Ptrace)
 
 
-```supercollider
+```
 a = Pseq([1, 4, 1, Pwhite(0, 6, 3), 100, 39], inf).trace(prefix: "value: ");
 b = a.asStream;
 b.next;
@@ -115,7 +115,7 @@ b.next;
 in a running stream:
 
 
-```supercollider
+```
 Pbind(
     \degree, Pseq([1, 4, 1, Pwhite(0, 6, 3), 100, 39], inf).trace(prefix: "value: "),
     \dur, 0.2
@@ -126,7 +126,7 @@ Pbind(
 post only a slot of the events
 
 
-```supercollider
+```
 Pbind(
     \degree, Pseq([1, 4, 1, Pwhite(0, 6, 3), 100, 39], inf),
     \dur, 0.2
@@ -137,7 +137,7 @@ Pbind(
 several slots at once:
 
 
-```supercollider
+```
 Pbind(
     \degree, Pseq([1, 4, 1, Pwhite(0, 6, 3), 100, 39], inf),
     \dur, Pwhite(0.2, 0.4, inf)
@@ -153,7 +153,7 @@ Pbind(
 Using postln or post on a UGen will only return the UGen, but not the values it produces in a running synth. The poll message creates a Poll UGen which posts at regular intervals when given a time value or as a response to a trigger (see [Poll](../Classes/Poll.md) helpfile)
 
 
-```supercollider
+```
 // postln returns only the UGen itself (a MulAdd here)
 { SinOsc.ar(SinOsc.kr(0.2, 0, 300, 400).postln) * 0.1 }.play;
 
@@ -168,7 +168,7 @@ Using postln or post on a UGen will only return the UGen, but not the values it 
 For demand ugens, poll does not work - these ugens are called by a Demand or Duty UGen at certain intervals. The message dpoll creates a Dpoll ugen that posts when they are called (see [Dpoll](../Classes/Dpoll.md) helpfile)
 
 
-```supercollider
+```
 { SinOsc.ar(Duty.kr(0.5, 0, (Dseries(0, 1, inf) * 200 + 300).dpoll)) * 0.1 }.play;
 
 { SinOsc.ar(Duty.kr(0.5, 0, (Dseries(0, 1, inf) * 200 + 300).dpoll(label: "freq"))) * 0.1 }.play;
@@ -178,7 +178,7 @@ For demand ugens, poll does not work - these ugens are called by a Demand or Dut
 The scope window can give valuable information about the ongoing sound (see [Stethoscope](../Classes/Stethoscope.md) help):
 
 
-```supercollider
+```
 { SinOsc.ar(SinOsc.kr(0.2, 0, 300, 400)) * 0.1 }.scope;
 ```
 
@@ -186,7 +186,7 @@ The scope window can give valuable information about the ongoing sound (see [Ste
 A FreqScope window can be used for observing the spectrum of the output:
 
 
-```supercollider
+```
 // create a new analyzer
 FreqScope.new;
 

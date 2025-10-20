@@ -13,6 +13,7 @@ If you need the time since the last trigger, where the time is continually updat
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -23,7 +24,7 @@ If you need the time since the last trigger, where the time is continually updat
 ## Examples
 
 
-```supercollider
+```
 // using timer to modulate sine frequency: the slower the trigger is the higher the frequency
 (
 { var trig;

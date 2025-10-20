@@ -13,6 +13,7 @@ Generates random values at a rate given by the nearest integer division of the s
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Generates random values at a rate given by the nearest integer division of the s
 ## Examples
 
 
-```supercollider
+```
 { LFNoise0.ar(1000, 0.25) }.play;
 
 // modulate frequency

@@ -36,7 +36,7 @@ Most of these are meant to expand upon what you have just read, but some just po
 Code examples within the text are in a different font:
 
 
-```supercollider
+```
 { [SinOsc.ar(440, 0, 0.2), SinOsc.ar(442, 0, 0.2)] }.play;
 ```
 

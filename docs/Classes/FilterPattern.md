@@ -9,7 +9,7 @@
 ## Examples
 
 
-```supercollider
+```
 // post subclasses:
 
 FilterPattern.dumpClassSubtree;

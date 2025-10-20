@@ -13,6 +13,7 @@ Crossfades between two sounds by copying bins in a random order.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Crossfades between two sounds by copying bins in a random order.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

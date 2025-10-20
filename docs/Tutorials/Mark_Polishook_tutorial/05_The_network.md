@@ -18,7 +18,7 @@ To summarize, clients request; servers respond.
 
 ## Client/server examples
 
-```supercollider
+```
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // EX. 1 - execute each line, one at a time
 // define a synthesis process and make a client request to a server
@@ -44,7 +44,7 @@ s.quit;
 
 
 
-```supercollider
+```
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // EX. 2
 // the same as in above, except on 2 computers across a network
@@ -69,7 +69,7 @@ s.sendMsg("/n_free", n);
 
 
 
-```supercollider
+```
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // EX. 3
 // client/server on one computer vs. client server on two computers

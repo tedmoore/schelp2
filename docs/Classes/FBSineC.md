@@ -13,7 +13,7 @@ A cubic-interpolating sound generator based on the difference equations:
 This uses a linear congruential function to drive the phase indexing of a sine wave. For `im = 1`, `fb = 0`, and `a = 1` a normal sinewave results.
 sclang code translation:
 
-```supercollider
+```
 (
 var im = 1, fb = 0.1, a = 1.1, c = 0.5, xi = 0.1, yi = 0.1, size = 64;
 plot(size.collect { xi = sin((im * yi) + (fb * xi)); yi = (a * yi + c) % 2pi; xi });
@@ -24,6 +24,7 @@ plot(size.collect { xi = sin((im * yi) + (fb * xi)); yi = (a * yi + c) % 2pi; xi
 
 
 ## Class Methods
+
 
 ### `ar`
 **Arguments:**
@@ -41,35 +42,35 @@ plot(size.collect { xi = sin((im * yi) + (fb * xi)); yi = (a * yi + c) % 2pi; xi
 ## Examples
 
 
-```supercollider
+```
 // default initial params
 { FBSineC.ar(SampleRate.ir/4) * 0.2 }.play(s);
 ```
 
 
 
-```supercollider
+```
 // increase feedback
 { FBSineC.ar(SampleRate.ir, 1, Line.kr(0.01, 4, 10), 1, 0.1) * 0.2 }.play(s);
 ```
 
 
 
-```supercollider
+```
 // increase phase multiplier
 { FBSineC.ar(SampleRate.ir, 1, 0, XLine.kr(1, 2, 10), 0.1) * 0.2 }.play(s);
 ```
 
 
 
-```supercollider
+```
 // modulate frequency and index multiplier
 { FBSineC.ar(LFNoise2.kr(1, 1e4, 1e4), LFNoise2.kr(1, 16, 17), 1, 1.005, 0.7) * 0.2 }.play(s);
 ```
 
 
 
-```supercollider
+```
 // randomly modulate params
 (
 { FBSineC.ar(

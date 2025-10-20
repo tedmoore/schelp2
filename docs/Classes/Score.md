@@ -11,7 +11,7 @@
 Score encapsulates a list of timed OSC commands and provides some methods for using it, as well as support for the creation of binary OSC files for non-realtime synthesis. See [Non-Realtime-Synthesis](../Guides/Non-Realtime-Synthesis.md) for more details.
 The list should be in the following format, with times in ascending order. Bundles are okay.
 
-```supercollider
+```
 [
 [beat1, [OSCcmd1]],
 [beat2, [OSCcmd2], [OSCcmd3]],
@@ -29,6 +29,7 @@ Score scheduling defaults to [TempoClock](../Classes/TempoClock.md). A setting o
 ## Class Methods
 
 
+
 ### `new`
 returns a new Score object with the supplied list.**Arguments:**
 
@@ -36,12 +37,14 @@ returns a new Score object with the supplied list.**Arguments:**
 |----------|-------------|
 | `list` | can be an [Array](../Classes/Array.md), a [List](../Classes/List.md), or similar object. |  
 
+
 ### `newFromFile`
 as [#*new](#*new), but reads the list in from a text file.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `path` | a [String](../Classes/String.md) indicating the path of the file. The file must contain a valid SC expression. |  
+
 
 ### `play`
 as [#*new](#*new) but immediately plays it. (See also the instance method below.)**Arguments:**
@@ -51,8 +54,10 @@ as [#*new](#*new) but immediately plays it. (See also the instance method below.
 | `list` | the list. |  
 | `server` | If no value is supplied it will play on the default [Server](../Classes/Server.md). |  
 
+
 ### `playFromFile`
 as [#*play](#*play), but reads the list from a file.
+
 ### `write`
 a convenience method to create a binary OSC file for NRT synthesis. Does not create an instance.**Arguments:**
 
@@ -62,6 +67,7 @@ a convenience method to create a binary OSC file for NRT synthesis. Does not cre
 | `oscFilePath` | a [String](../Classes/String.md) containing the desired path of the OSC file. |  
 | `clock` | Use clock as a tempo base. `TempoClock.default` is used if clock is nil. |  
 
+
 ### `writeFromFile`
 as [#*write](#*write) but reads the list from a file.**Arguments:**
 
@@ -70,6 +76,7 @@ as [#*write](#*write) but reads the list from a file.**Arguments:**
 | `path` | a path to a file with a list. |  
 | `oscFilePath` | a [String](../Classes/String.md) containing the desired path of the OSC file. |  
 | `clock` | Use clock as a tempo base. `TempoClock.default` is used if clock is nil. |  
+
 
 ### `recordNRT`
 a convenience method to synthesize **list** in non-realtime. This method writes an OSC file to **oscFilePath** (you have to do your own cleanup if desired) and then starts a server app to synthesize it. For details on valid headerFormats and sampleFormats see [SoundFile](../Classes/SoundFile.md). Use `TempoClock.default` as a tempo base. Does not return an instance.**Arguments:**
@@ -91,29 +98,38 @@ a convenience method to synthesize **list** in non-realtime. This method writes 
 
 ## Instance Methods
 
+
 ### `play`
-play the list on **server**, use **clock** as a tempo base and quantize start time to **quant**. If **server** is nil, then on the default server. `TempoClock.default` if **clock** is nil. now if **quant** is 0.### `stop`
-stop playing.### `write`
-create a binary OSC file for NRT synthesis from the list. Use **clock** as a tempo base. `TempoClock.default` if **clock** is nil.### `score`
-get or set the list.### `add`
-adds bundle to the list.### `addSystemSynthDefs`
+play the list on **server**, use **clock** as a tempo base and quantize start time to **quant**. If **server** is nil, then on the default server. `TempoClock.default` if **clock** is nil. now if **quant** is 0.
+### `stop`
+stop playing.
+### `write`
+create a binary OSC file for NRT synthesis from the list. Use **clock** as a tempo base. `TempoClock.default` if **clock** is nil.
+### `score`
+get or set the list.
+### `add`
+adds bundle to the list.
+### `addSystemSynthDefs`
 Some code requires a number of SynthDefs that are assumed to exist on the server ([SystemSynthDefs](../Classes/SystemSynthDefs.md)). When booting a server in realtime mode, they are sent automatically. In non-realtime mode, they need to be added to the score explicitly:
-```supercollider
+```
 x = Score.new;
 x.addSystemSynthDefs;
 x.score
 ```
 
+
 ### `sort`
-sort the score time order. This is recommended to do **before recordNRT or write** when you are not sure about the packet order.### `recordNRT`
-synthesize the score in non-realtime. For details of the arguments see [#*recordNRT](#*recordnrt) above.### `saveToFile`
+sort the score time order. This is recommended to do **before recordNRT or write** when you are not sure about the packet order.
+### `recordNRT`
+synthesize the score in non-realtime. For details of the arguments see [#*recordNRT](#*recordnrt) above.
+### `saveToFile`
 save the score list as a text file to **path**.
 ## Examples
 
 
 ### NRT Examples
 
-```supercollider
+```
 // A sample synthDef
 // Here we use store instead of add to store the compiled synthdef in Platform.defaultTempDir +/+ "synthdefs/"
 // and make it available to the NRT server
@@ -148,7 +164,7 @@ Score.writeFromFile(Platform.defaultTempDir +/+ "score-test", Platform.defaultTe
 From the command line, the file can then be rendered from within the build directory:
 
 
-```supercollider
+```
 scsynth -N test.osc _ test.aif 44100 AIFF int16 -o 1
 ```
 
@@ -156,7 +172,7 @@ scsynth -N test.osc _ test.aif 44100 AIFF int16 -o 1
 Score also provides methods to do all this more directly:
 
 
-```supercollider
+```
 (
 var f, o;
 g = [
@@ -176,7 +192,7 @@ Score.recordNRT(g, Platform.defaultTempDir +/+ "help-oscFile", Platform.defaultT
 
 ### Real-time Examples
 
-```supercollider
+```
 s.boot; // boot the default server
 
 // A sample synthDef
@@ -253,7 +269,7 @@ SystemClock.sched(1.0, { z.stop });
 
 ### creating Score from a pattern
 
-```supercollider
+```
 (
 SynthDef("helpscore", { |out, freq = 440|
     Out.ar(out,

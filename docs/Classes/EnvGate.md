@@ -13,6 +13,7 @@ Convenience class for an envelope generator combining fadeTime and gate argument
 
 ## Class Methods
 
+
 ### `new`
 Returns an [EnvGen](../Classes/EnvGen.md).**Arguments:**
 
@@ -27,7 +28,7 @@ Returns an [EnvGen](../Classes/EnvGen.md).**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 a = { LPF.ar(Saw.ar(200), 600) * EnvGate.new }.play;
 a.set(\fadeTime, 2);
 a.release;

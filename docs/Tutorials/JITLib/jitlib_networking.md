@@ -33,7 +33,7 @@ a local time server is better than the apple time server. if you cannot sync the
 
 ### a) boot the (remote) server and create a local model
 
-```supercollider
+```
 s = Server("serverName", NetAddr(hostname, port));
 s.options.maxLogins = 16; // or the maximum number of participants in the network
 s.boot; // you cannot directly boot a remote server instance, but this initializes everything that is needed
@@ -61,7 +61,7 @@ see [Server](../../Classes/Server.md)
 
 ### b) from each client, initialize the default node and set notify to true:
 
-```supercollider
+```
 s.boot; // this will initialize the tree and start notification
 
 // if needed, a server window can be created:
@@ -74,7 +74,7 @@ s.makeWindow;
 
 ### c) now create a ProxySpace from the server:
 
-```supercollider
+```
 p = ProxySpace.push(s);
 ```
 

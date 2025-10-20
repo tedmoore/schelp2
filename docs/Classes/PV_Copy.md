@@ -15,6 +15,7 @@ Copies the spectral frame in `bufferA` to `bufferB`. This allows for parallel pr
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -27,7 +28,7 @@ Copies the spectral frame in `bufferA` to `bufferB`. This allows for parallel pr
 ## Examples
 
 
-```supercollider
+```
 // read a sound file
 d = Buffer.read(s, ExampleFiles.child);
 

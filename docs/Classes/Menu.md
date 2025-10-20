@@ -10,7 +10,7 @@
 
 The Menu class allows the creation and control of context menus and application-level menus.
 
-```supercollider
+```
 (
 ~menu = Menu(
     MenuAction("A", { "A selected".postln }),
@@ -25,6 +25,7 @@ The Menu class allows the creation and control of context menus and application-
 
 ## Class Methods
 
+
 ### `new`
  Create a new menu. A menu is populated with [MenuAction](../Classes/MenuAction.md)s**Arguments:**
 
@@ -32,7 +33,7 @@ The Menu class allows the creation and control of context menus and application-
 |----------|-------------|
 | `` | One or more [MenuActions](../Classes/MenuAction.md) or Menus to be displayed in the menu. Menu arguments will create sub-menus. |  
 
-```supercollider
+```
 (
     Menu(
         MenuAction("main"),
@@ -51,6 +52,7 @@ The Menu class allows the creation and control of context menus and application-
 
 
 ### Control
+
 ### `front`
  Show the menu if it is not already shown. Note that unlike most Views, Menus are not destroyed when they are closed - front can be used to re-generate a single menu again and again.**Arguments:**
 
@@ -59,6 +61,7 @@ The Menu class allows the creation and control of context menus and application-
 | `point` | A [Point](../Classes/Point.md) at which to show the menu. Default to the current mouse cursor position. |  
 | `action` | The action that should appear at the specified point coordinates. Should be an action contained in the menu. |  
 
+
 ### `title`
  The title of the menu.**Arguments:**
 
@@ -66,12 +69,14 @@ The Menu class allows the creation and control of context menus and application-
 |----------|-------------|
 | `title` | A [String](../Classes/String.md). |  
 
+
 ### `tearOff`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | If true, menu is / will be torn off from its parent and become a free-floating menu. |  
+
 
 ### `copy`
  Create an identical copy of the menu. The new menu will not be shown until `.front` is called.
@@ -88,7 +93,7 @@ The Menu class allows the creation and control of context menus and application-
  **Events example**
 
 
-```supercollider
+```
 (
 m = Menu(MenuAction("Option A"), MenuAction("Option B")).title_("Event Example");
 
@@ -112,7 +117,7 @@ m.onClose_({ m.removeDependant(f) }).front;
  See [View#-setContextMenuActions](../Classes/View.md#-setcontextmenuactions), [View#-addMenuAction](../Classes/View.md#-addmenuaction), [View#-removeMenuAction](../Classes/View.md#-removemenuaction) for more information.
 
 
-```supercollider
+```
 (
 ~view = View().layout_(HLayout(
     ~button = Button().states_([["Button"]]),
@@ -140,7 +145,7 @@ m.onClose_({ m.removeDependant(f) }).front;
 
 **A more complex menu.**
 
-```supercollider
+```
 (
 ~image = Image(64, 64).draw({
     Pen.fillColor = Color.blue;

@@ -20,7 +20,7 @@ To make it easy to translate between these purposes and representations, there i
 
 ## Examples
 
-```supercollider
+```
 // the following all return [\freq, 452, \amp, 0.2]
 
 [\freq, 452, \amp, 0.2].asPairs
@@ -48,7 +48,7 @@ To make it easy to translate between these purposes and representations, there i
 The method `asDict` optionally takes a `mergeFunc` and a `class` argument.
 
 
-```supercollider
+```
  // IdentityDictionary[ (a -> 1), (c -> 3), (b -> 2) ]
 [\a, 1, \a, 3, \b, 2, \c, 3, \c, 7].asDict;
 
@@ -66,7 +66,7 @@ The method `asDict` optionally takes a `mergeFunc` and a `class` argument.
 The method `asEvent` is a shortcut:
 
 
-```supercollider
+```
 [\freq, 100, \amp, 0.1].asEvent // ( 'amp': 0.1, 'freq': 100 )
 ```
 
@@ -74,7 +74,7 @@ The method `asEvent` is a shortcut:
 The methods `asAssociations` and `asPairs` optionally take a `class` argument.
 
 
-```supercollider
+```
 // SortedList[ (a -> 1871), (b -> 1848), (c -> 1789) ]
 (c:1789, b:1848, a:1871).asAssociations(SortedList);
 

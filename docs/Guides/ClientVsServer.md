@@ -11,7 +11,7 @@ The name "SuperCollider" is in fact used to indicate five different things (Figu
 4. the interpreter program as a client for the server
 5. the application including the two programs and providing mentioned functionalities
 
-![structureEn.png / Figure 1. Structure of the SuperCollider application ](structureEn.png#Figure 1. Structure of the SuperCollider application)The SuperCollider application is thus made up of two distinct, autonomous, components, a server and a client. For the first we have a choice between scsynth (SC-synthesizer) and supernova, and for the second we have sclang (SC-language).
+![structureEn.png#Figure 1. Structure of the SuperCollider application](structureEn.png#Figure 1. Structure of the SuperCollider application)The SuperCollider application is thus made up of two distinct, autonomous, components, a server and a client. For the first we have a choice between scsynth (SC-synthesizer) and supernova, and for the second we have sclang (SC-language).
 
 ## Description
 The SuperCollider application makes use of client/server architecture which separates two functions, respectively one providing and the other requesting services. The client and the server communicate through a network.
@@ -37,7 +37,7 @@ The client of this server is *sclang*. Sclang performs two distinct tasks:
 From inside sclang, starting a server app can be accomplished by:
 
 
-```supercollider
+```
 s = Server.default; // create a new Server object and assign it to variable s
 s.boot;             // boot the server app, i.e. tell the server to be ready to work
 ```
@@ -48,7 +48,7 @@ The sclang interpreter can send OSC messages to the server in two fashions:
 
 **directly**
 : in this case, sclang offers a thin syntax layer which allows one to deal with raw OSC messages. All the server's functionality is in this case available "by hand" using the .sendMsg method of [Server](../Classes/Server.md), and other similar messages.
-```supercollider
+```
 n = s.nextNodeID;                   // get an available nodeID from the server and assign it to n
 s.sendMsg("/s_new", "default", n);  // use the SynthDef "default" to create a synth with ID n
 s.sendMsg("/n_free", n);            // release the synth n
@@ -56,7 +56,7 @@ s.sendMsg("/n_free", n);            // release the synth n
 
 **indirectly**
 : the language app provides you with convenient OOP functionality to keep track of and manipulate things on the server. The high-level syntax is translated into low-level OSC messages by sclang and sent to the server (language wrapping).
-```supercollider
+```
 x = Synth("default");   // create a synth on the default server (s) and allocate an ID for it
 x.free;                 // free the synth, its ID and resources
 ```
@@ -69,7 +69,7 @@ Working this way you have gained certain functionality. It provides a node ID fo
 Language wrapping allows the user to access complex behaviours from very little code. Figure 3 (ignore for the moment that sclang is represented as a client among other possible ones, see later) schematically represents what happens when you evaluate an audio function like this:
 
 
-```supercollider
+```
 // assuming the server is already booted
 {SinOsc.ar}.play ;
 ```

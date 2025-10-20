@@ -16,9 +16,10 @@ It inherits some useful methods from [EnvirGui](../Classes/EnvirGui.md).
 
 
 ### Creation
+
 ### `new`
 create a new NdefParamGui
-```supercollider
+```
 // simple example - see also NdefGui!
 
 g = NdefParamGui.new(nil, 5);    // empty with 5 slots
@@ -71,9 +72,10 @@ g.parent.close
 
 ## Instance Methods
 
+
 ### `name`
 if in its own window, set the window's name
-```supercollider
+```
 g.name = "Yoohoo";
 ```
 
@@ -81,7 +83,7 @@ g.name = "Yoohoo";
 ## Examples
 
 
-```supercollider
+```
     // put an NdefParamGui in an existing window - margin becomes 0@0
 (
 w = Window().front;

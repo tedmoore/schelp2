@@ -67,7 +67,7 @@ It is important to understand that although a single def can provide a great dea
 There are other ways of achieving similar results, however, often using UGens such as Rand. For example, the following def will have a single randomly generated frequency, which will be the same for every Synth based on it:
 
 
-```supercollider
+```
 (
 SynthDef(\help_notRand, { |out|
     Out.ar(out,
@@ -83,7 +83,7 @@ b = Synth(\help_notRand); // the same freq as a
 This one on the other hand will have a different random freq for each Synth created:
 
 
-```supercollider
+```
 (
 SynthDef(\help_isRand, { |out|
     Out.ar(out,
@@ -100,6 +100,7 @@ b = Synth(\help_isRand); // a different randomly selected freq
 
 
 ## Class Methods
+
 
 
 ### `new`
@@ -128,9 +129,10 @@ Create a SynthDef instance, evaluate the ugenGraphFunc and build the ugenGraph.*
 | `variants` | An optional [Event](../Classes/Event.md) containing default argument settings. These can override the defaults specified in the ugenGraphFunc. When creating a Synth a variant can be requested by appending the defName argument in the form 'name.variant' or "name.variant". See example below. |  
 | `metadata` | An optional [Event](../Classes/Event.md) containing additional, user-defined information that is relevant to the use of the SynthDef in the client. The SynthDef itself is sent to the server for audio rendering; metadata are strictly client-side descriptive information. Currently the 'specs' key in the event is reserved for [ControlSpec](../Classes/ControlSpec.md)s to be associated with SynthDef arguments (this is useful for automatic GUI construction). Metadata can be persisted to disk and loaded automatically as part of a SynthDesc. See the [SynthDesc](../Classes/SynthDesc.md) help file for more details. |  
 
+
 ### `wrap`
 Wraps a function within an enclosing synthdef.Arguments to the wrapped function are automatically promoted to be SynthDef controls, using the same rules applied to arguments of the main UGen function. For a very simple example:
-```supercollider
+```
 d = SynthDef(\demoWrapping, { |out|
     Out.ar(out, SynthDef.wrap({ |freq| SinOsc.ar(freq) }))
 });
@@ -139,20 +141,25 @@ d.allControlNames;
 ```
 
 Prints: `[ControlName  P 0 out control 0, ControlName  P 1 freq control 0]`.The outer function declares the argument 'out', and the wrapped function has 'freq' as its argument. The resulting SynthDef has both arguments as controls, exactly as if the outer function included both as arguments.The rates array behaves as described earlier. `PrependArgs` allows values or unit generators to be passed into the inner function from the enclosing SynthDef context. Any inner function argument that receives a prependArg value (including nil) will use that value, suppressing creation of a control for that argument. The longer example below demonstrates this technique.This is very useful for mass-producing SynthDefs that have a common "shell" defining features such as enveloping or triggering mechanisms that apply to different subgraphs of unit generators. The common features need be written only once; the UGens that differ between the SynthDefs are plugged into the supporting architecture.
+
 ### `synthDefDir`
 Get or set the default directory to which defs are written.
+
 ### `removeAt`
 Remove the synthdef `name` from the SynthDescLib named `libname` and from its servers.
+
 ### `writeOnce`
-Create a new SynthDef. It is written to disk only if a def file with this name does not already exist. Note that this will not check for differences, so you will need to delete the defFile to get it to rebuild. Default for dir is to use the path specified by `SynthDef.synthDefDir`.> **⚠️ Warning:** `SynthDef.writeOnce` is a legacy method. Its main use was to improve the efficiency of SynthDefs in quarks, but this is superseded by [SynthDescLib](../Classes/SynthDescLib.md). Being completely impervious to changes, it can cause difficult-to-diagnose bugs (such as having version 1.1 of a quark but with a SynthDef stuck in version 1.0). Quark developers should now use [add](#add) instead.The exception is very large SynthDefs, where you have a choice between [writeDefFile](#writedeffile) and this method. Even then, the efficiency savings of `writeOnce` are only in disk I/O -- both methods build the SynthDef every time they run.
+Create a new SynthDef. It is written to disk only if a def file with this name does not already exist. Note that this will not check for differences, so you will need to delete the defFile to get it to rebuild. Default for dir is to use the path specified by `SynthDef.synthDefDir`.> **⚠️ Warning:** `SynthDef.writeOnce` is a legacy method. Its main use was to improve the efficiency of SynthDefs in quarks, but this is superseded by [SynthDescLib](../Classes/SynthDescLib.md). Being completely impervious to changes, it can cause difficult-to-diagnose bugs (such as having version 1.1 of a quark but with a SynthDef stuck in version 1.0). Quark developers should now use [#-add](#-add) instead.The exception is very large SynthDefs, where you have a choice between [#-writeDefFile](#-writedeffile) and this method. Even then, the efficiency savings of `writeOnce` are only in disk I/O -- both methods build the SynthDef every time they run.
+
 ### `warnAboutLargeSynthDefs`
 When a SynthDef is too large to be sent to a local server in a standard OSC message, it is written to disk and the server loads it from there instead. If `warnAboutLargeSynthDefs` is set to true, it will warn that this is happening. There will always be a warning for remote servers.
 
 ## Instance Methods
 
+
 ### `add`
-Adds the synthdef to the [SynthDescLib](../Classes/SynthDescLib.md) specified by libname, and sends it to the library's servers. No defFile is written; all operations take place in memory.After using this method, the synthdef can be used with event streams as in `store()`, but without the permanent artifact of a file on disk. Calling this method triggers an update message with the key `\synthDescAdded` for any dependants the library may have. This can be used to trigger additional behaviour every time a def/desc is added. See [Object / Dependancy ](../Classes/Object.md#dependancy).A server can be added by `SynthDescLib.global.addServer(server)`.Note that the "dir" and "mdPlugin" arguments do not exist for this method. Because no file is written, there is no need to specify a directory or write a metadata file.
-```supercollider
+Adds the synthdef to the [SynthDescLib](../Classes/SynthDescLib.md) specified by libname, and sends it to the library's servers. No defFile is written; all operations take place in memory.After using this method, the synthdef can be used with event streams as in `store()`, but without the permanent artifact of a file on disk. Calling this method triggers an update message with the key `\synthDescAdded` for any dependants the library may have. This can be used to trigger additional behaviour every time a def/desc is added. See [Object#Dependancy](../Classes/Object.md#dependancy).A server can be added by `SynthDescLib.global.addServer(server)`.Note that the "dir" and "mdPlugin" arguments do not exist for this method. Because no file is written, there is no need to specify a directory or write a metadata file.
+```
 (
 SynthDef(\help_synth, { |out, freq = 800, sustain = 1, amp = 0.1|
     Out.ar(out,
@@ -162,21 +169,30 @@ SynthDef(\help_synth, { |out, freq = 800, sustain = 1, amp = 0.1|
 )
 ```
 
+
 ### `name`
-Return this def's name.### `func`
-Return this def's ugenGraphFunc.### `variants`
-Return an Event containing this def's variants.### `allControlNames`
-An array of [ControlName](../Classes/ControlName.md)'s for the controls.### `specs`
+Return this def's name.
+### `func`
+Return this def's ugenGraphFunc.
+### `variants`
+Return an Event containing this def's variants.
+### `allControlNames`
+An array of [ControlName](../Classes/ControlName.md)'s for the controls.
+### `specs`
 A [Dictionary](../Classes/Dictionary.md) of [ControlSpec](../Classes/ControlSpec.md)s for a SynthDef. Equivalent to: `d.metadata[\specs]`
 ### Special purpose methods
 (for most purposes, the method add is recommended)
 
+
 ### `writeDefFile`
 Writes the def as a file called name.scsyndef in a form readable by a server. Default for dir is synthdefs/. Defs stored in the default directory will be automatically loaded by the local and internal Servers when they are booted.
+
 ### `load`
 Write the defFile and send a message to server to load this file. When this asynchronous command is completed, the completionMessage (a valid OSC message) is immediately executed by the server. Default for dir is synthdefs/.
+
 ### `send`
 Compile the def and send it to server without writing to disk (thus avoiding that annoying SynthDef buildup). When this asynchronous command is completed, the completionMessage (a valid OSC message) is immediately executed by the server.
+
 ### `store`
 Write the defFile and store it in the SynthDescLib specified by libname, and send a message to the library's server to load this file. When this asynchronous command is completed, the completionMessage (a valid OSC message) is immediately executed by the server. Default for libname is \global, for dir is synthdefs/. This is needed to use defs with the event stream system. See Streams and Pattern.**Arguments:**
 
@@ -187,6 +203,7 @@ Write the defFile and store it in the SynthDescLib specified by libname, and sen
 | `completionMsg` |  |  
 | `mdPlugin` | (optional) The metadata plug-in class that will be used to persist metadata. If not supplied, the default plug-in is used. See the SynthDesc help file for details. |  
 
+
 ### `play`
 A convenience method which compiles the def and sends it to target's server. When this asynchronous command is completed, it creates one synth from this definition, using the argument values specified in the Array args. For a list of valid addActions see [Synth](../Classes/Synth.md). The default is `\addToHead`.**Returns:** a corresponding Synth object.
 
@@ -195,7 +212,7 @@ A convenience method which compiles the def and sends it to target's server. Whe
 
 ### Basic
 
-```supercollider
+```
 // Note that constructions like SynthDef(...) and Synth(...) are short for SynthDef.new(...), etc.
 // With SynthDef it is common to chain this with calls on the resulting instance,
 // e.g. SynthDef(...).add or SynthDef(...).play
@@ -228,7 +245,7 @@ x.free;
 
 ### Argument Rates
 
-```supercollider
+```
 (
 SynthDef(\trigTest1, { |out, t_trig = 0, freq = 440| // t_trig creates a TrigControl
     Out.ar(out, SinOsc.ar(freq+[0, 1], 0, Decay2.kr(t_trig, 0.005, 1.0)));
@@ -304,7 +321,7 @@ Pmono(\trigTest2, *[
 
 ### Variants
 
-```supercollider
+```
 // create a def with some variants
 (
 SynthDef(\vartest, { |out, freq = 440, amp = 0.2, a = 0.01, r = 1|
@@ -331,7 +348,7 @@ Synth('vartest.alpha', [\release, 3, \freq, 660]);
 
 ### Array Arguments
 
-```supercollider
+```
 // freqs is defined as an arrayed control. This makes a multichannel Control of the same size.
 (
 SynthDef(\arrayarg, { |out, amp = 0.1, gate = 1|
@@ -381,7 +398,7 @@ fork {
 
 ### Wrapping Example: 'factory' production of effects defs
 
-```supercollider
+```
 // The makeEffect function below wraps a simpler function within itself and provides
 // a crossfade into the effect (so you can add it without clicks), control over wet
 // and dry mix, etc.
@@ -454,7 +471,7 @@ x.free;
 
 ### common argument names: out and gate
 
-```supercollider
+```
 // arguments named 'out' and 'gate' are commonly used to specify an output bus and
 // EnvGen gate respectively. Although not required, using them can help with consistency
 // and interchangeability. 'gate' is particularly useful, as it allows for Node's release
@@ -506,7 +523,7 @@ Pbind(
 Sometimes, it can be clearer to specify a [ControlSpec](../Classes/ControlSpec.md) for a parameter at the point of its usage in a SynthDef, rather than elsewhere. Specs can be set either when contructing a [NamedControl](../Classes/NamedControl.md) or as a property of a SynthDef argument.
 
 
-```supercollider
+```
 (
 ~def = SynthDef(\argumentExample, { |freq, amp|
     var sig;

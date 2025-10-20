@@ -13,6 +13,7 @@ Generates linearly interpolated random values at a rate given by the nearest int
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Generates linearly interpolated random values at a rate given by the nearest int
 ## Examples
 
 
-```supercollider
+```
 { LFNoise1.ar(1000, 0.25) }.play;
 
 // modulate frequency

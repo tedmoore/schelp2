@@ -8,7 +8,7 @@
 
 An [Event](../Classes/Event.md) responds to a `play` message by evaluating ~play in the event, and the default behaviour of ~play is determined by the value of ~type.> *To see how event types are normally invoked, here is a slightly simplified version of the default definition of ~play as defined in the Event class:`{ ~eventTypes[~type].value(server); }`The function uses the value of ~type to select a function from the Dictionary held in ~eventTypes.*
 
-```supercollider
+```
 a = (play: { ~word.scramble.postln }, word: "hello word");
 a.play;
 
@@ -18,7 +18,7 @@ a.play;
 
 The collection of eventTypes can be readily extended using [*addEventType](../Classes/Event.md#*addeventtype):
 
-```supercollider
+```
 Event.addEventType(\test, { "Your word is: ".post; ~word.scramble.postln });
 (type: \test, word: "annahme").play;
 ```
@@ -35,7 +35,7 @@ Event.addEventType(\test, { "Your word is: ".post; ~word.scramble.postln });
 
 **set**
 : used to set parameters of some already-running node(s).
-```supercollider
+```
 a = (degree: 3, sustain: 40).play;
 fork { 10.do { (type: \set, id: a[\id], \degree: [0, 5, 8, 11].choose).play; 0.3.wait } };
 ```
@@ -45,7 +45,7 @@ fork { 10.do { (type: \set, id: a[\id], \degree: [0, 5, 8, 11].choose).play; 0.3
 **group**
 : creates a new group optional parameters:| ~id | node ID, or node object | 
 | --- | --- || ~group | outer group id or object | | ~addAction / ~lag / ~timingOffset | determine how and when the group is created | Example:
-```supercollider
+```
 (type: \group, id: 2).play                    // create a group with nodeID 2
 (type: \note, freq: 500, group: 2).play        // play a synth in that group
 ```
@@ -68,7 +68,7 @@ fork { 10.do { (type: \set, id: a[\id], \degree: [0, 5, 8, 11].choose).play; 0.3
 
 **composite**
 : perform any number of event types, given as ~types
-```supercollider
+```
 MIDIClient.init;
 m = MIDIOut(0);
 

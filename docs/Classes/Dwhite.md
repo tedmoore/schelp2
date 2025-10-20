@@ -15,6 +15,7 @@ See [Pwhite](../Classes/Pwhite.md), [WhiteNoise](../Classes/WhiteNoise.md) for s
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -27,7 +28,7 @@ See [Pwhite](../Classes/Pwhite.md), [WhiteNoise](../Classes/WhiteNoise.md) for s
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a, freq, trig;

@@ -13,6 +13,7 @@ Noninterpolating wavetable lookup oscillator with frequency and phase modulation
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ Noninterpolating wavetable lookup oscillator with frequency and phase modulation
 ## Examples
 
 
-```supercollider
+```
 // compare examples below with interpolating Osc examples.
 
 (

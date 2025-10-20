@@ -27,6 +27,7 @@ The complete list of RawArray types in SuperCollider is:
 
 ## Instance Methods
 
+
 ### `readFromStream`
 
 

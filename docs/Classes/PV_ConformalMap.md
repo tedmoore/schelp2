@@ -10,7 +10,7 @@
 
 Applies the conformal mapping
 
-```supercollider
+```
 z → (z - a) / (1 - za*)
 ```
 
@@ -18,14 +18,14 @@ z → (z - a) / (1 - za*)
 to the phase vocoder bins z with a given by the real and imag inputs to the UGen.
 Makes a transformation of the complex plane so the output is full of phase vocoder artifacts but may be musically fun. Usually keep
 
-```supercollider
+```
 |a| < 1
 ```
 
 
 but you can of course try bigger values to make it really noisy.
 
-```supercollider
+```
 a = 0
 ```
 
@@ -35,6 +35,7 @@ See [http://mathworld.wolfram.com/ConformalMapping.html](http://mathworld.wolfra
 
 
 ## Class Methods
+
 
 ### `new`
 **Arguments:**
@@ -48,7 +49,7 @@ See [http://mathworld.wolfram.com/ConformalMapping.html](http://mathworld.wolfra
 ## Examples
 
 
-```supercollider
+```
 // explore the effect
 
 (

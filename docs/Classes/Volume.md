@@ -11,6 +11,7 @@ Internally used by Server. When volume value != 0 dB or muted, a server's volume
 
 ## Class Methods
 
+
 ### `new`
 Create and return a new instance of Volume for a given server, ranging from `startBus` over `numChans` (usually the server's number of output bus channels).**Arguments:**
 
@@ -26,17 +27,23 @@ Create and return a new instance of Volume for a given server, ranging from `sta
 
 ## Instance Methods
 
+
 ### `mute`
-mute output### `unmute`
-unmute output### `volume`
-set the volume (in db)### `lag`
-set the lag time that dampens volume changes### `setVolumeRange`
-set the volume range### `gui`
+mute output
+### `unmute`
+unmute output
+### `volume`
+set the volume (in db)
+### `lag`
+set the lag time that dampens volume changes
+### `setVolumeRange`
+set the volume range
+### `gui`
 create a volume gui.
 ## Examples
 
 
-```supercollider
+```
 v = s.volume;
 
 v.min;

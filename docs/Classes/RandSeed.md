@@ -14,6 +14,7 @@ See [RandID](../Classes/RandID.md) UGen for setting the randgen id and [randomSe
 
 ## Class Methods
 
+
 ### `kr`, `ir`
 **Arguments:**
 
@@ -25,7 +26,7 @@ See [RandID](../Classes/RandID.md) UGen for setting the randgen id and [randomSe
 ## Examples
 
 
-```supercollider
+```
 // start a noise patch
 
 (

@@ -10,7 +10,7 @@
 
 Complex addition:
 
-```supercollider
+```
 RealA + RealB, ImagA + ImagB
 ```
 
@@ -18,6 +18,7 @@ RealA + RealB, ImagA + ImagB
 
 
 ## Class Methods
+
 
 ### `new`
 **Arguments:**
@@ -30,7 +31,7 @@ RealA + RealB, ImagA + ImagB
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 

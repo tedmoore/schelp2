@@ -13,7 +13,7 @@ Combines an arbitrary number of patterns by summing (depth first traversal). Whe
 ## Examples
 
 
-```supercollider
+```
 // comparing PstepNadd and Pstep3add (test)
 (
 x = PstepNadd(Pseq([1, 2, 3]), Pseq([10, 20, 30, 40]), Pseq([100, 200, 300])).asStream;

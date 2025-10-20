@@ -11,7 +11,7 @@
 This is the same as [Ringz](../Classes/Ringz.md), except that it has a constant gain at 0 dB instead of being constant skirt.
 It is a two pole resonant filter with zeroes at
 
-```supercollider
+```
 z = ±1
 ```
 
@@ -20,6 +20,7 @@ Based on *K. Steiglitz, "A Note on Constant-Gain Digital Resonators", Computer M
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -35,7 +36,7 @@ Based on *K. Steiglitz, "A Note on Constant-Gain Digital Resonators", Computer M
 ## Examples
 
 
-```supercollider
+```
 { Resonz.ar(WhiteNoise.ar(0.5), 2000, 0.1) }.play
 
 // modulate frequency

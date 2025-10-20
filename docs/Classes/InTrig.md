@@ -12,6 +12,7 @@ If the bus is set [synchronously](../Classes/Bus.md#synchronous-control-bus-meth
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -23,7 +24,7 @@ If the bus is set [synchronously](../Classes/Bus.md#synchronous-control-bus-meth
 ## Examples
 
 
-```supercollider
+```
 s = Server.local;
 b = Bus.control(s, 1);
 

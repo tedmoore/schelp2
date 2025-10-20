@@ -13,6 +13,7 @@ Number of open buffers.
 
 ## Class Methods
 
+
 ### `ir`
 
 

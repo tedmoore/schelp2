@@ -17,6 +17,7 @@ Writes an output to a DC-coupled analog output (e.g.: CV out).
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -26,6 +27,7 @@ Writes an output to a DC-coupled analog output (e.g.: CV out).
 | `output` | Value to write out to the pin. |  
 | `mul` |  |  
 | `add` |  |  
+
 
 ### `kr`
 **Arguments:**
@@ -40,7 +42,7 @@ Writes an output to a DC-coupled analog output (e.g.: CV out).
 ## Examples
 
 
-```supercollider
+```
 // write a sine oscillator's output to a pin
 
 (

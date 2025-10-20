@@ -19,7 +19,7 @@ We've already seen Out.ar, which allows you to write (i.e. play out) audio to a 
 To read in from a bus you use another UGen: In. In's 'ar' method also takes two arguments: an index, and the number of channels to read in. If the number of channels is greater than one, then In's output will be an Array. Execute the following examples, and watch the post window:
 
 
-```supercollider
+```
 In.ar(0, 1); // this will return 'an OutputProxy'
 In.ar(0, 4); // this will return an Array of 4 OutputProxies
 ```
@@ -30,7 +30,7 @@ An OutputProxy is a special kind of UGen that acts as a placeholder for some sig
 In and Out also have 'kr' methods, which will read and write control rate signals to and from control rate busses. Note that Out.kr will convert an audio rate signal to control rate (this is called 'downsampling'), but that the reverse is not true: Out.ar needs an audio rate signal as its second argument.
 
 
-```supercollider
+```
 // This throws an error. Can't write a control rate signal to an audio rate bus
 { |out| Out.ar(out, SinOsc.kr) }.play;
 
@@ -44,7 +44,7 @@ In and Out also have 'kr' methods, which will read and write control rate signal
 You'll note that when multiple Synths write to the same bus, their output is summed (i.e. mixed).
 
 
-```supercollider
+```
 (
 SynthDef("tutorial-args", { arg freq = 440, out = 0;
     Out.ar(out, SinOsc.ar(freq, 0, 0.2));
@@ -64,7 +64,7 @@ There is a handy client-side object to represent server busses: Bus. Given that 
 Just as many UGens have ar and kr methods, Bus has two commonly used creation methods: Bus-audio and Bus-control. These each take two arguments: a Server object, and the number of channels.
 
 
-```supercollider
+```
 b = Bus.control(s, 2); // Get a two channel control Bus
 c = Bus.audio(s);     // Get a one channel private audio Bus (one is the default)
 ```
@@ -73,7 +73,7 @@ c = Bus.audio(s);     // Get a one channel private audio Bus (one is the default
 You may be wondering what a 'two channel' bus is, since we haven't mentioned these before. You should recall that when Out has an Array as its second argument it will write the channels of the Array to consecutive busses. Recall this example from [Getting-Started/10-SynthDefs-and-Synths](../../Tutorials/Getting-Started/10-SynthDefs-and-Synths.md) :
 
 
-```supercollider
+```
 (
 SynthDef.new("tutorial-SinOsc-stereo", { |out|
     var outArray;
@@ -89,7 +89,7 @@ The truth is that there aren't multichannel busses per se, but Bus objects are a
 When you're working with so-called 'private' busses (i.e. anything besides the input and output channels; all control busses are 'private') you generally want to make sure that that bus is only used for exactly what you want. The point after all is to keep things separate. You could do this by carefully considering which indices to use, but Bus allows for this to be done automatically. Each Server object has a bus allocator, and when you make a Bus object, it reserves those private indices, and will not give them out again until freed. You can find out the index of a Bus by using its 'index' method. Normally however, you will not need to store this value, as instances of Bus can be passed directly as UGen inputs or Synth args.
 
 
-```supercollider
+```
 s.reboot; // this will restart the server and thus reset the bus allocators
 
 b = Bus.control(s, 2);    // a 2 channel control Bus
@@ -106,7 +106,7 @@ So by using Bus objects to represent adjacent busses, you can guarantee that the
 You can free up the indices used by a Bus by calling its 'free' method. This allows them to be reallocated.
 
 
-```supercollider
+```
 b = Bus.control(s, 2);
 b.free; // free the indices. You can't use this Bus object after that
 ```
@@ -124,7 +124,7 @@ But what happens if we later decide to change the number of output channels to 6
 So here are two examples using busses. The first is with a control rate bus.
 
 
-```supercollider
+```
 (
 SynthDef("tutorial-Infreq", { arg bus, freqOffset = 0, out;
     // this will add freqOffset to whatever is read in from the bus
@@ -154,7 +154,7 @@ Now an example with an audio bus. This is the most complicated example we've see
 Note the construction 16.do({ ... }), below. This makes the chain by evaluating the function 16 times. This is a very powerful and flexible technique, as by simply changing the number, I can change the number of evaluations. See [Integer](../../Classes/Integer.md) for more info on Integer-do.
 
 
-```supercollider
+```
 (
 // the arg direct will control the proportion of direct to processed signal
 SynthDef("tutorial-DecayPink", { arg outBus = 0, effectBus, direct = 0.5;
@@ -216,7 +216,7 @@ Note that we could easily have many more source synths being processed by the si
 There are some other powerful things that you can do with control rate busses. For instance, you can map any arg in a running synth to read from a control bus. This means you don't need an In UGen. You can also write constant values to control busses using Bus' 'set' method, and poll values using its 'get' method.
 
 
-```supercollider
+```
 (
 // make two control rate busses and set their values to 880 and 884.
 b = Bus.control(s, 1); b.set(880);
@@ -255,7 +255,7 @@ Also note that Bus-get takes a Function (called an action function) as an argume
 This concept of things taking a small amount of time to respond (usually called *latency*) is quite important to understand. There are a number of other methods in SC which function this way, and it can cause you problems if you're not careful. To illustrate this consider the example below.
 
 
-```supercollider
+```
 // make a Bus object and set its values
 b = Bus.control(s, 1); b.set(880);
 
@@ -289,7 +289,7 @@ This is a complicated topic, and there are some exceptions to this, but you shou
 Synth-new has two arguments which allow you to specify where in the order a synth is added. The first is a *target*, and the second is an *addAction*. The latter specifies the new synth's position in relation to the target.
 
 
-```supercollider
+```
 x = Synth("default", [\freq, 300]);
 // add a second synth immediately after x
 y = Synth("default", [\freq, 450], x, \addAfter);
@@ -302,7 +302,7 @@ A target can be another Synth (or some other things; more on that soon), and an 
 Methods like Synth-after are simply convenient ways of doing the same thing, the difference being that they take a target as their first argument.
 
 
-```supercollider
+```
 // These two lines of code are equivalent
 y = Synth.new("default", [\freq, 450], x, \addAfter);
 y = Synth.after(x, "default", [\freq, 450]);

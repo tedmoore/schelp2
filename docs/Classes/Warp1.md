@@ -12,6 +12,7 @@ Inspired by Chad Kirby's SuperCollider2 Warp1 class, which was inspired by Richa
 ## Class Methods
 
 
+
 ### `ar`
 **Arguments:**
 
@@ -32,7 +33,7 @@ Inspired by Chad Kirby's SuperCollider2 Warp1 class, which was inspired by Richa
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (
@@ -76,7 +77,7 @@ x.relase; z.free;
 
 
 
-```supercollider
+```
 (
 b.free;
 b = Buffer.read(s, ExampleFiles.apollo11);

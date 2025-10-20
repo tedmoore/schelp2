@@ -13,6 +13,7 @@ Each trigger increments a counter which is output as a signal. The counter wraps
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -28,7 +29,7 @@ Each trigger increments a counter which is output as a signal. The counter wraps
 ## Examples
 
 
-```supercollider
+```
 SynthDef("help-Stepper", { |out = 0|
     Out.ar(out,
         SinOsc.ar(

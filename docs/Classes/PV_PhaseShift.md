@@ -13,6 +13,7 @@ Shift phase of all bins.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Shift phase of all bins.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

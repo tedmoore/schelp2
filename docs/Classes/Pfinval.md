@@ -16,12 +16,13 @@
 
 ## Class Methods
 
+
 ### `new`
 Embeds **count** elements of the **pattern** into the stream.
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pfinval(5, Pseq(#[1, 2, 3], inf));

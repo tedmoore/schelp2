@@ -17,6 +17,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -33,9 +34,10 @@
 
 ## Instance Methods
 
+
 ### `learn`
 Wait for the next CC message, reset to match src, chan, cc num.
-```supercollider
+```
 (
 
 c = CCResponder({ |src, chan, num, value|
@@ -50,7 +52,7 @@ CCResponder.removeAll
 ## Examples
 
 
-```supercollider
+```
 (
     c = CCResponder({ |src, chan, num, value|
         [src, chan, num, value].postln;
@@ -67,7 +69,7 @@ c.remove
 
 
 
-```supercollider
+```
 (
     c = CCResponder({ |src, chan, num, value|
         [src, chan, num, value].postln;

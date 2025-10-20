@@ -18,6 +18,7 @@ Overview: [JITLib](../Overviews/JITLib.md)
 
 
 ### Creation
+
 ### `new`
 **Arguments:**
 
@@ -32,7 +33,7 @@ Overview: [JITLib](../Overviews/JITLib.md)
 ## Examples
 
 
-```supercollider
+```
 p = ProxySpace.push(s.boot, \p);
 m = ProxyMixer(p, 8, \p, Rect(20, 500, 0, 0));
 

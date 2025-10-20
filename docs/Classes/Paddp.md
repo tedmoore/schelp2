@@ -13,6 +13,7 @@ Adds a value to a named value in an event pattern or stream until it ends. Repea
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Adds a value to a named value in an event pattern or stream until it ends. Repea
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Paddp(\freq, Pseq([2, 3, pi], inf), Pbind(\freq, Pseq([100, 200, 300])));
@@ -36,7 +37,7 @@ x = a.asStream;
 
 
 
-```supercollider
+```
 // sound example
 (
 SynthDef(\sinegrain,

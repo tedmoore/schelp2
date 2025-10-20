@@ -32,7 +32,7 @@ Selecting any text (e.g. Window or asStream) and then the menu item `Language>Lo
 SC has a graphical Class browser which will show all methods, arguments, subclasses, instance variables and class variables. Using the browser's buttons you can easily navigate to the class' superclass, subclasses, class source, method source, helpfile (if there is one), check references or implementation of methods.
 
 
-```supercollider
+```
 SequenceableCollection.browse;
 ```
 
@@ -42,7 +42,7 @@ SequenceableCollection.browse;
 
 ### Snooping in Classes
 
-```supercollider
+```
 // print all instance methods defined for this class
 Collection.dumpInterface;
 
@@ -123,7 +123,7 @@ Class.allClasses.do { | class |
 
 ### Snooping in Methods
 
-```supercollider
+```
 // does the class implement this method?
 Collection.findMethod('select');
 // -> Collection:select
@@ -165,7 +165,7 @@ Collection.dumpByteCodes('select');
 
 ### Snooping in GUI Windows
 
-```supercollider
+```
 (
 // create some windows to snoop in
 5.do { | i |
@@ -199,7 +199,7 @@ Window.closeAll; // close all the windows
 
 ### Snooping in SynthDefs
 
-```supercollider
+```
 // a synthdef to snoop in
 (
 f = SynthDef(\snoop, { | out=0 |
@@ -222,7 +222,7 @@ Lots of information on server-related snooping can be found in the [Server](../C
 Some examples
 
 
-```supercollider
+```
 s.boot;
 
 f = { PinkNoise.ar(0.1) * SinOsc.ar }; // a function
@@ -254,7 +254,7 @@ s.dumpOSC(0);
 When evaluating text in the interpreter, the variable 'this' always refers to the interpreter.
 
 
-```supercollider
+```
 // display the values of all the interpreter variables a-z
 this.dump;
 

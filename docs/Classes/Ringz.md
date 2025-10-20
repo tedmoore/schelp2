@@ -13,6 +13,7 @@ This is the same as [Resonz](../Classes/Resonz.md), except that it is a constant
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ This is the same as [Resonz](../Classes/Resonz.md), except that it is a constant
 ## Examples
 
 
-```supercollider
+```
 { Ringz.ar(Dust.ar(3, 0.3), 2000, 2) }.play
 
 { Ringz.ar(WhiteNoise.ar(0.005), 2000, 0.5) }.play
@@ -64,7 +65,7 @@ Ringz (and UGens that are based on it: [Klank](../Classes/Klank.md), [DynKlank](
 This design has a side effect: If the input is not made of impulses, the output amplitude is proportional to the sample rate.
 
 
-```supercollider
+```
 (
 a = {
     // rectangular pulse exciter (deterministic input)

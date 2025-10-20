@@ -11,6 +11,7 @@ Phase modulation sine oscillator pair.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Phase modulation sine oscillator pair.
 ## Examples
 
 
-```supercollider
+```
 play({ PMOsc.ar(Line.kr(600, 900, 5), 600, 3, 0, 0.1) }); // modulate carfreq
 
 play({ PMOsc.ar(300, Line.kr(600, 900, 5), 3, 0, 0.1) }); // modulate modfreq

@@ -15,6 +15,7 @@ Note that stopping a task and restarting it quickly may yield surprising results
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -26,6 +27,7 @@ Note that stopping a task and restarting it quickly may yield surprising results
 
 ## Instance Methods
 
+
 ### `play`
 **Arguments:**
 
@@ -36,16 +38,22 @@ Note that stopping a task and restarting it quickly may yield surprising results
 | `quant` | See the [Quant](../Classes/Quant.md) helpfile. |  
 
 ### Other control methods
+
 ### `start`
 Restart the task from the beginning.
+
 ### `resume`
 Resume the task where it left off.
+
 ### `pause`
 Stop playing now.
+
 ### `stop`
 Stop playing now. (Pause and stop have the same implementation.)
+
 ### `reset`
 Set the stream to restart from the beginning the next time it's played.
+
 ### `reschedule`
 Switch the Task to a different clock, or a different time, without stopping. See [Routine#-reschedule](../Classes/Routine.md#-reschedule) for complete documentation.
 > **Note:** If you want to reschedule a Task from within the Task itself, `thisThread.reschedule(...)` will not work, because `thisThread` refers to the Routine under control of the Task, not to the Task itself (whereas a Routine is playing on the clock directly). You must write `thisThread.threadPlayer.reschedule(...)` instead.
@@ -67,7 +75,7 @@ Other objects might need to be aware of changes in the state of a task. The foll
 
 ### What happens if you stop and start the task too quickly?
 
-```supercollider
+```
 (
 t = Task({
     50.do({ |i|
@@ -114,7 +122,7 @@ Based on the forked thread, you would expect the second "go" line of output to o
 For the above case, you can get completely stable timing by manually wrapping the Routine in a PauseStream. Note that `start` implicitly resets the routine to the beginning; using `play` instead only alters the timing, without interrupting the routine's flow.
 
 
-```supercollider
+```
 (
 r = Routine({
     ["go", thisThread.clock.beats].postln;

@@ -13,6 +13,7 @@ Output the last value before the input changed more than a threshold.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Output the last value before the input changed more than a threshold.
 ## Examples
 
 
-```supercollider
+```
 d = { |freq = 440| SinOsc.ar(LastValue.ar(freq, 20), 0, 0.2) }.play;
 
 d.set(\freq, 400);
@@ -38,7 +39,7 @@ d.free;
 
 Return the difference between current and the last changed:
 
-```supercollider
+```
 (
 d = { |out = 0, val = 1|
     SinOsc.ar(

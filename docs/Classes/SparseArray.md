@@ -13,9 +13,10 @@ The benefits of using SparseArray typically arise when creating collections cont
 
 ## Class Methods
 
+
 ### `newClear`
 Create a new SparseArray of the specified **size**, with each slot's value being **default**.
-```supercollider
+```
 g = SparseArray.newClear(20, 3);
 g.postcs;
 ```
@@ -27,9 +28,10 @@ g.postcs;
 | `size` | Number of slots in the desired array. Note that slots are not explicitly created, so the speed of creation is not related to the array size. |  
 | `default` | The default value, i.e. the value that all slots should take at first. |  
 
+
 ### `reduceArray`
 Create a new SparseArray holding the same data as **array**.
-```supercollider
+```
 a = [4, 7, 4, 4, 4, 4, 4, 4, 9, 9, 8];
 g = SparseArray.reduceArray(a, 4);
 g.postcs;
@@ -45,27 +47,30 @@ g.postcs;
 
 ## Instance Methods
 
+
 ### `put`
 Put a value at the desired index. This works just like all ArrayedCollection types. Behind the scenes the class will ensure the compact representation (deciding whether to store the value explicitly or implicitly).
-```supercollider
+```
 g = SparseArray.newClear(10, 3);
 g.put(4, \horse);
 g.put(6, [4, 5, 6]);
 g[1] = \hello; // Common compact notation
 ```
 
+
 ### `at`
 Retrieve the value at index.
-```supercollider
+```
 g = SparseArray.newClear(20, 3);
 g.put(4, \horse);
 g.at(4);
 g[4];
 ```
 
+
 ### `asArray`
 Convert to an ordinary [Array](../Classes/Array.md).
-```supercollider
+```
 g = SparseArray.newClear(20, 3);
 g.postcs;
 g.asArray;
@@ -76,7 +81,7 @@ g.asArray;
 
 Here we compare speed of Array vs SparseArray.
 
-```supercollider
+```
 // Let's create a standard array, big but with only a couple of unusual values hidden in there
 (
 {

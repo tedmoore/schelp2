@@ -13,6 +13,7 @@ Outputs non-bandlimited single sample impulses.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Outputs non-bandlimited single sample impulses.
 | `mul` | The output will be multiplied by this value. |  
 | `add` | This value will be added to the output. |  
 `Impulse` will output a `1.0` on the first sample (assuming no phase offset).If the initial `freq = 0`, a single impulse is output on first sample, followed by silence until the frequency changes.Supported rate combinations for `(freq, phase)` are `(a,a)`, `(a,k)`, `(a,i)`, `(k,k)`, `(k,i)`, `(i,k)`, `(i,i)`.`Impulse` is based on a wrapping phasor: phase advances on each frame and if the phase goes out of range and is wrapped in that frame, an impulse is output.Internally, the **phase** offset value is applied and wrapped into range *before* applying the phase increment (which is determined by the **freq**). After this phase increment, the trigger condition is checked. Therefore, it is the phase increment (freq) that triggers an impulse, *not* the phase offset.For example, if you wanted to create an impulse train by setting `freq: 0` and modulating the **phase** offset directly, `Impulse` would not support that. However, a you could generate an impulse train by phase modulation using the **rate** parameter of a [Phasor](../Classes/Phasor.md), like this:
-```supercollider
+```
 (
 {
     var f = 1000;
@@ -38,7 +39,7 @@ Outputs non-bandlimited single sample impulses.
 ## Examples
 
 
-```supercollider
+```
 { Impulse.ar(800, 0.0, 0.5, 0) }.play
 
 { Impulse.ar(XLine.kr(800, 100, 5), 0.0, 0.5, 0) }.play
@@ -47,14 +48,14 @@ Outputs non-bandlimited single sample impulses.
 
 modulate phase:
 
-```supercollider
+```
 { Impulse.ar(4, [0, MouseX.kr(0, 1)], 0.2) }.play;
 ```
 
 
 an Impulse with frequency 0 returns a single impulse:
 
-```supercollider
+```
 SynthDef(\imp, { OffsetOut.ar(0, Impulse.ar(0)); FreeSelf.kr(Impulse.kr(0)) }).add;
 fork { (1 / (1..60).scramble).do { |dt| Synth.grain(\imp);  dt.wait } };
 ```

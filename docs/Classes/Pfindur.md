@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 Embeds elements of the **pattern** into the stream until the duration comes close enough to **dur**.**Arguments:**
 
@@ -21,7 +22,7 @@ Embeds elements of the **pattern** into the stream until the duration comes clos
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pfindur(5, Pbind(\dur, Prand([1, 2, 0.5, 0.1], inf)));

@@ -13,6 +13,7 @@ The input signal value is used as an index into the table, with linear interpola
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ The input signal value is used as an index into the table, with linear interpola
 ## Examples
 
 
-```supercollider
+```
 // indexing into a fixed table
 (
 {

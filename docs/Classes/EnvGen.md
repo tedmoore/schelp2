@@ -10,7 +10,7 @@
 
 Plays back break point envelopes. The envelopes are instances of the [Env](../Classes/Env.md) class. The envelope and the arguments for `levelScale`, `levelBias`, and `timeScale` are polled when the EnvGen is triggered, and at the start of a new envelope segment. All values remain constant for the duration of each segment.
 
-```supercollider
+```
 { PinkNoise.ar(EnvGen.kr(Env.perc, doneAction: Done.freeSelf)) }.play
 ```
 
@@ -18,6 +18,7 @@ Plays back break point envelopes. The envelopes are instances of the [Env](../Cl
 
 
 ## Class Methods
+
 
 
 ### `ar`, `kr`
@@ -35,7 +36,7 @@ Plays back break point envelopes. The envelopes are instances of the [Env](../Cl
 > **Note:** The actual minimum duration of a segment is not zero, but one sample step for audio rate and one block for control rate. This may result in asynchronicity when in two envelopes of different number of levels, the envelope times add up to the same total duration. Similarly, when modulating times, the new time is only updated at the end of the current segment - this may lead to asynchronicity of two envelopes with modulated times.
 
 
-```supercollider
+```
 // as amplitude envelope
 (
 {
@@ -70,7 +71,7 @@ Plays back break point envelopes. The envelopes are instances of the [Env](../Cl
 ## Examples
 
 
-```supercollider
+```
 // retriggered envelope by Dust
 (
 {
@@ -142,7 +143,7 @@ a.free; // alternatively, free it directly.
 
 ### Specifying an envelope for each new synth
 
-```supercollider
+```
 (
 SynthDef(\help_Env_newClear, { |out = 0|
     var env, envctl;
@@ -172,7 +173,7 @@ Synth(\help_Env_newClear, [\gate, 1, \env, Env({ rrand(60, 70).midicps } ! 4, [1
 If the gate of an EnvGen is set to -1 or below, then the envelope will cutoff immediately. The time for it to cutoff is the amount less than -1, with -1 being as fast as possible, -1.5 being a cutoff in 0.5 seconds, etc. The cutoff shape and final value are read from the Env's last node.
 
 
-```supercollider
+```
 (
 SynthDef(\stealMe, { |out, gate = 1|
     Out.ar(out, { BrownNoise.ar }.dup * EnvGen.kr(Env.asr, gate, doneAction: Done.freeSelf))
@@ -191,7 +192,7 @@ s.sendMsg(\n_set, 1001, \gate, -1.1); // cutoff in 0.1 seconds
 If the synthDef has an arg named "gate", the convenience method of Node can be used: `node.release(releaseTime)`
 
 
-```supercollider
+```
 d = { |gate = 1| { BrownNoise.ar }.dup * EnvGen.kr(Env.asr, gate, doneAction: Done.freeSelf) }.play;
 d.release(3);
 ```
@@ -200,7 +201,7 @@ d.release(3);
 Forced release ignores multi-node release stages, always performing a one-node release, reading curve and end value from the Env's last node, and overwriting its duration.
 
 
-```supercollider
+```
 (
 // a Synth with a multi-node release stage
 d = { |gate = 1|
@@ -221,7 +222,7 @@ d.release();
 
 ### Fast triggering tests
 
-```supercollider
+```
 (
 {
     EnvGen.kr(
@@ -247,7 +248,7 @@ d.release();
 
 ### Modulating the levelScale
 
-```supercollider
+```
 // no, it doesn't take a ugen in ...
 (
 {
@@ -284,7 +285,7 @@ The following example shows how to do this in a SynthDef: Attack times between 0
 To hear the (potentially **loud**) short-attack artifacts, edit the `var envInit` line to read `var envInit = 0;`.
 
 
-```supercollider
+```
 (
 a = Bus.control(s, 1);
 
@@ -317,7 +318,7 @@ p = Pbind(
 The above works only for initial values. If a short attack is retriggered in the middle of a synth, then the envelope cannot adjust the low value for reattack (because the envelope's initial value is used only once, at the beginning of the synth, and never touched again). In that case, open the amplitude envelope slightly later to avoid the artifact.
 
 
-```supercollider
+```
 (
 Slider(nil, Rect(800, 200, 200, 25))
 .action_({ |view| z.set(\atk, view.value.lincurve(0, 1, 0, 0.12, 4)) })
@@ -348,7 +349,7 @@ z = SynthDef(\test, { |out = 0, freq = 100, ffreq = 500, rq = 0.25, modFactor = 
 For more information about the *control bus mapping* used in the line `a = Synth(\sine, [freq: f.asMap]);`, see [Node#-map](../Classes/Node.md#-map) and [Bus#-asMap](../Classes/Bus.md#-asmap).
 
 
-```supercollider
+```
 // Changing an Env while playing
 (
 SynthDef(\env, { |i_outbus = 0|

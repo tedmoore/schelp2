@@ -14,6 +14,7 @@ Envelope generator for polling values from an envelope. IEnvGen plays back break
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -31,7 +32,7 @@ Envelope generator for polling values from an envelope. IEnvGen plays back break
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var env =  Env([0, 0.6, 0.3, 1.0, 0], [0.1, 0.02, 0.4, 1.1], [\lin, \exp, -6, \sin]);

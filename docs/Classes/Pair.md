@@ -15,24 +15,32 @@ Most methods are inherited from the superclasses.
 
 ## Class Methods
 
+
 ### `new`
 Return new instance.
+
 ### `newFrom`
 Convert collection (e.g. arrays of arrays) to pairs.
 
 ## Instance Methods
 
+
 ### `size`
-Return the size when linking across.### `depth`
-Return the size when linking down.### `do`
-Iterate over the two elements.### `traverse`
-Same like: [depthFirstPreOrderTraversal](#depthfirstpreordertraversal)### `depthFirstPreOrderTraversal`
-Traverse the data structure first link down, then across (see [#examples](#examples)).### `depthFirstPostOrderTraversal`
+Return the size when linking across.
+### `depth`
+Return the size when linking down.
+### `do`
+Iterate over the two elements.
+### `traverse`
+Same like: [#-depthFirstPreOrderTraversal](#-depthfirstpreordertraversal)
+### `depthFirstPreOrderTraversal`
+Traverse the data structure first link down, then across (see [#examples](#examples)).
+### `depthFirstPostOrderTraversal`
 Traverse the data structure from bottom up (see [#examples](#examples)).
 ## Examples
 
 
-```supercollider
+```
 a = Pair(Pair(Pair(1, 2), 4), Pair(5, 6));
 
 a.size;

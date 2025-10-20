@@ -17,6 +17,7 @@ Generates quadratically interpolated random values at a rate given by the neares
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -29,7 +30,7 @@ Generates quadratically interpolated random values at a rate given by the neares
 ## Examples
 
 
-```supercollider
+```
 { LFNoise2.ar(1000, 0.25) }.play;
 
 // modulate frequency

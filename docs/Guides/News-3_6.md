@@ -18,7 +18,7 @@ Read [the guide](../Guides/SCIde.md)!
 The parser now posts the details of syntax errors, example:
 
 
-```supercollider
+```
 [1,2,%,4];
 123;
 ```
@@ -58,7 +58,7 @@ The process of building synthdefs now performs a simple dead code elimination pa
 String comparison operators (`==, !=, <=, >=, >, <`) are now case sensitive.
 
 
-```supercollider
+```
 "Foo" == "fOo"; // false
 ```
 

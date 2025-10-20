@@ -10,7 +10,7 @@
 
 If `in > hi`, output 1. If `in < lo`, output 0. Otherwise, repeat the last sample of output, assumed to be 0 at initialization. In sclang-flavored pseudocode:
 
-```supercollider
+```
 out[i] = if(in[i] < lo[i]) {
     0
 } {
@@ -27,6 +27,7 @@ out[i] = if(in[i] < lo[i]) {
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -39,7 +40,7 @@ out[i] = if(in[i] < lo[i]) {
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 { Schmidt.kr(SinOsc.kr(1, 0, 0.2), -0.15, 0.15) }.scope; // see the trigger

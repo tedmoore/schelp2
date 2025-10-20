@@ -11,6 +11,7 @@ Copies low bins from one input and the high bins of the other.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Copies low bins from one input and the high bins of the other.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 

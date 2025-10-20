@@ -17,12 +17,13 @@ Similar to [Pfindur](../Classes/Pfindur.md), but works with the value directly.
 
 ## Class Methods
 
+
 ### `new`
 Embeds elements of the **pattern** into the stream until the sum comes close enough to **sum**. At that point, the difference between the specified sum and the actual running sum is embedded.
 ## Examples
 
 
-```supercollider
+```
 (
 var a, x;
 a = Pconst(5, Prand([1, 2, 0.5, 0.1], inf));

@@ -13,6 +13,7 @@ The time step amount `h` determines the rate at which the ODE is evaluated. High
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -32,14 +33,14 @@ The time step amount `h` determines the rate at which the ODE is evaluated. High
 ## Examples
 
 
-```supercollider
+```
 // vary frequency
 { LorenzL.ar(MouseX.kr(20, SampleRate.ir)) * 0.3 }.play(s);
 ```
 
 
 
-```supercollider
+```
 // randomly modulate params
 (
 { LorenzL.ar(
@@ -53,7 +54,7 @@ The time step amount `h` determines the rate at which the ODE is evaluated. High
 
 
 
-```supercollider
+```
 // as a frequency control
 { SinOsc.ar(Lag.ar(LorenzL.ar(MouseX.kr(1, 200)), 3e-3)*800+900)*0.4 }.play(s);
 ```

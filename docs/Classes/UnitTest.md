@@ -20,11 +20,13 @@ When running all tests of one class (see [#*run](#*run)), each test method is ca
 ## Class Methods
 
 
+
 ### `gui`
 A graphical interface to run and browse all tests
-```supercollider
+```
 UnitTest.gui
 ```
+
 
 
 ### `reportPasses`
@@ -34,6 +36,7 @@ Accessor controlling whether passing tests should be reported. Defaults to `true
 |----------|-------------|
 | `value` | Should be `true` or `false`. |  
 
+
 ### `passVerbosity`
 Accessor controlling whether extra details should be reported for passing tests.Defaults to `UnitTest.full` so that all details are reported; however this behaviour may be too verbose for some, for whom it is sufficient to see that a test is passing without needing to see the detail. If set to `UnitTest.brief`, and [#*reportPasses](#*reportpasses)  is true, passes will be reported, but without any extra details which may be provided by assertions.**Arguments:**
 
@@ -41,9 +44,10 @@ Accessor controlling whether extra details should be reported for passing tests.
 |----------|-------------|
 | `value` | Should be `UnitTest.full` or `UnitTest.brief`. |  
 
+
 ### `run`
 Run all methods whose names begin with `test_`.
-```supercollider
+```
 TestUnitTest.new.run;
 ```
 
@@ -54,9 +58,10 @@ TestUnitTest.new.run;
 | `reset` | If `true`, first runs [#*reset](#*reset) on the class. |  
 | `report` | If `true`, outputs the test results. |  
 
+
 ### `runTest`
 Run a single test method.
-```supercollider
+```
 UnitTest.reset;
 UnitTest.runTest("TestUnitTest:test_assert");
 ```
@@ -67,9 +72,10 @@ UnitTest.runTest("TestUnitTest:test_assert");
 |----------|-------------|
 | `methodName` | A [String](../Classes/String.md) referring to the class and test method within it, e.g. `"TestPolyPlayerPool:test_prepareChildrenToBundle"`. |  
 
+
 ### `runAll`
 Run the entire test suite. As this method addresses the entire test suite, it should be called only on `UnitTest`. Calling it on any of its subclasses will result in throwing an `Error`.
-```supercollider
+```
 UnitTest.reset;
 UnitTest.runAll;
 ```
@@ -78,9 +84,10 @@ UnitTest.runAll;
 
 ## Instance Methods
 
+
 ### `runTestMethod`
 Run a single test method of this class
-```supercollider
+```
 TestUnitTest.new.runTestMethod(TestUnitTest.findMethod(\test_assert));
 ```
 
@@ -90,9 +97,10 @@ TestUnitTest.new.runTestMethod(TestUnitTest.findMethod(\test_assert));
 |----------|-------------|
 | `method` | the method to run |  
 | `report` | Reports the result of the test if `true` (default is `true`) |  
-**Returns:** (describe returnvalue here)### `assert`
+**Returns:** (describe returnvalue here)
+### `assert`
 Asserts that an expression must be true.
-```supercollider
+```
 this.assert(2 == 2, "passes");
 this.assert(2 == 2.00001, "fails");
 ```
@@ -106,9 +114,10 @@ this.assert(2 == 2.00001, "fails");
 | `report` | Reports the result of the test if `true`. |  
 | `onFailure` | If not `nil`, a failure stops the tests and evaluates this function. |  
 | `details` | Some optional extra details which will be passed to the reporting framework for display unless brief reporting is requested (see [#*passVerbosity](#*passverbosity)). |  
+
 ### `assertEquals`
 Asserts that an expression `a` is equal to the value `b`, where equality is determined according to `a`'s implementation of `==`.Automatically passes details of the equality check to the reporting framework, which will be displayed if the assertion fails, and also if it passes and [#*reportPasses](#*reportpasses) is `true` and [#*passVerbosity](#*passverbosity) is not set to `UnitTest.brief`.
-```supercollider
+```
 this.assertEquals(2 + 2, 4, "passes");
 this.assertEquals(2 + 2, 5, "fails");
 ```
@@ -122,9 +131,10 @@ this.assertEquals(2 + 2, 5, "fails");
 | `message` | A message describing the purpose of the assertion, e.g. `"Adding two numbers should return their sum."`. Posted if `report` is true. |  
 | `report` | Reports the result of the test if `true` (default is `true`) |  
 | `onFailure` | If not `nil`, a failure stops the tests and evaluates this function. |  
+
 ### `assertFloatEquals`
 Asserts that an expression `a` returning a float is within a given range (`within`) of being equal to `b`.Automatically passes details of the equality check to the reporting framework, which will be displayed if the assertion fails, and also if it passes and [#*reportPasses](#*reportpasses) is `true` and [#*passVerbosity](#*passverbosity) is not set to `UnitTest.brief`.
-```supercollider
+```
 this.assertFloatEquals(2, 2.0001, "Pass since 2 is close enough to 2.0001.", 0.001);
 this.assertFloatEquals(2, 2.0001, "Fail since 2 isn't close enough to 2.0001.", 0.0001);
 ```
@@ -139,9 +149,10 @@ this.assertFloatEquals(2, 2.0001, "Fail since 2 isn't close enough to 2.0001.", 
 | `within` | The range within which `a` must be of `b` in order for the test to pass. |  
 | `report` | Reports the result of the test if `true` (default is `true`) |  
 | `onFailure` | If not `nil`, a failure stops the tests and evaluates this function. |  
+
 ### `assertArrayFloatEquals`
 Make sure that the two arrays of floats `a` and `b` equal within a given range (`within`).
-```supercollider
+```
 this.assertArrayFloatEquals([2, 3] + 0.0001, [2, 3], "Pass since pairs of floats are close enough", 0.001);
 this.assertArrayFloatEquals([2, 3.0001], [2, 3], "Fail since pairs of floats aren't both close enough", 0.0001);
 ```
@@ -156,14 +167,16 @@ this.assertArrayFloatEquals([2, 3.0001], [2, 3], "Fail since pairs of floats are
 | `within` | The range within which each item of `a` must be of the corresponding item in `b` in order for the test to pass. |  
 | `report` | Reports the result of the test if `true` (default is `true`) |  
 | `onFailure` | If not `nil`, a failure stops the tests and evaluates this function. |  
+
 ### `ifAsserts`
 Make a further assertion only if it passed, or only if it failed.
-```supercollider
+```
 (
 a = UnitTest.new;
 a.ifAsserts(2 == 3, "yes", { a.assert(2 == 4) }, { a.assert(1 == 1, "but this is correct") });
 )
 ```
+
 
 ### `assertException`
 Make sure that a specific [Exception](../Classes/Exception.md) or [Error](../Classes/Error.md) is thrown.**Arguments:**
@@ -176,13 +189,15 @@ Make sure that a specific [Exception](../Classes/Exception.md) or [Error](../Cla
 | `report` | Reports the result of the test if `true` (default is `true`) |  
 | `onFailure` | If not `nil`, a failure stops the tests and evaluates this function. |  
 | `details` | Some optional extra details which will be passed to the reporting framework for display unless brief reporting is requested (see [#*passVerbosity](#*passverbosity)). |  
+
 ### `assertNoException`
-Make sure that a specific [Exception](../Classes/Exception.md) or [Error](../Classes/Error.md) is **not** thrown. For arguments, see [assertException](#assertexception).### `wait`
+Make sure that a specific [Exception](../Classes/Exception.md) or [Error](../Classes/Error.md) is **not** thrown. For arguments, see [#-assertException](#-assertexception).
+### `wait`
 Wait for a predicate function to return `true`. Considers the test failed after `maxTime`. Only valid within a test (or a routine).
 > **Note:** It's best to avoid using this method in tests. See [CondVar#-waitFor](../Classes/CondVar.md#-waitfor) for a better option.
 
 
-```supercollider
+```
 (
 {
     s.reboot;
@@ -191,9 +206,10 @@ Wait for a predicate function to return `true`. Considers the test failed after 
 )
 ```
 
+
 ### `bootServer`
 Wait for server boot until continued. Only valid within a test (or a routine).If already booted, then freeAll and create new allocators.
-```supercollider
+```
 (
 {
     UnitTest.new.bootServer(s);
@@ -201,14 +217,15 @@ Wait for server boot until continued. Only valid within a test (or a routine).If
 )
 ```
 
+
 ### `debug`
-Supply some debugging information relevant to the currently running test case. This will be displayed immediately preceding any details which may be displayed through use of the `details` argument of [passed](#passed) and [failed](#failed).**Arguments:**
+Supply some debugging information relevant to the currently running test case. This will be displayed immediately preceding any details which may be displayed through use of the `details` argument of [#-passed](#-passed) and [#-failed](#-failed).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `text` | The debugging text. |  
 
-```supercollider
+```
 test_myMethod {
     var obj = MyClass.new;
     this.debug("obj has color" + obj.color);
@@ -217,7 +234,7 @@ test_myMethod {
 ```
 
 will result in:
-```supercollider
+```
 FAIL: a TestMyClass: test_myMethod
 obj has color red
 Is:
@@ -225,6 +242,7 @@ Is:
 Should be:
          5
 ```
+
 
 ### `passed`
 Register a passed test.**Arguments:**
@@ -236,9 +254,10 @@ Register a passed test.**Arguments:**
 | `report` | Reports the result of the test if true and [#*reportPasses](#*reportpasses) is true. |  
 | `details` | Some optional extra details which will be displayed if [#*reportPasses](#*reportpasses) is true and [#*passVerbosity](#*passverbosity) is not set to `UnitTest.brief`. |  
 
-```supercollider
+```
 this.passed(message: "this passed");
 ```
+
 
 ### `failed`
 Register a test failure.**Arguments:**
@@ -250,7 +269,7 @@ Register a test failure.**Arguments:**
 | `report` | Reports the result of the test if true. |  
 | `details` | Some optional extra details which will be displayed if `report`is true. |  
 
-```supercollider
+```
 this.failed(message: "this failed");
 ```
 
@@ -260,7 +279,7 @@ this.failed(message: "this failed");
 Write tests by subclassing UnitTest, and defining methods whose names begins `test_`. Each test method will be called from a fresh instance of the subclass.
 If you implement the methods `setUp` and `tearDown` in your test class, they will be called before and after every test. This can help to eliminate repetitive code, and makes it easier to maintain your tests by ensuring that they all run under the same set of conditions.
 
-```supercollider
+```
 TestYourClass : UnitTest {
     setUp {
         // this will be called before each test

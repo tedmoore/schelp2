@@ -13,6 +13,7 @@ Returns the number of radians per sample.
 
 ## Class Methods
 
+
 ### `ir`
 
 

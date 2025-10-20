@@ -10,7 +10,7 @@
 
 Returns the minimum difference of two values in modulo arithmetics. On a circle, there are two distances between two points. This UGen returns the smaller value of the two.
 
-```supercollider
+```
 { var a = Line.ar(0, 4, 0.01), d = ModDif.ar(a); [a, d] }.plot;
 { var a = Line.ar(0, 4, 0.01); ModDif.ar(a, 0, (1..4)) }.plot;
 { var a = Line.ar(0, 4, 0.01); ModDif.ar(a, (0, 0.25 .. 1), 1) }.plot;
@@ -21,6 +21,7 @@ Returns the minimum difference of two values in modulo arithmetics. On a circle,
 
 ## Class Methods
 
+
 ### `ar`, `kr`, `ir`
 **Arguments:**
 
@@ -29,7 +30,7 @@ Returns the minimum difference of two values in modulo arithmetics. On a circle,
 | `x` | First input value |  
 | `y` | Second input value |  
 | `mod` | Modulo (maximum value, double of the maximal difference).
-```supercollider
+```
 // different moduli
 (
 {

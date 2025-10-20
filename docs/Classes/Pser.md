@@ -13,7 +13,7 @@ is like [Pseq](../Classes/Pseq.md), however the repeats variable gives **the num
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pser([1, 2, 3], 5);    // return 5 items

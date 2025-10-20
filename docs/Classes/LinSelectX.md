@@ -13,6 +13,7 @@ The output is mixed from an array of inputs, linearly interpolating from two adj
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ The output is mixed from an array of inputs, linearly interpolating from two adj
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a;

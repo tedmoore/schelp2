@@ -20,6 +20,7 @@ The difference is in what happens if the event pattern stops on its own before `
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -34,7 +35,7 @@ The difference is in what happens if the event pattern stops on its own before `
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef(\help_sinegrain,
     { |out = 0, freq = 440, sustain = 0.05, pan|

@@ -14,6 +14,7 @@ Also see: [Server#-meter](../Classes/Server.md#-meter)
 
 ## Class Methods
 
+
 ### `new`
 Create a new ServerMeter.**Arguments:**
 
@@ -26,17 +27,20 @@ Create a new ServerMeter.**Arguments:**
 
 ## Instance Methods
 
+
 ### `window`
-Get a reference to the [Window](../Classes/Window.md) of this ServerView**Returns:** a [Window](../Classes/Window.md) reference### `meterView`
+Get a reference to the [Window](../Classes/Window.md) of this ServerView**Returns:** a [Window](../Classes/Window.md) reference
+### `meterView`
 Get a reference to the [ServerMeterView](../Classes/ServerMeterView.md) of this ServerView**Returns:** a [ServerMeterView](../Classes/ServerMeterView.md) reference
 > **Note:** A ServerMeter encapsulates both a [Window](../Classes/Window.md) and a [ServerMeterView](../Classes/ServerMeterView.md) within that Window. For more information about Windows and views see [GUI-Introduction#Basic elements: Windows, views and containers](../Guides/GUI-Introduction.md#basic-elements:-windows,-views-and-containers)
+
 
 ### `position`
 the position of the [ServerMeter](../Classes/ServerMeter.md) window. The value should be a [Point](../Classes/Point.md), e.g. `x@y`, or respond to `.asPoint`. E.g.: setting the position to `150@50` places the bottom left corner of the meter window 150 pixels from the left and 50 pixels up from the bottom of the screen.
 ## Examples
 
 
-```supercollider
+```
 s = Server.internal; // use the internal server
 s.boot;
 

@@ -16,7 +16,7 @@ By now we've learned enough OOP theory that we know that we have classes, which 
 Recall that anything in the code that begins with an uppercase letter is a class. Most classes have help files. If you select a class by double-clicking on it, and press Cmd - d (that's hold down the Cmd key and press the d key) the help file for that class will open if it exists. (If not you'll get the main help window.) Try it with this example below:
 
 
-```supercollider
+```
 SinOsc
 ```
 
@@ -28,7 +28,7 @@ Beneath that are some examples of the class in action. These can be very useful 
 You may be wondering how to access the helpfiles for Function and Array, since they often appear in code as {...} and [...]. They are also named classes, so by typing in the following, you can also select and Cmd-? on them.
 
 
-```supercollider
+```
 Function
 Array
 ```
@@ -42,7 +42,7 @@ Some methods also have helpfiles, and there are a number of ones on general topi
 Remember the example of Mix(...) vs. Mix.new(...)? SC has a number of such shorthand forms or alternate syntaxes. A common example is the distinction between Functional and receiver notation. This means that the notation `someObject.someMethod(anArg)` is equivalent to `someMethod(someObject, anArg)`. Here's a concrete example. Both of these do exactly the same thing:
 
 
-```supercollider
+```
 { SinOsc.ar(440, 0, 0.2) }.play;
 
 play({ SinOsc.ar(440, 0, 0.2) });

@@ -13,6 +13,7 @@ Choose which random number generator to use for this synth. All synths that use 
 
 ## Class Methods
 
+
 ### `kr`, `ir`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Choose which random number generator to use for this synth. All synths that use 
 ## Examples
 
 
-```supercollider
+```
 // start a noise patch and set the id of the generator
 (
 SynthDef("help-RandID", { |out = 0, id = 1|

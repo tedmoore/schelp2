@@ -13,6 +13,7 @@ Lag3 is equivalent to `Lag.kr(Lag.kr(Lag.kr(in, time), time), time)`, thus resul
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Lag3 is equivalent to `Lag.kr(Lag.kr(Lag.kr(in, time), time), time)`, thus resul
 ## Examples
 
 
-```supercollider
+```
 (
 // used to lag pitch
 {

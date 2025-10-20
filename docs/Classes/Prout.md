@@ -14,6 +14,7 @@ note that there is a shortcut to create a Prout:
 
 ## Class Methods
 
+
 ### `new`
 Returns a routine from the function.**Arguments:**
 
@@ -24,7 +25,7 @@ Returns a routine from the function.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 (
 var a;
 a = Prout({ loop { 1.yield; 2.yield; 7.yield; 10.do { 1.0.rand.yield } } });

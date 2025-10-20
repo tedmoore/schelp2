@@ -14,6 +14,7 @@ Mouse button UGen.
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Mouse button UGen.
 ## Examples
 
 
-```supercollider
+```
 { SinOsc.ar(MouseButton.kr(400, 440, 0.1), 0, 0.1) }.play;
 { SinOsc.ar(MouseButton.kr(400, 740, 2), 0, 0.1) }.play;
 

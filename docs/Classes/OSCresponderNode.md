@@ -23,7 +23,7 @@ See [OSC_communication](../Guides/OSC_communication.md) for more details.
 
 ### Setting up OSCresponderNode for listening to a remote application
 
-```supercollider
+```
 // example: two SuperCollider apps communicating
 
 // application 1:
@@ -50,7 +50,7 @@ o.remove;
 
 ### Listening to data from _any_ client
 
-```supercollider
+```
 // same as above, but we set the address to nil so we can receive from anywhere
 // no need for a NetAddr since we are just listening (and not sending)
 
@@ -63,7 +63,7 @@ o.remove;
 
 ### Listening to data from _any_ client, but from a specific host
 
-```supercollider
+```
 // same as above, but we use a NetAddr with a port of nil, so we can receive from a specific host, but from any port
 
 n = NetAddr("127.0.0.1", nil); // the url should be the one of computer of app 2
@@ -76,7 +76,7 @@ o.remove;
 
 ### Listening to data from the server
 
-```supercollider
+```
 // example from SendTrig
 
 (
@@ -109,7 +109,7 @@ x.free;
 
 ### Watching for something specific
 
-```supercollider
+```
 // end of group message
 
 s.boot;
@@ -134,7 +134,7 @@ a.remove;
 
 ### Watching for errors
 
-```supercollider
+```
 // example from ServerErrorGui in crucial lib
 
 f = OSCresponderNode(s.addr, '/fail', { |time, responder, msg|

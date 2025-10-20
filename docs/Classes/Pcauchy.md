@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -21,7 +22,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
 var a, c, w;
 a = Pcauchy(0.0, 1.0, inf);

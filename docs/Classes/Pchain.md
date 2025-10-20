@@ -18,6 +18,7 @@ Values produced by the stream of **pattern2** are used as inval to the stream of
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -28,12 +29,13 @@ Values produced by the stream of **pattern2** are used as inval to the stream of
 
 ## Instance Methods
 
+
 ### `<>`
 Add another pattern to the chain.
 ## Examples
 
 
-```supercollider
+```
 (
 Pchain(
     Pbind(\detune, Pseq([-30, 0, 40], inf), \dur, Prand([0.2, 0.4], inf)),
@@ -75,7 +77,7 @@ Pchain(a, b, c).trace.play;
 pattern <> pattern <> pattern
 
 
-```supercollider
+```
 // implicitly, the composition operator <> returns a Pchain when applied to a pattern.
 // so that a <> b creates a Pchain (a, b).
 // as seen above, in Pchain(a, b), a specifies (and overrides) b: b is the input to a.

@@ -13,6 +13,7 @@ Comb delay line with cubic interpolation which uses a buffer for its internal me
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Comb delay line with cubic interpolation which uses a buffer for its internal me
 ## Examples
 
 
-```supercollider
+```
 // These examples compare the variants, so that you can hear the difference in interpolation
 
 // allocate buffer

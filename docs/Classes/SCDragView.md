@@ -17,13 +17,14 @@ Users will not normally directly create instances of SCDragView, but only use it
 ### Subclassing and Internal Methods
 The following methods are usually not used directly or are called by a primitive. Programmers can still call or override these as needed.
 
+
 ### `defaultGetDrag`
 The method called by default when initiating a drag. Returns object.
 
 ## Examples
 
 
-```supercollider
+```
 (
 s.waitForBoot({    // only needed if you are using sound
     w = Window.new.front;

@@ -13,6 +13,7 @@ Two channel equal power panner. Pan2 takes the square root of the linear scaling
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Two channel equal power panner. Pan2 takes the square root of the linear scaling
 ## Examples
 
 
-```supercollider
+```
 // hear the difference, LinPan having a slight drop in the middle...
 { LinPan2.ar(SinOsc.ar(440), Line.kr(-1, 1, 5)) }.play
 

@@ -12,7 +12,7 @@ This document is macOS (SCapp) specific in key commands, though the principles e
 To run (evaluate) one line of code, such as
 
 
-```supercollider
+```
 { SinOsc.ar([400, 401], 0, 0.1) * Saw.ar([11, 33], 1) * EnvGen.kr(Env.sine(10)) }.play
 ```
 
@@ -20,7 +20,7 @@ To run (evaluate) one line of code, such as
 first make sure that the localhost server is booted. Then put the cursor anywhere on the line (shown above) and press <enter>. If you don't have an enter key, then you can use ctrl-Return, Ctrl-c, fn-Return( on Some Macs), or Shift-Return. The server will synthesize audio and text that looks something like
 
 
-```supercollider
+```
 Synth("-613784702" : 1000)
 ```
 
@@ -38,7 +38,7 @@ To help with the selection process, examples with more than one line often are p
 Then press enter (to run the example).
 
 
-```supercollider
+```
 (
 {
     RLPF.ar(
@@ -54,7 +54,7 @@ Then press enter (to run the example).
 The server will synthesize audio and text that looks something like
 
 
-```supercollider
+```
 Synth("-393573063" : 1000)
 ```
 
@@ -70,13 +70,13 @@ To scope whatever it is you're synthesizing (create a graphical display of the w
 
 1. make sure the server is running (press the boot button)
 2. evaluate your code as described above.For example, run
-```supercollider
+```
 { SinOsc.ar([400, 401], 0, 0.5) * Saw.ar([11, 33], 0.5) }.play
 ```
 
 
 3. then evaluate
-```supercollider
+```
 s.scope(2)
 ```
 
@@ -86,7 +86,7 @@ which will produce a window with the title of "stethoscope."
 As a shortcut to steps 2 through 4, send the scope message directly to the example.
 
 
-```supercollider
+```
 { SinOsc.ar([400, 401], 0, 0.5) * Saw.ar([11, 33], 0.5) }.scope(2)
 ```
 
@@ -101,7 +101,7 @@ The localhost and the internal server windows have buttons, on the far right, to
 Run the following line of code to see where your sound file was saved...
 
 
-```supercollider
+```
 thisProcess.platform.recordingsDir;
 ```
 

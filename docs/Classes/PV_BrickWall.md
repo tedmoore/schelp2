@@ -13,6 +13,7 @@ Clears bins above or below a cutoff point.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Clears bins above or below a cutoff point.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

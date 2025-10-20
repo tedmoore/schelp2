@@ -13,7 +13,7 @@ The general contract for CallOnce is that any calls into the function after the 
 Since it executes its function (at most) once, CallOnce is not a general-purpose function memoization facility for functions with arguments.
 Basic example (see end of page for more):
 
-```supercollider
+```
 c = CallOnce { |flag| if(flag) { "woking...".postln; "done:" + flag } };
 c.value(true);  // -> done: true (and posts "woking...")
 c.value(false); // -> done: true (nothing posted)
@@ -23,6 +23,7 @@ c.value(false); // -> done: true (nothing posted)
 
 
 ## Class Methods
+
 
 ### `new`
 **Arguments:**
@@ -34,9 +35,12 @@ c.value(false); // -> done: true (nothing posted)
 
 ## Instance Methods
 
+
 ### `clear`
-Cancels the CallOnce, meaning that subsequent calls to `value` will not execute the wrapped function at all.**Returns:** the CallOnce.### `didEvaluate`
-Report if the CallOnce is considered already evaluated.**Returns:** `false` if neither `clear` nor `value` were called previously; `true` otherwise.### `value`
+Cancels the CallOnce, meaning that subsequent calls to `value` will not execute the wrapped function at all.**Returns:** the CallOnce.
+### `didEvaluate`
+Report if the CallOnce is considered already evaluated.**Returns:** `false` if neither `clear` nor `value` were called previously; `true` otherwise.
+### `value`
 If `clear` was called previously, the `value` call has no side-effect. Otherwise, on the first call to `value` the function wrapped by the CallOnce is evaluated with the arguments provided to `value` and the result of this evaluation is stored as the CallOnce's result, used to answer all subsequent calls to `value`.**Arguments:**
 
 | Argument | Description |
@@ -49,7 +53,7 @@ If `clear` was called previously, the `value` call has no side-effect. Otherwise
 ## Examples
 
 
-```supercollider
+```
 r = 1; // some resource
 c = CallOnce {  r = r - 1; postln("Resource is now released:" + r); r };
 c.didEvaluate; // -> false

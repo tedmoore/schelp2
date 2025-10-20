@@ -11,7 +11,7 @@
 FreqScopeView shows the frequency spectrum of a specified audio bus.
 
 > **Note:** The scope will remain active after a command-period. To turn it off you must use the 'active' method. Very important: You must run `kill()` when the parent window is closed to avoid problems. It also frees the buffers that the scope allocated and stops the FFT analysis synth. So:
-```supercollider
+```
 (
 w = Window("My Analyzer", Rect(0, 0, 511, 300));
 f = FreqScopeView(w, w.view.bounds);
@@ -26,6 +26,7 @@ w.front;
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 
@@ -35,7 +36,7 @@ w.front;
 | `bounds` | An instance of [Rect](../Classes/Rect.md), or a [Point](../Classes/Point.md) indicating `width@height`. |  
 | `server` | The server to be shown in scope. |  
 Example:
-```supercollider
+```
 // Start server
 s.boot;
 
@@ -52,6 +53,7 @@ w.front;
 ```
 
 
+
 ### `response`
 Create a scope in a special frequency-response mode. This uses FFT-based spectral division to estimate the frequency response of some effect, on the assumption that the signal to bus1 is transformed to the signal at bus2 by some linear time-invariant process.**Arguments:**
 
@@ -63,7 +65,7 @@ Create a scope in a special frequency-response mode. This uses FFT-based spectra
 | `bus2` | The bus on which the "post" signal is found. |  
 | `freqMode` | Linear (0) or log(1) frequency mode. Defaults to 1. |  
 Example:
-```supercollider
+```
 s.boot
 
 // basic usage. try these. Each one will open a new window
@@ -92,31 +94,37 @@ The following methods are usually not used directly or are called by a primitive
 
 ## Instance Methods
 
+
 ### `kill`
-Very important. This must be run when the parent window is closed to avoid problems. It also frees the buffers that the scope allocated and stops the FFT analysis synth.### `active`
+Very important. This must be run when the parent window is closed to avoid problems. It also frees the buffers that the scope allocated and stops the FFT analysis synth.
+### `active`
 Turn the scope on or off.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `bool` | An instance of [Boolean](../Classes/Boolean.md). |  
+
 ### `freqMode`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `mode` | 0 = linear, 1 = logarithmic. |  
+
 ### `inBus`
 The bus to listen on.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `num` | An audio [Bus](../Classes/Bus.md) number. |  
+
 ### `dbRange`
 Get/set the amplitude range.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `db` | A [Number](../Classes/Number.md). |  
+
 ### `special`
 Put the scope into a special mode using a user-specified [SynthDef](../Classes/SynthDef.md). Note that only very particular SynthDefs should be used, namely ones that are derived from the `\freqScope0` or `\freqScope1` SynthDefs. Most users will not need to use this method directly, but it can be used to provide a customised analysis shown in the scope.**Arguments:**
 
@@ -126,37 +134,52 @@ Put the scope into a special mode using a user-specified [SynthDef](../Classes/S
 | `extraArgs` | Extra arguments that you may wish to pass to the synth. |  
 
 ### instance variables
+
 ### `server`
 the server that is freqscoped
+
 ### `synth`
 the synth running the freqscope analysis
+
 ### `scope`
 the scopeview that shows the running analysis
+
 ### `scopebuf`
 the buffer used by the scope
 
 ### Internal Methods
 The following methods are usually not used directly or are called by a primitive. Programmers can still call or override these in subclasses as needed.
 
+
 ### `initFreqScope`
 initialize and show on parent view
+
 ### `doesNotUnderstand`
 redirects methods to scope view variable
+
 ### `start`
+
 
 ### `allocBuffers`
 
+
 ### `freeBuffers`
+
 
 ### `bufSize`
 
+
 ### `doOnServerQuit`
+
 
 ### `doOnServerTree`
 
+
 ### `shmScopeAvailable`
 
+
 ### `specialSynthArgs`
+
 
 ### `specialSynthDef`
 
@@ -164,7 +187,7 @@ redirects methods to scope view variable
 ## Examples
 
 
-```supercollider
+```
 // Start server
 s.boot;
 

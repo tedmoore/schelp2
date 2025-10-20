@@ -9,7 +9,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
 a = Ptime.new;
 x = a.asStream;

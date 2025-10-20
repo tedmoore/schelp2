@@ -15,7 +15,7 @@ To see how a clock "plays" a routine, first examine how a function works in a ro
 The first argument (and usually the only argument) to a routine is a function.
 
 
-```supercollider
+```
 // template for a routine
 Routine({ ".... code within curly braces is a function .... "});
 ```
@@ -24,7 +24,7 @@ Routine({ ".... code within curly braces is a function .... "});
 A .yield message to an expression in a function (in a routine) returns a value.
 
 
-```supercollider
+```
 r = Routine({ "hello, world".yield.postln });
 
 // to evaluate a routine, send a .next message
@@ -36,7 +36,7 @@ r.next;
 Evaluate (again)
 
 
-```supercollider
+```
 r.next;
 ```
 
@@ -44,7 +44,7 @@ r.next;
 The routine above returns nil when its evaluated a second time. This is because once a routine "yields" and if there's no additional code after the .yield message, the routine is finished, over, and done - unless it receives a reset message. Then it can start over again.
 
 
-```supercollider
+```
 r.next;        // returns nil
 r.reset;    // reset the routine
 r.next;        // it works!
@@ -54,7 +54,7 @@ r.next;        // it works!
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-```supercollider
+```
 (
 r = Routine({
     "hello, world".yield;
@@ -68,7 +68,7 @@ r = Routine({
 The first three .next messages return a string. The fourth .next message returns nil.
 
 
-```supercollider
+```
 r.next;    // returns a string
 r.next;    // returns a string
 r.next;    // returns a string
@@ -79,7 +79,7 @@ r.next;    // returns nil
 Reset the routine.
 
 
-```supercollider
+```
 r.reset;
 
 r.next;
@@ -94,7 +94,7 @@ r.next;
 Use a .do message in a routine to make a loop.
 
 
-```supercollider
+```
 (
 r = Routine({
 
@@ -113,7 +113,7 @@ r = Routine({
 Evaluate the routine one more time than the loop in the routine allows.
 
 
-```supercollider
+```
 4.do({ r.next.postln });
 ```
 
@@ -126,7 +126,7 @@ The routine returned three strings followed by nil.
 Rewrite the routine so that it includes a .wait message.
 
 
-```supercollider
+```
 (
 r = Routine({
 
@@ -146,7 +146,7 @@ r = Routine({
 Then "play" the routine, eg, send it a .play message.
 
 
-```supercollider
+```
 r.play;
 ```
 
@@ -154,7 +154,7 @@ r.play;
 Append a .reset message to the routine so that it can start over.
 
 
-```supercollider
+```
 r.reset.play;
 ```
 
@@ -167,7 +167,7 @@ When a routine receives a .play message, control (of the routine) is redirected 
 SuperCollider has three clocks, each of which has a help file.
 
 
-```supercollider
+```
 SystemClock        // the most accurate
 AppClock        // for use with GUIs
 TempoClock        // to schedule in beats
@@ -177,7 +177,7 @@ TempoClock        // to schedule in beats
 The .play message is a convenience that allows one to write
 
 
-```supercollider
+```
 r.reset.play;        // reset the routine before playing it
 ```
 
@@ -185,7 +185,7 @@ r.reset.play;        // reset the routine before playing it
 instead of
 
 
-```supercollider
+```
 SystemClock.play(r)
 ```
 
@@ -196,7 +196,7 @@ SystemClock.play(r)
 Enclose synths within routines. It's often the case that the synthdef used by the synth in routines should have an envelope with a doneAction parameter set to 2 (to deallocate the memory needed for the synth after its envelope has finished playing).
 
 
-```supercollider
+```
 (
 // DEFINE A SYNTHDEF
 SynthDef("fm2", {
@@ -256,7 +256,7 @@ r.reset.play;
 Process synths spawned in a routine through effects that run outside of the routine.
 
 
-```supercollider
+```
 (
 // DEFINE A SYNTHDEF
 SynthDef("echoplex", {

@@ -25,9 +25,10 @@ Proxies for synths, tasks and patterns as implemented in JITLib are extremely fl
 
 
 ### Creation
+
 ### `new`
 Create a new JITGui that will be watching an object and displaying its state.
-```supercollider
+```
 g = JITGui.new(nil, 0);        // make a JITGui
 g.object = 123;                // its object gets shown asCompileString
 g.object = (key: \otto);     // if the object understands .key, key gets shown as name
@@ -53,60 +54,82 @@ g.close;
 
 ### Accessing Instance Variables
 
-```supercollider
+```
 g.dump;
 ```
 
 
+
 ### `object`
 the object to watch
+
 ### `numItems`
 the number of display items to use, e.g. how many fields for text display, or how many sliders for single-number parameters.
+
 ### `parent`
 a parent view on which the gui is displayed.
+
 ### `bounds`
 the size and position of the JITGui
+
 ### `zone`
 a [CompositeView](../Classes/CompositeView.md) inside the parent that holds the JITGui's views.
+
 ### `minSize`
 a JITGuis calculates its own minimum size based on numItems and options.
+
 ### `defPos`
 the default position where the JITGui is shown if it is in its own window.
+
 ### `skin`
 (Appearance)the GUI skin to use. By default this is `GUI.skins.jit` .
+
 ### `font`
 (Appearance)the font, also taken from JITGui.skin.
+
 ### `nameView`
 (specific in the JITGui class)displays the object's key or name if available.
+
 ### `csView`
 (specific in the JITGui class)displays the object's compileString.
+
 ### `prevState`
 (common to all JITGuis)the last observed state which is kept around for comparison.
+
 ### `skipjack`
 (common to all JITGuis)the skipjack that watches the object's state so it can be updated.
+
 ### `scroller`
 (common to all JITGuis)an [EZScroller](../Classes/EZScroller.md) used for scrolling which of a list of items is shown. see e.g. [TdefGui](../Classes/TdefGui.md) for usage.
+
 ### `hasWindow`
 (common to all JITGuis)a flag whether the JITGui has made its own window, and thus owns it.
 
 ### Instance Methods
+
 ### `object`
 put an object in the gui - if the gui accepts it.
+
 ### `accepts`
 test whether obj is a valid object to show in a JITGui. In **JITGui** itself, all objects are accepted, in the subclasses, **obj** can either be nil or a specific class, such as [Tdef](../Classes/Tdef.md), [Pdef](../Classes/Pdef.md), [Ndef](../Classes/Ndef.md)
+
 ### `name`
-set the text of the [nameView](#nameview) and the window (if it [hasWindow](#haswindow))
+set the text of the [#-nameView](#-nameview) and the window (if it [#-hasWindow](#-haswindow))
+
 ### `getName`
 ask the object its name, or return `'_anon_'`
+
 ### `winName`
 return a suitable name for a window: "JITGui_objname"
+
 ### `moveTo`
 if it has its own window, one can move it to some specific location.
+
 ### `close`
 close its window.
 
 ### How JITGuis work
-A JITGui watches the state of its object by calling its (the gui's) [getState](#getstate) method at appropriate intervals (skipjack.dt). It compares the new state of the object with the previous state stored in [prevState](#prevstate). When something has changed, only the gui elements concerned are updated.
+A JITGui watches the state of its object by calling its (the gui's) [#-getState](#-getstate) method at appropriate intervals (skipjack.dt). It compares the new state of the object with the previous state stored in [#-prevState](#-prevstate). When something has changed, only the gui elements concerned are updated.
 
 Compare this with model-view-controller (MVC):
 
@@ -119,37 +142,48 @@ Compare this with model-view-controller (MVC):
 ### 1 - Methods that subclasses should implement
 You can write your own subclasses to JITGui very efficiently by implementing appropriate variants of the following methods in your class. For examples of these methods, see [TdefGui](../Classes/TdefGui.md), [EnvirGui](../Classes/EnvirGui.md), [NdefGui](../Classes/NdefGui.md).
 
+
 ### `setDefaults`
-used to calculate the required onscreen size for the jitGui's zone. Should determine zone size based on [numItems](#numitems) and options. also, [defPos](#defpos) (where to show your jitGui by default) can be set here, and possibly modifications to the skin used.
+used to calculate the required onscreen size for the jitGui's zone. Should determine zone size based on [#-numItems](#-numitems) and options. also, [#-defPos](#-defpos) (where to show your jitGui by default) can be set here, and possibly modifications to the skin used.
+
 ### `accepts`
 a test whether **obj** can be shown in the particular kind of JITGui. Subclasses of JITGui are made for special objects, e.g. Pdefs, so they should test whether obj is the right kind.
+
 ### `makeViews`
 create all the views of the jitGui inside the zone.
 
 ### 2 - For updating the JITGui, overwrite these methods
+
 ### `getState`
 ask the object for all aspects of its current state that will be displayed.
+
 ### `checkUpdate`
-get the object's current state with [prevState](#prevstate), compare it with prevState, update all gui elements that need to be changed, and store the new state as prevState. This method is called in the skipJack.
+get the object's current state with [#-prevState](#-prevstate), compare it with prevState, update all gui elements that need to be changed, and store the new state as prevState. This method is called in the skipJack.
 
 ### 3 - More methods you may want to overwrite if required
+
 ### `calcBounds`
 how to calculate the bounds for the zone in which to display
+
 ### `makeWindow`
 how to make a window when no parent is given
+
 ### `makeZone`
 how to initalize the zone within the parent window or view
+
 ### `getName`
 a method for generating a name for the object.
+
 ### `winName`
 a method for generating a name for the JITGui's window.
+
 ### `makeScroller`
-Some objects may have more elements to display than the gui has slots, e.g. a [ProxySpace](../Classes/ProxySpace.md) can have more proxies than the mixer has numItems. Then, only [numItems](#numitems) elements are shown, and the others can be scrolled to with [scroller](#scroller) - an [EZScroller](../Classes/EZScroller.md) next to the slot elements. The makeScroller method should knows where in the zone to put the scroller.
+Some objects may have more elements to display than the gui has slots, e.g. a [ProxySpace](../Classes/ProxySpace.md) can have more proxies than the mixer has numItems. Then, only [#-numItems](#-numitems) elements are shown, and the others can be scrolled to with [#-scroller](#-scroller) - an [EZScroller](../Classes/EZScroller.md) next to the slot elements. The makeScroller method should knows where in the zone to put the scroller.
 
 ## Examples
 
 
-```supercollider
+```
     // typically, only subclasses of JITGui are used,
     // so here are just some basic usage and layout tests
 

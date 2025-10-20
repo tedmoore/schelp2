@@ -11,6 +11,7 @@ Ensures the output has the stated number of channels, regardless of the number o
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Mono input is copied. Multi-channels clumped and if `mixdown` is true mixed down
 ## Examples
 
 
-```supercollider
+```
 (
 {
     NumChannels.ar(

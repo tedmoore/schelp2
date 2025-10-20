@@ -17,6 +17,7 @@ A perceptual loudness function which outputs loudness in sones; this is a varian
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -29,7 +30,7 @@ A perceptual loudness function which outputs loudness in sones; this is a varian
 ## Examples
 
 
-```supercollider
+```
 // assumes hop of half fftsize, fine
 
 d = Buffer.read(s, ExampleFiles.child);

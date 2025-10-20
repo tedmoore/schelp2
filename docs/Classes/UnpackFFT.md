@@ -16,6 +16,7 @@ See also [PV_ChainUGen#-pvcollect](../Classes/PV_ChainUGen.md#-pvcollect), [PV_C
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ See also [PV_ChainUGen#-pvcollect](../Classes/PV_ChainUGen.md#-pvcollect), [PV_C
 | `frombin` | limiting analysis to the bins of interest |  
 | `tobin` | limiting analysis to the bins of interest |  
 **Returns:** A list from DC up to Nyquist of `[mag[0], phase[0], mag[1], phase[1], ... mag[nyquist], phase[nyquist]].`Note that you do have to decide your FFT buffer size in advance, since this determines how many values the UGen will output.
-```supercollider
+```
 #magsphases = UnpackFFT(chain, bufsize)
 ```
 
@@ -34,7 +35,7 @@ See also [PV_ChainUGen#-pvcollect](../Classes/PV_ChainUGen.md#-pvcollect), [PV_C
 ## Examples
 
 
-```supercollider
+```
 // This one just drags out various the values and posts them - a little bit pointless!
 (
 {

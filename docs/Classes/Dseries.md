@@ -14,6 +14,7 @@ See [Pseries](../Classes/Pseries.md) for structurally related equivalent.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ See [Pseries](../Classes/Pseries.md) for structurally related equivalent.
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a, freq, trig;

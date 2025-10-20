@@ -10,7 +10,7 @@
 
 Multiplies with a value in an event, **before it is passed up** the stream. To multiply with the value after it has been passed down, use [Pmul](../Classes/Pmul.md).
 
-```supercollider
+```
 (
 var a, b;
 a = Pmulpre(\note, 2, Pbind(\note, Pseq([1, 2, 3])));
@@ -22,7 +22,7 @@ x = a.asStream;
 
 Pmulpre does not override incoming values:
 
-```supercollider
+```
 (
 var a, b;
 a = Pmulpre(\freq, 801, Pset(\freq, 500, Pbind(\dur, 0.2)));
@@ -36,6 +36,7 @@ x = a.asStream;
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -48,7 +49,7 @@ x = a.asStream;
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pmulpre(\freq, Pseq([401, 801], 2), Pbind(\dur, 0.5));
@@ -59,7 +60,7 @@ x = a.asStream;
 
 
 
-```supercollider
+```
 // sound example
 (
 SynthDef(\sinegrain,

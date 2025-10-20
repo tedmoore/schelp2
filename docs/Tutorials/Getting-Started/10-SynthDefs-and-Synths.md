@@ -27,7 +27,7 @@ Whenever you use any of Function's audio creating methods what happens is that a
 So how do you make a SynthDef yourself? You use its 'new' method. Let's compare a by now familiar Function based example, and make an equivalent SynthDef. Like Function, SynthDef also has a convenient play method, so we can easily confirm that these two are equivalent.
 
 
-```supercollider
+```
 //first the Function
 { SinOsc.ar(440, 0, 0.2) }.play;
 
@@ -52,7 +52,7 @@ Out takes two arguments: The first is the index number of the bus to write out o
 Here's a stereo example to make clear how this works. The SinOsc with the frequency argument of 440 Hz will be played out on the first output bus (the left channel), and the SinOsc with the frequency argument of 442 Hz will be played out on the second bus (the right channel). By default, `out` assumes bus 0 as the first channel, so the two will play on buses 0 and 1 respectively.
 
 
-```supercollider
+```
 (
 SynthDef.new("tutorial-SinOsc-stereo", { |out|
     var outArray;
@@ -68,7 +68,7 @@ When you use Function-play an Out UGen is in fact created for you if you do not 
 Both Function-play and SynthDef-play return another type of object, a Synth, which represents a synth on the server. If you store this object by assigning it to a variable you can control it's behaviour in various ways. For instance the method 'free' causes the synth on the server to stop playing and its memory and cpu resources to be freed.
 
 
-```supercollider
+```
 x = { SinOsc.ar(660, 0, 0.2) }.play;
 y = SynthDef.new("tutorial-SinOsc", { |out| Out.ar(out, SinOsc.ar(440, 0, 0.2)) }).play;
 x.free;    // free just x
@@ -81,7 +81,7 @@ This is more flexible than Cmd-., which frees all synths at once.
 More often, you will want to send the corresponding byte code to the server app without immediately creating a synth. The great advantage of this is that you can play any number of copies of the SynthDef without the overhead of compiling or sending a network of unit generators. In almost all cases, use 'add', as in the next example below. See [SynthDef#-add](../../Classes/SynthDef.md#-add) for details.
 
 
-```supercollider
+```
 // execute first, by itself
 SynthDef.new("tutorial-PinkNoise", { |out| Out.ar(out, PinkNoise.ar(0.3)) }).add;
 
@@ -97,7 +97,7 @@ This is more efficient than repeatedly calling play on the same Function, as it 
 A corresponding limitation to working with SynthDefs directly is that the UGen Graph Function in a SynthDef is evaluated *once and only once*. (Remember that the server knows nothing about the SC language.) This means that it is somewhat less flexible. Compare these two examples:
 
 
-```supercollider
+```
 // first with a Function. Note the random frequency each time 'play' is called.
 f = { SinOsc.ar(440 + 200.rand, 0, 0.2) };
 x = f.play;
@@ -122,7 +122,7 @@ Each time you create a new Synth based on the def, the frequency is the same. Th
 There are numerous ways of getting variety out of SynthDefs, however. Some things, such as randomness, can be accomplished with various UGens. One example is [Rand](../../Classes/Rand.md), which calculates a random number between low and high values when a synth is first created:
 
 
-```supercollider
+```
 // With Rand, it works!
 SynthDef("tutorial-Rand", { |out| Out.ar(out, SinOsc.ar(Rand(440, 660), 0, 0.2)) }).add;
 x = Synth("tutorial-Rand");
@@ -132,12 +132,12 @@ x.free; y.free; z.free;
 ```
 
 
-This [Browse / UGens ](../../Browse.md#ugens) category link lists a number of such UGens.
+This [Browse#UGens](../../Browse.md#ugens) category link lists a number of such UGens.
 
 The most common way of creating variables is through putting arguments into the UGen Graph Function. This allows you to set different values when the synth is created. These are passed in an array as the second argument to Synth-new. The array should contain pairs of arg names and values.
 
 
-```supercollider
+```
 (
 SynthDef("tutorial-args", { arg freq = 440, out = 0;
     Out.ar(out, SinOsc.ar(freq, 0, 0.2));
@@ -158,7 +158,7 @@ This combination of args and UGens means that you can get a lot of mileage out o
 Synth understands some methods which allow you to change the values of args after a synth has been created. For now we'll just look at one, 'set'. Synth-set takes pairs of arg names and values.
 
 
-```supercollider
+```
 s.boot;
 (
 SynthDef.new("tutorial-args", { arg freq = 440, out = 0;
@@ -179,7 +179,7 @@ x.free;
 SynthDef names and argument names can be either a String, as we've seen above, or another kind of literal called a Symbol. You write symbols in one of two ways, either enclosed in single quotes: `'tutorial_SinOsc'` or preceded by a backslash: `\tutorial_SinOsc`. Like Strings Symbols are made up of alpha-numeric sequences. The difference between Strings and Symbols is that all Symbols with the same text are guaranteed to be identical, i.e. the exact same object, whereas with Strings this might not be the case. You can test for this using '==='. Execute the following and watch the post window.
 
 
-```supercollider
+```
 "a String" === "a String";     // this will post false
 \aSymbol === 'aSymbol';        // this will post true
 ```
@@ -188,14 +188,14 @@ SynthDef names and argument names can be either a String, as we've seen above, o
 In general in methods which communicate with the server one can use Strings and Symbols interchangeably, but be aware that this is not necessarily true in general code.
 
 
-```supercollider
+```
 "this" === \this;     // this will post false
 ```
 
 
 For more information see:
 
-[SynthDef](../../Classes/SynthDef.md), [Synth](../../Classes/Synth.md), [String](../../Classes/String.md), [Symbol](../../Classes/Symbol.md), [Literals](../../Reference/Literals.md), [Randomness](../../Guides/Randomness.md), [Browse / UGens ](../../Browse.md#ugens)
+[SynthDef](../../Classes/SynthDef.md), [Synth](../../Classes/Synth.md), [String](../../Classes/String.md), [Symbol](../../Classes/Symbol.md), [Literals](../../Reference/Literals.md), [Randomness](../../Guides/Randomness.md), [Browse#UGens](../../Browse.md#ugens)
 
 
 

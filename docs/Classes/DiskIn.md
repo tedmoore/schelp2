@@ -15,6 +15,7 @@ DiskIn cannot alter playback rate. See [VDiskIn](../Classes/VDiskIn.md) for a di
 ## Class Methods
 
 
+
 ### `ar`
 **Arguments:**
 
@@ -33,7 +34,7 @@ This UGen will set the ['done' flag](../Classes/Done.md) when finished playing.
 ## Examples
 
 
-```supercollider
+```
 s.boot; // start the server
 
 // examples below will use this synthdef
@@ -48,7 +49,7 @@ SynthDef("help-Diskin", { |out, bufnum = 0|
 
 ### Normal usage (with Buffer; "Object Style")
 
-```supercollider
+```
 b = Buffer.cueSoundFile(s, ExampleFiles.apollo11, 0, 1);
 
 x = { DiskIn.ar(1, b.bufnum) }.play;
@@ -101,7 +102,7 @@ b = Buffer.cueSoundFile(s, ExampleFiles.apollo11, 0, 1, completionMessage: m);
 
 ### OSC Messaging Style
 
-```supercollider
+```
 // allocate a disk i/o buffer
 s.sendMsg("/b_alloc", 0, 65536, 1);
 

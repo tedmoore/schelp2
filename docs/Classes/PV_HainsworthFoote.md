@@ -16,6 +16,7 @@ Hainsworth metric on it's own gives good results but Foote might be useful in so
 ## Class Methods
 
 
+
 ### `ar`
 **Arguments:**
 
@@ -30,7 +31,7 @@ Hainsworth metric on it's own gives good results but Foote might be useful in so
 ## Examples
 
 
-```supercollider
+```
 // just Hainsworth metric with low threshold
 (
 SynthDef(\fftod, { |out|

@@ -13,6 +13,7 @@ When rate == 1, Sweep may be used to get a continually-updating measurement of t
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ When rate == 1, Sweep may be used to get a continually-updating measurement of t
 ## Examples
 
 
-```supercollider
+```
 // using sweep to modulate sine frequency
 (
 { var trig;
@@ -69,7 +70,7 @@ b.free
 
 Sweep can be used as a resettable [Phasor](../Classes/Phasor.md) or [Line](../Classes/Line.md) - one that can start, pause, resume and stop. To get a resettable [XLine](../Classes/XLine.md) behavior change the `linlin` to `linexp` in the SynthDef below.
 
-```supercollider
+```
 (
 SynthDef(\lineReset, { |out, start = 0, end = 1, dur = 1, t_trig = 1, run = 1|
     var phasor = Sweep.ar(t_trig, run / dur).linlin(0, 1, start, end, \minmax);

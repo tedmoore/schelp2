@@ -25,7 +25,7 @@ Runtime errors occur while a program is executing.
 In the case of
 
 
-```supercollider
+```
 3.createRuntimeError
 ```
 
@@ -33,7 +33,7 @@ In the case of
 SuperCollider prints a four-part error notification to the post window. The parts of the notification are ERROR, RECEIVER, ARGS, and CALL STACK, as in
 
 
-```supercollider
+```
 ERROR: Message 'createRuntimeError' not understood.
 RECEIVER:
    Integer 3
@@ -68,7 +68,7 @@ CALL STACK:
 The ERROR section explains what went wrong. The RECEIVER section names the class of the object to which the message was sent. The ARGS section says how many arguments were included in the message. Read the CALL STACK from the bottom to the top to see where the error happened. Reading from bottom to top means going from
 
 
-```supercollider
+```
 Process-interpretPrintCmdLine
 ```
 
@@ -76,7 +76,7 @@ Process-interpretPrintCmdLine
 to
 
 
-```supercollider
+```
 Interpreter-interpretPrintCmdLine
 ```
 
@@ -84,7 +84,7 @@ Interpreter-interpretPrintCmdLine
 to
 
 
-```supercollider
+```
 Object-doesNotUnderstand
 ```
 
@@ -92,7 +92,7 @@ Object-doesNotUnderstand
 to
 
 
-```supercollider
+```
 Object-throw
 ```
 
@@ -100,7 +100,7 @@ Object-throw
 to
 
 
-```supercollider
+```
 Nil-handleError
 ```
 
@@ -108,7 +108,7 @@ Nil-handleError
 to
 
 
-```supercollider
+```
 DoesNotUnderstandError-reportError
 ```
 
@@ -118,7 +118,7 @@ which is the first line in the stack.
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-```supercollider
+```
 DoesNotUnderstandError-reportError
 ```
 
@@ -130,7 +130,7 @@ is the mechanism that prints the error notification to the post window. Select i
 Execute
 
 
-```supercollider
+```
 $a * $b
 ```
 
@@ -142,7 +142,7 @@ to create another runtime error message.
 The ERROR, RECEIVER, ARGS, and CALL STACK headers in the post window explain the problem: Instances of class Char have no knowledge of multiplication.
 
 
-```supercollider
+```
 ERROR: Message '*' not understood.
 RECEIVER:
    Character 97 'a'
@@ -179,7 +179,7 @@ CALL STACK:
 Here, the variable a is initialized to an integer and the variable b isn't initialized. Multiplying a (the integer 10) by b (nil, the value that SuperCollider uses for uninitialized data) will create a runtime error.
 
 
-```supercollider
+```
 (
 var a = 10;    // a is declared and initialized
 var b;        // b declared but not initialized, so it defaults to nil
@@ -209,7 +209,7 @@ The printout shows the code ran successfully until the index, i, reached 3, whic
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-```supercollider
+```
 a Task
 0
 1
@@ -262,7 +262,7 @@ CALL STACK:
 A value other than true or false in a boolean test, as in
 
 
-```supercollider
+```
 if(x=4) { "this is ok"};
 ```
 
@@ -270,7 +270,7 @@ if(x=4) { "this is ok"};
 produces
 
 
-```supercollider
+```
 ERROR: Non Boolean in test.
 RECEIVER:
    Integer 4
@@ -299,7 +299,7 @@ CALL STACK:
 Correcting the test clause fixes the problem.
 
 
-```supercollider
+```
 if(x==4) { "this is ok"};
 ```
 
@@ -312,7 +312,7 @@ if(x==4) { "this is ok"};
 Asking for the length of a non-existent file creates a runtime error. The notification shows what went wrong (a C code primitive failed).
 
 
-```supercollider
+```
 f = File("i_don't_exist", "r");
 f.length;
 

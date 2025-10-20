@@ -9,7 +9,7 @@
 When you schedule a function (as in the Scheduling Events tutorial), the function always begins at the beginning and runs through to the end. For sequencing, it's more useful to have a control structure that can run part of the way through, return a value, and then pick up where it left off the next time it's needed. In SuperCollider, this is a Routine.
 Routines can be used for data processing, e.g.
 
-```supercollider
+```
 (
 r = Routine({
     "abcde".yield;
@@ -32,7 +32,7 @@ We will come back to the use of routines for data generation. More important for
 Recall that, when you schedule a function on a clock, numbers returned by the function are treated as time values -- specifically, the amount of time until the function should execute again. The same thing happens with numbers yielded by a routine.
 
 
-```supercollider
+```
 (
 r = Routine({
     var delta;
@@ -55,7 +55,7 @@ r.stop;
 Now let's replace the posting statements with instructions to play a synth. Preparation:
 
 
-```supercollider
+```
 (
 SynthDef(\singrain, { |freq = 440, amp = 0.2, sustain = 1, out|
     var sig;
@@ -78,7 +78,7 @@ r = Routine({
 Scheduling a routine makes a certain sense, but playing a routine seems more intuitive.
 
 
-```supercollider
+```
 r.play;
 
 r.stop;
@@ -95,7 +95,7 @@ Routines have one sticky little characteristic that can limit their usefulness a
 Task is a variation that can be paused and resumed at will. For example, let's iterate over a C major scale. Note that all of SuperCollider's control structures are valid inside a Routine or Task. Note also that we can use 'wait' as a synonym for 'yield'.
 
 
-```supercollider
+```
 (
 t = Task({
     loop {
@@ -126,7 +126,7 @@ By default, **play** applied to a Task starts the Task immediately. Most of the 
 Play takes several arguments to control its behavior.
 
 
-```supercollider
+```
 aRoutine.play(clock, quant)
 aTask.play(argClock, doReset, quant)
 ```
@@ -153,7 +153,7 @@ For convenience, if you just want to start at the beginning of the bar, you can 
 To see how this works in practice, let's take the C major scale above and play two copies of it slightly offset. We'll slow the rhythm down to 16th-notes (0.25) and start the second one 8th-note into the bar. We will need two tasks to do this, which will be manufactured in a function.
 
 
-```supercollider
+```
 (
 f = {
     Task({
@@ -183,7 +183,7 @@ The previous example controls the generation of one parameter (pitch) by looping
 Remember that routines can also generate data, in addition to their scheduling capabilities. You can refer to as many data routines as you want in your sequence.
 
 
-```supercollider
+```
 (
 var midi, dur;
 midi = Routine({
@@ -229,7 +229,7 @@ Latency works by adding itself to the current time on the clock. If all the mess
 Here's an example illustrating the kinds of inaccuracy you might hear. The inaccuracy may be more or less noticeable on different systems. It uses the \singrain SynthDef above and plays 10 notes per second.
 
 
-```supercollider
+```
 (
 t = Task({
     loop {
@@ -246,7 +246,7 @@ t.stop;
 The easiest way to add latency to your outgoing Synths is with the Server **makeBundle** method. Don't worry about how it works for now -- the important thing is that it uses the first value for latency, and runs the messages produced by the function according to that latency.
 
 
-```supercollider
+```
 (
 t = Task({
     loop {

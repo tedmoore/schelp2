@@ -14,6 +14,7 @@ TChoose returns a combination of [Select](../Classes/Select.md) and [TIRand](../
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ TChoose returns a combination of [Select](../Classes/Select.md) and [TIRand](../
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a;

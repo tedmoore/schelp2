@@ -18,6 +18,7 @@ Write to a buffer for a [DelTapRd](../Classes/DelTapRd.md) UGen.
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -29,7 +30,7 @@ Write to a buffer for a [DelTapRd](../Classes/DelTapRd.md) UGen.
 ## Examples
 
 
-```supercollider
+```
 // a Buffer for the UGens to use, one second at the current sample rate
 b = Buffer.alloc(s, s.sampleRate * 1, 1);
 
@@ -53,7 +54,7 @@ b.free;
 
 
 
-```supercollider
+```
 // a Buffer for the UGens to use
 b = Buffer.alloc(s, 44100, 1);
 

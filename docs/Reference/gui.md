@@ -6,9 +6,10 @@
 
 **Related:** [ObjectGui](../Classes/ObjectGui.md)
 
+
 ### `gui`
 The `gui` message is of common use in SC. It originated in the crucial library where it is used to create an [ObjectGui](../Classes/ObjectGui.md) or an ObjectGui subclass as part of a Model View Controller system.The implementation and accepted arguments to .gui varies. This helpfile explains the default behavior of Object and hence of all Object subclasses that haven't implemented their own .gui method. This helpfile and the implementation come from the original crucial library.Any object can create a GUI, albeit a very simple one that just displays the object's string representation on a view:
-```supercollider
+```
 nil.gui;
 "2".gui;
 2.gui;
@@ -20,7 +21,7 @@ This means that any object can be .gui(ed) without knowing exactly what the obje
 The convention as stated in crucial library states that the .gui method should accept parent and bounds as its arguments in the same manner as a View does.
 
 
-```supercollider
+```
 thing.gui(parent,bounds);
 // or with optional additional arguments:
 things.gui(parent,bounds,arg1,arg2,...argN)
@@ -52,7 +53,7 @@ Usually the bounds are not specified. The object's gui class first adds a contai
 Add a view to a parent view (window)
 
 
-```supercollider
+```
 (
     f = FlowView.new;
     nil.gui(f);
@@ -62,9 +63,10 @@ Add a view to a parent view (window)
 ```
 
 
+
 ### `guiClass`
 Each class can specify an associated guiClass, which is a subclass of ObjectGui. Writing useful subclasses is the purpose of the ObjectGui system and many can be found in the crucial library.Examples specifying guiClass:
-```supercollider
+```
     Object-guiClass {  ^ObjectGui }
     Server-guiClass {  ^ServerGui }
     AbstractPlayer-guiClass { ^AbstractPlayerGui }

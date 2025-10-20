@@ -4,17 +4,18 @@
 
 **Categories:** Common methods
 
+
 ### `play`
 The `play` message is of common use in sc. Different objects respond to it in various ways, but the simple meaning is: **start a process**. It is usually implemented by objects in contributed libraries as well.play usually returns the playing object which might not be the same as the one the message was sent to.opposite: `stop`
 ## Clocks, Routines, Streams and Patterns
-For a full list of which classes that implements `play`, see [Methods / play ](../Overviews/Methods.md#play)
+For a full list of which classes that implements `play`, see [Methods#play](../Overviews/Methods.md#play)
 
 
 ### clock.play (stream)
 returns: the clock
 
 
-```supercollider
+```
 (
 r = Routine.new({ "...playing".postln; 1.wait; "ok, that was it".postln });
 SystemClock.play(r);
@@ -31,7 +32,7 @@ See [Clock#*play](../Classes/Clock.md#*play)
 returns: the routine
 
 
-```supercollider
+```
 Routine.new({ "...playing".postln; 1.wait; "ok, that was it".postln }).play;
 ```
 
@@ -47,7 +48,7 @@ returns: the stream
 the stream will loop until it returns nil
 
 
-```supercollider
+```
 FuncStream({ "ok, that was it".postln; 1 }).play;
 ```
 
@@ -61,7 +62,7 @@ See [FuncStream#-play](../Classes/FuncStream.md#-play)
 returns: the stream
 
 
-```supercollider
+```
 a = PauseStream.new(FuncStream.new({ "ok, that was it".postln; 1 }));
 a.play;
 a.stop;
@@ -83,7 +84,7 @@ See [Stream#-play](../Classes/Stream.md#-play) and [Task#-play](../Classes/Task.
 returns: an [EventStreamPlayer](../Classes/EventStreamPlayer.md)
 
 
-```supercollider
+```
 (
 Pseq([
     Pbind(\freq, Pn(500, 1)),
@@ -117,7 +118,7 @@ returns: a [Synth](../Classes/Synth.md)
 See [Function#-play](../Classes/Function.md#-play)
 
 
-```supercollider
+```
 a = { PinkNoise.ar([0.1, 0.1]) }.play;
 a.release;
 
@@ -148,7 +149,7 @@ Nevertheless, synths can also run without any writing activity: (see e.g. [SendT
 Some operations provide an out ugen internally: see for example `function.play`, which plays out to a bus number provided in the argument passed to `.play`
 
 
-```supercollider
+```
 (
 x = SynthDef(\test, { arg out, amp=0.1;
     var sound;

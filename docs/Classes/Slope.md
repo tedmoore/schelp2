@@ -8,7 +8,7 @@
 
 Measures the rate of change per second of a signal. Formula implemented is:
 
-```supercollider
+```
 out[i] = (in[i] - in[i-1]) * sampling_rate
 ```
 
@@ -16,6 +16,7 @@ out[i] = (in[i] - in[i-1]) * sampling_rate
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -29,7 +30,7 @@ out[i] = (in[i] - in[i-1]) * sampling_rate
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a, b, c, scale;

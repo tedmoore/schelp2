@@ -13,6 +13,7 @@ models the force of a resonating spring
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ models the force of a resonating spring
 ## Examples
 
 
-```supercollider
+```
 // trigger gate is mouse button
 // spring constant is mouse x
 // mouse y controls damping

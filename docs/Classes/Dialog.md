@@ -15,6 +15,7 @@ The methods here are convenience functions built on top of [FileDialog](../Class
 ## Class Methods
 
 
+
 ### `openPanel`
  Shows a dialog for selection of an existing file (or multiple files) to open. It does not do anything with the file, instead it just passes the chosen filenames to the given result handler.**Arguments:**
 
@@ -25,7 +26,7 @@ The methods here are convenience functions built on top of [FileDialog](../Class
 | `multipleSelection` | A Boolean indicating whether multiple files can be selected. |  
 | `path` | A string. The dialog will initially display the contents of this path. The default is the current  user's home directory. |  
 Example:
-```supercollider
+```
 (
 Dialog.openPanel({ |path|
     path.postln;
@@ -34,6 +35,7 @@ Dialog.openPanel({ |path|
 });
 )
 ```
+
 
 
 ### `savePanel`
@@ -45,7 +47,7 @@ Dialog.openPanel({ |path|
 | `cancelFunc` | An object to be evaluated when Cancel is pressed. |  
 | `path` | A string. The dialog will initially display the contents of this path. The default is the current  user's home directory. |  
 Example:
-```supercollider
+```
 (
 Dialog.savePanel({ |path|
     path.postln;
@@ -54,6 +56,7 @@ Dialog.savePanel({ |path|
 });
 )
 ```
+
 
 
 ### `getPaths`

@@ -17,33 +17,37 @@ A level indicator view, suitable for use as a level or peak meter, etc.
 
 ## Instance Methods
 
+
 ### `value`
 Get or set the current level of the view.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `val` | A [Float](../Classes/Float.md) between 0 and 1. |  
-**Returns:** A [Float](../Classes/Float.md)### `warning`
+**Returns:** A [Float](../Classes/Float.md)
+### `warning`
+
 ### `critical`
-Set the warning and critical thresholds. If meter value is above either threshold, [warningColor](#warningcolor) or [criticalColor](#criticalcolor) will be shown, respectively (by default, yellow and red). If [drawsPeak](#drawspeak) is true warning color will be displayed based on [peakLevel](#peaklevel) rather than value.**Arguments:**
+Set the warning and critical thresholds. If meter value is above either threshold, [#-warningColor](#-warningcolor) or [#-criticalColor](#-criticalcolor) will be shown, respectively (by default, yellow and red). If [#-drawsPeak](#-drawspeak) is true warning color will be displayed based on [#-peakLevel](#-peaklevel) rather than value.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `val` | A [Float](../Classes/Float.md).
-```supercollider
+```
 a = LevelIndicator(bounds: Rect(10, 10, 20, 160)).front;
 a.value = 0.5;
 a.warning = 0.6; a.critical = 0.9;
 a.value = 0.7;
 a.value = 0.9;
 ``` |  
+
 ### `style`
 Sets the style of the view.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `val` | An [QLevelIndicatorStyle](../Classes/QLevelIndicatorStyle.md) \continuous or \led (see [stepWidth](#stepwidth))
-```supercollider
+| `val` | An [QLevelIndicatorStyle](../Classes/QLevelIndicatorStyle.md) \continuous or \led (see [#-stepWidth](#-stepwidth))
+```
 (
 w = Window().front.layout_(
     HLayout(
@@ -53,13 +57,14 @@ w = Window().front.layout_(
 )
 )
 ``` |  
+
 ### `stepWidth`
 The width of each led light, for \led.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `val` | An positive [Integer](../Classes/Integer.md).
-```supercollider
+```
 (
 w = Window().front.layout_(HLayout(
     LevelIndicator().style_(\led).value_(0.8).stepWidth_(1),
@@ -69,13 +74,14 @@ w = Window().front.layout_(HLayout(
 ));
 )
 ``` |  
+
 ### `numSteps`
 The number of steps used in \led style.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `val` | An positive [Integer](../Classes/Integer.md).
-```supercollider
+```
 (
 a = LevelIndicator(bounds: Rect(10, 10, 80, 400)).front();
 a.value = 1;
@@ -83,6 +89,7 @@ a.style = \led;
 a.numSteps = 4;
 )
 ``` |  
+
 ### `image`
 
 > **Note:** Not yet implemented in Qt GUI
@@ -92,13 +99,14 @@ a.numSteps = 4;
 | Argument | Description |
 |----------|-------------|
 | `image` | An [Image](../Classes/Image.md). The default image is the SC cube. |  
+
 ### `numTicks`
 The number of ticks to display in the view's scale.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `number` | An [Integer](../Classes/Integer.md) >= 0.
-```supercollider
+```
 (
 w = Window(bounds: 100@400).front().background_(Color.black);
 w.layout_(HLayout(
@@ -108,13 +116,14 @@ w.layout_(HLayout(
 ))
 )
 ``` |  
+
 ### `numMajorTicks`
 The number of ticks in the view's scale which will be large sized.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `number` | An [Integer](../Classes/Integer.md) >= 0.
-```supercollider
+```
 (
 w = Window(bounds: 100@400).front().background_(Color.black);
 w.layout_(HLayout(
@@ -125,13 +134,14 @@ w.layout_(HLayout(
 ))
 )
 ``` |  
+
 ### `drawsPeak`
-Determines whether the view draws a separate peak display. This can be useful for displaying both peak and RMS values. If drawsPeak is true [warning](#warning) and [critical](#critical) will be displayed based on [peakLevel](#peaklevel) rather than value.**Arguments:**
+Determines whether the view draws a separate peak display. This can be useful for displaying both peak and RMS values. If drawsPeak is true [#-warning](#-warning) and [#-critical](#-critical) will be displayed based on [#-peakLevel](#-peaklevel) rather than value.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `bool` | A [Boolean](../Classes/Boolean.md). By default the peak is not drawn.
-```supercollider
+```
 (
 w = Window().front().layout_(HLayout(
     LevelIndicator().style_(\continuous).value_(0.75).drawsPeak_(true).peakLevel_(0.9),
@@ -139,13 +149,14 @@ w = Window().front().layout_(HLayout(
 ))
 )
 ``` |  
+
 ### `peakLevel`
-Sets the level of the peak display. (See [drawsPeak](#drawspeak).)**Arguments:**
+Sets the level of the peak display. (See [#-drawsPeak](#-drawspeak).)**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `val` | A [Float](../Classes/Float.md).
-```supercollider
+```
 (
 w = Window().front().layout_(HLayout(
     LevelIndicator().style_(\continuous).value_(0.1).drawsPeak_(true).peakLevel_(0.3),
@@ -155,15 +166,18 @@ w = Window().front().layout_(HLayout(
 ))
 )
 ``` |  
+
 ### `meterColor`
+
 ### `warningColor`
+
 ### `criticalColor`
 Sets the color of the meter, as well as the warning and critical colors.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `color` | A [Color](../Classes/Color.md).
-```supercollider
+```
 (
 l = LevelIndicator(bounds: Rect(100, 100, 100, 400)).front().value_(1).style_(\led);
 l.meterColor = Color.blue(0.9);
@@ -173,7 +187,7 @@ l.criticalColor = Color.blue(0.5);
 ```
 
 
-```supercollider
+```
 (
 // inverse
 l.background = Color.blue;
@@ -186,7 +200,7 @@ l.criticalColor = Color.black.alpha_(0.3);
 ## Examples
 
 
-```supercollider
+```
 (
 // something to meter
 s.waitForBoot({

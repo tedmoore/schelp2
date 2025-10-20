@@ -18,6 +18,7 @@ See [Pgroup](../Classes/Pgroup.md) for a description of the `\groupReleaseTime` 
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -29,7 +30,7 @@ See [Pgroup](../Classes/Pgroup.md) for a description of the `\groupReleaseTime` 
 ## Examples
 
 
-```supercollider
+```
 // an example analogous to the one in the Pfx helpfile
 
 (
@@ -77,7 +78,7 @@ Pbus(
 
 
 
-```supercollider
+```
 // synthdefs
 (
 SynthDef(\gap, { |out, sustain = 1.0, attack = 0.0001, decay = 0.01, leak|

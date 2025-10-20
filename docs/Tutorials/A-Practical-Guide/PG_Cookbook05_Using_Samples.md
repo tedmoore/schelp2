@@ -38,7 +38,7 @@ To match the loop tempo with sequencing tempo, we need to know both:
 **Original tempo:** The duration of the segment chosen in part 1 is 3.185917 - 0.404561 = 2.781356 seconds. This spans one bar = 4 beats, so the duration of one beat is 2.781356 / 4 = 0.695339 seconds/beat. SuperCollider specifies tempo as beats per second, so we need the reciprocal: 1 / 0.695339 = 1.4381474359988 beats/second (86.289 bpm).
 
 
-```supercollider
+```
 ((end - start) / numBeats).reciprocal
 
 // or, algebraically
@@ -60,7 +60,7 @@ The primary bell pattern accents the downbeat and follows with a randomly genera
 The loop actually starts with a half-beat anacrusis, so [Ptpar](../../Classes/Ptpar.md) delays the bell patterns by 0.5 beats.
 
 
-```supercollider
+```
 (
 b = Buffer.read(s, ExampleFiles.child);
 
@@ -137,7 +137,7 @@ p.stop;
 The use of Ptpar above means that you could stop or start only the whole ball of wax at once, with no control over the three layers. It's no more difficult to play the layers in the independent event stream players, using the quant argument to ensure the proper synchronization. See the [Quant](../../Classes/Quant.md) help file for details on specifying the onset time of a pattern.
 
 
-```supercollider
+```
 (
 var start = 0.404561, end = 3.185917,
 beatsInLoop = 4,
@@ -193,7 +193,7 @@ Frequency is controlled by the rate parameter. The sample plays at a given frequ
 The first example makes a custom protoEvent that calculates rate, as `\freq`, based on the base frequency. It uses one sample, so it would be best for patterns that will play in a narrow range. Since there isn't an instrument sample in the SuperCollider distribution, we will record a frequency-modulation sample into a buffer before running the pattern.
 
 
-```supercollider
+```
 // make a sound sample
 (
 var recorder;
@@ -249,7 +249,7 @@ To extend the sampler's range using multiple samples and ensure smooth transitio
 MIDI note numbers are used for these calculations because it's a linear frequency scale and linear interpolation is easier than the exponential interpolation that would be required when using Hz. Assuming a sorted array, indexInBetween gives the fractional index using linear interpolation. If you need to use frequency in Hz, use this function in place of indexInBetween.
 
 
-```supercollider
+```
 f = { |val, array|
     var a, b, div;
     var i = array.indexOfGreaterThan(val);
@@ -271,7 +271,7 @@ f = { |val, array|
 But that function isn't needed for this example:
 
 
-```supercollider
+```
 (
 var bufCount;
 ~midinotes = (39, 46 .. 88);

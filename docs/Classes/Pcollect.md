@@ -13,6 +13,7 @@ Modifies each value by passing it to the function. This is the pattern library's
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Modifies each value by passing it to the function. This is the pattern library's
 ## Examples
 
 
-```supercollider
+```
 (
 a = Pcollect({ |item| item * 3 }, Pseq(#[1, 2, 3], inf));
 x = a.asStream;
@@ -35,7 +36,7 @@ x = a.asStream;
 
 The message `collect` returns a Pcollect when passed to a pattern. Note that because the pattern is converted to a [Stream](../Classes/Stream.md) (more precisely a [FuncStream](../Classes/FuncStream.md)) the collect function is evaluated for one item each time the message `next` is passed.
 
-```supercollider
+```
 (
 a = Pseq(#[1, 2, 3], inf).collect({ |item| item * 3 });
 a.postln;

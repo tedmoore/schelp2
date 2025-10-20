@@ -23,7 +23,7 @@ After you have added the udev rules file, you can access the device after pluggi
 You can change the permission manually (as root) from the terminal with the command:
 
 
-```supercollider
+```
 sudo chmod 664 /dev/hidraw*
 sudo chgrp plugdev /dev/hidraw*
 ```
@@ -32,7 +32,7 @@ sudo chgrp plugdev /dev/hidraw*
 Check the permissions with:
 
 
-```supercollider
+```
 "ls /dev/hidraw* -lah".unixCmd;
 ```
 

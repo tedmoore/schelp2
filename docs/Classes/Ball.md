@@ -14,6 +14,7 @@ Ball models the path of a bouncing object that is reflected by a vibrating surfa
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -28,7 +29,7 @@ Ball models the path of a bouncing object that is reflected by a vibrating surfa
 
 mouse x controls switch of level:
 
-```supercollider
+```
 (
 {
     var f, sf;
@@ -43,7 +44,7 @@ mouse x controls switch of level:
 
 mouse x controls modulation rate, mouse y controls gravity:
 
-```supercollider
+```
 (
 {
     var f, sf, g;
@@ -59,7 +60,7 @@ mouse x controls modulation rate, mouse y controls gravity:
 
 the general german police choir. mouse x controls damping, mouse y controls gravity:
 
-```supercollider
+```
 (
 {
     var f, sf, g;

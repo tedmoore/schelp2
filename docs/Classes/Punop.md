@@ -14,6 +14,7 @@ Examples of unary operators are: squared, sqrt, sin, tan ...
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Examples of unary operators are: squared, sqrt, sin, tan ...
 ## Examples
 
 
-```supercollider
+```
 (
 var a;
 a = Punop(\sqrt, Pseries(0, 1, 12));

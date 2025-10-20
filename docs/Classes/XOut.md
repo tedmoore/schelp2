@@ -10,7 +10,7 @@
 
 Send signal to a bus, crossfading with previous contents. `xfade` is a level for the crossfade between what is on the bus and what you are sending. The algorithm is equivalent to this:
 
-```supercollider
+```
 bus_signal = (input_signal * xfade) + (bus_signal * (1 - xfade));
 ```
 
@@ -19,6 +19,7 @@ See the [Server-Architecture](../Reference/Server-Architecture.md) and [Bus](../
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -32,7 +33,7 @@ See the [Server-Architecture](../Reference/Server-Architecture.md) and [Bus](../
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-SinOsc", { |freq = 440, out|
     Out.ar(out, SinOsc.ar(freq, 0, 0.1))

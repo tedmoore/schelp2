@@ -11,7 +11,7 @@
 ProxyMixer provides controls for handling and editing the node proxies in a proxyspace and their monitors (cross-platform graphics). It replaces the earlier ProxyMixer class. For Ndefs, use [NdefMixer](../Classes/NdefMixer.md).
 Overview: [JITLib](../Overviews/JITLib.md)
 
-```supercollider
+```
 // First examples:
 (
 p = ProxySpace.push(s.boot, p);
@@ -48,6 +48,7 @@ if (\ProxyMeter.asClass.notNil) { ProxyMeter.addMixer(m) };
 
 
 ### Creation
+
 ### `new`
 **Arguments:**
 
@@ -60,6 +61,7 @@ if (\ProxyMeter.asClass.notNil) { ProxyMeter.addMixer(m) };
 | `makeSkip` | a flag whether to make make a skipjack |  
 | `options` | additional settings - currently none provided. |  
 
+
 ### `small`
 like *new, but creates a proxyMixer for small screen sizes.
 
@@ -70,29 +72,39 @@ like *new, but creates a proxyMixer for small screen sizes.
 ### Instance variables
 **GUI areas and elements:**
 
+
 ### `arZone`, `krZone`, `editZone`, `arGuis`, `krGuis`, `editGui`, `arScroller`, `krScroller`
 **current state and access methods:**
+
 ### `proxyspace`, `existingProxies`, `activeProxies`, `playingProxies`, `selectedKeys`, `arNames`, `krNames`, `numArs`, `numKrs`, `atAr`, `atKr`
 
 
 ### Instance methods
+
 ### `highlight`, `unhighlight`
 highlight and unhighlight an arGui slot in the arZone (left)
+
 ### `highlightSlots`
 highlight a block of the arGuis in the arZone/
+
 ### `sizes`, `switchSize`
 switch between display modes 0: ar, 1: ar+kr, 2: ar+kr+ed
+
 ### `arKeysRotation`, `krKeysRotation`
 if too many proxies are present, by how much to rotate arKeys or krKeys to display.
+
 ### `title`
 get the proxymixer window title.
+
 ### `getNameLeftBorder`
 gets current left border of nameView
+
 ### `setNameLeftBorder`
 sets current left border of nameView, trading size with volume slider
+
 ### `shiftNameLeftBorder`
 shifts current left border of nameView
-```supercollider
+```
 m.getNameLeftBorder; // get its current left border position
 m.setNameLeftBorder(250); // default
 m.setNameLeftBorder(200); // aps left pos, smaller slider

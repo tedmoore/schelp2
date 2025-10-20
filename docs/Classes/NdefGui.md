@@ -15,7 +15,7 @@ NdefGui provides controls for handling and editing a [NodeProxy](../Classes/Node
 
 Both [NodeProxy](../Classes/NodeProxy.md) and [Ndef](../Classes/Ndef.md) implement a **.gui** message, which returns a NdefGui for that NodeProxy. Overview: [JITLib](../Overviews/JITLib.md).
 
-```supercollider
+```
 (
 s.boot;
 Ndef(\a, { |freq = 300, dens = 20, amp = 0.1, pan|
@@ -27,7 +27,7 @@ Ndef(\a, { |freq = 300, dens = 20, amp = 0.1, pan|
 
 Note that when creating an NdefGui for an Ndef with very many parameters, it may create more sliders than can fit on the window or screen. In such cases, it is best to set a reasonable maximum for numItems:
 
-```supercollider
+```
 // an Ndef with 100 controls
 Ndef(\1, {
     SinOsc.ar(freq: 100.collect{|i|
@@ -51,6 +51,7 @@ g = Ndef(\1).gui(30);
 
 
 ### Creation
+
 ### `new`
 **Arguments:**
 
@@ -66,23 +67,31 @@ g = Ndef(\1).gui(30);
 
 
 ### Preset options lists which can be used in *new:
+
 ### `big`
 two lines of controls for a big NdefGui, usually in its own window
+
 ### `full`
 two lines of controls for a very big NdefGui
+
 ### `audio`
 for ar proxies, used in ProxyMixer left hand side
+
 ### `audioSm`
 for ar proxies, used in ProxyMixer.small on left hand side
+
 ### `control`
 for kr proxies, used in ProxyMixer mid section
 
 
 ### Class Variables
+
 ### `buttonSizes`
 a dict for the sizes of the different gui elements.
+
 ### `buttonFuncs`
 a lookup dict for making the different buttons.
+
 ### `makeButFuncs`
 not a class var, but the method that inits buttonFuncs.
 
@@ -95,37 +104,51 @@ See [JITGui](../Classes/JITGui.md) for more instance methods.
 
 Various views the NdefGui has if they were present in the options:
 
+
 ### `nameView`, `typeView`, `monitorGui`, `paramGui`, `fadeBox`, `pauseBut`, `sendBut`, `edBut`, `wakeBut`
 
 
 ### Basic Methods
+
 ### `edits`
 the paramGui's widgets (usually, EZSliders)
+
 ### `editKeys`
 the currently used param names
+
 ### `highlight`, `unhighlight`
 highlight and unhighlight a single slider by index
+
 ### `highlightName`, `unhighlightName`
 highlight and unhighlight the nameView
+
 ### `highlightParams`
 highlight a contiguous group of sliders; used for showing assigned MIDI faderboxes etc.
+
 ### `addReplaceKey`, `removeReplaceKey`
 editKeys with technical names can be replaced with more user-friendly ones.
+
 ### `proxy`
 an alias to method object, object_
 
 ### Standard JITGui Methods
+
 ### `setDefaults`
 
+
 ### `accepts`
+
 
 ### `getState`, `checkUpdate`
 
 
 ### GUI Element Creation
+
 ### `makeViews`
 creates all the views given in the options list. Internally this calls the following methods:
+
 ### `makeNameView`, `makeTypeView`, `makeClrBut`, `makeWakeBut`, `makeResetBut`, `makeScopeBut`, `makeDocBut`, `makeEndBut`, `makeFadeBox`, `makePauseBut`, `makeSendBut`, `makeEdBut`, `makeRipBut`, `makePollBut`
+
 
 ### `makeMonitor`
 
@@ -133,7 +156,7 @@ creates all the views given in the options list. Internally this calls the follo
 ## Examples
 
 
-```supercollider
+```
     // some preparation - make an ar and a kr nodeproxy.
 s.boot;
 (
@@ -156,7 +179,7 @@ Ndef(\a).set(\freq, 120);
 
 ### Some configuration options
 
-```supercollider
+```
     // some preparation - make an ar and a kr nodeproxy.
 s.boot;
 (
@@ -180,7 +203,7 @@ Ndef(\a).set(\freq, 120);
 
 ### Some configuration options
 
-```supercollider
+```
 // numItems - sliders for setting parameters
 n = NdefGui(Ndef(\a), 8);
 
@@ -280,7 +303,7 @@ Ndef(\a, { |freq = 10, amp = 0.1, harm = 20| Blip.ar(freq, harm) * amp })
 This seems broken in 3.7.0 - drags are sticky and can't be dropped.
 
 
-```supercollider
+```
 (
 p = ProxySpace.push(s.boot);
 
@@ -313,7 +336,7 @@ n.object_(c);
 This is used in ProxyChain (JITLibExtensions).
 
 
-```supercollider
+```
 (
 Ndef(\a, { |freq = 300, dens = 20, amp = 0.1, pan|
     Pan2.ar(Ringz.ar(Dust.ar(dens, amp / (dens.max(1).sqrt)), freq, 0.2), pan)

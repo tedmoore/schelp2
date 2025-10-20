@@ -14,6 +14,7 @@ Examples of n-ary operators are: blend, linlin, linexp, explin, expexp, clip, fo
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Examples of n-ary operators are: blend, linlin, linexp, explin, expexp, clip, fo
 ## Examples
 
 
-```supercollider
+```
 (
 var a;
 a = Pnaryop(\wrap, Pseries(0, 1, 12), [3, 7]);
@@ -57,7 +58,7 @@ blend(Pseq([1, 2, 3], inf), Pseq([3, 2, 1, 0], inf), Pseries(0, 0.01, inf));
 
 
 
-```supercollider
+```
 // sound example
 (
 SynthDef(\help_sinegrain,

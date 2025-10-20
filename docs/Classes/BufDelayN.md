@@ -13,6 +13,7 @@ Simple delay line with no interpolation which uses a buffer for its internal mem
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -28,7 +29,7 @@ Simple delay line with no interpolation which uses a buffer for its internal mem
 ## Examples
 
 
-```supercollider
+```
 // allocate buffer
 b = Buffer.alloc(s, 44100, 1);
 

@@ -22,6 +22,7 @@ See [OSC_communication](../Guides/OSC_communication.md) for more details.
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 

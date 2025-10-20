@@ -20,6 +20,7 @@ If the parent is `nil`, then EZText will create its own [Window](../Classes/Wind
 
 
 ### Creation / Class Methods
+
 ### `new`
 **Arguments:**
 
@@ -38,7 +39,7 @@ If the parent is `nil`, then EZText will create its own [Window](../Classes/Wind
 | `gap` | A [Point](../Classes/Point.md). By default, the view tries to get its parent's gap, otherwise it defaults to `2@2`. Setting it overrides these. |  
 | `margin` | A [Point](../Classes/Point.md). This will inset the bounds occupied by the subviews of view. |  
 Example:
-```supercollider
+```
 (
 w = Window("EZText", Rect(300, 300, 260, 60)).front;
 g = EZText(w,          // parent
@@ -68,22 +69,28 @@ The contained views can be accessed via the EZText instance variables: `labelVie
 
 ## Instance Methods
 
+
 ### `textField`
-Returns the textField.### `action`
-A [Function](../Classes/Function.md) to be evaluated when the value changes. Typical use is to type in a new value, and interpret it by hitting the evaluation shortcut. The first argument to the function will be the EZText.### `value`
+Returns the textField.
+### `action`
+A [Function](../Classes/Function.md) to be evaluated when the value changes. Typical use is to type in a new value, and interpret it by hitting the evaluation shortcut. The first argument to the function will be the EZText.
+### `value`
 Gets/sets the value of the ezText. Does not perform the action.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `inval` | Any object. |  
+
 ### `valueAction`
 Sets the value and performs the action.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `val` | Any object. |  
+
 ### `doAction`
-Performs the action.### `enabled`
+Performs the action.
+### `enabled`
 Sets/gets whether the textfield is enabled.**Arguments:**
 
 | Argument | Description |
@@ -91,6 +98,7 @@ Sets/gets whether the textfield is enabled.**Arguments:**
 | `bool` | An instance of [Boolean](../Classes/Boolean.md). Default is `true`. |  
 
 ### Changing Appearance
+
 ### `setColors`
 **Arguments:**
 
@@ -104,6 +112,7 @@ Sets/gets whether the textfield is enabled.**Arguments:**
 | `textTypingColor` | An instance of [Color](../Classes/Color.md). The `typingColor` of the textField. |  
 | `background` | An instance of [Color](../Classes/Color.md). The `background` of the enclosing view. |  
 
+
 ### `font`
 Set the Font used by all the views.**Arguments:**
 
@@ -115,7 +124,7 @@ Set the Font used by all the views.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 // Simplest version
 (        // basic use
         w = Window("ez", Rect(300, 300, 300, 50)).front;

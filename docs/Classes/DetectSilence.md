@@ -8,7 +8,7 @@
 
 When the absolute value of the input signal remains below the threshold for a given window of time, output 1. Otherwise, output 0. If the output transitions from 0 to 1, doneAction is also evaluated.
 
-```supercollider
+```
 // this frees after the Decay has become quiet enough for a long enough time
 { var signal = Decay.ar(Impulse.ar(0), 2, PinkNoise.ar(0.2)); DetectSilence.ar(signal, doneAction: Done.freeSelf); signal }.play;
 ```
@@ -20,6 +20,7 @@ DetectSilence does not distinguish a DC-biased signal from a loud signal. If you
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -34,7 +35,7 @@ DetectSilence does not distinguish a DC-biased signal from a loud signal. If you
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("detectSilence-help", { |out|
     var z;

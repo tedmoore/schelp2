@@ -14,6 +14,7 @@ Sum three signals. Internal ugen to efficiently mix three signals. Should be use
 ## Class Methods
 
 
+
 ### `new`
 Construct UGen.
 

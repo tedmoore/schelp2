@@ -13,6 +13,7 @@ FIXME: PauseSelfWhenDone description.
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 

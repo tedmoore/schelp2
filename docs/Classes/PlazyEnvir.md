@@ -13,6 +13,7 @@ Evaluates a function that returns a pattern and embeds it in a stream. In differ
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Evaluates a function that returns a pattern and embeds it in a stream. In differ
 ## Examples
 
 
-```supercollider
+```
 (
 a = PlazyEnvir({ |a = 0, b = 1| Pshuf([a, a, b], 2) }); // a, b default to 0, 1
 x = Pn(a, inf).asStream;

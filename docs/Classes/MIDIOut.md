@@ -15,6 +15,7 @@ Linux users, or any users who require cross-platform compatibility with Linux, s
 ## Class Methods
 
 
+
 ### `new`
 Create a new MIDIOut instance. Note that this method is not safe for cross-platform usage with Linux, because the meaning of the `port` argument is different. See [#Linux specific: Connecting and disconnecting ports](#linux-specific:-connecting-and-disconnecting-ports) for details.**Arguments:**
 
@@ -31,28 +32,32 @@ Create a new MIDIOut instance. Note that this method is not safe for cross-platf
 **Linux**
 : using the uid is optional as described below. |  
 
+
 ### `newByName`
 Searches for the MIDI output device, by a name found in the `MIDIClient.destinations` array. This is safer then depending on the index which will change if your studio setup changes. It is also Linux compatible.
-```supercollider
+```
 // list connected out ports with names:
 MIDIClient.init;
 MIDIClient.destinations;
 ```
+
 
 
 ### `findPort`
 Searches for a connected MIDIEndPoint by name.
-```supercollider
+```
 // list connected out ports with names:
 MIDIClient.init;
 MIDIClient.destinations;
 ```
+
 
 
 ### `connect`, `disconnect`
 Linux only. MacOS does not need to connect. On Linux it is an optional feature (see below).
 
 ## Instance Methods
+
 
 ### `sysex`
 Sends a sysex command represented as an [Int8Array](../Classes/Int8Array.md) to the device.
@@ -63,13 +68,14 @@ Sends a sysex command represented as an [Int8Array](../Classes/Int8Array.md) to 
 | Argument | Description |
 |----------|-------------|
 | `packet` | An Int8Array of data bytes to be sent.
-```supercollider
+```
 m = MIDIOut(0);
 
 m.sysex(Int8Array[0xF0, 1, 2, 3, 0xF7]);  // OK!
 
 m.sysex(Int8Array[1, 2, 3]);  // not OK
 ``` |  
+
 ### `latency`
 This sets the latency with which a midi event is sent out. Per default, this is set to 0.2, in order to be equal to the Server.latency.
 > **Note:** On Linux, there seems to be an ALSA or kernel bug if the latency is larger than 0, for some Linux kernels. If MIDIOut does not seem to work, set the latency to 0.
@@ -78,7 +84,7 @@ This sets the latency with which a midi event is sent out. Per default, this is 
 ## Examples
 
 
-```supercollider
+```
 MIDIClient.init;
 
 m = MIDIOut(0);  // Linux users: MIDIOut(0, MIDIClient.destinations[0].uid)
@@ -108,7 +114,7 @@ m.stop
 See [MidiPatterns](../Overviews/MidiPatterns.md) for details!
 
 
-```supercollider
+```
 MIDIClient.init;
 m = MIDIOut(0);  // Linux users: MIDIOut(0, MIDIClient.destinations[0].uid)
 
@@ -148,7 +154,7 @@ In macOS and Windows, a MIDIOut instance is bound to a specific destination MIDI
 SuperCollider in Linux uses the ALSA MIDI layer. ALSA MIDI applications send messages out through a "virtual output port," which is one of the members of `MIDIClient.sources`.
 
 
-```supercollider
+```
 MIDIClient.init;
 ```
 
@@ -159,7 +165,7 @@ At this point, creating `MIDIOut(0)` tells SuperCollider that this MIDIOut objec
 A `MIDIOut(0)` object, then, will not reach any destinations by default. The user needs to connect destination devices to the virtual source port, using either a graphical tool such as Qjackctl, or by MIDIOut's `connect` method.
 
 
-```supercollider
+```
 m = MIDIOut(0);  // use virtual source port "out0"
 m.connect(1);  // connect to MIDIClient.destinations[1]
 ```
@@ -195,7 +201,7 @@ The IAC Bus will now appear in MIDIClient.destinations. It will appear first, wh
 For this reason, it is always safer to find the port by name :
 
 
-```supercollider
+```
 MIDIOut.newByName("RemoteSL IN", "Port 1");
 ```
 
@@ -212,7 +218,7 @@ MIDIMonitor (freeware) can be very useful for troubleshooting:
 a machinedrum manual say sysex commands should be formatted like this...
 
 
-```supercollider
+```
 $f0,$00,$20,$3c,$02,$00,command,...,$f7
 ```
 
@@ -220,7 +226,7 @@ $f0,$00,$20,$3c,$02,$00,command,...,$f7
 and to set the tempo the machinedrum expects this command...
 
 
-```supercollider
+```
 $61 | Set tempo ID
 %0aaaaaaa | Upper bits
 %0bbbbbbb | Lower bits
@@ -232,7 +238,7 @@ Note: Tempo = %aaaaaaabbbbbbb / 24, max 300 BPM, min 30 BPM
 so to create and send a valid set tempo sysex command from SuperCollider to this machinedrum do...
 
 
-```supercollider
+```
 MIDIClient.init;
 m = MIDIOut(0);  // Linux users: MIDIOut(0, MIDIClient.destinations[0].uid)
 m.sysex(Int8Array[0xf0, 0x00, 0x20, 0x3c, 0x02, 0x00, 0x61, 21, 54, 0xf7]);
@@ -242,7 +248,7 @@ m.sysex(Int8Array[0xf0, 0x00, 0x20, 0x3c, 0x02, 0x00, 0x61, 21, 54, 0xf7]);
 This will set the tempo to 114.23 bpm. One can calculate the upper and lower 7bit values like this...
 
 
-```supercollider
+```
 (
 var bpm, val, upper, lower;
 bpm = 114.23;

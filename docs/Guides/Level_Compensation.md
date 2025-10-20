@@ -23,7 +23,7 @@ To balance these aspects, it helps to know more about the signals to be mixed/pa
 In the acoustics literature, this level compensation factor is called the p-value [1], and it can be generalized as follows:
 
 
-```supercollider
+```
 ~levelCompFactor = { |numChans=2, p_value=1|
     numChans ** p_value.clip(0, 1).neg
 };
@@ -40,7 +40,7 @@ Here are some examples for the common cases of Mixing and Panning.
 Mixing down to mono is the simplest case to show the different approaches to level compensation. UGens or functions for this are [Mix](../Classes/Mix.md), `sum`, `mean`.
 
 
-```supercollider
+```
 s.meter; s.scope;
 
 n = 10;
@@ -82,7 +82,7 @@ n = 10;
 [Pan2](../Classes/Pan2.md) uses equal power panning: when panned to the center, both signals are at 0.7, or -3 dB
 
 
-```supercollider
+```
 { Pan2.ar(DC.ar(1), Line.kr(-1, 1, 0.1)) }.plot(0.1);
 // loudness seems constant when panning
 { Pan2.ar(PinkNoise.ar(0.2), SinOsc.kr(0.3)) }.play;
@@ -92,7 +92,7 @@ n = 10;
 [LinPan2](../Classes/LinPan2.md) uses equal amplitude panning: in the center, both signals are at 0.5.
 
 
-```supercollider
+```
 { LinPan2.ar(DC.ar(1), Line.kr(-1, 1, 0.1)) }.plot(0.1);
 // loudness seems to drop slightly when in the center
 { LinPan2.ar(PinkNoise.ar(0.2), SinOsc.kr(0.3)) }.play;
@@ -106,7 +106,7 @@ n = 10;
 [PanAz](../Classes/PanAz.md) uses equal power panning, so with a default width of 2, it keeps the energy constant, like [Pan2](../Classes/Pan2.md).
 
 
-```supercollider
+```
 { PanAz.ar(4, DC.ar(1), Line.kr(-1, 1, 0.1), orientation: 0) }.plot(0.1);
 
 // with larger width, the overlaps get bigger, and the overall energy rises,
@@ -122,7 +122,7 @@ n = 10;
 [Splay](../Classes/Splay.md) mixes an array of input channels down to stereo using [Pan2](../Classes/Pan2.md), and it has 3 options for level compensation:
 
 
-```supercollider
+```
 s.meter; s.scope;
 
 // levelComp defaults to true, which is equal power -
@@ -151,7 +151,7 @@ Note that this levelComp factor scales with the number of channels, so tuning to
 [SplayAz](../Classes/SplayAz.md) mixes an array of M input channels to N outputs using [PanAz](../Classes/PanAz.md); it has 3 options for level compensation:
 
 
-```supercollider
+```
 s.meter; s.scope;
 
 n = 10;

@@ -13,6 +13,7 @@ Pause enclosing synth when input signal crosses from non-positive to positive.
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Pause enclosing synth when input signal crosses from non-positive to positive.
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("pauseSelf-help", { |out, t_trig|
     PauseSelf.kr(t_trig);

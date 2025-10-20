@@ -18,6 +18,7 @@ Write to a buffer at an index.
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -35,7 +36,7 @@ Write to a buffer at an index.
 ## Examples
 
 
-```supercollider
+```
 (
 // allocate a buffer for writinig into
 s = Server.local;

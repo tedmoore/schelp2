@@ -16,6 +16,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -31,9 +32,10 @@
 
 ## Instance Methods
 
+
 ### `learn`
 Wait for the next pitch bend message, reset self to match src, chan.
-```supercollider
+```
 (
 c = BendResponder({ |src, chan, value|
         [src, chan, value].postln;
@@ -47,7 +49,7 @@ BendResponder.removeAll
 ## Examples
 
 
-```supercollider
+```
 (
     c = BendResponder({ |src, chan, val|
         [src, chan, val].postln;
@@ -63,7 +65,7 @@ c.remove
 
 
 
-```supercollider
+```
 (
     c = BendResponder({ |src, chan, val|
         [src, chan, val].postln;

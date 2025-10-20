@@ -14,6 +14,7 @@ The SendPeakRMS unit generator computes peak and power of a signal and sends the
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 Unlike with other unit generators, the `ar` and `kr` methods do not specify the rate of the computation, but the granularity. When the SendPeakRMS ugen is instantiated with `kr`, the reply rate is quantized to control-rate blocks.**Arguments:**
 
@@ -32,7 +33,7 @@ Unlike with other unit generators, the `ar` and `kr` methods do not specify the 
 ## Examples
 
 
-```supercollider
+```
 (
 {
     SendPeakRMS.kr(Dust.ar(20), 20, 3, "/replyAddress")

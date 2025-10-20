@@ -28,7 +28,7 @@ Or, go to
 Here's a template for a synthdef showing that it consists of a name and a ugenGraphFunc
 
 
-```supercollider
+```
 SynthDef(
     "aSynthDef",                // the 1st argument is the name
     { .... i am a ugenGraphFunc ... }    // the 2nd argument is the ugenGraphFunc
@@ -43,7 +43,7 @@ To make the template functional
 
 
 
-```supercollider
+```
 (
 SynthDef(
     "aSynthDef",                 // the name of the synthdef
@@ -70,7 +70,7 @@ The .load message writes synthdefs to disk and also sends them to the default se
 On the other hand, .send message,
 
 
-```supercollider
+```
 SynthDef( .... ).send(s);
 ```
 
@@ -78,7 +78,7 @@ SynthDef( .... ).send(s);
 instead of a .load message
 
 
-```supercollider
+```
 SynthDef( .... ).load(s);
 ```
 
@@ -86,7 +86,7 @@ SynthDef( .... ).load(s);
 is another way to get a synthdef to a server. The .send message, unlike the .load message, doesn't first write the synthdef to disk; instead it just transmits the synthdef directly to the server. This is therefore the message to use to define a synthdef on one computer but send it to another.
 
 
-```supercollider
+```
 (
 var aServer;
 aServer =
@@ -109,7 +109,7 @@ SynthDef( .... ).send(aServer);
 Use the synthdef browser to examine synthdefs that have been written to disk.
 
 
-```supercollider
+```
 (
 // a synthdef browser
 SynthDescLib.global.read;

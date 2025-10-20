@@ -13,6 +13,7 @@ The output is mixed from an array of inputs, performing an equal power crossfade
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ The output is mixed from an array of inputs, performing an equal power crossfade
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a;

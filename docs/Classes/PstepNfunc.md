@@ -13,7 +13,7 @@ Combines an arbitrary number of patterns by evaluating a function (depth first t
 ## Examples
 
 
-```supercollider
+```
 (
 f = { |vals|
     vals.postln;

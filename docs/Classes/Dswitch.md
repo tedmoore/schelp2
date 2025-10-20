@@ -13,6 +13,7 @@ Demand rate generator for embedding different inputs. In difference to Dswitch1,
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ structurally related: [Pswitch](../Classes/Pswitch.md)
 ## Examples
 
 
-```supercollider
+```
 (
     {
         var d, trig;

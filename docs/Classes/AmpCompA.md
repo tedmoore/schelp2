@@ -10,7 +10,7 @@
 
 Higher frequencies are normally perceived as louder, which AmpCompA compensates. Following the measurements by Fletcher and Munson, the ANSI standard describes a function for loudness vs. frequency.
 Note that this curve is only valid for standardized amplitude. > *Function freq → dB, derived from [http://www.beis.de/Elektronik/AudioMeasure/WeightingFilters.html](http://www.beis.de/Elektronik/AudioMeasure/WeightingFilters.html) and modified to map freq → amp.
-```supercollider
+```
 (
 var k =  3.5041384e16;
 var c1 = 424.31867740601;
@@ -36,6 +36,7 @@ For a simpler but more flexible curve, see [AmpComp](../Classes/AmpComp.md)
 
 ## Class Methods
 
+
 ### `ar`, `kr`, `ir`
 **Arguments:**
 
@@ -49,7 +50,7 @@ For a simpler but more flexible curve, see [AmpComp](../Classes/AmpComp.md)
 ## Examples
 
 
-```supercollider
+```
 // compare a sine without compensation
 
 { SinOsc.ar(MouseX.kr(300, 15000, 1)) * 0.1 }.play;

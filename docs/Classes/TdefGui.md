@@ -12,7 +12,7 @@ A gui showing the [Tdef](../Classes/Tdef.md)'s name, playing state, source state
 
 ### First example
 
-```supercollider
+```
 g = TdefGui();            // make a TdefGui
 g.object = Tdef(\a);        // show when a Tdef is put in
 Tdef(\a, { "boing".postln });     // show whether it has a source
@@ -62,6 +62,7 @@ TdefGui(Tdef(\a), 3, w);
 
 
 ### Creation Methods
+
 ### `new`
 Create a new [JITGui](../Classes/JITGui.md) that will be watching an object and display its state.**Arguments:**
 
@@ -78,36 +79,50 @@ Create a new [JITGui](../Classes/JITGui.md) that will be watching an object and 
 
 ## Instance Methods
 
+
 ### `object`
-a [Tdef](../Classes/Tdef.md), or nil### `numItems`
-the number of items in the envirGui### `parent`
-the parent view### `bounds`
-the bounds of the [zone](#zone)### `zone`
-the [CompositeView](../Classes/CompositeView.md) within which the TdfGui is shown### `nameBut`, `playBut`, `pauseBut`, `srcBut`, `envBut`
-the buttons### `envirGui`
-the gui for the Tdef's envir - if numItems > 0.### `object`
-put an object in the gui.### `moveTo`
-(if the jitGui is in its own window)move it to some specific location.### `clear`
-(if the jitGui is in its own window)set the TdefGui's object to nil### `close`
+a [Tdef](../Classes/Tdef.md), or nil
+### `numItems`
+the number of items in the envirGui
+### `parent`
+the parent view
+### `bounds`
+the bounds of the [#-zone](#-zone)
+### `zone`
+the [CompositeView](../Classes/CompositeView.md) within which the TdfGui is shown
+### `nameBut`, `playBut`, `pauseBut`, `srcBut`, `envBut`
+the buttons
+### `envirGui`
+the gui for the Tdef's envir - if numItems > 0.
+### `object`
+put an object in the gui.
+### `moveTo`
+(if the jitGui is in its own window)move it to some specific location.
+### `clear`
+(if the jitGui is in its own window)set the TdefGui's object to nil
+### `close`
 (if the jitGui is in its own window)and close its window.
 ### Internal methods
+
 ### `srcString`
 a compileString that recreates the Tdef.
-```supercollider
+```
 // assume g from above is still there
 g.srcString;
 ```
 
 
+
 ### `editString`
 a compileString that recreates the Tdef's envir at edKey.
+
 ### `editStrings`
 a compileString that recreates the Tdef's envir at edKeys.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `edKeys` | Default value is nil.
-```supercollider
+```
 // assume g from above is still there
 g.editString;
 Tdef(\a).set(\foo, \bar);
@@ -116,18 +131,21 @@ g.editString(\foo);
 g.editStrings;
 ``` |  
 
+
 ### `getUsedKeys`
 the keys in use in the envir
-```supercollider
+```
 g.getUsedKeys;
 ```
 
 
+
 ### `openDoc`
 open a document with some strings at some location. used with src button, env button.
-```supercollider
+```
 g.openDoc(g.editStrings);
 ```
+
 
 
 ### `makeEnvirGui`
@@ -136,7 +154,7 @@ make an envirGui within zone.
 ## Examples
 
 
-```supercollider
+```
 (
 Tdef(\a, { |e| 100.do { |i| i.postln; 0.5.wait } });
 t = TdefGui(Tdef(\a), 4);

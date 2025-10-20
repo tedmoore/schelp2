@@ -13,6 +13,7 @@ The input signal value is truncated to an integer value and used as an index int
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ The input signal value is truncated to an integer value and used as an index int
 ## Examples
 
 
-```supercollider
+```
 // indexing into a table
 (
 {

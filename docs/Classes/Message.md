@@ -13,6 +13,7 @@ A message to an object, to be evaluated later.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,10 +26,14 @@ A message to an object, to be evaluated later.
 
 ## Instance Methods
 
+
 ### `receiver`
-the object to which the message is relayed### `selector`
-the method to be called### `args`
-the arguments to the call### `value`
+the object to which the message is relayed
+### `selector`
+the method to be called
+### `args`
+the arguments to the call
+### `value`
 send the message to the receiver and call the selector with the arguments**Arguments:**
 
 | Argument | Description |
@@ -38,7 +43,7 @@ send the message to the receiver and call the selector with the arguments**Argum
 ## Examples
 
 
-```supercollider
+```
 // an object
 a = 36
 

@@ -18,7 +18,7 @@ When sc3 reports an error to the user, there are usually three parts:
 For example:
 
 
-```supercollider
+```
 1.blech  // no class implements this method; therefore you'll get an error
 
 // error text
@@ -76,7 +76,7 @@ Following is the meat: the error happened when an object was not understood. Con
 Here is a slightly more complex example, showing how you can use the variables listed for each call in the call stack to help locate the error.
 
 
-```supercollider
+```
 Routine({
     var a;
     a = 5;
@@ -131,7 +131,7 @@ If you double click on the construction "ClassName-methodName" in the call stack
 sc3 implements error reporting using Error objects, which are instances of the class Error or one of its subclasses. Any code (whether in the class library or any user application) can throw an error any time as follows:
 
 
-```supercollider
+```
 Error("This is a basic error.").throw;
 ```
 
@@ -141,7 +141,7 @@ You can also catch exceptions that occur within functions by executing the funct
 
 **try**
 : execute the first function. On an error, execute the second function and suppress the error. The second function can rethrow the error if desired, allowing you to decide which errors will be reported and which suppressed. In this example, we do not rethrow the error, so the error is swallowed and execution continues to the end.
-```supercollider
+```
 try { 1.blech } { |error| "oops".postln };
 "next line".postln;
 
@@ -151,7 +151,7 @@ next line
 
 **protect**
 : executes the first function. On an error, execute the second function before reporting the error. This is useful when the steps before the protect make some changes that need to be undone if an error occurs. See [Environment:use](../Classes/Environment.md#use) for an example.
-```supercollider
+```
 protect { 1.blech } { |error| "oops".postln };
 "next line".postln;
 
@@ -173,7 +173,7 @@ CALL STACK:
 Prior to August 2004, try and protect do not return the value of the function to the caller if there is no error.
 
 
-```supercollider
+```
 try { 1+1 }
 
 a Function
@@ -183,7 +183,7 @@ a Function
 More recent builds (since early August 2004) do return the function's value. Non-error objects can be thrown using the class Exception.
 
 
-```supercollider
+```
 try { 1+1 }
 2
 
@@ -204,7 +204,7 @@ This is usually the results of performing a GUI operation within a routine or sc
 Solution: write your GUI updates as follows. defer schedules the function on AppClock.
 
 
-```supercollider
+```
 { myGUIObject.value_(newValue) }.defer;
 ```
 
@@ -214,7 +214,7 @@ Solution: write your GUI updates as follows. defer schedules the function on App
 
 ### Attempted write to immutable object.
 
-```supercollider
+```
 #[0, 1, 2].put(1, 3)
 
 ERROR: Primitive '_BasicPut' failed.
@@ -227,7 +227,7 @@ Attempted write to immutable object.
 Solution: copy the array first.
 
 
-```supercollider
+```
 #[0, 1, 2].copy.put(1, 3)
 
 [ 0, 3, 2 ]
@@ -239,7 +239,7 @@ Solution: copy the array first.
 
 ### Index not an Integer.
 
-```supercollider
+```
 #[0, 1, 2].at(\1)
 
 ERROR: Primitive '_BasicAt' failed.
@@ -252,7 +252,7 @@ Arrays can be indexed only with integers (or, in builds since August 2004, float
 Solution: use `.asInteger`
 
 
-```supercollider
+```
 #[0, 1, 2].at(\1.asInteger)
 1
 ```
@@ -269,7 +269,7 @@ Solution: use `.asInteger`
 
 ### Index out of range.
 
-```supercollider
+```
 [0, 1, 2].put(5, 5)
 
 ERROR: Primitive '_BasicPut' failed.
@@ -282,7 +282,7 @@ Arrays have a finite size. If you try to put an object into an array slot but th
 Solution: extend the array.
 
 
-```supercollider
+```
 [0, 1, 2].extend(6).put(5, 5)
 
 [ 0, 1, 2, nil, nil, 5 ]
@@ -292,7 +292,7 @@ Solution: extend the array.
 Note that if the argument to extend() is smaller than the array, then the array will be truncated. If you're not sure, use max:
 
 
-```supercollider
+```
 i = rrand(5, 10);
 a = [0, 1, 2];
 a.extend(max(i+1, a.size)).put(i, 100);
@@ -304,7 +304,7 @@ Why i+1? An array with size 4 allows 0, 1, 2 and 3 as indexes (4 elements starti
 If it's a new array, use .newClear instead of .new.
 
 
-```supercollider
+```
 a = Array.new(4);
 a.put(3, 1);
 ERROR: Primitive '_BasicPut' failed.
@@ -322,7 +322,7 @@ a.put(3, 1);
 
 ## A common warning
 
-```supercollider
+```
 WARNING: FunctionDef contains variable declarations and so will not be inlined.
 ```
 
@@ -332,7 +332,7 @@ This warning can be safely ignored. Your code will still run, even if you get th
 Inlining is a compiler optimization that takes the operations inside a function and places them in the main line of the containing function. For instance,
 
 
-```supercollider
+```
 // inlined
 { while { 0.9.coin } { 10.rand.postln }
 }.def.dumpByteCodes;
@@ -355,7 +355,7 @@ This function contains two other functions. One is the condition for the while l
 If, however, one of the functions defines a variable, then that function requires a separate execution frame. In this case, it's necessary for the compiler to push function definition objects onto the stack.
 
 
-```supercollider
+```
 // not inlined
 { while { 0.9.coin } {
     var a;    // variable here prevents optimization
@@ -378,7 +378,7 @@ Inlined code will run faster, because pushing and using different execution fram
 Sometimes, there's no way around un-optimized code. To wit,
 
 
-```supercollider
+```
 // inlined, optimized, but you'll get stuck notes
 Routine({
   var synth;
@@ -410,7 +410,7 @@ In the second case, each note has its own synth variable, so the notes will be t
 A solution to the above problem is to use a function with local variables.
 
 
-```supercollider
+```
 (
 Routine({
     var func;

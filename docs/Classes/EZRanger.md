@@ -18,6 +18,7 @@ EZRanger's number boxes scroll by default, using the step size of the [ControlSp
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -38,7 +39,7 @@ EZRanger's number boxes scroll by default, using the step size of the [ControlSp
 | `gap` | A [Point](../Classes/Point.md). By default, the view tries to get its parent's gap, otherwise it defaults to `2@2`. Setting it overrides these. |  
 | `margin` | A [Point](../Classes/Point.md). This will inset the bounds occupied by the subviews of view. |  
 
-```supercollider
+```
 (
 w = Window.new.front;
 g = EZRanger(w, 400@16, " test  ", \freq, { |v| v.value.postln }, [50, 2000], unitWidth: 30)
@@ -56,34 +57,46 @@ The contained views can be accessed via the EZRanger instance variables: `rangeS
 
 
 ### Accessing Instance and Class Variables
+
 ### `unitView`
 The units label. Only appears if `unitWidth` was set to > 0.
+
 ### `controlSpec`
 An instance of ControlSpec for scaling the values.
+
 ### `loBox`
 The `lo` value [NumberBox](../Classes/NumberBox.md).
+
 ### `action`
 Set/get a [Function](../Classes/Function.md) or [FunctionList](../Classes/FunctionList.md) to be evaluated when the value changes. The first argument will be the EZRanger.
+
 ### `rangeSlider`
 The [RangeSlider](../Classes/RangeSlider.md) [View](../Classes/View.md)
+
 ### `lo`
 Set/get the low value.
+
 ### `hi`
 Set/get the high value
+
 ### `hiBox`
 The hi value [NumberBox](../Classes/NumberBox.md).
+
 ### `round`
 Rounds the values in the number boxes.
 
 ### Doing Some Task (optional)
+
 ### `doAction`
 Performs the action at the current index and the global action.
+
 ### `value`
 Gets/sets the `lo` and `hi` values.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `vals` | An instance of [Array](../Classes/Array.md) `[lo, hi]`. |  
+
 
 ### `valueAction`
 Sets the value and performs the action at the index value and the global action.**Arguments:**
@@ -94,6 +107,7 @@ Sets the value and performs the action at the index value and the global action.
 
 
 ### Changing Appearance
+
 ### `setColors`
 **Arguments:**
 
@@ -109,6 +123,7 @@ Sets the value and performs the action at the index value and the global action.
 | `knobColor` | An instance of [Color](../Classes/Color.md). The `knobColor` of the slider view. |  
 | `background` | An instance of [Color](../Classes/Color.md). The `background` of the enclosing view. |  
 
+
 ### `font`
 Set the Font used by all the views.**Arguments:**
 
@@ -120,7 +135,7 @@ Set the Font used by all the views.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 (    // basic use
     w = Window.new.front;
     g = EZRanger(w, 400@16, " test  ", \freq, { |v| v.value.postln }, [50, 2000], unitWidth: 30);

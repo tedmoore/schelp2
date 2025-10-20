@@ -55,6 +55,7 @@ The server expects `numFrames`, `numChannels` and get/set index arguments to be 
 
 
 ### Creation with Immediate Memory Allocation
+
 ### `alloc`
 Create and return a Buffer and immediately allocate the required memory on the server. The buffer's values will be initialised to 0.0.**Arguments:**
 
@@ -67,12 +68,13 @@ Create and return a Buffer and immediately allocate the required memory on the s
 | `bufnum` | An explicitly specified buffer number. Supplying a number bypasses the server's buffer allocator, which can lead to conflicts. The best practice is to leave this unset and let the buffer number allocator choose the next available bufnum. |  
 | `sampleRate` | The sample rate of the buffer. The default is the sample rate of the server. 0 or nil will reset to the Server's sample rate. |  
 
-```supercollider
+```
 // Allocate 8 second stereo buffer
 s.boot;
 b = Buffer.alloc(s, s.sampleRate * 8.0, 2);
 b.free;
 ```
+
 
 
 ### `allocConsecutive`
@@ -88,7 +90,7 @@ Allocates a range of consecutively-numbered buffers, for use with UGens like [VO
 | `bufnum` | An explicitly specified buffer number. Supplying a number bypasses the server's buffer allocator, which can lead to conflicts. The best practice is to leave this unset and let the buffer number allocator choose the next available bufnum. |  
 | `sampleRate` | The sample rate of the buffer. The default is the sample rate of the server. |  
 N.B. You must treat the array of Buffers as a group. Freeing them individually or reusing them can result in allocation errors. You should free all Buffers in the array at the same time by iterating over it with do.
-```supercollider
+```
 s.boot;
 // allocate an array of Buffers and fill them with different harmonics
 (
@@ -106,6 +108,7 @@ b.do(_.free);
 ```
 
 
+
 ### `read`
 Allocate a buffer and immediately read a soundfile into it. This method sends a query message as a completion message so that the Buffer's instance variables will be updated automatically.**Arguments:**
 
@@ -118,7 +121,7 @@ Allocate a buffer and immediately read a soundfile into it. This method sends a 
 | `action` | A Function to be evaluated once the file has been read and this Buffer's instance variables have been updated. The function will be passed this Buffer as an argument. |  
 | `bufnum` | An explicitly specified buffer number. Supplying a number bypasses the server's buffer allocator, which can lead to conflicts. The best practice is to leave this unset and let the buffer number allocator choose the next available bufnum. |  
 N.B. You cannot rely on the buffer's instance variables being instantly updated, as there is a small amount of latency involved. action will be evaluated upon receipt of the reply to the query, so use this in cases where access to instance variables is needed.
-```supercollider
+```
 // Read a sound file from disk into a buffer
 s.boot;
 // ExampleFiles helps locate audio files used in examples
@@ -151,6 +154,7 @@ x.free; b.free;
 ```
 
 
+
 ### `readChannel`
 As [#*read](#*read) above, but takes an [Array](../Classes/Array.md) of channel indices to read in, allowing one to read only the selected channels.**Arguments:**
 
@@ -164,7 +168,7 @@ As [#*read](#*read) above, but takes an [Array](../Classes/Array.md) of channel 
 | `action` | A Function to be evaluated once the file has been read and this Buffer's instance variables have been updated. The function will be passed this Buffer as an argument. |  
 | `bufnum` | An explicitly specified buffer number. Supplying a number bypasses the server's buffer allocator, which can lead to conflicts. The best practice is to leave this unset and let the buffer number allocator choose the next available bufnum. |  
 
-```supercollider
+```
 s.boot;
 // first a standard read so we can see what's in the file
 b = Buffer.read(s, ExampleFiles.sinedPink);
@@ -189,6 +193,7 @@ b.free;
 ```
 
 
+
 ### `readNoUpdate`
 As [#*read](#*read) above, but without the automatic update of instance variables. Call `updateInfo` (see below) to update the vars.**Arguments:**
 
@@ -201,7 +206,7 @@ As [#*read](#*read) above, but without the automatic update of instance variable
 | `bufnum` | An explicitly specified buffer number. Supplying a number bypasses the server's buffer allocator, which can lead to conflicts. The best practice is to leave this unset and let the buffer number allocator choose the next available bufnum. |  
 | `completionMessage` | A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated. |  
 
-```supercollider
+```
 // with a completion message
 s.boot;
 (
@@ -229,6 +234,7 @@ b.free;
 ```
 
 
+
 ### `cueSoundFile`
 Allocate a buffer and preload a soundfile for streaming in using [DiskIn](../Classes/DiskIn.md).**Arguments:**
 
@@ -241,7 +247,7 @@ Allocate a buffer and preload a soundfile for streaming in using [DiskIn](../Cla
 | `bufferSize` | This must be a multiple of (2 * the server's block size). 32768 is the default and is suitable for most cases. |  
 | `completionMessage` | A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated. |  
 
-```supercollider
+```
 s.boot;
 (
 SynthDef(\help_Buffer_cue, { |out = 0, bufnum|
@@ -261,6 +267,7 @@ b.free; y.free;
 ```
 
 
+
 ### `loadCollection`
 Load a large collection into a buffer on the server. Returns a Buffer object.**Arguments:**
 
@@ -271,7 +278,7 @@ Load a large collection into a buffer on the server. Returns a Buffer object.**A
 | `numChannels` | The number of channels that the buffer should have. Note that buffers interleave multichannel data. You are responsible for providing an interleaved collection if needed. Multi-dimensional arrays will not work. |  
 | `action` | A Function to be evaluated once the file has been read and this Buffer's instance variables have been updated. The function will be passed this Buffer as an argument. |  
 This is accomplished through writing the collection to a SoundFile and loading it from there. For this reason this method will only work with a server on your local machine. For a remote server use `sendCollection`, below. The file is automatically deleted after loading. This allows for larger collections than setn, below, and is in general the safest way to get a large collection into a buffer. The sample rate of the buffer will be the sample rate of the server on which it is created.
-```supercollider
+```
 s.boot;
 (
 a = FloatArray.fill(44100 * 5.0, { 1.0.rand2 }); // 5 seconds of noise
@@ -300,6 +307,7 @@ x.free; b.free;
 ```
 
 
+
 ### `sendCollection`
 Stream a large collection into a buffer on the server using multiple setn messages. Returns a Buffer object.**Arguments:**
 
@@ -311,7 +319,7 @@ Stream a large collection into a buffer on the server using multiple setn messag
 | `wait` | An optional wait time between sending setn messages. In a high traffic situation it may be safer to set this to something above zero, which is the default. |  
 | `action` | A Function to be evaluated once the file has been read and this Buffer's instance variables have been updated. The function will be passed this Buffer as an argument. |  
 This allows for larger collections than setn, below. This is not as safe as [#*loadCollection](#*loadcollection) above, but will work with servers on remote machines. The sample rate of the buffer will be the sample rate of the server on which it is created.
-```supercollider
+```
 s.boot;
 (
 a = Array.fill(2000000, { rrand(0.0, 1.0) }); // a LARGE collection
@@ -320,6 +328,7 @@ b = Buffer.sendCollection(s, a, 1, 0, { |buf| "finished".postln });
 b.get(1999999, { |msg| (msg == a[1999999]).postln });
 b.free;
 ```
+
 
 
 ### `loadDialog`
@@ -333,7 +342,7 @@ As [#*read](#*read) above, but gives you a load dialog window to browse for a fi
 | `action` | A Function to be evaluated once the file has been read and this Buffer's instance variables have been updated. The function will be passed this Buffer as an argument. |  
 | `bufnum` | An explicitly specified buffer number. Supplying a number bypasses the server's buffer allocator, which can lead to conflicts. The best practice is to leave this unset and let the buffer number allocator choose the next available bufnum. |  
 
-```supercollider
+```
 s.boot;
 (
 b = Buffer.loadDialog(s, action: { |buffer|
@@ -342,6 +351,7 @@ b = Buffer.loadDialog(s, action: { |buffer|
 )
 x.free; b.free;
 ```
+
 
 
 ### `loadChannelDialog`
@@ -356,7 +366,7 @@ As [#*readChannel](#*readchannel) above, but gives you a load dialog window to b
 | `action` | A Function to be evaluated once the file has been read and this Buffer's instance variables have been updated. The function will be passed this Buffer as an argument. |  
 | `bufnum` | An explicitly specified buffer number. Supplying a number bypasses the server's buffer allocator, which can lead to conflicts. The best practice is to leave this unset and let the buffer number allocator choose the next available bufnum. |  
 
-```supercollider
+```
 s.boot;
 (
 b = Buffer.loadChannelDialog(s, channels: [0], action: { arg buffer;
@@ -370,6 +380,7 @@ x.free; b.free;
 
 
 ### Creation without Immediate Memory Allocation
+
 ### `new`
 Create and return a new Buffer object, without immediately allocating the corresponding memory on the server. This combined with 'message' methods can be flexible with bundles.**Arguments:**
 
@@ -381,7 +392,7 @@ Create and return a new Buffer object, without immediately allocating the corres
 | `bufnum` | An explicitly specified buffer number. Supplying a number bypasses the server's buffer allocator, which can lead to conflicts. The best practice is to leave this unset and let the buffer number allocator choose the next available bufnum. |  
 | `sampleRate` | The sample rate of the buffer. The default is the sample rate of the server. |  
 
-```supercollider
+```
 s.boot;
 b = Buffer.new(s, 44100 * 8.0, 2);
 c = Buffer.new(s, 44100 * 4.0, 2);
@@ -403,7 +414,7 @@ You may access cached buffers using the following methods.
 It may be simpler to access them through the server object:
 
 
-```supercollider
+```
 myServer.cachedBufferAt(bufnum)
 myServer.cachedBuffersDo(func)
 
@@ -414,8 +425,10 @@ s.cachedBuffersDo({ |buf| buf.postln });
 ```
 
 
+
 ### `cachedBufferAt`
 Access a buffer by its number.
+
 ### `cachedBuffersDo`
 Iterate over all cached buffers. The iteration is not in any order, but will touch all buffers.
 
@@ -426,11 +439,13 @@ Iterate over all cached buffers. The iteration is not in any order, but will tou
 ### Variables
 The following variables have getter methods.
 
+
 ### `server`
 Returns the Buffer's Server object.
+
 ### `bufnum`
 Returns the buffer number of the corresponding server-side buffer. In normal use you should not need to access this value, since instances of Buffer can be used directly as UGen inputs or Synth args.
-```supercollider
+```
 s.boot;
 b = Buffer.alloc(s, 44100 * 8.0, 2);
 b.bufnum.postln;
@@ -438,15 +453,19 @@ b.free;
 ```
 
 
+
 ### `numFrames`
 Returns the number of sample frames in the corresponding server-side buffer. Note that multichannel buffers interleave their samples, so when dealing with indices in methods like get and getn, the actual number of available values is numFrames * numChannels.
+
 ### `numChannels`
 Returns the number of channels in the corresponding server-side buffer.
+
 ### `sampleRate`
 Returns the language-side instance variable `sampleRate`, of the corresponding server-side buffer. By default, this will be set to the server's sample rate when the `Buffer` is instantiated.The `sampleRate` setter method only changes the language-side instance variable. It does not resample the buffer or change its sample rate on the server. To change the server-side buffer sample rate, use `setSampleRate`.
-> **Note:** Setting the `sampleRate` instance variable affects the returned [duration](#duration) (which returns `numFrames / sampleRate`).
+> **Note:** Setting the `sampleRate` instance variable affects the returned [#-duration](#-duration) (which returns `numFrames / sampleRate`).
 
-> **⚠️ Warning:** You can use [query](#query) to inspect the buffer's sample rate on the server, but this will also *update the* `sampleRate` *instance variable*, overwriting its value which you may have previously set.
+> **⚠️ Warning:** You can use [#-query](#-query) to inspect the buffer's sample rate on the server, but this will also *update the* `sampleRate` *instance variable*, overwriting its value which you may have previously set.
+
 ### `setSampleRate`
 Sets the sample rate of the buffer on the server side, and updates its value on the language side. This does not resample the audio.**Arguments:**
 
@@ -454,13 +473,16 @@ Sets the sample rate of the buffer on the server side, and updates its value on 
 |----------|-------------|
 | `value` | The new desired sample rate. 0 or nil will set to the Server's sample rate. |  
 
+
 ### `duration`
 Returns `this.numFrames / this.sampleRate` (language-side instance variables).
+
 ### `path`
 Returns a string containing the path of a soundfile that has been loaded into the corresponding server-side buffer.
 
 ### Explicit allocation
 These methods allocate the necessary memory on the server for a Buffer previously created with [#*new](#*new).
+
 
 ### `alloc`, `allocMsg`
 **Arguments:**
@@ -468,6 +490,7 @@ These methods allocate the necessary memory on the server for a Buffer previousl
 | Argument | Description |
 |----------|-------------|
 | `completionMessage` | A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated. |  
+
 
 ### `allocRead`, `allocReadMsg`
 Read a soundfile into a buffer on the server for a Buffer previously created with [#*new](#*new). Note that this will not autoupdate instance variables. Call `updateInfo` in order to do this.**Arguments:**
@@ -479,7 +502,7 @@ Read a soundfile into a buffer on the server for a Buffer previously created wit
 | `numFrames` | The number of frames to read. The default is -1, which will read the whole file. (A floating-point value is truncated to integer.) |  
 | `completionMessage` | A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated. |  
 
-```supercollider
+```
 s.boot;
 b = Buffer.new(s);
 b.allocRead(ExampleFiles.child);
@@ -488,8 +511,9 @@ x.free; b.free;
 ```
 
 
+
 ### `allocReadChannel`, `allocReadChannelMsg`
-As [allocRead](#allocread) above, but allows you to specify which channels to read.**Arguments:**
+As [#-allocRead](#-allocread) above, but allows you to specify which channels to read.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -499,7 +523,7 @@ As [allocRead](#allocread) above, but allows you to specify which channels to re
 | `channels` | An Array of channels to be read from the soundfile. Indices start from zero. These will be read in the order provided. If absent or an empty array all channels will be read from soundfile in order. |  
 | `completionMessage` | A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated. |  
 
-```supercollider
+```
 s.boot;
 b = Buffer.new(s);
 // read only the first channel (a Sine wave) of a stereo file
@@ -511,6 +535,7 @@ x.free; b.free;
 
 
 ### Other methods
+
 ### `read`
 Read a soundfile into an already allocated buffer.**Arguments:**
 
@@ -524,10 +549,12 @@ Read a soundfile into an already allocated buffer.**Arguments:**
 | `action` | A Function to be evaluated once the file has been read and this Buffer's instance variables have been updated. The function will be passed this Buffer as an argument. |  
 | `completionMessage` | A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated. |  
 
+
 ### `readMsg`
  construct the message for a read command. args are like those for read,  except that last arg is completionMessage.Note that if the number of frames in the file is greater than the number of frames in the buffer, it will be truncated. Note that readMsg will not auto-update instance variables. Call updateInfo in order to do this.
+
 ### `readChannel`
-As [read](#read) above, but allows you to specify which channels to read.**Arguments:**
+As [#-read](#-read) above, but allows you to specify which channels to read.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -540,8 +567,10 @@ As [read](#read) above, but allows you to specify which channels to read.**Argum
 | `action` | A Function to be evaluated once the file has been read and this Buffer's instance variables have been updated. The function will be passed this Buffer as an argument. |  
 | `completionMessage` | A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated. |  
 
+
 ### `readChannelMsg`
  as above for single channel, with last arg being completionMessage.
+
 ### `cueSoundFile`, `cueSoundFileMsg`
 A convenience method to cue a soundfile into the buffer for use with a [DiskIn](../Classes/DiskIn.md). The buffer must have been allocated with a multiple of (2 * the server's block size) frames. A common size is 32768 frames.**Arguments:**
 
@@ -551,7 +580,7 @@ A convenience method to cue a soundfile into the buffer for use with a [DiskIn](
 | `startFrame` | The first frame of the soundfile to read. The default is 0, which is the beginning of the file. (A floating-point value is truncated to integer.) |  
 | `completionMessage` | A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated. |  
 
-```supercollider
+```
 s.boot;
 
 
@@ -567,6 +596,7 @@ x.free; b.close; b.free;
 ```
 
 
+
 ### `write`, `writeMsg`
 Write the contents of the buffer to a file. See [SoundFile](../Classes/SoundFile.md) for information on valid values for headerFormat and sampleFormat.**Arguments:**
 
@@ -580,12 +610,14 @@ Write the contents of the buffer to a file. See [SoundFile](../Classes/SoundFile
 | `leaveOpen` | A boolean indicating whether or not the Buffer should be left 'open'. For use with DiskOut you will want this to be true. The default is false which is the correct value for all other cases. |  
 | `completionMessage` | A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated. |  
 
+
 ### `free`, `freeMsg`
 Release the buffer's memory on the server and return the bufferID back to the server's buffer number allocator for future reuse.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `completionMessage` | A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated. |  
+
 
 ### `zero`, `zeroMsg`
 Sets all values in this buffer to 0.0.**Arguments:**
@@ -594,9 +626,10 @@ Sets all values in this buffer to 0.0.**Arguments:**
 |----------|-------------|
 | `completionMessage` | A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated. |  
 
+
 ### `set`, `setMsg`
 Set the value in the buffer at index to be equal to float. Additional pairs of indices and floats may be included in the same message. (Floating-point values for index are truncated to integer.)Note that multichannel buffers interleave their sample data, therefore the actual number of available values is equal to `numFrames * numChannels`. Indices start at 0.
-```supercollider
+```
 s.boot;
 b = Buffer.alloc(s, 4, 2);
 b.set(0, 0.2, 1, 0.3, 7, 0.4); // set the values at indices 0, 1, and 7.
@@ -605,9 +638,10 @@ b.free;
 ```
 
 
+
 ### `setn`, `setnMsg`
-Set a contiguous range of values in the buffer starting at the index startAt to be equal to the Array of floats or integers, values. The number of values set corresponds to the size of values. Additional pairs of starting indices and arrays of values may be included in the same message. (Floating-point values for index are truncated to integer.)Note that multichannel buffers interleave their sample data, therefore the actual number of available values is equal to `numFrames * numChannels`. You are responsible for interleaving the data in values if needed. Multi-dimensional arrays will not work. Indices start at 0.N.B. The maximum number of values that you can set with a single setn message is 1633 when the server is using UDP as its communication protocol. Use [loadCollection](#loadcollection) and [sendCollection](#sendcollection) to set larger ranges of values.
-```supercollider
+Set a contiguous range of values in the buffer starting at the index startAt to be equal to the Array of floats or integers, values. The number of values set corresponds to the size of values. Additional pairs of starting indices and arrays of values may be included in the same message. (Floating-point values for index are truncated to integer.)Note that multichannel buffers interleave their sample data, therefore the actual number of available values is equal to `numFrames * numChannels`. You are responsible for interleaving the data in values if needed. Multi-dimensional arrays will not work. Indices start at 0.N.B. The maximum number of values that you can set with a single setn message is 1633 when the server is using UDP as its communication protocol. Use [#-loadCollection](#-loadcollection) and [#-sendCollection](#-sendcollection) to set larger ranges of values.
+```
 s.boot;
 b = Buffer.alloc(s, 16);
 b.setn(0, Array.fill(16, { rrand(0, 1) }));
@@ -616,6 +650,7 @@ b.setn(0, [1, 2, 3], 4, [1, 2, 3]);
 b.getn(0, b.numFrames, { |msg| msg.postln });
 b.free;
 ```
+
 
 
 ### `loadCollection`
@@ -627,7 +662,7 @@ Load a large collection into this buffer. This is accomplished through writing t
 | `startFrame` | The index of the frame at which to start loading the collection. The default is 0, which is the start of the buffer. |  
 | `action` | A Function to be evaluated once the file has been read and this Buffer's instance variables have been updated. The function will be passed this Buffer as an argument. |  
 This allows for larger collections than setn, above, and is in general the safest way to get a large collection into a buffer. The sample rate of the buffer will be the sample rate of the server on which it was created. The number of channels and frames will have been determined when the buffer was allocated. You are responsible for making sure that the size of collection is not greater than numFrames, and for interleaving any data if needed.
-```supercollider
+```
 s.boot;
 (
 v = Signal.sineFill(128, 1.0 / [1, 2, 3, 4, 5, 6]);
@@ -659,6 +694,7 @@ x.free; b.free;
 ```
 
 
+
 ### `sendCollection`
 Stream a large collection into this buffer using multiple setn messages.**Arguments:**
 
@@ -669,7 +705,7 @@ Stream a large collection into this buffer using multiple setn messages.**Argume
 | `wait` | An optional wait time between sending setn messages. In a high traffic situation it may be safer to set this to something above zero, which is the default. |  
 | `action` | A Function to be evaluated once the file has been read and this Buffer's instance variables have been updated. The function will be passed this Buffer as an argument. |  
 This allows for larger collections than setn. This is not as safe as loadCollection, above, but will work with servers on remote machines. The sample rate of the buffer will be the sample rate of the server on which it is created.
-```supercollider
+```
 s.boot;
 (
 a = Array.fill(2000000, { rrand(0.0, 1.0) });
@@ -681,9 +717,10 @@ b.free;
 ```
 
 
+
 ### `get`, `getMsg`
 Send a message requesting the value in the buffer at index. action is a Function which will be passed the value as an argument and evaluated when a reply is received. (Floating-point values for index are truncated to integer.)
-```supercollider
+```
 s.boot;
 b = Buffer.alloc(s, 16);
 b.setn(0, Array.fill(16, { rrand(0.0, 1.0) }));
@@ -692,8 +729,10 @@ b.free;
 ```
 
 
+
 ### `getn`, `getnMsg`
-Send a message requesting the a contiguous range of values of size count starting from index. action is a Function which will be passed the values in an Array as an argument and evaluated when a reply is received. (Floating-point values for index and count are truncated to integer.)N.B. The maximum number of values that you can get with a single getn message is 1633 when the server is using UDP as its communication protocol. Use [loadToFloatArray](#loadtofloatarray) and [getToFloatArray](#gettofloatarray) to get larger ranges of values.
+Send a message requesting the a contiguous range of values of size count starting from index. action is a Function which will be passed the values in an Array as an argument and evaluated when a reply is received. (Floating-point values for index and count are truncated to integer.)N.B. The maximum number of values that you can get with a single getn message is 1633 when the server is using UDP as its communication protocol. Use [#-loadToFloatArray](#-loadtofloatarray) and [#-getToFloatArray](#-gettofloatarray) to get larger ranges of values.
+
 ### `loadToFloatArray`
 Write the buffer to a file and then load it into a FloatArray.**Arguments:**
 
@@ -703,13 +742,14 @@ Write the buffer to a file and then load it into a FloatArray.**Arguments:**
 | `count` | The number of values to write. The default is -1, which writes from index until the end of the buffer. |  
 | `action` | A Function which will be passed the resulting FloatArray as an argument and evaluated when loading is finished. |  
 This is safer than getToFloatArray but only works with a server on your local machine. In general this is the safest way to get a large range of values from a server buffer into the client app.
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 // same as Buffer.plot
 b.loadToFloatArray(action: { |array| { array.plot }.defer; "done".postln });
 b.free;
 ```
+
 
 
 ### `getToFloatArray`
@@ -723,7 +763,7 @@ Stream the buffer to the client using a series of getn messages and put the resu
 | `timeout` | The amount of time in seconds after which to post a warning if all replies have not yet been received. the default is 3. |  
 | `action` | A Function which will be passed the resulting FloatArray as an argument and evaluated when all replies have been received. |  
 This is more risky than loadToFloatArray but does works with servers on remote machines. In high traffic situations it is possible for data to be lost. If this method has not received all its replies by timeout it will post a warning saying that the method has failed. In general use loadToFloatArray instead wherever possible.
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 // like Buffer.plot
@@ -732,13 +772,16 @@ b.free;
 ```
 
 
+
 ### `normalize`, `normalizeMsg`
 Normalizes the buffer so that the peak absolute value is newmax (which defaults to 1). If your buffer is in Wavetable format then set the asWavetable argument to true.
+
 ### `fill`, `fillMsg`
 Starting at the index startAt, set the next numFrames to value. Additional ranges may be included in the same message. (Floating-point values for startAt or numFrames are truncated to integer.)
+
 ### `copyData`, `copyMsg`
 Starting at the index srcStartAt, copy numSamples samples from this to the destination buffer buf starting at dstStartAt. If numSamples is negative, the maximum number of samples possible is copied. The default is start from 0 in the source and copy the maximum number possible starting at 0 in the destination. (Floating-point values for srcStartAt, numSamples and dstStartAt are truncated to integer.)Note: This method used to be called copy, but this conflicts with the method for object-copying. Therefore Buffer:copy is now intended to create a copy of the client-side Buffer object. Its use for copying buffer data on the server is deprecated. If you see a deprecation warning, the data will still be copied on the server and your code will still work, but you should update your code for the new method name.
-```supercollider
+```
 s.boot;
 (
 SynthDef(\help_Buffer_copy, { |out = 0, buf|
@@ -774,12 +817,14 @@ c.free;
 ```
 
 
+
 ### `close`, `closeMsg`
 After using a Buffer with a DiskOut or DiskIn, it is necessary to close the soundfile. Failure to do so can cause problems.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `completionMessage` | A valid OSC message or a Function which will return one. A Function will be passed this Buffer as an argument when evaluated. |  
+
 
 ### `plot`
 Plot the contents of the Buffer in a GUI window.**Arguments:**
@@ -792,7 +837,7 @@ Plot the contents of the Buffer in a GUI window.**Arguments:**
 | `maxval` | the maximum value in the plot |  
 | `separately` | a boolean whether to use separate display ranges or a single shared range. |  
 | `parent` | Either a [Window](../Classes/Window.md) or [View](../Classes/View.md) may be passed in - then the plot is embedded. Otherwise a new [Window](../Classes/Window.md) is created.
-```supercollider
+```
 (
 s.waitForBoot {
     var w = Window("parent");
@@ -804,12 +849,13 @@ s.waitForBoot {
 )
 ``` |  
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 b.plot;
 b.free;
 ```
+
 
 
 ### `play`
@@ -820,7 +866,7 @@ Plays the contents of the buffer on the server and returns a corresponding Synth
 | `loop` | A Boolean indicating whether or not to loop playback. If false the synth will automatically be freed when done. The default is false. |  
 | `mul` | A value by which to scale the output. The default is 1. |  
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 b.play; // frees itself
@@ -829,9 +875,10 @@ x.free; b.free;
 ```
 
 
+
 ### `query`
 Sends a `\b_query` message to the server, which reponds with: the OSC address pattern (`/b_info`), `bufnum`, `numFrames`, `numChannels`, and `sampleRate` of the server-side buffer representation. These values are passed, in order, to the **action** function which, by default, is:
-```supercollider
+```
 action: { |oscAddrPattern, bufnum, numFrames, numChannels, sampleRate|
     postf("bufnum: %\nnumFrames: %\nnumChannels: %\nsampleRate: %\n",
         bufnum, numFrames, numChannels, sampleRate
@@ -845,6 +892,7 @@ which posts the buffer's attributes.> **⚠️ Warning:** Calling `query` will u
 |----------|-------------|
 | `action` | An optional [Function](../Classes/Function.md) to be called with the buffer attributes listed above as arguments, replacing the default **action**. |  
 
+
 ### `updateInfo`
 Sends a b_query message to the server, asking for a description of this buffer. Upon reply this Buffer's instance variables are automatically updated.**Arguments:**
 
@@ -852,7 +900,7 @@ Sends a b_query message to the server, asking for a description of this buffer. 
 |----------|-------------|
 | `action` | A Function to be evaluated once the file has been read and this Buffer's instance variables have been updated. The function will be passed this Buffer as an argument. |  
 
-```supercollider
+```
 s.boot;
 b = Buffer.readNoUpdate(s, ExampleFiles.child);
 b.numFrames; // shows nil
@@ -865,6 +913,7 @@ b.free;
 ### Buffer Fill Commands
 These correspond to the various b_gen OSC Commands, which fill the buffer with values for use. See [Server-Command-Reference](../Reference/Server-Command-Reference.md) for more details.
 
+
 ### `gen`, `genMsg`
 This is a generalized version of the commands below.**Arguments:**
 
@@ -876,6 +925,7 @@ This is a generalized version of the commands below.**Arguments:**
 | `asWavetable` | A Boolean indicating whether or not to write to the buffer in wavetable format so that it can be read by interpolating oscillators. The default is true. |  
 | `clearFirst` | A Boolean indicating whether or not to clear the buffer before writing. The default is true. |  
 
+
 ### `sine1`, `sine1Msg`
 Fill this buffer with a series of sine wave harmonics using specified amplitudes.**Arguments:**
 
@@ -886,7 +936,7 @@ Fill this buffer with a series of sine wave harmonics using specified amplitudes
 | `asWavetable` | A Boolean indicating whether or not to write to the buffer in wavetable format so that it can be read by interpolating oscillators. The default is true. |  
 | `clearFirst` | A Boolean indicating whether or not to clear the buffer before writing. The default is true. |  
 
-```supercollider
+```
 s.boot;
 (
 b = Buffer.alloc(s, 512, 1);
@@ -895,6 +945,7 @@ x = { Osc.ar(b, 200, 0, 0.5) }.play;
 )
 x.free; b.free;
 ```
+
 
 
 ### `sine2`, `sine2Msg`
@@ -908,7 +959,7 @@ Fill this buffer with a series of sine wave partials using specified frequencies
 | `asWavetable` | A Boolean indicating whether or not to write to the buffer in wavetable format so that it can be read by interpolating oscillators. The default is true. |  
 | `clearFirst` | A Boolean indicating whether or not to clear the buffer before writing. The default is true. |  
 
-```supercollider
+```
 s.boot;
 (
 b = Buffer.alloc(s, 512, 1);
@@ -917,6 +968,7 @@ x = { Osc.ar(b, 200, 0, 0.5) }.play;
 )
 x.free; b.free;
 ```
+
 
 
 ### `sine3`, `sine3Msg`
@@ -931,6 +983,7 @@ Fill this buffer with a series of sine wave partials using specified frequencies
 | `asWavetable` | A Boolean indicating whether or not to write to the buffer in wavetable format so that it can be read by interpolating oscillators. The default is true. |  
 | `clearFirst` | A Boolean indicating whether or not to clear the buffer before writing. The default is true. |  
 
+
 ### `cheby`, `chebyMsg`
 Fill this buffer with a series of Chebyshev polynomials, which can be defined as: `cheby(n) = amplitude  * cos(n * acos(x))`. To eliminate a DC offset when used as a waveshaper, the wavetable is offset so that the center value is zero.Similar functionality can be found in [Signal.chebyFill](../Classes/Signal.md#*chebyfill) and [Wavetable.chebyFill](../Classes/Wavetable.md#*chebyfill). If you require Chebyshev polynomials that do not include the offset compensation, it is recommended to use one of these.**Arguments:**
 
@@ -944,7 +997,7 @@ Fill this buffer with a series of Chebyshev polynomials, which can be defined as
 > **Note:** In previous versions, offsetting (to ensure the center value is zero) was performed incorrectly. This was fixed in version 3.7, so any code that may have relied on the (wrong) behavior may need to be changed. If using a Chebyshev buffer as a waveshaper, the simplest fix is to wrap the [Shaper](../Classes/Shaper.md) in a [LeakDC](../Classes/LeakDC.md) UGen.
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.alloc(s, 512, 1, { |buf| buf.chebyMsg([1, 0, 1, 1, 0, 1]) });
 (

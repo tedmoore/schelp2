@@ -13,6 +13,7 @@ A sawtooth wave that is hard synched to a fundamental pitch. This produces an ef
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ A sawtooth wave that is hard synched to a fundamental pitch. This produces an ef
 ## Examples
 
 
-```supercollider
+```
 { SyncSaw.ar(100, Line.kr(100, 800, 12), 0.1) }.play;
 
 

@@ -16,13 +16,15 @@ MIDIMessageDispatcherNV is used to dispatch incoming MIDI touch, program, and be
 
 ## Instance Methods
 
+
 ### `getKeysForFuncProxy`
 Get the keys at which a responder func's functions are stored in this dispatcher's active dictionary. The keys will be MIDI channels.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `funcProxy` | The [MIDIFunc](../Classes/MIDIFunc.md) or [MIDIdef](../Classes/MIDIdef.md) whose keys should be returned. |  
-**Returns:** An [Array](../Classes/Array.md) containing the funcProxy's channel number as an [Integer](../Classes/Integer.md).### `value`
+**Returns:** An [Array](../Classes/Array.md) containing the funcProxy's channel number as an [Integer](../Classes/Integer.md).
+### `value`
 Attempt to match an incoming MIDI message with this dispatcher's responder funcs, and evaluate their functions for all matches found.**Arguments:**
 
 | Argument | Description |
@@ -30,6 +32,7 @@ Attempt to match an incoming MIDI message with this dispatcher's responder funcs
 | `src` | The UID of the source of the MIDI message as an [Integer](../Classes/Integer.md). |  
 | `chan` | The channel number of the MIDI message as an [Integer](../Classes/Integer.md). Note this should be in the range 0-15. |  
 | `val` | The message value (e.g. velocity, etc.) of the MIDI message as an [Integer](../Classes/Integer.md). Note this should be in the range 0-127. |  
+
 ### `wrapFunc`
 Called internally to wrap functions in message matcher objects, if needed.**Arguments:**
 

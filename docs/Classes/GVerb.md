@@ -20,6 +20,7 @@ A two-channel reverb [UGen](../Classes/UGen.md), based on the "GVerb" LADSPA eff
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -41,7 +42,7 @@ A two-channel reverb [UGen](../Classes/UGen.md), based on the "GVerb" LADSPA eff
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef(\test, { |out, roomsize, revtime, damping, inputbw, spread = 15, drylevel, earlylevel,
     taillevel|

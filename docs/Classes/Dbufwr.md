@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -22,7 +23,7 @@ all inputs can be either demand ugen or any other ugen.
 ## Examples
 
 
-```supercollider
+```
 // alloc a single channel buffer
 b = Buffer.alloc(s, 24, 1);
 b.setn(0, { 210 } ! b.numFrames);

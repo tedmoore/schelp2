@@ -13,12 +13,13 @@ Returns the current sample rate of the server.
 
 ## Class Methods
 
+
 ### `ir`
 
 ## Examples
 
 
-```supercollider
+```
 // compares a 441 Hz sine tone derived from sample rate (44100 * 0.01, left)
 // with a 440 Hz tone (right), resulting in a 1 Hz beating
 (

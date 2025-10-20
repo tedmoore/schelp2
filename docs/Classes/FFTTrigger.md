@@ -8,6 +8,7 @@
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 
@@ -20,7 +21,7 @@
 ## Examples
 
 
-```supercollider
+```
 // Reminder: This isn't the intended typical usage! It's OK to do this though.
 (
 x = {

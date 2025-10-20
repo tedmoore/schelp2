@@ -10,7 +10,7 @@
 
 Triggers generate grains from a buffer. Each grain has a Hanning envelope
 
-```supercollider
+```
 (sin2(x) for x from 0 to π)
 ```
 
@@ -19,6 +19,7 @@ and can be panned over multichannel output.
 
 
 ## Class Methods
+
 
 ### `ar`
 **Arguments:**
@@ -40,7 +41,7 @@ and can be panned over multichannel output.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 

@@ -13,6 +13,7 @@ This is essentially the same as [Lag](../Classes/Lag.md) except that you can sup
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ This is essentially the same as [Lag](../Classes/Lag.md) except that you can sup
 ## Examples
 
 
-```supercollider
+```
 // used to lag pitch
 (
 SynthDef(\lagud_help, { |out, freq = 300, lagup = 1, lagdown = 5|

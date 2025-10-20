@@ -15,6 +15,7 @@ The feedback coefficient is given by the equation `fb == 0.001 ** (delay / decay
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -30,7 +31,7 @@ The feedback coefficient is given by the equation `fb == 0.001 ** (delay / decay
 ## Examples
 
 
-```supercollider
+```
 // These examples compare the variants, so that you can hear the difference in interpolation
 
 // Comb used as a resonator. The resonant fundamental is equal to

@@ -10,7 +10,7 @@
 
 Adds a value in an event, **before it is passed up** the stream. To add to the value after it has been passed to the stream, use [Padd](../Classes/Padd.md).
 
-```supercollider
+```
 (
 var a, b;
 a = Paddpre(\x, 8, Pbind(\dur, 0.5));
@@ -22,7 +22,7 @@ x = a.asStream;
 
 Paddpre does not override incoming values:
 
-```supercollider
+```
 (
 var a, b;
 a = Paddpre(\freq, 302, Pset(\freq, 500, Pbind(\dur, 0.3)));
@@ -36,6 +36,7 @@ x = a.asStream;
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -48,7 +49,7 @@ x = a.asStream;
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Paddpre(\legato, Pseq([0.2, 0.4], 2), Pbind(\dur, 0.5));
@@ -59,7 +60,7 @@ x = a.asStream;
 
 
 
-```supercollider
+```
 // sound example
 (
 SynthDef(\sinegrain,

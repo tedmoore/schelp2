@@ -13,7 +13,7 @@ Similar to [Place](../Classes/Place.md), but the list is an array of streams or 
 ## Examples
 
 
-```supercollider
+```
 p = Ppatlace([Pwhite(1, 5, 5), Pgeom(10, 1.01, 10)], inf);
 x = p.asStream;
 x.all;
@@ -41,7 +41,7 @@ nil
 Note that the Ppatlace has an infinite number of repeats, but the resulting stream is finite because the member streams are all finite. When the first stream (Pwhite) comes to an end, it is skipped and you see only the second stream until it stops.
 If even one member stream is infinite and Ppatlace has infinite repeats, the Ppatlace stream will also be infinite.
 
-```supercollider
+```
 // Ppatlace as a sequence of pitches:
 
 (

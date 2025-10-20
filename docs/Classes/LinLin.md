@@ -13,6 +13,7 @@ Maps a linear range of values to another linear range of values.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ Maps a linear range of values to another linear range of values.
 ## Examples
 
 
-```supercollider
+```
 // examples:
 
 (
@@ -62,7 +63,7 @@ Maps a linear range of values to another linear range of values.
 
 linlin and range can be used to create a LinLin implicitly from a ugen, mapping its output values from linear range to an exponential one. The rate is derived from the ugen.
 
-```supercollider
+```
 // linlin
 (
 {

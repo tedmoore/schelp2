@@ -13,6 +13,7 @@ Mixing and Panning multichannel signals often requires [Level_Compensation](../G
 
 ## Class Methods
 
+
 ### `new`
 Calculate a scaling factor based on the `levelComp` argument and the number of channels to be mixed.**Arguments:**
 
@@ -31,7 +32,7 @@ Calculate a scaling factor based on the `levelComp` argument and the number of c
 `Splay` and `SplayAz` use `LevelComp` internally via the `levelComp` argument, and obtain rate and number of channels from `Splay/Az`.
 Here is an Overview of the `levelComp` usage variants:
 
-```supercollider
+```
 // default is equal power comp: level / (numchans.sqrt)
 Splay.ar(ins, spread, level, center); // true is default
 // write it explicitly for clarity
@@ -62,7 +63,7 @@ Splay.ar(ins, spread, level, center, levelComp: 0.75);
 We begin testing with equal power compensation: how much too high can the summed levels rise for different numbers of channel to mix/pan with [Splay](../Classes/Splay.md)?
 
 
-```supercollider
+```
 s.meter;
 s.scope;
 
@@ -103,7 +104,7 @@ x.set(\spread, 0, \center, 1); // -23 + 6 = -17db
 Trying the same example with 20 channels and with equal power compensation, (which we get with levelComp `true`), we see that the resulting sum levels are much higher:
 
 
-```supercollider
+```
 (
 x = { |spread = 1, level = 0.1, center = 0|
     var n = 20;
@@ -127,7 +128,7 @@ x.set(\spread, 0, \center, -1); // -8
 Finally, here are the theoretical worst cases for 20, 200, and 2000 channels, with equal power: 13, 23 and 33 db louder!
 
 
-```supercollider
+```
 // plot 0.01 seconds, and poll for precise amp readout
 { Splay.ar(DC.ar(1!20), 0, 1, 0.999).ampdb.poll }.plot;
 { Splay.ar(DC.ar(1!200), 0, 1, 0.999).ampdb.poll }.plot; // 200: 23 db louder
@@ -140,7 +141,7 @@ So for maximum peak safety, use `levelComp: 1` (or equivalently, set `levelComp:
 Then the levels predictably remain the same, independent of the number of channels to be mixed.
 
 
-```supercollider
+```
 { n = 2; Splay.ar(DC.ar(1!n), 1, 1, 0, levelComp: 1).ampdb.poll }.plot; // -6 db on both
 { n = 2; Splay.ar(DC.ar(1!n), 1, 1/n, 0, levelComp: false).ampdb.poll }.plot;
 { n = 2; Splay.ar(DC.ar(1!n), 0, 1, 0, levelComp: 1).ampdb.poll }.plot; // -3 db on both

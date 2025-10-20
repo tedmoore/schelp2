@@ -13,6 +13,7 @@ An integrating filter which, if given an impulse, will produce an exponentially 
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ An integrating filter which, if given an impulse, will produce an exponentially 
 ## Examples
 
 
-```supercollider
+```
 // Plot the exponentially decaying envelope
 (
 var t60 = 0.1; // decayTime
@@ -36,7 +37,7 @@ plot({ Decay.ar(Impulse.ar(0), t60) }, t60);
 
 
 
-```supercollider
+```
 // Used as an evelope generator
 (
 play({
@@ -52,7 +53,7 @@ play({
 
 As can be heard in the previous example, when `Decay` is used as a modulator, its immediate onset can lead to discontinuities and audible clicks. This can be seen in the waveform:
 
-```supercollider
+```
 (
 plot({
     Decay.ar(
@@ -67,7 +68,7 @@ plot({
 
 [Decay2](../Classes/Decay2.md) allows for onset control, as shown below:
 
-```supercollider
+```
 (
 var t60, riseScale, riseFac, normFac;
 

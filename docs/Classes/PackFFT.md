@@ -15,6 +15,7 @@ Most people won't need to use this directly - instead, use pvcollect, pvcalc, or
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 
@@ -31,7 +32,7 @@ This is technically similar to Demand or Duty in that it calls demand-rate UGens
 
 Here's an unusual example which uses PackFFT without using UnpackFFT first - essentially creating our FFT data from scratch.
 
-```supercollider
+```
 // Reminder: This isn't the intended typical usage! It's OK to do this though.
 (
 x = {

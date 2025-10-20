@@ -12,14 +12,15 @@ A child view is added into a window by passing the window to the view's construc
 > **Note:** There is no distinction between windows, views, and containers; a View can be displayed directly on screen, and can contain other views. Therefore, visual descriptions of Window and most of the methods that are specific to Window in other GUI kits, also apply to and make part of View in Qt, and are thus shared by all its subclasses.The Window class is provided in Qt GUI for compatibility as well as convenience: e.g. unlike View, Window will be created by default in the center of the screen, and various aspects can be conveniently controlled using its constructor arguments.
 
 
-The Window is usually drawn with a bar on its top edge that displays the window's title which you can set in the [constructor](#*new), or using [name](#name).
+The Window is usually drawn with a bar on its top edge that displays the window's title which you can set in the [constructor](#*new), or using [#-name](#-name).
 
 
 ## Class Methods
 
 
+
 ### `new`
- Creates a new Window instance. You will need to call [front](#front) on it to become visible.**Arguments:**
+ Creates a new Window instance. You will need to call [#-front](#-front) on it to become visible.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -30,16 +31,22 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 | `border` | A Boolean indicating whether this window has a border. Borderless windows have no title bar and thus can only be closed in code. The default is `true`. |  
 | `scroll` | A Boolean indicating whether this window will add scrollbars if its contents exceed its bounds. If this is set to `true`, then [View#-resize](../Classes/View.md#-resize) settings will be ignored for contained views. The default is false. |  
 
+
 ### `allWindows`
  An array of all existing Window instances.
+
 ### `closeAll`
- Calls [close](#close) an all existing Window instances.
+ Calls [#-close](#-close) an all existing Window instances.
+
 ### `initAction`
  The default action object to be evaluated whenever a new Window is instantiated.
+
 ### `screenBounds`
  Returns a Rect with the size of the screen in pixels
+
 ### `availableBounds`
  Returns a Rect describing the area of the screen that windows can actually occupy (i.e. excluding the Mac dock, the task bar, or similar).
+
 ### `lowestPosition`
  Returns a floating-point value representing the lowest reasonable vertical position for a window on the screen.  This value is calculated to avoid overlap with system-reserved interface elements, such as the Windows taskbar, the macOS Dock, or the Linux dock (e.g. GNOME, KDE, etc.).  The result is not the absolute bottom edge of the screen, but rather the lowest position a window can occupy without interfering with areas reserved by the operating system.
 
@@ -47,10 +54,13 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 
 
 ### View hierarchy
+
 ### `view`
  When a Window is created, it creates a container view, accessible using this method, that occupies the whole area of the window, and which will be used as the actual parent of the child widgets.**Returns:** A View.
+
 ### `asView`
- Equivalent to [view](#view)
+ Equivalent to [#-view](#-view)
+
 ### `currentSheet`
 
 > **Note:** Only in Cocoa GUI
@@ -58,16 +68,22 @@ The Window is usually drawn with a bar on its top edge that displays the window'
  returns: The current modal sheet attached to this window, if it exists. See `"SCModalSheet".help`.
 
 ### Visibility
+
 ### `front`
- Displays the window on the screen (This has the same effect as setting [visible](#visible) to true).
+ Displays the window on the screen (This has the same effect as setting [#-visible](#-visible) to true).
+
 ### `minimize`
  Hides the window, only keeping its representation in the dock, taskbar, etc..
+
 ### `unminimize`
  Restores the window's previous state after being minimized.
+
 ### `fullScreen`
  Displays the window full-screen.
+
 ### `endFullScreen`
  Restores the window's previous state after being displayed full-screen.
+
 ### `alwaysOnTop`
  Whether the window should always stay on top of other windows, even when it is not the active one.**Arguments:**
 
@@ -75,19 +91,23 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 |----------|-------------|
 | `` | A Boolean. |  
 
+
 ### `visible`
- Whether the window is visible. Setting this to `true` has the same effect as [front](#front), and setting it to false closes the window without destroying it.**Arguments:**
+ Whether the window is visible. Setting this to `true` has the same effect as [#-front](#-front), and setting it to false closes the window without destroying it.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
 
+
 ### `close`
  Closes and destroys the window.
+
 ### `isClosed`
 **Returns:** A Boolean stating whether the view has been closed.
 
 ### Geometry
+
 ### `bounds`
  The position and size of the window. The position is relative to the bottom-left corner of the screen.**Arguments:**
 
@@ -95,36 +115,43 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 |----------|-------------|
 | `` | A Rect or a Point interpreted [as Rect](../Classes/Point.md#-asrect). |  
 **Returns:** A Rect.
+
 ### `setTopLeftBounds`
- A convenience method that, unlike [bounds](#bounds), sets the bounds by measuring position from the top-left corner of the screen, and vertically offset by `menuSpacer`.**Arguments:**
+ A convenience method that, unlike [#-bounds](#-bounds), sets the bounds by measuring position from the top-left corner of the screen, and vertically offset by `menuSpacer`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `rect` | A Rect. |  
 | `menuSpacer` | An Integer amount of pixels. |  
 
+
 ### `setInnerExtent`
- Resizes the window, keeping its position intact. This is equivalent to [View#-resizeTo](../Classes/View.md#-resizeto) called on the [view](#view).**Arguments:**
+ Resizes the window, keeping its position intact. This is equivalent to [View#-resizeTo](../Classes/View.md#-resizeto) called on the [#-view](#-view).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `w` | An Integer width in pixels. |  
 | `h` | An Integer height in pixels. |  
 
+
 ### `sizeHint`
- Redirects to [View#-sizeHint](../Classes/View.md#-sizehint) of the [view](#view).
+ Redirects to [View#-sizeHint](../Classes/View.md#-sizehint) of the [#-view](#-view).
+
 ### `minSizeHint`
- Redirects to [View#-minSizeHint](../Classes/View.md#-minsizehint) of the [view](#view).
+ Redirects to [View#-minSizeHint](../Classes/View.md#-minsizehint) of the [#-view](#-view).
+
 ### `addFlowLayout`
- A convenience method which sets `decorator` of the [view](#view) to a new instance of FlowLayout. See [FlowLayout](../Classes/FlowLayout.md) for examples.**Arguments:**
+ A convenience method which sets `decorator` of the [#-view](#-view) to a new instance of FlowLayout. See [FlowLayout](../Classes/FlowLayout.md) for examples.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `margin` | A Point describing the [margin](../Classes/FlowLayout.md#-margin) of the FlowLayout. |  
 | `gap` | A Point describing the [gap](../Classes/FlowLayout.md#-gap) of the FlowLayout. |  
 **Returns:** The new FlowLayout instance.
+
 ### `layout`
- Redirects to [View#-layout](../Classes/View.md#-layout) of the [view](#view).
+ Redirects to [View#-layout](../Classes/View.md#-layout) of the [#-view](#-view).
+
 ### `moveToBottom`
  Moves the window to the lowest usable screen position without overlapping system-reserved areas (e.g., taskbars, docks).**Arguments:**
 
@@ -134,12 +161,14 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 
 
 ### Appearance
+
 ### `name`
  The title of the window.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A String. |  
+
 
 ### `background`
  The background color of the window.**Arguments:**
@@ -148,6 +177,7 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 |----------|-------------|
 | `` | A Color. |  
 
+
 ### `alpha`
  The transparency of the window.**Arguments:**
 
@@ -155,10 +185,12 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 |----------|-------------|
 | `` | A Float between 0.0 (invisible) and 1.0 (opaque). |  
 
+
 ### `refresh`
  Redraws the window and all its children.
 
 ### Interaction
+
 ### `userCanClose`
  Whether the user can close the window. The default is `true`.**Arguments:**
 
@@ -166,12 +198,14 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 |----------|-------------|
 | `` | A Boolean. |  
 
+
 ### `acceptsClickThrough`
  Whether the window receives clicks when it is not front-most. The default is `true`.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
+
 
 ### `acceptsMouseOver`
  Whether the window and all its children receive mouse-over events. The default is `false`. See also: [View#-acceptsMouseOver](../Classes/View.md#-acceptsmouseover) and [View#-mouseOverAction](../Classes/View.md#-mouseoveraction).**Arguments:**
@@ -182,6 +216,7 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 
 
 ### Actions and hooks
+
 ### `drawFunc`
  Just like the [UserView](../Classes/UserView.md), the window can be given a Function to evaluate whenever it is asked to redraw itself, so you can use the [Pen](../Classes/Pen.md) class to draw on the window. See [UserView#-drawFunc](../Classes/UserView.md#-drawfunc) for explanation.**Arguments:**
 
@@ -189,23 +224,28 @@ The Window is usually drawn with a bar on its top edge that displays the window'
 |----------|-------------|
 | `` | A Function. |  
 
+
 ### `toFrontAction`
  The action object to be evaluated whenever the window becomes the active one.
+
 ### `endFrontAction`
  The action object to be evaluated whenever the window ceases to be the active one.
+
 ### `onClose`
  The action object to be evaluated when the window is closed.
+
 ### `addToOnClose`
- Adds an object to [onClose](#onclose), wrapping the current value into an Array, if it is not yet.
+ Adds an object to [#-onClose](#-onclose), wrapping the current value into an Array, if it is not yet.
+
 ### `removeFromOnClose`
- Removes an object from [onClose](#onclose), if the latter is an Array.
+ Removes an object from [#-onClose](#-onclose), if the latter is an Array.
 
 ## Examples
 
 
 ### Adding Views
 
-```supercollider
+```
 (
 var w;
 w = Window("my name is... panel", Rect(128, 64, 340, 360));
@@ -224,7 +264,7 @@ w.front;
 
 ### Using Decorator
 
-```supercollider
+```
 (
 var w;
 w = Window("my name is... panel", Rect(128, 64, 340, 360));
@@ -248,7 +288,7 @@ w.front;
 
 ### Setting Bounds
 
-```supercollider
+```
 // use screenbounds for precise placement from the top
 (
 x = Window.new("test", Rect(100, Window.screenBounds.height-180, 300, 100)); x.front;
@@ -264,7 +304,7 @@ x.bounds_(Rect(100, 400, 300, 300));
 
 ### Borderless Window
 
-```supercollider
+```
 w = Window.new(border: false).front; // can't be manually closed
 w.close; // so close it in code
 ```
@@ -274,7 +314,7 @@ w.close; // so close it in code
 
 ### Window with Scrollers
 
-```supercollider
+```
 (
 w = Window(scroll: true); // you must set this when the window is created
 c = Slider2D(w, Rect(0, 0, 1500, 300));
@@ -290,7 +330,7 @@ w.front;
 
 ### onClose
 
-```supercollider
+```
 (
 x = Window.new.front;
 x.alpha = 0.8;
@@ -311,7 +351,7 @@ Layouts are used to organize view sizes automatically. See: [GUI-Layout-Manageme
 
 
 
-```supercollider
+```
 // make a window and a layout
 (
 w = Window(bounds: Rect(700, 200, 200, 200));
@@ -353,7 +393,7 @@ g.add(g = HLayout(), 1, \left);
 
 ### Drawing on Window with Pen
 
-```supercollider
+```
 (
 var w, much = 0.02, string, synth;
 

@@ -11,7 +11,7 @@
 Function has two other useful audio related methods. The first you've already seen some results of, Function-plot:
 
 
-```supercollider
+```
 { PinkNoise.ar(0.2) + SinOsc.ar(440, 0, 0.2) + Saw.ar(660, 0.2) }.plot;
 ```
 
@@ -19,7 +19,7 @@ Function has two other useful audio related methods. The first you've already se
 This makes a graph of the signal produced by the output of the Function. You can specify some arguments, such as the duration. The default is 0.01 seconds, but you can set it to anything you want.
 
 
-```supercollider
+```
 { PinkNoise.ar(0.2) + SinOsc.ar(440, 0, 0.2) + Saw.ar(660, 0.2) }.plot(1);
 ```
 
@@ -31,7 +31,7 @@ The second method, Function-scope, shows an oscilloscope-like display of the Fun
 So let's try to scope some audio:
 
 
-```supercollider
+```
 { PinkNoise.ar(0.2) + SinOsc.ar(440, 0, 0.2) + Saw.ar(660, 0.2) }.scope;
 ```
 
@@ -42,7 +42,7 @@ This should open a window which looks something like this:
 This also works for multiple channels:
 
 
-```supercollider
+```
 { [SinOsc.ar(440, 0, 0.2), SinOsc.ar(442, 0, 0.2)] }.scope;
 ```
 
@@ -50,7 +50,7 @@ This also works for multiple channels:
 Scope also has a zoom argument. Higher values 'zoom out'.
 
 
-```supercollider
+```
 { [SinOsc.ar(440, 0, 0.2), SinOsc.ar(442, 0, 0.2)] }.scope(zoom: 10);
 ```
 
@@ -63,7 +63,7 @@ Like Function-plot, Function-scope can be useful for testing purposes, and to se
 You can also scope the output of the server at any time, by calling 'scope' on it.
 
 
-```supercollider
+```
 { [SinOsc.ar(440, 0, 0.2), SinOsc.ar(442, 0, 0.2)] }.play;
 s.scope;
 ```

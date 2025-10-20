@@ -12,7 +12,7 @@ Adverbs are a third argument passed to binary operators that modifies how they i
 Normally when you add two arrays like this:
 
 
-```supercollider
+```
 [10, 20, 30, 40, 50] + [1, 2, 3]
 ```
 
@@ -20,7 +20,7 @@ Normally when you add two arrays like this:
 You get this result:
 
 
-```supercollider
+```
 [ 11, 22, 33, 41, 52 ]
 ```
 
@@ -34,7 +34,7 @@ Using adverbs can change this behavior. Adverbs are symbols and they follow a '.
 The first adverb is 's' which means 'short'. The add operation now returns the shorter of the two arrays.
 
 
-```supercollider
+```
 [10, 20, 30, 40, 50] +.s [1, 2, 3]
 ```
 
@@ -42,7 +42,7 @@ The first adverb is 's' which means 'short'. The add operation now returns the s
 returns:
 
 
-```supercollider
+```
 [ 11, 22, 33 ]
 ```
 
@@ -54,7 +54,7 @@ returns:
 Another adverb is 'f' which uses folded indexing instead of wrapped:
 
 
-```supercollider
+```
 [10, 20, 30, 40, 50] +.f [1, 2, 3]
 ```
 
@@ -62,7 +62,7 @@ Another adverb is 'f' which uses folded indexing instead of wrapped:
 returns:
 
 
-```supercollider
+```
 [ 11, 22, 33, 42, 51 ]
 ```
 
@@ -74,7 +74,7 @@ returns:
 The table adverb 't' makes an array of arrays where each item in the first array is added to the whole second array and the resulting arrays are collected.
 
 
-```supercollider
+```
 [10, 20, 30, 40, 50] +.t [1, 2, 3]
 ```
 
@@ -82,7 +82,7 @@ The table adverb 't' makes an array of arrays where each item in the first array
 returns:
 
 
-```supercollider
+```
 [ [ 11, 12, 13 ], [ 21, 22, 23 ], [ 31, 32, 33 ], [ 41, 42, 43 ], [ 51, 52, 53 ] ]
 ```
 
@@ -94,7 +94,7 @@ returns:
 The cross adverb 'x' is like table, except that the result is a flat array:
 
 
-```supercollider
+```
 [10, 20, 30, 40, 50] +.x [1, 2, 3]
 ```
 
@@ -102,7 +102,7 @@ The cross adverb 'x' is like table, except that the result is a flat array:
 returns:
 
 
-```supercollider
+```
 [ 11, 12, 13, 21, 22, 23, 31, 32, 33, 41, 42, 43, 51, 52, 53 ]
 ```
 
@@ -117,7 +117,7 @@ There is currently one adverb defined for streams. This is the cross adverb, 'x'
 Normally when you add two streams like this:
 
 
-```supercollider
+```
 p = (Pseq([10, 20]) + Pseq([1, 2, 3])).asStream;
 Array.fill(3, { p.next });
 ```
@@ -126,7 +126,7 @@ Array.fill(3, { p.next });
 you get this:
 
 
-```supercollider
+```
 [ 11, 22, nil ]
 ```
 
@@ -136,7 +136,7 @@ The items are paired sequentially and the stream ends when the earliest stream e
 The cross adverb allows you to pair each item in the first stream with every item in the second stream.
 
 
-```supercollider
+```
 p = (Pseq([10, 20]) +.x Pseq([1, 2, 3])).asStream;
 Array.fill(7, { p.next });
 ```
@@ -145,7 +145,7 @@ Array.fill(7, { p.next });
 the result is:
 
 
-```supercollider
+```
 [ 11, 12, 13, 21, 22, 23, nil ]
 ```
 
@@ -153,7 +153,7 @@ the result is:
 You can string these together. Every item in the left stream operand is "ornamented" by the right stream operand.
 
 
-```supercollider
+```
 p = (Pseq([100, 200]) +.x Pseq([10, 20, 30]) +.x Pseq([1, 2, 3, 4])).asStream;
 Array.fill(25, { p.next });
 
@@ -165,7 +165,7 @@ Array.fill(25, { p.next });
 Sound example:
 
 
-```supercollider
+```
 Pbind(\dur, 0.17, \degree, Pwhite(0, 6) +.x Pseq([[0, 2, 4], 1, [0, 2], 3])).trace.play
 ```
 

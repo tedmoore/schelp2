@@ -13,6 +13,7 @@ Get the current duration of soundfile.
 
 ## Class Methods
 
+
 ### `kr`, `ir`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Get the current duration of soundfile.
 ## Examples
 
 
-```supercollider
+```
 b = Buffer.read(s, ExampleFiles.child);
 
 { BufRd.ar(1, b, Sweep.ar(Impulse.ar(BufDur.kr(b).reciprocal), BufSampleRate.kr(b))) }.play;

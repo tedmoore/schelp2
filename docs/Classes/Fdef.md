@@ -15,6 +15,7 @@ See also: [Maybe](../Classes/Maybe.md) and the [JITLib](../Overviews/JITLib.md) 
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ See also: [Maybe](../Classes/Maybe.md) and the [JITLib](../Overviews/JITLib.md) 
 ## Examples
 
 
-```supercollider
+```
 Fdef(\x, { 8 + 9 });
 
 Fdef(\y, Fdef(\x) - 3);
@@ -53,7 +54,7 @@ z.value(400);
 
 
 
-```supercollider
+```
 // sound example
 (
 s.boot;

@@ -18,6 +18,7 @@ SuperCollider implementation by Nick Collins
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -35,7 +36,7 @@ SuperCollider implementation by Nick Collins
 | `initCPs` | Initialise the number of control points in the memory. Xenakis specifies 12. There would be this number of control points per cycle of the oscillator, though the oscillator's period will constantly change due to the duration distribution. |  
 | `knum` | Current number of utilised control points, allows modulation. |  
 | `a` | Parameter for Lehmer random number generator perturbed by Xenakis as in
-```supercollider
+```
 ((old*a)+c)%1.0
 ``` |  
 | `c` | Parameter for Lehmer random number generator perturbed by Xenakis. |  
@@ -46,7 +47,7 @@ All parameters can be modulated at control rate except for `initCPs` which is us
 
 > **⚠️ Warning:** if you have lots of CPs and you have fast frequencies, the CPU cost goes up a lot because a new CP move happens every sample!
 
-```supercollider
+```
 // LOUD! defaults like a rougher Gendy1
 { Pan2.ar(Gendy2.ar) }.play
 

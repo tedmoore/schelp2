@@ -16,9 +16,10 @@ See [Clock](../Classes/Clock.md) for general explanation of how clocks operate.
 ## Class Methods
 
 
+
 ### `sched`
 The float you return specifies the delta to resched the function for. Returning nil will stop the task from being rescheduled.
-```supercollider
+```
 (
 AppClock.sched(0.0, { |time|
     ["AppClock has been playing for ", time].postln;
@@ -28,7 +29,7 @@ AppClock.sched(0.0, { |time|
 ```
 
 
-```supercollider
+```
 (
 t = Main.elapsedTime;
 "It is now % seconds after the computer booted.".format(t).postln;
@@ -37,9 +38,10 @@ AppClock.sched(2.0, { "It is now % sec later".format(Main.elapsedTime - t).postl
 ```
 
 
+
 ### `schedAbs`
-Schedules a task to be performed at a particular time. Because `AppClock` is not intended to schedule with high precision, this time is approximate.When the scheduling time is up, the task's `awake` method is called. If the method returns a number, the task will be rescheduled for the time equal to the last scheduling time plus the returned value.See also: [Clock / Scheduling ](../Classes/Clock.md#scheduling), [Object#-awake](../Classes/Object.md#-awake).
-```supercollider
+Schedules a task to be performed at a particular time. Because `AppClock` is not intended to schedule with high precision, this time is approximate.When the scheduling time is up, the task's `awake` method is called. If the method returns a number, the task will be rescheduled for the time equal to the last scheduling time plus the returned value.See also: [Clock#Scheduling](../Classes/Clock.md#scheduling), [Object#-awake](../Classes/Object.md#-awake).
+```
 (
 t = Main.elapsedTime;
 "It is now % seconds after the computer booted.".format(t).postln;
@@ -48,16 +50,18 @@ AppClock.schedAbs(t + 1.0, { "It is now % sec later".format(Main.elapsedTime - t
 ```
 
 
+
 ### `clear`
 Clear the AppClock's scheduler to stop it.
-```supercollider
+```
 AppClock.clear;
 ```
 
 
+
 ### `play`
 The [Routine](../Classes/Routine.md) (or [Task](../Classes/Task.md)) yields a float value indicating the delta (secs) for the AppClock to wait until resuming the Routine.
-```supercollider
+```
 (
 var w, r;
 w = Window.new("trem", Rect(512, 256, 360, 130));
@@ -75,6 +79,7 @@ r = Routine({ |appClockTime|
 AppClock.play(r);
 )
 ```
+
 
 
 ### `tick`

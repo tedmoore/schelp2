@@ -13,6 +13,7 @@ Lag2 is equivalent to `Lag.kr(Lag.kr(in, time), time)`, thus resulting in a smoo
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Lag2 is equivalent to `Lag.kr(Lag.kr(in, time), time)`, thus resulting in a smoo
 ## Examples
 
 
-```supercollider
+```
 (
 // used to lag pitch
 {

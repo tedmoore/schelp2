@@ -15,6 +15,7 @@ See [Pseg](../Classes/Pseg.md) for a pattern whose value changes like an [Env](.
 
 ## Class Methods
 
+
 ### `new`
 Create an instance of Pstep.**Arguments:**
 
@@ -27,7 +28,7 @@ Create an instance of Pstep.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 (
 // select a chord and duration and repeat it for a random time interval
 p = Pstep(

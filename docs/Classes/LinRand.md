@@ -13,6 +13,7 @@ Generates a single random float value in linear distribution from `lo` to `hi`, 
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Generates a single random float value in linear distribution from `lo` to `hi`, 
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-LinRand", { |out = 0, minmax = 1|
     Out.ar(out,

@@ -16,6 +16,7 @@ Panel commands:
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -28,7 +29,7 @@ Panel commands:
 | `bgColor` | An instance of [Color](../Classes/Color.md). The background color of the scope. |  
 | `server` | the server whose buses to show on scope. |  
 Example:
-```supercollider
+```
 s.boot;
 
 // create a new analyzer
@@ -52,6 +53,7 @@ FreqScope.new(400, 200, 0, server: s);
 ### Subclassing and Internal Methods
 The following methods are usually not used directly or are called by a primitive. Programmers can still call or override these as needed.
 
+
 ### `scopeOpen`
 Returns a [Boolean](../Classes/Boolean.md), whether the scope is open.
 
@@ -62,8 +64,10 @@ Returns a [Boolean](../Classes/Boolean.md), whether the scope is open.
 ### Subclassing and Internal Methods
 The following methods are usually not used directly or are called by a primitive. Programmers can still call or override these as needed.
 
+
 ### `window`
 Returns the window in which the [FreqScopeView](../Classes/FreqScopeView.md) is placed.
+
 ### `scope`
 Returns the [FreqScopeView](../Classes/FreqScopeView.md).
 

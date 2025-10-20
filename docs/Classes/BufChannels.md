@@ -13,6 +13,7 @@ Get the current number of channels of soundfile.
 
 ## Class Methods
 
+
 ### `kr`, `ir`
 **Arguments:**
 

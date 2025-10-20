@@ -18,24 +18,27 @@ PathName is a utility class for manipulating file names and paths. It expects a 
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `path` | a [String](../Classes/String.md) which likely contains one or more / as typical for folder separation. ~ will be converted to your fully addressed home directory, as per [String#-standardizePath](../Classes/String.md#-standardizepath).
-```supercollider
+```
 PathName.new("MyDisk/SC 2.2.8 f/Sounds/FunkyChicken");
 ``` |  
+
 
 ### `tmp`
 Get or set the global temp directory as a [String](../Classes/String.md). This is used by [Buffer](../Classes/Buffer.md), etc. By default this is `Platform.defaultTempDir`.
 
 ## Instance Methods
 
+
 ### `fileName`
 returns just the name of the file itself; i.e. everything after the last slash in the full path.
-```supercollider
+```
 (
 var myPath;
 myPath = PathName.new("MyDisk/SC 2.2.8 f/Sounds/FunkyChicken");
@@ -43,11 +46,14 @@ myPath.fileName.postln;
 )
 ```
 
+
 ### `fileNameWithoutExtension`
-returns the name of the file itself without the file extension.### `extension`
-returns the file extension, i.e. everything after the last full-stop in the [fileName](#filename).### `pathOnly`
+returns the name of the file itself without the file extension.
+### `extension`
+returns the file extension, i.e. everything after the last full-stop in the [#-fileName](#-filename).
+### `pathOnly`
 returns the full path up to the file name itself; i.e. everything up to and including the last slash. This is handy e.g. for storing several files in the same folder.
-```supercollider
+```
 (
 var myPath;
 myPath = PathName.new("MyDisk/SC 2.2.8 f/Sounds/FunkyChicken");
@@ -55,10 +61,12 @@ myPath.pathOnly.postln;
 )
 ```
 
+
 ### `isAbsolutePath`, `asAbsolutePath`, `isRelativePath`, `asRelativePath`
-you MUST have correctly initialized the scroot classvar for this to know what it is relative to !### `folderName`
+you MUST have correctly initialized the scroot classvar for this to know what it is relative to !
+### `folderName`
 returns only the name of the folder that the file is in; i.e. everything in between the last but one and the last slash.
-```supercollider
+```
 (
 var myPath;
 myPath = PathName.new("MyDisk/SC 2.2.8 f/Sounds/FunkyChicken");
@@ -66,9 +74,10 @@ myPath.folderName.postln;
 )
 ```
 
+
 ### `fullPath`
 returns the full path name that PathName contains.
-```supercollider
+```
 (
 var myPath;
 myPath = PathName.new("MyDisk/SC 2.2.8 f/Sounds/FunkyChicken");
@@ -76,9 +85,10 @@ myPath.fullPath.postln;
 )
 ```
 
+
 ### `entries`
 returns a list of all the files+folders inside the folder represented by this path.
-```supercollider
+```
 (
 var myPath;
 myPath = PathName.new("./");
@@ -86,9 +96,10 @@ myPath.entries.postln;
 )
 ```
 
+
 ### `files`
 returns a list of all the files in the folder represented by this path.
-```supercollider
+```
 (
 var myPath;
 myPath = PathName.new("./");
@@ -96,9 +107,10 @@ myPath.files.postln;
 )
 ```
 
+
 ### `folders`
 returns a list of all the subfolders of the folder represented by this path.
-```supercollider
+```
 (
 var myPath;
 myPath = PathName.new("./");
@@ -106,9 +118,10 @@ myPath.folders.postln;
 )
 ```
 
+
 ### `isFile`
 returns a [Boolean](../Classes/Boolean.md) indicating whether or not the path represents a file (not a folder).
-```supercollider
+```
 (
 var myPath;
 myPath = PathName.new("./");
@@ -116,9 +129,10 @@ myPath.isFile.postln;
 )
 ```
 
+
 ### `isFolder`
 returns a [Boolean](../Classes/Boolean.md) indicating whether or not the path represents a folder (not a file).
-```supercollider
+```
 (
 var myPath;
 myPath = PathName.new("./");
@@ -126,9 +140,10 @@ myPath.isFolder.postln;
 )
 ```
 
+
 ### `filesDo`
 Iterates over all files found in the pathname, including ones in subfolders.
-```supercollider
+```
 (
 var myPath;
 myPath = PathName.new("./");
@@ -136,9 +151,10 @@ myPath.filesDo{ |afile| afile.postln };
 )
 ```
 
+
 ### `allFolders`
 returns a list of all the folder names contained in the pathname itself.
-```supercollider
+```
 (
 var myPath;
 myPath = PathName.new("MyDisk/SC 2.2.8 f/Sounds/FunkyChicken");
@@ -146,9 +162,10 @@ myPath.allFolders.postln;
 )
 ```
 
+
 ### `diskName`
 if path is an absolute path, returns the disk name; else a blank string.
-```supercollider
+```
 (
 var myPath;
 myPath = PathName.new("MyDisk/SC 2.2.8 f/Sounds/FunkyChicken");
@@ -162,30 +179,34 @@ myPath.diskName.postln;
 )
 ```
 
+
 ### `+/+`
 Path concatenation operator - useful for avoiding doubling-up slashes unnecessarily.
-```supercollider
+```
 (PathName("/somewhere") +/+ PathName("over/the/rainbow")).postln;
 (PathName("/somewhere") +/+ PathName("/over/the/rainbow")).postln;
 ```
 
+
 ### `endNumber`
 returns a number at the end of PathName. Returns zero if there is no number.
-```supercollider
+```
 PathName("floating1").endNumber.postln;
 PathName("floating").endNumber.postln;
 ```
 
+
 ### `noEndNumbers`
-returns [fullPath](#fullpath) without any numbers at the end.
-```supercollider
+returns [#-fullPath](#-fullpath) without any numbers at the end.
+```
 PathName("floating1").noEndNumbers.postln;
 PathName("floating").noEndNumbers.postln;
 ```
 
+
 ### `nextName`
 generates a sensible next name for a file by incrementing a number at the end of PathName, or by adding one if there is none. This is useful for recording files with consecutive names, and e.g. to generate a new filename when you don't want to overwrite an existing file with the current name.
-```supercollider
+```
 PathName("floating34").nextName.postln;
 PathName("floating").nextName.postln;
 PathName("floating12_3A4X_56.7").nextName.postln;
@@ -196,7 +217,7 @@ PathName("floating12_3A4X_56.7").nextName.postln;
 
 Here is an example that uses many instance methods. Just pick any file to see all the parts of its path.
 
-```supercollider
+```
 (
 FileDialog.new(
     { |ok, path|
@@ -226,7 +247,7 @@ FileDialog.new(
 
 Choose a soundfile to put into the library, using its foldername and filename.
 
-```supercollider
+```
 (
 FileDialog.new(
     { |ok, path|
@@ -258,7 +279,7 @@ FileDialog.new(
 
 Save three tables in the same folder. Note: The file name chosen in the dialog is ignored! The files are always named table1, table2, table3.
 
-```supercollider
+```
 (
 var table1, table2, table3;
 

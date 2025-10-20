@@ -12,7 +12,7 @@ Although much of SuperCollider's functionality is implemented in the SuperCollid
 Primitive calls are preceded with an underscore, so for example `_myPrimitiveName`. Here is an example call to a primitive in an SC class:
 
 
-```supercollider
+```
 Cocoa {
     prGetPathsDialog { arg returnSlot;
         _Cocoa_GetPathsDialog
@@ -30,7 +30,7 @@ If your primitive can return any value besides `errNone` then you will need to p
 In some cases, you may wish to execute fallback SC code instead of throwing an `Error`. This can be useful in cases where for example a primitive provides an optimised version of a method which is not usable in all instances. Here is an example of how this can be done:
 
 
-```supercollider
+```
 flop {
     _ArrayMultiChannelExpand
     ^super.flop // this gets executed if the primitive fails
@@ -41,7 +41,7 @@ flop {
 Note that returning anything besides `errNone` will result in executing the SC method *ignoring* the primitive call. For this reason, if you need to do some preparatory work in SC before calling the primitive, it is best practice to do this in a separate method to avoid duplication. For example:
 
 
-```supercollider
+```
 // do initial work here
 openUDPPort {|portNum|
     var result;

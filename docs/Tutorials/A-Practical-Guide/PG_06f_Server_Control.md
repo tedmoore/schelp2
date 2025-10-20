@@ -24,7 +24,7 @@ A handful of filter patterns can isolate signals on a private bus and/or group, 
 : Both of these patterns play an effect synth at the tail of the target group. This synth should read from the bus identified by the `out` argument, and write the processed signal onto the same bus using either [ReplaceOut](../../Classes/ReplaceOut.md) or [XOut](../../Classes/XOut.md). Pfx uses whatever bus and group are specified in the incoming event. Pfxb allocates a separate bus and group for the effect and the pattern.There are a lot of permutations when it comes to signal routing and effect management, too many to discuss in depth here. Some of the main scenarios are:- Separate effects that should apply individually: the patterns and effects should be isolated on separate buses. [Pfxb](../../Classes/Pfxb.md) handles this isolation automatically: two patterns like `Pfxb(Pbind(...), \fxname, \effectargName, value, \name, value...)` will play on separate buses and their signals will not interfere with each other.
 - Effects that should apply as a chain: both effects should use the same bus, and the effect patterns should be nested to string them together. The outermost effect should use Pfxb to allocate a separate group and bus for this signal chain; inner ones should use [Pfx](../../Classes/Pfx.md) to piggyback on the existing bus.
 
-```supercollider
+```
 Pfxb(
     Pfx(
         (event pattern here),
@@ -37,7 +37,7 @@ Pfxb(
 ```
 
 More complex arrangements are possible through nesting, and parallelizing Pfx or Pfxb patterns using [Ppar](../../Classes/Ppar.md) and its cousins.This example uses Pfxb to isolate a pair of separately-sounding patterns on different buses, and to pass the two signals' streams through separate volume controls. The effect synth, for volume, is kept deliberately simple for the example, but of course it can do any kind of signal processing you like.It might seem odd at first to use a gated envelope for an effect, but this is important to keep the signal's integrity. If the gate is not there, the effect synth will be n_free'd (brutally cut off), probably before the nodes played by the source pattern have finished. In this case it would produce a sudden, brief jump in volume at the end. The gate, combined with the one-second release in the envelope, keeps the effect synth around long enough to allow its source synths to become silent first.Remember that streams made from patterns don't expose their internals. That means you can't adjust the parameters of an effect synth directly, because you have no way to find out what its node ID is. The example addresses this problem by allocating a couple of control buses for the amplitude values, and mapping the volume synths to those control buses. Then the little GUI needs only to update the control bus values.
-```supercollider
+```
 // Demonstrates how Pfxb isolates signals on different buses
 // The fx synth is a simple volume control here
 // but it could be more complex
@@ -90,7 +90,7 @@ The mechanism to do this is a bit unlike most of the other protocols to use the 
 The Pproto help file has several complex examples that are worth reading. Here is just one simple case that loads the standard `ExampleFiles.child` sound file and plays fragments from it.
 
 
-```supercollider
+```
 (
 SynthDef(\playbuf, { |bufnum, start, dur = 1, amp = 0.2, out|
     var    sig = PlayBuf.ar(1, bufnum, BufRateScale.ir(bufnum), 0, start);

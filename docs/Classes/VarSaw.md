@@ -14,6 +14,7 @@ Sawtooth-triangle oscillator with variable duty.
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -28,7 +29,7 @@ Sawtooth-triangle oscillator with variable duty.
 ## Examples
 
 
-```supercollider
+```
 // observe different duty widths
 { VarSaw.ar(1000, 0, [0, 0.5, 1]) }.plot
 

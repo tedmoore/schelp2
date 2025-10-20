@@ -11,6 +11,7 @@ Tracks the relative amplitude of a signal, using an envelope follower algorithm.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Tracks the relative amplitude of a signal, using an envelope follower algorithm.
 
 The first example produces a plot, comparing a fast attack/release against slower settings. The green line (fast settings) approximates the amplitude more quickly, but also oscillates according to the wave shape. The blue line (slow settings) rises more slowly, but oscillates less (more stable measurement).
 
-```supercollider
+```
 (
 {
     // LFSaw begins at 0, illustrates attack time better
@@ -60,14 +61,14 @@ The first example produces a plot, comparing a fast attack/release against slowe
 
 
 
-```supercollider
+```
 // use input amplitude to control Pulse amplitude - use headphones to prevent feedback.
 { Pulse.ar(90, 0.3, Amplitude.kr(SoundIn.ar(0))) }.play;
 ```
 
 
 
-```supercollider
+```
 (
 // use input amplitude to control SinOsc frequency - use headphones to prevent feedback.
 {

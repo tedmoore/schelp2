@@ -13,6 +13,7 @@ Pdfsm is a deterministic finite state machine with signal input (written by by c
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -62,7 +63,7 @@ Any number of states can be given, and are indexed by the order in which they ar
 If the fsm is in state x and it receives a **signal value** y it looks up y in the state dictionary supplied for x, if there is no y entry, it looks for a \default entry and uses that.
 The next state is then set to **destination state**, and the stream yielded is given by **return stream or pattern**. That is unless the **destination state** is given as nil, or if a **destination state** is given for which you have not supplied a dictionary - in both cases the current cycle ends and any remaining repeats are executed. If there is no **signal value** given for a particular signal, and no \default is supplied then one will get a runtime error.
 
-```supercollider
+```
 (
     p = Pdfsm(
         [

@@ -29,7 +29,7 @@ When multiple clients log in, this is what happens:
 - When a local or remote server object/client has no user-specified clientID, scsynth sends back the next free clientID, and the client uses that clientID.
 - When a local or remote server object/client was created with specific clientID, scsynth sends back that number if it was free, or the next free clientID if not; the client should use the free number in any case, as the other may clash with a client already logged in.
 - In case the client was already registered and tries to register again (after a reboot or network problem), scsynth sends back a failed message AND the clientID this client had earlier, and the client will use that clientID.
-- [After pull request  / 3181 ] scsynth also sends back the maxLogins value it was started with, so clients can also adjust their internal allocator settings to it.
+- [After pull request #3181] scsynth also sends back the maxLogins value it was started with, so clients can also adjust their internal allocator settings to it.
 
 
 
@@ -39,7 +39,7 @@ When multiple clients log in, this is what happens:
 Recommended usage for multiple clients on the same server is to use identical options settings for all clients, and logging into the scsynth process from different sclang instances, which are typically on different laptops.
 
 
-```supercollider
+```
 // on the machine where scsynth runs, it can be the default server.
 // set the maximum number of client logins expected:
 s.options.maxLogins = 8;
@@ -56,7 +56,7 @@ s.addr = NetAddr("168.192.1.20", 57110);
 When fixed clientIDs for multiclient setups are desired, the recommended usage is to set every clientID on creation.
 
 
-```supercollider
+```
 s.options.maxLogins = 8;
 
 r = Server(
@@ -94,7 +94,7 @@ A client also knows the defaultGroups of all other clients that may login, so it
 For details on node allocation, see NodeIDAllocator and ReadableNodeIDAllocator class and help files. The scheme from NodeIDAllocator is also followed by many non-sclang clients allocation ranges; in networks with these, NodeIDAllocator will be the safe choice.
 
 
-```supercollider
+```
 // NodeIDAllocator uses a fixed binary prefix of (2 ** 26) * clientID:
 Server.nodeAllocClass = NodeIDAllocator;
 s.newAllocators;
@@ -181,7 +181,7 @@ Ndef(\x).end(3);
 The allocators for audio and control busses and for buffers split the full number range of scsynth evenly for the number of clients expected.
 
 
-```supercollider
+```
 // default value for clientID is 0 and maxLogins is 1
 Server.default = Server.local;
 s.clientID;   // 0
@@ -219,7 +219,7 @@ r.newBusAllocators;
 Buffer allocation uses the same class, ContiguousBlockAllocator, and thus works the same way.
 
 
-```supercollider
+```
 // show buffer allocation
 Server.default = Server.local;
 s.bufferAllocator.size;
@@ -243,7 +243,7 @@ In networked performances, it is useful that clients have well-chosen emergency 
 By default, the local client will kill all sounds, and only reconstruct its defaultGroup; on remote clients, CmdPeriod does not affect remoter servers at all.
 
 
-```supercollider
+```
 // default - single client:
 s.options.maxLogins_(1);
 s.reboot;
@@ -284,7 +284,7 @@ Now, all sounds on the server are gone, as desired. But the other clients cannot
 Thus, the local client should reconstruct them, so the other clients can pick up playing again:
 
 
-```supercollider
+```
 // - easiest option:
 s.tree = { s.sendDefaultGroups; };
 (dur: inf).play;  // test sound
@@ -298,7 +298,7 @@ CmdPeriod.run; // simulate CmdPeriod key action
 **Give remote clients control of their sounds**
 
 
-```supercollider
+```
 // create a fake remote server
 x = Server(\pseudoRem3, s.addr, s.options, 3);
 // method to
@@ -340,7 +340,7 @@ s.freeAll;
 In a less polite symmetrical setup, CmdPeriod stops all sounds on all clients, but keeps all defaultGroups running.
 
 
-```supercollider
+```
 ~myserver = s; // s on home machine, remote client on others
 ~myserver.sendDefaultGroups;
 ~freeDefaultGroups = { ~myserver.freeDefaultGroups };

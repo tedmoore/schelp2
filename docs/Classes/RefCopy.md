@@ -12,7 +12,7 @@ see [Ref](../Classes/Ref.md) for other methods.
 ## Examples
 
 
-```supercollider
+```
 a = [1, 2, 3];
 x = RefCopy(a);
 b = x.next;

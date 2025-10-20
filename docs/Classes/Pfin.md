@@ -14,12 +14,13 @@ The number may be given as a constant, or calculated on the fly from a function 
 
 ## Class Methods
 
+
 ### `new`
 embeds **count** elements of the **pattern** into the stream.
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pfin(5, Pseq(#[1, 2, 3], inf));

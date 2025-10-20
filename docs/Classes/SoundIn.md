@@ -17,6 +17,7 @@ SoundIn is a convenience UGen to read audio from the input of your computer or s
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -29,7 +30,7 @@ SoundIn is a convenience UGen to read audio from the input of your computer or s
 ## Examples
 
 
-```supercollider
+```
 // world's most expensive patchcord (use headphones to avoid feedback)
 { SoundIn.ar(0) }.play;
 

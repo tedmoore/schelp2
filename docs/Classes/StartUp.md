@@ -14,18 +14,22 @@ If an object is registered, **doOnStartUp** must be implemented. Otherwise a fun
 
 ## Class Methods
 
+
 ### `add`
 Registers an object or function to be evaluated after startup is finished.
+
 ### `defer`
 Registers an object or function to be evaluated after startup is finished, or immediately, if this has happened already.
+
 ### `remove`
 Removes an object that was previously registered.
+
 ### `run`
 Call the object in order.
 ## Examples
 
 
-```supercollider
+```
 *initClass {
     StartUp.add {
         // something to do...

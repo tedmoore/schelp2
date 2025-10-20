@@ -101,7 +101,7 @@ The buffer is locked using the `LOCK_SNDBUF` macro. Buffer lock operations are s
 The following macros are for use in supernova. They still exist in scsynth, but will have no effect.
 
 
-```supercollider
+```
 ACQUIRE_BUS_AUDIO(index)
 ACQUIRE_BUS_AUDIO_SHARED(index)
 RELEASE_BUS_AUDIO(index)
@@ -127,7 +127,7 @@ RELEASE_BUS_CONTROL(index)
 RGen is a pseudorandom number generator API. Most ugen developers are not interested in seeding their own RGens and would prefer to draw from a global RGen instance supplied by SuperCollider. This can be retrieved with the code:
 
 
-```supercollider
+```
 RGen& rgen = *unit->mParent->mRGen;
 ```
 

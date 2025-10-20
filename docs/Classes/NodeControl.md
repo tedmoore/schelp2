@@ -11,6 +11,7 @@ This object can be held by a client and have its value set without otherwise hav
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -22,12 +23,13 @@ This object can be held by a client and have its value set without otherwise hav
 
 ## Instance Methods
 
+
 ### `value`
 set the value
 ## Examples
 
 
-```supercollider
+```
 d = SynthDef("help-NodeControl", { |out = 0, freq = 400|
     Out.ar(out,
          SinOsc.ar(freq, 0, 0.5)

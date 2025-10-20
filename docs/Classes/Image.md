@@ -14,13 +14,14 @@ Image enables the drawing of images in the SuperCollider GUI.
 ## Class Methods
 
 
+
 ### `new`
 Creates a new Image instance. "multiple" here stands for multiple arguments.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `multiple` | Any of the following:- [Number](../Classes/Number.md) to create an **empty** image of size multiple as width and height
-```supercollider
+```
 i = Image.new(400);        // Create a 400x400 pixel Image.
 i.bounds;
 i.free;
@@ -32,7 +33,7 @@ i.free;
 
 
 - [Point](../Classes/Point.md) to create an **empty** image of size multiple.x as width and multiple.y as height
-```supercollider
+```
 i = Image.new(400@200);    // Create a 400x200 pixel Image.
 i.bounds;
 i.free;
@@ -40,7 +41,7 @@ i.free;
 
 
 - [String](../Classes/String.md) to create an image from a **local file**
-```supercollider
+```
 //    Path string
 i = Image.new(SCDoc.helpSourceDir +/+ "images/Swamp.png"); // add a path to your image
 [i.width, i.height].postln;
@@ -50,9 +51,10 @@ i.free;
 ``` |  
 | `height` | If **multiple** is a number, then this argument indicates the height of the new image. |  
 
+
 ### `color`
 Creates a new Image instance filled with the specified color.
-```supercollider
+```
 i = Image.color(400, 200, Color.blue(0.9, 0.1));
 i.plot(freeOnClose: true);
 ```
@@ -63,9 +65,10 @@ i.plot(freeOnClose: true);
 |----------|-------------|
 | `... args` | Multiple arguments. the last argument should be a valid [Color](../Classes/Color.md) |  
 
+
 ### `open`
 Creates a new Image instance from the local file at **path**.
-```supercollider
+```
 (
 i = Image.open(SCDoc.helpSourceDir +/+ "images/Swamp.png");
 i.plot(freeOnClose: true);
@@ -74,9 +77,10 @@ i.url.postln;
 ```
 
 
+
 ### `openSVG`
 Creates a new Image instance from the local SVG file at **path**.
-```supercollider
+```
 (
 i = Image.openSVG(SCDoc.helpSourceDir +/+ "images/plugin.svg", 200@200);
 i.plot(freeOnClose: true);
@@ -91,21 +95,23 @@ i.url.postln;
 | `path` | A String containing the SVG file's path. |  
 | `size` | A [Size](../Classes/Size.md). SVG contents will be drawn into an image of this size. If not provided, suggested size provided by SVG will be used. |  
 
+
 ### `openURL`
 
 > **Note:** Not implemented yet.
 
 Creates a new Image instance from a valid image at the specified URL **path**.
-```supercollider
+```
 i = Image.openURL(SCDoc.helpSourceDir +/+ "images/Swamp.png");
 i.url;
 w = i.plot(freeOnClose: true);
 ```
 
 
+
 ### `fromImage`
 Creates a new Image instance from another Image.
-```supercollider
+```
 i = Image.new(SCDoc.helpSourceDir +/+ "images/Swamp.png");
 j = Image.fromImage(i);
 i.dump;
@@ -115,9 +121,10 @@ j.dump;
 ```
 
 
+
 ### `fromWindow`
 Creates a new Image from a portion of a Window. this can be used to capture either a window or a specific View.
-```supercollider
+```
 // WINDOW Example:
 // First create a window and draw inside of it
 (
@@ -172,46 +179,54 @@ Creates a new Image from a portion of a Window. this can be used to capture eith
 | `window` | the Window object. |  
 | `rect` | optional. the constrained rect to capture inside the Window. By default, it is the window size. |  
 
+
 ### `closeAllPlotWindows`
 Close all the Image plot windows currently opened.
+
 ### `colorToPixel`
 Convert a [Color](../Classes/Color.md) into a pixel datatype suitable for setting pixel data in the Image class.**Returns:** A 32bit packed Integer in the RGBA format.
+
 ### `pixelToColor`
 Convert a 32bit packed Integer in the RGBA format into a [Color](../Classes/Color.md)**Returns:** A [Color](../Classes/Color.md)
 
 
 ### Class variables and attributes
+
 ### `formats`
 returns all the valid image formats as an [Array](../Classes/Array.md)
-```supercollider
+```
 Image.formats;
 ```
 
 
+
 ### `compositingOperations`
 returns all the valid compositing operations you can use when drawing an Image as an [Array](../Classes/Array.md)
-```supercollider
+```
 Image.compositingOperations;
 ```
 
 
+
 ### `interpolations`
 returns an [Array](../Classes/Array.md) of the different levels of interpolation you can specify when drawing an Image.
-```supercollider
+```
 Image.interpolations;
 ```
 
 
+
 ### `resizeModes`
 returns an [Array](../Classes/Array.md) of the different resize modes you can specify when changing the size of an Image.
-```supercollider
+```
 Image.resizeModes;
 ```
 
 
+
 ### `allPlotWindows`
 Returns an array of all the Image plot windows currently opened.
-```supercollider
+```
 Image.allPlotWindows
 ```
 
@@ -222,19 +237,25 @@ Image.allPlotWindows
 
 
 ### commons / general attributes
+
 ### `width`
 returns or set the width of the receiver
+
 ### `height`
 returns or set the height of the receiver
+
 ### `setSize`
 set the size of the receiver
+
 ### `bounds`
 returns the bounds of the receiver.
+
 ### `free`
 deallocate the receiver. this method is useful if you want to manage and reclaim yourself resources. otherwise you do not need to call this method since each object is automatically garbage collected.
+
 ### `scalesWhenResized`
 flag to tell or set if the receiver should update its bitmap representation to scale when a resize operation is performed
-```supercollider
+```
 (
 i = Image.new(SCDoc.helpSourceDir +/+ "images/Swamp.png");
 i.bounds.postln; // getting the dimensions
@@ -254,9 +275,10 @@ a.close; w.close; i.free;
 ```
 
 
+
 ### `url`
 returns or set the url of the receiver. Returning only if any where supplied at creation, otherwise returns nil. Setting may be used for different purpose but try to supply a valid one since it is used for archiving the image as an object.
-```supercollider
+```
 i = Image.new("http://www.google.com/intl/en_ALL/images/logo.gif");
 i.url;
 i.plot;
@@ -264,9 +286,10 @@ i.free;
 ```
 
 
+
 ### `interpolation`
 get or set the level of interpolation used when rendering the image - it has not effect when the Image is accelerated. see [#*interpolations](#*interpolations) for a valid range of values.
-```supercollider
+```
 (
 i = Image.new(SCDoc.helpSourceDir +/+ "images/Swamp.png");
 w = i.plot;
@@ -289,9 +312,10 @@ i.free;
 
 
 ### saving and archiving
+
 ### `write`
 write the Image to a file.
-```supercollider
+```
 i = Image.new(SCDoc.helpSourceDir +/+ "images/Swamp.png");
 i.dump
 i.write("~/Desktop/my_image.png".standardizePath);
@@ -324,9 +348,10 @@ i.free;
 
 
 ### rendering
+
 ### `plot`
 plots the image in a Window.
-```supercollider
+```
 i = Image.new(SCDoc.helpSourceDir +/+ "images/Swamp.png");
 w = i.plot;
 w.close;
@@ -349,12 +374,13 @@ Image.new(SCDoc.helpSourceDir +/+ "images/Swamp.png").plot("Hello", freeOnClose:
 | `background` | additional background to apply to the Window. may be useful for artifacts due to alpha / compositing... |  
 | `showInfo` | shows pixel coordinates while the mouse is over the image's plot window. |  
 
+
 ### `draw`
 shortcut for drawing inside an image. equivalent to :- receiver.lockFocus
 - aFunction
 - receiver.unlockFocus
 
-```supercollider
+```
 (
     j = Image.new(400, 300);
     j.draw({ |image|
@@ -390,9 +416,10 @@ j.free;
 ```
 
 
+
 ### `drawStringAtPoint`
 renders *correctly* a String inside an Image :) `// to fix to have a compliant interface`
-```supercollider
+```
 (
     var width, height, tgHeight, ratio, str, font, color, strb, targetWidth = 400, shadowColor, run = true;
     shadowColor = Color.black;
@@ -423,9 +450,10 @@ renders *correctly* a String inside an Image :) `// to fix to have a compliant i
 ```
 
 
+
 ### `drawAtPoint`
 render the image or a portion of it in the current graphic context.
-```supercollider
+```
 (
     var operation = 'sourceOver', fraction = 1.0, i, w;
 
@@ -471,9 +499,10 @@ render the image or a portion of it in the current graphic context.
 | `operation` | the compositing operation to use. `'sourceOver'` is the default. |  
 | `fraction` | the opacity to use, ranging from 0.0 (fully transparent) to 1.0 (fully opaque) |  
 
+
 ### `drawInRect`
 render the image or a portion of it in a specified rectangle of the current graphic context. This may stretch the image depending on the destination rect.
-```supercollider
+```
 (
     i = Image.new(
         // "http://supercollider.sourceforge.net/theme/sc01/icon.supercollider.gif"
@@ -497,9 +526,10 @@ render the image or a portion of it in a specified rectangle of the current grap
 | `operation` | the compositing operation to use. `'sourceOver'` is the default. |  
 | `fraction` | the opacity to use, ranging from 0.0 (fully transparent) to 1.0 (fully opaque) |  
 
+
 ### `tileInRect`
 tile the image or a portion of it in a specified rectangle of the current graphic context. This may stretch the image depending on the destination rect.
-```supercollider
+```
 (
 i = Image.new(
     // "http://supercollider.sourceforge.net/theme/sc01/icon.supercollider.gif"
@@ -526,9 +556,10 @@ w.drawFunc_({
 
 
 ### Instance Methods / accessing and setting pixels
+
 ### `setPixel`
 fill a pixel located at x @ y.
-```supercollider
+```
 i = Image.color(60, 60, Color.blue(0.1, 0.1));
 w = i.plot;
 i.setPixel(Image.colorToPixel(Color.new(1, 0, 0, 1)), 0, 0); // setting red
@@ -545,9 +576,10 @@ i.free;
 | `x` | the x position of the pixel in the image |  
 | `y` | the y position of the pixel in the image |  
 
+
 ### `getPixel`
 retrieve the pixel value at x @ y as a RGBA integer
-```supercollider
+```
 // A simple example on how to manipulate pixels with Image
 (
 b = Int32Array[
@@ -592,10 +624,13 @@ p = a.getColor(1, 0); // more explicit - but same here
 ```
 
 
+
 ### `setColor`
 fill the pixel located at x @ y with the specified **color**.
+
 ### `getColor`
 retrieve the pixel value at x @ y as a [Color](../Classes/Color.md).
+
 ### `pixels`
 retrieve or set all the pixels of the receiver.
 > **Note:** Careful: the returned Array is a [Int32Array](../Classes/Int32Array.md) of size receiver.width * receiver.height containing all pixel values as 32bit Integer. See [#*colorToPixel](#*colortopixel) and [#*pixelToColor](#*pixeltocolor).
@@ -606,9 +641,10 @@ retrieve or set all the pixels of the receiver.
 |----------|-------------|
 | `array` | an [Int32Array](../Classes/Int32Array.md) of size receiver.width * receiver.height containing all pixel values as 32bit Integer |  
 
+
 ### `loadPixels`
-load all the pixels of the receiver in an array. it is better and faster to call this function instead of [pixels](#pixels) if you plan to retrieve frequently the pixel data (since it won't allocate a new array everytime !)
-```supercollider
+load all the pixels of the receiver in an array. it is better and faster to call this function instead of [#-pixels](#-pixels) if you plan to retrieve frequently the pixel data (since it won't allocate a new array everytime !)
+```
 // exec one line at a time
 (
 i = Image.new(
@@ -637,9 +673,10 @@ p;
 | `region` | the targeted rectangular region. (nil by default, meaning full size) |  
 | `start` | the start index of the array. |  
 
+
 ### `setPixels`
 set the pixels in a specific portion of the receiver.
-```supercollider
+```
 (
 i = Image.new(20@20);
 i.pixels_(
@@ -671,6 +708,7 @@ i.pixels.postln;
 | `array` | an [Int32Array](../Classes/Int32Array.md) of size **rect**.width * **rect**.height containing all pixel values as 32bit Integer |  
 | `region` | a rectangle defining the portion to update in the receiver. By default **rect** is nil, meaning full image size. |  
 | `start` | the array start index. |  
+
 
 ### `pixelRatio`
 Get/set pixel ratio of the image.This does NOT affect the content of the image, only how it is interpreted when it is drawn onto a View or another Image. For example, in a high DPI context, the pixel ratio of a View might be 2. When drawing an image with a pixelRatio of 1, each pixel of the image will fill a 2x2 area of the View. If both the Image and the View had a pixel ratio of 2, each pixel would be 1:1 with pixels in the View.By default, the pixelRatio of all Images is 1 - *this ensures that an image will look the same when drawn on a normal or a high DPI view*. Setting a custom (!= 1) pixelRatio should generally only be done to draw specially rendered high DPI images to a View that is known to be high DPI.Note that when drawing to an Image using [Pen](../Classes/Pen.md), pixelRatio is accounted for - so, a line of width 1 will have a true width of 1px for an image where `image.pixelRatio==1`, and a true width of 2px where `image.pixelRatio==2`.

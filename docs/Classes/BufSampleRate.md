@@ -13,6 +13,7 @@ Returns the buffer's current sample rate.
 
 ## Class Methods
 
+
 ### `kr`, `ir`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Returns the buffer's current sample rate.
 ## Examples
 
 
-```supercollider
+```
 b = Buffer.read(s, ExampleFiles.child);
 
 // compares a 1102.5 Hz sine tone (11025 * 0.1, left) with a 1100 Hz tone (right)

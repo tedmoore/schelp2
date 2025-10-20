@@ -17,7 +17,7 @@ For most patterns, the stream is an instance of [Routine](../../Classes/Routine.
 Every pattern class must respond to `asStream`; however, most patterns do not directly implement `asStream`. Instead, they use the generic `asStream` implementation from [Pattern](../../Classes/Pattern.md).
 
 
-```supercollider
+```
     asStream { ^Routine({ arg inval; this.embedInStream(inval) }) }
 ```
 
@@ -25,7 +25,7 @@ Every pattern class must respond to `asStream`; however, most patterns do not di
 This line creates a Routine whose job is simply to embed the pattern into its stream. "Embedding" means for the pattern to do its assigned work, and return control to the parent level when it's finished. When a simple pattern finishes, its parent level is the Routine itself. After `embedInStream` returns, there is nothing else for the Routine to do, so that stream is over; it can only yield nil thereafter.
 
 
-```supercollider
+```
 p = Pseries(0, 1, 3).asStream;    // this will yield exactly 3 values
 4.do { p.next.postln };        // 4th value is nil
 ```
@@ -34,7 +34,7 @@ p = Pseries(0, 1, 3).asStream;    // this will yield exactly 3 values
 We saw that list patterns can contain other patterns, and that the inner patterns are treated like "subroutines." List patterns do this by calling `embedInStream` on their list items. Most objects are embedded into the stream just by yielding the object:
 
 
-```supercollider
+```
         // in Object
     embedInStream { ^this.yield; }
 ```
@@ -43,7 +43,7 @@ We saw that list patterns can contain other patterns, and that the inner pattern
 But if the item is a pattern itself, control enters into the subpattern and stays there until the subpattern ends. Then control goes back to the list pattern to get the next item, which is embedded and so on.
 
 
-```supercollider
+```
 p = Pseq([Pseries(0, 1, 3), Pgeom(10, 2, 3)], 1).asStream;
 
 p.next;    // Pseq is embedded; first item is Pseries(0...), also embedded
@@ -69,7 +69,7 @@ To write a new pattern class, then, the bare minimum required is:
 One of the simpler pattern definitions in the main library is Prand:
 
 
-```supercollider
+```
 Prand : ListPattern {
     embedInStream { arg inval;
         var item;
@@ -87,7 +87,7 @@ Prand : ListPattern {
 This definition doesn't show the instance variables or `*new` method. Where are they? They are inherited from the superclass, ListPattern.
 
 
-```supercollider
+```
 ListPattern : Pattern {
     var <>list, <>repeats=1;
 
@@ -119,7 +119,7 @@ In reality, when a Routine yields a value, its execution is interrupted after ca
 For a quick example, consider a routine that is supposed to multiply the input value by two. First, the wrong way, assuming that everything is done by the function argument `inval`. In reality, the first `inval` to come in is `1`. Since nothing in the routine changes the value of `inval`, the routine yields the same value each time.
 
 
-```supercollider
+```
 r = Routine({ |inval|
     loop {
         yield(inval * 2)
@@ -133,7 +133,7 @@ r = Routine({ |inval|
 If, instead, the routine saves the result of `yield` into the `inval` variable, the routine becomes aware of the successive input values and returns the expected results.
 
 
-```supercollider
+```
 r = Routine({ |inval|
     loop {
             // here is where the 2nd, 3rd, 4th etc. input values come in
@@ -167,7 +167,7 @@ If a pattern class needs to use values from another pattern, should it evaluate 
 This pattern demonstrates what it means to give control over to the subpattern. The first pattern in the [Pseq](../../Classes/Pseq.md) list is infinite; consequently, the second subpattern will never execute because the infinite pattern never gives control back to Pseq.
 
 
-```supercollider
+```
 p = Pseq([Pwhite(0, 9, inf), Pwhite(100, 109, inf)], 1).asStream;
 p.nextN(20);    // no matter how long you do this, it'll never be > 9!
 ```
@@ -176,7 +176,7 @@ p.nextN(20);    // no matter how long you do this, it'll never be > 9!
 `asStream` should be used if the parent pattern needs to perform some other operation on the yield value before yielding, or if it needs to keep track of multiple child streams at the same time. For instance, [Pdiff](../../Classes/Pdiff.md) takes the difference between the current value and last value. Since the subtraction comes between evaluating the child pattern and yielding the difference, the child pattern must be used as a stream.
 
 
-```supercollider
+```
 Pdiff : FilterPattern {
     embedInStream { arg event;
             // here is the stream!
@@ -207,7 +207,7 @@ Because of this rule, *all variables reflecting the state of a particular stream
 To initialize the pattern's parameters (instance variables), typical practice in the library is to give getter and setter methods to all instance variables, and use the setters in the `*new` method (or, use `^super.newCopyArgs(...))`. It's not typical to have an init method populate the instance variables. E.g.,
 
 
-```supercollider
+```
 Pn : FilterPattern {
     var <>repeats;
     *new { arg pattern, repeats=inf;
@@ -223,7 +223,7 @@ Consider carefully whether a parameter can change in each `next` call. If so, ma
 
 
 > **Note:** **Exercise for the reader** : Why does `Pwhite(0.0, 1.0, inf)` work, even with the `asStream` and next calls?
-```supercollider
+```
 Pwhite : Pattern {
     var <>lo, <>hi, <>length;
     *new { arg lo=0.0, hi=1.0, length=inf;
@@ -261,7 +261,7 @@ Some event patterns create server or other objects that need to be explicitly re
 Basic usage involves 4 stages:
 
 
-```supercollider
+```
     embedInStream { |inval|
         var    outputEvent;
 

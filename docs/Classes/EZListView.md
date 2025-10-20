@@ -20,6 +20,7 @@ The convenience methods for EZListView require that the items array is an array 
 
 
 ### Creation / Class Methods
+
 ### `new`
 **Arguments:**
 
@@ -38,7 +39,7 @@ The convenience methods for EZListView require that the items array is an array 
 | `gap` | A [Point](../Classes/Point.md). By default, the view tries to get its parent's gap, otherwise it defaults to `2@2`. Setting it overrides these. |  
 | `margin` | A [Point](../Classes/Point.md). This will inset the bounds occupied by the subviews of view. |  
 Example:
-```supercollider
+```
 (
 // default with vertical layout
 w = Window.new.front;
@@ -81,6 +82,7 @@ g.setColors(Color.grey, Color.white);
 
 
 ### Changing Appearance
+
 ### `setColors`
 **Arguments:**
 
@@ -94,6 +96,7 @@ g.setColors(Color.grey, Color.white);
 | `hiliteColor` | An instance of [Color](../Classes/Color.md). The `hiliteColor` of the list view. |  
 | `background` | An instance of [Color](../Classes/Color.md). The `background` of the list view. |  
 
+
 ### `font`
 Set the [Font](../Classes/Font.md) used by all the views.**Arguments:**
 
@@ -106,7 +109,7 @@ Set the [Font](../Classes/Font.md) used by all the views.**Arguments:**
 
 Creates its own window if parent is nil:
 
-```supercollider
+```
 (
 g = EZListView.new(label: " My PopUp List: ");
 g.addItem(\item0, { "this is item 0".postln });
@@ -119,7 +122,7 @@ g.setColors(Color.grey, Color.white);
 
 Layout horizontal:
 
-```supercollider
+```
 (
 g = EZListView.new(nil, 205@180, "Choose One: ", layout: \horz);
 10.do{ |i| g.addItem("item"++i.asString, { ("this is item" ++i.asString).postln }) };
@@ -130,7 +133,7 @@ g.setColors(Color.grey, Color.white);
 
 No labelView created, so set the window title:
 
-```supercollider
+```
 (
 g = EZListView.new(bounds: 200@230); // no label
 12.do{ |i| g.addItem("item"++i.asString, { ("this is item" ++i.asString).postln }) };
@@ -141,7 +144,7 @@ g.view.parent.findWindow.name = " choose item";
 
 insert item:
 
-```supercollider
+```
 (
 g = EZListView.new(nil, 200@200, "List:");
 g.addItem(\item0, { "this is item 0".postln });
@@ -156,7 +159,7 @@ g.insertItem(3, \item3, { "this is item 3".postln });
 
 remove item:
 
-```supercollider
+```
 (
 g = EZListView.new(nil, 200@200, "List:");
 g.addItem(\item0, { "this is item 0".postln });
@@ -172,7 +175,7 @@ g.removeItemAt(1);
 
 replace item:
 
-```supercollider
+```
 (
 g = EZListView.new(nil, 200@200, "List:");
 g.addItem(\item0, { "this is item 0".postln });

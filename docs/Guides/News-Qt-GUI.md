@@ -7,7 +7,7 @@
 This document is intended for those already familiar with graphical user interface programming in SuperCollider. If you are new to this topic, you are suggested to first read the [GUI-Introduction](../Guides/GUI-Introduction.md).
 For the purpose of this guide, let's switch to the Qt GUI:
 
-```supercollider
+```
 GUI.qt
 ```
 
@@ -20,7 +20,7 @@ Every view can be displayed as a window on its own, without the use of the Windo
 For example, you can display any view without embedding it in a Window or another container view using the [View#-front](../Classes/View.md#-front) method. For this reason, it is valid to omit the 'parent' argument at view construction - any view without a parent can be shown as a window:
 
 
-```supercollider
+```
 (
 x = SoundFileView().front;
 x.load(ExampleFiles.child);
@@ -35,7 +35,7 @@ x.load(ExampleFiles.child);
 Every view can contain other views (i.e. act as their parent). For this reason, if you want to group several views together, you can simply use a View as the container:
 
 
-```supercollider
+```
 (
 v=View(bounds:300@300);
 5.do { |i|
@@ -64,7 +64,7 @@ You may have noticed in the examples above that, besides omitting the `parent` a
 A collection of layout classes allows you to associate one of them with a parent view and several child views, and it will manage positions and sizes of the children automatically according to their size preferences and constraints. It will also do that dynamically, as you resize the window:
 
 
-```supercollider
+```
 (
 w = Window.new(bounds:Rect(100,100,300,80)).layout_(
     VLayout (
@@ -101,7 +101,7 @@ There are two predefined palettes ( [QPalette#*light](../Classes/QPalette.md#*li
 Try changing the global palette with the code below; if you have the Qt GUI active, this will affect this window as well:
 
 
-```supercollider
+```
 QtGUI.palette = QPalette.dark;
 
 QtGUI.palette = QPalette.light;
@@ -119,12 +119,12 @@ QtGUI.palette = QPalette.system;
 ### Mouse and key event propagation
 In addition to key events, mouse events can also propagate to parent views.
 
-Also, the control over event propagation works differently in Qt. See [View / Key and mouse event processing ](../Classes/View.md#key-and-mouse-event-processing) for detailed explanation.
+Also, the control over event propagation works differently in Qt. See [View#Key and mouse event processing](../Classes/View.md#key-and-mouse-event-processing) for detailed explanation.
 
 Moreover, you can make a view transparent for mouse events using [View#-acceptsMouse](../Classes/View.md#-acceptsmouse), which will forward all mouse events to the view under, regardless of whether they are in a parent-child relationship.
 
 
-```supercollider
+```
 (
 var win, parent, child, sibling1, sibling2;
 win = Window(bounds:Rect(30,30,300,300));
@@ -165,7 +165,7 @@ Many Qt views already implement some kind of **mouse wheel** interaction. For ex
 There's another two handy new mouse actions triggered when the **mouse enters or leaves** the view: [View#-mouseEnterAction](../Classes/View.md#-mouseenteraction) and [View#-mouseLeaveAction](../Classes/View.md#-mouseleaveaction):.
 
 
-```supercollider
+```
 (
 var val = 1.0;
 t=StaticText(bounds:Rect(30,30,100,100))
@@ -194,7 +194,7 @@ t.mouseWheelAction = { |v,x,y,mod,dx,dy|
 Since views can be automatically repositioned and resized by [layouts](#layout-management), or by the user (if they are windows), it may come handy to make your view respond to these changes using [View#-onMove](../Classes/View.md#-onmove) and [View#-onResize](../Classes/View.md#-onresize).
 
 
-```supercollider
+```
 (
 var view, update;
 update = { |v|
@@ -229,7 +229,7 @@ Qt brings a new implementation of [Stethoscope](../Classes/Stethoscope.md) that 
 All the 'scope' methods of various classes (like Server, Bus, Function, etc.) are wired to this new implementation, so you don't need to worry about instantiating a Stethoscope yourself.
 
 
-```supercollider
+```
 Server.local.scope;
 ```
 
@@ -247,7 +247,7 @@ It also offers convenient **mouse interaction** for zooming in and scrolling:
 
 
 
-```supercollider
+```
 (
 var x = SoundFileView().front;
 x.load(ExampleFiles.child);
@@ -258,7 +258,7 @@ x.load(ExampleFiles.child);
 Alternatively to displaying a soundfile, you can allocate an empty amount of display frames, and fill it **part by part** with data to display (see documentation of [SoundFileView#-alloc](../Classes/SoundFileView.md#-alloc) and [SoundFileView#-set](../Classes/SoundFileView.md#-set)). This allows, for example, to implement efficient monitoring of recording into a Buffer.
 
 
-```supercollider
+```
 (
 var v, s;
 v = SoundFileView().front;
@@ -276,7 +276,7 @@ v.alloc(5000, samplerate: 500);
 [EnvelopeView](../Classes/EnvelopeView.md) offers two different **display styles**: in addition to traditional style where nodes are drawn as rectangles with labels inside, it can draw nodes as small dots, with labels next to them. See [EnvelopeView#-style](../Classes/EnvelopeView.md#-style).
 
 
-```supercollider
+```
 (
 var w, e, m;
 e = EnvelopeView()
@@ -301,7 +301,7 @@ You can also control how a **selection of nodes** behaves when it is **moved**: 
 Example: try selecting several nodes (by clicking on them with Shift key pressed) and moving them around, then use the menu to switch the way selection behaves, and repeat:
 
 
-```supercollider
+```
 (
 var w, e, m;
 e = EnvelopeView()
@@ -354,7 +354,7 @@ It is a view that displays web pages, with web technology support comparable to 
 
 
 
-```supercollider
+```
 (
 w = WebView(bounds: Window.screenBounds.insetBy(100,40))
     .url_("http://supercollider.sourceforge.net/")

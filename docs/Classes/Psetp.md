@@ -13,6 +13,7 @@ Sets a value in an event stream until it ends, repeats this with new values unti
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Sets a value in an event stream until it ends, repeats this with new values unti
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Psetp(\freq, Pseq([801, 1008], inf), Pbind(\dur, Pseq([0.5, 0.111, 0.22])));

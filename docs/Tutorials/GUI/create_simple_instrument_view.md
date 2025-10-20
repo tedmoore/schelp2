@@ -34,7 +34,7 @@ The SynthDef is a simple sine wave with a percussive envelope.
 We will control the frequency, volume and the duration of a [Synth](../../Classes/Synth.md).
 
 
-```supercollider
+```
 // make sure the server is booted:
 s.boot;
 // add our SynthDef to the server:
@@ -56,7 +56,7 @@ SynthDef(\instrView, { |out = 0, amp = 0.25, freq = 440, dur = 1.0|
 You can try the synth using:
 
 
-```supercollider
+```
 Synth(\instrView)
 ```
 
@@ -64,7 +64,7 @@ Synth(\instrView)
 We'll start with the following code which is not yet connected to our synth and will therefore not yield any sound yet:
 
 
-```supercollider
+```
 (
 var window = Window();
 var layout = HLayout();
@@ -88,7 +88,7 @@ If this code does not make sense to you, you can find more explanations about it
 So we start with a simple button, that, sadly, is not very useful so far. To connect it, you need to **assign a function to its 'action' method**.
 
 
-```supercollider
+```
 (
 var window = Window();
 var layout = HLayout();
@@ -118,7 +118,7 @@ We now have a keyboard, but not a very good one ! It only has one key... I'd say
 So let's **add a second key**:
 
 
-```supercollider
+```
 (
 var window = Window();
 var layout = HLayout();
@@ -146,7 +146,7 @@ As you can see, **the Layout has arranged everything automatically**.
 But **copy-pasting is not a good way to add** keys. Instead, we can just ask SC to create a button 8 times:
 
 
-```supercollider
+```
 (
 var window = Window();
 var layout = HLayout();
@@ -171,7 +171,7 @@ window.front;
 Those buttons feels too small. This is because [Button](../../Classes/Button.md) **has a low default maximum height**. We can change it by reassigning it:
 
 
-```supercollider
+```
 (
 var window = Window();
 var layout = HLayout();
@@ -198,7 +198,7 @@ So we now have 8 buttons, but they all make the same sound. That's doesn't sound
 We can **change the Synth parameters by modifying its arguments**:
 
 
-```supercollider
+```
 Synth(\instrView, [\freq, 660]);
 ```
 
@@ -208,7 +208,7 @@ We just need to introduce this inside the loop that creates the buttons. But ins
 We can **transform a set of MIDI notes into frequencies and map them to the buttons**:
 
 
-```supercollider
+```
 (
 var window = Window();
 var layout = HLayout();
@@ -242,7 +242,7 @@ window.front;
 Now that we have a keyboard, we'd like to **implement a volume slider** to the view. We can do this by inserting a [Slider](../../Classes/Slider.md) to the layout:
 
 
-```supercollider
+```
 (
 var window = Window();
 var layout = HLayout();
@@ -282,7 +282,7 @@ But you cannot order views vertically. For this, you need to create a [VLayout](
 Let's see an example about layout hierarchy. Execute the following code before reading it to get a visual idea about the way it works:
 
 
-```supercollider
+```
 (
 var window = Window();
 var firstLayout = VLayout();
@@ -322,7 +322,7 @@ The window is first divided vertically, then the bottom of the window is divided
 Let's adapt our previous code to place the slider on top of the piano:
 
 
-```supercollider
+```
 (
 var window = Window();
 var windowLayout = VLayout();
@@ -353,7 +353,7 @@ window.front;
 The slider is crushing everything ! It's because it is not on the right direction. We can fix this with the `.orientation` method. Then we can also reduce its maximum height with `.maxHeight` so it takes less space:
 
 
-```supercollider
+```
 (
 var window = Window();
 var windowLayout = VLayout();
@@ -383,7 +383,7 @@ window.front;
 So far, we changed its graphical properties, but the slider do not have any `action`. It's time to **connect it**:
 
 
-```supercollider
+```
 (
 var window = Window();
 var windowLayout = VLayout();
@@ -438,7 +438,7 @@ But how did the slider know what values were expected by the volume parameter ? 
 But what if we want to control other ranges ? We can use `.linlin` or `.linexp` to map the sliders value, which is between 0 and 1, to a value between 0.1 and 2. We'll use this to new value to control the duration of the percussive envelope:
 
 
-```supercollider
+```
 (
 var window = Window();
 var windowLayout = VLayout();
@@ -496,7 +496,7 @@ window.front;
 Alternatively, we can use a [ControlSpec](../../Classes/ControlSpec.md) to do the same thing:
 
 
-```supercollider
+```
 var dur = 1;
 var durMin = 0.1;
 var durMax = 2;
@@ -513,7 +513,7 @@ var durSlider = Slider()
 The last thing to do is to label our controls. It is easy to remember what the keyboard does, but the sliders could use some indications. We will use a [StaticText](../../Classes/StaticText.md) for this, configuring its string, and its alignment.
 
 
-```supercollider
+```
 (
 var window = Window();
 var windowLayout = VLayout();
@@ -579,7 +579,7 @@ window.front;
 You can see that when adding the views inside the layouts, I also specified a number. This is called **assigning a 'stretch'** to a view:
 
 
-```supercollider
+```
 windowLayout.add(volumeSlider, stretch: 3);
 ```
 

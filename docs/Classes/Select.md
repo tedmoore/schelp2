@@ -18,6 +18,7 @@ Note that the array is fixed at the time of writing the SynthDef, and the whole 
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -29,7 +30,7 @@ Note that the array is fixed at the time of writing the SynthDef, and the whole 
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-Select", { |out = 0|
 

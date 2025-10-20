@@ -13,6 +13,7 @@ Comb delay line with no interpolation which uses a buffer for its internal memor
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -28,7 +29,7 @@ Comb delay line with no interpolation which uses a buffer for its internal memor
 ## Examples
 
 
-```supercollider
+```
 // These examples compare the variants, so that you can hear the difference in interpolation
 
 // allocate buffer

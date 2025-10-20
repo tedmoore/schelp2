@@ -13,6 +13,7 @@ Pkey simplifies backward access to values in an event being processed by [Pbind]
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Pkey simplifies backward access to values in an event being processed by [Pbind]
 ## Examples
 
 
-```supercollider
+```
 // \b should thus take twice the value of \a in each event:
 p = Pbind(\a, Pwhite(1, 10, inf), \b, Pkey(\a) * 2).asStream;
 

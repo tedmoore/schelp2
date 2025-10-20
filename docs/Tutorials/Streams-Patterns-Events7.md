@@ -11,7 +11,7 @@
 
 ### Using your own instrument
 
-```supercollider
+```
 (
 SynthDef(\help_SPE7_BerlinB, { arg i_out=0, freq = 80, amp = 0.2, pan=0;
     var out, a, b;
@@ -42,7 +42,7 @@ SynthDef(\help_SPE7_CFString1, { arg i_out, freq = 360, gate = 1, pan, amp=0.1;
 [Pattern#-play](../Classes/Pattern.md#-play) creates an [EventStreamPlayer](../Classes/EventStreamPlayer.md) for you and also supplies a default protoEvent. If you were using your own event model you would just pass in your own protoEvent to the play method.
 
 
-```supercollider
+```
 (
 Pbind(
     \instrument, Prand([\help_SPE7_BerlinB, \help_SPE7_CFString1],inf),
@@ -64,7 +64,7 @@ The default event prototype uses a `msgFunc` to determine which bindings to pass
 You should not send or load synthdefs that you plan to use with patterns. Instead, store them in a SynthDescLib.
 
 
-```supercollider
+```
 // saves .scsyndef file on disk (like .load), and adds description to the global library
 SynthDef(...).store;
 
@@ -76,7 +76,7 @@ SynthDef(...).add;
 If you don't do this, nondefault bindings will be ignored. In that case, you can provide a custom `msgFunc` manually. Here's an example:
 
 
-```supercollider
+```
 (
 SynthDef(\help_SPE4_CFString2, { arg i_out, freq = 360, gate = 1, pan, amp=0.1, dorkarg=1;
     var out, eg, fc, osc, a, b, w;
@@ -94,7 +94,7 @@ SynthDef(\help_SPE4_CFString2, { arg i_out, freq = 360, gate = 1, pan, amp=0.1, 
 As you can see I have added `dorkarg` to the arglist of the SynthDef from earlier.
 
 
-```supercollider
+```
 (
 Pbind(
     \instrument, \help_SPE4_CFString2,
@@ -113,7 +113,7 @@ Pbind(
 You could also supply a `\msgFunc` that includes `dorkarg` :
 
 
-```supercollider
+```
 (
 Pbind(
     \instrument, \help_SPE4_CFString2,
@@ -141,7 +141,7 @@ The other option you have if you will be using unspecified bindings, is of cours
 
 ### Manipulating an EventStreamPlayer in Realtime
 
-```supercollider
+```
 (
 p = Pbind(
     \degree, Pwhite(0,12),
@@ -184,7 +184,7 @@ e.stream = Pbind(
 The following methods are possible because an [EventStreamPlayer](../Classes/EventStreamPlayer.md) is a [PauseStream](../Classes/PauseStream.md) :
 
 
-```supercollider
+```
 e.mute;        // keeps playing, but replaces notes with rests
 
 e.unmute;

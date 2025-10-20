@@ -13,6 +13,7 @@ Pgate advances its subpattern whenever **key** is true. Pgate must be used withi
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Pgate advances its subpattern whenever **key** is true. Pgate must be used withi
 ## Examples
 
 
-```supercollider
+```
 // Use \step to change the octave randomly
 (
 Pbind(
@@ -39,7 +40,7 @@ Pbind(
 
 
 
-```supercollider
+```
 // Pn advances Pgate each time its subpattern is repeated
 (
 Pbind(

@@ -15,7 +15,7 @@ An [Environment](../Classes/Environment.md) is an [IdentityDictionary](../Classe
 Symbol and value pairs may be put into the current Environment as follows:
 
 
-```supercollider
+```
 currentEnvironment.put(\myvariable, 999);
 ```
 
@@ -23,7 +23,7 @@ currentEnvironment.put(\myvariable, 999);
 and retrieved from the current Environment as follows:
 
 
-```supercollider
+```
 currentEnvironment.at(\myvariable).postln;
 ```
 
@@ -31,7 +31,7 @@ currentEnvironment.at(\myvariable).postln;
 The compiler provides a shorthand for the two constructs above.
 
 
-```supercollider
+```
 ~myvariable = 888;
 ```
 
@@ -39,7 +39,7 @@ The compiler provides a shorthand for the two constructs above.
 is equivalent to:
 
 
-```supercollider
+```
 currentEnvironment.put(\myvariable, 888);
 ```
 
@@ -47,7 +47,7 @@ currentEnvironment.put(\myvariable, 888);
 and:
 
 
-```supercollider
+```
 ~myvariable.postln;
 ```
 
@@ -55,7 +55,7 @@ and:
 is equivalent to:
 
 
-```supercollider
+```
 currentEnvironment.at(\myvariable).postln;
 ```
 
@@ -66,7 +66,7 @@ currentEnvironment.at(\myvariable).postln;
 Environment has a class method **make** which can be used to create an [Environment](../Classes/Environment.md) and fill it with values. What **make** does is temporarily replace the current Environment with a new one, call your function where you fill the Environment with values, then it replaces the previous current Environment and returns you the new one.
 
 
-```supercollider
+```
 (
 var a;
 a = Environment.make({
@@ -85,7 +85,7 @@ a.postln;
 The instance method **use** lets you temporarily replace the current [Environment](../Classes/Environment.md) with one you have made. The **use** method returns the result of your function instead of the Environment like **make** does.
 
 
-```supercollider
+```
 (
 var a;
 a = Environment.make({
@@ -103,7 +103,7 @@ a.use({
 There is also a **use** class method for when you want to make and use the result from an [Environment](../Classes/Environment.md) directly.
 
 
-```supercollider
+```
 (
 var a;
 a = Environment.use({
@@ -122,7 +122,7 @@ a = Environment.use({
 It is possible to call a [Function](../Classes/Function.md) and have it look up any unspecified argument values from the current Environment. This is done with the **valueEnvir** and **valueArrayEnvir** methods. These methods will, for any unspecified argument value, look in the current Environment for a symbol with the same name as the argument. If the argument is not found then whatever the function defines as the default value for that argument is used.
 
 
-```supercollider
+```
 (
 var f;
 
@@ -147,7 +147,7 @@ Environment.use({
 Here is a somewhat contrived example of how the Environment might be used to manufacture SynthDefs. Even though the three functions below have the freq, amp and pan args declared in different orders it does not matter, because valueEnvir looks them up in the environment.
 
 
-```supercollider
+```
 (
 var a, b, c, n;
 
@@ -214,7 +214,7 @@ The class [Pbind](../Classes/Pbind.md) provides a bridge between value patterns 
 The Pbind stream returns nil whenever the first one of its streams ends.
 
 
-```supercollider
+```
 Pbind( \freq, Pseq([440,880]) ).play
 ```
 
@@ -222,7 +222,7 @@ Pbind( \freq, Pseq([440,880]) ).play
 An event stream is created for a Pattern by sending it the `asStream` message. What Pbind does is to produce a stream which puts the values for its symbols into the event, possibly overwriting previous bindings to those symbols:
 
 
-```supercollider
+```
 t = Pbind( \freq, Pseq([440,880]) ).asStream;
 t.next(Event.default);
 t.next(Event.default);
@@ -251,7 +251,7 @@ In SC3, if you want an event stream proper you call asStream on the Event Patter
 Here you can see what the stream returned from a Pbind looks like.
 
 
-```supercollider
+```
 (
 var pattern, stream;
 
@@ -273,7 +273,7 @@ stream = pattern.asStream;
 Here is an example with more bindings.
 
 
-```supercollider
+```
 (
 var pattern, stream;
 
@@ -293,7 +293,7 @@ stream = pattern.asStream;
 The ListPatterns discussed in part 3 can be put around Event Streams to create sequences of Event Streams.
 
 
-```supercollider
+```
 (
 var pattern, stream;
 pattern =

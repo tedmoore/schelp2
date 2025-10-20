@@ -16,13 +16,14 @@ Evaluates a function that returns a pattern and embeds it in a stream.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `func` | A [Function](../Classes/Function.md) that returns a pattern or any other valid pattern input.
-```supercollider
+```
 (
 f = { |g = 0, h = 0, dur = 1|
     Pbind(\degree, Pseq([g, g, h, g, h], 2), \dur, Pseries(dur, 0.1))
@@ -39,7 +40,7 @@ c.nextN(4); // no degrees, because stream ends
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef(\help_sinegrain,
     { |out = 0, freq = 440, sustain = 0.05, pan = 0|

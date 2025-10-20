@@ -10,7 +10,7 @@
 
 InBus provides a simple interface to the signal on a bus, crossfading between adjacent values.
 
-```supercollider
+```
 (
 b = Bus.control(s, 9); // nine channel control rate
 b.setn([244, 737, 20, 271, 382, 172, 4, 2399, 251]);
@@ -25,6 +25,7 @@ b.setn([244, 737, 20, 271, 382, 172, 4, 2399, 251]);
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 Return a new instance with the respective rate. If the bus rate doesn't match the signal is converted. Multi channel arguments expand.**Arguments:**
@@ -43,7 +44,7 @@ Return a new instance with the respective rate. If the bus rate doesn't match th
 ## Examples
 
 
-```supercollider
+```
 (
 s.waitForBoot({
     b = Bus.control(s, 3);

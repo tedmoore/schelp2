@@ -13,6 +13,7 @@ To be able to play a control rate UGen into an audio rate UGen, sometimes the ra
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -23,7 +24,7 @@ To be able to play a control rate UGen into an audio rate UGen, sometimes the ra
 ## Examples
 
 
-```supercollider
+```
 { K2A.ar(WhiteNoise.kr(0.3)) }.scope;
 
 

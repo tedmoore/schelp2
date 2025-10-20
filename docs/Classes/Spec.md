@@ -12,7 +12,7 @@ Specs specify what kind of input is required or permissible, and what the range 
 ControlSpec is used by GUI sliders and knobs to specify the range and curve of the controls. Input datatypes are of interest to functions, to gui interface objects (sliders etc.) and can also be used for introspection.
 The class Spec itself holds a global [IdentityDictionary](../Classes/IdentityDictionary.md) of common specifications. The name that the spec was stored as can then be used as a shorthand to refer to specs:
 
-```supercollider
+```
 \freq.asSpec
 ```
 
@@ -23,12 +23,13 @@ Some common mappings are initialized in `ControlSpec.initClass`. You may add or 
 ## Class Methods
 
 
+
 ### `add`
 Add a spec to the global spec dictionary. The item will be converted to a spec using .asSpec.
 ## Examples
 
 
-```supercollider
+```
 Spec.add(\helpExp, ControlSpec(0.01, 1.0, \exp));
 
 // the array will be converted to a control spec

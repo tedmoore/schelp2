@@ -13,7 +13,7 @@ Returns a shuffled version of the **list** item by item, with n **repeats**.
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pshuf([1, 2, 3, 4, 5], 3);    // repeat 3 times

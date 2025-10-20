@@ -13,6 +13,7 @@ SimpleController can be used as a controller according to the model-view-control
 
 ## Class Methods
 
+
 ### `new`
 Creates a SimpleController instance with the model to be observed.**Arguments:**
 
@@ -23,6 +24,7 @@ Creates a SimpleController instance with the model to be observed.**Arguments:**
 
 ## Instance Methods
 
+
 ### `put`
 **Arguments:**
 
@@ -30,6 +32,7 @@ Creates a SimpleController instance with the model to be observed.**Arguments:**
 |----------|-------------|
 | `what` | Register an action, which is called when the model invokes changed(what, moreArgs). |  
 | `action` | Action to register. |  
+
 ### `remove`
 Remove a registered action.**Arguments:**
 
@@ -40,7 +43,7 @@ Remove a registered action.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 (
 var controller, model, view;
 

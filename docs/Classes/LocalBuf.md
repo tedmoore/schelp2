@@ -10,6 +10,7 @@
 ## Class Methods
 
 
+
 ### `new`
 Allocate a local buffer**Arguments:**
 
@@ -18,6 +19,7 @@ Allocate a local buffer**Arguments:**
 | `numFrames` | number of frames (default: 1) |  
 | `numChannels` | number of channels for multiple channel buffers (default: 1) |  
 **Returns:** a new buffer – the ugen outputs its buffer number and can thus be used in any other ugen that requires a buffer number input.
+
 ### `newFrom`
 Allocates a new buffer from a given list of values**Arguments:**
 
@@ -25,7 +27,7 @@ Allocates a new buffer from a given list of values**Arguments:**
 |----------|-------------|
 | `list` | The list may be two-dimensional for numChannels > 1. It is then reshaped into the buffer's current format by flattening. |  
 **Returns:** a new bufferSince newFrom is called by the as message, one may thus convert an array to a LocalBuf:
-```supercollider
+```
 [1, 2, 3].as(LocalBuf)
 ```
 
@@ -33,9 +35,10 @@ Allocates a new buffer from a given list of values**Arguments:**
 
 ## Instance Methods
 
+
 ### `set`
 set the buffer slots with a list of values.If list is smaller than numFrames, it will only set part of the buffer. The list may be two-dimensional for numChannels > 1. offset is the starting index (default: 0)> **⚠️ Warning:** SynthDef permits a maximum of 65536 (2**16) unique constant values in one definition. A very large array of distinct values can corrupt the SynthDef's binary format. If you need a large buffer to be pre-initialized with signal data, it is strongly recommended to use [Buffer](../Classes/Buffer.md) instead.If the buffer is large but holds a smaller number of unique values, e.g. `Array.fill(88200, { #[0, 0.25, 0.5, 0.75, 1.0].choose })`, this is no problem. SynthDef compacts the large array for the list of constants.
-```supercollider
+```
 SynthDef(\bigLocalBuf, {
     LocalBuf(88200).set(Array.fill(88200, { #[0, 0.25, 0.5, 0.75, 1.0].choose }))
 }).add;
@@ -44,12 +47,13 @@ SynthDescLib.at(\bigLocalBuf).constants;
 // prints: FloatArray[1, 88200, 0, 0.75, 0.5, 0.25]
 ```
 
+
 ### `clear`
 set the buffer slot to zero.This is important when randomly accessing buffer slots (e.g. with a BufRd) or not overwriting them. Clear is not an efficient real time operation for larger buffers, so it should be only used when really needed - but then it is essential: a LocalBuf is "created" in each new synth, and it may reuse old space. So if an older synth has already ended, this part of memory may be the same as the new synth's.
 ## Examples
 
 
-```supercollider
+```
 // example: FFT
 
 (

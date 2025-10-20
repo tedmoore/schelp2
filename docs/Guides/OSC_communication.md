@@ -12,7 +12,7 @@ OSC communication between programs is often done to send messages from one appli
 To establish communication to another application, you need to know on which port that application is listening. For example if an application is listening on port 7771, we can create a NetAddr and send it a message:
 
 
-```supercollider
+```
 b = NetAddr.new("127.0.0.1", 7771);    // create the NetAddr
 b.sendMsg("/hello", "there");    // send the application the message "hello" with the parameter "there"
 ```
@@ -24,7 +24,7 @@ b.sendMsg("/hello", "there");    // send the application the message "hello" wit
 To listen to another application, that application needs to send a message to the port SuperCollider is listening on. Normally the default port is 57120, but it could be something different if that port was already bound when SC started. The current default port can be retrieved with
 
 
-```supercollider
+```
 NetAddr.langPort;    // retrieve the current port SC is listening to
 ```
 
@@ -32,7 +32,7 @@ NetAddr.langPort;    // retrieve the current port SC is listening to
 Or you can retrieve both the IP and the port with:
 
 
-```supercollider
+```
 NetAddr.localAddr    // retrieve the current IP and port
 ```
 
@@ -40,7 +40,7 @@ NetAddr.localAddr    // retrieve the current IP and port
 You can open additional ports using [Main#-openUDPPort](../Classes/Main.md#-openudpport). This will return a [Boolean](../Classes/Boolean.md) indicating whether SC succeeded in opening the new port. Or you can just pass a custom port as the **recvPort** argument to [OSCFunc](../Classes/OSCFunc.md) and it will open it automatically if not already open.
 
 
-```supercollider
+```
 thisProcess.openUDPPort(1121); // attempt to open 1121
 thisProcess.openPorts; // list all open ports
 ```
@@ -49,7 +49,7 @@ thisProcess.openPorts; // list all open ports
 To listen to incoming messages, an [OSCFunc](../Classes/OSCFunc.md) needs to be created in SuperCollider. If the sending application **has a fixed port it sends message from**, you can set the OSCFunc to listen only to messages coming from that IP and port:
 
 
-```supercollider
+```
 n = NetAddr.new("127.0.0.1", 7771);    // create the NetAddr
 // create the OSCFunc
 o = OSCFunc({ arg msg, time, addr, recvPort; [msg, time, addr, recvPort].postln; }, '/goodbye', n);
@@ -69,7 +69,7 @@ o.free;    // remove the OSCFunc when you are done.
 Some applications (notably Pd and Max) do not send messages from a fixed port, but instead use a different port each time they send out a message, or each time a patch starts up it picks a random port. In that case the OSCFunc needs to be set up, so that it listens to messages coming from anywhere. You do this by passing nil as the srcID argument.
 
 
-```supercollider
+```
 o = OSCFunc({ arg msg, time, addr, recvPort; [msg, time, addr, recvPort].postln; }, '/goodbye'); // create the OSCFunc
 o.free;    // remove the OSCFunc when you are done.
 ```
@@ -81,7 +81,7 @@ o.free;    // remove the OSCFunc when you are done.
 OSCFunc has a convenience method, [OSCFunc#*trace](../Classes/OSCFunc.md#*trace) which posts all incoming OSC messages:
 
 
-```supercollider
+```
 OSCFunc.trace(true); // Turn posting on
 OSCFunc.trace(false); // Turn posting off
 ```
@@ -93,7 +93,7 @@ OSCFunc.trace(false); // Turn posting off
 All incoming OSC messages call the message recvOSCmessage in [Main](../Classes/Main.md). If needed, one can add a custom [Function](../Classes/Function.md) or other object to Main's recvOSCFunc variable. Although one can do this directly using the corresponding setter, it is better to use the [Main#-addOSCRecvFunc](../Classes/Main.md#-addoscrecvfunc) and [Main#-removeOSCRecvFunc](../Classes/Main.md#-removeoscrecvfunc) to avoid overwriting any other functions that may have been added by class code.
 
 
-```supercollider
+```
 // this example is basically like OSCFunc.trace but filters out
 // /status.reply messages
 (

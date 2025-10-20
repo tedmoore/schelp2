@@ -13,6 +13,7 @@ models the impacts of a bouncing object that is reflected by a vibrating surface
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ models the impacts of a bouncing object that is reflected by a vibrating surface
 ## Examples
 
 
-```supercollider
+```
 // mouse x controls switch of level
 // mouse y controls gravity
 (

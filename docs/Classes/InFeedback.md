@@ -26,6 +26,7 @@ The second example below demonstrates this issue.
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -38,7 +39,7 @@ The second example below demonstrates this issue.
 
 audio feedback modulation:
 
-```supercollider
+```
 (
 SynthDef("help-InFeedback", { |out = 0, in = 0|
     var input, sound;
@@ -53,7 +54,7 @@ SynthDef("help-InFeedback", { |out = 0, in = 0|
 
 this shows how a node can read audio from a bus that is being written to by a synth following it:
 
-```supercollider
+```
 (
 SynthDef("help-InFeedback", { |out = 0, in = 0|
     Out.ar(out,
@@ -87,7 +88,7 @@ a.free; b.free;
 
 The example below implements a resonator. Note that you must subtract the blockSize in order for the tuning to be correct. See [LocalIn](../Classes/LocalIn.md) for an equivalent example.
 
-```supercollider
+```
 (
 var play, imp, initial;
 SynthDef("testRes", {

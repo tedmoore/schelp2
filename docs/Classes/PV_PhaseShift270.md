@@ -13,6 +13,7 @@ Shift phase of all bins by 270 degrees.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Shift phase of all bins by 270 degrees.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

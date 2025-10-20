@@ -23,6 +23,7 @@ SuperCollider implementation by Nick Collins.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -46,7 +47,7 @@ All parameters can be modulated at control rate except for `initCPs` which is us
 
 > **⚠️ Warning:** if you have lots of CPs and you have fast frequencies, the CPU cost goes up a lot because a new CP move happens every sample!
 
-```supercollider
+```
 // defaults
 { Pan2.ar(Gendy1.ar) }.play
 

@@ -14,6 +14,7 @@ See [Pgeom](../Classes/Pgeom.md) for structurally related equivalent.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -26,7 +27,7 @@ The arguments can be a number or any other ugen
 ## Examples
 
 
-```supercollider
+```
 // example
 
 (

@@ -30,7 +30,7 @@ Classes that have changed:
 Perhaps one of the greatest chages in terms of behavior is the elastic **reshaping** of node proxies (See: [#NodeProxy elastic behavior setting](#nodeproxy-elastic-behavior-setting)). By default it is off. If you want to test it as a default, you can add this to your startup file:
 
 
-```supercollider
+```
 BusPlug.defaultReshaping = \elastic;
 ```
 
@@ -121,7 +121,7 @@ BusPlug.defaultReshaping = \elastic;
 
 ## Example: Elastic NodeProxy
 
-```supercollider
+```
 s.boot;
 Ndef.clear;
 Ndef.defaultReshaping = \elastic;
@@ -159,7 +159,7 @@ Ndef(\x, { Splay.ar(Resonz.ar(SplayAz.ar(4, Ndef.ar(\y)), [600, 720, 320, 780] *
 
 ## Tests for NodeProxy and Monitor
 
-```supercollider
+```
 // some tests for node proxy.
 // equalities should always hold true
 
@@ -1206,7 +1206,7 @@ Ndef(\x, Instr(\sin));// not correct yet, should be 2.
 
 ## Tests for PatternProxy
 
-```supercollider
+```
 // general rule: proxy should behave (in streams and patterns) like the object it holds
 (
 g = { |f, source, firstSource|

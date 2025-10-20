@@ -29,7 +29,7 @@ An example script
 
 
 
-```supercollider
+```
 { |test|
     "Kant test".postln;
     "5 + 7 = ".post;
@@ -41,14 +41,14 @@ An example script
 
 To run only the test scripts:
 
-```supercollider
+```
 UnitTestScript.run;
 ```
 
 
 The scripts are to be found under the class UnitTestScript in the GUI:
 
-```supercollider
+```
 UnitTest.gui
 ```
 

@@ -16,6 +16,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -29,6 +30,7 @@
 
 ## Instance Methods
 
+
 ### `at`
 Retrieve the colour at position `pos`, typically a value between zero and one. `at(0)` is `color1`, and `at(1)` is `color2`.**Arguments:**
 
@@ -39,7 +41,7 @@ Retrieve the colour at position `pos`, typically a value between zero and one. `
 ## Examples
 
 
-```supercollider
+```
 // basic usage
 (
 w = Window.new.front;

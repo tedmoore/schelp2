@@ -87,7 +87,7 @@ You can always check which devices have already been opened by SuperCollider wit
 If you have enabled debugging of the HID input data, and you move one of the controls on your device, you will get an output similar to this:
 
 
-```supercollider
+```
 HID Element Data:
     devid: 0, elid: 18
     element:      page: 1    usage: 53
@@ -108,7 +108,7 @@ The *array value* is only of importance for those elements which can represent m
 With the debugging method `HIDFunc.trace( true )` the data will be printed in a different way:
 
 
-```supercollider
+```
 HID Element Data:    devid: 0, elid: 18
     device:     a HIDInfo(Thrustmaster, Run'N' Drive, IDs:1103, 53251, /dev/hidraw4, , 258, 0),     page: 1     usage: 5
     element:    a HIDElement(18: type: 2, usage: 1, 53)
@@ -134,7 +134,7 @@ Or check which usages are available: `~myhid.postUsages`
 These will post detailed information on each element:
 
 
-```supercollider
+```
 HID Element: 18, type: 1, 2, usage page: 1, usage index: 53
     Description: GenericDesktop, Rz, input,
     [ Data, Variable, Absolute, NoWrap, Linear, PreferredState, NoNullPosition, NonVolatile, BitField ]
@@ -189,7 +189,7 @@ The advantages are that you can filter for just the type of control, so you can 
 Let's close the device again:
 
 
-```supercollider
+```
 ~myhid.close;
 ```
 
@@ -200,7 +200,7 @@ Let's close the device again:
 
 ## A simple example
 
-```supercollider
+```
 HID.findAvailable; // check which devices are attached
 ~myhid = HID.open( 1103, 53251 ); // open the Run'N' Drive game controller
 
@@ -220,7 +220,7 @@ HIDdef.usage( \amp, { |value| Ndef( \sinewave ).set( \amp, value ); }, \Y );
 
 ## Finding a device automatically again after it is detached
 
-```supercollider
+```
 (
 Tdef( 'tryOpenHID' , {
    var keepLooking = true;

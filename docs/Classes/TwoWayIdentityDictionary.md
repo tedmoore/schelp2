@@ -13,12 +13,13 @@ Similar to [IdentityDictionary](../Classes/IdentityDictionary.md), but allows to
 
 ## Instance Methods
 
+
 ### `getID`
 Find the key for a given object. If object is not element of the dictionary, it returns nil.
 ## Examples
 
 
-```supercollider
+```
 a = TwoWayIdentityDictionary.new;
 a.put(\test, 999);
 a.put(["some", "strings"], 1200);

@@ -13,6 +13,7 @@ A resonant high pass filter.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ A resonant high pass filter.
 ## Examples
 
 
-```supercollider
+```
 { RHPF.ar(Saw.ar(200, 0.1), FSinOsc.kr(XLine.kr(0.7, 300, 20), 0, 3600, 4000), 0.2) }.play;
 
 (

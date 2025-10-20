@@ -7,6 +7,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -18,7 +19,7 @@ structurally related: [Pdup](../Classes/Pdup.md)
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var freq, trig;

@@ -15,16 +15,19 @@ See also [StartUp](../Classes/StartUp.md) for functions that are evaluated *ever
 
 ## Class Methods
 
+
 ### `add`
 Registers an object or function. Objects will be receive a **doOnApplcationStart** message on application start. Functions will be evaluated.
+
 ### `remove`
 Removes a function that was previously registered.
+
 ### `run`
 Evaluates the functions or objects in order.
 ## Examples
 
 
-```supercollider
+```
 SomeStartClass {
     *initClass {
         ApplicationStart.add {

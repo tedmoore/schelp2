@@ -13,6 +13,7 @@ Generates a single random float value in uniform distribution from `lo` to `hi` 
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Generates a single random float value in uniform distribution from `lo` to `hi` 
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-Rand", { |out = 0|
     Out.ar(out,

@@ -9,12 +9,13 @@
 
 ## Class Methods
 
+
 ### `new`
 Pswitch chooses elements from the **list** by a stream of indices (**which**) and embeds them in the stream. If the element is itself a pattern, it first completely embeds it before looking for the next index.
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pseq([1, 2, 3], 2);

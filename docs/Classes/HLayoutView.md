@@ -28,7 +28,7 @@ HLayoutView inherits some useful formatting methods from its superclasses.
 
 Child view height fills the HLayoutView automatically:
 
-```supercollider
+```
 (
 q = 10;
 w = Window.new;
@@ -47,7 +47,7 @@ w.front
 
 Stretching the layout view; Slider height fills the View automatically:
 
-```supercollider
+```
 (
 q = 8;
 w = Window.new;
@@ -70,7 +70,7 @@ w.front
 
 Stretching the layout view and the contents; if all the contents are elastic, the widths of the contents are perfectly divided up. In this example, the StaticText is not elastic in order to preserve its width:
 
-```supercollider
+```
 (
 q = 10;
 w = Window.new;
@@ -95,7 +95,7 @@ w.front
 
 Setting minWidth on contents; beware that if the layout view width is smaller than the combined width of all the contents, things might disappear when you try to handle them with the mouse:
 
-```supercollider
+```
 (
 q = 5;
 w = Window.new;
@@ -124,7 +124,7 @@ w.front
 
 
 
-```supercollider
+```
 (
 q = 5;
 w = Window.new;
@@ -149,7 +149,7 @@ w.front
 
 Text flows:
 
-```supercollider
+```
 (
 q = 5;
 w = Window.new;
@@ -180,7 +180,7 @@ w.front
 
 Spacing:
 
-```supercollider
+```
 (
 q = 10;
 w = Window.new;

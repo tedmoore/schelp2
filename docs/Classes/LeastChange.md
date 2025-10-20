@@ -13,6 +13,7 @@ Given two inputs `a` and `b`, let `da[t] = abs(a[t] - a[t - 1])` and `db[t] = ab
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Given two inputs `a` and `b`, let `da[t] = abs(a[t] - a[t - 1])` and `db[t] = ab
 ## Examples
 
 
-```supercollider
+```
 (
 d = { |amp = 1.0|
     var in1, in2;
@@ -43,7 +44,7 @@ d.free;
 
 the control that changed least is used as output:
 
-```supercollider
+```
 (
 d = { |freq = 440|
     var internalFreq;

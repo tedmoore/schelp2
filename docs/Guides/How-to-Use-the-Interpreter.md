@@ -8,7 +8,7 @@ This document is macOS (SCapp) specific in key commands, though the principles e
 You can execute any single line expression by clicking anywhere in that line and pressing the '**Enter**' key. **Note that the 'Enter' key is not the same key as 'Return'**. If you don't have an enter key, then you can use ctrl-Return, Ctrl-c, fn-Return (on Some Macs), or Shift-Return.
 You will need to start the default server before you can hear any examples. By convention the default server is assigned to the interpreter variable 's'. (At startup the default will be the localhost server.) You can start the server app by pressing the 'Boot' button on the localhost server window, or you can do it in code:
 
-```supercollider
+```
 // execute these lines one at a time by placing the cursor on the line and then pressing 'enter'
 
 s.boot; // this boots the default Server. Watch the post window and server window for the result
@@ -21,7 +21,7 @@ s.boot; // this boots the default Server. Watch the post window and server windo
 In the help files all executable fragments are written in the Monaco font.
 If an expression has multiple lines you can select all of the lines before typing 'Enter'.
 
-```supercollider
+```
 // Select all 9 of the following lines and press 'Enter':
 w = Window.new("Fading").front;
 r = Routine({
@@ -37,7 +37,7 @@ AppClock.play(r);
 Some examples do require lines to be executed one at a time, or certain lines to be executed first. By far the most common case of this is booting the server app, as we did at the top of the page. Until the server has completed booting, no sound producing code will work.
 However, most of the examples included with the app have parentheses around lines of code which should be executed at the same time. (This is a convention which should be followed in your own code.) This allows you to double click to the right of the open paren and select the entire expression. Then press 'enter'.
 
-```supercollider
+```
 (
 // ^^^^^^^^ double click above this line ^^^^^^^^
 play({
@@ -73,7 +73,7 @@ Mix.new(
 Again, press Cmd-. to stop the sound. This will stop all audio (and free all nodes on the server) at any time.
 When you're done you can quit the server app by pressing the 'Quit' button on the localhost server window, or do it by executing the following code:
 
-```supercollider
+```
 s.quit;
 ```
 

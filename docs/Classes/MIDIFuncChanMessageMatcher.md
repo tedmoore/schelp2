@@ -13,6 +13,7 @@ This is used by [MIDIMessageDispatcher](../Classes/MIDIMessageDispatcher.md) to 
 
 ## Class Methods
 
+
 ### `new`
 Make a new instance.**Arguments:**
 
@@ -23,6 +24,7 @@ Make a new instance.**Arguments:**
 **Returns:** An MIDIFuncChanMessageMatcher.
 
 ## Instance Methods
+
 
 ### `value`
 Check to see if a message matches, and evaluate func if it does.**Arguments:**

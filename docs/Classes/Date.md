@@ -7,9 +7,10 @@
 
 ## Class Methods
 
+
 ### `new`
 Create a new Date with the given properties (all are Integer values, except `rawSeconds`, which is a Float). These arguments are also the names of instance variables of the Date object.The constructor initializes the instance in one of the following ways (in order of priority):1. If `Date.new` is called without any arguments, it will return the **current time**, the same as calling [#*localtime](#*localtime).
-```supercollider
+```
 // The following are equivalent, they return "now" (at the time of call):
 Date.new;
 Date.localtime;
@@ -17,7 +18,7 @@ Date.localtime;
 
 
 2. If a `rawSeconds` argument is specified, it is used to set (overwrite) all the other properties (`year`, `month`, `day`, `hour`, `minute`, `second`, `dayOfWeek`), regardless of whether they are nil or not.
-```supercollider
+```
 (
 var d = Date.new.postln;
 var e = Date(rawSeconds: d.rawSeconds); // create a new Date with the same time
@@ -27,7 +28,7 @@ d == e; // true
 
 
 3. The most typical usage is to create a Date from a year/month/day and possibly hour/minute/second. All of these properties (except `year`) have default values (`month = 1`, `day = 1`, `hour = 0`, `minute = 0`, `second = 0`). `rawSeconds` is computed based on the other properties. There is no default year -- if no `year` is provided, an error is thrown.
-```supercollider
+```
 Date(1969, 7, 20, 20, 18); // -> Sun Jul 20 20:18:00 1969
 Date(2016); // -> Fri Jan  1 00:00:00 2016
 d = Date(2010, day: 15, minute: 30); // -> Fri Jan 15 00:30:00 2010
@@ -39,7 +40,7 @@ d = Date(2010, day: 15, minute: 30); // -> Fri Jan 15 00:30:00 2010
 
 
 It is possible to specify dates with "out of range" values that will be resolved into a valid range -- this allows simple date offset calculations to be performed (see example below).
-```supercollider
+```
 (
 // Simple date/time offsetting can be performed:
 ("One hundred days before Christmas:" + Date(2010, 12, 25 - 100).format("%B %d")).postln;
@@ -51,16 +52,17 @@ Date(2017, 2, 29).postln; // March 1: 2017 was not a leap year!
 
 
 > **Note:** The `dayOfWeek` argument is **always calculated**. If it is specified, the value will be overwritten (it only remains a constructor argument for reasons of backward compatibility).
-```supercollider
+```
 // There is no point (but no harm) in specifying the dayOfWeek argument,
 // as it will always be calculated:
 Date(2017, 10, 31, dayOfWeek: 0).dayOfWeek; // calculated to be 2 (Tuesday), not 0 (Sunday)
 ```
 
 
+
 ### `fromString`
 Create a new Date object from a date/time string, which is parsed according to the provided format string.
-```supercollider
+```
 Date.fromString("2017-10-25 [13:25:55]", "%Y-%m-%d [%H:%M:%S]");
 Date.fromString("1981.9.30 @ 17:33", "%Y.%m.%d @ %H:%M");
 
@@ -77,11 +79,12 @@ var d = Date.fromString(stampString, "%y%m%d_%H%M%S");
 | Argument | Description |
 |----------|-------------|
 | `string` | The date/time string to parse, for example `"2017-10-25 13:25:55"`. |  
-| `format` | The format to use to parse the date string. Note that the supported input formats are slightly different from those of the [format](#format) (output) method. In particular, some of the "combined" formats (such as `%F` or `%T`) are not supported for input, you must expand them out (`"%F"` -> `"%Y-%m-%d"` and `"%T"` -> `"%H:%M:%S"`). The full list of supported input format flags may be found [here](http://www.boost.org/doc/libs/1_63_0/doc/html/date_time/date_time_io.html).To parse the above example string, you would use `"%Y-%m-%d %H:%M:%S"`. |  
+| `format` | The format to use to parse the date string. Note that the supported input formats are slightly different from those of the [#-format](#-format) (output) method. In particular, some of the "combined" formats (such as `%F` or `%T`) are not supported for input, you must expand them out (`"%F"` -> `"%Y-%m-%d"` and `"%T"` -> `"%H:%M:%S"`). The full list of supported input format flags may be found [here](http://www.boost.org/doc/libs/1_63_0/doc/html/date_time/date_time_io.html).To parse the above example string, you would use `"%Y-%m-%d %H:%M:%S"`. |  
+
 
 ### `getDate`
 Get current date from system and create a date object from it.
-```supercollider
+```
 (
 var a = Date.getDate;
 a.rawSeconds.postln;
@@ -91,13 +94,16 @@ a
 ```
 
 
+
 ### `localtime`
 Get current localized time from system and create a date object from it.
+
 ### `gmtime`
 Get current **Greenwich Mean Time (GMT)** from system and create a date object from it.
+
 ### `seed`
 Get current date and return a value suitable for seeding a random number generator. See also [randomSeed](../Reference/randomSeed.md).
-```supercollider
+```
 (
 var a = Date.seed;
 thisThread.randSeed = a;
@@ -111,30 +117,41 @@ thisThread.randSeed = a;
 
 ## Instance Methods
 
+
 ### `rawSeconds`
-Get or set the receiver's raw time in seconds (relative to the "epoch" of January 1, 1970).If you modify this property, the other properties will not update. See note at [resolve](#resolve) -- there is no "resolveFromRawSeconds" method, but you can generate a new self-consistent Date instance by passing the `rawSeconds` as an argument to [#*new](#*new).
+Get or set the receiver's raw time in seconds (relative to the "epoch" of January 1, 1970).If you modify this property, the other properties will not update. See note at [#-resolve](#-resolve) -- there is no "resolveFromRawSeconds" method, but you can generate a new self-consistent Date instance by passing the `rawSeconds` as an argument to [#*new](#*new).
 > **Note:** This value is not portable between machines, because of differences in the way the underlying time functions are implemented, and because of time zone differences. To save/restore Date values between runs and on different platforms, it is recommended **not** to use the rawSeconds value. Instead, you should serialize the Date to a string, for example:
 
 
-```supercollider
+```
 (
 var savedDateStr = Date.localtime.format("%Y%m%d_%H%M%S").postcs;
 var loadedDate = Date.fromString(savedDateStr, "%Y%m%d_%H%M%S").postln;
 )
 ```
 
+
 ### `localtime`
-Set the receiver's time to current localtime.### `gmtime`
-Set the receiver's time to current **Greenwich Mean Time (GMT)**.### `dayStamp`
-Obtain a string with the year, month and day in the format **YYMMDD**.### `hourStamp`
-Obtain a string in the format **H:M:S**.### `secStamp`
-Obtain a string with the seconds.### `stamp`
-Obtain a string in the format **YYMMDD_HHMMSS**.### `asSortableString`
-Obtain a string in an alphabetically sortable standard database format.### `asctime`
-Obtain a string in the format WeekdayName MonthName Time Year.### `asString`
-Returns asctime.### `resolve`
+Set the receiver's time to current localtime.
+### `gmtime`
+Set the receiver's time to current **Greenwich Mean Time (GMT)**.
+### `dayStamp`
+Obtain a string with the year, month and day in the format **YYMMDD**.
+### `hourStamp`
+Obtain a string in the format **H:M:S**.
+### `secStamp`
+Obtain a string with the seconds.
+### `stamp`
+Obtain a string in the format **YYMMDD_HHMMSS**.
+### `asSortableString`
+Obtain a string in an alphabetically sortable standard database format.
+### `asctime`
+Obtain a string in the format WeekdayName MonthName Time Year.
+### `asString`
+Returns asctime.
+### `resolve`
 Resolve any inconsistencies in the Date object, updating all the fields (in particular `dayOfWeek` and `rawSeconds`) as necessary.If the instance properties (`year`, `month`, `day`, `hour`, `minute`, `second`) are modified, the Date will be in an inconsistent state -- its `rawSeconds` won't reflect the modifications, and the properties may fall outside of "normal" ranges (`month: 1-12, day:1-31, hour: 0-23, minute/second: 0-59`). Also, using the string conversion methods may give strange results. Calling the `resolve` method will put things back into a consistent state.
-```supercollider
+```
 // Simple date/time offsetting can be performed:
 d = Date(2017, 9, 30, 10, 30); // -> Sat Sep 30 10:30:00 2017
 [d.dayOfWeek, d.rawSeconds]; // -> [6, 1506760200]
@@ -150,7 +167,7 @@ d.resolve; // -> Tue Jan 30 00:50:00 2018
 
 
 > **Note:** There is no "resolveFromRawSeconds" method. If you modify the `rawSeconds` property, the other properties **won't** change to reflect it. If you want to "resolve" in the other direction, simply create a new Date object using the `rawSeconds`:
-```supercollider
+```
 d = Date(1999, 12, 31); // -> Fri Dec 31 00:00:00 1999
 d.rawSeconds; // -> 946594800
 
@@ -166,9 +183,10 @@ d = Date(rawSeconds: d.rawSeconds);
 // -> Tue Jan 11 13:46:40 2000
 ```
 
+
 ### `format`
 Obtain a date string with a given format. The character % is replaced by the appropriate value, which is derived from the letter that follows.
-```supercollider
+```
 Date.getDate.format("Today is %A. It is around %I o'clock (%p), in %B.");
 Date.getDate.format("%d/%m/%Y %H:%M");  // DD/MM/YYYY hh:mm
 ```
@@ -285,22 +303,28 @@ A list of formats can be found here: [http://www.opengroup.org/onlinepubs/009695
 **%%**
 : Replaced by %.
 
-If a conversion specification does not correspond to any of the above, the behavior is undefined.### `<`
+If a conversion specification does not correspond to any of the above, the behavior is undefined.
+### `<`
+
 ### `<=`
+
 ### `>`
+
 ### `>=`
 Compare two Dates based on their rawSeconds.
-```supercollider
+```
 Date(1999, 12, 31, 23, 59, 59) < Date(2000, 1, 1, 0, 0, 0);
 Date(1999, 12, 31, 23, 59, 59) <= Date(2000, 1, 1, 0, 0, -1);
 Date(2005, 1, 1) > Date(2004, 1, 2);
 Date(2005, 2, 13) >= Date(2005, 2, 13);
 ```
 
+
 ### `==`
+
 ### `!=`
 Test whether two Dates are equal/unequal, based on their rawSeconds.
-```supercollider
+```
 Date(2016, 11, 4) == Date(2016, 10, 4 + 31);
 Date(2016) != Date(2017);
 ```

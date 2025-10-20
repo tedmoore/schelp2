@@ -11,6 +11,7 @@ FIXME: ScopeOut description.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 

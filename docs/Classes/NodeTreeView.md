@@ -13,6 +13,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,12 +26,13 @@
 
 ## Instance Methods
 
+
 ### `close`
 Close the receiver.
 ## Examples
 
 
-```supercollider
+```
 // Boot the local server assigned to variable s:
 s.boot;
 

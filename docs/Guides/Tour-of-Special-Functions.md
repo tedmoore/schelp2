@@ -20,7 +20,7 @@ Define the plotting functions in the next section,  then you can use the Table o
 Define the following functions that will lay out the plots for you:
 
 
-```supercollider
+```
 (
 var makeColors, getLayout, plotSpecs;
 
@@ -134,7 +134,7 @@ getLayout = { |plot, text|
 
 ## Number Series
 
-```supercollider
+```
 /* Bernouli Numbers */
 
 //   Odd numbered Bernoulli numbers are zero, except B1
@@ -156,7 +156,7 @@ getLayout = { |plot, text|
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var checkCall, plotSpecs;
 // make sure z isn't a negative integer
@@ -210,7 +210,7 @@ plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var plotSpecs = [
     [   \gammaP,
@@ -249,7 +249,7 @@ var plotSpecs = [
 
 ## Factorials and Binomial Coefficients
 
-```supercollider
+```
 /*  Factorial  */
 // Warning: overflows i > 170
 (1 .. 170).do{ |i| (i.asString + factorial(i.asFloat)).postln };
@@ -279,7 +279,7 @@ fallingFactorial(9, 4) // 9 *  8 *  7 ... (9-4+1)
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var as = [9, 7, 5, 2, 1];
 var bs = [1, 2, 5, 7, 9];
@@ -329,7 +329,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var abs = [9, 7, 5, 2, 1];
 var bs = [1, 2, 5, 7, 9];
@@ -381,7 +381,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var erfSamps = (-3, -2.995 .. 3);
 var plotSpecs = [
@@ -420,7 +420,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var plotSpecs = [
     [   { |l, x| legendreP(l, x.clip(-1, 1)) },
@@ -467,7 +467,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var plotSpecs = [
     [   \laguerre,
@@ -499,7 +499,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var plotSpecs = [
     [   \hermite,
@@ -521,7 +521,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var ns = (0 .. 6);
 var samps = (-1, -0.995 .. 1);
@@ -556,7 +556,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var samps = (-2pi, -1.995pi .. 2pi);
 var dupN = { |n| n.dup(n*2+1) };
@@ -606,7 +606,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var plotSpecs = [
     [   \cylBesselJ,
@@ -653,7 +653,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var bPrimeVs = (0 .. 5);
 var modBPrimeVs = [0, 2, 5, 7, 10];
@@ -704,7 +704,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var ns = (0 .. 3);
 var range = (0.001, 0.025 .. 6);
@@ -743,7 +743,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var ns = (0 .. 3);
 var range = (0.001, 0.025 .. 6);
@@ -783,7 +783,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var aiSamps = (-20, -19.95 .. 20);
 var biSamps = (-20, -19.95 .. 3);
@@ -818,7 +818,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var samps = (-1, -0.995 ..1);
 var args1 = [0.5, 0.75, 1.25,pi/2]; // phis for first/second kind
@@ -890,7 +890,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var plotSpecs =
 [
@@ -926,7 +926,7 @@ var plotSpecs =
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var plotSpecs = [
     [   \zeta,
@@ -952,7 +952,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var plotSpecs = [
     [   \expintEn,
@@ -978,7 +978,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var plotSpecs = [
     [   \sinPi,
@@ -1018,7 +1018,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var plotSpecs = [
     [   \sincPi,
@@ -1054,7 +1054,7 @@ var plotSpecs = [
 Be sure to define `~layOutPlots` and `~multiPlot` at the [top of the page](#before-you-get-started...).
 
 
-```supercollider
+```
 (
 var plotSpecs = [
     [   { |a, h| owensT(h, a) },

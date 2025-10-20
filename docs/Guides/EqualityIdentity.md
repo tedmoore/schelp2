@@ -19,7 +19,7 @@ A factory may produce thousands of screwdrivers each day that are all *equal* to
 Likewise, in SuperCollider, identity of objects created in sclang is accounted for through their location in memory.> *Exception: For primitives (such as numbers and symbols), an object's identity is tied directly to its value.*
 
 
-```supercollider
+```
 a = [1,2,3];
 b = [1,2,3];
 a === a // -> true: identity as relation of an object (a) to itself.
@@ -32,7 +32,7 @@ a == b // -> true; equal objects need not be identical.
 In the above example, a and b were *different* instances of the [Array](../Classes/Array.md) class, each with their own memory address. You can query said address through the `.dump` method:
 
 
-```supercollider
+```
 a.dump;
 b.dump;
 ```
@@ -53,7 +53,7 @@ The following two examples illustrate the difference further with respect to two
 The above example assigned each variable to an instance of an array `[1,2,3]`, and demonstrated that the variables now point do distinct memory locations, hence their contents are not identical. However, when a variable is assigned to another *variable* rather than to an object instance, no new instance is created; instead, both variables will refer to the same object, at the same location in memory. This is relevant in practice when you want to modify a given list in multiple distinct ways, but that list only exists in one variable. The problem then becomes one of creating multiple equal but non-identical instances from just this one variable. The following example does not work as desired:
 
 
-```supercollider
+```
 x = ['C', 'E', 'G']; // C major
 y = x; // this will cause trouble in a moment.
 z = x; // this too.
@@ -74,7 +74,7 @@ y === z; // as does z.
 Stacked fourths are nice, but we wanted to be boring here and just use triads. What we need to do is use the `.copy` method to create versions of the [Array](../Classes/Array.md) object referenced by `x` that are *equal but not identical to it*, so we can then modify them separately:
 
 
-```supercollider
+```
 x = ['C', 'E', 'G']; //C major
 y = x.copy;
 z = x.copy;
@@ -96,7 +96,7 @@ Thus, the distinction between equality and identity is implicit in such simple i
 In [Dictionary](../Classes/Dictionary.md) and its subclasses, the choice of lookup algorithm can impact performance. Using identity for this algorithm, as [IdentityDictionary](../Classes/IdentityDictionary.md) and [Event](../Classes/Event.md) do, is generally faster than usign equality, as [Dictionary](../Classes/Dictionary.md) does. Therefore when using [IdentityDictionary](../Classes/IdentityDictionary.md) and [Event](../Classes/Event.md) keys should not be [String](../Classes/String.md)s, but [Symbol](../Classes/Symbol.md)s. The following example demonstrates why:
 
 
-```supercollider
+```
 "String" == "String"; // -> true
 //what happens next may surprise you:
 "String" === "String"; // -> false
@@ -138,7 +138,7 @@ Other examples of classes with unique representations are [SimpleNumber](../Clas
 As we have seen, this was *not* the case for [String](../Classes/String.md), where each occurrence of a [String](../Classes/String.md) in the code will create a *new* instance rather than pointing to an exiting instance of the same value. It is also generally *not* the case for [Collection](../Classes/Collection.md)s. We have already seen this for [Array](../Classes/Array.md)s; here is a similar example for [Set](../Classes/Set.md)s.
 
 
-```supercollider
+```
 Set[1,2,3] === Set[1,2,3] // -> false
 ```
 
@@ -150,7 +150,7 @@ Set[1,2,3] === Set[1,2,3] // -> false
 Not all classes explicitly implement a `==` method. In that case, `==` simply defaults to `===`. An instance of this is [Function](../Classes/Function.md),> *The reason for this, at least for functions, lies ultimately in the undecideability of the "Halting Problem." See [Immermann2021](https://plato.stanford.edu/archives/win2021/entries/computability/#halpro).*where the following behavior may be surprising:
 
 
-```supercollider
+```
 {1} == {1} // -> false!
 ```
 

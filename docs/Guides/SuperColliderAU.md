@@ -21,7 +21,7 @@ Find SuperColliderAU among the rest of AudioUnit plugins and add an instance to 
 Now you can run this code from within the SuperCollider language to talk directly with the embedded server:
 
 
-```supercollider
+```
 u = Server(\scau, NetAddr("127.0.0.1", 9989)); // Change the port from 9989 to the right one for you
 u.serverRunning = true;
 u.ping(10); // Gives about 0.02 for me - confirms that communication is working

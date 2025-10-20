@@ -15,7 +15,7 @@ Some of these operations look like things you would do to an array, but there is
 For example, multiplying a pattern by a number produces a "binary operator pattern": [Pbinop](../../Classes/Pbinop.md). Looking at the Pbinop's variables reveals everything that is needed to reconstruct the operation on demand.
 
 
-```supercollider
+```
 p = Pwhite(1, 5, inf) * 2;    // a Pbinop
 
 p.operator    // == '*'
@@ -31,7 +31,7 @@ In other words, the multiplication here produces not the result of a single mult
 Not only can patterns generate numbers, but they also support all the standard math operators: unary (abs, reciprocal, etc.), binary (+, -, *, /, **, min, max, etc.) and n-ary (clip, wrap, fold, linlin, linexp, etc.) operators are all valid with patterns.
 
 
-```supercollider
+```
 // Random integers, 1-5
 Pwhite(1, 5, inf).asStream.nextN(10);
 
@@ -49,7 +49,7 @@ Pwhite(1, 5, inf).asStream.nextN(10);
 If a binary operation occurs on two patterns, every time a value is requested from the resulting stream, both of the component streams are asked for a value, and the operator applies to those results. If either stream ends, the binary operator stream also ends.
 
 
-```supercollider
+```
 // The resulting stream has two values, because the shorter operand stream has two values
 (Pseq([10, 9, 8], 1) + Pseq([1, 2], 1)).do { |x| x.postln };
 ```
@@ -58,7 +58,7 @@ If a binary operation occurs on two patterns, every time a value is requested fr
 The binary operator adverb `.x` is supported with patterns. (See [Adverbs](../../Reference/Adverbs.md).) This adverb is like a nested loop: in `streamA +.x streamB`, the first value of streamA is added to every value of streamB in succession, then the second value of streamA is added to every streamB value, and so on. This is an easy way to transpose a pattern to different levels successively.
 
 
-```supercollider
+```
 // Play a major-7th arpeggio, transposed to different scale degrees
 // Pwhite is the transposer; Pseq is the chord
 // The chord is like an "inner loop"
@@ -88,7 +88,7 @@ Some of the things you can do to arrays also work with patterns.
 
 **`reject(func)`**
 : Discard values from the output stream that pass the test; return the rest to the user.
-```supercollider
+```
 // Arbitrary/custom operation: Turn each number into a two-digit hex string
 Pwhite(0, 255, 20).collect({ |x| x.asHexString(2) }).do { |x| x.postln };
 
@@ -104,7 +104,7 @@ Pwhite(0, 255, 20).reject({ |x| x.odd }).do { |x| x.postln };
 
 **`flatten(levels)`**
 : The reverse operation: if a pattern returns an array, its values will be output one by one.
-```supercollider
+```
 // A flat stream becomes an array of 4-item arrays
 Pwhite(0, 255, 20).clump(4).do { |x| x.postln };
 
@@ -123,13 +123,13 @@ p.flatten.do { |x| x.postln };
 
 **`drop(n)`**
 : Discard the first *n* values, and return whatever is left.
-```supercollider
+```
 Pseries(1, 1, 20).drop(5).do { |x| x.postln };
 ```
 
 **`differentiate`**
 : Return the difference between successive values: second - first, third - second, and so on.
-```supercollider
+```
 Array.geom(20, 1, 1.01).differentiate;
 Pgeom(1, 1.01, 20).differentiate.do { |x| x.postln };
 ```
@@ -154,7 +154,7 @@ These are some other numeric calculations that don't exactly fall in the categor
 
 **`Prorate(proportion, pattern)`**
 : Splits up a number from `pattern` according to proportion(s) given by the `proportion` pattern. This is tricky to explain briefly; see the help file for some good examples.
-```supercollider
+```
 // Swing notes with Prorate
 (
 p = Pbind(

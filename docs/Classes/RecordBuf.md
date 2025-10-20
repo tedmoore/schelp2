@@ -18,6 +18,7 @@ If recLevel is 1.0 and preLevel is 0.0 then the new input overwrites the old dat
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -36,7 +37,7 @@ If recLevel is 1.0 and preLevel is 0.0 then the new input overwrites the old dat
 ## Examples
 
 
-```supercollider
+```
 // Execute the following in order
 (
 // allocate a Buffer

@@ -11,7 +11,7 @@
 Tdef registers tasks by key. All accesses to the registered tasks go through the Tdef class via that key. Registered tasks can be replaced with other tasks while playing. The old task and its replacement can automatically crossfade and the replacement time can be quantized.
 Tdef provides an interface to its superclass TaskProxy. Tdef keeps a reference to a task (**time pattern**) that can be replaced while playing. It continues playing when the old stream ended and a new stream is set and schedules the changes to the beat. One Tdef may be used in many tasks in different places. A change in the task definition Tdef propagates through all tasks.
 
-```supercollider
+```
 Tdef(key)    // returns the instance
 Tdef(key, func)    // defines the task and returns the instance, like Pdef and Ndef.
 ```
@@ -21,7 +21,7 @@ Graphical overview over all current Tdefs: [TdefAllGui](../Classes/TdefAllGui.md
 
 ### First Example
 
-```supercollider
+```
 Tdef(\x, { loop { 0.5.wait; "aaaaaaaaaaaaaazz".scramble.postln } }).play;
 Tdef(\x, { loop { 0.125.wait; "aazz".scramble.postln } });
 Tdef(\x, { loop { 0.5.wait; (note: 14.rand).play } });
@@ -37,11 +37,13 @@ Tdef(\x).clear;
 
 ## Class Methods
 
+
 ### `all`
 A global [IdentityDictionary](../Classes/IdentityDictionary.md) with all proxies.
 
 
 ### Creation
+
 ### `new`
 Store the task in a global dictionary under key, replacing its routine function with the new one.Using ***new(key)** you can access the pattern at that key (if none is given, a default task is created)**Arguments:**
 
@@ -50,14 +52,19 @@ Store the task in a global dictionary under key, replacing its routine function 
 | `key` | An identifier for the proxy. Usually, it is a [Symbol](../Classes/Symbol.md). The key transparently accesses the global [IdentityDictionary](../Classes/IdentityDictionary.md). |  
 | `item` | An object for (re)defining the source of the proxy. If `nil`, the proxy is returned unmodified. |  
 
+
 ### `default`
 Default source, if none is given. The default task has a function that waits in 1.0 beat steps and does nothing.
+
 ### `removeAll`
 Remove all proxies from the global dictionary ([#*all](#*all))
+
 ### `clear`
 Clear all proxies, setting their source to silence.
+
 ### `all`
 Set or return the environment ([IdentityDictionary](../Classes/IdentityDictionary.md)) that stores all instances.
+
 ### `defaultQuant`
 Set the default quantisation for new instances (default: 1.0). This can be an array [quant, phase, timingOffset, outset]
 
@@ -68,32 +75,42 @@ Set the default quantisation for new instances (default: 1.0). This can be an ar
 ### Changing the definition / setting the source
 One Tdef may have many tasks in different places. A change in the task definition Tdef propagates through all tasks. The change does not have to be immediate - there is a scheme to schedule when the change becomes effective: a **quant** and **clock** (like elsewhere) and a **condition**.
 
+
 ### `quant`
 Set the quantisation time for beat accurate scheduling.
+
 ### `clock`
-get or set the instance's default clock, used by [play](#play) if no other clock is specified. Defaults to TempoClock.default.**Arguments:**
+get or set the instance's default clock, used by [#-play](#-play) if no other clock is specified. Defaults to TempoClock.default.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `val` | can be an array **[quant, phase, timingOffset, outset]**, or just **[quant, phase]** etc. |  
 
+
 ### `condition`
 Provide a condition under which the pattern is switched when a new one is inserted. The stream value and a count value is passed into the function.
+
 ### `count`
 Create and update condition that simply counts up to n and switches the pattern then
+
 ### `reset`
 Switch the task immediately (stuck conditions can be subverted by this).
+
 ### `envir`
 Set the environment (an [Event](../Classes/Event.md)) for the Tdef. **It is passed as first argument into the Task function**.
+
 ### `set`
 Set arguments in the default event. If there is none, it is created and the task routine is rebuilt.
+
 ### `clear`
 Set the source to nil
+
 ### `endless`
 Returns a [Prout](../Classes/Prout.md) that plays the task endlessly, replacing **nil** with a **default** value 1. This allows to create streams that idle on until a new pattern is inserted.
 
 ### Tdef as stream reference
 A single Tdef may serve as a definition for multiple tasks. These methods show how to fork off separate routines from one instance. Even if they run in different contexts, their definition may still be changed.
+
 
 ### `fork`
 Play an independent task in parallel.**Arguments:**
@@ -104,29 +121,36 @@ Play an independent task in parallel.**Arguments:**
 | `quant` | can be an array of [quant, phase, offset], or a [Quant](../Classes/Quant.md) value. |  
 | `event` | an event to pass into the forked task |  
 
+
 ### `embed`
 Pass a value (typically an [Event](../Classes/Event.md)) into the task function, and embed the Tdef in the stream.
+
 ### `embedInStream`
 just like any pattern, embeds itself in stream
 
 ### Tdef as EventStreamPlayer
-For live coding, each Tdef also may control one instance that plays one task. This is a [PauseStream](../Classes/PauseStream.md), accessible in the instance variable [player](#player).
+For live coding, each Tdef also may control one instance that plays one task. This is a [PauseStream](../Classes/PauseStream.md), accessible in the instance variable [#-player](#-player).
+
 
 ### `play`
 Starts the Tdef and creates a player.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
-| `argClock` | a clock on which to play the Tdef. If nil, uses the instance's [clock](#clock), which in turn defaults to TempoClock.default. |  
+| `argClock` | a clock on which to play the Tdef. If nil, uses the instance's [#-clock](#-clock), which in turn defaults to TempoClock.default. |  
 | `doReset` | a flag whether to reset the task if already playing |  
 | `quant` | can be an array of [quant, phase, offset] or a [Quant](../Classes/Quant.md) value. |  
 
+
 ### `stop`
 Stops the player
+
 ### `player`
 Return the current player (if the Tdef is simply used in other streams this is nil)
+
 ### `pause`, `resume`, `reset`
 Perform this method on the player.
+
 ### `isPlaying`
 Returns true if player is running. If a Tdef is playing and its stream ends, it will schedule a stream for playing **as soon as a new one is assigned to it**. If it is stopped by **stop**, it won't.
 
@@ -135,7 +159,7 @@ Returns true if player is running. If a Tdef is playing and its stream ends, it 
 
 ### Tdef as a Task player
 
-```supercollider
+```
 Tdef(\x).play; // create an empty Tdef and play it.
 
 Tdef(\x, { loop({ "ggggggggggggggggg9999ggg999ggg999gg".scramble.postln; 0.5.wait }) });
@@ -162,7 +186,7 @@ Tdef(\x).clear;
 
 
 
-```supercollider
+```
 // sound example
 
 (
@@ -235,7 +259,7 @@ Tdef.removeAll;
 
 ### Embed and fork: Tdef within other Tasks / Routines
 
-```supercollider
+```
 // embed plays tdefs in sequence within a task.
 (
 Tdef(\a, { "one".postln; 1.wait; "two".postln });
@@ -305,7 +329,7 @@ Tdef(\d, {
 Instead of using a [Pdefn](../Classes/Pdefn.md) for time values, it can be useful to use a Tdef. When changing its source, it keeps the stream of values synchronized to its clock.
 
 
-```supercollider
+```
 (
 // load a synthdef
 s.boot;

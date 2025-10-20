@@ -14,7 +14,7 @@ A layout is installed on a view to manage the space the view occupies and distri
 
 The following is an example of a VLayout, organizing a series of TextFields in a vertical line, and its last item is a HLayout, organizing a series of Buttons in a horizontal line.
 
-```supercollider
+```
 (
 w = Window(bounds:Rect(200,200,200,200)).layout_(
     VLayout(
@@ -38,7 +38,7 @@ Every view intrinsically has a **preferred size** and a **minimum size**, return
 A view takes on its preferred size at construction, if the 'bounds' argument is omitted. However, there is usually no way to set the text on a view at construction, so the size it automatically gets will not reflect the changes in text done after construction. You can remedy that by resizing the view to its `sizeHint` after the text has been set - but the **purpose of layouts** (explained below) is exactly to do that automatically for you. Here is an example of manually using the `sizeHint`:
 
 
-```supercollider
+```
 // Create a Window with a StaticText
 (
 w=Window().alwaysOnTop_(true);
@@ -63,7 +63,7 @@ t.bounds = t.bounds.size_(t.sizeHint);
 As their names suggest, `sizeHint` and `minSizeHint` are only hints, and do not prevent one from setting a different size. You can, however, set a **hard limit** on the size using [View#-minSize](../Classes/View.md#-minsize), [View#-maxSize](../Classes/View.md#-maxsize) and similar methods:
 
 
-```supercollider
+```
 x=View(bounds:Rect(30,30,100,100)).alwaysOnTop_(true).front;
 
 // Set the minimum size limit:
@@ -90,7 +90,7 @@ A layout will affect space distribution **up the layout hierarchy** - it will de
 For example: in a HLayout (a layout organizing items in a horizontal line) containing a Button and a TextField, the Button will be given a fixed amount of width according to the text it displays, while the TextField will be given all the width that is left. The other Button in the example code below will occupy all the width of the window, since there is no other item competing for that particular space. Note that both Button and TextField have an intrinsically fixed height and so their height never changes when resizing the window. The size constraints also limit the minimum size that the window can be resized to.
 
 
-```supercollider
+```
 (
 w = Window.new(bounds:Rect(100,100,300,80)).layout_(
     VLayout (
@@ -115,7 +115,7 @@ w = Window.new(bounds:Rect(100,100,300,80)).layout_(
 Layouts typically allow the user to override their default distribution policy by assigning stretch factors to items or aspects of the layout's distribution pattern.
 
 
-```supercollider
+```
 (
 w = Window.new(bounds:Rect(100,100,400,80)).layout_(
     HLayout(
@@ -134,7 +134,7 @@ w = Window.new(bounds:Rect(100,100,400,80)).layout_(
 The user can override a view's intrinsic size constraints and preferences that the layout will take into account, by placing a hard-limit on a view's size, as described above.
 
 
-```supercollider
+```
 (
 w = Window.new(bounds:Rect(100,100,300,300)).layout_(
     VLayout(
@@ -149,7 +149,7 @@ w = Window.new(bounds:Rect(100,100,300,300)).layout_(
 The minimum size of a view is especially important for UserViews which doesn't have by default a minimum size. In the example the first UserView is invisible.
 
 
-```supercollider
+```
 (
 w = Window.new(bounds:Rect(100,100,200,200)).layout_(
     VLayout(
@@ -170,7 +170,7 @@ w = Window.new(bounds:Rect(100,100,200,200)).layout_(
 The combination of size constraints and preferences of all items in a layout hierarchy may result in a larger amount of space given to an item than its own constraints allow. In that case the item will only grow up to its maximum allowed size, and its position within its extra available space may be controlled by user by assigning alignment to an item.
 
 
-```supercollider
+```
 (
 w = Window.new.layout_(
     HLayout(

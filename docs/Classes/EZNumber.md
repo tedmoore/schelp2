@@ -23,6 +23,7 @@ EZNumber scrolls by default, using the step size of the [ControlSpec](../Classes
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -43,7 +44,7 @@ EZNumber scrolls by default, using the step size of the [ControlSpec](../Classes
 | `gap` | A [Point](../Classes/Point.md). By default, the view tries to get its parent's gap, otherwise it defaults to `2@2`. Setting it overrides these. |  
 | `margin` | A [Point](../Classes/Point.md). This will inset the bounds occupied by the subviews of view. |  
 
-```supercollider
+```
 (
 w = Window.new.front;
 g = EZNumber(w,        // parent
@@ -69,31 +70,41 @@ The contained views can be accessed via the EZNumber instance variables: `labelV
 
 ## Instance Methods
 
+
 ### `numberView`
-Returns the numberView### `action`
+Returns the numberView
+### `action`
 A function to be evaluated when the value changes. Te first argument will be the EZNumber.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `arg1` | An instance of [Function](../Classes/Function.md) or [FunctionList](../Classes/FunctionList.md). Default value is nil. |  
+
 ### `value`
-The value of the slider### `round`
-Rounds the values in the number box.### `controlSpec`
-An instance of [ControlSpec](../Classes/ControlSpec.md) for scaling the values.### `value`
+The value of the slider
+### `round`
+Rounds the values in the number box.
+### `controlSpec`
+An instance of [ControlSpec](../Classes/ControlSpec.md) for scaling the values.
+### `value`
 Gets/sets the list/menu to the index at value. Does not perform the action.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `val` | An [Integer](../Classes/Integer.md). |  
+
 ### `valueAction`
 Sets the value and performs the action at the index value and the global action.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `val` | An [Integer](../Classes/Integer.md). |  
+
 ### `doAction`
-Performs the action at the current index and the global action.### `set`
-Set the args after creation.### `enabled`
+Performs the action at the current index and the global action.
+### `set`
+Set the args after creation.
+### `enabled`
 Sets/gets if the list is enabled.**Arguments:**
 
 | Argument | Description |
@@ -101,6 +112,7 @@ Sets/gets if the list is enabled.**Arguments:**
 | `bool` | An instance of [Boolean](../Classes/Boolean.md). Default is `true`. |  
 
 ### Changing Appearance
+
 ### `setColors`
 **Arguments:**
 
@@ -114,6 +126,7 @@ Sets/gets if the list is enabled.**Arguments:**
 | `numTypingColor` | An instance of [Color](../Classes/Color.md). The `typingColor` of the number view. |  
 | `background` | An instance of [Color](../Classes/Color.md). The `background` of the enclosing view. |  
 
+
 ### `font`
 Set the [Font](../Classes/Font.md) used by all the views.**Arguments:**
 
@@ -125,7 +138,7 @@ Set the [Font](../Classes/Font.md) used by all the views.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 // Simplest version
 (        // basic use
         w = Window.new.front;

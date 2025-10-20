@@ -13,9 +13,10 @@ The Filter class also provides a simple way to visualise the frequency-wise effe
 ## Class Methods
 
 
+
 ### `scopeResponse`
 Provides a simple way to visualise the frequency-wise effect of applying a filter
-```supercollider
+```
 s.boot // boot the server 
 MoogFF.scopeResponse
 HPF.scopeResponse

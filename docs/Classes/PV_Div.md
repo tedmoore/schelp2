@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -21,7 +22,7 @@
 
 In this example we estimate the transfer function of the LPF UGen. The transfer function is estimated by dividing the FFT of the output, by the FFT of the input, and looking at the magnitudes in the result.
 
-```supercollider
+```
 (
 s.waitForBoot({
     var fftsize = 16384;

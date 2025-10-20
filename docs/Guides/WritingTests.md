@@ -23,7 +23,7 @@ In order to mimick the standard SuperCollider installation, make sure that you h
 Best practise is to create a separate `.yaml` configuration file that resides parallel to the default one. You can do this either interactively from within the preferences of your IDE (`Preferences>Interpreter`), or programatically
 
 
-```supercollider
+```
 ~sclangConf = "SCLANG_CONF".getenv;
 LanguageConfig.addIncludePath(~scSourceDir +/+ "testsuite/classlibrary");
 +   LanguageConfig.addExcludePath(~scSourceDir +/+ "testsuite/classlibrary/server");

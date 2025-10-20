@@ -15,6 +15,7 @@ Print the current output value of a UGen, useful for debugging SynthDefs.
 ## Class Methods
 
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -32,7 +33,7 @@ Print the current output value of a UGen, useful for debugging SynthDefs.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 { Poll.kr(Impulse.kr(10), Line.kr(0, 1, 1), \test) }.play(s);

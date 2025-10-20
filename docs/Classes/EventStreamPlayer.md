@@ -16,6 +16,7 @@ EventStreamPlayer uses the same control methods and status notifications as [Tas
 
 ## Class Methods
 
+
 ### `new`
 
 > **Note:** You do not explicitly create an EventStreamPlayers, they are created for you when you call [Pattern#-play](../Classes/Pattern.md#-play).
@@ -23,6 +24,7 @@ EventStreamPlayer uses the same control methods and status notifications as [Tas
 
 
 ## Instance Methods
+
 
 ### `play`
 **Arguments:**
@@ -32,12 +34,18 @@ EventStreamPlayer uses the same control methods and status notifications as [Tas
 | `argClock` | (optional) Override the clock assigned in Task.new. |  
 | `doReset` | If true, the task will start over from the beginning. Default is false (task will resume where it was when it was last stopped). |  
 | `quant` | See the [Quant](../Classes/Quant.md) helpfile. |  
+
 ### `start`
-Restart the task from the beginning.### `resume`
-Resume the task where it left off.### `pause`
-Stop playing now.### `stop`
-Stop playing now. (Pause and stop have the same implementation.)### `reset`
-Set the stream to restart from the beginning the next time it's played.### `reschedule`
+Restart the task from the beginning.
+### `resume`
+Resume the task where it left off.
+### `pause`
+Stop playing now.
+### `stop`
+Stop playing now. (Pause and stop have the same implementation.)
+### `reset`
+Set the stream to restart from the beginning the next time it's played.
+### `reschedule`
 Switch the Task to a different clock, or a different time, without stopping. See [Routine#-reschedule](../Classes/Routine.md#-reschedule) for complete documentation.
 > **Note:** Rescheduling an EventStreamPlayer from within the pattern itself is currently not supported.
 

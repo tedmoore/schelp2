@@ -16,10 +16,13 @@ Instances of subclasses of AbstractMessageMatcher are used by subclasses of [Abs
 
 ## Instance Methods
 
+
 ### `func`
-Get or set this object's response [Function](../Classes/Function.md).**Returns:** A [Function](../Classes/Function.md) or similar object.### `value`
-Evaluate an incoming message to see if it matches. Subclasses should override this message to take appropriate arguments. If a match is found, this method should call value on this object's func, passing the message as appropriate arguments.### `valueArray`
-As [value](#value) above, but with the arguments passed as a single [Array](../Classes/Array.md). This method is needed so that subclasses can work in FunctionLists.**Arguments:**
+Get or set this object's response [Function](../Classes/Function.md).**Returns:** A [Function](../Classes/Function.md) or similar object.
+### `value`
+Evaluate an incoming message to see if it matches. Subclasses should override this message to take appropriate arguments. If a match is found, this method should call value on this object's func, passing the message as appropriate arguments.
+### `valueArray`
+As [#-value](#-value) above, but with the arguments passed as a single [Array](../Classes/Array.md). This method is needed so that subclasses can work in FunctionLists.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|

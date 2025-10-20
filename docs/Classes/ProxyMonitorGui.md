@@ -13,7 +13,7 @@ is a GUI for controlling the top-level of a nodeproxy and its monitor. It is e.g
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
     // make a proxy space and a test proxy

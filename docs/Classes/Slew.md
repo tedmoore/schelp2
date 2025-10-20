@@ -14,6 +14,7 @@ For smoothing out control signals, take a look at [Lag](../Classes/Lag.md) and [
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -28,7 +29,7 @@ For smoothing out control signals, take a look at [Lag](../Classes/Lag.md) and [
 ## Examples
 
 
-```supercollider
+```
 (
 {
     z = LFPulse.ar(800);

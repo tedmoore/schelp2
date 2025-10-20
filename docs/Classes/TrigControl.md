@@ -13,12 +13,14 @@ FIXME: TrigControl description.
 
 ## Class Methods
 
+
 ### `kr`, `ir`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `values` | FIXME: explain parameter values. |  
+
 
 ### `names`
 **Arguments:**

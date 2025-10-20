@@ -13,7 +13,7 @@ A unit generator is created by sending the 'ar' or 'kr' message to the unit gene
 The input parameters for a unit generator are given in the documentation for that class.
 
 
-```supercollider
+```
 FSinOsc.ar(800, 0.0, 0.2); // create a sine oscillator at 800 Hz, phase 0.0, amplitude 0.2
 ```
 
@@ -26,7 +26,7 @@ A unit generator's signal inputs can be other unit generators, scalars, or array
 In order to play a unit generator one needs to compile it in a [SynthDef](../Classes/SynthDef.md) and play it on the server in a [Synth](../Classes/Synth.md). A synth node is a container for one or more unit generators that execute together. A SynthDef is like a kind of pattern for creating synth nodes on the server.
 
 
-```supercollider
+```
 s.boot; // boot the server
 
 // compile and send this def
@@ -43,7 +43,7 @@ x.free;
 The synth node created above could also be created using 'messaging style', thus saving the overhead of a clientside Synth object:
 
 
-```supercollider
+```
 n = s.nextNodeID;
 s.sendMsg("/s_new", "FSinOsc-test", n);
 s.sendMsg("/n_free", n);
@@ -53,7 +53,7 @@ s.sendMsg("/n_free", n);
 Because any expression returns its value, we can nest the first two lines above for convenience. (See [Expression-Sequence](../Reference/Expression-Sequence.md) for more detail.)
 
 
-```supercollider
+```
 s.sendMsg("/s_new", "FSinOsc-test", n = s.nextNodeID;);
 s.sendMsg("/n_free", n);
 ```
@@ -64,7 +64,7 @@ It is VERY important and useful to understand the messaging structure which unde
 As a convenience the 'play' method of class [Function](../Classes/Function.md) will compile a SynthDef and create and play a synth using the function for you. With this method an [Out](../Classes/Out.md) ugen will be created for you if you do not do so explicitly.
 
 
-```supercollider
+```
 { FSinOsc.ar(800, 0, 0.2) }.play; // create and play a sine oscillator at 800 Hz
 ```
 
@@ -75,7 +75,7 @@ As a convenience the 'play' method of class [Function](../Classes/Function.md) w
 You can do math operations on unit generators and the result will be another unit generator. Doing math on unit generators is not doing any signal calculation itself - it is building the network of unit generators that will execute once they are played in a Synth. This is the essential thing to understand: Synthesis networks, or in other words signal flow graphs are created by executing expressions of unit generators. The following expression creates a flow graph whose root is an instance of [BinaryOpUGen](../Classes/BinaryOpUGen.md) which performs the '+' operation. Its inputs are the [FSinOsc](../Classes/FSinOsc.md) and [BrownNoise](../Classes/BrownNoise.md) unit generators.
 
 
-```supercollider
+```
 FSinOsc.ar(800, 0.0, 0.2) + BrownNoise.ar(0.2); // press enter and look at the post window
 
 {FSinOsc.ar(800, 0.0, 0.2) + BrownNoise.ar(0.2)}.play; // play it

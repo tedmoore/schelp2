@@ -20,6 +20,7 @@ The breakpoints are color coded as follows:
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -29,6 +30,7 @@ The breakpoints are color coded as follows:
 | `bounds` | An instance of [Rect](../Classes/Rect.md), or a [Point](../Classes/Point.md) indicating `width@height`. |  
 | `env` | The envelope. An instance of [Env](../Classes/Env.md). |  
 | `pointsPerSegment` | The resolution in points per segment. Default value is 10. |  
+
 
 ### `paletteExample`
 **Arguments:**
@@ -42,11 +44,13 @@ The breakpoints are color coded as follows:
 ### Subclassing and Internal Methods
 The following methods are usually not used directly or are called by a primitive. Programmers can still call or override these as needed.
 
+
 ### `viewClass`
 
 
 
 ## Instance Methods
+
 
 ### `refresh`
 If the [Env](../Classes/Env.md) object is modified directly, this needs to be called to update the GUI.method: maxLevel Changes maximum level shown in editor.**Arguments:**
@@ -54,18 +58,21 @@ If the [Env](../Classes/Env.md) object is modified directly, this needs to be ca
 | Argument | Description |
 |----------|-------------|
 | `level` | An instance of [Float](../Classes/Float.md). |  
+
 ### `minLevel`
 Changes minimum level shown in editor.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `level` | An instance of [Float](../Classes/Float.md). |  
+
 ### `minTime`
 Changes minimum time (sec) shown in editor. Negative times are okay because [Env](../Classes/Env.md) uses inter-node durations.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `sec` | An instance of [Float](../Classes/Float.md). Seconds. |  
+
 ### `maxTime`
 Changes maximum time (sec) shown in editor.**Arguments:**
 
@@ -75,6 +82,7 @@ Changes maximum time (sec) shown in editor.**Arguments:**
 
 ### Subclassing and Internal Methods
 The following methods are usually not used directly or are called by a primitive. Programmers can still call or override these as needed.
+
 
 ### `defaultMouseDownAction`
 **Arguments:**
@@ -87,6 +95,7 @@ The following methods are usually not used directly or are called by a primitive
 | `buttonNumber` |  |  
 | `clickCount` |  |  
 
+
 ### `env`
 **Arguments:**
 
@@ -94,12 +103,14 @@ The following methods are usually not used directly or are called by a primitive
 |----------|-------------|
 | `e` |  |  
 
+
 ### `addBreakPoint`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `level` |  |  
+
 
 ### `insertAtTime`
 **Arguments:**
@@ -109,7 +120,9 @@ The following methods are usually not used directly or are called by a primitive
 | `time` |  |  
 | `level` |  |  
 
+
 ### `pointsPerSegment`
+
 
 ### `initSCEnvelopeEdit`
 **Arguments:**
@@ -120,9 +133,12 @@ The following methods are usually not used directly or are called by a primitive
 | `argPPS` |  |  
 | `setMinMax` |  |  
 
+
 ### `redraw`
 
+
 ### `updateAll`
+
 
 ### `updateSegment`
 **Arguments:**
@@ -131,6 +147,7 @@ The following methods are usually not used directly or are called by a primitive
 |----------|-------------|
 | `segNum` |  |  
 
+
 ### `clear`
 
 
@@ -138,7 +155,7 @@ The following methods are usually not used directly or are called by a primitive
 
 Make a basic editor:
 
-```supercollider
+```
 (
 e = Env([1, 2], [10]);
 w = Window("Env Editor", Rect(200, 200, 300, 200));
@@ -165,7 +182,7 @@ v.refresh; // must refresh editor
 
 Controlling a Synth
 
-```supercollider
+```
 s.boot;
 
 (

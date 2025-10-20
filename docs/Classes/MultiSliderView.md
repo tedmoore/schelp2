@@ -8,23 +8,25 @@
 
 MultiSliderView displays a collection of values, each represented by the position of one of the sliders placed side by side.
 When clicking into the view, the value of the slider under the mouse pointer will be set. Whenever the mouse is moved with a mouse button pressed, the slider currently under the mouse pointer will be adjusted.
-The last slider modified is considered to be the **current** one, i.e. the [index](#index) method will return its index, and [currentValue](#currentvalue) relates to its value.
-The current slider is also considered to be the **selected** one. Selection can be extended to more than one slider by modifying [selectionSize](#selectionsize). Whenever a different slider becomes the current one, the selection size shrinks back to 1. Note that the selection will only be visually indicated if [showIndex](#showindex) is `true`.
+The last slider modified is considered to be the **current** one, i.e. the [#-index](#-index) method will return its index, and [#-currentValue](#-currentvalue) relates to its value.
+The current slider is also considered to be the **selected** one. Selection can be extended to more than one slider by modifying [#-selectionSize](#-selectionsize). Whenever a different slider becomes the current one, the selection size shrinks back to 1. Note that the selection will only be visually indicated if [#-showIndex](#-showindex) is `true`.
 
 
 ## Class Methods
 
 
+
 ### `new`
- A new MultiSliderView is created empty, without any columns. [size](#size) or [value](#value) has to be set in order to create some columns. So if you want a specific number of sliders, then it is best to specify the [size](#size) and set [elasticMode](#elasticmode) to 1. Then you will get a MultiSliderView which distributes [size](#size) amount of sliders over `bounds.width`, where the slider widths are at maximum [indexThumbSize](#indexthumbsize) (default 12) and the [gap](#gap) is adjusted accordingly.
+ A new MultiSliderView is created empty, without any columns. [#-size](#-size) or [#-value](#-value) has to be set in order to create some columns. So if you want a specific number of sliders, then it is best to specify the [#-size](#-size) and set [#-elasticMode](#-elasticmode) to 1. Then you will get a MultiSliderView which distributes [#-size](#-size) amount of sliders over `bounds.width`, where the slider widths are at maximum [#-indexThumbSize](#-indexthumbsize) (default 12) and the [#-gap](#-gap) is adjusted accordingly.
 
 ## Instance Methods
 
 
 ### Data
+
 ### `size`
  The amount of sliders. When setting -size, if the new amount is larger then the current, new sliders will be added with the value of 0. In the opposite case, the value of sliders up to the new amount will be preserved, and the rest of the sliders will be removed.
-> **Note:** **In Cocoa GUI:** Changing -size after the view has been drawn or after the [value](#value) array has been set will lead to unexpected results. Instead, you should change the [value](#value), if you need to change the contents of the view.
+> **Note:** **In Cocoa GUI:** Changing -size after the view has been drawn or after the [#-value](#-value) array has been set will lead to unexpected results. Instead, you should change the [#-value](#-value), if you need to change the contents of the view.
 
 **Arguments:**
 
@@ -32,9 +34,10 @@ The current slider is also considered to be the **selected** one. Selection can 
 |----------|-------------|
 | `` | An Integer. |  
 
+
 ### `value`
  Sets the values of the sliders to those of the elements of the argument.
-> **Note:** If the amount of elements in the argument does not match [size](#size), then makes [size](#size) match before applying the new values.
+> **Note:** If the amount of elements in the argument does not match [#-size](#-size), then makes [#-size](#-size) match before applying the new values.
 
 **Arguments:**
 
@@ -42,14 +45,17 @@ The current slider is also considered to be the **selected** one. Selection can 
 |----------|-------------|
 | `` | An array of Floats. |  
 
+
 ### `valueAction`
- Sets [value](#value) and triggers [action](#action).
+ Sets [#-value](#-value) and triggers [#-action](#-action).
+
 ### `reference`
  The reference values in relation to which the values will be visually represented. The default for each slider is 0.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An array of Floats. |  
+
 
 ### `index`
  The index of the current slider, i.e. the first one in the selection.**Arguments:**
@@ -58,10 +64,12 @@ The current slider is also considered to be the **selected** one. Selection can 
 |----------|-------------|
 | `` | An Integer. |  
 
+
 ### `selectionSize`
- The amount of sliders in the selection (starting at [index](#index)).
+ The amount of sliders in the selection (starting at [#-index](#-index)).
+
 ### `currentvalue`
- The value of the slider at [index](#index)**Arguments:**
+ The value of the slider at [#-index](#-index)**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -69,6 +77,7 @@ The current slider is also considered to be the **selected** one. Selection can 
 
 
 ### Display
+
 ### `indexIsHorizontal`
  The orientation of the view: if true, the sliders are displayed in a horizontal order, otherwise in a vertical order.**Arguments:**
 
@@ -76,26 +85,30 @@ The current slider is also considered to be the **selected** one. Selection can 
 |----------|-------------|
 | `` | A Boolean. |  
 
+
 ### `elasticMode`
- If enabled (set to 1), the sliders from [startIndex](#startindex) to the last one will be distributed so as to occupy the whole area of the view. The [gap](#gap) variable will be ignored. The size of each slider in the direction of index will be maximally [indexThumbSize](#indexthumbsize), or smaller in order for all the sliders to fit into the view.**Arguments:**
+ If enabled (set to 1), the sliders from [#-startIndex](#-startindex) to the last one will be distributed so as to occupy the whole area of the view. The [#-gap](#-gap) variable will be ignored. The size of each slider in the direction of index will be maximally [#-indexThumbSize](#-indexthumbsize), or smaller in order for all the sliders to fit into the view.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | 0 (disabled) or 1 (enabled). |  
 
+
 ### `gap`
- The gap between the sliders in pixels when [elasticMode](#elasticmode) is disabled.**Arguments:**
+ The gap between the sliders in pixels when [#-elasticMode](#-elasticmode) is disabled.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An Integer. |  
+
 
 ### `indexThumbSize`
- The size of the sliders in the direction of index in pixels . If [elasticMode](#elasticmode) is enabled, this will be the maximum size, but the actual size might be smaller in order for all the sliders to fit into the view.**Arguments:**
+ The size of the sliders in the direction of index in pixels . If [#-elasticMode](#-elasticmode) is enabled, this will be the maximum size, but the actual size might be smaller in order for all the sliders to fit into the view.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An Integer. |  
+
 
 ### `valueThumbSize`
  The size of the slider handles in the direction of value in pixels (if drawn).**Arguments:**
@@ -104,10 +117,12 @@ The current slider is also considered to be the **selected** one. Selection can 
 |----------|-------------|
 | `` | An Integer. |  
 
+
 ### `thumbSize`
- Sets both [indexThumbSize](#indexthumbsize) and [valueThumbSize](#valuethumbsize) to the argument.
+ Sets both [#-indexThumbSize](#-indexthumbsize) and [#-valueThumbSize](#-valuethumbsize) to the argument.
+
 ### `startIndex`
- The index of the slider displayed at the left or top edge of the view (depending on whether [indexIsHorizontal](#indexishorizontal) is true or false, respectively). Sliders with lower index than this will not be visible.**Arguments:**
+ The index of the slider displayed at the left or top edge of the view (depending on whether [#-indexIsHorizontal](#-indexishorizontal) is true or false, respectively). Sliders with lower index than this will not be visible.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -115,12 +130,14 @@ The current slider is also considered to be the **selected** one. Selection can 
 
 
 ### Appearance
+
 ### `showIndex`
  Whether the slider selection is visually indicated.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
+
 
 ### `drawRects`
  Whether to draw the sliders.**Arguments:**
@@ -129,38 +146,44 @@ The current slider is also considered to be the **selected** one. Selection can 
 |----------|-------------|
 | `` | A Boolean. |  
 
+
 ### `drawLines`
- Whether to draw a line connecting the points that represent the [values](#value) of the sliders, and a line connecting the points that represent the [references](#reference).**Arguments:**
+ Whether to draw a line connecting the points that represent the [values](#-value) of the sliders, and a line connecting the points that represent the [references](#-reference).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
+
 
 ### `isFilled`
- If true, the sliders will have their area between the [reference](#reference) and the [value](#value) colored, and the area bounded by the lines connecting the reference and the value points will be colored as well.**Arguments:**
+ If true, the sliders will have their area between the [#-reference](#-reference) and the [#-value](#-value) colored, and the area bounded by the lines connecting the reference and the value points will be colored as well.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
 
+
 ### `strokeColor`
- The color used to draw the lines described in [drawLines](#drawlines).**Arguments:**
+ The color used to draw the lines described in [#-drawLines](#-drawlines).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Color. |  
+
 
 ### `fillColor`
- The color used to visualize the areas described in [isFilled](#isfilled).**Arguments:**
+ The color used to visualize the areas described in [#-isFilled](#-isfilled).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Color. |  
 
+
 ### `colors`
- Sets [strokeColor](#strokecolor) and [fillColor](#fillcolor) to the two arguments, respectively.
+ Sets [#-strokeColor](#-strokecolor) and [#-fillColor](#-fillcolor) to the two arguments, respectively.
 
 ### Interaction
+
 ### `editable`
  Whether the values can be edited using mouse or keyboard.**Arguments:**
 
@@ -168,39 +191,47 @@ The current slider is also considered to be the **selected** one. Selection can 
 |----------|-------------|
 | `` | A Boolean. |  
 
+
 ### `readOnly`
- The opposite if [editable](#editable).**Arguments:**
+ The opposite if [#-editable](#-editable).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Boolean. |  
 
+
 ### `step`
  If the argument is larger than 0, makes the MultiSliderView keep the values quantized to the nearest multiple of the argument.
 
 ### Actions
+
 ### `action`
  The action object evaluated whenever the user changes the value of a slider.
+
 ### `metaAction`
  The action object evaluated whenever the user changes the value of a slider while the Ctrl key is pressed.
+
 ### `defaultKeyDownAction`
  Implements the default effects of key presses as follows:| **Key** | **Effect** | 
 | --- | --- || up arrow | increment -currentValue by -step | | down arrow | decrement -currentValue by -step | | right arrow | increment -index by 1 | | left arrow | decrement -index by 1 | 
 
 ### Drag and drop
+
 ### `defaultGetDrag`
-**Returns:** a) If [selectionSize](#selectionsize) is 0, returns [value](#value). b) If [selectionSize](#selectionsize) > 1, returns an Array with the values at the indexes in the selection. If [reference](#reference) is not nil, returns an Array containing (a) or (b), and an Array of the corresponding reference values: `[[values], [references]]`.
+**Returns:** a) If [#-selectionSize](#-selectionsize) is 0, returns [#-value](#-value). b) If [#-selectionSize](#-selectionsize) > 1, returns an Array with the values at the indexes in the selection. If [#-reference](#-reference) is not nil, returns an Array containing (a) or (b), and an Array of the corresponding reference values: `[[values], [references]]`.
+
 ### `defaultCanReceiveDrag`
 **Returns:** True for any drag data, but the data should either be an Array of values (`[values]`), or an Array containg an Array of values and an Array of corresponding reference values (`[[values], [references]]`).
+
 ### `defaultReceiveDrag`
- If the drag data is in one of the acceptable forms (see [defaultCanReceiveDrag](#defaultcanreceivedrag) above), sets [value](#value) (and [reference](#reference)) using that data.
+ If the drag data is in one of the acceptable forms (see [#-defaultCanReceiveDrag](#-defaultcanreceivedrag) above), sets [#-value](#-value) (and [#-reference](#-reference)) using that data.
 
 ## Examples
 
 
 ### Basic Examples
 
-```supercollider
+```
 (
 n = 20;
 w = Window.new.front;
@@ -216,7 +247,7 @@ m.action = { |q|
 Looks like a candlestick graph:
 
 
-```supercollider
+```
 (
 var size;
 size = 350 / 6;
@@ -244,7 +275,7 @@ m.indexIsHorizontal_(false);
 A walk through all the graphic options:
 
 
-```supercollider
+```
 (
 n = 40;
 
@@ -307,7 +338,7 @@ w.front;
 
 ### Display a Sound File
 
-```supercollider
+```
 (
 // press shift to extend the selection
 // use as waveView: scrubbing over the view returns index
@@ -378,7 +409,7 @@ a.front;
 
 ### Use as a Sequencer
 
-```supercollider
+```
 (
 var size;
 size = 12;

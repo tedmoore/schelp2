@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -21,7 +22,7 @@ all inputs can be either demand ugen or any other ugen.
 ## Examples
 
 
-```supercollider
+```
 b = Buffer.alloc(s, 24, 1);
 b.setn(0, { exprand(200, 500) } ! b.numFrames);
 b.getn(0, b.numFrames, { |x| x.postln })

@@ -13,7 +13,7 @@ Puts an effect node on the tail of the current group and releases it when the co
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef(\echo, { |out = 0, maxdtime = 0.2, dtime = 0.2, decay = 2, gate = 1|
     var env, in;

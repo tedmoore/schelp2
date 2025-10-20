@@ -16,6 +16,7 @@ But SkipJack is useful whenever you need a periodic function to run in the backg
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 
@@ -28,34 +29,48 @@ But SkipJack is useful whenever you need a periodic function to run in the backg
 | `clock` | The clock that plays the task. Default is [AppClock](../Classes/AppClock.md), so SkipJack can call GUI primitives. If you need more precise timing, you can supply your own clock, and use defer only where necessary. |  
 | `autostart` | When true (default) SkipJack starts automatically as it is created. |  
 
+
 ### `stop`
 Stop a skipjack by name.
+
 ### `stopAll`
 Stop all skipjacks.
+
 ### `defaultClock`
 The default clock (AppClock)
+
 ### `verbose`
 When true, SkipJack posts messages when it starts, stops or restarts.
+
 ### `all`
 The global set of all skipjacks.
 
 ## Instance Methods
 
+
 ### `dt`
-Get or set the time interval.### `task`
-The internal Routine that wraps updateFunc.### `name`
-The name of this skipjack.### `stopTest`
-The current stopTest. (see argument in [#*new](#*new))### `start`
-Start this skipjack.### `play`
-Same as `start`### `stop`
-Stop this skipjack.### `clock`
-Get or set the clock used. This will only be updated when the skipjack restarts.### `updateFunc`
+Get or set the time interval.
+### `task`
+The internal Routine that wraps updateFunc.
+### `name`
+The name of this skipjack.
+### `stopTest`
+The current stopTest. (see argument in [#*new](#*new))
+### `start`
+Start this skipjack.
+### `play`
+Same as `start`
+### `stop`
+Stop this skipjack.
+### `clock`
+Get or set the clock used. This will only be updated when the skipjack restarts.
+### `updateFunc`
 The updateFunc set by the argument to [#*new](#*new)
 ## Examples
 
 Simple example:
 
-```supercollider
+```
 w = SkipJack({ "watch...".postln }, 0.5, name: "test");
 SkipJack.verbose = true;    // post stop/wakeup logs
 
@@ -71,7 +86,7 @@ w.stop;
 
 Using stopTest:
 
-```supercollider
+```
 a = 5;
 w = SkipJack({ "watch...".postln }, 0.5, { a == 10 }, "test");
 a = 10;    // fulfill stopTest
@@ -80,7 +95,7 @@ a = 10;    // fulfill stopTest
 
 Typical use: SkipJack updates a window displaying the state of some objects every now and then.
 
-```supercollider
+```
 (
 d = (a: 12, b: 24);
 d.win = Window("dict", Rect(0, 0, 200, 60)).front;
@@ -108,7 +123,7 @@ d.win.close;    // when window closes, SkipJack stops.
 
 If you need to get rid of an unreachable skipjack:
 
-```supercollider
+```
 SkipJack({ "unreachable, unkillable...".postln }, name: "jack");
 
 SkipJack.stopAll        // do this to stop all;

@@ -11,7 +11,7 @@
 Pdefn provides an interface to its superclass [PatternProxy](../Classes/PatternProxy.md), keeping a reference to a stream that can be replaced while playing. One pattern may be used in many streams in different places. A change in the pattern definition propagates through all streams.
 Pdef and Pdefn use separate global collections.
 
-```supercollider
+```
 Pdefn(key)    // returns the instance
 Pdefn(key, pat)    // defines the pattern and returns the instance, like Pdef, Tdef and Ndef.
 ```
@@ -22,7 +22,7 @@ Pdefn can be used to store value patterns globally (for **event patterns**, see 
 
 ### First Example
 
-```supercollider
+```
 s.boot;
 
 Pdefn(\x, Pbrown(0, 6, 0.1, inf));
@@ -40,10 +40,12 @@ Pdefn(\x, Pseq([0, 3, 3, 7], inf) + Pseq([0, [0, 3], [0, 5, 7]], inf));
 ## Class Methods
 
 
+
 ### `all`
 A global [IdentityDictionary](../Classes/IdentityDictionary.md) with all proxies.
 
 ### Creation
+
 ### `new`
 Store the pattern in a global dictionary under key, replacing its pattern with the new one. If the pattern is a **function**, Pdefn creates a [Prout](../Classes/Prout.md) with this function, passing in the envir, if given(see below).Using ***new(key)** you can access the pattern at that key (if none is given, a default silent event is created)**Arguments:**
 
@@ -51,7 +53,7 @@ Store the pattern in a global dictionary under key, replacing its pattern with t
 |----------|-------------|
 | `key` | An identifier for the proxy. Usually, it is a [Symbol](../Classes/Symbol.md). The key transparently accesses the global [IdentityDictionary](../Classes/IdentityDictionary.md). |  
 | `item` | An object for (re)defining the source of the proxy. If `nil`, the proxy is returned unmodified.
-```supercollider
+```
 // pattern as an argument
 Pdefn(\x, Pseq([1, 2, 5, 6, 7], inf));
 Pdefn(\x); // omitting the second argument, we can access the proxy
@@ -68,12 +70,16 @@ Pdef(\stut, { Pdup(~dup ? 1, ~pattern) }); // we use here a Pdef (not a Pdefn!)
 Pdefn(\y, Pdef(\stut) <> (pattern: Pdefn(\x), dup: Pseq([2, 2, 4, 3], inf))).asStream.nextN(16);
 ``` |  
 
+
 ### `default`
 Default source, if none is given. The default is a Pattern that returns 1.0 (This is 1 and not 0 to avoid deadlocks when used as a duration pattern. In a sense, 1 is just as generic as 0).
+
 ### `removeAll`
 Remove all proxies from the global dictionary ([#*all](#*all))
+
 ### `clear`
 Clear all proxies, setting their source to silence.
+
 ### `all`
 Set or return the environment ([IdentityDictionary](../Classes/IdentityDictionary.md)) that stores all Pdefns.
 
@@ -86,7 +92,7 @@ Set or return the environment ([IdentityDictionary](../Classes/IdentityDictionar
 
 ### Pdefn in expressions
 
-```supercollider
+```
 Pdefn(\c, Pdefn(\a) + Pdefn(\b));
 
 t = Pdefn(\c).asStream; // create a stream from Pdefn(\c)
@@ -113,7 +119,7 @@ Pdefn(\a, Prand([1, 4, 2], inf)); // (re)define Pdefn(\a)
 
 ### Embedding Pdefn in other patterns
 
-```supercollider
+```
 Pdefn(\x, Pseq([1, 2, 3], inf));
 
 x = Pseq([0, 0, Pdefn(\x)], inf).asStream;
@@ -173,7 +179,7 @@ When does the definition change?
 If quant is set, the update is done at the next beat or whatever is specified:
 
 
-```supercollider
+```
 Pdefn(\deg).quant = 4;
 Pdefn(\deg, Pn(Pseries(0, 1, 8), inf));
 
@@ -201,7 +207,7 @@ In order to be able to switch to a new pattern under a certain condition, the in
 As counting up (such as *"every nth event, a swap can happen"*) is a common task, there is a method for this, called **count(n)**.
 
 
-```supercollider
+```
 z = Pbind(\degree, Pdefn(\x, \), \dur, 0.25).play;
 Pdefn(\x, Pseq((0..5), inf)).condition_({ |val, i| i.postln % 6 == 0 });
 Pdefn(\x, Pseq((7..0), inf)).condition_({ |val, i| i.postln % 8 == 0 });
@@ -216,7 +222,7 @@ Pdefn(\x, Pseq((7..0), inf)).count(8);
 
 ### Reset
 
-```supercollider
+```
 // reset to change immediately:
 Pdefn(\x).reset;
 
@@ -228,7 +234,7 @@ Pdefn(\x).stop;
 
 ### Functions as arguments to Pdefn
 
-```supercollider
+```
 Pdefn(\deg, { loop { yield(0.1.rand.round(0.01) + [2, 3, 9].choose) } });
 
 // equivalent to:
@@ -243,7 +249,7 @@ Pdefn(\deg, Prout { loop { yield(0.1.rand.round(0.01) + [2, 3, 9].choose) } });
 
 ### The (inner) environment
 
-```supercollider
+```
 // set() creates a local environment that overrides the outer currentEnvironment
 
 Pdefn(\z).set(\a, 1, \b, 5);

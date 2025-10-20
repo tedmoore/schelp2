@@ -13,7 +13,7 @@ Some of the examples in the last tutorial played notes using Pbind, and you migh
 In the most general sense, [Pbind](../../Classes/Pbind.md) is just a way to give names to values coming out of the types of patterns we just saw. When you ask a Pbind stream for its next value, the result is an object called an [Event](../../Classes/Event.md). Like a [Dictionary](../../Classes/Dictionary.md) (which is a superclass of Event), an event is a set of "key-value pairs": each value is named by a key.
 
 
-```supercollider
+```
 e = (freq: 440, dur: 0.5);    // an Event
 
 e.at(\freq)        // access a value by name
@@ -39,7 +39,7 @@ Things get interesting when the names associated with Pbind's sub-patterns are a
 We can look at the return values from a Pbind by calling `next` on the stream. Note that it's necessary to pass an empty event into *next*, so that Pbind has somewhere to put the values.
 
 
-```supercollider
+```
 (
 p = Pbind(
     \degree, Pseq(#[0, 0, 4, 4, 5, 5, 4], 1),
@@ -64,7 +64,7 @@ For the first event, the first key is `'degree'` and the value is `0`. This is p
 // User does:
 
 
-```supercollider
+```
 p.next(Event.new);
 ```
 
@@ -88,7 +88,7 @@ p.next(Event.new);
 So far we haven't seen anything that produces a note, just data processing: fetching values from patterns and stitching them together into events. The notes come from the difference between Events and regular Dictionaries: Events can do things when you `.play` them.
 
 
-```supercollider
+```
 ( 'degree': 0, 'dur': 0.5 ).play;
 ```
 
@@ -125,7 +125,7 @@ Pbind plays separate notes by default. Sometimes, you might need a pattern to ac
 Compare the sound of these patterns. Pbind produces an attack on every note, while Pmono glides from pitch to pitch.
 
 
-```supercollider
+```
 p = Pbind(\degree, Pwhite(0, 7, inf), \dur, 0.25, \legato, 1).play;
 p.stop;
 
@@ -144,7 +144,7 @@ Articulating phrases is possible with Pmono by chaining several Pmono patterns t
 Most SynthDefs have [Control](../../Classes/Control.md) inputs, usually defined by arguments to the UGen function. For example, the default SynthDef (declared in Event.sc) defines five inputs: `out`, `freq`, `amp`, `pan` and `gate`.
 
 
-```supercollider
+```
 SynthDef(\default, { arg out=0, freq=440, amp=0.1, pan=0, gate=1;
     var z;
     z = LPF.ar(
@@ -159,7 +159,7 @@ SynthDef(\default, { arg out=0, freq=440, amp=0.1, pan=0, gate=1;
 When an event plays a synth, any values stored in the event under the same name as a SynthDef input will be passed to the new synth. Compare the following:
 
 
-```supercollider
+```
 // Similar to Synth(\default, [freq: 293.3333, amp: 0.2, pan: -0.7])
 (freq: 293.3333, amp: 0.2, pan: -0.7).play;
 
@@ -173,7 +173,7 @@ This leads to a key point: **The names that you use for patterns in Pbind should
 The SynthDef to play is named by the `'instrument'` key. To play a pattern using a different Synth, simply name it in the pattern.
 
 
-```supercollider
+```
 SynthDef(\harpsi, { |outbus = 0, freq = 440, amp = 0.1, gate = 1|
     var out;
     out = EnvGen.ar(Env.adsr, gate, doneAction: Done.freeSelf) * amp *
@@ -201,7 +201,7 @@ It's actually an oversimplification to say that the Pbind names should always ma
 To send only the relevant values to the new Synth, the Event needs to know what controls exist in the SynthDef. This is done by a library of descriptors for SynthDefs; the descriptor is a [SynthDesc](../../Classes/SynthDesc.md), and the library is a [SynthDescLib](../../Classes/SynthDescLib.md). The normal methods -- `.send(s)`, `.load(s)` -- to communicate a SynthDef to the server do not enter it into the library. As a result, SynthDefs sent this way will not work properly with Pbind. Instead, use different methods that *store* the SynthDef into the library.
 
 
-```supercollider
+```
 // Save into the library, write a .scsyndef file, and load it on the server
 SynthDef(...).store;
 
@@ -228,7 +228,7 @@ Beginning with version 3.5, rests may be indicated using instances of [Rest](../
 Ligeti's "touches bloquées" technique could be written this way (see [A-Practical-Guide/PG_06e_Language_Control](../../Tutorials/A-Practical-Guide/PG_06e_Language_Control.md) for an explanation of the conditional [Pif](../../Classes/Pif.md)):
 
 
-```supercollider
+```
 (
 // first, pitches ascending by 1-3 semitones, until 2 octaves are reached
 var    pitches = Pseries(0, Pconst(24, Pwhite(1, 3, inf)), inf).asStream.all,
@@ -283,7 +283,7 @@ The default event prototype relies on the synth to remove itself from the server
 One other subtle point about synth argument names. In a SynthDef, argument names can have the prefix `t_` to indicate a "trigger control," or `i_` for an "initial rate" control (meaning that it holds the value set when the Synth is first played). This is described in [SynthDef](../../Classes/SynthDef.md) help. Pbind and its cousins should leave out the prefixes, e.g.:
 
 
-```supercollider
+```
 (
 SynthDef(\trig_demo, { |out, freq = 440, gate = 1, t_trig = 1|    // t_trig here
     var    env = Decay2.kr(t_trig, 0.01, 0.1),

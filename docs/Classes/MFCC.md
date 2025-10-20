@@ -18,6 +18,7 @@ Output values are somewhat normalised for the range 0.0 to 1.0, but there are no
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -29,7 +30,7 @@ Output values are somewhat normalised for the range 0.0 to 1.0, but there are no
 ## Examples
 
 
-```supercollider
+```
 // Technical note: The 0th coefficient is not generated as it consists of multiplying all bands by 1 and summing
 
 
@@ -105,7 +106,7 @@ w.close;
 
 
 
-```supercollider
+```
 // Calculating Mel Scale Bands; allow up to 42 coefficients, so up to 42 bands
 // first part of this code adapted from Dan Stowell and Jamie Bullock Mel scale implementation
 // could later add Bark and ERB options, and possibility of buffer of data to be passed to the UGen for alternative freq warpings

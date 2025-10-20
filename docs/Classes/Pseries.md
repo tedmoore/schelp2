@@ -13,6 +13,7 @@ Returns a stream that behaves like an arithmetic series.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Returns a stream that behaves like an arithmetic series.
 ## Examples
 
 
-```supercollider
+```
 (
 var a;
 a = Pgeom(1.0, 1.1, inf);

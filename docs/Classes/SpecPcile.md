@@ -16,6 +16,7 @@ Optional fourth argument is **binout** (`ir`) specifies whether to output the bi
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -29,7 +30,7 @@ Optional fourth argument is **binout** (`ir`) specifies whether to output the bi
 ## Examples
 
 
-```supercollider
+```
 // Simple demo with filtering white noise, and trying to infer the cutoff freq.
 // Move the mouse.
 (

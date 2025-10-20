@@ -13,6 +13,7 @@ Each trigger increments a counter which is output as a signal.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Each trigger increments a counter which is output as a signal.
 ## Examples
 
 
-```supercollider
+```
 SynthDef("help-PulseCount", { |out = 0|
     Out.ar(out,
         SinOsc.ar(

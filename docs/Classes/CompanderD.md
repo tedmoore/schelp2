@@ -13,6 +13,7 @@ CompanderD passes the signal directly to the control input, but adds a delay to 
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 

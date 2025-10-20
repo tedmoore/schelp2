@@ -13,6 +13,7 @@ Generates an exponential curve from the start value to the end value. Both the s
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -28,7 +29,7 @@ Generates an exponential curve from the start value to the end value. Both the s
 ## Examples
 
 
-```supercollider
+```
 play({ SinOsc.ar(XLine.kr(200, 17000, 10), 0, 0.1) });
 ```
 

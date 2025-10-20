@@ -29,7 +29,7 @@ Quarks installation depends on *git* version-control software. Detailed installa
 You can install Quarks using the interface:
 
 
-```supercollider
+```
 Quarks.gui
 ```
 
@@ -39,7 +39,7 @@ This offers many community contributed packages most of which are hosted on gith
 You can also add additional folders where you keep your personally developed quarks or those you have forked or downloaded. These will also be shown on the GUI as options for installing.
 
 
-```supercollider
+```
 // put this in your startup.scd
 Quarks.addFolder("~/supercollider/quarks");
 ```
@@ -52,7 +52,7 @@ Quarks.addFolder("~/supercollider/quarks");
 You can (un)install a Quark by name:
 
 
-```supercollider
+```
 Quarks.install("MathLib");
 Quarks.uninstall("MathLib");
 ```
@@ -63,7 +63,7 @@ Quarks.uninstall("MathLib");
 
 ### by git URL
 
-```supercollider
+```
 Quarks.install("https://github.com/supercollider-quarks/MathLib.git");
 // uninstall it
 Quarks.uninstall("https://github.com/supercollider-quarks/MathLib.git");
@@ -77,7 +77,7 @@ Quarks.uninstall("https://github.com/supercollider-quarks/MathLib.git");
 and you can install any local folder:
 
 
-```supercollider
+```
 // add your own classes
 Quarks.install("~/supercollider/quarks/my-thing");
 // install something that you downloaded and want to try out
@@ -88,7 +88,7 @@ Quarks.install("~/Downloads/something-i-found");
 You can also add a folder where you keep your development quarks (your own and things you have forked):
 
 
-```supercollider
+```
 Quarks.addFolder("~/supercollider/quarks");
 ```
 
@@ -106,7 +106,7 @@ After installing or uninstalling you need to **Language > Recompile Class Librar
 If you've made a bit of a mess:
 
 
-```supercollider
+```
 // remove everything
 Quarks.clear
 ```
@@ -119,7 +119,7 @@ Quarks.clear
 When you install one it is cloned using git into:
 
 
-```supercollider
+```
 Quarks.folder;
 // open the folder and have a look
 Quarks.openFolder;
@@ -131,7 +131,7 @@ and this path is added to the [LanguageConfig](../Classes/LanguageConfig.md) inc
 You can view and edit the current include paths via **Preferences > Interpreter > Include Paths**.
 
 
-```supercollider
+```
 LanguageConfig.includePaths
 ```
 
@@ -157,7 +157,7 @@ You can also manually edit `sclang_config.yaml`
 You can update all installed Quarks by evaluating the following code:
 
 
-```supercollider
+```
 Quarks.all.do{ |quark| quark.update() };
 ```
 
@@ -165,7 +165,7 @@ Quarks.all.do{ |quark| quark.update() };
 or by pressing the 'Check for updates' button after evaluating the following code:
 
 
-```supercollider
+```
 Quarks.gui
 ```
 
@@ -180,7 +180,7 @@ To make project work simpler you can save and later reload your currently instal
 This is very useful for projects because you can pin the exact releases of each Quark that your project depends on and you should be able to reload them exactly even years in the future.
 
 
-```supercollider
+```
 // save your current state
 Quarks.save("~/supercollider/quarks.txt");
 // reload it later
@@ -197,7 +197,7 @@ If you have installed local paths that are not under git source control (your ow
 The file format looks like this:
 
 
-```supercollider
+```
 https://github.com/author/quarkname@tags/4.1.4
 https://github.com/supercollider-quarks/ddwCommon@8ae156b460dcb08285013265cf3a1c7172bba665
 ~/supercollider/quarks/my-thing
@@ -218,7 +218,7 @@ Packages are a natural way to store your work.
 Install any source code folder as a Quark:
 
 
-```supercollider
+```
 Quarks.install("~/path/to/my-quark")
 ```
 
@@ -226,7 +226,7 @@ Quarks.install("~/path/to/my-quark")
 Or create a folder where you do your development work and add that to the additional folders:
 
 
-```supercollider
+```
 Quarks.addFolder("~/supercollider/quarks");
 ```
 
@@ -236,7 +236,7 @@ Now you can (un)install your own packages from your local folder.
 Managing your code with git is optional, but you should consider using it early on. Even if you do not intend to share your code with anyone else, git provides a backup system and a time machine if you break something.
 
 
-```supercollider
+```
 # in the terminal, its easy as this:
 git init
 ```
@@ -260,7 +260,7 @@ You can add your quark to the Community Quark Directory by adding its name and g
 Simply click `edit`, add in your quark's info, and submit a pull request. Here's an example of what an entry should look like in the Quark Directory:
 
 
-```supercollider
+```
 quarkname=https://github.com/author/quarkname
 ```
 
@@ -295,7 +295,7 @@ It's similar to the package.json file in npm (JavaScript package manager) or bow
 The file name is the name of the quark followed by the .quark extension:
 
 
-```supercollider
+```
 {quark name}.quark
 ```
 
@@ -303,7 +303,7 @@ The file name is the name of the quark followed by the .quark extension:
 and is a SuperCollider file that returns an IdentityDictionary
 
 
-```supercollider
+```
 (
   name: "DemonWidgets",
   summary: "Widgets, gadgets and arcane devices for summoning demons.",
@@ -332,13 +332,13 @@ Common fields
 - country
 - since
 - ext_dependency - text describing external software like "PD" or "processing"
-- preInstall - a function / hook which will be called before installation - see [UsingQuarks / Hooks ](../Guides/UsingQuarks.md#hooks)
+- preInstall - a function / hook which will be called before installation - see [UsingQuarks#Hooks](../Guides/UsingQuarks.md#hooks)
 
 
 dependencies is a list of Quarks or git urls with optional an @refspec
 
 
-```supercollider
+```
 Bjorklund
 cruciallib@tags/4.1.4
 ```
@@ -363,7 +363,7 @@ The following hooks are available and will be executed by [Quark#-runHook](../Cl
 An example to create a directory with samples for a Quark could look like
 
 
-```supercollider
+```
 (
   name: "DemonWidgets",
   // ...
@@ -393,7 +393,7 @@ An example to create a directory with samples for a Quark could look like
 Best practice is to clone the quark into a folder where you do your development work. Make a ~/supercollider/quarks (or wherever you want it) and add this to the Quarks folders:
 
 
-```supercollider
+```
 Quarks.addFolder("~/supercollider/quarks");
 ```
 

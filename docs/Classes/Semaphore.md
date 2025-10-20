@@ -7,20 +7,25 @@
 
 ## Class Methods
 
+
 ### `new`
 Create a new instance, set the maximum number of running threads (default: 1).
 
 ## Instance Methods
 
+
 ### `count`
-Determines the number of running threads.### `clear`
-Remove any reference to threads, but do not reschedule any pending ones.### `wait`
-Stop current thread if already too many are running, otherwise continue.### `signal`
+Determines the number of running threads.
+### `clear`
+Remove any reference to threads, but do not reschedule any pending ones.
+### `wait`
+Stop current thread if already too many are running, otherwise continue.
+### `signal`
 Unblock the semaphore, reschedule next pending thread.
 ## Examples
 
 
-```supercollider
+```
 // allow only one thread
 (
 c = Semaphore(1);
@@ -53,7 +58,7 @@ fork {
 
 
 
-```supercollider
+```
 // allow two threads at a time.
 (
 c = Semaphore(2);
@@ -101,7 +106,7 @@ fork {
 
 
 
-```supercollider
+```
 // grant exclusive access to data to only one thread
 // there should never be mixed values in the data array
 (

@@ -10,7 +10,7 @@
 
 repeat each element n times.
 
-```supercollider
+```
 (
 var a, b;
 a = Pdup(2, Pwhite(-1.0, 1.0));
@@ -25,6 +25,7 @@ This is also a response to [Pattern#-dup](../Classes/Pattern.md#-dup)
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -36,7 +37,7 @@ This is also a response to [Pattern#-dup](../Classes/Pattern.md#-dup)
 ## Examples
 
 
-```supercollider
+```
 // the first argument can be a pattern, too:
 (
 var a, b;

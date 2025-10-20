@@ -14,6 +14,7 @@
 ## Class Methods
 
 
+
 ### `kr`
 **Arguments:**
 

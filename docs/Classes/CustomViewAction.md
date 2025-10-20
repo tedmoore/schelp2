@@ -10,7 +10,7 @@
 
 A CustomViewAction is a [MenuAction](../Classes/MenuAction.md) that contains a [View](../Classes/View.md) instead of an icon or text. This enables embedding of interactive components to a [Menu](../Classes/Menu.md) or [ToolBar](../Classes/ToolBar.md).
 
-```supercollider
+```
 (
 ~view = View().layout_(HLayout(
     ToolBar(
@@ -35,6 +35,7 @@ A CustomViewAction is a [MenuAction](../Classes/MenuAction.md) that contains a [
 
 ## Class Methods
 
+
 ### `new`
  Create a new CustomViewAction**Arguments:**
 
@@ -46,6 +47,7 @@ A CustomViewAction is a [MenuAction](../Classes/MenuAction.md) that contains a [
 
 
 ## Instance Methods
+
 
 ### `defaultView`
  Set the View that is attached to this CustomViewAction.**Arguments:**

@@ -10,7 +10,7 @@
 
 FuncStream is one of the most basic ways to describe a stream: it has a function that is called for each next stream value.
 
-```supercollider
+```
 // make a stream that returns a random number
 a = FuncStream({ 1.0.rand });
 a.next;
@@ -19,7 +19,7 @@ a.next;
 
 It uses [Function#-inEnvir](../Classes/Function.md#-inenvir) to statically bind the function call to the environment in which the `FuncStream` was created.
 
-```supercollider
+```
 a = Environment.use { ~x = 100; FuncStream({ ~x + 8 }) };
 ~x = 0;
 a.next; // returns 108, not 8.
@@ -30,9 +30,10 @@ a.next; // returns 108, not 8.
 
 ## Class Methods
 
+
 ### `new`
 Return a new stream object.
-```supercollider
+```
 (
 var func, reset, count = 0;
 func = { count = count + 2.rand };
@@ -56,21 +57,26 @@ a.next; // starts again.
 
 ## Instance Methods
 
+
 ### `next`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `inval` | Return the next value by calling the function. `inval` is passed as an argument to the function. |  
+
 ### `reset`
-Call the reset function, if defined.### `envir`
-Get or set the environment to which the function has been bound.### `nextFunc`
-Get or set the function which is called on [next](#next).### `resetFunc`
-Get or set the function which is called on [reset](#reset).
+Call the reset function, if defined.
+### `envir`
+Get or set the environment to which the function has been bound.
+### `nextFunc`
+Get or set the function which is called on [#-next](#-next).
+### `resetFunc`
+Get or set the function which is called on [#-reset](#-reset).
 ## Examples
 
 
-```supercollider
+```
 (
 // create 16 different series
 a = {

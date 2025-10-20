@@ -13,6 +13,7 @@ Common superclass to operations on UGens
 
 ## Instance Methods
 
+
 ### `operator`
 set or get the operator
 

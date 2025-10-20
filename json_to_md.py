@@ -5,6 +5,7 @@ with the JSON structure from scdoc_to_json.py
 """
 
 import json
+import re
 from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
 
@@ -65,6 +66,14 @@ def json_to_md(json_file, output_file=None, current_dir=None):
         return calculate_relative_path(current_dir, target_path)
     
     env.filters['relative_path'] = relative_path_filter
+
+    def regex_replace_filter(value, pattern, replacement):
+        """Jinja2 filter to run regex substitution on a string."""
+        if value is None:
+            return value
+        return re.sub(pattern, replacement, str(value))
+
+    env.filters['regex_replace'] = regex_replace_filter
     
     # Load the template
     template = env.get_template("scdoc_node_template.md")

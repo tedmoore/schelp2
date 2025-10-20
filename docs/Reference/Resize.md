@@ -6,6 +6,7 @@
 
 
 ## Description
+
 ### `resize`
 The [View#-resize](../Classes/View.md#-resize) method takes nine different values as argument defining the behavior of the view when the containing window is resized. Each view responds relatively to the stretches of its parent view.| 1 | 2 | 3 | 
 | --- | --- | --- || 4 | 5 | 6 | | 7 | 8 | 9 | - 1 - fixed to left, fixed to top
@@ -22,7 +23,7 @@ The [View#-resize](../Classes/View.md#-resize) method takes nine different value
 
 ## Examples
 
-```supercollider
+```
 // resize behaviours
 // use the PopUpMenus to mix resize modes
 (

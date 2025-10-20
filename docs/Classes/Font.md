@@ -12,6 +12,7 @@ This is the object you pass to other gui objects to set their font name or size.
 ## Class Methods
 
 
+
 ### `new`
 **Arguments:**
 
@@ -23,19 +24,22 @@ This is the object you pass to other gui objects to set their font name or size.
 | `italic` | A Boolean. |  
 | `usePointSize` | A Boolean. Whether to regard the **size** argument as point-size - adapting to the screen resolution. |  
 Example:
-```supercollider
+```
 g = Font("Helvetica", 12);
 ```
 
 
+
 ### `availableFonts`
 **Returns:** [Array](../Classes/Array.md) of the available fonts.
+
 ### `antiAliasing`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `flag` | An instance of [Boolean](../Classes/Boolean.md). Default value is `false`. |  
+
 
 ### `smoothing`
 **Arguments:**
@@ -44,14 +48,19 @@ g = Font("Helvetica", 12);
 |----------|-------------|
 | `flag` | An instance of [Boolean](../Classes/Boolean.md). Default value is `false`. |  
 
+
 ### `defaultSansFace`
 **Returns:** The default sans serif face Font.
+
 ### `defaultSerifFace`
 **Returns:** The default serif face Font.
+
 ### `defaultMonoFace`
 **Returns:** The default monospace face Font.
+
 ### `default`
 The global default Font.Setting this property is equivalent to `Font.setDefault(font)`. See [#*setDefault](#*setdefault) for details.
+
 ### `setDefault`
 Sets the global default font. Properties of the `font` argument will be combined with properties of the default system font, and those of individual views.Optionally, a class can be given, so only views of that class will be affected.Note that this will immediately affect any existing views.**Arguments:**
 
@@ -60,14 +69,18 @@ Sets the global default font. Properties of the `font` argument will be combined
 | `font` | An instance of Font. |  
 | `class` | A Class (either View or one of its subclasses), or `nil`. |  
 
+
 ### `sansSerif`
 Create a new sans serif face Font.
+
 ### `monospace`
 Create a new monospace face Font.
+
 ### `serif`
 Create a new serif face Font.
 
 ## Instance Methods
+
 
 ### `name`
 Gets/sets the name of the font.**Arguments:**
@@ -75,28 +88,35 @@ Gets/sets the name of the font.**Arguments:**
 | Argument | Description |
 |----------|-------------|
 | `value` | An instance of [String](../Classes/String.md). |  
+
 ### `size`
-Gets/sets the size of the font. Setting this variable is always considered as setting the [pixelSize](#pixelsize), while getting it will return any size set. See [hasPointSize](#haspointsize) for distinction.**Arguments:**
+Gets/sets the size of the font. Setting this variable is always considered as setting the [#-pixelSize](#-pixelsize), while getting it will return any size set. See [#-hasPointSize](#-haspointsize) for distinction.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `pixelSize` | A Float. |  
+
 ### `hasPointSize`
-A Boolean variable indicating whether the [size](#size) is regarded as pixel-size (precise amount of pixels), or point-size (adapting to screen resolution). To change this, you need to set the size via [pixelSize](#pixelsize) or [pointSize](#pointsize).### `pixelSize`
-Gets or sets the pixel-size of the font. When getting, returns nil if the font has point-size instead. See [hasPointSize](#haspointsize) for distinction.**Arguments:**
+A Boolean variable indicating whether the [#-size](#-size) is regarded as pixel-size (precise amount of pixels), or point-size (adapting to screen resolution). To change this, you need to set the size via [#-pixelSize](#-pixelsize) or [#-pointSize](#-pointsize).
+### `pixelSize`
+Gets or sets the pixel-size of the font. When getting, returns nil if the font has point-size instead. See [#-hasPointSize](#-haspointsize) for distinction.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | Any number, but note that floats will be rounded to integer values when setting pixel-size. |  
+
 ### `pointSize`
-Gets or sets the point-size of the font. When getting, returns nil if the font has pixel-size instead. See [hasPointSize](#haspointsize) for distinction.**Arguments:**
+Gets or sets the point-size of the font. When getting, returns nil if the font has pixel-size instead. See [#-hasPointSize](#-haspointsize) for distinction.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Float. |  
+
 ### `setDefault`
-Makes this instance of Font the default.This is equivalent to calling [#*setDefault](#*setdefault) with this Font and the given class as arguments.### `storeArgs`
-(?)**Returns:** an [Array](../Classes/Array.md), `[name, size]`.### `boldVariant`
+Makes this instance of Font the default.This is equivalent to calling [#*setDefault](#*setdefault) with this Font and the given class as arguments.
+### `storeArgs`
+(?)**Returns:** an [Array](../Classes/Array.md), `[name, size]`.
+### `boldVariant`
 
 > **Note:** On the Cocoa GUI it appends `"-Bold"` to the name. This is only useful for fonts that have bold variants.
 
@@ -104,7 +124,7 @@ Makes this instance of Font the default.This is equivalent to calling [#*setDefa
 ## Examples
 
 
-```supercollider
+```
 (
 w = Window.new.front;
 t = StaticText(w, w.view.bounds).align_(\center);

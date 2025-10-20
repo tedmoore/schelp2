@@ -12,7 +12,7 @@ Our discussion about the order of synths on the server brings us to the topic of
 Groups can be quite helpful in terms of controlling order. Like synths they take targets and addActions as arguments, which makes it easy to put them in position.
 
 
-```supercollider
+```
 g = Group.new;
 h = Group.before(g);
 g.free; h.free;
@@ -22,7 +22,7 @@ g.free; h.free;
 This can be very helpful for things like keeping effects or processing separate from sound sources, and in the right order. Let's reconsider our reverb example from the previous section.
 
 
-```supercollider
+```
 (
 // a stereo version
 SynthDef(\tutorial_DecaySin2, { arg outBus = 0, effectBus, direct = 0.5, freq = 440;
@@ -71,7 +71,7 @@ Note that we probably don't care what order the sources and effects are within t
 If you're wondering about the names '~sources' and '~effects', placing a tilde (~) in front of a word is a way of creating an *environment* variable. For the moment, all you need to know about them is that they can be used in the same way as interpreter variables (you don't need to declare them, and they are persistent), and they allow for more descriptive names. You should consider using **variable definitions** and [Function](../../Classes/Function.md)s wherever no later direct access is needed - a large number of environment variables may cause bugs that are hard to find. Remember to **clear** the currentEnvironment (see above) to avoid interference.
 
 
-```supercollider
+```
 // to be sure, create a new Environment:
 Environment.new.push;
 
@@ -88,7 +88,7 @@ currentEnvironment.pop;
 At this point it's probably good to cover the remaining add actions. In addition to \addBefore and \addAfter, there is also the (rarely) used \addReplace, and two add actions which apply to Groups: \addToHead and \addToTail. The former adds the receiver to the beginning of the group, so that it will execute first, the latter to the end of the group, so that it will execute last. Like the other addActions, \addToHead and \addToTail have convenience methods called 'head' and 'tail'.
 
 
-```supercollider
+```
 g = Group.new;
 h = Group.head(g);        // add h to the head of g
 x = Synth.tail(h, \default);    // add x to the tail of h
@@ -103,7 +103,7 @@ x.free; h.free; g.free;
 Server has a method called 'queryAllNodes' which will post a representation of the server's node tree. You should have seen something like the following in the post window when executing the example above:
 
 
-```supercollider
+```
 nodes on localhost:
 a Server
 Group(0)
@@ -124,7 +124,7 @@ You may have been wondering why there were four groups posted above when we only
 When a server app is booted there is a special group created with a node ID of 0. This represents the top of the server's node tree. There is a special server abstraction object to represent this, called RootNode. In addition there is another group created with an ID of 1, called the default group. This is the default target for all Nodes and is what you will get if you supply a Server as a target. If you don't specify a target or pass in nil, you will get the default group of the default Server.
 
 
-```supercollider
+```
 s.boot;
 a = Synth.new(\default); // creates a synth in the default group of the default Server
 a.group; // Returns a Group object. Note the ID of 1 (the default group) in the post window
@@ -134,7 +134,7 @@ a.group; // Returns a Group object. Note the ID of 1 (the default group) in the 
 The default group serves an important purpose: It provides a predictable basic Node tree so that methods such as Server-scope and Server-record (which create nodes which *must* come after everything else) can function without running into order of execution problems. In the example below the scoping node will come after the default group.
 
 
-```supercollider
+```
 { SinOsc.ar(mul: 0.2) }.scope(1);
 
 // watch the post window;
@@ -148,7 +148,7 @@ s.queryAllNodes;
 In general you should add nodes to the default group, or groups contained within it, and *not* before or after it. When adding an 'effects' synth, for instance, one should resist the temptation to add it after the default group, and instead create a separate source group within the default group. This will prevent problems with scoping or recording.
 
 
-```supercollider
+```
 default group [
     source group [
         source synth1
@@ -166,7 +166,7 @@ recording synth
 The other major use of groups is to allow you to easily treat a number of synths as a whole. If you send a 'set' message to a group, it will apply that message to all nodes contained within it.
 
 
-```supercollider
+```
 g = Group.new;
 
 // make 4 synths in g
@@ -195,7 +195,7 @@ Group and Synth are subclasses of the abstract class [Node](../../Classes/Node.m
 So if you're looking at a helpfile and can't find a particular method that a class responds to, you may need to go to the helpfile for that class' superclass, or farther up the chain. Most classes have their superclass listed at the top of their helpfile. You can also use the following methods for getting this kind of info and tracking down documentation (watch the post window):
 
 
-```supercollider
+```
 Group.superclass;                 // this will return 'Node'
 Group.superclass.help;
 Group.findRespondingMethodFor('set');        // Node-set

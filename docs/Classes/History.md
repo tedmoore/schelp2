@@ -11,7 +11,7 @@
 History stores all code strings as they are being evaluated, in order to reuse code written earlier, to forward code to other players, or to store, reproduce, edit and analyse live-coded performances. It records every evaluated code string into a singleton instance of History - `History.current`.
 First examples:
 
-```supercollider
+```
 History.clear.end;     // if needed, clear History first
 History.start;         // starts recording, opens log file
 
@@ -72,47 +72,66 @@ History.play;
 
 
 
+
 ### `start`
 start adding interpreted code to (current) history.
+
 ### `end`
 end adding interpreted code to (current) history.
+
 ### `started`
 boolean whether History is started.
+
 ### `document`
 post the history in a new document (as story). The document title is a string formatted as follows: `"%Y-%m-%d-%Hh%M-History"`.
+
 ### `current`
 the current History instance
+
 ### `lines`, `lineShorts`
 the currently recorded lines in History.current. lineShorts is a copy with shortened strings for display.
+
 ### `makeWin`
 make a HistoryGui for History.current. argument: where a point that sets left top of the HistoryGui window, argument: numItems the number of lines in the textview
 
 ### Configuration
+
 ### `keepsLog`
 get and set flag whether to log History to a file.
+
 ### `verbose`
 get and set flag whether to post debug messages from History operations.
+
 ### `recordLocally`
 get and set flag to turn recording local code evaluation on and off
+
 ### `localOff`, `localOn`
 convenience to turn recording of local code evaluation on and off
+
 ### `forwardFunc`
 a function to run on incoming new lines, can be used to send code by network. See the Utopia quark for examples of networking code history.
 
 
 ### Save and load history logs
+
 ### `showLogFolder`
 open folder where logfiles are stored
+
 ### `showLogFile`
 open current log file
+
 ### `saveCS`
 store history as one compileString.
+
 ### `loadCS`
 load a history from (compilestring) file.
+
 ### `saveStory`
 store in a file, in historical order as individual code snippets.
+
 ### `loadStory`
 read history into current, from a file in story format.
+
 ### `rewrite`
 Write a properly formatted code file from a history.**Arguments:**
 
@@ -121,21 +140,28 @@ Write a properly formatted code file from a history.**Arguments:**
 | `path` | The filename is the original name with "_rewritten." appended. |  
 | `open` | If open is true (default: true), open a text window with the string. |  
 
+
 ### `readFromDoc`
 read in a history from a code file created with .rewrite
 
 
 ### Editing history
+
 ### `clear`
 remove all items from (current) history.
+
 ### `enter`
 add an entry to (current) history by hand.
+
 ### `drop`
 drop the newest num lines from history. if n is negative, drop the oldest n lines.
+
 ### `keep`
 keep only the newest num lines from history. if n is negative, keep the oldest n lines.
+
 ### `removeAt`
 remove a specific line
+
 ### `removeLast`
 remove last line from history
 
@@ -143,11 +169,13 @@ remove last line from history
 ### Repeating history
 Repeating history can have different uses: A. Reconstruction, e.g. redoing a history of coding steps as closely as possible, or replaying a full performance as closely as possible; here, all errors are important and should be handled individually. B. Experimental live performance, e.g. replaying snippets from a recorded networked live-coding show in nonlinear orders; here, errors will occur more often because the current state will not always fit with what a particular line would require. Thus, one will likely prefer the robustness to just keep going.
 
+
 ### `ignoreErrors`
 global flag whether evaluating code lines via History will ignore errors or stop and throw them.
+
 ### `eval`
 evaluate codeString, and optionally, use ignoreError to override global ignoreErrors flag.
-```supercollider
+```
 History.ignoreErrors = true;
 History.eval("2 + 1").postln; // correct code, so is just evaluated
 History.eval("2 + qwe"); 123; // compile error, but keeps going and posts 123
@@ -156,24 +184,33 @@ History.eval("1.blonk", false); 123; // throws error and stops, code after it ne
 ```
 
 
+
 ### `evalLineAt`
 evaluate the line at index in History.current.lines
+
 ### `play`
 play back current history from start to end line, per default verbose.
+
 ### `stop`
 stop current history playback.
 
 
 ### Date, time, string functions
+
 ### `startTimeStamp`
+
 
 ### `formatTime`
 
+
 ### `unformatTime`
+
 
 ### `shorten`
 
+
 ### `prettyString`
+
 
 
 ### `new`
@@ -185,17 +222,23 @@ create a new instance containing the lines given.
 
 > **Note:** the instance methods `[hasMovedOn_, hasMovedOn, play, stop, lines, lineShorts, removeAt, removeLast, keep, drop, clear, saveCS, loadCS, saveStory, evalLineAt, loadStory, makeWin, document]` are also implemented as class methods, and documented above.
 
+
 ### `isCurrent`
-flag whether this history is History.current### `makeCurrent`
-make this history History.current### `player`
-the player task for ths history### `keys`
-all keys of code authors in this history### `addLine`
-add a line to history with current time, id, and code string### `indicesFor`
+flag whether this history is History.current
+### `makeCurrent`
+make this history History.current
+### `player`
+the player task for ths history
+### `keys`
+all keys of code authors in this history
+### `addLine`
+add a line to history with current time, id, and code string
+### `indicesFor`
 find line indices created by keys and containing string. used for filtering.
 ## Examples
 
 
-```supercollider
+```
 // same as first example:
 History.clear.end;      // clear to start over
 History.start;          // starts recording, opens log file

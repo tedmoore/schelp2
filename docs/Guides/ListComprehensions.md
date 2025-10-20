@@ -11,7 +11,7 @@ List comprehensions are a syntactic feature of functional programming languages 
 in SC these are just a syntax macro for a longer expression. read this as *"all [x,y] for x in 1..5, y in 1..x, such that x+y is prime"*:
 
 
-```supercollider
+```
 all {:[x,y], x <- (1..5), y <- (1..x), (x+y).isPrime }
 ```
 
@@ -19,7 +19,7 @@ all {:[x,y], x <- (1..5), y <- (1..x), (x+y).isPrime }
 returns:
 
 
-```supercollider
+```
 [ [ 1, 1 ], [ 2, 1 ], [ 3, 2 ], [ 4, 1 ], [ 4, 3 ], [ 5, 2 ] ]
 ```
 
@@ -27,7 +27,7 @@ returns:
 the list comprehension above is equivalent to the following code:
 
 
-```supercollider
+```
 all(Routine.new({ (1..5).do {|x| (1..x).do {|y| if ((x+y).isPrime) {[x,y].yield} }}}));
 ```
 
@@ -42,7 +42,7 @@ A list comprehension in SC is really a [Routine](../Classes/Routine.md). You can
 
 ## A few examples
 
-```supercollider
+```
 all {: x/(x+1), x <- (1..5) }
 
 [ 0.5, 0.66666666666667, 0.75, 0.8, 0.83333333333333 ]
@@ -52,7 +52,7 @@ all {: x/(x+1), x <- (1..5) }
 
 
 
-```supercollider
+```
 all {:[x,y], x <- (1..3), y <- [\a,\b,\c] }
 
 [ [ 1, a ], [ 1, b ], [ 1, c ], [ 2, a ], [ 2, b ], [ 2, c ], [ 3, a ], [ 3, b ], [ 3, c ] ]
@@ -62,7 +62,7 @@ all {:[x,y], x <- (1..3), y <- [\a,\b,\c] }
 
 
 
-```supercollider
+```
 all {:[x,y], x <- (0..3), y <- (x..0) }
 
 [ [ 0, 0 ], [ 1, 1 ], [ 1, 0 ], [ 2, 2 ], [ 2, 1 ], [ 2, 0 ], [ 3, 3 ], [ 3, 2 ], [ 3, 1 ], [ 3, 0 ] ]
@@ -72,7 +72,7 @@ all {:[x,y], x <- (0..3), y <- (x..0) }
 
 
 
-```supercollider
+```
 all {:y, x <- (1..4), y <- (x..1) }
 
 [ 1, 2, 1, 3, 2, 1, 4, 3, 2, 1 ]
@@ -80,7 +80,7 @@ all {:y, x <- (1..4), y <- (x..1) }
 
 
 
-```supercollider
+```
 (
 var intervals;
 // a function to generate intervals between all pairs of notes in a chord voicing
@@ -101,7 +101,7 @@ intervals.([0,1,3,7]).postln;
 
 
 
-```supercollider
+```
 all {:[y, z], x<-(0..30), var y = x.nthPrime, var z = 2 ** y - 1, z.asInteger.isPrime.not  }
 [ [ 11, 2047 ], [ 23, 8388607 ], [ 29, 536870911 ] ] // mersenne numbers which are no primes
 ```
@@ -113,7 +113,7 @@ all {:[y, z], x<-(0..30), var y = x.nthPrime, var z = 2 ** y - 1, z.asInteger.is
 A list comprehension begins with `{:` and contains a body followed by several qualifier clauses separated by commas.
 
 
-```supercollider
+```
 {: body , qualifiers }
 ```
 
@@ -125,7 +125,7 @@ There are several types of qualifier clauses that can appear after the body.
 The basic clause is the generator clause. Its syntax is
 
 
-```supercollider
+```
 name <- expr
 ```
 
@@ -133,7 +133,7 @@ name <- expr
 The expression should be something that can respond meaningfully to 'do' such as a collection or a stream. The name takes on each value of the expression. The name is a local variable whose scope extends to all clauses to the right. The name is also in scope in the body.
 
 
-```supercollider
+```
 all {: x, x <- (1..3) }
 
 [ 1, 2, 3 ]
@@ -143,7 +143,7 @@ all {: x, x <- (1..3) }
 
 
 
-```supercollider
+```
 all {: x, x <- [\a, \b, \c] }
 
 [ a, b, c ]
@@ -153,7 +153,7 @@ all {: x, x <- [\a, \b, \c] }
 
 
 
-```supercollider
+```
 all {: x, x <- (1!3)++(2!2)++3 }
 
 [ 1, 1, 1, 2, 2, 3 ]
@@ -163,7 +163,7 @@ all {: x, x <- (1!3)++(2!2)++3 }
 multiple generators act like nested loops.
 
 
-```supercollider
+```
 all {: [x,y], x <- (1..2), y <- (10,20..30) }
 
 [ [ 1, 10 ], [ 1, 20 ], [ 1, 30 ], [ 2, 10 ], [ 2, 20 ], [ 2, 30 ] ]
@@ -173,7 +173,7 @@ all {: [x,y], x <- (1..2), y <- (10,20..30) }
 generators can depend on previous values.
 
 
-```supercollider
+```
 all {: x, x <- (1..3), y <- (1..x) }
 
 [ 1, 2, 2, 3, 3, 3 ]
@@ -183,7 +183,7 @@ all {: x, x <- (1..3), y <- (1..x) }
 
 
 
-```supercollider
+```
 all {: x, x <- (1..3), y <- (1..4-x) }
 
 [ 1, 1, 1, 2, 2, 3 ]
@@ -197,7 +197,7 @@ all {: x, x <- (1..3), y <- (1..4-x) }
 A guard clause is simply an expression. It should return a boolean value.
 
 
-```supercollider
+```
 expr
 ```
 
@@ -205,7 +205,7 @@ expr
 The guard acts as a filter on the results and constrains the search.
 
 
-```supercollider
+```
 all {: x, x <- (0..10), x.odd }
 
 [ 1, 3, 5, 7, 9 ]
@@ -215,7 +215,7 @@ all {: x, x <- (0..10), x.odd }
 `x.odd` is the guard and causes all even numbers to be skipped.
 
 
-```supercollider
+```
 all {: x, x <- (0..30), (x % 5 == 0) || x.isPowerOfTwo }
 
 [ 0, 1, 2, 4, 5, 8, 10, 15, 16, 20, 25, 30 ]
@@ -225,7 +225,7 @@ all {: x, x <- (0..30), (x % 5 == 0) || x.isPowerOfTwo }
 you can have multiple guards.
 
 
-```supercollider
+```
 all {: [x,y], x <- (0..10), (x % 5 == 0) || x.isPowerOfTwo, y <- (1..2), (x+y).even }
 
 [ [ 0, 2 ], [ 1, 1 ], [ 2, 2 ], [ 4, 2 ], [ 5, 1 ], [ 8, 2 ], [ 10, 2 ] ]
@@ -239,7 +239,7 @@ all {: [x,y], x <- (0..10), (x % 5 == 0) || x.isPowerOfTwo, y <- (1..2), (x+y).e
 A var clause lets you create a new variable binding that you can use in your expressions. The scope of the name extends to all clauses to the right and in the body.
 
 
-```supercollider
+```
 var name = expr
 ```
 
@@ -247,7 +247,7 @@ var name = expr
 Unlike the generator clause, the name is bound to a single value, it doesn't iterate.
 
 
-```supercollider
+```
 all {: z, x <- (1..20), var z = (x*x-x) div: 2, z.odd }
 
 [ 1, 3, 15, 21, 45, 55, 91, 105, 153, 171 ]
@@ -261,7 +261,7 @@ all {: z, x <- (1..20), var z = (x*x-x) div: 2, z.odd }
 This clause lets you insert code to do some side effect like printing.
 
 
-```supercollider
+```
 \:: expr
 ```
 
@@ -269,7 +269,7 @@ This clause lets you insert code to do some side effect like printing.
 
 
 
-```supercollider
+```
 all {: z, x <- (1..20), var z = (x*x-x) div: 2, :: [x,z].postln, z.even }
 ```
 
@@ -281,7 +281,7 @@ all {: z, x <- (1..20), var z = (x*x-x) div: 2, :: [x,z].postln, z.even }
 The termination clause is for stopping further searching for results. Once the expression becomes false, the routine halts.
 
 
-```supercollider
+```
 :while expr
 ```
 
@@ -289,7 +289,7 @@ The termination clause is for stopping further searching for results. Once the e
 using a guard
 
 
-```supercollider
+```
 all {: z, x <- (1..20), var z = (x*x-x) div: 2,  :: [x,z].postln, z < 50 }
 ```
 
@@ -297,7 +297,7 @@ all {: z, x <- (1..20), var z = (x*x-x) div: 2,  :: [x,z].postln, z < 50 }
 using a termination clause. this one stops searching, so does less work than the above.
 
 
-```supercollider
+```
 all {: z, x <- (1..20), var z = (x*x-x) div: 2,  :: [x,z].postln, :while z < 50 }
 ```
 
@@ -312,7 +312,7 @@ list comprehensions can solve constrained combinatorial problems like this one:
 Baker, Cooper, Fletcher, Miller, and Smith live on different floors of an apartment house that contains only five floors. Baker does not live on the top floor. Cooper does not live on the bottom floor. Fletcher does not live on either the top or the bottom floor. Miller lives on a higher floor than does Cooper. Smith does not live on a floor adjacent to Fletcher's. Fletcher does not live on a floor adjacent to Cooper's. Where does everyone live?
 
 
-```supercollider
+```
 (
 z = {: [baker, cooper, fletcher, miller, smith] ,
     var floors = (1..5),
@@ -344,7 +344,7 @@ combinatorial problems can take a lot of time to run. you can reorder the above 
 Here is the BNF grammar for list comprehensions in SC.
 
 
-```supercollider
+```
 [ ] - optional
 { } - zero or more
 
@@ -377,27 +377,27 @@ For each of the above clauses, here is how the code is generated. The body acts 
 
 
 **generator**
-: ```supercollider
+: ```
 expr.do {|name| ..next qualifier.. }
 ```
 
 **guard**
-: ```supercollider
+: ```
 if (expr) { ..next qualifier.. }
 ```
 
 **binding**
-: ```supercollider
+: ```
 {|name| ..next qualifier.. }.value(expr)
 ```
 
 **side effect**
-: ```supercollider
+: ```
 expr ; ..next qualifier..
 ```
 
 **termination**
-: ```supercollider
+: ```
 if (expr) { ..next qualifier.. }{ nil.alwaysYield }
 ```
 

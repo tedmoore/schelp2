@@ -15,6 +15,7 @@ First order derivatives of the features are taken. `threshold` may need to be se
 ## Class Methods
 
 
+
 ### `ar`
 **Arguments:**
 
@@ -31,7 +32,7 @@ First order derivatives of the features are taken. `threshold` may need to be se
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef(\fftod, { |out|
     var source1, detect, chain;

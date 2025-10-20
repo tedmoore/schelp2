@@ -20,6 +20,7 @@ If the drag contains a number, then `valueAction_()` is performed using the `cur
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -28,7 +29,7 @@ If the drag contains a number, then `valueAction_()` is performed using the `cur
 | `parent` | The parent view. |  
 | `bounds` | An instance of [Rect](../Classes/Rect.md), or a [Point](../Classes/Point.md) indicating `width@height`. |  
 Example:
-```supercollider
+```
 (
 w = Window.new("The Four Noble Truths");
 
@@ -50,13 +51,14 @@ w.front;
 
 ## Instance Methods
 
+
 ### `states`
 An array of labels and colors defining the states of the button.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `stateArray` | An [Array](../Classes/Array.md) of arrays of the form `[[String, strColor, bgColor], ....]`
-```supercollider
+```
 (
 w = Window.new;
 a = Button(w, Rect(130, 130, 100, 100));
@@ -74,27 +76,31 @@ a.action = { |view|
 }
 );
 ``` |  
+
 ### `value`
 Sets or returns the index of the current state. This will **not** evaluate the function assigned to **action** (see [View](../Classes/View.md)).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `argVal` | The index of an item in the states array. |  
+
 ### `valueAction`
 Sets the button to display the item at index **anInt** of the states array, and evaluates **action** (see [View](../Classes/View.md)), if the value has changed.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `anInt` | The index of an item in the states array. |  
+
 ### `string`
 Sets or gets the text of the currently active state.
-```supercollider
+```
 (
 w = Window("but", Rect(300, 300, 200, 200)).front;
 b = Button(w, Rect(30, 40, 140, 50));
 b.string = "hello button";
 )
 ```
+
 
 ### `font`
 Sets the Font of the button. Default value is the default font: Font.default .**Arguments:**
@@ -106,6 +112,7 @@ Sets the Font of the button. Default value is the default font: Font.default .**
 ### Subclassing and Internal Methods
 The following methods are usually not used directly or are called by a primitive. Programmers can still call or override these as needed.
 
+
 ### `doAction`
 The method called by the primitive upon releasing the mouse.**Arguments:**
 
@@ -113,22 +120,27 @@ The method called by the primitive upon releasing the mouse.**Arguments:**
 |----------|-------------|
 | `modifiers` | A key modifier number, which is passed to the **action** as its second argument upon mouse-releasing the button. |  
 
+
 ### `defaultKeyDownAction`
 The default keydown actions are:| key | action | comment | 
 | --- | --- | --- || " " | value + 1 | space | | \r | value + 1 | | \n | value + 1 | | 3.asAscii | value + 1 | enter key or cmd-C on macOS | To change these use `defaultKeyDownAction_`, see [View](../Classes/View.md).
+
 ### `properties`
 A list of properties to which this view responds. See [View](../Classes/View.md).**Returns:** [\bounds, \visible, \enabled, \canFocus, \resize, \background, \minWidth, \maxWidth, \minHeight, \maxHeight, \value, \font, \states, \focusColor]
+
 ### `defaultGetDrag`
-The method called by default when initiating a drag **from** a Button. Returns the same as [value](#value).
+The method called by default when initiating a drag **from** a Button. Returns the same as [#-value](#-value).
+
 ### `defaultCanReceiveDrag`
 The method called by default when attempting to drop a drag in this object. By default, Button will respond only to drags where the drag contains a [Number](../Classes/Number.md) or [Function](../Classes/Function.md).
+
 ### `defaultReceiveDrag`
 The default method called when a drag has been received. If the drag contains a number, then action is set to the current drag. Otherwise `valueAction_()` is performed using the `currentDrag`.
 
 ## Examples
 
 
-```supercollider
+```
 (
 w = Window.new("Example");
 
@@ -161,7 +173,7 @@ b.valueAction = 3.3;
 
 In a musical context, a button-down press is more meaningful than a button-up (release) as it's more intuitive to press a button on the beat. For that you can use [View](../Classes/View.md)'s [View#-mouseDownAction](../Classes/View.md#-mousedownaction) (a superclass of Button).
 
-```supercollider
+```
 (
 s.waitForBoot({
     w = Window.new;
@@ -181,7 +193,7 @@ s.waitForBoot({
 
 If you drag a function to a button, the button's action is set to that function. you can us this for swapping functions.
 
-```supercollider
+```
 (
 s.waitForBoot({
     var w, p, snd, b;
@@ -224,7 +236,7 @@ s.waitForBoot({
 
 Using Routine to set button states on the fly.
 
-```supercollider
+```
 (
 var update, w, b;
     w = Window.new("State Window", Rect(150, Window.screenBounds.height - 140, 380, 60));
@@ -258,7 +270,7 @@ var update, w, b;
 
 Using Routine to set button states on the fly 2.
 
-```supercollider
+```
 (
 s.waitForBoot({
     var update, w, b;
@@ -319,7 +331,7 @@ s.waitForBoot({
 
 Complex drag and drop example try dragging the buttons to white slot, and then between white slots, or simply out of the view.
 
-```supercollider
+```
 (
 var w, f, slots;
 var insert, remove;

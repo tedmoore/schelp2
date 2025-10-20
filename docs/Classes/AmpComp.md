@@ -10,7 +10,7 @@
 
 Implements the (optimized) formula:
 
-```supercollider
+```
 compensationFactor = (root / freq) ** exp
 ```
 
@@ -19,6 +19,7 @@ Higher frequencies are normally perceived as louder, which AmpComp compensates.
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`, `ir`
 **Arguments:**
@@ -32,7 +33,7 @@ Note that for frequencies very much smaller than root the amplitudes can become 
 ## Examples
 
 
-```supercollider
+```
 // compare a sine without compensation
 
 { SinOsc.ar(MouseX.kr(300, 15000, 1)) * 0.1 }.play;

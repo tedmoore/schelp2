@@ -13,6 +13,7 @@ Returns a ratio by which the playback of a soundfile is to be scaled.
 
 ## Class Methods
 
+
 ### `kr`, `ir`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Returns a ratio by which the playback of a soundfile is to be scaled.
 ## Examples
 
 
-```supercollider
+```
 b = Buffer.read(s, ExampleFiles.child);
 
 (

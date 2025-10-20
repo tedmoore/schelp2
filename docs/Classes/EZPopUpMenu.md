@@ -18,6 +18,7 @@ The convenience methods for EZPopUpMenu require that the items array is an array
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -36,7 +37,7 @@ The convenience methods for EZPopUpMenu require that the items array is an array
 | `gap` | A [Point](../Classes/Point.md). By default, the view tries to get its parent's `gap`, otherwise it defaults to `2@2`. Setting it overrides these. |  
 | `margin` | A [Point](../Classes/Point.md). This will inset the bounds occupied by the subviews of view. |  
 
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.decorator = FlowLayout(w.view.bounds);
@@ -77,6 +78,7 @@ g.value = 0;
 
 
 ### Changing Appearance
+
 ### `setColors`
 **Arguments:**
 
@@ -87,6 +89,7 @@ g.value = 0;
 | `menuBackground` | An instance of [Color](../Classes/Color.md). The `background` of the menu. |  
 | `menuStringColor` | An instance of [Color](../Classes/Color.md). The `stringColor` of the menu. |  
 | `background` | An instance of [Color](../Classes/Color.md). The `background` of the list view. |  
+
 
 ### `font`
 Set the [Font](../Classes/Font.md) used by all the views.**Arguments:**
@@ -99,7 +102,7 @@ Set the [Font](../Classes/Font.md) used by all the views.**Arguments:**
 ## Examples
 
 
-```supercollider
+```
 // try several examples together
 (
 

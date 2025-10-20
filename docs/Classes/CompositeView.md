@@ -29,7 +29,7 @@ CompositeView can be used as the parent of other views, while also being a child
 Containers use relative coordinates, i.e. views are placed relative to the upper left corner of the container.
 
 
-```supercollider
+```
 (
 w = Window.new;
 
@@ -53,7 +53,7 @@ c.resize_(6); // contents adjust since coords are relative
 Key actions "bubble up" to the parent view if a view does not define one itself. In the following example, a and b do not have keyDown actions themselves, so the key event is passed to c, the parent, which defines the key down action. d's parent is the SCTopView, which has no key down action. See also [View](../Classes/View.md).
 
 
-```supercollider
+```
 ( // Click on the different views and hit keys on the keyboard.
 
 w = Window.new;
@@ -82,7 +82,7 @@ d.background = Color.black;
 A 'decorator' object can be set to handle layout management. All views added to the CompositeView will now be placed by the decorator. Currently the only one existing is [FlowLayout](../Classes/FlowLayout.md). You can use the ContainerView's addFlowLayout method as a short cut to assigning FlowLayout to decorator.
 
 
-```supercollider
+```
 (
 a = Window.new;
 
@@ -103,7 +103,7 @@ a.front;
 You can also use an empty composite view nicely as a spacer in [VLayoutView](../Classes/VLayoutView.md), [HLayoutView](../Classes/HLayoutView.md), or views that have a [FlowLayout](../Classes/FlowLayout.md) as their decorator.
 
 
-```supercollider
+```
 (
 a = Window.new;
 b = CompositeView(a, Rect(0, 0, 500, 500));
@@ -133,7 +133,7 @@ a.front;
 You can stack CompositeViews on top of each other and use a button show only one of them:
 
 
-```supercollider
+```
 (
 var colors = [Color.blue, Color.red, Color.green];
 a = Window.new;
@@ -176,7 +176,7 @@ a.front;
 In this example, the [StaticText](../Classes/StaticText.md) accepts mouse clicks, since container views can't:
 
 
-```supercollider
+```
 (
 w = Window.new.front;
 v = CompositeView.new(w, w.view.bounds.insetBy(10)).background_(Color.rand);

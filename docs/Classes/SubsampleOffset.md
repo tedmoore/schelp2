@@ -14,12 +14,13 @@ For some synthesis methods, one needs subsample accuracy. SubsampleOffset provid
 
 ## Class Methods
 
+
 ### `ir`
 
 ## Examples
 
 
-```supercollider
+```
 // example: demonstrate cubic subsample interpolation
 
 

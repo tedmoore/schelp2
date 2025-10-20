@@ -17,7 +17,7 @@ Specific devices can be selected through an instance of [ServerOptions](../Class
 By default the server will boot to your system's default audio devices. If you want to explicitly tell the server to use the internal soundcard, you need to specify both input and output device. The following example comes from a MacBook Pro:
 
 
-```supercollider
+```
 Server.default.options.inDevice_("Built-in Microph");
 Server.default.options.outDevice_("Built-in Output");
 ```
@@ -26,7 +26,7 @@ Server.default.options.outDevice_("Built-in Output");
 In case of a dedicated audio interface, you might need to specify a single device, e.g.
 
 
-```supercollider
+```
 Server.default.options.device_("MOTU 828");
 ```
 
@@ -34,7 +34,7 @@ Server.default.options.device_("MOTU 828");
 On Windows and macOS you can programmatically obtain a list of available audio devices without booting the server:
 
 
-```supercollider
+```
 ServerOptions.devices; // all devices
 ServerOptions.inDevices; // input devices
 ServerOptions.outDevices; // output devices
@@ -48,7 +48,7 @@ One possible reason why a server may fail to boot is a mismatch between input an
 You should set both input and output devices' sample rate to the same value. You can do this in Audio MIDI Setup:
 
 
-```supercollider
+```
 "open -a 'Audio MIDI Setup'".unixCmd; // execute this to launch it
 ```
 
@@ -60,7 +60,7 @@ You should set both input and output devices' sample rate to the same value. You
 Sometimes you might want to use multiple devices for input or output. macOS provides a way to combine multiple physical devices into a virtual *Aggregate Device*. To create one, you have to open the Audio MIDI Setup application (in `/Applications/Utilities`). You should do this from an user account with administrator privileges.
 
 
-```supercollider
+```
 "open -a 'Audio MIDI Setup'".unixCmd; // execute this to launch it
 ```
 
@@ -75,7 +75,7 @@ Sometimes you might want to use multiple devices for input or output. macOS prov
 Now you need to tell SuperCollider to use your new aggregate device.
 
 
-```supercollider
+```
 Server.default.options.device = "Aggregate Device"; //or the name you have specified in the previous step
 ```
 
@@ -99,7 +99,7 @@ The SuperCollider server is considered a JACK *client*. In the following section
 When the server is compiled to use JACK as the audio backend, the `ServerOption`'s `device` can be used in two ways: to set the client name to register with JACK:
 
 
-```supercollider
+```
 Server.default.options.device = "my_synth";
 ```
 
@@ -107,7 +107,7 @@ Server.default.options.device = "my_synth";
 to use a specific JACK server, as well as set the client name:
 
 
-```supercollider
+```
 Server.default.options.device = "JACKServerName:scsynthName";
 ```
 
@@ -129,7 +129,7 @@ If these are not set, the server will not connect to any JACK ports automaticall
 This is the recommended way of changing the Jack environment variables for SuperCollider from within a SuperCollider script:
 
 
-```supercollider
+```
 // connect first to input channels with system
 "SC_JACK_DEFAULT_INPUTS".setenv("system:capture_1,system:capture_2");
 
@@ -141,7 +141,7 @@ This is the recommended way of changing the Jack environment variables for Super
 As an alternative, these may be also be changed by setting the following environment variables in your **.bash_profile**, **.zsh_profile** or similar startup file for your shell:
 
 
-```supercollider
+```
 export SC_JACK_DEFAULT_INPUTS="system"
 export SC_JACK_DEFAULT_OUTPUTS="system"
 ```
@@ -150,7 +150,7 @@ export SC_JACK_DEFAULT_OUTPUTS="system"
 To disable autoconnect from the language:
 
 
-```supercollider
+```
 "SC_JACK_DEFAULT_INPUTS".unsetenv;
 "SC_JACK_DEFAULT_OUTPUTS".unsetenv;
 ```
@@ -166,7 +166,7 @@ By default the server will boot to your system's default audio devices using a `
 On Windows there are multiple audio driver APIs (e.g. `WASAPI`, `ASIO` etc.) that can be used to communicate with audio devices. The API (listed before the device name) needs to match between the input and the output, for example:
 
 
-```supercollider
+```
 o = Server.default.options;
 o.inDevice_("Windows WASAPI : Microphone");
 o.outDevice_("Windows WASAPI : Speakers");
@@ -177,7 +177,7 @@ Server.default.reboot;
 You can programmatically obtain a list of available audio devices without booting the server:
 
 
-```supercollider
+```
 ServerOptions.devices; // all devices
 ServerOptions.inDevices; // input devices
 ServerOptions.outDevices; // output devices
@@ -245,7 +245,7 @@ If ASIO driver is available, it is probably the best choice to ensure low input/
 
 
 
-```supercollider
+```
 o = Server.default.options;
 o.device = "ASIO : UMC ASIO Driver";
 Server.default.reboot;
@@ -265,7 +265,7 @@ If you are using an internal soundcard or a device which does not come with an A
 After installing ASIO4ALL, it can be selected as follows (confirm in the post window when the server boots):
 
 
-```supercollider
+```
 Server.default.options.device = "ASIO : ASIO4ALL v2";
 ```
 

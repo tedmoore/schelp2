@@ -22,7 +22,7 @@ See [SCDoc](../Classes/SCDoc.md), [SCDocSyntax](../Reference/SCDocSyntax.md), [W
 
 Also a new method [Help#*methodArgs](../Classes/Help.md#*methodargs) returns a human-readable string of arguments and default values for a method. Example: `Help.methodArgs("SinOsc.ar")`
 
-In SuperCollider version 3.5.2, SCDoc has been rewritten and the parser is now implemented in C++ for speed and stability. The syntax has gotten stricter, and it will throw errors or warnings if there are faults in the documentation. See [WritingHelp / News in SC 3.5.2 ](../Guides/WritingHelp.md#news-in-sc-3.5.2) for some important changes to keep in mind.
+In SuperCollider version 3.5.2, SCDoc has been rewritten and the parser is now implemented in C++ for speed and stability. The syntax has gotten stricter, and it will throw errors or warnings if there are faults in the documentation. See [WritingHelp#News in SC 3.5.2](../Guides/WritingHelp.md#news-in-sc-3.5.2) for some important changes to keep in mind.
 
 
 
@@ -87,7 +87,7 @@ New cross-platform filesystem utilities: [File#*copy](../Classes/File.md#*copy),
 It was already allowed to have a trailing comma in arrays: `[1,2,3,]`, but now it's also allowed in Event construction and message arguments:
 
 
-```supercollider
+```
 (a:1, b:2, c:3,);
 
 Pbind(
@@ -160,7 +160,7 @@ For example, the code `[a, %%&&**, b]` results in:
 The bitwise operators `&` (and), `|` (or), `xor:` (xor), `<<` (left shift) and `>>` (right shift) are now supported server-side on audio and control signals. Example:
 
 
-```supercollider
+```
 // 8-bit magic
 (
 play {

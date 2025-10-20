@@ -13,6 +13,7 @@ Decode a two dimensional ambisonic B-format signal to a set of speakers in a reg
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ Decode a two dimensional ambisonic B-format signal to a set of speakers in a reg
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var w, x, y, p, a, b, c, d;

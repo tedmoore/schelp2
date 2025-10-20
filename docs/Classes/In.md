@@ -19,6 +19,7 @@ The hardware input busses begin just after the hardware output busses and can be
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -31,7 +32,7 @@ The hardware input busses begin just after the hardware output busses and can be
 
 read from an audio bus:
 
-```supercollider
+```
 s.boot;
 
 (
@@ -57,7 +58,7 @@ Synth.after(x, "help-In", [\out, 0, \in, 1]);
 
 read from a control bus:
 
-```supercollider
+```
 (
 SynthDef("help-InKr", { |out = 0, in = 0|
     Out.ar(out,
@@ -82,7 +83,7 @@ Synth("help-lfo", [\out, b.index]);
 
 read control data from a synth later in the node order:
 
-```supercollider
+```
 (
 SynthDef("help-Infreq", { |bus|
     Out.ar(0, FSinOsc.ar(In.kr(bus), 0, 0.5));

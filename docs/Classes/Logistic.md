@@ -10,7 +10,7 @@
 
 A noise generator based on the logistic map:
 
-```supercollider
+```
 y = chaosParam * y * (1.0 - y)
 ```
 
@@ -18,6 +18,7 @@ y = chaosParam * y * (1.0 - y)
 
 
 ## Class Methods
+
 
 
 ### `ar`, `kr`
@@ -34,7 +35,7 @@ y will stay in the range of 0.0 to 1.0 for normal values of the chaosParam. This
 ## Examples
 
 
-```supercollider
+```
 // default values
 { Logistic.ar }.play
 

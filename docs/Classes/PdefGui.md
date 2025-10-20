@@ -12,7 +12,7 @@ A gui showing the [Pdef](../Classes/Pdef.md)'s name, playing state, source state
 
 ### First example
 
-```supercollider
+```
 g = PdefGui();            // make a PdefGui
 g.object = Pdef(\a);        // show when a Pdef is put in
 Pdef(\a, Pbind(\note, 12));     // show whether it has a source
@@ -67,6 +67,7 @@ PdefGui(Pdef(\a), 3, w);
 
 
 ### Creation Methods
+
 ### `new`
 Create a new [JITGui](../Classes/JITGui.md) that will be watching an object and display its state.**Arguments:**
 
@@ -83,36 +84,50 @@ Create a new [JITGui](../Classes/JITGui.md) that will be watching an object and 
 
 ## Instance Methods
 
+
 ### `object`
-a [Pdef](../Classes/Pdef.md), or nil### `numItems`
-the number of items in the envirGui### `parent`
-the parent view### `bounds`
-the bounds of the [zone](#zone)### `zone`
-the [CompositeView](../Classes/CompositeView.md) within which the PdefGui is shown### `nameBut`, `playBut`, `pauseBut`, `srcBut`, `envBut`
-the buttons### `envirGui`
-the gui for the Pdef's envir - nil if numItems is 0.### `object`
-put an object in the gui.### `moveTo`
-(if the jitGui is in its own window)move it to some specific location.### `clear`
-(if the jitGui is in its own window)set the PdefGui's object to nil### `close`
+a [Pdef](../Classes/Pdef.md), or nil
+### `numItems`
+the number of items in the envirGui
+### `parent`
+the parent view
+### `bounds`
+the bounds of the [#-zone](#-zone)
+### `zone`
+the [CompositeView](../Classes/CompositeView.md) within which the PdefGui is shown
+### `nameBut`, `playBut`, `pauseBut`, `srcBut`, `envBut`
+the buttons
+### `envirGui`
+the gui for the Pdef's envir - nil if numItems is 0.
+### `object`
+put an object in the gui.
+### `moveTo`
+(if the jitGui is in its own window)move it to some specific location.
+### `clear`
+(if the jitGui is in its own window)set the PdefGui's object to nil
+### `close`
 (if the jitGui is in its own window)and close its window.
 ### Internal methods
+
 ### `srcString`
 a compileString that recreates the Pdef.
-```supercollider
+```
 // assume g from above is still there
 g.srcString;
 ```
 
 
+
 ### `editString`
 a compileString that recreates the Pdef's envir at edKey.
+
 ### `editStrings`
 a compileString that recreates the Pdef's envir at edKeys.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `edKeys` | Default value is nil.
-```supercollider
+```
 // assume g from above is still there
 g.editString;
 Pdef(\a).set(\foo, \bar);
@@ -121,18 +136,21 @@ g.editString(\foo);
 g.editStrings;
 ``` |  
 
+
 ### `getUsedKeys`
 the keys in use in the envir
-```supercollider
+```
 g.getUsedKeys;
 ```
 
 
+
 ### `openDoc`
 open a document with some strings at some location
-```supercollider
+```
 g.openDoc(g.editStrings);
 ```
+
 
 
 ### `makeEnvirGui`
@@ -141,7 +159,7 @@ make an envirGui within zone - called internally.
 ## Examples
 
 
-```supercollider
+```
 Pdef(\a, Pbind(\freq, Prand((1..16) * 55, inf)));
 Pdef(\a).play;
 t = PdefGui(Pdef(\a), 4);

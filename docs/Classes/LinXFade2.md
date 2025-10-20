@@ -13,6 +13,7 @@ Two channel linear crossfader.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Two channel linear crossfader.
 ## Examples
 
 
-```supercollider
+```
 play({ LinXFade2.ar(FSinOsc.ar(800, 0, 0.2), PinkNoise.ar(0.2), FSinOsc.kr(1)) });
 ```
 

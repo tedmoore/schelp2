@@ -13,6 +13,7 @@ Coded from experiments with faust.
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -28,7 +29,7 @@ Valid parameter range from 0 to 1. Values outside this range are clipped by the 
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 // FreeVerb - 1x1 ugen

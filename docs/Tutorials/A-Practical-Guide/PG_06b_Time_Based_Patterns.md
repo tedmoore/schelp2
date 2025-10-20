@@ -17,7 +17,7 @@ There is nothing to prevent using these patterns outside of a scheduling context
 
 **`Ptime(repeats)`**
 : Returns the amount of time elapsed since embedding. One nice trick with this pattern is to stop a value stream/pattern after a certain amount of time.This [Pif](../../Classes/Pif.md) pattern uses Ptime to get values from the true branch for exactly 4 beats after the first value is requested. After that, the condition will be false and Pif reverts to the false branch, which is nil. That causes the stream to stop. (This is like [Pfindur](../../Classes/Pfindur.md) for event patterns, but Pif/Ptime works for value patterns as well.)
-```supercollider
+```
 // This is a really useful trick: like Pfindur but for value patterns
 (
 p = Pbind(
@@ -32,7 +32,7 @@ p = Pbind(
 
 **`Pseg(levels, durs, curves, repeats)`**
 : Similar to Pstep, but interpolates to the next value instead of stepping abruptly at the end of the duration. Interpolation is linear by default, but any envelope segment curve can be used. `levels`, `durs` and `curves` should be patterns.
-```supercollider
+```
 // curve is 5 - here's what the curve looks like, ascending first then descending
 Env(#[0, 1, 0], #[1, 1], 5).plot;
 
@@ -61,7 +61,7 @@ p.stop;
 [Env](../../Classes/Env.md) supports the stream protocol: `asStream` turns an Env into a stream, and timed values can be obtained from it using `next`. The envelope stream returns the value the envelope would have at the elapsed time, in the same way `.at(time)` returns the envelope value at the specified time.
 
 
-```supercollider
+```
 e = Env.linen(1, 1, 1);
 e.at(2);    // == 1
 e.at(2.5);    // == 0.5
@@ -91,7 +91,7 @@ The `releaseNode` and `loopNode` envelope parameters do not take effect, because
 When the envelope ends, the stream will hold the final level indefinitely. The `Pif(Ptime(inf) < totalTime, Env(...))` trick can make it stop instead.
 
 
-```supercollider
+```
 // Use an envelope to pan notes from left to right and back
 // Plays one cycle
 (

@@ -9,14 +9,14 @@
 root node (id:0)default group (id:1)When a Server is booted, there is a top level group with an ID of 0 that defines the root of the tree. This is represented by a subclass of Group: [RootNode](../Classes/RootNode.md).
 Separate from the root group is sclang's notion of a "default group," which is automatically created when the server is booted. You can access it with the method [Server#-defaultGroup](../Classes/Server.md#-defaultgroup). This group is the default enclosing group for all Nodes, i.e. it's what you get if you don't specify. In general, you should create new Nodes within the default group of a Server rather than in its RootNode. In a single-client setup, the default group will have an ID of 1.
 Keep in mind that default groups are a client-side concept, and you are responsible for creating them if you're running scsynth from the command line or NRT mode, or developing an alternate client.> *When booting the server from the command line, you can create the default group manually with:
-```supercollider
+```
 s.initTree;
 ```
 
 *
 This is the default target for all Nodes when using object style and is what you will get if you supply a [Server](../Classes/Server.md) as a target. If you don't specify a target or pass in nil, you will get the default group of the default Server.
 
-```supercollider
+```
 s.boot;
 a = Synth.new(\default); // creates a synth in the default group of the default Server
 a.group; // note the Group ID
@@ -26,7 +26,7 @@ a.group == Server.default.defaultGroup;
 
 The default group serves an important purpose: It provides a predictable basic Node tree so that methods such as Server-scope, Server-record, etc. can function without running into order of execution problems. In the example below the scoping node will come after the default group.
 
-```supercollider
+```
 s.boot;
 
 { SinOsc.ar(mul: 0.2) }.scope(1);
@@ -42,7 +42,7 @@ s.quit;
 
 Note that the default group is persistent: It is created in Server's `initTree` method (executed along with any code stored in its tree instance variable; see Server for more detail) and is recreated upon reboot, after pressing Cmd-., and after all nodes are freed. When using osc messages this means that a target node of id 1 can always be used:
 
-```supercollider
+```
 s.sendMsg("/s_new", "snd", 1832,0,1); // add to head of group 1
 ```
 

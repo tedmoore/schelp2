@@ -13,6 +13,7 @@ When a nonpositive to positive transition occurs at the input, Trig outputs the 
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ When a nonpositive to positive transition occurs at the input, Trig outputs the 
 ## Examples
 
 
-```supercollider
+```
 { Trig.ar(Dust.ar(1), 0.2) * FSinOsc.ar(800, 0.5) }.play
 
 { Trig.ar(Dust.ar(4), 0.1) }.play

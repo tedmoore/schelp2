@@ -14,6 +14,7 @@ The fast fourier transform analyzes the frequency content of a signal. The IFFT 
 
 ## Class Methods
 
+
 ### `new`, `ar`, `kr`
 returns a time domain signal from converting the FFT frequency domain signal chain. The *new method is equivalent to the *ar message returns an audio rate signal.**Arguments:**
 
@@ -27,7 +28,7 @@ returns a time domain signal from converting the FFT frequency domain signal cha
 ## Examples
 
 
-```supercollider
+```
 // without any modification, convert FFT chain (frequency domain signal) back to audio (time domain signal)
 (
 {   var in, chain;

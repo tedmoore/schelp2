@@ -13,6 +13,7 @@ When triggered, frees a node.
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ When triggered, frees a node.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 SynthDef("a", { Out.ar(0, SinOsc.ar(800, 0, 0.2)) }).add;

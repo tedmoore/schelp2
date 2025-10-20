@@ -12,7 +12,7 @@
 It's quite likely that the error means you're trying to dynamically change the number of channels inside a SynthDef, which is something you can't do - SynthDefs need to have a fixed layout. For example, this is a simple attempt to make pink noise over a variable number of channels:
 
 
-```supercollider
+```
 (
 SynthDef(\thiswillfail, { |out=0, numChannels=2|
     Out.ar(out, {PinkNoise.ar}.dup(numChannels))
@@ -32,7 +32,7 @@ Think of SynthDefs as tiny fixed reusable components, and design your logic to r
 To go back to the simple example above (the pink noise generator), you could simply do:
 
 
-```supercollider
+```
 (
 SynthDef(\simplepink, { |out=0|
     Out.ar(out, PinkNoise.ar)
@@ -44,7 +44,7 @@ SynthDef(\simplepink, { |out=0|
 and create one `\simplepink` synth for each channel. Or you could create one SynthDef for each number of channels you expect to use. For example if you might use between 1 and 5 channels:
 
 
-```supercollider
+```
 (
 (1..5).do{ |n|
 SynthDef("simplepink_%".format(n).asSymbol, { |out=0|
@@ -69,13 +69,13 @@ Then you'd need to invoke `\simplepink_4` or whatever, as appropriate.
 When calling gui primitives from a SystemClock routine will cause an error:
 
 
-```supercollider
+```
 SystemClock.sched(0,{ Window.new.front })
 ```
 
 
 
-```supercollider
+```
 ERROR: Qt: You can not use this Qt functionality in the current thread. Try scheduling on AppClock instead.
 ERROR: Primitive '_QWindow_AvailableGeometry' failed.
 ```
@@ -84,7 +84,7 @@ ERROR: Primitive '_QWindow_AvailableGeometry' failed.
 To avoid this issue use the AppClock:
 
 
-```supercollider
+```
 AppClock.sched(0,{ Window.new.front })
 ```
 
@@ -92,7 +92,7 @@ AppClock.sched(0,{ Window.new.front })
 or the defer method:
 
 
-```supercollider
+```
 SystemClock.sched(0,{ { Window.new.front }.defer })
 ```
 
@@ -104,7 +104,7 @@ SystemClock.sched(0,{ { Window.new.front }.defer })
 Because of the way SuperCollider evaluates expressions, the usual order of execution of mathematical expressions is not respected. In SuperCollider everything is an object, and evaluation happens from left to right, so:
 
 
-```supercollider
+```
 5 + 3 * 2
 ```
 
@@ -114,7 +114,7 @@ will evaluate as (5 + 3 ) * 2.
 This happens because the expression becomes:
 
 
-```supercollider
+```
 5.performBinaryOpOnSimpleNumber('+',3).performBinaryOpOnSimpleNumber('*',2)
 ```
 
@@ -122,7 +122,7 @@ This happens because the expression becomes:
 Therefore, in algebraic expressions parenthesis must be used when left to right orders is not what is desired:
 
 
-```supercollider
+```
 5 + (3 * 2)
 ```
 
@@ -139,7 +139,7 @@ Therefore, in algebraic expressions parenthesis must be used when left to right 
 It's only a matter of time before a user tries to write something like this in a `SynthDef`
 
 
-```supercollider
+```
 SynthDef(\kablooie, { |x = 0|
     var signal;
     if(x > 0) {
@@ -176,7 +176,7 @@ Since everything in the server is a number, the result of the comparison must al
 This goes back to the general issue of handling operators in the server. Math operators in a SynthDef are not calculations to do **right now**. They **describe** calculations that will be done **in the future**, many thousands of times.
 
 
-```supercollider
+```
 var x = 1;
 x > 0;
 // -> true
@@ -184,7 +184,7 @@ x > 0;
 
 
 
-```supercollider
+```
 SynthDef(\kablooie, { |x = 0|
     "x: ".post; x.postln;
     "(x > 0): ".post; (x > 0).postln;
@@ -193,7 +193,7 @@ SynthDef(\kablooie, { |x = 0|
 
 
 
-```supercollider
+```
 x: an OutputProxy
 (x > 0): a BinaryOpUGen
 ```
@@ -204,7 +204,7 @@ The precise value of **x** is unknown at the time you execute the SynthDef code.
 Going back to this:
 
 
-```supercollider
+```
 if (aBinaryOpUGen) { ... } { ... };
 ```
 
@@ -218,20 +218,20 @@ To do this, the language must know which function (true or false) to execute. Bu
 Comparisons have a lot of uses, actually:
 
 - **Choosing one of two signals**: This is the closest we can get to **if-then-else** in the server. Both **then** and **else** must be running continuously. That's a requirement of how the server works: the number and arrangement of unit generators within a single Synth cannot change. Instead, you can choose **which of those signals makes it downstream**. One will be used and the other ignored. Since true is 1 and false is 0, you can use a conditional to index into an array using Select.
-```supercollider
+```
 Select.kr(aKrSignal > anotherKrSignal, [false_signal, true_signal]);
 ```
 
 
 - **Generating triggers**: A trigger occurs whenever a signal is <= 0, and then becomes > 0. Extending this to comparisons, it means that **a trigger occurs when a comparison is false for a while, and then becomes true**. Comparing a signal to a threshold may then be used anywhere that a trigger is valid. For a simple example, take the case of sending a message to the language when the microphone input's amplitude crosses a threshold.
-```supercollider
+```
 var mic = In.ar(8, 1), amplitude = Amplitude.kr(mic);
 SendTrig.kr(amplitude > 0.2, 0, amplitude);
 ```
 
 
 - **Passing or suppressing triggers**: You might need to generate triggers continuously, but permit the triggers to take effect only when a condition is met. Multiplication handles this nicely: **condition * trigger**. Since the condition evaluates as 0 when false, the trigger will be replaced by 0 and nothing happens, as desired.For a simple case, let's refine the mic amplitude example by suppressing triggers that occur within 1/4 second after the previous.
-```supercollider
+```
 var mic = In.ar(8, 1),
     amplitude = Amplitude.kr(mic),
     trig = amplitude > 0.2,
@@ -257,7 +257,7 @@ Logical operators have simple arithmetic equivalents.
 
 - **Not**: I prefer to negate a condition by comparing it to zero: **condition <= 0**. 0 <= 0 is 1 (i.e., not 0), and 1 <= 0 is 0 (not 1). If you're certain the logical expression will only ever be 0 or 1 exactly, you can also negate by subtraction: **1 - condition**.
 - **Xor**: Exclusive-or is true if one or the other condition is true, but not both. We can add the two conditions and compare it to 1. The syntax is a little bit tricky because `==` doesn't turn into a BinaryOpUGen automatically. We have to create the BinaryOpUGen by hand.
-```supercollider
+```
 BinaryOpUGen('==', (x > 0) + (y > 0), 1)
 ```
 
@@ -273,7 +273,7 @@ Sending a SynthDef to the server requires a little bit of time, which means that
 First way: put the SynthDefs and the main code in a Task and put some kind of `.wait` time between them.
 
 
-```supercollider
+```
 Task({
     // put your SynthDefs here
     0.2.wait;
@@ -285,7 +285,7 @@ Task({
 Second way: use `.sync`:
 
 
-```supercollider
+```
 Routine({
     // put your SynthDefs here
     s.sync; // assuming that 's' is the server
@@ -303,7 +303,7 @@ Routine({
 **Solution**: Increase the amount of real-time memory available to the server. This size is set, as the error message says, in the `ServerOptions` object associated with the server. It is a server startup option; you must quit the server and reboot it, or the new setting will not take effect.
 
 
-```supercollider
+```
 myServer.quit;
 myServer.options.memSize = 65536;  // e.g., could be different for you
 myServer.boot;
@@ -325,7 +325,7 @@ If you use a large number of delays, the server may run out of real-time memory.
 Sometimes, you need to send an array to a series of Control inputs in a SynthDef (often called "_array arguments_").
 
 
-```supercollider
+```
 Synth(\xyz, [freqs: [300, 400, 500]]);
 ```
 
@@ -333,7 +333,7 @@ Synth(\xyz, [freqs: [300, 400, 500]]);
 There are two primary ways to do this:
 
 - Supply a literal array -- `\#[1, 2, 3]` -- as the default for the argument name in the function. This is discussed in [SynthDef](../Classes/SynthDef.md)'s help file.
-```supercollider
+```
 SynthDef(\xyz, { |freqs = #[1, 2, 3]|
     // ...
 })
@@ -341,7 +341,7 @@ SynthDef(\xyz, { |freqs = #[1, 2, 3]|
 
 
 - Or, use `NamedControl`. This is the only way to do it if you want to construct the array's size dynamically, or based on a variable. See [NamedControl](../Classes/NamedControl.md).
-```supercollider
+```
 SynthDef(\xyz, {
     var freqs = NamedControl.kr(\freqs, #[1, 2, 3]);
     // ...
@@ -366,7 +366,7 @@ The reason comes from the process of building a SynthDef:
 To do steps \#1 and \#2, the SynthDef builder has to know the size of an array argument **before** running the function. That's possible only if it's a literal array: `\#[1, 2, 3, 4, 5]`. Any other array notation creates the array **while running the function** (step \#3). But then it's too late -- the SynthDef builder already created a non-array control channel for it!
 
 
-```supercollider
+```
 SynthDef(\notArray, { |a = (1..5)|
     a.debug("a is");
 });
@@ -376,7 +376,7 @@ SynthDef(\notArray, { |a = (1..5)|
 `a is: an OutputProxy`
 
 
-```supercollider
+```
 SynthDef(\array, { |a = #[1, 2, 3, 4, 5]|
    a.debug("a is");
 });
@@ -405,7 +405,7 @@ The server can communicate messages back to the client using one of two unit gen
 Within the language, you also need an object to receive the message and act on it. Usually this is `OSCFunc` or `OSCdef`. In this example, `OSCdef` filters messages not just on the name `/bleep` but also on the synth's ID. This way, you could have multiple triggering synths, with a different responder and a different action per synth.
 
 
-```supercollider
+```
 (
 a = {
     var trig = Dust.kr(8),

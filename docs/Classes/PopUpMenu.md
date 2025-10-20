@@ -17,6 +17,7 @@ When clicked, this view opens a menu containing several text items, then closes 
 
 
 ### Data
+
 ### `items`
  The list of items displayed in a menu when the view is clicked.**Arguments:**
 
@@ -24,10 +25,13 @@ When clicked, this view opens a menu containing several text items, then closes 
 |----------|-------------|
 | `` | An Array of Strings or Symbols. |  
 
+
 ### `clear`
  Removes all items.
+
 ### `item`
  The currently selected item.**Returns:** A String.
+
 ### `value`
  The index of the currently selected item.**Arguments:**
 
@@ -35,8 +39,9 @@ When clicked, this view opens a menu containing several text items, then closes 
 |----------|-------------|
 | `` | An integer, or nil meaning no selected item. |  
 
+
 ### `valueAction`
- Sets [value](#value) and triggers [action](#action).**Arguments:**
+ Sets [#-value](#-value) and triggers [#-action](#-action).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -44,12 +49,14 @@ When clicked, this view opens a menu containing several text items, then closes 
 
 
 ### Appearance
+
 ### `stringColor`
  The color used to display text.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Color. |  
+
 
 ### `background`
  Setting this variable colors the area of the view under the text with the given color.**Arguments:**
@@ -60,6 +67,7 @@ When clicked, this view opens a menu containing several text items, then closes 
 
 
 ### Interaction
+
 ### `allowsReselection`
  Determines whether the action is triggered when selecting already selected item. Defaults to false.**Arguments:**
 
@@ -69,23 +77,27 @@ When clicked, this view opens a menu containing several text items, then closes 
 
 
 ### Actions
+
 ### `action`
- The action object evaluated whenever the user changes the selected item from the menu. See [allowsReselection](#allowsreselection) for customization.
+ The action object evaluated whenever the user changes the selected item from the menu. See [#-allowsReselection](#-allowsreselection) for customization.
 
 ### Drag and drop
+
 ### `defaultGetDrag`
-**Returns:** The [value](#value).
+**Returns:** The [#-value](#-value).
+
 ### `defaultCanReceiveDrag`
 **Returns:** True if the current drag data is a number.
+
 ### `defaultReceiveDrag`
- Sets [valueAction](#valueaction) to the current drag data.
+ Sets [#-valueAction](#-valueaction) to the current drag data.
 
 ## Examples
 
 
 ### Basic Example
 
-```supercollider
+```
 (
 w = Window.new("The Eightfold Path").front;
 m = PopUpMenu(w, Rect(10, 10, 180, 20));
@@ -117,7 +129,7 @@ m.valueAction_(3); // evaluates the action.
 Play different functions:
 
 
-```supercollider
+```
 (
 s.waitForBoot({
     var w, menu, snd, funcs, b;

@@ -13,7 +13,7 @@ See documentation of superclass [LineLayout](../Classes/LineLayout.md) for detai
 ## Examples
 
 
-```supercollider
+```
 // simple example
 (
 w = Window().front;

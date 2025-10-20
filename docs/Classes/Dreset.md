@@ -11,6 +11,7 @@ The reset of a demand ugen can be controlled "from the outside" by the reset inp
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -22,7 +23,7 @@ The reset of a demand ugen can be controlled "from the outside" by the reset inp
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a, freq;

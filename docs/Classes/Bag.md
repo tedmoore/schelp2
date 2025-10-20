@@ -14,28 +14,32 @@ Most of Bag's methods are inherited from Collection. The contents of a Bag are u
 
 ## Class Methods
 
+
 ### `new`
 Creates a Bag with an initial capacity for **n** objects.
 
 ## Instance Methods
 
+
 ### `contents`
 Returns the dictionary that stores the objects in pairs (obj -> numberOfObjects)
-```supercollider
+```
 Bag["a", "b", "c", "c"].contents;
 ```
 
-**Returns:** [Dictionary](../Classes/Dictionary.md)### `itemCount`
+**Returns:** [Dictionary](../Classes/Dictionary.md)
+### `itemCount`
 Count the number of **item**s.
-```supercollider
+```
 Bag[1, 2, 2, 3, 300, 2].itemCount(2);
 ```
 
 
 ### Adding and Removing
+
 ### `add`
 Add an object to the Bag. A Bag may contain multiple entries of the same object.
-```supercollider
+```
 Bag[1, 2, 3].add(4).postln;
 
 Bag[1, 2, 3].add(3).postln;
@@ -46,18 +50,20 @@ Bag["abc", "def", "ghi"].add("def").postln;
 ```
 
 
+
 ### `remove`
 Remove an object from the Bag.
-```supercollider
+```
 Bag[1, 2, 3].remove(3).postln;
 ```
 
 
 
 ### Iteration
+
 ### `do`
 Evaluates **function** for each item in the Bag. The function is passed two arguments, the item and an integer index.
-```supercollider
+```
 Bag[1, 2, 3, 300].do({ |item, i| item.postln });
 
 Bag[1, 2, 2, 3, 300].do({ |item, i| item.postln });
@@ -69,9 +75,10 @@ Bag[1, 2, 2, 3, 300].do({ |item, i| item.postln });
 |----------|-------------|
 | `function` | args to function: item, i |  
 
+
 ### `countsDo`
 Evaluates **function** for each unique item in the Bag along with that item's count. The function is passed two arguments, the item, the quantity of that item in the Bag and an integer index.
-```supercollider
+```
 Bag[1, 2, 3, 300].countsDo({ |item, count, i| [item, count].postln });
 
 Bag[1, 2, 2, 3, 300].countsDo({ |item, count, i| [item, count].postln });
@@ -80,9 +87,10 @@ Bag[1, 2, 2, 3, 300].countsDo({ |item, count, i| [item, count].postln });
 
 
 ### Testing
+
 ### `includes`
 Answer whether an object is contained in the Bag.
-```supercollider
+```
 Bag[1, 2, 3, 4].includes(3);
 ```
 
@@ -93,7 +101,7 @@ Bag[1, 2, 3, 4].includes(3);
 
 ### Difference between Bag and IdentityBag:
 
-```supercollider
+```
 // the two strings are equal, but not identical
 "something" == "something"; // true
 "something" === "something" // false

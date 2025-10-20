@@ -23,7 +23,7 @@ In SuperCollider, Streams are primarily used for handling text and for generatin
 A [Function](../Classes/Function.md) defines a stream consisting of the Function itself, a [FuncStream](../Classes/FuncStream.md) defines a stream that consists of *evaluations* of its nextFunction.
 
 
-```supercollider
+```
 // Example 1: a Function vs. a FuncStream
 (
     f = { 33.rand };
@@ -34,7 +34,7 @@ A [Function](../Classes/Function.md) defines a stream consisting of the Function
 
 
 
-```supercollider
+```
 // Example 2: the reset function
 (
     f = { 33.rand };
@@ -53,7 +53,7 @@ A [Function](../Classes/Function.md) defines a stream consisting of the Function
 In a [FuncStream](../Classes/FuncStream.md), the nextFunction runs through to completion for each element of the stream. In a [Routine](../Classes/Routine.md), the nextFunction returns values with **yield** and resumes execution (when it receives a **next** message) at the expression following the yield. This allows a sequence of expressions in the function definition to represent a sequence of distinct events, like a musical score.
 
 
-```supercollider
+```
 // example
 (
     x = Routine({
@@ -69,7 +69,7 @@ In a [FuncStream](../Classes/FuncStream.md), the nextFunction runs through to co
 Once the nextFunction completes execution, the Routine simply yields nil repeatedly. Control structures (such as **do** or **while**) can be used within the nextFunction in a manner analogous to repeat marks in a score.
 
 
-```supercollider
+```
 // example
 (
     x = Routine({
@@ -88,7 +88,7 @@ Once the nextFunction completes execution, the Routine simply yields nil repeate
 Because streams respond like functions to the value message, they can be used as a scheduling task.
 
 
-```supercollider
+```
 // compare:
 // a function, returning 0.5
 (
@@ -122,7 +122,7 @@ SystemClock.sched(0.0,
 Streams that return **numbers** can be played directly with the **play** message.
 
 
-```supercollider
+```
 // play at the next beat, with offset 0.4
 (
 Routine({ loop {
@@ -136,7 +136,7 @@ Routine({ loop {
 Streams that return **Events** need to be wrapped in an [EventStreamPlayer](../Classes/EventStreamPlayer.md). The Event's **delta** (can also be set by **dur**) is used as a scheduling beats value:
 
 
-```supercollider
+```
 // play at the next beat, with offset 0.4
 (
 Routine({ loop {
@@ -150,17 +150,17 @@ Routine({ loop {
 
 
 ### Iteration
-The method [do](#do) effectively 'plays' a stream by iterating all of its contents.
+The method [#-do](#-do) effectively 'plays' a stream by iterating all of its contents.
 
-And the following messages create a stream by filtering another stream in some way: [collect](#collect), [reject](#reject), [select](#select), [dot](#dot), [interlace](#interlace), [appendStream](#appendstream), [embedInStream](#embedinstream), [trace](#trace).
+And the following messages create a stream by filtering another stream in some way: [#-collect](#-collect), [#-reject](#-reject), [#-select](#-select), [#-dot](#-dot), [#-interlace](#-interlace), [#-appendStream](#-appendstream), [#-embedInStream](#-embedinstream), [#-trace](#-trace).
 
 
 
 ### Composite Streams
-Routines can be **embedded** in each other, using [embedInStream](#embedinstream) :
+Routines can be **embedded** in each other, using [#-embedInStream](#-embedinstream) :
 
 
-```supercollider
+```
 // example
 (
 x = Routine({
@@ -183,7 +183,7 @@ y = Routine({
 Routines can be **concatenated** just like Streams:
 
 
-```supercollider
+```
 (
 x = Routine({
     2.do({
@@ -203,7 +203,7 @@ z = x ++ y;
 Routines can be **combined** with the composition operator <>
 
 
-```supercollider
+```
 (
 x = Routine({ |inval|
     2.do({
@@ -232,7 +232,7 @@ Composite Streams can be defined as combinations of Streams using the unary and 
 Streams support most of the unary messages defined in [AbstractFunction](../Classes/AbstractFunction.md) :
 
 
-```supercollider
+```
 (
 a = Routine({ 20.do({ 33.rand.yield }) });
 b = Routine({ [-100, 00, 300, 400].do({ |v| v.yield }) });
@@ -264,7 +264,7 @@ nil;
 Streams support the following binary messages defined in [AbstractFunction](../Classes/AbstractFunction.md) :
 
 
-```supercollider
+```
 (
 a = Routine({ 20.do({ 33.rand.yield }) });
 b = Routine({ [-100, 00, 300, 400].do({ |v| v.yield }) });
@@ -290,22 +290,32 @@ nil;
 
 ## Instance Methods
 
+
 ### `play`
-Streams that return **numbers** can be played directly with the **play** message. Streams that return **events** need to be wrapped in an [EventStreamPlayer](../Classes/EventStreamPlayer.md). See [asEventStreamPlayer](#aseventstreamplayer).**Arguments:**
+Streams that return **numbers** can be played directly with the **play** message. Streams that return **events** need to be wrapped in an [EventStreamPlayer](../Classes/EventStreamPlayer.md). See [#-asEventStreamPlayer](#-aseventstreamplayer).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `clock` | a clock. [TempoClock](../Classes/TempoClock.md) by default. |  
 | `quant` | either a number **n** (quantize to **n** beats), or an array **[n, m]** (quantize to n beats, with offset m). |  
+
 ### `do`
-iterate until a nil is encountered.> **⚠️ Warning:** Applying do to an endless stream will lock up the interpreter!### `collect`
-iterate indefinitely.### `reject`
-return only those elements for which function.value(element) is false.### `select`
-return only those elements for which function.value(element) is true.### `dot`
-return function.value(this.next, stream.next) for each element.### `interlace`
-iterate all of stream for each element of this. Combine the values using function.### `appendStream`
-append stream after this returns nil. The same like ++### `embedInStream`
-iterate all of this from within whatever Stream definition it is called.### `trace`
+iterate until a nil is encountered.> **⚠️ Warning:** Applying do to an endless stream will lock up the interpreter!
+### `collect`
+iterate indefinitely.
+### `reject`
+return only those elements for which function.value(element) is false.
+### `select`
+return only those elements for which function.value(element) is true.
+### `dot`
+return function.value(this.next, stream.next) for each element.
+### `interlace`
+iterate all of stream for each element of this. Combine the values using function.
+### `appendStream`
+append stream after this returns nil. The same like ++
+### `embedInStream`
+iterate all of this from within whatever Stream definition it is called.
+### `trace`
 print out the results of a stream while returning the original values.**Arguments:**
 
 | Argument | Description |

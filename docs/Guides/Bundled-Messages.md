@@ -9,7 +9,7 @@
 When using the Synth/Node/Group sclang objects there is often a need to construct bundles to send messages together. For example when you want to start a synth that should be mapped instantly to certain buses, or need to ensure that two synths start with precise synchronisation.
 The simplest way to deal with this is through Server's automated bundling support. This allows you to open a bundle into which all osc messages will be collected until it is sent. See Server for details of makeBundle's arguments.
 
-```supercollider
+```
 s.boot;
 (
 // send a synth def to server
@@ -46,7 +46,7 @@ x.free; y.free;
 
 To send a bundle with the default latency of the server, use the message bind:
 
-```supercollider
+```
 (
 s.bind {
     SynthDef("tpulse2", { arg out=0, freq=700, sawFreq=440.0;
@@ -64,7 +64,7 @@ a.free; x.free;
 
 In addition to this there are a number of methods which return OSC messages which can be added to a bundle. These are detailed in the helpfiles for [Node](../Classes/Node.md), [Synth](../Classes/Synth.md), and [Group](../Classes/Group.md).
 
-```supercollider
+```
 s.boot;
 b = List.new;
 c = Bus.control(s, 1).set(660);

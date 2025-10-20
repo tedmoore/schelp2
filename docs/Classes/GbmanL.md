@@ -13,7 +13,7 @@ A linear-interpolating sound generator based on the difference equations:
 The behavior of the system is dependent only on its initial conditions and cannot be changed once it's started.
 sclang code translation:
 
-```supercollider
+```
 (
 var xi = 1.2, yi = 2.1, size = 64;
 plot(size.collect { var x; xi = 1 - yi + abs(x = xi); yi = x; xi });
@@ -25,6 +25,7 @@ Reference: Devaney, R. L. "The Gingerbreadman." Algorithm 3, 15-16, Jan. 1992.
 
 
 ## Class Methods
+
 
 ### `ar`
 **Arguments:**
@@ -38,7 +39,7 @@ Reference: Devaney, R. L. "The Gingerbreadman." Algorithm 3, 15-16, Jan. 1992.
 ## Examples
 
 
-```supercollider
+```
 // default initial params
 { GbmanL.ar(MouseX.kr(20, SampleRate.ir)) * 0.1 }.play(s);
 

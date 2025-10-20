@@ -13,6 +13,7 @@ Delays the input by one audio frame or control period.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ The output sequence is:For audio-rate signals the delay is one audio frame, and 
 ## Examples
 
 
-```supercollider
+```
 // Create bipolar Dust
 (
 {

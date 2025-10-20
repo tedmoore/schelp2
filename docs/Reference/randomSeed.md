@@ -12,9 +12,10 @@ Every [Thread](../Classes/Thread.md) in sclang has a (pseudo-) random number gen
 
 In order to save disk space, you can reproduce any sequence of randomized data just by one Integer number that you can write down in your notebook.
 
+
 ### `randSeed`
 
-```supercollider
+```
 // every thread, also a Routine, has a random generator seed:
 (
 r = Routine({
@@ -43,7 +44,7 @@ The parent thread is whichever Routine is in force at the moment of creating a n
 To set the main random seed for the entire application, then, evaluate `thisThread.randSeed = yourSeed` outside of the context of any Routine, as in the example below.
 
 
-```supercollider
+```
 thisThread.randSeed = 1923;
 
 // create a function that returns a Routine
@@ -64,7 +65,7 @@ Array.fill(7, r.value);
 When you set `randSeed` on a Routine, the Routine switches to its own random number generator, independent of any other. Subsequently, Routines created within this Routine will inherit its unique random number generator.
 
 
-```supercollider
+```
 (
 thisThread.randSeed = 1000;
 TempoClock.sched(0, { 1000.rand.debug("main RNG"); 1 });
@@ -92,7 +93,7 @@ Note that this inheritance takes place only at the moment of creating a new Rout
 
 ### Audio example
 
-```supercollider
+```
 // use the seed to completely reproduce a sound:
 (
 SynthDef(\help_randomSeed, { arg out=0, freq=440;

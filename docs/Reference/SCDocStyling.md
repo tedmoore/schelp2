@@ -9,7 +9,7 @@
 Documentation rendered HTML reads the global style from `scdoc.css`, but also reads `frontend.css` and `custom.css` (in that order) if available. This is to enable specific frontends and allow users to override the CSS.
 So to customise the CSS, the user can create a `custom.css` in their [SCDoc#*helpTargetDir](../Classes/SCDoc.md#*helptargetdir) or at the root of any HelpSource directory (for example in `YourExtension/HelpSource/custom.css`).
 
-```supercollider
+```
 // open HelpTargetDir to see these css files
 SCDoc.helpTargetDir.openOS
 ```
@@ -21,7 +21,7 @@ Colors are defined as CSS variables, so that to change any color, it's sufficien
 Specific variables are not reported here, please refer to the default CSS theme for all their names and default values.
 
 
-```supercollider
+```
 // open default theme
 (SCDoc.helpTargetDir +/+ "themes" +/+ "default.css").openDocument
 

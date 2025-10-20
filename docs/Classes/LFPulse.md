@@ -13,6 +13,7 @@ A non-band-limited pulse oscillator. Outputs a high value of one and a low value
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -32,49 +33,49 @@ A non-band-limited pulse oscillator. Outputs a high value of one and a low value
 
 a plot:
 
-```supercollider
+```
 { LFPulse.ar(Line.kr(100, 800, 0.1)) }.plot(0.1);
 ```
 
 
 50 Hz wave:
 
-```supercollider
+```
 { LFPulse.ar(50) * 0.1 }.play;
 ```
 
 
 modulating frequency:
 
-```supercollider
+```
 { LFPulse.ar(XLine.kr(1, 200, 10), 0, 0.2, 0.1) }.play;
 ```
 
 
 amplitude modulation:
 
-```supercollider
+```
 { LFPulse.kr(XLine.kr(1, 200, 10), 0, 0.2) * SinOsc.ar(440) * 0.1 }.play;
 ```
 
 
 used as both Oscillator and LFO:
 
-```supercollider
+```
 { LFPulse.ar(LFPulse.kr(3, 0, 0.3, 200, 200), 0, 0.2, 0.1) }.play;
 ```
 
 
 scope:
 
-```supercollider
+```
 { LFPulse.ar(500, 0, MouseX.kr, 0.5) }.scope;
 ```
 
 
 compare with band limited Pulse UGen:
 
-```supercollider
+```
 (
 {
     [

@@ -15,18 +15,22 @@ There is only one global instance: Archive.global, which is initialized automati
 ## Class Methods
 
 
+
 ### `global`
 set or get the global archive instance
+
 ### `archiveDir`
 set or get the directory that the archive is written to. Default: [Platform](../Classes/Platform.md).userAppSupportDir.
+
 ### `write`
 write the global archive now. This is called automatically when SuperCollider quits. The default filename is "/archive.sctxar"
+
 ### `read`
 read the global archive now. This is called automatically when SuperCollider recompiles or starts. The default filename is "/archive.sctxar"
 ## Examples
 
 
-```supercollider
+```
 // make a storage place for various objects:
 q = (); // Event
 

@@ -358,7 +358,7 @@ Setting the mark always makes an entry on the current buffer’s mark ring. If y
 You can customize the behaviour of Emacs, by putting things in the startup file of emacs. This file is `~/.emacs`. You can define options there, for example:
 
 
-```supercollider
+```
 (custom-set-variables
  '(case-fold-search t)
  '(global-font-lock-mode t nil (font-lock))
@@ -372,7 +372,7 @@ You can customize the behaviour of Emacs, by putting things in the startup file 
 nil means that an option is turned off, t or 1 means that it is turned on.
 
 
-```supercollider
+```
 '(sclang-eval-line-forward nil)
 ```
 
@@ -384,7 +384,7 @@ Configure the text cursor NOT to move after hitting C-c C-c
 Normally w3m uses the arrow keys to jump between hyperlinks. For browsing SC help files this is not very useful.
 
 
-```supercollider
+```
 (eval-after-load "w3m"
  '(progn
  (define-key w3m-mode-map [left] 'backward-char)
@@ -401,7 +401,7 @@ Normally w3m uses the arrow keys to jump between hyperlinks. For browsing SC hel
 
 ### Automatically complete brackets and parentheses
 
-```supercollider
+```
   (setq skeleton-pair t)
   (global-set-key (kbd "(") 'skeleton-pair-insert-maybe)
   (global-set-key (kbd "{") 'skeleton-pair-insert-maybe)
@@ -416,7 +416,7 @@ Normally w3m uses the arrow keys to jump between hyperlinks. For browsing SC hel
 
 ### Scrollwheel support
 
-```supercollider
+```
 ;;; scrollwheel support
 (defun scroll-up-half ()
   "Scroll up half a page."
@@ -441,7 +441,7 @@ Normally w3m uses the arrow keys to jump between hyperlinks. For browsing SC hel
 Recentf is a minor mode that builds a list of recently opened files. This list is automatically saved across Emacs sessions. You can then access this list through a menu. Put this in your `~/.emacs’:
 
 
-```supercollider
+```
 (require 'recentf)
 (recentf-mode 1)
 ```
@@ -450,7 +450,7 @@ Recentf is a minor mode that builds a list of recently opened files. This list i
 For adding a shortcut (C-x C-r) to open a recent file add this code as well:
 
 
-```supercollider
+```
 (defun recentf-open-files-compl ()
   (interactive)
   (let* ((all-files recentf-list)

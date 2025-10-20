@@ -11,6 +11,7 @@ Outputs a frequency based upon the distance between interceptions of the X axis.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -21,7 +22,7 @@ Outputs a frequency based upon the distance between interceptions of the X axis.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 (
 {

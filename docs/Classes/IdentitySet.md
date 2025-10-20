@@ -16,9 +16,10 @@ IdentitySets are faster than Sets because testing for identity is much faster th
 
 
 ### Adding and Removing
+
 ### `add`
 Add anObject to the IdentitySet. An object which is equal to an object already in the IdentitySet will not be added.
-```supercollider
+```
 IdentitySet[1, 2, 3].add(4);
 IdentitySet[1, 2, 3].add(3);
 // the two strings are equal but not identical
@@ -29,27 +30,30 @@ IdentitySet['abc', 'def', 'ghi'].add('jkl');
 ```
 
 
+
 ### `remove`
 Remove anObject from the IdentitySet.
-```supercollider
+```
 IdentitySet[1, 2, 3].remove(3);
 ```
 
 
 
 ### Iteration
+
 ### `do`
 Evaluates function for each item in the IdentitySet. You must not depend on the order of items. The function is passed two arguments, the item and an integer index.
-```supercollider
+```
 IdentitySet[1, 2, 3, 300].do { |item, i| item.postln };
 ```
 
 
 
 ### Finding an element
+
 ### `findMatch`
 Returns item if it is in the collection, otherwise returns nil.
-```supercollider
+```
 a = IdentitySet[1, 2, 3, 300];
 a.findMatch(1);
 a.findMatch(1.5);
@@ -60,7 +64,7 @@ a.findMatch(1.5);
 ## Examples
 
 
-```supercollider
+```
 // scanFor is fairly efficient. compare the following benchmarks:
 
 // comparison of array indexing and identity set lookup
@@ -83,7 +87,7 @@ f.(10000)
 
 
 
-```supercollider
+```
 // you can use IdentitySet to efficiently remove identical duplicates from an array:
 
 (

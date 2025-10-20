@@ -13,6 +13,7 @@ Generates a random float value in exponential distribution from `lo` to `hi` eac
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Generates a random float value in exponential distribution from `lo` to `hi` eac
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var trig = Dust.kr(10);

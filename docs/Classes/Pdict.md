@@ -13,7 +13,7 @@ A general purpose lookup stream.
 ## Examples
 
 
-```supercollider
+```
 SynthDescLib.read;
 
 (

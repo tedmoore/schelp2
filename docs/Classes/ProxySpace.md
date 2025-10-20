@@ -15,7 +15,7 @@ For GUI overview, see [ProxyMixer](../Classes/ProxyMixer.md). See [NodeProxy](..
 
 ### First Example
 
-```supercollider
+```
 s.boot;
 
 p = ProxySpace.new;
@@ -42,6 +42,7 @@ p.clear(3); // clear after 3 seconds
 
 
 ### Creation
+
 ### `new`
 **Arguments:**
 
@@ -51,10 +52,13 @@ p.clear(3); // clear after 3 seconds
 | `name` | a [Symbol](../Classes/Symbol.md). If a name is given, the proxy space is **stored** in `ProxySpace.all` under this name. |  
 | `clock` | for event-based or beat-sync playing use a [TempoClock](../Classes/TempoClock.md). |  
 
+
 ### `push`
 replace the currentEnvironment with a new ProxySpace and **clear** the current one, if it is a ProxySpace (this is to avoid piling up proxy spaces).In order to move to another ProxySpace while keeping the current, use **pop** and then **push** a new one. To have multiple levels of proxy spaces, use **.new.push;**
+
 ### `pop`
 restore the previous currentEnvironment
+
 ### `clearAll`
 clear all registered spaces
 
@@ -63,6 +67,7 @@ clear all registered spaces
 
 
 ### Play back and access
+
 ### `play`
 returns a group that plays the [NodeProxy](../Classes/NodeProxy.md) at that **key**.**Arguments:**
 
@@ -72,51 +77,69 @@ returns a group that plays the [NodeProxy](../Classes/NodeProxy.md) at that **ke
 | `out` | output channel offset |  
 | `numChannels` | play this number of channels. |  
 
+
 ### `record`
 returns a [RecNodeProxy](../Classes/RecNodeProxy.md) that records the NodeProxy at that key.
+
 ### `ar`, `kr`
 returns a NodeProxy output that plays the NodeProxy at that key, to be used within a function used as input to a node proxy
+
 ### `wakeUp`
-when the proxyspace is created without a running server this method can be used. To run it (internally this is done by [play](#play) as well).
+when the proxyspace is created without a running server this method can be used. To run it (internally this is done by [#-play](#-play) as well).
+
 ### `fadeTime`
 set the fadetime of all proxies as well as the default fade time
+
 ### `clock`
 set the clock of all proxies as well as the default clock.
+
 ### `quant`
 set the quant of all proxies as well as the default quant.
+
 ### `free`
 free all proxies (i.e. free also the groups, do not stop the monitors)
+
 ### `release`
 release all proxies (i.e. keep the groups running)
+
 ### `stop`
 stop all proxies (stop only monitors, do not stop synths)
+
 ### `end`
 end all proxies (free and stop the monitors)
+
 ### `clear`
 clear all proxies and remove them from the environment. This frees all buses. If a fadeTime is given, first fade out, then clear.
+
 ### `add`
 add the ProxySpace to the repository (name required)
+
 ### `remove`
 remove the ProxySpace from the repository
 
 ### Setting the sources
 The **rate** and **numChannels** of the [NodeProxy](../Classes/NodeProxy.md) determined in a lazy way from the first object put into this environment (see helpfile). Once it is created it can only be set to a function that returns the same rate and a number of channels equal to the intial one or smaller. For details, see [JITLib/the_lazy_proxy](../Tutorials/JITLib/the_lazy_proxy.md).
 
+
 ### `put`
 Gets the NodeProxy at **key** (if none exists, returns a new one) and sets its source to **obj**. For how this works, see also [LazyEnvir](../Classes/LazyEnvir.md) and [NodeProxy](../Classes/NodeProxy.md).
+
 ### `at`
 Return the proxy source object at that key.
 
 ### garbage collecting
+
 ### `clean`
 free and remove all proxies that are not needed in order to play the ones passed in with 'exclude'. if none are passed in, all proxies that are monitoring (with the .play message) are kept as well as their parents etc.
+
 ### `reduce`
 free all proxies that are not needed in order to play the ones passed in with 'to'. if none are passed in, all proxies that are monitored (with the play message) are kept as well as their parents etc.
 
 ### making copies
+
 ### `copy`
 Copies the environment into a new one, with each proxy being copied as well (See: [NodeProxy#-copy](../Classes/NodeProxy.md#-copy)). Also the instance variables that determine the ProxySpace behaviour are included, such as server, fadeTime, quant, reshaping (this happens in the `copyState` method).
-```supercollider
+```
 p = ProxySpace.push(s.boot);
 p.reshaping = \elastic;
 ~out.play;
@@ -136,6 +159,7 @@ p.end; q.end;
 
 
 ### Writing code
+
 ### `document`
 creates a new document with the current proxyspace state. This does not allow open functions as proxy sources. see: [JITLib/jitlib_asCompileString](../Tutorials/JITLib/jitlib_asCompileString.md).**Arguments:**
 
@@ -145,9 +169,10 @@ creates a new document with the current proxyspace state. This does not allow op
 | `onlyAudibleOutput` | a boolean. |  
 | `includeSettings` | a boolean. |  
 
+
 ### `asCode`
 If proxyspace is globally accessible, this posts a code string that can access it.
-```supercollider
+```
 p = ProxySpace.push(s.boot);
 p.reshaping = \elastic;
 p.asCode;
@@ -163,7 +188,7 @@ Ndef.all[\localhost].asCode; // posts as valid code
 ## Examples
 
 
-```supercollider
+```
 // ProxySpace returns instances of NodeProxy:
 a = NodeProxy(s)     is equivalent to ~a;
 a.source = ...        is equivalent to ~a = ...
@@ -176,7 +201,7 @@ currentEnvironment.put(\out, something);
 
 
 
-```supercollider
+```
 // examples
 
 p = ProxySpace.push(s.boot); // use ProxySpace as current environment.

@@ -16,7 +16,7 @@ Many of Buffer's methods have numerous arguments. Needless to say, for full info
 Making a Buffer object and allocating the necessary memory in the server app is quite easy. You can do it all in one step with Buffer's alloc method:
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.alloc(s, 100, 2);    // allocate 2 channels, and 100 frames
 b.free;                // free the memory (when you're finished using it)
@@ -28,7 +28,7 @@ The example above allocates a 2 channel buffer with 100 frames. The actual numbe
 If you'd like to allocate in terms of seconds, rather than frames, you can do so like this:
 
 
-```supercollider
+```
 b = Buffer.alloc(s, s.sampleRate * 8.0, 2); // an 8 second stereo buffer
 b.free;
 ```
@@ -42,7 +42,7 @@ Buffer's 'free' method frees the memory on the server, and returns the Buffer's 
 Buffer has another class method called 'read', which reads a sound file from disk into memory, and returns a Buffer object. Using the UGen PlayBuf, we can play the file.
 
 
-```supercollider
+```
 // ExampleFiles helps locate audio files used in examples
 p = ExampleFiles.child;
 // peek at the path to see location and the format of a path
@@ -65,7 +65,7 @@ x.free; b.free;
 PlayBuf.ar has a number of arguments which allow you to control various aspects of how it works. Take a look at the [PlayBuf](../../Classes/PlayBuf.md) helpfile for details of them all, but for now lets just concern ourselves with the first three, used in the example above.
 
 
-```supercollider
+```
 PlayBuf.ar(
     1,                // number of channels
     bufnum,             // number of buffer to play
@@ -86,7 +86,7 @@ Rate of Playback: A rate of 1 would be normal speed, 2 twice as fast, etc. But h
 In some cases, for instance when working with very large files, you might not want to load a sound completely into memory. Instead, you can stream it in from disk a bit at a time, using the UGen DiskIn, and Buffer's 'cueSoundFile' method:
 
 
-```supercollider
+```
 (
 SynthDef("tutorial-Buffer-cue",{ arg out=0,bufnum;
     Out.ar(out,
@@ -112,7 +112,7 @@ Now a little more OOP. Remember that individual Objects store data in *instance 
 Buffer has a number of other instance variables with getters which can provide helpful information. The ones we're interested in at the moment are numChannels, numFrames, and sampleRate. These can be particularly useful when working with sound files, as we may not have all this information at our fingertips before loading the file.
 
 
-```supercollider
+```
 // watch the post window
 b = Buffer.read(s, ExampleFiles.child);
 b.bufnum;
@@ -126,7 +126,7 @@ b.free;
 Now (like with the example using an action function in our Bus-get example; see [Getting-Started/11-Busses](../../Tutorials/Getting-Started/11-Busses.md)) because of the small messaging latency between client and server, instance variables will not be immediately updated when you do something like read a file into a buffer. For this reason, many methods in Buffer take action functions as arguments. Remember that an action function is just a Function that will be evaluated after the client has received a reply, and has updated the Buffer's vars. It is passed the Buffer object as an argument.
 
 
-```supercollider
+```
 // with an action function
 // note that the vars are not immediately up-to-date
 (
@@ -150,7 +150,7 @@ In the example above, the client sends the read command to the server app, along
 In addition to PlayBuf, there's a UGen called RecordBuf, which lets you record into a buffer.
 
 
-```supercollider
+```
 b = Buffer.alloc(s, s.sampleRate * 5, 1); // a 5 second 1 channel Buffer
 
 // record for four seconds
@@ -186,7 +186,7 @@ See the [RecordBuf](../../Classes/RecordBuf.md) help file for details on all of 
 Buffer has a number of methods to allow you to get or set values in a buffer. Buffer-get and Buffer-set are straightforward to use and take an index as an argument. Multichannel buffers interleave their data, so for a two channel buffer index 0 = frame1-chan1, index 1 = frame1-chan2, index 2 = frame2-chan1, and so on. 'get' takes an action function.
 
 
-```supercollider
+```
 b = Buffer.alloc(s, 8, 1);
 b.set(7, 0.5);             // set the value at 7 to 0.5
 b.get(7, {|msg| msg.postln});    // get the value at 7 and post it when the reply is received
@@ -197,7 +197,7 @@ b.free;
 The methods 'getn' and 'setn' allow you to get and set ranges of adjacent values. 'setn' takes a starting index and an array of values to set, 'getn' takes a starting index, the number of values to get, and an action function.
 
 
-```supercollider
+```
 b = Buffer.alloc(s,16);
 b.setn(0, [1, 2, 3]);                // set the first 3 values
 b.getn(0, 3, {|msg| msg.postln});        // get them
@@ -210,7 +210,7 @@ b.free;
 There is an upper limit on the number of values you can get or set at a time (usually 1633 when using UDP, the default). This is because of a limit on network packet size. To overcome this Buffer has two methods, 'loadCollection' and 'loadToFloatArray' which allow you to set or get large amounts of data by writing it to disk and then loading to client or server as appropriate.
 
 
-```supercollider
+```
 (
 // make some white noise
 v = FloatArray.fill(44100, {1.0.rand2});
@@ -240,7 +240,7 @@ A FloatArray is just a subclass of Array which can only contain floats.
 Buffer has two useful convenience methods: 'plot' and 'play'.
 
 
-```supercollider
+```
 // see the waveform
 b = Buffer.read(s, ExampleFiles.child);
 b.plot;
@@ -260,7 +260,7 @@ x.free; b.free;
 In addition to being used for loading in sound files, buffers are also useful for any situation in which you need large and/or globally accessible data sets on the server. One example of another use for them is as a lookup table for waveshaping.
 
 
-```supercollider
+```
 b = Buffer.alloc(s, 512, 1);
 b.cheby([1,0,1,1,0,1]);
 (

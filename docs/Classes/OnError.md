@@ -13,6 +13,7 @@ OnError registers functions to perform an action when an error occurs.
 
 ## Class Methods
 
+
 ### `run`
 Call the object in order.
 

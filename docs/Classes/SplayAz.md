@@ -10,7 +10,7 @@
 
 SplayAz spreads an array of channels across a ring of channels. Optional spread and center controls, and flexible levelCompensation tunable for equal power and/or equal amplitude. numChans and orientation are as in [PanAz](../Classes/PanAz.md).
 
-```supercollider
+```
 { SplayAz.ar(5, [SinOsc.ar, Saw.ar], 0, 1) }.plot;
 ```
 
@@ -18,6 +18,7 @@ SplayAz spreads an array of channels across a ring of channels. Optional spread 
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 Each of the inputs is evenly spaced over a cyclic period of 2.0 in pos with 0.0 equal to channel zero and 2.0/numChans equal to channel 1, 4.0/numChans equal to channel 2, etc.The distance between the input signals in the output range is determined by the spread argument.**Arguments:**
@@ -27,7 +28,7 @@ Each of the inputs is evenly spaced over a cyclic period of 2.0 in pos with 0.0 
 | `numChans` | Number of output channels of the UGen |  
 | `inArray` | Input signals (can be a single UGen or an array) |  
 | `spread` | How far the input signals are apart in the output. If zero, everything is mixed on center position (see below).
-```supercollider
+```
 { SplayAz.ar(6, [SinOsc.ar, Saw.ar(800)], spread: MouseX.kr(0, 1).poll) * 0.3 }.scope;
 ``` |  
 | `level` | Scaling for all signals |  
@@ -41,6 +42,7 @@ Each of the inputs is evenly spaced over a cyclic period of 2.0 in pos with 0.0 
 - `1.0` is equal amplitude -> factor (1/n)
 
 See [LevelComp](../Classes/LevelComp.md) for full discussion. |  
+
 
 ### `arFill`
 **Arguments:**
@@ -60,7 +62,7 @@ See [LevelComp](../Classes/LevelComp.md) for full discussion. |
 ## Examples
 
 
-```supercollider
+```
 (
 x = { |spread = 1, level = 0.2, width = 2, center = 0.0|
  SplayAz.ar(

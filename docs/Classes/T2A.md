@@ -13,6 +13,7 @@ Converts control rate trigger into audio rate trigger (maximally one per control
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Converts control rate trigger into audio rate trigger (maximally one per control
 ## Examples
 
 
-```supercollider
+```
 // example
 (
 {

@@ -13,6 +13,7 @@ Four channel equal power panner. Outputs are in order LeftFront, RightFront, Lef
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Four channel equal power panner. Outputs are in order LeftFront, RightFront, Lef
 ## Examples
 
 
-```supercollider
+```
 // You'll only hear the front two channels on a stereo setup.
 
 { Pan4.ar(PinkNoise.ar, FSinOsc.kr(2), FSinOsc.kr(1.2), 0.3)) }.play;

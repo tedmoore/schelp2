@@ -6,9 +6,9 @@
 
 ## Description
 
-A view that displays a list of text items and allows one or more of them to be selected, depending on [selectionMode](#selectionmode).
+A view that displays a list of text items and allows one or more of them to be selected, depending on [#-selectionMode](#-selectionmode).
 In default selection mode (single item selection), clicking on an item will select it, and pressing the up or down arrow keys will move selection to previous or next item, respectively. Other selection modes allow more complex interaction.
-There is a difference between the concepts of [current](#value) item, end [selected](#selection) items. In default selection mode they will always be the same, but not so in other modes.
+There is a difference between the concepts of [current](#-value) item, end [selected](#-selection) items. In default selection mode they will always be the same, but not so in other modes.
 
 
 ## Class Methods
@@ -19,6 +19,7 @@ There is a difference between the concepts of [current](#value) item, end [selec
 
 
 ### Data
+
 ### `items`
  The list of items displayed by the view.**Arguments:**
 
@@ -26,27 +27,33 @@ There is a difference between the concepts of [current](#value) item, end [selec
 |----------|-------------|
 | `` | An Array of Strings, each String defining the text to represent an item. |  
 
+
 ### `clear`
  Removes all items.
+
 ### `value`
- The index of the current item, or nil when there is no current item. Note that this may be different than [selection](#selection) when [selectionMode](#selectionmode) allows multiple items to be selected.**Arguments:**
+ The index of the current item, or nil when there is no current item. Note that this may be different than [#-selection](#-selection) when [#-selectionMode](#-selectionmode) allows multiple items to be selected.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An Integer or nil. |  
 
+
 ### `valueAction`
- Sets [value](#value) and triggers the [action](#action).
+ Sets [#-value](#-value) and triggers the [#-action](#-action).
+
 ### `selection`
- An array of all selected indexes. When setting selection, either an array or a single integer may be used. Note that this may be different than [value](#value) when [selectionMode](#selectionmode) allows multiple items to be selected. When setting selection in single-item selection mode, only the last index will remain selected.
+ An array of all selected indexes. When setting selection, either an array or a single integer may be used. Note that this may be different than [#-value](#-value) when [#-selectionMode](#-selectionmode) allows multiple items to be selected. When setting selection in single-item selection mode, only the last index will remain selected.
 
 ### Appearance
+
 ### `colors`
  The background colors of the items.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | An Array of Colors, one Color for each item. |  
+
 
 ### `stringColor`
  The color used to display all the text of all unselected items.**Arguments:**
@@ -55,12 +62,14 @@ There is a difference between the concepts of [current](#value) item, end [selec
 |----------|-------------|
 | `` | A Color. |  
 
+
 ### `selectedStringColor`
  The color used to display the selected item's text.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Color. |  
+
 
 ### `hiliteColor`
  The color used to indicate the selected item (aside from the color of its text).**Arguments:**
@@ -71,6 +80,7 @@ There is a difference between the concepts of [current](#value) item, end [selec
 
 
 ### Interaction
+
 ### `selectionMode`
  The allowed mode of item selection, according to the following table:| **Value** | **Meaning** | 
 | --- | --- || \none | No item can be selected. | | \single | Only a single item can be selected at once. | | \multi | Multiple items can be selected. An item's selection is toggled when clicked. | | \extended | Multiple items can be selected, individually by holding the Ctrl key, and in a batch by holding the Shift key. | | \contiguous | Multiple neighbouring items can be selected by holding the Shift key. | **Arguments:**
@@ -81,30 +91,37 @@ There is a difference between the concepts of [current](#value) item, end [selec
 
 
 ### Actions
+
 ### `action`
- The action object evaluated whenever the user changes the *current* item, i.e. when [value](#value) changes as a result of GUI interaction.
+ The action object evaluated whenever the user changes the *current* item, i.e. when [#-value](#-value) changes as a result of GUI interaction.
+
 ### `selectionAction`
-The action object evaluated whenever [selection](#selection) changes.
+The action object evaluated whenever [#-selection](#-selection) changes.
+
 ### `enterKeyAction`
  The action object evaluated whenever the user presses the Enter (Return) key.
+
 ### `defaultKeyDownAction`
  Implements the default effects of key presses as follows:| **Key** | **Effect** | 
 | --- | --- || space | select next item and trigger action | | r | trigger enterKeyAction | | n | trigger enterKeyAction | | a number | trigger enterKeyAction | | up arrow | select previous item and trigger action | | down arrow | select next item and trigger action | | left arrow | select previous item and trigger action | | right arrow | select next item and trigger action | 
 
 ### Drag and drop
+
 ### `defaultGetDrag`
-**Returns:** The [value](#value).
+**Returns:** The [#-value](#-value).
+
 ### `defaultCanReceiveDrag`
 **Returns:** True if the current drag data is a number.
+
 ### `defaultReceiveDrag`
- Sets [valueAction](#valueaction) to the current drag data.
+ Sets [#-valueAction](#-valueaction) to the current drag data.
 
 ## Examples
 
 
 ### Basic Example
 
-```supercollider
+```
 (
 w = Window.new.front;
 
@@ -125,7 +142,7 @@ v = ListView(w, Rect(10, 10, 120, 70))
 Use ListView to switch filters:
 
 
-```supercollider
+```
 (
 s.waitForBoot({
     var f, freq, ww;

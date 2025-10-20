@@ -11,7 +11,7 @@
 A [Function](../Classes/Function.md) is an expression which defines operations to be performed when it is sent the `value` message. In functional languages, a function would be known as a lambda expression. Function definitions are enclosed in curly brackets `{}`. Argument declarations, if any, follow the open bracket. Variable declarations follow argument declarations. An expression follows the declarations.
 
 
-```supercollider
+```
 { |a, b, c|
     var d;
     d = a * b;
@@ -27,7 +27,7 @@ A function object may be evaluated by passing it the `value` message, or its sho
 When evaluated, the function object returns the final value of its expression.
 
 
-```supercollider
+```
 f = { |a, b| a + b };
 f.value(4, 5).postln;
 f.(4, 5).postln; // same as above
@@ -38,7 +38,7 @@ f.(10, 200).postln;
 An empty function object returns the value nil when evaluated.
 
 
-```supercollider
+```
 {}.value.postln;
 ```
 
@@ -46,7 +46,7 @@ An empty function object returns the value nil when evaluated.
 Arguments can also be provided by name.
 
 
-```supercollider
+```
 f = { |a, b| a + b };
 f.(a: 10, b: 2) // 12
 
@@ -61,7 +61,7 @@ f.(a: 3) // Error: binary operator '+' failed, b is 'nil' and you cannot add a n
 
 A function can be thought as a machine able to perform a task on demand, e.g. a calculator. The calculator can receive input (args) and can output a value, the result of the performed operations. The function definition can then be thought as the building of the calculator: once built, the calculator does nothing until it is requested to work (by passing the value method to a function). The following figure depicts an empty function, input without output, output without input, and the general case with input and output.
 
-![functions.png / Functions ](functions.png#Functions)
+![functions.png#Functions](functions.png#Functions)
 
 
 ## Arguments
@@ -82,7 +82,7 @@ Pipe style, default value is an expression: `{ |x = (10.rand)| ... }` [#[2]](#[2
 In general arguments may be initialized to literals or expressions, but in the case of [Function#-play](../Classes/Function.md#-play) or [SynthDef#-play](../Classes/SynthDef.md#-play), they may only be initialized to literals.
 
 
-```supercollider
+```
 // this is okay:
 
 { arg a = Array.geom(4, 100, 3); a * 4 }.value;
@@ -106,7 +106,7 @@ Variable arguments are how functions catch an unknown number of arguments or key
 The first variable argument (positional) catches all remaining arguments in an [Array](../Classes/Array.md)
 
 
-```supercollider
+```
 f = { |a ... args| "a: %, args: %".format(a, args) };
 
 f.(1, 2, 3) // a: 1, args: [2, 3]
@@ -124,7 +124,7 @@ g.() // args: []
 The second variable argument catches all keyword arguments. It puts them in an [Array](../Classes/Array.md) of key-value pairs.
 
 
-```supercollider
+```
 f = { |...args, kwargs| "args: %, kwargs: %".format(args, kwargs) };
 
 f.(1, 2, 3) // args: [1, 2, 3], kwargs: []
@@ -142,7 +142,7 @@ While you can pick any name for the variable arguments, they always refer to the
 You cannot reassign the value of the variable arguments at the call–site even if they share the same name (see below for example).
 
 
-```supercollider
+```
 f = { |...args, kwargs| "args: %, kwargs: %".format(args, kwargs) };
 f.(args: 10, kwargs: 20) // args: [], kwargs: [args: 10, kwargs: 20]
 
@@ -154,11 +154,11 @@ f.(a: 10, b: 20) // a: [], b: [a: 10, b: 20]
 <a id="[1]"></a>
 
 
-### [1] Literal argument defaults
+### 1. Literal argument defaults
 Argument defaults that are literals are stored as part of the [FunctionDef](../Classes/FunctionDef.md). Arguments passed at runtime — including nil — always override the defaults:
 
 
-```supercollider
+```
 f = { |x = 1| x };
 f.(2);  // prints 2
 
@@ -173,11 +173,11 @@ f.(nil);  // prints nil
 
 
 
-### [2] Expression argument defaults
+### 2. Expression argument defaults
 Since expressions are evaluated when the function is called, they cannot be stored in the [FunctionDef](../Classes/FunctionDef.md). They are executed only if the passed-in value is nil.
 
 
-```supercollider
+```
 f = { |x = (10.rand)| x };
 f.value(100);  // prints 100
 
@@ -190,7 +190,7 @@ f.(nil);   // prints a number 0-9!
 This means you can use expression-style to define a default that cannot be overridden by nil.
 
 
-```supercollider
+```
 f = { |x = (3)| x };
 f.(nil);   // prints 3
 ```
@@ -199,7 +199,7 @@ f.(nil);   // prints 3
 Note: Parentheses are required when initializing an argument to an expression, if the argument list is written inside `||` pipes.
 
 
-```supercollider
+```
 (
 var abc = 2;
 { arg x = abc+1; x }   // OK
@@ -231,7 +231,7 @@ var abc = 2;
 This is because the pipe character also serves as a binary operator. Without parentheses, expressions such as the following are ambiguous:
 
 
-```supercollider
+```
 { |a, b, c = a | b | c }
 ```
 
@@ -239,7 +239,7 @@ This is because the pipe character also serves as a binary operator. Without par
 The following produce identical function definitions. Expression-style defaults are simply a shortcut syntax for the latter.
 
 
-```supercollider
+```
 { arg x = 10.rand; x };
 
 {    arg x;
@@ -257,7 +257,7 @@ The following produce identical function definitions. Expression-style defaults 
 Following the argument declarations are the variable declarations. These may be declared in any order. Variable lists are preceded by the reserved word `var`. There can be multiple var declaration lists if necessary. Variables may be initialized to default values in the same way as arguments. Variable declarations lists may not contain an ellipsis.
 
 
-```supercollider
+```
 var level=0, slope=1, curve=1;
 ```
 

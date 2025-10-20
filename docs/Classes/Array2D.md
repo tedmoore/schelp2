@@ -17,18 +17,20 @@ Represents a two-dimensional array of data. The number of rows and columns is fi
 
 ## Class Methods
 
+
 ### `new`
 Create an array of the specified size.
-```supercollider
+```
 a = Array2D.new(3, 4);
 a[2, 2] = 1;
 a.postln
 ```
 
 
+
 ### `fromArray`
 Build an Array2D from the supplied array.
-```supercollider
+```
 a = Array2D.fromArray(3, 4, [9, 8, 7, 6, 5, 4, 3, 2, 1, 2, 3, 4]);
 a[2, 2] = 1;
 a.postln
@@ -38,47 +40,54 @@ a.postln
 
 ## Instance Methods
 
+
 ### `at`
 Get a value from the array.
-```supercollider
+```
 a.at(2, 3);
 a[2, 3];
 ```
 
+
 ### `put`
 Put a value into the array.
-```supercollider
+```
 a.put(2, 3, 72);
 a[2, 3] = 72;
 ```
 
+
 ### `colsDo`
 Iterate over the columns. Each column will be passed to **func** in turn.
-```supercollider
+```
 a.colsDo(_.postln);
 ```
 
+
 ### `rowsDo`
 Iterate over the rows. Each row will be passed to **func** in turn.
-```supercollider
+```
 a.rowsDo(_.postln);
 ```
 
+
 ### `colAt`
 Retrieve a single column.
-```supercollider
+```
 a.colAt(2);
 ```
 
+
 ### `rowAt`
 Retrieve a single row.
-```supercollider
+```
 a.rowAt(2);
 ```
 
+
 ### `asArray`
 Return a flat array containing the elements.
-```supercollider
+```
 a.postln;
 a.asArray.postln;
 ```
@@ -87,7 +96,7 @@ a.asArray.postln;
 ## Examples
 
 
-```supercollider
+```
 // "a" is an array-of-arrays
 a = { { 100.0.rand }.dup(100) }.dup(100);
 // "b" is an equivalent Array2D, made using the "fromArray" class method

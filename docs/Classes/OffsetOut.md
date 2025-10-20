@@ -19,6 +19,7 @@ See the [Server-Architecture](../Reference/Server-Architecture.md) and [Bus](../
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -30,7 +31,7 @@ See the [Server-Architecture](../Reference/Server-Architecture.md) and [Bus](../
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("help-OffsetOut",
     { |out = 0, freq = 440, dur = 0.05|

@@ -11,7 +11,7 @@
 A NamedControl directly combines a ControlName and a Control UGen conveniently. Also this makes it safe even if several identical controls exist (see example below).
 There are syntax shortcuts that generate NamedControls from the name:
 
-```supercollider
+```
 \name.ar(values, lags, spec)
 \name.kr(values, lags, fixedLag, spec)
 \name.ir(values, lags, spec)
@@ -23,20 +23,25 @@ There are syntax shortcuts that generate NamedControls from the name:
 
 ## Class Methods
 
+
 ### `ar`
 add a new instance of [AudioControl](../Classes/AudioControl.md) with given name and default values. If lags are given, apply a Lag UGen to it.`\symbol.ar(values, lags, spec)` is a synonym.
+
 ### `kr`
 add a new instance of [Control](../Classes/Control.md) (kr) with given name and default values. If lags are given, apply a [Lag](../Classes/Lag.md) UGen to it. If fixedLag is set to true, create a [LagControl](../Classes/LagControl.md) (lags cannot be modulated then, but fewer UGens are required).`\symbol.kr(values, lags, fixedLag, spec)` is a synonym.
+
 ### `ir`
 add a new instance of [Control](../Classes/Control.md) (ir) with given name and default values. If lags are given, apply a [Lag](../Classes/Lag.md) UGen to it.`\symbol.ir(values, lags, spec)` is a synonym.
+
 ### `tr`
 add a new instance of [TrigControl](../Classes/TrigControl.md) with given name and default values. If lags are given, apply a [Lag](../Classes/Lag.md) UGen to it.`\symbol.tr(values, lags, spec)` is a synonym.
+
 ### `new`
 add a new instance with the given rate, name and default values. If lags are given, apply a [Lag](../Classes/Lag.md) UGen to it. If fixedLag is set to true, create a [LagControl](../Classes/LagControl.md) (lags cannot be modulated then, but fewer UGens are required).
 ## Examples
 
 
-```supercollider
+```
 // use NamedControl to create a number of multichannel controls:
 
 a = { SinOsc.ar(NamedControl.kr(\freq, [300, 330, 370], [1, 0.3, 0.02])).sum * 0.1 }.play;
@@ -53,7 +58,7 @@ a = { SinOsc.ar(\freq.kr([300, 330, 370], [1, 0.3, 0.02])).sum * 0.1 }.play;
 Identical controls can not make use of different defaults and lag values. They can be saved to a variable to avoid duplicate code.
 
 
-```supercollider
+```
 // multiple usage of the same name:
 a = { SinOsc.ar(\freq.kr(440, 1.0)) + Saw.ar(\freq.kr(440, 1.0) * 0.5) * 0.1 }.play;
 
@@ -85,7 +90,7 @@ a.set(\freq, 120);
 In the situation when functions are used to combine UGens to more complex SynthDefs, it may not be known which ControlNames are already taken by others. NamedControl allows to reuse existing control names.
 
 
-```supercollider
+```
 // compare this:
 (
 a = {
@@ -120,7 +125,7 @@ a.set(\freq, 120);
 Here is a basic example using a dictionary with functions that can be combined to build SynthDefs.
 
 
-```supercollider
+```
 (
 q = ();
 q.makeEnv = { |q, env, doneAction = 0| EnvGen.kr(env, NamedControl.kr(\gate, 1), doneAction: doneAction) };

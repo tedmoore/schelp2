@@ -11,7 +11,7 @@
 Often one wants to be able to create multiple streams from a single stream specification. Patterns are just a way to make multiple Streams from a single specification, like a cookie cutter. A pattern can be any object that responds to the `asStream` message by creating a [Stream](../Classes/Stream.md). Once again there is a default implementation in class [Object](../Classes/Object.md) of asStream that simply returns the receiver as its own stream. Thus any object is by default a pattern that returns itself as a stream when sent the asStream message.
 
 
-```supercollider
+```
 (
 a = 7.asStream;
 a.postln;
@@ -28,7 +28,7 @@ There is a class named [Pattern](../Classes/Pattern.md) that provides more funct
 A [Pfunc](../Classes/Pfunc.md) is a Pattern that returns a [FuncStream](../Classes/FuncStream.md). The same function arguments are supplied as are supplied to FuncStream.
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pfunc.new({ #[1, 2, 3, 4].choose });
@@ -41,7 +41,7 @@ b = a.asStream;            // make a stream from the pattern
 A [Prout](../Classes/Prout.md) is a Pattern that returns a [Routine](../Classes/Routine.md). The same function argument is supplied as is supplied to Routine.
 
 
-```supercollider
+```
 (
 var a, b, c;
 a = Prout.new({
@@ -59,7 +59,7 @@ c = a.asStream;
 A [Pseries](../Classes/Pseries.md) is a Pattern that generates an arithmetic series.
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pseries.new(10, 3, 8);    // stream starts at 10, steps by 3 and has length 8
@@ -72,7 +72,7 @@ b = a.asStream;
 [Pgeom](../Classes/Pgeom.md) is a Pattern that generates a geometric series.
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pgeom.new(10, 3, 8);    // stream starts at 10, steps by factor of 3 and has length 8
@@ -90,7 +90,7 @@ Patterns also respond to math operators by returning patterns that respond to `a
 Applying a unary operator to a pattern
 
 
-```supercollider
+```
 (
 var a, b, c;
 a = Pseries.new(0,1,10);    // a is a pattern whose stream counts from 0 to 9
@@ -104,7 +104,7 @@ c = b.asStream;
 Using a binary operator on a pattern
 
 
-```supercollider
+```
 (
 var a, b, c;
 a = Pseries.new(0,1,10);    // a is a pattern whose stream counts from 0 to 9
@@ -123,7 +123,7 @@ Patterns also respond to the messages `collect`, `select`, and `reject` by retur
 The `collect` message returns a Pattern whose [Stream](../Classes/Stream.md) is modified by a function in the same way as the collect message sent to a Collection returns a modified Collection.
 
 
-```supercollider
+```
 (
 var a, b, c;
 // a is a pattern whose stream counts from 0 to 9
@@ -139,7 +139,7 @@ c = b.asStream;
 The `select` message creates a pattern whose stream passes only items that return true from a user supplied function.
 
 
-```supercollider
+```
 (
 var a, b, c;
 // a is a pattern whose stream counts from 0 to 9
@@ -155,7 +155,7 @@ c = b.asStream;
 The `reject` message creates a pattern whose stream passes only items that return false from a user supplied function.
 
 
-```supercollider
+```
 (
 var a, b, c;
 // a is a pattern whose stream counts from 0 to 9
@@ -174,7 +174,7 @@ c = b.asStream;
 Here is a variation of the example given in part 1 that uses a [Pattern](../Classes/Pattern.md) to create two instances of the random melody stream.
 
 
-```supercollider
+```
 (
     s = Server.local;
     SynthDef(\help_SPE2, { arg i_out=0, sustain=1, freq;

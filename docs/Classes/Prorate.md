@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -20,7 +21,7 @@
 ## Examples
 
 
-```supercollider
+```
 // divide 1 into various proportions
 (
 a = Prorate(Pseq([0.35, 0.5, 0.8]), 1);

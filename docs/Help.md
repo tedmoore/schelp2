@@ -44,7 +44,7 @@ These are useful starting points for getting help on SuperCollider:
 - [All tutorials](Browse.html.md#tutorials):Index of all help files categorized under *Tutorials*
 - [Common Errors and FAQ](Guides/UserFAQ.md)
 - SuperCollider examples folder:
-```supercollider
+```
 Platform.exampleDir.openOS 
 // Hold down the Shift key and press the Enter key to open the "SuperCollider examples folder".
 ```

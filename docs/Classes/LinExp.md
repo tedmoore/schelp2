@@ -13,6 +13,7 @@ Converts a linear range of values to an exponential range of values.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ The `dstlo` and `dsthi` arguments must be nonzero and have the same sign.
 ## Examples
 
 
-```supercollider
+```
 // compare:
 (
 {
@@ -55,7 +56,7 @@ The `dstlo` and `dsthi` arguments must be nonzero and have the same sign.
 
 `linexp` and `exprange` can be used to create a LinExp implicitly from a ugen, mapping its output values from linear range to an exponential one. The rate is derived from the ugen.
 
-```supercollider
+```
 // linexp
 (
 {

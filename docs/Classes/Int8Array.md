@@ -24,10 +24,12 @@ These classes implement arrays whose indexed slots are all of the same type.
 
 ## Instance Methods
 
+
 ### `readFromStream`
+
 ### `parseOSC`
 Tries to interpret the bytes as an OSC message or OSC bundle. Throws an exception on failure. See also [Array#-asRawOSC](../Classes/Array.md#-asrawosc).
-```supercollider
+```
 // OSC message:
 Int8Array[ 47, 115, 95, 110, 101, 119, 0, 0, 44, 115, 105, 105, 105, 115, 105, 0, 100, 101, 102, 97, 117, 108, 116, 0, -1, -1, -1, -1, 0, 0, 0, 1, 0, 0, 0, 1, 102, 114, 101, 113, 0, 0, 0, 0, 0, 0, 7, -87 ].parseOSC;
 // OSC bundle:

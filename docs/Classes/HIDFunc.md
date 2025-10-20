@@ -20,8 +20,10 @@ The development of this SuperCollider implementation of HID access was funded by
 ## Class Methods
 
 
+
 ### `defaultDispatchers`
 Get or set an [IdentityDictionary](../Classes/IdentityDictionary.md) containing the default dispatcher objects for HIDFuncs of different types (these are what you get if you pass nil as the dispatcher argument to [#*new](#*new)). These objects will decide if any of their registered HIDFuncs should respond to an incoming HID message. The dictionary should have the keys `[\usage, \usageID, \device, \proto, \element]` and values of an appropriate subclass of [AbstractDispatcher](../Classes/AbstractDispatcher.md) for each message type. By default these will be instances of `HIDUsageDispatcher`, `HIDElementProtoDispatcher`, `HIDDeviceDispatcher`, `HIDElementProtoDispatcher` and `HIDElementDispatcher` respectively.**Returns:** The getter returns an [IdentityDictionary](../Classes/IdentityDictionary.md).
+
 ### `usage`
 A convenience method to filter an incoming HID value based on the name of its control usage. E.g. the name of an X-axis of a joystick or the horizontal movement of a mouse has the name `\X`. These usage names are standardized by manufacturers and are looked up in usage tables based on the information coming from the device. If you have an open HID device, you can look up the available usages with: `~hid.postUsages`.**Arguments:**
 
@@ -35,6 +37,7 @@ A convenience method to filter an incoming HID value based on the name of its co
 | `argTemplateType` | If the argTemplateType is `\rawValue` (the default) then the matching is done based on the incoming raw value of the element (not mapped according to the logical min and max). Otherwise the matching is done according to the mapped value. |  
 | `dispatcher` | An optional instance of an appropriate subclass of [AbstractDispatcher](../Classes/AbstractDispatcher.md). This can be used to allow for customised dispatching. Normally this should not be needed. The default for this type of `HIDFunc` is `HIDUsageDispatcher` |  
 **Returns:** A new instance of HIDFunc which responds to a specific element usage and device type.
+
 ### `device`
 A convenience method to filter an incoming HID value based on the name of the device. This type of HIDFunc differs from `HIDFunc.usage` in that it filter specifically by device name, rather than device usage, otherwise the arguments are the same.**Arguments:**
 
@@ -48,6 +51,7 @@ A convenience method to filter an incoming HID value based on the name of the de
 | `argTemplateType` | If the argTemplateType is `\rawValue` (the default) then the matching is done based on the incoming raw value of the element (not mapped according to the logical min and max). Otherwise the matching is done according to the mapped value. |  
 | `dispatcher` | An optional instance of an appropriate subclass of [AbstractDispatcher](../Classes/AbstractDispatcher.md). This can be used to allow for customised dispatching. Normally this should not be needed. The default for this type of `HIDFunc` is `HIDDeviceDispatcher` |  
 **Returns:** A new instance of HIDFunc which responds to a specific element usage for a specific device.
+
 ### `usageID`
 A convenience method to filter an incoming HID value based on the number of its control usage. If the device is using a non-standard usage number, then this method can be used to look for it. A controls usage is fully specified by the combination of its usage ID and its usage page.**Arguments:**
 
@@ -62,6 +66,7 @@ A convenience method to filter an incoming HID value based on the number of its 
 | `argTemplateType` | If the argTemplateType is `\rawValue` (the default) then the matching is done based on the incoming raw value of the element (not mapped according to the logical min and max). Otherwise the matching is done according to the mapped value. |  
 | `dispatcher` | An optional instance of an appropriate subclass of [AbstractDispatcher](../Classes/AbstractDispatcher.md). This can be used to allow for customised dispatching. Normally this should not be needed. The default for this type of `HIDFunc` is `HIDElementProtoDispatcher` |  
 **Returns:** A new instance of HIDFunc which responds to a specific element usage id for a specific device.
+
 ### `proto`
 A convenience method to filter an incoming HID value based on a matching template of an element (a [HIDElementProto](../Classes/HIDElementProto.md)). If you have number of conditions for the element that should be matched, then this method can be used to look for it.**Arguments:**
 
@@ -74,6 +79,7 @@ A convenience method to filter an incoming HID value based on a matching templat
 | `argTemplateType` | If the argTemplateType is `\rawValue` (the default) then the matching is done based on the incoming raw value of the element (not mapped according to the logical min and max). Otherwise the matching is done according to the mapped value. |  
 | `dispatcher` | An optional instance of an appropriate subclass of [AbstractDispatcher](../Classes/AbstractDispatcher.md). This can be used to allow for customised dispatching. Normally this should not be needed. The default for this type of `HIDFunc` is `HIDElementProtoDispatcher` |  
 **Returns:** A new instance of HIDFunc which responds to a specific prototype element.
+
 ### `element`
 A convenience method to filter an incoming HID value based on the index of its element. If the device is using something non-standard, or you want to access keyboard elements directly, then this method can be used to look for it. Note that the element index is not necessarily the same across different operating systems (i.e. it may vary between Linux and macOS and Windows).**Arguments:**
 
@@ -89,6 +95,7 @@ A convenience method to filter an incoming HID value based on the index of its e
 **Returns:** A new instance of HIDFunc which responds to a specific element id for a specific device.
 
 ### Debugging
+
 ### `trace`
 A convenience method which dumps all incoming HID messages.**Arguments:**
 
@@ -100,19 +107,26 @@ A convenience method which dumps all incoming HID messages.**Arguments:**
 
 ## Instance Methods
 
+
 ### `type`
-The type of HIDFunc.**Returns:** a [Symbol](../Classes/Symbol.md), one of `\usage`, `\device`, `\usageID`, `\proto` or `\element`.### `elUsage`
-The usage name, usage id, or element id of the element/control to match, depending on the type of HIDFunc### `elementTemplate`
-An instance of HIDElementProto, describing the template for the element to match.### `devUsage`
-The device usage or device name of the element/control to match, depending on the type of HIDFunc### `deviceTemplate`
-An instance of HIDProto, describing the template for the device to match.### `argTemplate`
-This should be an object that implements the method `matchItem`. Depending on the `argTemplateType`, it will be passed either the rawValue of the value of the element to be matched.### `argTemplateType`
+The type of HIDFunc.**Returns:** a [Symbol](../Classes/Symbol.md), one of `\usage`, `\device`, `\usageID`, `\proto` or `\element`.
+### `elUsage`
+The usage name, usage id, or element id of the element/control to match, depending on the type of HIDFunc
+### `elementTemplate`
+An instance of HIDElementProto, describing the template for the element to match.
+### `devUsage`
+The device usage or device name of the element/control to match, depending on the type of HIDFunc
+### `deviceTemplate`
+An instance of HIDProto, describing the template for the device to match.
+### `argTemplate`
+This should be an object that implements the method `matchItem`. Depending on the `argTemplateType`, it will be passed either the rawValue of the value of the element to be matched.
+### `argTemplateType`
 If the argTemplateType is `\rawValue` (the default) then the matching is done based on the incoming raw value of the element (not mapped according to the logical min and max). Otherwise the matching is done according to the mapped value.
 ## Examples
 
 For all the examples below here, you will need to have initialized an HID device (see also [Working_with_HID](../Guides/Working_with_HID.md)). The examples below should work with a standard USB mouse.
 
-```supercollider
+```
 HID.findAvailable; // check which devices are attached
 HID.postAvailable; // post the available devices
 ~myhid = HID.open(1103, 53251); // adapt this line for  the device that you want to open!
@@ -122,7 +136,7 @@ HID.postAvailable; // post the available devices
 
 ### Filtering based on usage
 
-```supercollider
+```
 // filter all events coming from the x-axis of a mouse
 a = HIDFunc.usage({ |...args| args.postln }, \X, \Mouse);
 // disable the function again:
@@ -176,7 +190,7 @@ a.free;
 
 ### Filtering based on usage ID
 
-```supercollider
+```
 // filter by usage ID 48 on usage page 1
 a = HIDFunc.usageID({ |...args| args.postln }, 48, 1);
 a.free;
@@ -203,7 +217,7 @@ a.free;
 
 ### Filtering based on a device
 
-```supercollider
+```
 // filter for device with name "", and element with usage \X.
 a = HIDFunc.device({ |...args| args.postln }, \X, "");
 a.free;
@@ -214,7 +228,7 @@ a.free;
 
 ### Filtering based on a prototype element
 
-```supercollider
+```
 // create an prototype element with usageName \X
 c = HIDElementProto.new.usageName_(\X);
 a = HIDFunc.proto({ |...args| args.postln }, c);
@@ -226,7 +240,7 @@ a.free;
 
 ### Filtering based on an element ID
 
-```supercollider
+```
 // filter for elements with element id 6:
 a = HIDFunc.element({ |...args| args.postln }, 6);
 a.free;

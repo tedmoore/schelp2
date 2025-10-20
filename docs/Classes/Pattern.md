@@ -26,7 +26,7 @@ The Pattern class **Pseq(array, repetitions)** defines a Pattern that will creat
 Below a stream is created with [Pseq](../Classes/Pseq.md) and an `asStream` message and an identical stream is created directly using Routine.
 
 
-```supercollider
+```
 // a Routine vs a Pattern
 (
     a = [-100, 00, 300, 400];            // the array to iterate
@@ -46,7 +46,7 @@ Below a stream is created with [Pseq](../Classes/Pseq.md) and an `asStream` mess
 In example 1, there is little difference between using [Pseq](../Classes/Pseq.md) and [Routine](../Classes/Routine.md). But Pseq actually iterates its array as a collection of *patterns to be embedded*, allowing another Pseq to replace any of the values in the array. The Routine, on the other hand, needs to be completely redefined.
 
 
-```supercollider
+```
 (
     var routinesA;
     a = [3, Pseq([-100, 00, 300, 400]), Pseq([-100, 00, 300, 400].reverse)];
@@ -72,7 +72,7 @@ The message `embedInStream` is what allows Patterns to do this kind of nesting. 
 A Routine can perform a pattern simply by replacing calls to `yield` with calls to `embedInStream`.
 
 
-```supercollider
+```
 (
     a = [3, Pseq([-100, 00, 300, 400]), Pseq([-100, 00, 300, 400].reverse)];
 
@@ -98,10 +98,10 @@ An [Event](../Classes/Event.md) is a [Environment](../Classes/Environment.md) wi
 
 
 ### Playing Event Patterns
-The [play](#play) method does not return the pattern itself. Instead, it returns the [EventStreamPlayer](../Classes/EventStreamPlayer.md) object that actually runs the pattern. Control instructions -- stop, pause, resume, play, reset -- should be addressed to the EventStreamPlayer. (The same pattern can play many times simultaneously, using different EventStreamPlayers.)
+The [#-play](#-play) method does not return the pattern itself. Instead, it returns the [EventStreamPlayer](../Classes/EventStreamPlayer.md) object that actually runs the pattern. Control instructions -- stop, pause, resume, play, reset -- should be addressed to the EventStreamPlayer. (The same pattern can play many times simultaneously, using different EventStreamPlayers.)
 
 
-```supercollider
+```
 p = Pbind(...);
 p.play;
 p.stop;    // does not stop because p is not the EventStreamPlayer that is actually playing
@@ -114,7 +114,7 @@ p.stop;    // DOES stop because p is the EventStreamPlayer
 
 
 ### Recording Event Patterns
-Patterns may be recorded in realtime or non-realtime. See the method [record](#record) for realtime recording.
+Patterns may be recorded in realtime or non-realtime. See the method [#-record](#-record) for realtime recording.
 
 For non-realtime recording see the [Score](../Classes/Score.md) helpfile, especially "creating Score from a pattern." It can be tricky, because NRT recording launches a new server instance. That server instance is not aware of buffers or other resources loaded into the realtime server you might have been using for tests. The pattern is responsible for (re)loading any resources (buffers, effects etc.). [Pfset](../Classes/Pfset.md) or [Pproto](../Classes/Pproto.md) may be useful.
 
@@ -123,9 +123,10 @@ For non-realtime recording see the [Score](../Classes/Score.md) helpfile, especi
 
 ## Instance Methods
 
+
 ### `asStream`
 Return a [Stream](../Classes/Stream.md) from this pattern. One pattern can be used to produce any number of independent streams.
-```supercollider
+```
 a = Pgeom(1, Pwhite(1.01, 1.2), inf);
 b = a.asStream; c = a.asStream;
 
@@ -137,17 +138,19 @@ c.next; // c is independent from b
 c.next;
 ```
 
+
 ### `embedInStream`
 Given a [Stream](../Classes/Stream.md) like e.g. [Routine](../Classes/Routine.md), yield all values from this pattern before continuing. One pattern can be used to produce values for any number of independent streams.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `inval` | The inval is passed into all substreams and can be used to control how they behave from the outside.
-```supercollider
+```
 a = Pgeom(1, Pwhite(1.01, 1.2), 5);
 r = Routine { 2.yield; 3.yield; a.embedInStream; 7.yield };
 r.nextN(12); // the next 12 values from r
 ``` |  
+
 ### `play`
 **Arguments:**
 
@@ -156,6 +159,7 @@ r.nextN(12); // the next 12 values from r
 | `clock` | The tempo clock that will run the pattern. If omitted, TempoClock.default is used. |  
 | `protoEvent` | The event prototype that will be fed into the pattern stream on each iteration. If omitted, event.default is used. |  
 | `quant` | see the [Quant](../Classes/Quant.md) helpfile. |  
+
 ### `record`
 Opens a disk file for recording and plays the pattern into it.**Arguments:**
 
@@ -177,7 +181,7 @@ Opens a disk file for recording and plays the pattern into it.**Arguments:**
 
 Below are brief examples for most of the classes derived from Pattern. These examples all rely on the patterns assigned to the Interpreter variable p, q, and r in the first block of code.
 
-```supercollider
+```
 s.boot;
 
 (
@@ -213,7 +217,7 @@ r = Pset(\freq, Pseq([500, 600, 700], 2), q);
 
 ### EVENT PATTERNS - patterns that generate or require event streams
 
-```supercollider
+```
 // Pbind(ArrayOfPatternPairs)
 
 p = Pbind(
@@ -304,7 +308,7 @@ Ppar([Plag(1.2, Pn(p, 4)), Pn(Pbindf(q, \ctranspose, -24), 5)]).play
 
 ### GENERAL PATTERNS that work with both event and value streams
 
-```supercollider
+```
 // Ptrace(pattern, key, printStream) - print the contents of a pattern
 
 r = Psetpre(\freq, Pseq([500, 600, 700], 2), q);
@@ -435,7 +439,7 @@ Ppatmod(p, { |oldPat| [p, q, r].choose }, inf).play
 
 ### VALUE PATTERNS: these patterns define or act on streams of numbers
 
-```supercollider
+```
 // Env as a pattern
 
 Pbindf(Pn(q, inf), \ctranspose, Pn(Env.linen(3, 0, 0.3, 20), inf)).play;

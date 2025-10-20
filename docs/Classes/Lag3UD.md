@@ -13,6 +13,7 @@ Lag3UD is equivalent to LagUD.kr(LagUD.kr(LagUD.kr(in, timeU, timeD), timeU, tim
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Lag3UD is equivalent to LagUD.kr(LagUD.kr(LagUD.kr(in, timeU, timeD), timeU, tim
 ## Examples
 
 
-```supercollider
+```
 // used to lag pitch
 (
 SynthDef(\lag3ud_help, { |out, freq = 300, lagup = 1, lagdown = 5|

@@ -13,14 +13,14 @@ A BinaryOpStream is created as a result of a binary math operation on a pair of 
 ## Examples
 
 
-```supercollider
+```
 x = Routine { 6.do { |i| i.yield } } + 64;
 x.dump
 ```
 
 
 
-```supercollider
+```
 (
 x = Routine { 6.do { |i| i.yield } } + 64;
 x.next.postln;
@@ -35,7 +35,7 @@ x.next.postln;
 
 
 
-```supercollider
+```
 (
 x = Routine { 6.do { |i| i.yield } } + Routine { (1..7).do { |i| (1 / i).yield } };
 x.next.postln;

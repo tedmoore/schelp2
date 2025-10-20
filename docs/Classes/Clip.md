@@ -13,6 +13,7 @@ This differs from the [BinaryOpUGen](../Classes/BinaryOpUGen.md) [clip2](../Over
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ This differs from the [BinaryOpUGen](../Classes/BinaryOpUGen.md) [clip2](../Over
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 { Clip.ar(SinOsc.ar(440, 0, 0.2), -0.07, 0.07) }.scope;

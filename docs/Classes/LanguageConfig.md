@@ -28,6 +28,7 @@ The configuration file is stored in YAML format, which contains one dictionary. 
 
 ## Class Methods
 
+
 ### `store`
 Store the current configuration to file. Throws an error if the config file cannot be opened or if writing fails.**Arguments:**
 
@@ -43,20 +44,28 @@ The language configuration mechanism provides a way to add or exclude specific p
 > **Note:** Changes to the class library paths won't have any effect before the configuration file is stored and the class library is recompiled.
 
 
+
 ### `includePaths`
 Return the class library include paths.
+
 ### `addIncludePath`
 Add new class library include path.
+
 ### `removeIncludePath`
 Remove path from class library include paths.
+
 ### `excludePaths`
 Return the class library exclude paths.
+
 ### `addExcludePath`
 Add new class library exclude path.
+
 ### `removeExcludePath`
 Remove path from class library exclude paths.
+
 ### `currentPath`
 Return the current config file path.
+
 ### `excludeDefaultPaths`
 Get or set whether default class library paths are included.
 > **Note:** If sclang is started with -a the class library paths are excluded and this value is ignored. The default class library paths are Platform.classLibraryDir, and the system and user extensions directories.
@@ -65,9 +74,10 @@ Get or set whether default class library paths are included.
 
 
 ### Compiler Warnings
+
 ### `postInlineWarnings`
 Get or set the compiler flag, whether warnings should be posted if a FunctionDef cannot be inlined.
-```supercollider
+```
 LanguageConfig.postInlineWarnings_(true) // warn
 if(0.5.coin) { var x; x = 10.rand; x + 1 } { 10 };
 LanguageConfig.postInlineWarnings_(false) // ignore it.

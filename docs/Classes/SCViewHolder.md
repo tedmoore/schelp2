@@ -21,10 +21,12 @@ Historical note: this class was originally in the cruciallib. ObjectGui is a sub
 
 ## Class Methods
 
+
 ### `consumeKeyDowns`
 global preference variable: if true then subclasses that do not set a keyDownAction do NOT bubble up keyDown events by default.**Returns:** The result of calling the method on the proxied view
 
 ## Instance Methods
+
 
 ### `view`
 get or set the view for which this object is a proxy/adapter.**Arguments:**
@@ -32,70 +34,88 @@ get or set the view for which this object is a proxy/adapter.**Arguments:**
 | Argument | Description |
 |----------|-------------|
 | `v` | the view: a [View](../Classes/View.md) |  
-**Returns:** The result of calling the method on the proxied view### `doesNotUnderstand`
+**Returns:** The result of calling the method on the proxied view
+### `doesNotUnderstand`
 Messages that are not understood by the view holder are forwarded to the proxied view. So when the interpreter is told to send a message to a view holder object and that message is not understood, it calls doesNotUnderstand**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `selector` | The message that was not understood |  
 | `... args` | The arguments that were supplied |  
-**Returns:** the result of calling the method on the proxied view### `viewDidClose`
-Unsets the view variable. After the view is closed (removed from the window) then all calls to the view holder will fail, and should fail as there is no view anymore. You can check viewHolder.isClosed if you are unsure**Returns:** this### `remove`
-Removes the view from the window if it has not already been removed.**Returns:** this### `action`
+**Returns:** the result of calling the method on the proxied view
+### `viewDidClose`
+Unsets the view variable. After the view is closed (removed from the window) then all calls to the view holder will fail, and should fail as there is no view anymore. You can check viewHolder.isClosed if you are unsure**Returns:** this
+### `remove`
+Removes the view from the window if it has not already been removed.**Returns:** this
+### `action`
 This method is forwarded to the view**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `f` |  |  
-**Returns:** The result of calling the method on the proxied view### `doAction`
-This method is forwarded to the view**Returns:** The result of calling the method on the proxied view### `keyDownAction`
+**Returns:** The result of calling the method on the proxied view
+### `doAction`
+This method is forwarded to the view**Returns:** The result of calling the method on the proxied view
+### `keyDownAction`
 This method is forwarded to the view**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `f` |  |  
-**Returns:** The result of calling the method on the proxied view### `keyDownResponder`
-This method is forwarded to the view. Note: this is a cruciallib convention and will be deprecated here.**Returns:** The result of calling the method on the proxied view### `enableKeyDowns`
-This method is forwarded to the view. Note: this is a cruciallib convention and will be deprecated here.**Returns:** The result of calling the method on the proxied view### `asView`
-returns the view**Returns:** the view### `bounds`
+**Returns:** The result of calling the method on the proxied view
+### `keyDownResponder`
+This method is forwarded to the view. Note: this is a cruciallib convention and will be deprecated here.**Returns:** The result of calling the method on the proxied view
+### `enableKeyDowns`
+This method is forwarded to the view. Note: this is a cruciallib convention and will be deprecated here.**Returns:** The result of calling the method on the proxied view
+### `asView`
+returns the view**Returns:** the view
+### `bounds`
 This method is forwarded to the view**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `b` |  |  
-**Returns:** The result of calling the method on the proxied view### `resize`
+**Returns:** The result of calling the method on the proxied view
+### `resize`
 This method is forwarded to the view**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `r` |  |  
-**Returns:** The result of calling the method on the proxied view### `enabled`
+**Returns:** The result of calling the method on the proxied view
+### `enabled`
 This method is forwarded to the view**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `b` |  |  
-**Returns:** The result of calling the method on the proxied view### `refresh`
-This method is forwarded to the view**Returns:** The result of calling the method on the proxied view### `background`
+**Returns:** The result of calling the method on the proxied view
+### `refresh`
+This method is forwarded to the view**Returns:** The result of calling the method on the proxied view
+### `background`
 This method is forwarded to the view**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `b` |  |  
-**Returns:** The result of calling the method on the proxied view### `focus`
+**Returns:** The result of calling the method on the proxied view
+### `focus`
 This method is forwarded to the view**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `flag` |  |  
-**Returns:** The result of calling the method on the proxied view### `visible`
+**Returns:** The result of calling the method on the proxied view
+### `visible`
 This method is forwarded to the view**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `boo` |  |  
-**Returns:** The result of calling the method on the proxied view### `isClosed`
-This method is forwarded to the view**Returns:** The result of calling the method on the proxied view### `font`
+**Returns:** The result of calling the method on the proxied view
+### `isClosed`
+This method is forwarded to the view**Returns:** The result of calling the method on the proxied view
+### `font`
 This method is forwarded to the view**Arguments:**
 
 | Argument | Description |

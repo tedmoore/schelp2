@@ -14,6 +14,7 @@ For linear and other alternatives, see [VarLag](../Classes/VarLag.md).
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -27,7 +28,7 @@ For linear and other alternatives, see [VarLag](../Classes/VarLag.md).
 ## Examples
 
 
-```supercollider
+```
 (
 // used to lag pitch
 {

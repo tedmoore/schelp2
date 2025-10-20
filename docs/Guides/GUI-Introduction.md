@@ -27,7 +27,7 @@ There are also special types of views that can contain other views and are thus 
 The following example shows a window containing a Button, a Slider and a group of StaticText views contained in a CompositeView. When the button is clicked the visibility of the CompositeView is toggled, while interacting with the Slider will move the CompositeView (and consequently all its contents) in horizontal direction.
 
 
-```supercollider
+```
 w = Window.new("GUI Introduction", Rect(200,200,255,100));
 b = Button.new(w,Rect(10,0,80,30)).states_([["Hide"],["Show"]]);
 l = Slider.new(w,Rect(95,0,150,30));
@@ -50,7 +50,7 @@ As a handy alternative to specifying all the dimensions and positions of views e
 Views can automatically resize or move when their parent is resized, in one of the nine different ways that define how each of the view's edges will move along with the parent's edges. For documentation see the view's [resize](../Classes/View.md#-resize) method and [Resize](../Reference/Resize.md) document.
 
 
-```supercollider
+```
 w = Window.new("GUI Introduction", Rect(200,200,200,200));
 TextField.new(w,Rect(0,0,200,30)).resize_(2);
 Slider.new(w,Rect(0,30,30,170)).resize_(4);
@@ -66,7 +66,7 @@ w.front;
 Decorators are objects that can be assigned to container views to carry the task of positioning the container's child views (currently there exists only one: FlowLayout). After a decorator is assigned to a container, the views created as its children will automatically be positioned in a specific pattern. See documentation of [FlowLayout](../Classes/FlowLayout.md) for details.
 
 
-```supercollider
+```
 w = Window.new("GUI Introduction", Rect(200,200,320,320)).front;
 // notice that FlowLayout refers to w.view, which is the container view
 // automatically created with the window and occupying its entire space
@@ -85,7 +85,7 @@ See the [GUI-Layout-Management](../Guides/GUI-Layout-Management.md) guide for de
 
 
 > **Note:** Layouts are currently implemented **only in Qt GUI**. The following example will not work in other GUI kits.
-```supercollider
+```
 w = Window.new("GUI Introduction").layout_(
     VLayout(
         HLayout( Button(), TextField(), Button() ),
@@ -117,7 +117,7 @@ Custom colors may be associated with different changing states of views or data 
 Whenever you execute the following example, random colors will be applied to different aspects of the views:
 
 
-```supercollider
+```
 (
 w = Window("GUI Introduction").background_(Color.rand).front;
 b = Button(w, Rect(10,10,100,30)).states_([
@@ -146,7 +146,7 @@ In Qt GUI, the complete set of colors used to draw the views is represented by a
 In the following example, clicking on the button will switch between two palettes. Note however, that the color assigned to the first Button state will beat the red color defined in the palette, and that colors of individual ListView items are not controlled by the palette.
 
 
-```supercollider
+```
 (
 x = QPalette.auto(Color.red(0.8), Color.red(0.5));
 y = QPalette.auto(Color.cyan(1.4), Color.cyan(1.8));
@@ -174,7 +174,7 @@ RangeSlider(w, Rect(10, 190, 200, 20));
 Views that display some text will typically allow you to specify a custom font for it. Fonts are represented by the [Font](../Classes/Font.md) class, which can also be queried for the default font used in general, as well as the default font specifically for the "serif", "sans-serif" and "monospace" font types. It can also be queried for all available fonts on the system.
 
 
-```supercollider
+```
 (
 w = Window.new("GUI Introduction",Rect(200,200,200,70)).front;
 a = [Font.defaultMonoFace, Font.defaultSansFace, Font.defaultSerifFace];
@@ -201,7 +201,7 @@ Views and windows can be assigned **actions** that they will perform whenever a 
 
 Objects can also be given to views and windows to evaluate on events that are not a direct result of user's interaction, but convey useful information about the view's operation and the state it moved in. In this case they are often differentiated from actions and called **hooks**.
 
-Here, we will give an overview of different kinds of actions and hooks. See [View / Actions in general ](../Classes/View.md#actions-in-general) and following sections for precise explanation of how to assign and make use of them.
+Here, we will give an overview of different kinds of actions and hooks. See [View#Actions in general](../Classes/View.md#actions-in-general) and following sections for precise explanation of how to assign and make use of them.
 
 
 ### Default actions
@@ -210,7 +210,7 @@ Views can typically be assigned a default action with their [action](../Classes/
 In the following example, pressing the button will open an exact same window but at different position.
 
 
-```supercollider
+```
 ~makeWindow = { var w;
     w = Window.new("Evader",Rect(500.rand + 100, 500.rand + 100, 200,50)).front;
     Button.new(w,Rect(10,10,180,30)).states_([["Evade"]]).action_(~makeWindow);
@@ -227,12 +227,12 @@ All the views can be assigned actions to specific mouse and keyboard events, no 
 
 You can assign actions to **mouse events** generated when the mouse pointer enters the space of a view, when it moves over them, and when a mouse button is pressed or released.
 
-See [View / Mouse actions ](../Classes/View.md#mouse-actions) for details.
+See [View#Mouse actions](../Classes/View.md#mouse-actions) for details.
 
 In the following example the StaticText will report whether the Button is pressed or released.
 
 
-```supercollider
+```
 w = Window.new(bounds:Rect(200,200,200,50)).front;
 b = Button.new(w,Rect(10,10,80,30)).states_([["Off"],["On"]]);
 t = StaticText(w,Rect(100,10,90,30)).string_("Button released");
@@ -243,12 +243,12 @@ b.mouseUpAction = { t.string = "Button released" };
 
 You can assign actions to **keyboard events** generated whenever a key is pressed or released while the view has keyboard focus. Keyboard focus is a state of a view in which it has exclusive priority to respond to keyboard events. A view that has keyboard focus typically in a way visually indicates so. On most platforms, pressing the Tab key will switch the keyboard focus between views in the active window and clicking on a view will give it focus.
 
-See [View / Key actions ](../Classes/View.md#key-actions) for details.
+See [View#Key actions](../Classes/View.md#key-actions) for details.
 
 Typing text into any of the TextFields in the following example will change the color of the rectangle bellow, for each TextField a different color.
 
 
-```supercollider
+```
 w = Window.new(bounds:Rect(200,200,200,100)).front;
 x = TextField(w,Rect(10,10,80,30));
 y = TextField(w,Rect(110,10,80,30));
@@ -262,7 +262,7 @@ y.keyUpAction = ~reset;
 ```
 
 
-If a key or mouse event is not handled by the view on which it occurs, it may **propagate** to the parent view, and trigger the parent's action. See [View / Key and mouse event processing ](../Classes/View.md#key-and-mouse-event-processing) for detailed explanation.
+If a key or mouse event is not handled by the view on which it occurs, it may **propagate** to the parent view, and trigger the parent's action. See [View#Key and mouse event processing](../Classes/View.md#key-and-mouse-event-processing) for detailed explanation.
 
 
 
@@ -272,10 +272,10 @@ When a mouse button is pressed on a view together with Cmd(macOS) or Ctrl(Other 
 
 It is possible to customize what object a view exports when dragged from and how a view reacts to objects dropped by assigning custom drag and drop actions.
 
-See [View / Drag and drop ](../Classes/View.md#drag-and-drop) for details.
+See [View#Drag and drop](../Classes/View.md#drag-and-drop) for details.
 
 
-```supercollider
+```
 (
     w = Window.new.front;
     a = Button(w, Rect(10, 10, 200, 20)).states_([["Hi There!"]]);
@@ -325,7 +325,7 @@ Creating a custom view involves the following steps:
 You can omit steps which you don't need.
 
 
-```supercollider
+```
 (
 var value = 0.5;
 w = Window.new.front;
@@ -400,7 +400,7 @@ Therefore, if you want to use Functions, Routines, Tasks and other similar objec
 An example of scheduling GUI code on the AppClock:
 
 
-```supercollider
+```
 w=Window.new.front;
 Routine{
     20.do{
@@ -415,7 +415,7 @@ Routine{
 The same thing using the SystemClock in combination with the defer mechanism:
 
 
-```supercollider
+```
 w=Window.new.front;
 Routine{
     20.do{

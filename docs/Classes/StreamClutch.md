@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -20,7 +21,7 @@
 ## Examples
 
 
-```supercollider
+```
 a = Pseq([1, 2, 3], inf);
 b = StreamClutch(a);
 
@@ -37,7 +38,7 @@ b = StreamClutch(a, { 0.5.coin });
 
 
 
-```supercollider
+```
 s.boot;
 // sound example:
 (
@@ -51,7 +52,7 @@ clutch.asEventStreamPlayer.play;
 
 
 
-```supercollider
+```
 // independant stepping
 (
 var clutch, pat, decision;

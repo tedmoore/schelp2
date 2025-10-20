@@ -15,7 +15,7 @@ The pattern for a binary message is
 For example
 
 
-```supercollider
+```
 2 * 3
 ```
 
@@ -28,7 +28,7 @@ is a receiver (the object to which a message is sent), a binary operator, and an
 Use addition (a binary operation) to mix two or more ugens.
 
 
-```supercollider
+```
 (
     // mix 2 sawtooth waves
     {
@@ -60,7 +60,7 @@ Use addition (a binary operation) to mix two or more ugens.
 Rewrite the previous example with the Mix ugen.
 
 
-```supercollider
+```
 (
 {
     Mix.ar(
@@ -79,7 +79,7 @@ Rewrite the previous example with the Mix ugen.
 Or use Mix.arFill to create the same result.
 
 
-```supercollider
+```
 { Mix.arFill(3, { arg i; Saw.ar(500 + (i * 100), 0.05) }) }.scope;
 ```
 
@@ -92,7 +92,7 @@ Every time the function is evaluated, the argument i is incremented. So i equals
 Apply an envelope, in the form of a low-frequency sine wave, to a WhiteNoise generator.
 
 
-```supercollider
+```
 { WhiteNoise.ar(0.1) * SinOsc.kr(1, 1) }.scope;
 
 (
@@ -114,7 +114,7 @@ Apply an envelope, in the form of a low-frequency sine wave, to a WhiteNoise gen
 Dynamically modulate any parameter in a ugen (such as frequency, phase, or amplitude) with an envelope.
 
 
-```supercollider
+```
 // modulate amplitude
 { SinOsc.ar(440, 0, 0.1) * EnvGen.kr(Env.sine(1), doneAction: Done.freeSelf) }.scope;
 ```
@@ -128,7 +128,7 @@ Setting the doneAction argument (control) to 2 insures that after the envelope r
 Keywords make code easier to read and they allow arguments to be presented in any order. Here, the doneAction and the timeScale arguments are expressed in keyword style.
 
 
-```supercollider
+```
 (
 SynthDef("timeScale", { arg ts = 1;
     Out.ar(
@@ -151,7 +151,7 @@ Synth("timeScale", [\ts, 0.1]); // timeScale controls the duration of the envelo
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-```supercollider
+```
 // scale the duration of the envelope for every new synth
 (
 r = Routine({
@@ -171,7 +171,7 @@ r.play
 Additive synthesis is as its name says. Components are added (mixed) together.
 
 
-```supercollider
+```
 (
 {    // evaluate the function 12 times
     var n = 12;
@@ -202,7 +202,7 @@ The problem of additive synthesis is that each and every sine wave and their env
 Create nuanced textures by scaling sine waves with envelopes and then mixing the result.
 
 
-```supercollider
+```
 (
 {    var n = 12;
 
@@ -243,7 +243,7 @@ Create nuanced textures by scaling sine waves with envelopes and then mixing the
 Multiply two UGens.
 
 
-```supercollider
+```
 { SinOsc.ar(440, 0, 0.571) * SinOsc.kr(880) }.scope
 
 // use an lfo to modulate the amplitude of the modulator
@@ -266,7 +266,7 @@ Multiply two UGens.
 Multiply two UGens and restrict the value of the modulator to positive values (use the .abs message to calculate 'absolute' value) to create what Charles Dodge calls "classic" amplitude modulation.
 
 
-```supercollider
+```
 // use an lfo to modulate the amplitude of the modulator
 (
     {
@@ -286,7 +286,7 @@ Multiply two UGens and restrict the value of the modulator to positive values (u
 Compare "classic" amplitude modulation and ring modulation
 
 
-```supercollider
+```
 // "classic"
 { SinOsc.ar(440, 0, 0.571) * SinOsc.kr(880).abs }.scope
 

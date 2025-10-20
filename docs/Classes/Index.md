@@ -13,6 +13,7 @@ Index into a table with a signal. The input signal value is truncated to an inte
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -26,7 +27,7 @@ Index into a table with a signal. The input signal value is truncated to an inte
 ## Examples
 
 
-```supercollider
+```
 // indexing into a fixed table
 (
 {

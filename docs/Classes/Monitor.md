@@ -8,9 +8,9 @@
 
 ## Description
 
-A general purpose class for monitoring or crosslinking between busses. It supports multichannel expansion and crossfading between settings. It provides optimizations for playing contiguous channels to other contiguous busses ([play](#play)) and for more complex routings, such as splitting, spreading etc to multiple channels ([playN](#playn)). Monitor uses the existing set of [SystemSynthDefs](../Classes/SystemSynthDefs.md) to do this.
+A general purpose class for monitoring or crosslinking between busses. It supports multichannel expansion and crossfading between settings. It provides optimizations for playing contiguous channels to other contiguous busses ([#-play](#-play)) and for more complex routings, such as splitting, spreading etc to multiple channels ([#-playN](#-playn)). Monitor uses the existing set of [SystemSynthDefs](../Classes/SystemSynthDefs.md) to do this.
 
-```supercollider
+```
 { Out.ar(87, SinOsc.ar(MouseX.kr(240, 1000, 1) * [1, 2, 3], 0, 0.2)) }.play; // play three sine tone on channels 87, 88, and 89
 x = Monitor.new; // create a new monitor
 x.play(fromIndex: 87, fromNumChannels: 3, toIndex: 0, toNumChannels: 2); // play them back to the stereo hardware channels
@@ -24,6 +24,7 @@ x.play(fromIndex: 87, fromNumChannels: 3, toIndex: 0, toNumChannels: 2); // play
 
 
 ## Instance Methods
+
 
 ### `play`
 Plays from a bus index with a number of channels to another index with a number of channels, within a target group, or a server.**Arguments:**
@@ -39,7 +40,7 @@ Plays from a bus index with a number of channels to another index with a number 
 | `volume` | volume at which to monitor |  
 | `fadeTime` | specifies the fade in and fade out time |  
 | `addAction` | where, relative to the target to place the monitor group.
-```supercollider
+```
 s.boot;
 s.scope(16);
 
@@ -58,6 +59,7 @@ x.play(88, 1, 0, 2, multi: true);
 x.play(89, 1, 0, 2, multi: true);
 x.stop;
 ``` |  
+
 ### `playN`
 Plays from an array of bus indices to another array of bus indices with an array of amplitudes, within a target group, or a server.
 > **Note:** The arguments **out**, **amp** and **in** can be nested arrays. see also [playN](../Reference/playN.md)The three arguments out, amp, and in will wrap if they do not have the same size, like this: `[[0, 1], [0.1], [3, 4, 5]].flop`
@@ -74,7 +76,7 @@ Plays from an array of bus indices to another array of bus indices with an array
 | `target` | where to play (default: server default group) |  
 | `addAction` | where, relative to the target to place the monitor group. |  
 | `multi` | keep old links and add new one: this allows you to add layer after layer, otherwise free ther previous mapping (false by default).
-```supercollider
+```
 // examples: args are // outs, amps, ins, vol, fadeTime
 
 { Out.ar(87, SinOsc.ar(MouseX.kr(40, 10000, 1) * [1, 2, 3], 0, 0.2)) }.play;
@@ -96,12 +98,13 @@ x.playN(
 // can also set global volume and fadetime
 x.playN(vol: 0.0, fadeTime: 4);
 ``` |  
+
 ### `stop`
 Stops within the fadeTime.
 > **Note:** this keeps all the settings, so when using `play` next time, it will play in the same configuration, overriding only values provided.
 
 
-```supercollider
+```
 { Out.ar(87, SinOsc.ar(MouseX.kr(340, 1000, 1) * [1, 2, 3], 0, 0.2)) }.play;
 x = Monitor.new.play(87, 3, 0, fadeTime: 3);
 x.stop;
@@ -113,29 +116,42 @@ x.play;
 | Argument | Description |
 |----------|-------------|
 | `argFadeTime` | The time for fading out all routing synths. |  
+
 ### `clear`
 Stops within the fadeTime.
 > **Note:** unlike `stop`, this removes all the settings.
 
+
 ### `vol`
 Set the volume.
-```supercollider
+```
 { Out.ar(87, SinOsc.ar(MouseX.kr(340, 1000, 1) * [1, 2, 3], 0, 0.2)) }.play;
 x = Monitor.new.play(87, 3, 0, fadeTime: 3);
 x.vol = 0.3;
 x.stop;
 ```
 
+
 ### `out`
-Set or get the first output index.### `outs`
-Set or get the array of output bus indices.### `ins`
-Set or get the array of input bus indices.### `amps`
-Set the array of amplitudes.### `fadeTimes`
-Set or get the array of fadeTimes.### `fadeTime`
-Set one single fadeTime for the next transition (may be a stop or a new play).### `isPlaying`
-Returns true if the group is still playing.### `group`
-Return the group in which all mapping synths are running.### `numChannels`
-Return the number of input channels.### `copy`
-Return a copy of the receiver, with the same channel setting, but not running. You can run it with the settings by sending it the [play](#play) message, and pass in any modifications you want to make.### `playToBundle`
+Set or get the first output index.
+### `outs`
+Set or get the array of output bus indices.
+### `ins`
+Set or get the array of input bus indices.
+### `amps`
+Set the array of amplitudes.
+### `fadeTimes`
+Set or get the array of fadeTimes.
+### `fadeTime`
+Set one single fadeTime for the next transition (may be a stop or a new play).
+### `isPlaying`
+Returns true if the group is still playing.
+### `group`
+Return the group in which all mapping synths are running.
+### `numChannels`
+Return the number of input channels.
+### `copy`
+Return a copy of the receiver, with the same channel setting, but not running. You can run it with the settings by sending it the [#-play](#-play) message, and pass in any modifications you want to make.
+### `playToBundle`
 Adds all playing osc messages to a bundle, passed as an argument. The bundle object should implement the method **.add**
 

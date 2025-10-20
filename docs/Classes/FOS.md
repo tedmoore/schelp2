@@ -10,7 +10,7 @@
 
 A standard first order filter section. Filter coefficients are given directly rather than calculated for you. Formula is equivalent to:
 
-```supercollider
+```
 out(i) = (a0 * in(i)) + (a1 * in(i-1)) + (b1 * out(i-1))
 ```
 
@@ -18,6 +18,7 @@ out(i) = (a0 * in(i)) + (a1 * in(i-1)) + (b1 * out(i-1))
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -34,7 +35,7 @@ out(i) = (a0 * in(i)) + (a1 * in(i-1)) + (b1 * out(i-1))
 ## Examples
 
 
-```supercollider
+```
 (
 // same as OnePole
 {    var x;

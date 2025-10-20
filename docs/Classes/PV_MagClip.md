@@ -13,6 +13,7 @@ Clips bin magnitudes to a maximum threshold.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Clips bin magnitudes to a maximum threshold.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 

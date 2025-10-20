@@ -11,6 +11,7 @@ Randomizes the order of the bins. The trigger will select a new random ordering.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Randomizes the order of the bins. The trigger will select a new random ordering.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 b = Buffer.read(s, ExampleFiles.child);
 

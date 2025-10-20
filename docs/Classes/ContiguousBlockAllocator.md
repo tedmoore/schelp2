@@ -13,6 +13,7 @@ The default allocator used in servers to allocate bus numbers and buffer numbers
 
 ## Class Methods
 
+
 ### `new`
 Create a new allocator with *size* slots. You may block off the first *pos* slots (the server's audioBusAllocator does this to reserve the hardware input and output buses).
 
@@ -20,33 +21,42 @@ Create a new allocator with *size* slots. You may block off the first *pos* slot
 
 
 ### Public interface
+
 ### `alloc`
 Return the starting index of a free block that is *n* slots wide. The default is 1 slot.Note that the returned address is not guaranteed to be the lowest possible address that can satisfy the requested size. It should be adjacent to a previously allocated block, however (to minimize fragmentation of the address space).
+
 ### `free`
 Free a previously allocated block starting at *address*.
+
 ### `reserve`
 Mark a specific range of addresses as used so that the alloc method will not return any addresses within that range. 
+
 ### `findAvailable`
-Given an integer width of a desired block, find and return a `ContiguousBlock` object whose `start` is the beginning address of the block and whose `size` is the width. This method only queries the allocator; it does not change the state. If you obtain an address using `findAvailable`, there is no guarantee that a later call will not return the same address. So, in general, use [alloc](#alloc) to request an address. (`alloc` calls `findAvailable` and then `reserve`.)This method could be considered "half-private": It may be useful for queries, but in general, you can get everything you need from [alloc](#alloc), [free](#free) and [reserve](#reserve).
+Given an integer width of a desired block, find and return a `ContiguousBlock` object whose `start` is the beginning address of the block and whose `size` is the width. This method only queries the allocator; it does not change the state. If you obtain an address using `findAvailable`, there is no guarantee that a later call will not return the same address. So, in general, use [#-alloc](#-alloc) to request an address. (`alloc` calls `findAvailable` and then `reserve`.)This method could be considered "half-private": It may be useful for queries, but in general, you can get everything you need from [#-alloc](#-alloc), [#-free](#-free) and [#-reserve](#-reserve).
 
 ### Status and debugging
 You may query these state variables, but it is not recommended to change them outside of the public interface.
 
+
 ### `debug`
  Post internal state of allocator for debugging.
+
 ### `size`
  The number of id numbers it can allocate.
+
 ### `pos`
  The allocator's offset for a reserved block (e.g. for hardware input and output buses).
+
 ### `addrOffset`
  The offset of the allocator's address range, which is used to accomodate multiple clientIDs.
+
 ### `top`
  The address of the last empty block.
 
 ## Examples
 
 
-```supercollider
+```
 c = ContiguousBlockAllocator(10);
 c.alloc(5);  // 0 = first available
 c.alloc(2);  // 5

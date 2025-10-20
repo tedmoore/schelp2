@@ -134,7 +134,7 @@ To evaluate code, use one of the following keyboard commands:
 **Regions** make it quick and easy to evaluate larger portions of code. A region is surrounded by parentheses; to be interpreted as a region, the parenthesis must each be the only character on a line.
 
 
-```supercollider
+```
 (
 Pbind(
     \degree, Pseries(0, 1, 8),
@@ -175,26 +175,26 @@ As you type, the editor will try to find possible continuations of your code, an
 In general, this works for class and method names. These are the things that the editor can autocomplete:
 
 - **Class names**
-```supercollider
+```
 Sin<...>
 ```
 
 When you have typed at least 3 letters of a class name, a list of classes beginning with these letters will be shown.
 - **Method names following class names**
-```supercollider
+```
 Array.<...>
 ```
 
 When you type a dot after a class name, a list of methods of that class will be shown.
 - **Method names following literals and built-ins**
-```supercollider
+```
 123.<...>
 currentEnvironment.<...>
 ```
 
 When you type a dot after a literal (number, string, symbol, etc.) or a built-in (currentEnvironment, thisProcess, etc.), a list of instance methods of their classes will be shown.
 - **Method names following a variable name**
-```supercollider
+```
 value.lin<...>
 ```
 
@@ -218,7 +218,7 @@ The assistance is activated as soon as you type an opening parenthesis after a m
 So, for example, in the following cases method call assistance will pop up immediately:
 
 
-```supercollider
+```
 SinOsc.ar(
 123.forBy(
 ```
@@ -227,7 +227,7 @@ SinOsc.ar(
 ...while in the following cases, you will first need to select a class, because the class is not known:
 
 
-```supercollider
+```
 min(
 x.play(
 [1,2,3].inject(

@@ -13,7 +13,7 @@ ListPatterns are [Pattern](../Classes/Pattern.md)s that iterate over arrays of o
 A [Pseq](../Classes/Pseq.md) is a Pattern that cycles over a list of values. The repeats variable gives the number of times to repeat the entire list.
 
 
-```supercollider
+```
 //////////////////////////////////////////////////////////////
 // Note: This SynthDef used throughout this document
 (
@@ -40,7 +40,7 @@ b = a.asStream;
 Pseq also has an offset argument which gives a starting offset into the list.
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pseq.new(#[1, 2, 3, 4], 3, 2);    // repeat 3, offset 2
@@ -53,7 +53,7 @@ b = a.asStream;
 You can pass a function for the repeats variable that gets evaluated when the stream is created.
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pseq.new(#[1, 2], { rrand(1, 3) });    // repeat 1,2, or 3 times
@@ -66,7 +66,7 @@ b = a.asStream;
 If you specify the value `inf` for the repeats variable, then it will repeat indefinitely.
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pseq.new(#[1, 2, 3], inf);    // infinite repeat
@@ -83,7 +83,7 @@ Remember that math operations like `midicps` can be used on streams.
 The alternative `Pseq(...).midicps.asStream` is also possible because both pattern and stream inherit from [AbstractFunction](../Classes/AbstractFunction.md) for which midicps is a method. ( midicps converts a midi value to cycles per second or Hz )
 
 
-```supercollider
+```
 (
 var a, d;
 a = Pseq(#[60, 61, 63, 65, 67, 63], inf ).asStream.midicps;
@@ -101,7 +101,7 @@ Task({
 [Pser](../Classes/Pser.md) is like Pseq, however the repeats variable gives the number of items returned instead of the number of complete cycles.
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pser.new(#[1, 2, 3], 5);    // return 5 items
@@ -114,7 +114,7 @@ b = a.asStream;
 [Prand](../Classes/Prand.md) returns one item from the list at random for each repeat.
 
 
-```supercollider
+```
 (
 var a, b;
 a = Prand.new(#[1, 2, 3, 4, 5], 6);    // return 6 items
@@ -127,7 +127,7 @@ b = a.asStream;
 Prand used as a sequence of pitches:
 
 
-```supercollider
+```
 (
 var a, d;
 a = Prand(#[60, 61, 63, 65], inf).midicps.asStream;
@@ -145,7 +145,7 @@ Task({
 [Pxrand](../Classes/Pxrand.md), like Prand, returns one item from the list at random for each repeat, but Pxrand never repeats the same element twice in a row.
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pxrand.new(#[1, 2, 3], 10);    // return 10 items
@@ -158,7 +158,7 @@ b = a.asStream;
 Pxrand used as a sequence of pitches:
 
 
-```supercollider
+```
 (
 var a;
 a = Pxrand(#[60, 61, 63, 65], inf).midicps.asStream;
@@ -175,7 +175,7 @@ Task({
 [Pshuf](../Classes/Pshuf.md) iterates over the list in scrambled order. The entire scrambled list is repeated in the same order the number of times given by the repeats variable.
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pshuf.new(#[1, 2, 3, 4], 3);
@@ -188,7 +188,7 @@ b = a.asStream;
 Pshuf used as a sequence of pitches:
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pshuf(#[60, 61, 65, 67], inf).midicps.asStream;
@@ -210,7 +210,7 @@ If a [Pattern](../Classes/Pattern.md) encounters another Pattern in its list, it
 For example here is one pattern nested in another.
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pseq.new([1, Pseq.new([100,200], 2), 3], 3);
@@ -223,7 +223,7 @@ b = a.asStream;
 Pseqs nested in a Prand:
 
 
-```supercollider
+```
 (
 var a, b;
 a = Prand.new([
@@ -240,7 +240,7 @@ b = a.asStream;
 Nested sequences of pitches:
 
 
-```supercollider
+```
 (
 var a;
 a = Prand([
@@ -265,7 +265,7 @@ Task({
 Pattern `b` plays pattern a once normally, once transposed up a fifth and once transposed up a fourth.
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pseq(#[60, 62, 63, 65, 67, 63]);
@@ -283,7 +283,7 @@ Task({
 Adding two patterns together. The second pattern transposes each fifth note of the first pattern down an octave.
 
 
-```supercollider
+```
 (
 var a;
 a = Pseq(#[60, 62, 63, 65, 67, 63], inf) + Pseq(#[0, 0, 0, 0, -12], inf);
@@ -304,7 +304,7 @@ Task({
 Here is the same example given in part 2 rewritten to use ListPatterns. It uses nested patterns and results in much more concise code. SuperCollider allows you to write `SomeClass.new(params)` as `SomeClass(params)` eliminating the ".new". This can make code like the pattern examples below, which create a lot of objects, more readable.
 
 
-```supercollider
+```
 (
 SynthDef( \help_SPE3_Allpass6, { arg freq;
     var out, env;
@@ -343,7 +343,7 @@ Task({
 Here is an example that uses a Pattern to create a rhythmic solo. The values in the pattern specify the amplitudes of impulses fed to the [Decay2](../Classes/Decay2.md) generator.
 
 
-```supercollider
+```
 (
 SynthDef( \help_SPE3_Mridangam, { |out, t_amp|
     var sound;

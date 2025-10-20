@@ -12,6 +12,7 @@ The vibrato output is a waveform based on a squared envelope shape with four sta
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -30,7 +31,7 @@ The vibrato output is a waveform based on a squared envelope shape with four sta
 ## Examples
 
 
-```supercollider
+```
 // vibrato at 1 Hz, note the use of DC.ar UGen; a constant of 400.0 doesn't work
 { SinOsc.ar(Vibrato.ar(DC.ar(400.0), 1, 0.02)) }.play
 

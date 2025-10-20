@@ -13,6 +13,7 @@ Similar to [Pgpar](../Classes/Pgpar.md) but with additional timing offsets.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ Similar to [Pgpar](../Classes/Pgpar.md) but with additional timing offsets.
 ## Examples
 
 
-```supercollider
+```
 // synthdef
 (
 SynthDef(\help_sinegrain,

@@ -17,6 +17,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -31,7 +32,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
     c = ProgramChangeResponder({ |src, chan, val|
         [src, chan, val].postln;
@@ -47,7 +48,7 @@ c.remove
 
 
 
-```supercollider
+```
 (
     c = ProgramChangeResponder({ |src, chan, val|
         [src, chan, val].postln;

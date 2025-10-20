@@ -10,13 +10,13 @@
 
 Rotate2 can be used for rotating an ambisonic B-format sound field around an axis. Rotate2 does an equal power rotation so it also works well on stereo sounds. It takes two audio inputs (x, y) and an angle control (pos). It outputs two channels (x, y). It computes this:
 
-```supercollider
+```
 xout = cos(angle) * xin + sin(angle) * yin;
 ```
 
 
 
-```supercollider
+```
 yout = cos(angle) * yin - sin(angle) * xin;
 ```
 
@@ -25,6 +25,7 @@ where angle = pos * pi, so that -1 becomes -pi and +1 becomes +pi. This allows y
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -38,7 +39,7 @@ where angle = pos * pi, so that -1 becomes -pi and +1 becomes +pi. This allows y
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var w, x, y, p, q, a, b, c, d;

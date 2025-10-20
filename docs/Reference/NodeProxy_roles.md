@@ -9,7 +9,7 @@
 Similar to Adverbs (see [J-concepts-in-SC](../Guides/J-concepts-in-SC.md)), roles allow to specify how a source for a [NodeProxy](../Classes/NodeProxy.md) is being used. A role is an association of a [Symbol](../Classes/Symbol.md) and the new proxy source object.
 The below examples can equally be used for [Ndef](../Classes/Ndef.md) and in [ProxySpace](../Classes/ProxySpace.md).
 
-```supercollider
+```
 // Thus, the following expressions behave in an equivalent way:
 
 a = NodeProxy(s);
@@ -26,7 +26,7 @@ Ndef(\a, ...)
 
 **\set -> event pattern**
 : Set the proxy controls with an event pattern of type `\set`. Old values are kept, only those explicitly provided are overridden.
-```supercollider
+```
 a = NodeProxy(s);
 a[0] = { |freq = 440, dt=0.1, rate=2| Ringz.ar(Impulse.ar(rate * [1, 1.2]), freq, dt)*0.1 };
 a.play;
@@ -47,7 +47,7 @@ a.clear(3);
 
 **\pset -> event pattern**
 : set all proxy controls to event data
-```supercollider
+```
 a = NodeProxy(s);
 a[0] = { |freq = 440, dt=0.1, rate=2| Ringz.ar(Impulse.ar(rate * [1, 1.2]), freq, dt)*0.1 };
 a.play;
@@ -65,8 +65,8 @@ a.nodeMap.postln; // the values are set in the node map.
 ```
 
 **\xset -> event pattern**
-: set all proxy controls to event data, using synth crossfade (see [xset](#xset)).
-```supercollider
+: set all proxy controls to event data, using synth crossfade (see [#-xset](#-xset)).
+```
 a = NodeProxy(s);
 a[0] = { |freq = 440, dt=0.1, rate=2| Ringz.ar(Impulse.ar(rate * [1, 1.2]), freq, dt)*0.1 };
 a.play;
@@ -89,7 +89,7 @@ a.clear(3);
 
 **\seti -> event pattern**
 : Set the proxy controls for each channel in a multi-channel proxy with an event pattern of type `\set`. Contrary to other roles it must be applied separately to each channel of the proxy.
-```supercollider
+```
 // 5-channel NodeProxy
 a = NodeProxy.audio(s).mold(5);
 // output will be stereo
@@ -135,7 +135,7 @@ a.clear; b.clear;
 
 **\setbus -> event pattern**
 : Set the proxy bus with an event pattern of type `\c_set`
-```supercollider
+```
 a = NodeProxy(s);
 b = NodeProxy(s).play;
 b[0] = { SinOsc.ar(a.kr(4)).sum * 0.2 };
@@ -153,7 +153,7 @@ a.clear; b.clear;
 
 **\setsrc -> event pattern**
 : Set the proxy source at the next index with any object, controlled by a pattern. Note that any existing source at the next index (in the example below it is index 1) is overridden by the procedure.
-```supercollider
+```
 a = NodeProxy(s);
 a.play;
 (
@@ -173,7 +173,7 @@ a.clear(3);
 
 **\filter -> function**
 : Filter the audio on the proxy's own bus, using the first argument to pass in the sound. The function is any valid UGen function, which may be control or audio rate. Default controls are wet++index, where **index** is the slot of the proxy (default 0), in the example below, the control is `\wet1`, and it crossfades between the incoming sound source and the effect (wet) signal output.
-```supercollider
+```
 a = NodeProxy(s).play;
 a[0] = { RLPF.ar(Dust2.ar(5!2), LFNoise2.kr(2!2).exprange(200, 5000), 0.05) };
 a[1] = \filter -> { |in| CombL.ar(in, 0.2, LFNoise2.kr(0.5!2).exprange(0.01, 0.2), 3) };
@@ -186,7 +186,7 @@ a.clear(3);
 
 **\filterIn -> function**
 : Like `\filter`, but the `\wet` control now sets the filter **input** level, rather than its output. This lets time-based effects like delays, combs, filters with long ringtimes continue to sound even when the input is already turned off.
-```supercollider
+```
 a = NodeProxy(s).play;
 a[0] = { RLPF.ar(Dust2.ar(5!2), LFNoise2.kr(2!2).exprange(200, 5000), 0.05) };
 a[1] = \filterIn -> { |in| CombL.ar(in, 0.2, LFNoise2.kr(0.5!2).exprange(0.01, 0.2), 3) };
@@ -201,7 +201,7 @@ a.clear(3);
 
 **\mix -> function**
 : Mix in the UGen in the function.
-```supercollider
+```
 a = NodeProxy(s);
 a[0] = { PinkNoise.ar(0.1.dup) };
 a.play;
@@ -220,7 +220,7 @@ Roles can be added on the fly. They are kept in a dictionary ( **buildMethods** 
 Here is a new role that allows you to set a control rate node proxy with the help of an event pattern. The new values are in a key named \value.
 
 
-```supercollider
+```
 // add the new role:
 (
 AbstractPlayControl.proxyControlClasses.put(\stream, PatternControl);

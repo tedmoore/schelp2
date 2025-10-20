@@ -21,6 +21,7 @@ Reads or writes digital data from or to a digital pin. The pin number of this UG
 
 ## Class Methods
 
+
 ### `ar`
 The output of this UGen is always the last value read when the digital pin was an input.**Arguments:**
 
@@ -31,6 +32,7 @@ The output of this UGen is always the last value read when the digital pin was a
 | `pinMode` | Value to write out to the pin - the pin will be an input when the argument is smaller than 0.5, otherwise an output. This value can be modulated at audiorate. |  
 | `mul` |  |  
 | `add` |  |  
+
 
 ### `kr`
 The output of this UGen is always the last value read when the digital pin was an input.**Arguments:**
@@ -46,7 +48,7 @@ The output of this UGen is always the last value read when the digital pin was a
 ## Examples
 
 
-```supercollider
+```
 // write a sine oscillator's output to a pin, and read the pin value at other times
 
 (

@@ -9,7 +9,7 @@
 A FunctionList is a function that composes multiple functions into one. This allows allow to deal transparently with several functions as if they were one and to append new functions at a later point. The functions are evaluated in the order they have in the FunctionList's array, which is by default the order in which they have been added to it.
 See the [Functions](../Reference/Functions.md) help file for a basic introduction.
 
-```supercollider
+```
 a = FunctionList.new;
 fork { loop { 0.7.wait; a.value.postln } };
 a.addFunc({ 800.rand });
@@ -21,6 +21,7 @@ a.addFunc({ "another".scramble });
 
 ## Class Methods
 
+
 ### `new`
 create a new instance.**Arguments:**
 
@@ -31,17 +32,20 @@ create a new instance.**Arguments:**
 
 ## Instance Methods
 
+
 ### `array`
 Set/get the FunctionList's array. New functions can be added to the array directly, e.g.
-```supercollider
+```
 x = FunctionList(...some functions);
 x.array = x.array.insert(2, aFunction);
 ```
 
+
 ### `addFunc`
-This message is used to be able to add to an Object, to a Function, or to a FunctionList. `nil.addFunc` returns a function, if only one function is passed in the argument. `function.addFunc` then returns a FunctionList.### `removeFunc`
+This message is used to be able to add to an Object, to a Function, or to a FunctionList. `nil.addFunc` returns a function, if only one function is passed in the argument. `function.addFunc` then returns a FunctionList.
+### `removeFunc`
 remove a function from the list.**Returns:** the last function when only one function is left, or `nil` when the last function was removed.`addFunc` and `removeFunc` are implemented for [Nil](../Classes/Nil.md), [Object](../Classes/Object.md) and [FunctionList](../Classes/FunctionList.md)
-```supercollider
+```
 nil.addFunc(f) // returns f
 obj.addFunc(f) // returns FunctionList([obj, f])
 nil.removeFunc(f) // returns nil
@@ -52,7 +56,7 @@ obj.removeFunc(f) // returns nil, if f === obj, else obj is returned
 ## Examples
 
 
-```supercollider
+```
 // example
 
 a = nil;
@@ -66,7 +70,7 @@ a.valueArray(["x", "y"]);
 
 
 
-```supercollider
+```
 // Function:do vs FunctionList:do (same)
 a.do { |x| x.value };
 { 4 }.do { |x| x.value.postln }
@@ -83,7 +87,7 @@ a.do { |x| x.value };
 
 
 
-```supercollider
+```
 // removing a function
 x = { "removal test".postln };
 a.addFunc(x);
@@ -101,7 +105,7 @@ a.value;
 
 
 
-```supercollider
+```
 // compatibility with function multichannel expansion
 a = nil;
 a = a.addFunc { |x = 0| if(x > 0) { 7 } { 1000.rand } };
@@ -116,7 +120,7 @@ a.value(x:[-1, 1]); // kwargs
 
 
 
-```supercollider
+```
 // typical usage in a Document action
 // see also SCView: addAction example.
 

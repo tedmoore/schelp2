@@ -17,6 +17,7 @@ Reads analog data from a multiplexed analog input of the Bela board, with the ad
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -26,6 +27,7 @@ Reads analog data from a multiplexed analog input of the Bela board, with the ad
 | `muxChannel` | Multiplex channel to read. Pin numbers begin at 0. This value can be modulated at audiorate. |  
 | `mul` |  |  
 | `add` |  |  
+
 
 ### `kr`
 **Arguments:**
@@ -40,7 +42,7 @@ Reads analog data from a multiplexed analog input of the Bela board, with the ad
 ## Examples
 
 
-```supercollider
+```
 // modulate frequency of a sine oscillator
 
 (

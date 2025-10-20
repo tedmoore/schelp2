@@ -18,7 +18,7 @@ It is the first part of a beginner's introduction to SuperCollider's GUI system.
 To **create** a [Window](../../Classes/Window.md) in SuperCollider, simply execute the following code:
 
 
-```supercollider
+```
 (
 var win = Window();
 win.front;
@@ -31,7 +31,7 @@ The first command creates the window, and the second tells your graphical system
 You can customize its name, position and size directly when creating it:
 
 
-```supercollider
+```
 (
 var window = Window("My window", Rect(100, 100, 600, 200));
 
@@ -43,7 +43,7 @@ window.front;
 You can also toggle its **fullscreen** mode:
 
 
-```supercollider
+```
 (
 var window = Window();
 window.fullScreen;
@@ -55,7 +55,7 @@ window.front;
 If you executed the previous example, you might have noticed that closing it can be difficult, because it doesn't show its top menu, and doesn't respond to keyboard inputs. To **close every window** that SuperCollider created using code, simply execute the following command:
 
 
-```supercollider
+```
 Window.closeAll;
 ```
 
@@ -63,7 +63,7 @@ Window.closeAll;
 If you stored your window in a global variable, you can also **close it directly**:
 
 
-```supercollider
+```
 ~window.close;
 ```
 
@@ -72,7 +72,7 @@ Once closed, you need to recreate it, because it has been completely deleted.
 
 
 > **Note:** The following code can be useful when developing graphical interfaces:
-```supercollider
+```
 (
 var window = Window();
 CmdPeriod.doOnce({ window.close; });
@@ -89,7 +89,7 @@ Every time you hit **ctrl + shift + .**, this will close the window you're curre
 Once you've created the window, you can **add** a [View](../../Classes/View.md) **directly** into it, by passing the window as parent argument when creating the [View](../../Classes/View.md):
 
 
-```supercollider
+```
 (
 var window = Window();
 var button = Button(window);
@@ -102,7 +102,7 @@ window.front;
 When doing so, **you are responsible for** setting your [View](../../Classes/View.md) at **the right position and size**:
 
 
-```supercollider
+```
 (
 var window = Window();
 var button = Button(
@@ -118,7 +118,7 @@ window.front;
 If you'd rather use **automatic positioning** and **automatic resizing** when the window is re-sized, you should use a [Layout](../../Classes/Layout.md):
 
 
-```supercollider
+```
 (
 var window = Window();
 
@@ -153,7 +153,7 @@ Another way to interact with the window using the keyboard, which might be prefe
 `View.globalKeyDownAction` **will be executed whenever a keyboard input is received** (regardless of current focus), and **allows an action to take place in response** to the keyboard event, for example closing the window:
 
 
-```supercollider
+```
 (
 var window = Window();
 var fullScreenActive = false;
@@ -181,7 +181,7 @@ window.front;
 
 
 > **Note:** Using a [FunctionList](../../Classes/FunctionList.md) with `View.globalKeyDownAction` allows to incrementally build up keyboard input response:
-```supercollider
+```
 (
 var window = Window();
 

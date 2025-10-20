@@ -10,7 +10,7 @@ The previous section demonstrated how to use data routines to generate sequences
 Patterns greatly simplify the use of data streams. A pattern is essentially a factory for a stream. The pattern objects includes the data you want to come out of the stream, and the type of pattern determines how the data will be streamed.
 For example, we used this routine to output MIDI note numbers to play a couple of phrases from 'Over the Rainbow.'
 
-```supercollider
+```
 (
 r = Routine({
     [60, 72, 71, 67, 69, 71, 72, 60, 69, 67].do({ |midi| midi.yield });
@@ -23,7 +23,7 @@ while { (m = r.next).notNil } { m.postln };
 With patterns, we can express the idea of a stream returning the same values, but more clearly and concisely. Because we don't have to write the yield explicitly, there is nothing in the pattern to distract attention from the data (which are the real concern in composition).
 [Pseq](../../Classes/Pseq.md) (Pattern-sequence) means simply to spit out the values in the array one by one, in order, as many times as the second argument (here, only once).
 
-```supercollider
+```
 p = Pseq([60, 72, 71, 67, 69, 71, 72, 60, 69, 67], 1);
 r = p.asStream;
 while { (m = r.next).notNil } { m.postln };
@@ -32,7 +32,7 @@ while { (m = r.next).notNil } { m.postln };
 Note that the Pseq is not streamable by itself, but it creates a stream (Routine) when you call asStream on it. This routine can then be used exactly like to any other routine -- the while loop used to read out the stream values is exactly the same for both, even though they are written differently.
 Thus the 'Over the Rainbow' example could be rewritten, with less clutter:
 
-```supercollider
+```
 (
 var midi, dur;
 midi = Pseq([60, 72, 71, 67, 69, 71, 72, 60, 69, 67], 1).asStream;
@@ -112,7 +112,7 @@ Other patterns modify the output of value patterns. These are called FilterPatte
 You can use patterns inside of other patterns. Here, we generate random numbers over a gradually increasing range. The upper bound on the random number generator is a stream that starts at 0.01, then proceeds to 0.02, 0.03 and so on, as the plot shows clearly.
 
 
-```supercollider
+```
 p = Pwhite(0.0, Pseries(0.01, 0.01, inf), 100).asStream;
     // .all pulls from the stream until it returns nil
     // obviously you don't want to do this for an 'inf' length stream!
@@ -123,7 +123,7 @@ p.all.plot;
 Or, for another example, if you want to order a set of numbers randomly so that all numbers come out before a new order is chosen, use Pn to repeat a Pshuf.
 
 
-```supercollider
+```
 p = Pn(Pshuf([1, 2, 3, 4, 5], 1), inf).asStream;
 p.nextN(15);    // get 15 values from the pattern's stream
 ```
@@ -137,7 +137,7 @@ This is just a taste, meant to illustrate the kinds of flexibility you can get w
 Not only can patterns produce data for notes, but they can also play the notes themselves. 'Over the Rainbow' again.
 
 
-```supercollider
+```
 (
 SynthDef(\smooth, { |out, freq = 440, sustain = 1, amp = 0.5|
     var sig;
@@ -177,7 +177,7 @@ For example, we can generate a rhythmic (but not necessarily metric) bassline by
 Don't be intimidated by the bassline pattern. At a higher level, it reduces to **Pxrand([a, b, c, d], inf)**, which simply chooses items randomly without repeating any of them twice in a row. It happens that each item is an event pattern that plays a series of notes, but this doesn't matter to Pxrand. It just chooses an item, plays it through to the end, and then chooses the next, and so forth. Viewed this way, the pattern is an elegant expression of the idea of selecting phrases. The code representation is straightforward to relate to a musical conception.
 
 
-```supercollider
+```
 (
 SynthDef(\bass, { |out, freq = 440, gate = 1, amp = 0.5, slideTime = 0.17, ffreq = 1100, width = 0.15,
         detune = 1.005, preamp = 4|

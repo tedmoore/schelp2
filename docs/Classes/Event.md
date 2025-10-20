@@ -8,9 +8,9 @@
 
 ## Description
 
-An Event specifies an action to be taken in response to a [play](#play) message. Its key/value pairs specify the parameters of that action. Event inherits most of its methods from its superclasses, especially from [Dictionary](../Classes/Dictionary.md). Nevertheless Event inherits from [IdentityDictionary](../Classes/IdentityDictionary.md) and querying values is done by checking its keys for *identity*, not *equality*. For the usage and meaning of the `parent` and `proto` events, see [IdentityDictionary](../Classes/IdentityDictionary.md)'s helpfile.
+An Event specifies an action to be taken in response to a [#-play](#-play) message. Its key/value pairs specify the parameters of that action. Event inherits most of its methods from its superclasses, especially from [Dictionary](../Classes/Dictionary.md). Nevertheless Event inherits from [IdentityDictionary](../Classes/IdentityDictionary.md) and querying values is done by checking its keys for *identity*, not *equality*. For the usage and meaning of the `parent` and `proto` events, see [IdentityDictionary](../Classes/IdentityDictionary.md)'s helpfile.
 
-```supercollider
+```
 a = (x: 6, y: 7, play: { (~x * ~y).postln });
 a.play; // returns 6 * 7
 ```
@@ -18,7 +18,7 @@ a.play; // returns 6 * 7
 
 The class Event provides a large library of default event instances and play functions, e.g. for pitch. By default, the play function, when an event is played, its [type](#*addeventtype) is used to select a function and a parent event (by default, this is type `\note`).
 
-```supercollider
+```
 (freq: 761).play // play a default synth sound with 761 Hz
 ```
 
@@ -30,13 +30,16 @@ The class Event provides a large library of default event instances and play fun
 
 
 ### Class variables
+
 ### `parentEvents`
 An extendible IdentityDictionary of useful parent events.
+
 ### `partialEvents`
 An extendible IdentityDictionary of Events that define the default values and functions for different aspects of note generation (timing, volume, pitch, server to use, etc).
 
 
 ### Creation methods
+
 ### `new`
 create an event with initial size **n**.**Arguments:**
 
@@ -47,10 +50,13 @@ create an event with initial size **n**.**Arguments:**
 | `parent` | May be provided as another event which is used to provide default keys for the event without modifying it. |  
 | `know` | If **know** is set to [True](../Classes/True.md), the event will respond to appropriate message calls. See [Environment](../Classes/Environment.md) for more details. |  
 
+
 ### `default`
 Returns an empty event with [#defaultParentEvent](#defaultparentevent) as parent.
+
 ### `silent`
 Returns an event that describes a pause of **dur** duration.
+
 ### `addEventType`
 Event types define alternate play functions and parent events that are selected by the value of **~type**.**Arguments:**
 
@@ -60,7 +66,7 @@ Event types define alternate play functions and parent events that are selected 
 | `func` | A function which optionally takes the server as a first argument |  
 | `parentEvent` | An event with default values which is used to override the parent event. If `parentEvent` in turn has no parent, its default parent event is set. |  
 
-```supercollider
+```
 (
 Event.addEventType(\happyEvent, {
     "I am so happy to be silent sometimes, says %.\n".postf(~who)
@@ -103,12 +109,13 @@ Pbind(\type, \happyEvent, \degree, Pseq([0, 1, 2, 3, 4, 4, 5, 5, 5, 5, 4, 2, 3, 
 ```
 
 The event types and parent events are stored in a dictionary of the Event class, namely in `partialEvents.playerEvent`:
-```supercollider
+```
 // eventTypes
 Event.partialEvents.playerEvent.eventTypes
 // parentTypes
 Event.partialEvents.playerEvent.parentTypes
 ```
+
 
 
 ### `addParentType`
@@ -119,13 +126,14 @@ Define an alternative parent that is chosen on the basis of **~type**. It allows
 | `type` | A name (usually a symbol) for the event type, which can be used to select it |  
 | `parentEvent` | An event with default values which is used to override the parent event. If `parentEvent` in turn has no parent, its default parent event is set. |  
 
-```supercollider
+```
 Pbind(\type, \note, \degree, Pseq([0, 1, 2, 3, 4, 4, 5, 5, 5, 5, 4, 2, 3, 2, 3, 1], inf), \dur, 0.08).play;
 Event.addParentType(\note, (mtranspose: 2, root: 5)); // set different defaults
 
 // note is the default type, this will also pick up the information:
 Pbind(\degree, Pseq([0, 1, 2, 3, 4, 4, 5, 5, 5, 5, 4, 2, 3, 2, 3, 1], inf), \dur, 0.08).play;
 ```
+
 
 
 ### `removeEventType`
@@ -135,6 +143,7 @@ Remove an event type function from the collection. If there is an associated eve
 |----------|-------------|
 | `type` | A name (usually a symbol) for the event type. |  
 
+
 ### `removeParentType`
 Remove a parent event associated with an event type.**Arguments:**
 
@@ -142,9 +151,10 @@ Remove a parent event associated with an event type.**Arguments:**
 |----------|-------------|
 | `type` | A name (usually a symbol) for the event type. |  
 
+
 ### `makeDefaultSynthDef`
 This method is called in order to build the default SynthDef, which is stored under the key **\default**
-```supercollider
+```
 SynthDef(\default, { |out| Out.ar(out, Line.kr(0.3, 0, 0.5) * SinOsc.ar(Rand(300, 500.0))) }).add; // overwrite default
 (freq: 600).play;
 Event.makeDefaultSynthDef; // reset default
@@ -156,46 +166,60 @@ Event.makeDefaultSynthDef; // reset default
 
 ## Instance Methods
 
+
 ### `play`
 Play the event. This evaluates the function at **\play**.
-```supercollider
+```
 (freq: 800).play;
 (play: {  "I rather do something else: ".post; ~x.postln }, x: 800.rand).play;
 ```
 
+
 ### `delta`
 Returns the inter onset time - the time delay until the next event in a sequence. This usually depends on **\dur** and **\stretch**, but may be overridden by specifying **\delta** directly.
-```supercollider
+```
 Pn((dur: 2, freq: 8000)).play;
 ```
 
+
 ### `next`
 Combines an event given in the argument with the current event. This is used to enable events to be composed.
-```supercollider
+```
 (a: 6, b: 7).next((c: 100));
 ```
 
+
 ### `playAndDelta`
-Used by [EventStreamPlayer](../Classes/EventStreamPlayer.md) to play Events and obtain a time increment.### `isRest`
-Returns **true** if the event will be played as a rest, and **false** otherwise. See [Rest](../Classes/Rest.md) for a more complete discussion of rests in event patterns.### `asUGenInput`
-Calls [asControlInput](#ascontrolinput).### `asControlInput`
+Used by [EventStreamPlayer](../Classes/EventStreamPlayer.md) to play Events and obtain a time increment.
+### `isRest`
+Returns **true** if the event will be played as a rest, and **false** otherwise. See [Rest](../Classes/Rest.md) for a more complete discussion of rests in event patterns.
+### `asUGenInput`
+Calls [#-asControlInput](#-ascontrolinput).
+### `asControlInput`
 Enables events to represent the server resources they created in an Event.
 ### Methods that allow Events to provide user control for Synths on Groups
+
 ### `synth`
 Makes the event a control interface to the resultant [Synth](../Classes/Synth.md) when played.
+
 ### `group`
 Makes the event a control interface to the resultant [Group](../Classes/Group.md) when played. This is experimental, does not work consistently yet.
+
 ### `stop`
 Free the [Synth](../Classes/Synth.md) or [Group](../Classes/Group.md).
+
 ### `pause`
 Pause the [Synth](../Classes/Synth.md) or [Group](../Classes/Group.md).
+
 ### `resume`
 Resume the [Synth](../Classes/Synth.md) or [Group](../Classes/Group.md).
+
 ### `release`
 Release the [Synth](../Classes/Synth.md) or [Group](../Classes/Group.md).
+
 ### `set`
 Set a control value in the [Synth](../Classes/Synth.md) or [Group](../Classes/Group.md). (key1, val1, ....)
-```supercollider
+```
 a = (note: 2).play;
 a.set(\freq, 700);
 a.release;
@@ -212,7 +236,7 @@ Events can be written as a series of key value pairs enclosed in parentheses. Em
 Because of this simple syntax, Events are often used as name space for keeping objects:
 
 
-```supercollider
+```
 // using an event to store values
 q = (n: 10, x: [1, 2, 3]);
 q[\y] = q[\x] * q[\n];    // similar to ~y = ~x * ~n, but in a separate name space
@@ -228,7 +252,7 @@ q.y;            // [100, 200, 300]
 Events have a very special meaning in a musical context within SuperCollider, especially when it comes to sequencing with Patterns. Nevertheless, as the class inherits from [IdentityDictionary](../Classes/IdentityDictionary.md), it is often used as a convenient-to-type replacement for (Identity)Dictionary-like objects. The syntax very much reminds of the declaration of keyword arguments in function or method calls. However, there is a subtle difference:
 
 
-```supercollider
+```
 e = (a: 10);  // -> ('a': 10)
 a = nil;
 f = (a : 10); // -> nil
@@ -249,7 +273,7 @@ f[a]:         // -> 10
 Event provides a [#defaultParentEvent](#defaultparentevent) that defines a variety of different event types and provides a complete set of default key/value pairs for each type. The type is determined by the value of the key **\type** which defaults to **\note**. Note events create synths on the server.
 
 
-```supercollider
+```
 ().play;            // the default note
 (freq: 500, pan: -1) .play;    // 500 Hz, panned left
 (play: { ~what.postln }, what: "hello happening").play;    // something else
@@ -265,7 +289,7 @@ Per default, the play message derives its behaviour from the [#defaultParentEven
 The key used to select what synthdef is to be played is **\instrument**. In order to use a [SynthDef](../Classes/SynthDef.md) with an Event, send it an **add** message. This creates a description of the SynthDef that the event can consult to determine its control names. The values of these names in the event are used when the event is played. (See [SynthDesc](../Classes/SynthDesc.md) for details.)
 
 
-```supercollider
+```
 (
 SynthDef(\pm, { |out = 0, freq = 440, amp = 0.1, pan = 0, gate = 1, ratio = 1, index = 1, ar = 0.1, dr = 0.1|
     var z;
@@ -294,7 +318,7 @@ SynthDef(\pm, { |out = 0, freq = 440, amp = 0.1, pan = 0, gate = 1, ratio = 1, i
 If a key relevant to the action is assigned an [Array](../Classes/Array.md), the action is repeated on each element of the array:
 
 
-```supercollider
+```
 (degree: (0..12)).play;        // a diatonic cluster
 ```
 
@@ -302,7 +326,7 @@ If a key relevant to the action is assigned an [Array](../Classes/Array.md), the
 If several keys are assigned arrays, the action is repeated for each element of the largest array. Smaller arrays are rotated through repeatedly. Here are some examples:
 
 
-```supercollider
+```
 // every other note of the diatonic cluster: stacked thirds
 (degree: (0..12), amp: [0, 0.1]).play;
 
@@ -329,7 +353,7 @@ In the \note event, all keys multichannel expand apart from: \instrument, \dur, 
 It is possible to assign an array to one of a [SynthDef](../Classes/SynthDef.md)'s control names. For example:
 
 
-```supercollider
+```
 (
 SynthDef(\test, {
     |out = 0, amp = 0.01, freq = #[300, 400, 400], pan, gate = 1|
@@ -346,7 +370,7 @@ SynthDef(\test, {
 Within an event, arrayed arguments of this sort must be enclosed within an additional array to distinguish them from arguments intended for multi-channel expansion.
 
 
-```supercollider
+```
 // one synth, use enclosing array to prevent multi-channel expansion
 (instrument: \test, note: [[0, 2, 4]]).play;
 
@@ -364,7 +388,7 @@ Events are closely integrated with the Patterns library. Different patterns can 
 Patterns that return events may be played on a clock: dur specifies the time between two subsequent events.
 
 
-```supercollider
+```
 // Pseq returns one item in the list after the other
 (
 Pseq([
@@ -398,7 +422,7 @@ Pbind(
 Here is an example that illustrates some more of the keys defined by the [#defaultParentEvent](#defaultparentevent). Note that it is equivalent to write `Pbind(\key, val, ...)` and `Pbind(*[key: val, ...])`.
 
 
-```supercollider
+```
 (
 Pbind(*[
     stepsPerOctave:    Pstep(Pseq((2..12).mirror, inf), 12),    // 3 - 12 tone e.t. scales
@@ -425,7 +449,7 @@ We will write `~keyName` whenever referring to the value stored at the key keyNa
 Here is the definition of Event's play method:
 
 
-```supercollider
+```
 play {
     if (parent.isNil) { parent = defaultParentEvent };
     this.use { ~play.value };
@@ -436,7 +460,7 @@ play {
 Thus we can see that the [#defaultParentEvent](#defaultparentevent) is used unless otherwise specified and the function stored in `~play` is executed in the context of the Event. It can be replaced in a given event for different behavior:
 
 
-```supercollider
+```
 (a: 6, b: 7, play: { (~a * ~b).postln }).play;
 ```
 
@@ -453,9 +477,10 @@ Patterns are played by [TempoClock](../Classes/TempoClock.md)s, which have their
 
 
 ### The structure of defaultParentEvent
+
 ### `defaultParentEvent`
 The default event used in most cases. This is a private class variable. See [#*default](#*default).The default parent event provides the collection of default values and functions needed for the different uses of an Event. These defaults are defined in partialEvents that specify distinct aspects of default parent Event:
-```supercollider
+```
 playerEvent    // defines ~play, ~type and ~eventTypes
 serverEvent    // server, group, addAction
 durEvent    // duration, tempo and articulation
@@ -473,7 +498,7 @@ midiEvent    // defines the sending of midi messages
 Using Events is largely a matter of overwriting keys. Here is a list of keys useful for defining notes with their default values, grouped by the partialEvent within which they are defined.
 
 - **serverEvent keys**:The keys in serverEvent provide the values needed to identify the server to be used and where in the tree of nodes to place the group.
-```supercollider
+```
 server:        nil,        // if nil, Server.default is used
 instrument:    \default,    // this is the name of a SynthDef
 group:        1,        // nodeID of group on the server
@@ -485,7 +510,7 @@ out:        0,        // usually an output bus number, but depends on the SynthD
 
 
 - **ampEvent keys**:The ampEvent determines volume. Notice that `~amp` is a function that determines its value from `~db`. The user can choose to specify the amplitude directly by overwriting `~amp` or to use a decibel specification by overwriting `~db`.
-```supercollider
+```
 amp:        #{ ~db.dbamp },    // the amplitude
 db:        -20.0,        // the above described in decibel
 pan:        0.0,        // pan position: -1 left 1 right
@@ -495,7 +520,7 @@ trig:        0.5        // trigger value
 
 
 - **durEvent keys**:The durEvent has keys that determine the timing of a note. Notice that `~sustain` is a function that uses `~legato` to determine the sustain. Like `~amp` this can be overwritten to set the sustain directly.
-```supercollider
+```
 tempo:            nil,    // changes tempo of a TempoClock
 dur:            1.0,    // time until next note (inter-onset time)
 stretch:        1.0,    // inverse of tempo control, specific to the Event's stream
@@ -510,7 +535,7 @@ sendGate:        nil  // override: true == always send a gate-release message; f
 
 
 - **pitchEvent keys**:The pitchEvent has the most complex system of functions that provide a variety of useful ways to determine pitch:
-```supercollider
+```
 freq (->440)        // determines the pitch directly as a frequency in Hertz
 midinote (-> 60)    // determines pitch as a fractional MIDI note (69 -> 440)
 note (-> 0)        // determines pitch as a scale degree in an ~stepsPerOctave equal tempered scale
@@ -518,7 +543,7 @@ degree: 0        // determines pitch as a scale degree within the scale ~scale
 ```
 
 The event also provides a set of transposition keys:
-```supercollider
+```
 mtranspose:    0    // modal transposition of degree within a scale
 root:        0.0    // transposes root of the scale
 gtranspose:    0.0    // gamut transposition within the ~stepsPerOctave equal tempered scale
@@ -543,7 +568,7 @@ octaveRatio:    2.0    // size of the octave (can be used with the Scale class)
 ```
 
 The event calculates with these keys to derive parameters needed for the synth:
-```supercollider
+```
 note: #{    // note is the note in halftone steps from the root
     (~degree + ~mtranspose).degreeToKey(~scale, ~stepsPerOctave);
 }

@@ -14,6 +14,7 @@ When there is a trigger at the reset input, the demand rate UGens in the list an
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -28,7 +29,7 @@ When there is a trigger at the reset input, the demand rate UGens in the list an
 ## Examples
 
 
-```supercollider
+```
 // examples
 
 s.boot;

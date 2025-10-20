@@ -19,7 +19,7 @@ There is no preset limit to the number of levels of embedding.
 If a single pattern is like a word, a list pattern that uses other patterns could be more like a sentence or phrase. You can alternate between different behaviors, either in a predictable order as in the example below, or randomly by using one of the random-order list patterns.
 
 
-```supercollider
+```
 // Scale segments, in the sequence: up, up, down (repeat)
 (
 TempoClock.default.tempo = 1;
@@ -40,7 +40,7 @@ p.stop;
 But it gets even more fun -- list patterns don't care whether they're enclosing value patterns (as in the previous example) or event patterns. That means you can write a set of Pbind-style patterns, each one representing a phrase, and string them together. This next example is longer, but that's only because of a larger number of phrase patterns. The structure is very simple, though: `Pxrand([Pbind(), Pmono(), Pmono()...], inf)` . Some of the phrases are written with Pmono to slide between notes.
 
 
-```supercollider
+```
 (
 SynthDef(\bass, { |out, freq = 440, gate = 1, amp = 0.5, slideTime = 0.17, ffreq = 1100, width = 0.15,
         detune = 1.005, preamp = 4|
@@ -101,7 +101,7 @@ p.stop;
 
 **Direct array indexing**
 : Patterns can be chosen in arbitrary order by index. This gives you more control than Pwrand. Both [Pindex](../../Classes/Pindex.md) and [Pswitch](../../Classes/Pswitch.md) can be used for this.
-```supercollider
+```
 // scale degree segments, every fifth choice is odd-numbered only (descending)
 (
 var    n = 10,
@@ -136,7 +136,7 @@ p.stop;
 One very effective way to manage phrases is to make a library, or more precisely [Dictionary](../../Classes/Dictionary.md), of sub-patterns, and then call them up one at a time. [Psym](../../Classes/Psym.md) is the pattern to do this. The advantage here is that you can store the phrases in a separate place, while the pattern that you actually play is much simpler and describes the musical intent at a much higher level.
 
 
-```supercollider
+```
 // Uses the bass SynthDef above
 (
 ~phrases = (
@@ -178,7 +178,7 @@ A complicated pattern with lots of embedding can be hard to read because it's mo
 
 
 > **Note:** Because of some special handling needed for event patterns, there are two versions of Psym. [Psym](../../Classes/Psym.md) handles event patterns, while [Pnsym](../../Classes/Pnsym.md) is for value patterns. Think of it this way: Pbind can be contained within Psym, but it contains Pnsym.
-```supercollider
+```
 ( Psym ( Pbind ( Pnsym ) ) )
 ```
 
@@ -198,7 +198,7 @@ A complicated pattern with lots of embedding can be hard to read because it's mo
 In the examples above, if a list pattern encounters another pattern in its input values, the subpattern is embedded in its entirety before the list pattern is allowed to continue. Sometimes you might want to get just one value out of the subpattern, and then choose a different subpattern on the next event. Pswitch, Psym and Pnsym have cousins that do exactly this: [Pswitch1](../../Classes/Pswitch1.md), Psym1 and Pnsym1.
 
 
-```supercollider
+```
 // random pitches in two distinct ranges; use a coin toss to decide which for this event
 // 70% low, 30% high
 (
@@ -216,7 +216,7 @@ p.stop;
 Compare to the following:
 
 
-```supercollider
+```
 (
 p = Pbind(
     \degree, Pswitch([Pwhite(7, 14, inf), Pwhite(-7, 0, inf)], Pfunc { 0.7.coin.binaryValue }),
@@ -239,7 +239,7 @@ Psym1 and Pnsym1 behave similarly, choosing the name to look up the pattern for 
 [Pif](../../Classes/Pif.md) supports this kind of structure: If the next value from a Boolean pattern is true, return the next item from pattern A, otherwise take it from pattern B. Another way to write the Pswitch1 example is to use a Boolean test directly on Pwhite, instead of writing a Pfunc for the coin toss. This might be clearer to read. However, this works only when there are two alternatives. Pswitch1 and Psym1 allow any number of choices.
 
 
-```supercollider
+```
 (
 TempoClock.default.tempo = 1;
 p = Pbind(

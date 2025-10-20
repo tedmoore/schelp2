@@ -19,7 +19,7 @@ Ppar's child patterns must be event patterns. Using value patterns in a Ppar is 
 A Ppar is done when all of its subpatterns are done.
 
 
-```supercollider
+```
 (
 Ppar([
     Pbind(\dur, 0.2, \midinote, Pseq([62, 65, 69, 72], inf)),
@@ -68,7 +68,7 @@ The [Ppar](../Classes/Ppar.md) pattern starts all of its subpatterns at the same
 A [Ptpar](../Classes/Ptpar.md) pattern includes a start time parameter before each subpattern which allow the subpatterns to be started at some time delay within the pattern. The start time is given in beats.
 
 
-```supercollider
+```
 (
 var makePattern, durpat;
 
@@ -91,7 +91,7 @@ Ptpar([
 The time arguments are sent the `value` message when the Ptpar pattern is started, so you may use functions to specify the times.
 
 
-```supercollider
+```
 (
 var makePattern, durpat;
 
@@ -125,7 +125,7 @@ There is a simpler way to write the modal transposition example given in part 5.
 The [Padd](../Classes/Padd.md) filter takes the current value of a property and adds a value to it.
 
 
-```supercollider
+```
 (
 // modal transposition
 var pattern;
@@ -150,7 +150,7 @@ Similarly, [Pmul](../Classes/Pmul.md) multiplies the current value of a property
 In order to process duration correctly [Pstretch](../Classes/Pstretch.md) should be used.
 
 
-```supercollider
+```
 (
 // beat stretching using Pstretch
 var pattern;
@@ -177,7 +177,7 @@ Pseq([
 In fact there is an even shorter version of the modal transposition example. [Paddp](../Classes/Paddp.md) reads one pattern to get values for adding to a property and plays the second pattern once through modified with each new value.
 
 
-```supercollider
+```
 (
 // modal transposition
 var pattern;
@@ -200,7 +200,7 @@ Paddp(
 Nested modifications:
 
 
-```supercollider
+```
 (
 // modal transposition
 var pat1, pat2;
@@ -233,7 +233,7 @@ Pseq([
 Another example using Paddp:
 
 
-```supercollider
+```
 (
 var chord;
 chord = Prand([[53, 58, 64],[53, 60, 64],[57,60,65]]);
@@ -303,7 +303,7 @@ Pstretchp(
 [Pbindf](../Classes/Pbindf.md) is like [Pbind](../Classes/Pbind.md) except that it merges all the bound symbols into events that it gets from a subpattern. It takes the same initial arguments in pairs as Pbind does, with an additional pattern to be modified as the last argument.
 
 
-```supercollider
+```
 (
 var pattern;
 pattern = Pbind( \midinote, Pseq(#[60, 62, 64, 65, 67, 69, 71, 72]) );
@@ -320,7 +320,7 @@ Pseq([
 Patterns can be used as the arguments to Pbindf.
 
 
-```supercollider
+```
 (
 var pattern;
 pattern = Pbind( \midinote, Pseq(#[60, 62, 64, 65, 67, 69, 71, 72, 74, 76, 77, 79]) );

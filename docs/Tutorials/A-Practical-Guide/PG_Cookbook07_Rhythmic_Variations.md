@@ -21,7 +21,7 @@ The specific ornaments to be added are slightly different for the three parts, s
 Most of the logic is in the drum parts' environments, and consist mostly of straightforward array manipulations. Let's unpack the pattern that uses the environments to generate notes:
 
 
-```supercollider
+```
 ~kik = Penvir(~kikEnvir, Pn(Plazy({
     ~init.value;
     ~addNotes.value;
@@ -61,7 +61,7 @@ Most of the logic is in the drum parts' environments, and consist mostly of stra
 
 ### Example
 
-```supercollider
+```
 (
 // this kick drum doesn't sound so good on cheap speakers
 // but if your monitors have decent bass, it's electro-licious

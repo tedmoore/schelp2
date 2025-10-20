@@ -42,7 +42,7 @@ Pspawn uses the following items in the parent pattern:
 Normally, when a pattern appears inside another pattern, the subpattern is embedded in the main output stream. It is not visible to the outside world as a pattern in itself; only its values appear.
 
 
-```supercollider
+```
 Pseq([Pwhite(0, 9, 5), Pwhite(10, 19, 5)], 1).asStream.all;
 ```
 
@@ -50,7 +50,7 @@ Pseq([Pwhite(0, 9, 5), Pwhite(10, 19, 5)], 1).asStream.all;
 When using Pspawn, a sub pattern must be returned directly into the event. To accomplish this, every such pattern should be wrapped in a [Ref](../Classes/Ref.md) :
 
 
-```supercollider
+```
 Pseq([`Pwhite(0, 9, 5), `Pwhite(10, 19, 5)], 1).asStream.all;
 ```
 
@@ -61,6 +61,7 @@ Hint: [Pfunc](../Classes/Pfunc.md) is another good way to wrap patterns, because
 
 
 ## Class Methods
+
 
 ### `new`
 **Arguments:**
@@ -73,7 +74,7 @@ Hint: [Pfunc](../Classes/Pfunc.md) is another good way to wrap patterns, because
 ## Examples
 
 
-```supercollider
+```
 // Play overlapping major scales, up and down
 (
 p = Pspawn(Pbind(

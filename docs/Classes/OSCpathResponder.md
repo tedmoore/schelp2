@@ -36,6 +36,7 @@ For example, setting the commandpath: `['/tr', nil, triggerID]` makes a responde
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -49,7 +50,7 @@ For example, setting the commandpath: `['/tr', nil, triggerID]` makes a responde
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

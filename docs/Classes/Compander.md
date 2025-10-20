@@ -13,6 +13,7 @@ General purpose (hard-knee) dynamics processor.
 
 ## Class Methods
 
+
 ### `ar`
 **Arguments:**
 
@@ -32,7 +33,7 @@ See for example [http://en.wikipedia.org/wiki/Audio_level_compression](http://en
 
 Clean signal (for reference)
 
-```supercollider
+```
 (
 {
     Decay2.ar(
@@ -48,7 +49,7 @@ Clean signal (for reference)
 
 Noise gate
 
-```supercollider
+```
 (
 {
     var z;
@@ -76,7 +77,7 @@ Noise gate
 
 Compressor
 
-```supercollider
+```
 (
 {
     var z;
@@ -104,7 +105,7 @@ Compressor
 
 Limiter
 
-```supercollider
+```
 (
 {
     var z;
@@ -133,7 +134,7 @@ Limiter
 
 Sustainer
 
-```supercollider
+```
 (
 // note the pops at the beginning of signal due to lack of lookahead
 {

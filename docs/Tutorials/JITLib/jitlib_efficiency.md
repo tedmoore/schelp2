@@ -10,7 +10,7 @@
 To prepare such an object for playing, different objects require different things, some very little, some more. As working with the placeholders does not show directly which actions are very efficient and which ones are not, it is shown here more in detail.
 This is also important if you want to automate certain processes (e.g. for control by an external interface or a task) - some things (a) are not meant to be used in certain ways and better solutions should be used instead then, others are much more efficient (b, c).
 
-```supercollider
+```
 a = NodeProxy.audio;
 ProxySpace.push;
 
@@ -23,7 +23,7 @@ a.add(...) a.put(0,...) a[0] = ... ~a[0] = ... are equivalent in cpu load.
 the following code requires a rebuild and send of a [SynthDef](../../Classes/SynthDef.md) and is thus most cpu-expensive. though fine for slower use (esp.hand-use) for automatisation it is better to build a synthdef and assign it.
 
 
-```supercollider
+```
 ~a = { someUGenFunction };
 ~a = Patch(instrname, args);
 ~a = SynthDef(\name, { someUGenFunction });
@@ -43,7 +43,7 @@ server, bus, setRates
 the following code sends commands to the server to start synths, which is load mainly on the server and depends on the characteristics of the synthdef:
 
 
-```supercollider
+```
 ~a = \synthDefName; // the synthdef is already on the server
 ~a = Pbind(\instrument, name, \freq, ...);
 ~a = Routine({ loop({ s.sendMsg("/s_new", name, ...)}) });
@@ -55,7 +55,7 @@ the following code sends commands to the server to start synths, which is load m
 these resend the synth with new properties
 
 
-```supercollider
+```
 ~a.send(...)    // directly sends a message. the mapping bundle of the proxy is cached
 ~a.sendAll(...)
 
@@ -83,7 +83,7 @@ these resend the synth with new properties
 for these the least calculation has to be done
 
 
-```supercollider
+```
 ~a.set(\freq, 400, \dt, 0.2); ~a.unset(\freq); // if running the bundle will be recalculated
 ~a.map(\freq, ~lfo); ~a.unmap(\freq);
 ~a.fadeTime = 2;
@@ -105,7 +105,7 @@ todo: rewrite this part.
 control rate sources can be easily and efficiently switched using **map** or **xmap**. here is an example of how already running audio rate inputs can be switched. it is about as efficient as (b) - first example (setting a defname). it works only for 1 or 2 channels right now.
 
 
-```supercollider
+```
 (
 s.boot;
 p = ProxySpace.push(s);

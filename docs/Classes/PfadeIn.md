@@ -17,6 +17,7 @@ Fade an event pattern in by scaling its amplitude over a period of time.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -30,21 +31,26 @@ Fade an event pattern in by scaling its amplitude over a period of time.
 
 ## Instance Methods
 
+
 ### `fadeTime`
-Get or set the fadetime### `holdTime`
-Get or set the hold time### `tolerance`
-Get or set the tolerance used when rounding the internal time.### `embedInStream`
+Get or set the fadetime
+### `holdTime`
+Get or set the hold time
+### `tolerance`
+Get or set the tolerance used when rounding the internal time.
+### `embedInStream`
 **Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `inval` |  |  
+
 ### `storeArgs`
 
 ## Examples
 
 
-```supercollider
+```
 (
 // Create a pattern that you want to fade
 var pat = Pbind(\dur, 0.125, \degree, Pwhite(1, 10));

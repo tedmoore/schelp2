@@ -13,6 +13,7 @@ Performs waveshaping on the input signal by indexing into the table.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -24,7 +25,7 @@ Performs waveshaping on the input signal by indexing into the table.
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 b = Buffer.alloc(s, 512, 1, { |buf| buf.chebyMsg([1, 0, 1, 1, 0, 1]) });
@@ -46,7 +47,7 @@ b.free;
 ![chebyshevpolynomials.png](chebyshevpolynomials.png)
 Wave shaping transfer functions are typically designed by using Chebyshev polynomials to control which harmonics are generated when a cosine wave is passed in. The implementation in SuperCollider compensates for the DC offset due to even polynomial terms, making sure that when 0 is put into the transfer function, you get 0 out. By default, normalization is set to true, which avoids output overload. If you want to construct a transfer function without this, you need to be careful with the final output scaling, since it could easily overload the -1 to 1 range for audio.
 
-```supercollider
+```
 // I want the first harmonic at 0.25 amplitude, second at 0.5, third at 0.25
 b = Buffer.alloc(s, 512, 1, { |buf| buf.chebyMsg([0.25, 0.5, 0.25], false) });
 
@@ -66,7 +67,7 @@ b.free;
 
 For those who like to make their own wavetables for arbitrary shapers, your buffer must be in wavetable format to have a valid transfer function. Wavetable format is a special representation to make linear interpolation faster (see at the bottom of this file). You don't have to worry about this directly, because there are two straight forward ways to get wavetables into a server buffer. First, the server can generate them (see the Buffer help file for the methods sine1, sine2, sine3 and cheby):
 
-```supercollider
+```
 b = Buffer.alloc(s, 1024, 1);
 b.cheby([1, 0.5, 1, 0.125]);
 
@@ -82,7 +83,7 @@ b.free;
 
 Or, you can calculate the transfer function in a client-side array (Signal class) then convert it to a wavetable and send the data over.
 
-```supercollider
+```
 b = Buffer.alloc(s, 1024, 1);
 
 // size must be power of two plus 1
@@ -108,7 +109,7 @@ b.free;
 
 This way of working then allows you to get creative with your transfer functions!
 
-```supercollider
+```
 b = Buffer.alloc(s, 1024, 1);
 
 // or, for an arbitrary transfer function, create the data at 1/2 buffer size + 1

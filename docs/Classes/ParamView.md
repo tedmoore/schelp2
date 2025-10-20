@@ -11,7 +11,7 @@
 ParamView displays a parameter value, and switches representation as appropriate for value: A single number is shown by an EZSlider, a pair of numbers by an EZRanger, and anything else as code on an EZText.
 First examples:
 
-```supercollider
+```
 w = Window("test", Rect(20, 820, 400, 100)).front;
 w.addFlowLayout;
 ~pv = ParamView(w, Rect(20, 20, 360, 20));
@@ -45,6 +45,7 @@ w.addFlowLayout;
 
 ## Class Methods
 
+
 ### `new`
 create a new ParamView with**Arguments:**
 
@@ -61,16 +62,27 @@ create a new ParamView with**Arguments:**
 
 ## Instance Methods
 
+
 ### `label`
-get and set the view's label### `spec`
-get and set the view's control spec### `action`
-get and set the paramview's action### `ezviews`, `slider`, `ranger`, `textview`
-the 3 ezviews between which the ParamView switches### `currview`
-the currently shown view of these### `value`
-get and set value### `valueAction`
-get and set value and do action### `doAction`
-do the view's action### `viewType`
-get and set the view's type: 0 is single number -> EZSlider, 1 is pair of numbers -> EZRanger, 2 is anything else### `valueType`
-determine viewType for a given value### `background`
+get and set the view's label
+### `spec`
+get and set the view's control spec
+### `action`
+get and set the paramview's action
+### `ezviews`, `slider`, `ranger`, `textview`
+the 3 ezviews between which the ParamView switches
+### `currview`
+the currently shown view of these
+### `value`
+get and set value
+### `valueAction`
+get and set value and do action
+### `doAction`
+do the view's action
+### `viewType`
+get and set the view's type: 0 is single number -> EZSlider, 1 is pair of numbers -> EZRanger, 2 is anything else
+### `valueType`
+determine viewType for a given value
+### `background`
 get and set background color
 

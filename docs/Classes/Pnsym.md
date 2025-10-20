@@ -13,6 +13,7 @@ for event patterns see [Psym](../Classes/Psym.md). Overview: [JITLib](../Overvie
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -24,12 +25,13 @@ for event patterns see [Psym](../Classes/Psym.md). Overview: [JITLib](../Overvie
 
 ## Instance Methods
 
+
 ### `dict`
 set the dictionary to be used.
 ## Examples
 
 
-```supercollider
+```
 (
 // load a synthdef
 s.boot;

@@ -17,9 +17,10 @@ For more information on using these unit generators, see [FFT-Overview](../Guide
 
 ## Instance Methods
 
+
 ### `fftSize`
 Returns the FFT chain buffer's size.
-```supercollider
+```
 (
 {
     var chain = FFT(LocalBuf(1024));
@@ -29,9 +30,10 @@ Returns the FFT chain buffer's size.
 )
 ```
 
+
 ### `pvcalc`
-pvcalc applies a function to the frequency-domain data of an FFT chain. See [pvcollect](#pvcollect) below for discussion of efficiency considerations. See also [#-pvcalc2](#-pvcalc2) below, and [UnpackFFT](../Classes/UnpackFFT.md).
-```supercollider
+pvcalc applies a function to the frequency-domain data of an FFT chain. See [#-pvcollect](#-pvcollect) below for discussion of efficiency considerations. See also [#-pvcalc2](#-pvcalc2) below, and [UnpackFFT](../Classes/UnpackFFT.md).
+```
 chain = chain.pvcalc(numframes, func, frombin, tobin, zeroothers)
 ```
 
@@ -41,7 +43,7 @@ chain = chain.pvcalc(numframes, func, frombin, tobin, zeroothers)
 |----------|-------------|
 | `numframes` | Number of FFT frames to process |  
 | `func` | The function that takes two arrays as inputs (`magnitude`, and `phase`) and returns a resulting pair of arrays `[magnitude, phase]`.
-```supercollider
+```
 // example function
 { |magnitudes, phases|
     [mags.reverse, phases.reverse] // e.g. upside-down spectrum
@@ -50,9 +52,10 @@ chain = chain.pvcalc(numframes, func, frombin, tobin, zeroothers)
 | `frombin` | Range start (optional) |  
 | `tobin` | Range end (optional) |  
 | `zeroothers` | If set to 1 then bins outside of the range being processed are silenced. |  
+
 ### `pvcalc2`
-The method pvcalc2 is just like [pvcalc](#pvcalc) but can combine two FFT chains.
-```supercollider
+The method pvcalc2 is just like [#-pvcalc](#-pvcalc) but can combine two FFT chains.
+```
 chain = chain.pvcalc2(chain2, numframes, func, frombin, tobin, zeroothers)
 ```
 
@@ -63,7 +66,7 @@ chain = chain.pvcalc2(chain2, numframes, func, frombin, tobin, zeroothers)
 | `chain2` | The second FFT chain. |  
 | `numframes` | Number of FFT frames to process |  
 | `func` | The function that takes four arrays as inputs (magnitudes1, phases1, magnitudes2, phases2) and returns a resulting pair of arrays `[magnitude, phase]`.
-```supercollider
+```
 // example function
 { |magnitudes1, phases1, magnitudes2, phases2|
     [magnitudes1, phases2] // e.g. use the magnitudes of one, ane the phases of the other
@@ -72,9 +75,10 @@ chain = chain.pvcalc2(chain2, numframes, func, frombin, tobin, zeroothers)
 | `frombin` | Range start (optional) |  
 | `tobin` | Range end (optional) |  
 | `zeroothers` | If set to 1 then bins outside of the range being processed are silenced. |  
+
 ### `pvcollect`
 Process each bin of an FFT chain, separately, by applying a function to each bin of an FFT chain.
-```supercollider
+```
 chain = chain.pvcollect(numframes, func, frombin, tobin, zeroothers)
 ```
 
@@ -84,7 +88,7 @@ chain = chain.pvcollect(numframes, func, frombin, tobin, zeroothers)
 |----------|-------------|
 | `numframes` | Number of FFT frames to process |  
 | `func` | The function that processes each bin. It should be a function that takes `magnitude, phase, bin, index` as inputs and returns a resulting array `[magnitude, phase]`.
-```supercollider
+```
 // example function
 { |magnitude, phase, bin, index|
     // randomize magnitudes somewhat (noisier signal)
@@ -107,7 +111,7 @@ Note that this procedure can be relatively CPU-heavy, depending on how you use i
 
 ### pvcalc
 
-```supercollider
+```
 // a sound file
 c.free; c = Buffer.read(s, ExampleFiles.child);
 
@@ -135,7 +139,7 @@ c.free; c = Buffer.read(s, ExampleFiles.child);
 
 ### pvcalc2
 
-```supercollider
+```
 c.free; c = Buffer.read(s, ExampleFiles.child);
 
 (
@@ -172,7 +176,7 @@ x = {
 
 ### pvcollect
 
-```supercollider
+```
 c.free; c = Buffer.read(s, ExampleFiles.child);
 
 

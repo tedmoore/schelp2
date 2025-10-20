@@ -14,9 +14,10 @@ The contents of a IdentityBag are unordered. You must not depend on the order of
 
 
 ### Adding and Removing
+
 ### `add`
 Add anObject to the Bag. A Bag may contain multiple entries of the same object.
-```supercollider
+```
 IdentityBag[1, 2, 3].add(4);
 IdentityBag[1, 2, 3].add(3);
 IdentityBag["abc", "def", "ghi"].add("jkl");
@@ -24,25 +25,28 @@ IdentityBag["abc", "def", "ghi"].add("def");
 ```
 
 
+
 ### `remove`
 Remove anObject from the IdentityBag.
-```supercollider
+```
 IdentityBag[1, 2, 3].remove(3);
 ```
 
 
+
 ### `contents`
 Returns the dictionary that stores the objects in pairs (obj -> numberOfObjects)
-```supercollider
+```
 IdentityBag[\a, \b, \c, \c].contents;
 ```
 
 
 
 ### Iteration
+
 ### `do`
 Evaluates function for each item in the IdentityBag. The function is passed two arguments, the item and an integer index.
-```supercollider
+```
 IdentityBag[1, 2, 3, 300].do({ |item, i| item.postln });
 ```
 
@@ -51,7 +55,7 @@ IdentityBag[1, 2, 3, 300].do({ |item, i| item.postln });
 
 ## Difference between Bag and IdentityBag
 
-```supercollider
+```
 // the two strings are equal, but not identical
 "something" == "something"; // true
 "something" === "something" // false

@@ -21,7 +21,7 @@ This is a long example, but it's only because there are lots of phrases. The str
 
 
 > **Note:** **Third-party extension alert** : In this example, the selection of the next phrase is explicitly weighted by repeating array elements, such as `#[1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 5]`. A more elegant way to do this is using the **WeighBag** class in the **MathLib** quark.
-```supercollider
+```
 // the following are equivalent:
 a = #[1, 1, 1, 1, 2, 2, 3, 3, 4, 4, 5];
 ({ a.choose } ! 100).histo(5, 1, 5);
@@ -34,7 +34,7 @@ a = WeighBag.with((1..5), #[4, 2, 2, 2, 1]);
 
 ### Example
 
-```supercollider
+```
 (
 // this SynthDef has a strong attack, emphasizing the articulation
 SynthDef(\sawpulse, { |out, freq = 440, gate = 0.5, plfofreq = 6, mw = 0, ffreq = 2000, rq = 0.3, freqlag = 0.05, amp = 1|

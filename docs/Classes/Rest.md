@@ -10,7 +10,7 @@
 
 A Rest may be used in event patterns to indicate that the resulting event should be a rest (i.e., silent). It should be used in one of the child patterns belonging to a Pbind, for instance.
 
-```supercollider
+```
 // do nothing for 2 seconds
 (note: Rest(), dur: 2).play;
 
@@ -44,6 +44,7 @@ All methods of Rest except *new are private, and should not be used directly.
 
 
 
+
 ### `new`
 Create an instance of Rest, with a value to be used in the resulting rest event.**Arguments:**
 
@@ -51,7 +52,7 @@ Create an instance of Rest, with a value to be used in the resulting rest event.
 |----------|-------------|
 | `value` | The Rest instance's numeric value, to be used in math operations. Note that a Rest's value is ignored for most Event keys (assuming the Event does nothing in response to `.play`). If a Rest appears in a rhythm key (`dur` or `delta`), then the number is the time until the next event. Consequently, numeric Rests are often used for duration -- but there is no requirement that a Rest's value must be a duration. |  
 
-```supercollider
+```
 a = Rest(6);
 b = a * 2; // returns Rest(12)
 b = 2 * a; // the same
@@ -59,7 +60,7 @@ b.value; // returns 12
 ```
 
 The rest of a rest is always a rest. This idempotence is implemented by Rest's superclass [Operand](../Classes/Operand.md).
-```supercollider
+```
 Rest(Rest(1)) // returns Rest(1)
 ```
 
@@ -67,16 +68,18 @@ Rest(Rest(1)) // returns Rest(1)
 
 ## Instance Methods
 
+
 ### `isRest`
-returns true### `unwrapBoolean`
+returns true
+### `unwrapBoolean`
 returns the value.This method implements the following behavior.
-```supercollider
+```
 Rest(6) + 1 // Rest(7)
 Rest(true) // true
 ```
 
 This makes comparisons work:
-```supercollider
+```
 Rest(6) < 7 // true, and not Rest(true)
 a = Pseq([1, 2, 1, 3, Rest(1), 2, Rest(3)], inf); // e.g. as a duration pattern
 b = a.collect { |x| if(x > 2) { x / 2 } { x } };
@@ -88,7 +91,7 @@ b.asStream.nextN(8)
 
 Using Rest instances in a pitch stream
 
-```supercollider
+```
 (
 Pbind(
     \degree, Pif(
@@ -104,7 +107,7 @@ Pbind(
 
 Using a Rest instance in a duration stream
 
-```supercollider
+```
 (
 Pbind(
     \degree, Pseries(0, 1, inf).fold(-7, 7),
@@ -119,7 +122,7 @@ Pbind(
 In addition to Rest, in events, rests can be specified in two other ways (legacy usages).
 
 - A [Symbol](../Classes/Symbol.md) may be specified in any frequency stream (under the keys degree, note, midinote or freq). The exception to this rule is control bus mapping symbols, beginning with 'c' followed by a number. Typical symbols that have been used include **\rest**, **\r** and the empty symbol **\**.
-```supercollider
+```
 (
 p = Pbind(
     \degree, Pseq([
@@ -133,7 +136,7 @@ p = Pbind(
 
 
 - The event's **\type** may be set to **\rest**.
-```supercollider
+```
 (
 p = Pbind(
     \degree, Pseries(0, 1, inf).fold(-7, 7),

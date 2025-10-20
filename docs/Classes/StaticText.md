@@ -17,6 +17,7 @@ A view displaying non-editable text
 
 
 ### Data
+
 ### `string`
  The text displayed by the view.**Arguments:**
 
@@ -24,15 +25,17 @@ A view displaying non-editable text
 |----------|-------------|
 | `` | A String. |  
 
+
 ### `object`
- If [setBoth](#setboth) is true, setting this variable also sets [string](#string) to the value interpreted [as String](../Classes/Object.md#-asstring).**Arguments:**
+ If [#-setBoth](#-setboth) is true, setting this variable also sets [#-string](#-string) to the value interpreted [as String](../Classes/Object.md#-asstring).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | Any object, typically one which makes sense to display as a string, such as a Float. |  
 
+
 ### `setBoth`
- A variable stating whether setting [object](#object) will also set [string](#string).**Arguments:**
+ A variable stating whether setting [#-object](#-object) will also set [#-string](#-string).**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
@@ -40,8 +43,10 @@ A view displaying non-editable text
 
 
 ### Appearance
+
 ### `align`
  The alignment of the displayed text. See [gui_alignments](../Reference/gui_alignments.md) for possible values.
+
 ### `font`
  The font used to display the text.**Arguments:**
 
@@ -49,12 +54,14 @@ A view displaying non-editable text
 |----------|-------------|
 | `` | A Font. |  
 
+
 ### `stringColor`
  The color used to display the text.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `` | A Color. |  
+
 
 ### `background`
  Setting this variable colors the whole area occupied by the view under the text with the given color.**Arguments:**
@@ -69,7 +76,7 @@ A view displaying non-editable text
 
 ### Basic Example
 
-```supercollider
+```
 (
 w = Window.new.front;
 a = StaticText(w, Rect(10, 10, 200, 20));
@@ -88,7 +95,7 @@ a.string = "Your Rolex";
 
 ### Monitoring Values in a Synth
 
-```supercollider
+```
 (
 var w, a, r, b, q;
 w = Window("Frequency Monitor", Rect(200, Window.screenBounds.height - 200, 300, 150)).front;
@@ -140,7 +147,7 @@ w.onClose = { r.stop; q.free; b.free }; // clean up if the window closes
 
 ### Dynamic Text
 
-```supercollider
+```
 (
 w = Window.new.front;
 w.view.background = Color.white;

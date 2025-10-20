@@ -13,6 +13,7 @@ Free enclosing synth when input signal crosses from non-positive to positive.
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Free enclosing synth when input signal crosses from non-positive to positive.
 ## Examples
 
 
-```supercollider
+```
 (
 SynthDef("freeSelf-help", { |out, t_trig|
     FreeSelf.kr(t_trig);

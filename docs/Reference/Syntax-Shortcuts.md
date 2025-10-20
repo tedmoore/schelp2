@@ -13,7 +13,7 @@ This file shows a number of syntax equivalences in the compiler.
 Because of the multiple syntax equivalences, some expressions can be written in many different ways. All of the following do the same thing and compile to the same code.
 
 
-```supercollider
+```
 // new argument syntax
 
 (1..10).collect({ |n| n.squared });  // receiver syntax
@@ -114,7 +114,7 @@ You could even start expanding out the equivalent of (1..10) which is really a s
 | --- | --- || `if (x < 3, { \abc }, { \def })` | `if (x < 3) { \abc } { \def }` | | `z.do({ |x| x.play })` | `z.do { |x| x.play }` | | `while({ a < b }, { a = a * 2 })` | `while { a < b } { a = a * 2 }` | | `Pfunc({ rrand(3, 6) })` | `Pfunc { rrand(3, 6) }` | 
 
 > **Note:** Trailing arguments must be literal blocks. No other expression may be used as a trailing argument, even if it evaluates to a Function. For example, you cannot use a variable name as a trailing argument, even if this variable was assigned a Function.Using a selector as an infix binary operator (discussed in the next section) enables a visually similar construct that does allow arbitrary expressions as operands, but these binary-operator constructs technically do not have trailing arguments.
-```supercollider
+```
 (
 var f = { |n| (2**n) + (3**n) };
 collect((1..5), f); // valid
@@ -126,7 +126,7 @@ collect((1..5)) f;  // syntax error (ibid.)
 ```
 
 A fairly common case when this syntactic restriction matters: a partial application using the `_` syntax is an expression evaluating to a Function, but it is not a literal block. Therefore:
-```supercollider
+```
 do(6) _.postln  // syntax error
 6.do _.postln   // syntax error
 do(6, _.postln) // valid
@@ -142,7 +142,7 @@ do(6, _.postln) // valid
 | instead of writing: | you can write: | 
 | --- | --- || `div(x, y)` | `x div: y` | 
 > **⚠️ Warning:** When switching between various forms of call syntax, one has to be mindful that a selector as a binary operator has equal precedence with most other binary operators, but has lower precedence than the receiver dot notation (`.`). Therefore, replacing a receiver syntax (dot) with a selector written as a binary operator can change the result of some expressions, as illustrated below:
-```supercollider
+```
 4 + 5.div(2) // -> 6
 4 + 5 div: 2 // -> 4
 
@@ -171,7 +171,7 @@ Native infix operators like `+` can also be written in (longer) function-call fo
 The latter form is usually not a shortcut, except when one wants to dynamically change the adverb of an operator, for instance that of `+++`, because adverbs in the infix notation are interpreted as literals.
 
 
-```supercollider
+```
 (
 var a = (_+_) ! [3, 3]; // -> [ [ 0, 1, 2 ], [ 1, 2, 3 ], [ 2, 3, 4 ] ]
 (0..2) collect: (+++)(a, 99, _) flatten: 3; // iterated adverb
@@ -224,7 +224,7 @@ There is also the similar syntax for creating an iterating [Routine](../Classes/
 As a simple (non-combinatorial) example, the following are equivalent ways of listing the first 10 primes:
 
 
-```supercollider
+```
 (:1..) select: _.isPrime nextN: 10;
 {: x, x <- (1..), x.isPrime }.nextN(10);
 ```
@@ -266,7 +266,7 @@ As a simple (non-combinatorial) example, the following are equivalent ways of li
 
 
 
-> **Note:** The shorthand only admits a subset of the symbols that may be enclosed in single quotes. See [Literals / Symbols ](../Reference/Literals.md#symbols) for details.
+> **Note:** The shorthand only admits a subset of the symbols that may be enclosed in single quotes. See [Literals#Symbols](../Reference/Literals.md#symbols) for details.
 
 
 

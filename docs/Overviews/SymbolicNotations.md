@@ -13,7 +13,7 @@ Math operators apply to many classes, including arrays and other collections.
 Using a basic math operator on a Symbol swallows the operation (returns the symbol)
 
 
-```supercollider
+```
 \symbol * 5
 symbol
 ```
@@ -82,7 +82,7 @@ symbol
 Objects may be equivalent but not identical.
 
 
-```supercollider
+```
 [1, 2, 3] == [1, 2, 3]
 true
 [1, 2, 3] === [1, 2, 3]
@@ -125,7 +125,7 @@ When a function is the second operand, these operators perform short-circuiting 
 With `and:` and `or:` second-argument functions will be inlined. If you use `&&` or `||`, no inlining will be done and performance will be slower.
 
 
-```supercollider
+```
 a = 1;
 
 a == 1 and: { "second condition".postln; [true, false].choose }
@@ -147,7 +147,7 @@ true
 In this case, the second condition will cause an error if a is nil, because nil does not understand addition. a.notNil is a safeguard to ensure the second condition makes sense.
 
 
-```supercollider
+```
 a = nil;
 a.notNil and: { "second condition".postln; (a = a+1) < 5 }
 false
@@ -200,14 +200,14 @@ Operators oftwn used with [Array](../Classes/Array.md), [Collection](../Classes/
 
 **`set -- set`**
 : symmetric difference:
-```supercollider
+```
 (setA -- setB) == ((setA - setB) | (setB - setA))
 ```
 
 
 
 
-```supercollider
+```
 a = Set[2, 3, 4, 5, 6, 7];
 b = Set[5, 6, 7, 8, 9];
 
@@ -231,7 +231,7 @@ Set[ 2, 9, 3, 4, 8 ]
 
 **`number @ number`**
 : make a [Point](../Classes/Point.md) of two numbers
-```supercollider
+```
 x @ y
 // returns:
 Point(x, y)
@@ -239,7 +239,7 @@ Point(x, y)
 
 **`point @ point`**
 : make a [Rect](../Classes/Rect.md) of two [Point](../Classes/Point.md)s
-```supercollider
+```
 Point(left, top) @ Point(right, bottom)
 // returns:
 Rect(left, top, right-left, bottom-top)
@@ -262,14 +262,14 @@ Rect(left, top, right-left, bottom-top)
 
 **`stream << object`**
 : represent the object as a string and add to the stream. A common usage is with the Post class, to write output to the post window.
-```supercollider
+```
 Post << "Here is a random number: " << 20.rand << ".\n";
 Here is a random number: 13.
 ```
 
 **`stream <<* collection`**
 : add each item of the collection to the stream.
-```supercollider
+```
 Post << [0, 1, 2, 3]
 [ 0, 1, 2, 3 ]
 
@@ -279,7 +279,7 @@ Post <<* [0, 1, 2, 3]
 
 **`stream <<< object`**
 : add the object's compile string to the stream.
-```supercollider
+```
 Post <<< "a string"
 "a string"
 ```
@@ -298,7 +298,7 @@ Post <<< "a string"
 
 **`object ?? function`**
 : nil check (.value, function is inlined) If the object is nil, the second expression's value will be used; otherwise, it will be the first object.
-```supercollider
+```
 a = [nil, 5];
 
 10.do({ (a.choose ? 20.rand).postln });
@@ -306,7 +306,7 @@ a = [nil, 5];
 ```
 
 `?? { }` is generally recommended. `?` always evaluates the second expression, even if its value will not be used. `??` evaluates the function conditionally (only when needed). If the function defines no variables, the function will be inlined for speed.Especially useful when the absence of an object requires a new object to be created. In this example, it's critical that a new Slider not be created if the object was already passed in.
-```supercollider
+```
 f = { |slider, parent|
     slider = slider ?? { Slider.new(parent, Rect(0, 0, 100, 20)) };
     slider.value_(0);
@@ -314,7 +314,7 @@ f = { |slider, parent|
 ```
 
 If the first line inside the function instead read
-```supercollider
+```
 slider = slider ? Slider.new(parent, Rect(0, 0, 100, 20));
 ```
 
@@ -322,7 +322,7 @@ slider = slider ? Slider.new(parent, Rect(0, 0, 100, 20));
 
 **`object !? function`**
 : execute function if object is not nil.
-```supercollider
+```
 a = [10, nil].choose;
 a !? { "ran func".postln };
 // equivalent of:
@@ -330,7 +330,7 @@ if (a.notNil) { "ran func".postln };
 ```
 
 Used when an operation requires a variable not to be empty.
-```supercollider
+```
 f = { |a| a + 5 };
 f.value
 // error: nil does not understand +
@@ -350,13 +350,13 @@ f.value(2)
 
 **`object ! number`**
 : same as `object.dup(number)`
-```supercollider
+```
 15 ! 5
 [ 15, 15, 15, 15, 15 ]
 ```
 
 If the object is a function, it behaves like Array.fill(number, function).
-```supercollider
+```
 { 10.rand } ! 5
 [ 8, 9, 3, 8, 0 ]
 ```
@@ -366,7 +366,7 @@ If the object is a function, it behaves like Array.fill(number, function).
 
 **`expression <! expression`**
 : bypass value of second expression. This operator evaluates both expressions, and returns the value of the first.
-```supercollider
+```
 a = 0;
 0
 
@@ -381,14 +381,14 @@ a    // a's value reflects both increments
 
 **`function <> function`**
 : function composition operator. This operator returns a new function, which evaluates the second function and passes the result to the first function.
-```supercollider
+```
 f = { |a| a * 5 } <> {|a| a + 2 };
 f.(10);
 60                  // == (10+2) * 5
 ```
 
 An array as argument is passed through the chain:
-```supercollider
+```
 f.([10, 75, 512]);
 [ 60, 385, 2570 ]   // == ([10, 75, 512]+2) * 5
 ```
@@ -425,7 +425,7 @@ f.([10, 75, 512]);
 
 **`\`**
 : inside a string or symbol, escapes the next character
-```supercollider
+```
 "abc\"def\"ghi"
 abc"def"ghi
 
@@ -490,7 +490,7 @@ abc'def'ghi
 
 **`f.(anArgName: value)`**
 : keyword addressing of function or method arguments
-```supercollider
+```
 f = { |a, b| a * b };
 f.(2, 4);
 f.(*[2, 4]);
@@ -514,7 +514,7 @@ f.(a: 2, b: 4);
 Inside a class definition (see [WritingClasses](../Guides/WritingClasses.md) ):
 
 
-```supercollider
+```
 {
     classvar <a,    // Define a class variable with a getter method (for outside access)
              >b,    // Define a class variable with a setter method
@@ -590,7 +590,7 @@ These notations do not apply to variables defined within methods.
 e.g.:
 
 
-```supercollider
+```
 [1, 2, 3] * [2, 3, 4]
 [ 2, 6, 12 ]
 

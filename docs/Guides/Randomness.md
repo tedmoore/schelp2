@@ -13,7 +13,7 @@ If you start a random number generator algorithm with the same "seed" number sev
 
 ### Between zero and <number>
 
-```supercollider
+```
 5.rand          // evenly distributed.
 
 1.0.linrand     // probability decreases linearly from 0 to <number>.
@@ -25,7 +25,7 @@ If you start a random number generator algorithm with the same "seed" number sev
 
 ### Between -<number> and <number>
 
-```supercollider
+```
 5.0.rand2       // evenly distributed.
 
 10.bilinrand    // probability is highest around 0,
@@ -40,7 +40,7 @@ If you start a random number generator algorithm with the same "seed" number sev
 
 ### Within a given range
 
-```supercollider
+```
 rrand(24, 48)       // linear distribution in the given range.
 
 exprand(0.01, 1)    // exponential distribution;
@@ -55,7 +55,7 @@ exprand(0.01, 1)    // exponential distribution;
 
 ### Test them multiple times with a do loop
 
-```supercollider
+```
 20.do({ 5.rand.postln; });            // evenly distributed
 
 20.do({ 1.0.linrand.postln; });        // probability decreases linearly from 0 to 1.0
@@ -74,7 +74,7 @@ exprand(0.01, 1)    // exponential distribution;
 
 ### Collect the results in an array
 
-```supercollider
+```
 Array.fill(10, { 1000.linrand }).postln;
 
 // or more compact:
@@ -94,7 +94,7 @@ Array.fill(10, { 1000.linrand }).postln;
 You can seed a random generator in order to repeat the same sequence of random numbers:
 
 
-```supercollider
+```
 (
 5.do({
     thisThread.randSeed = 4;
@@ -119,7 +119,7 @@ See also [randomSeed](../Reference/randomSeed.md).
 Demonstrate the various statistical distributions visually, with histograms:
 
 
-```supercollider
+```
 Array.fill(500, {  1.0.rand }).plot("Sequence of 500x 1.0.rand");
 
 Array.fill(500, {  1.0.linrand }).plot("Sequence of 500x 1.0.linrand");
@@ -131,7 +131,7 @@ Array.fill(500, {  1.0.sum3rand }).plot("Sequence of 500x 1.0.sum3rand");
 Use a histogram to display how often each (integer) occurs in a collection of random numbers, :
 
 
-```supercollider
+```
 (
 var randomNumbers, histogram, maxValue = 500, numVals = 10000, numBins = 500;
 
@@ -145,7 +145,7 @@ histogram.plot("histogram for rand 0 - " ++ maxValue);
 A histogram for linrand:
 
 
-```supercollider
+```
 (
 var randomNumbers, histogram, maxValue = 500.0, numVals = 10000, numBins = 500;
 
@@ -159,7 +159,7 @@ histogram.plot("histogram for linrand 0 - " ++ maxValue);
 A histogram for bilinrand:
 
 
-```supercollider
+```
 (
 var randomNumbers, histogram, minValue = -250, maxValue = 250, numVals = 10000, numBins = 500;
 
@@ -173,7 +173,7 @@ histogram.plot("histogram for bilinrand" + minValue + "to" + maxValue);
 A histogram for exprand:
 
 
-```supercollider
+```
 (
 var randomNumbers, histogram, minValue = 5.0, maxValue = 500, numVals = 10000, numBins = 500;
 
@@ -187,7 +187,7 @@ histogram.plot("histogram for exprand: " ++ minValue ++ " to " ++ maxValue);
 And for sum3rand (cheap quasi-gaussian):
 
 
-```supercollider
+```
 (
 var randomNumbers, histogram, minValue = -250, maxValue = 250, numVals = 10000, numBins = 500;
 
@@ -205,7 +205,7 @@ histogram.plot("histogram for sum3rand " ++ minValue ++ " to " ++ maxValue);
 All of the single-number methods also work for (Sequenceable)Collections, simply by applying the given random message to each element of the collection:
 
 
-```supercollider
+```
 [ 1.0, 10, 100.0, \aSymbol ].rand.postln;        // note: Symbols are left as they are.
 List[ 10, -3.0, \aSymbol ].sum3rand.postln;
 ```
@@ -218,7 +218,7 @@ List[ 10, -3.0, \aSymbol ].sum3rand.postln;
 An integral table can be used to create an arbitrary random distribution quite efficiently. The table building is expensive though. The more points there are in the random table, the more accurate the distribution.
 
 
-```supercollider
+```
 (
 var randomNumbers, histogram, distribution, randomTable, randTableSize=200;
 var minValue = -250, maxValue = 250, numVals = 10000, numBins = 500;
@@ -251,7 +251,7 @@ distribution.plot("this was the histogram we wanted");
 `coin` simulates a coin toss and results in true or false. 1.0 is always true, 0.0 is always false, 0.5 is 50:50 chance.
 
 
-```supercollider
+```
 20.do({ 0.5.coin.postln });
 ```
 
@@ -259,7 +259,7 @@ distribution.plot("this was the histogram we wanted");
 biased random decision can be simulated bygenerating a single value and check against a threshhold:
 
 
-```supercollider
+```
 20.do({ (1.0.linrand > 0.5).postln });
 20.do({ (exprand(0.05, 1.0) > 0.5).postln });
 ```
@@ -269,7 +269,7 @@ biased random decision can be simulated bygenerating a single value and check ag
 
 ## Generating Collections of random numbers
 
-```supercollider
+```
         // size, minVal, maxVal
 Array.rand(7, 0.0, 1.0).postln;
 
@@ -282,7 +282,7 @@ Array.fill(7, { rrand(0.0, 1.0) }).postln;
 
 
 
-```supercollider
+```
         // size, minVal, maxVal
 List.linrand(7, 10.0, 15.0).postln;
 
@@ -293,7 +293,7 @@ List.fill(7, { 10 + 5.0.linrand }).postln;
 
 
 
-```supercollider
+```
 Signal.exprand(10, 0.1, 1);
 
 Signal.rand2(10, 1.0);
@@ -306,7 +306,7 @@ Signal.rand2(10, 1.0);
 `choose` : equal chance for each element.
 
 
-```supercollider
+```
 10.do({ [ 1, 2, 3 ].choose.postln });
 ```
 
@@ -316,7 +316,7 @@ Weighted choice:
 `wchoose(weights)` : An array of weights sets the chance for each element.
 
 
-```supercollider
+```
 10.do({ [ 1, 2, 3 ].wchoose([0.1, 0.2, 0.7]).postln });
 ```
 
@@ -325,7 +325,7 @@ Weighted choice:
 
 ## Randomize the order of a Collection
 
-```supercollider
+```
 List[ 1, 2, 3, 4, 5 ].scramble.postln;
 ```
 
@@ -334,7 +334,7 @@ List[ 1, 2, 3, 4, 5 ].scramble.postln;
 
 ## Generate random numbers without duplicates
 
-```supercollider
+```
 f = { |n=8, min=0, max=7| (min..max).scramble.keep(n) };
 f.value(8, 0, 7)
 ```
@@ -344,7 +344,7 @@ f.value(8, 0, 7)
 
 ## Randomly group a Collection
 
-```supercollider
+```
 curdle(probability)
 ```
 
@@ -352,7 +352,7 @@ curdle(probability)
 The probability argument sets the chance that two adjacent elements will be separated.
 
 
-```supercollider
+```
 [ 1, 2, 3, 4, 5, 6, 7, 8 ].curdle(0.2).postln;    // big groups
 
 [ 1, 2, 3, 4, 5, 6, 7, 8 ].curdle(0.75).postln;    // small groups
@@ -388,7 +388,7 @@ Also see UGens>Generators>Stochastic in the [Browse#UGens>Generators>Stochastic]
 Unary or binary random method produce a random value for each frame (not implemented in some cases). This can be used to implement tendency masks.
 
 
-```supercollider
+```
 { rrand(SinOsc.ar(0.1), SinOsc.ar(0.42)) * 0.1 }.play
 { linrand(SinOsc.ar(0.1)) * 0.1 }.play
 { bilinrand(SinOsc.ar(0.1)) * 0.1 }.play
@@ -492,7 +492,7 @@ see random patterns with analogous names
 **[Pexprand](../Classes/Pexprand.md)**
 **[Pwrand](../Classes/Pwrand.md)**
 : choose from a list, probabilities by weights
-```supercollider
+```
 Pwrand([ 1, 2, 3 ], [0.1, 0.3, 0.6], 20);
 ```
 
@@ -513,7 +513,7 @@ Pwrand([ 1, 2, 3 ], [0.1, 0.3, 0.6], 20);
 some basic examples
 
 
-```supercollider
+```
 (
 Pbind(\note, Prand([ 0, 2, 4 ], inf),
     \dur, 0.2

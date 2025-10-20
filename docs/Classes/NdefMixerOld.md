@@ -15,9 +15,10 @@ For more details see: [ProxyMixer](../Classes/ProxyMixer.md)
 
 
 ### Creation
+
 ### `new`
 Return a new window for a given server.
-```supercollider
+```
 // ndef mxers for other servers
 n = NdefMixer(\internal);
 n = NdefMixer(\localhost);
@@ -37,12 +38,13 @@ n = NdefMixer(\trala);        // fails, no such server
 
 ## Instance Methods
 
+
 ### `proxyspace`
 Return the proxyspace.
 ## Examples
 
 
-```supercollider
+```
 n = NdefMixer(s);        // for the default server
 // make a new proxy
 (

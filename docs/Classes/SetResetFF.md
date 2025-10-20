@@ -14,6 +14,7 @@ If both inputs receive a trigger at the same time, the `reset` input takes prece
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ If both inputs receive a trigger at the same time, the `reset` input takes prece
 ## Examples
 
 
-```supercollider
+```
 (
 play({
     a = Dust.ar(5); // the set trigger
@@ -41,7 +42,7 @@ play({
 Here, 'reset' is triggered twice as often as 'trig'. Since 'trig' is always matched by a 'reset', the output is 0. (If 'trig' took precedence, you would have a 50%-duty-cycle pulse wave.)
 
 
-```supercollider
+```
 a = { SetResetFF.kr(Impulse.kr(50), Impulse.kr(100)) }.plot(duration: 0.1);
 ```
 
@@ -49,7 +50,7 @@ a = { SetResetFF.kr(Impulse.kr(50), Impulse.kr(100)) }.plot(duration: 0.1);
 You can reverse this behavior, by reversing the inputs so that SetResetFF is triggered twice as often as resetting. This results in a signal that is 0 initially and switches to 1 halfway through the cycle: *reset, then trigger*. To make it *trigger, then reset*, invert the phase: `1 - SetResetFF`.
 
 
-```supercollider
+```
 a = { 1 - SetResetFF.kr(Impulse.kr(100), Impulse.kr(50)) }.plot(duration: 0.1);
 ```
 

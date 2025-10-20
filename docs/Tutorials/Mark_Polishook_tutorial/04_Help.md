@@ -27,7 +27,7 @@ Use the Find and Find Next commands, available through the Edit menu, to search 
 Use grep in the Terminal (in the Applications->Utilities folder) to search for all occurrences of a given word or phrase. For example, to see all documents that use the LFSaw class, evaluate (in the Terminal application)
 
 
-```supercollider
+```
 grep -r LFSaw /Applications/SuperCollider
 ```
 
@@ -35,7 +35,7 @@ grep -r LFSaw /Applications/SuperCollider
 Because lines in the terminal application break according to the size of the window and not through schemes that enhance readability, it may be easier to write grep results to a file, as in
 
 
-```supercollider
+```
 // change the name of the path (the argument after the '>' sign, as appropriate
 grep -r LFSaw /Applications/SuperCollider/ > /Users/yourHomeDirectory/Desktop/grep_results
 ```

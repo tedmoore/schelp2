@@ -15,6 +15,7 @@ See [Pbrown](../Classes/Pbrown.md), [BrownNoise](../Classes/BrownNoise.md) for s
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -28,7 +29,7 @@ See [Pbrown](../Classes/Pbrown.md), [BrownNoise](../Classes/BrownNoise.md) for s
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a, freq, trig;

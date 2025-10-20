@@ -14,7 +14,7 @@ For semi-colon-delimited files use [SemiColonFileReader](../Classes/SemiColonFil
 ## Examples
 
 
-```supercollider
+```
 (
 // write a test file:
 f = File("TabDelTest.sc", "w");

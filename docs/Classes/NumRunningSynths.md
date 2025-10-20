@@ -13,12 +13,13 @@ Number of currently running synths.
 
 ## Class Methods
 
+
 ### `ir`
 
 ## Examples
 
 
-```supercollider
+```
 // example: frequency is derived from the number of synths running
 (
 SynthDef("numRunning", { |out|

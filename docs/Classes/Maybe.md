@@ -12,7 +12,7 @@ A Maybe object can contain either nil or some other object, and allows to constr
 The name **Maybe** stems from the programming language Haskell, where it represents a somewhat similar entity. See also: [Fdef](../Classes/Fdef.md)
 
 > **Note:** A Maybe object lazily constructs an operation as an object instead of performing it immediately. Its implementation remains incomplete necessarily, in the current form: it is limited to the arithmetic operations that AbstractFunction implements and the following collection methods: `put, addAll, add, putAll, atAll`.You can extend Maybe as you need for your purpose, by the following schema:
-```supercollider
+```
 // replace "myMethod" with your method name
 + Maybe {
     myMethod { |...args, kwargs|
@@ -26,13 +26,14 @@ The name **Maybe** stems from the programming language Haskell, where it represe
 
 ## Class Methods
 
+
 ### `new`
 create a new instance**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `thing` | an object or nil.
-```supercollider
+```
 a = Maybe.new;
 b = Maybe(a + 6);
 b.value; // => nil
@@ -43,17 +44,19 @@ b.value; // => 7
 
 ## Instance Methods
 
+
 ### `source`
 return or set the contained object
-```supercollider
+```
 a = Maybe.new;
 a.source = 5;
 a.source // 5
 ```
 
+
 ### `value`
 set the contained object or return the source, or the value of the contained object, if it is a Maybe. If there is a recursion, return nil.
-```supercollider
+```
 a = Maybe.new;
 a.source = 5;
 a.value; // 5
@@ -65,17 +68,20 @@ Maybe.verbose = true;
 a.value; // posts a warning and returns nil
 ```
 
+
 ### `apply`
 return the value, or the value of the contained object, if it is a Maybe. This method allows recursion, so that recursive calculations can be made.
-```supercollider
+```
 a = Maybe({ |a, b| a + b });
 [1, 2, 3, 4].reduce(a); // returns 10. reduce calls apply on the first argument and passes the receiver
 ```
 
+
 ### `clear`
-Set the source to `nil`### `doesNotUnderstand`
+Set the source to `nil`
+### `doesNotUnderstand`
 (called by any message that Maybe doesn't understand.)returns a composition function that, when evaluated, returns the value.
-```supercollider
+```
 a = Maybe.new;
 a.respondsTo(\flop) // false: Maybe constructs a placeholder instead
 b = Maybe(a.flop);
@@ -84,9 +90,10 @@ a.value = [1, 2, [2, 3]];
 b.value;    // => [[1, 2, 2], [1, 2, 3]]
 ```
 
+
 ### `<>`
 Compose receiver with first argument.
-```supercollider
+```
 a = Maybe({ |x| x + 1 });
 b = Maybe();
 c = a <> b;
@@ -95,9 +102,10 @@ b.source = { |x| x * 2 };
 c.value(1);  // 1 * 2 + 1 = 3
 ```
 
+
 ### `o`
 Compose receiver together with all arguments
-```supercollider
+```
 a = Array.fill(8, { |i| var k = (1/(i+1)).rand; Maybe({ |x| x * k }) });
 b = o(Maybe({ |x| x }), *a);
 b.value(1);

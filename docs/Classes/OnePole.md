@@ -10,7 +10,7 @@
 
 A one pole filter. Implements the formula:
 
-```supercollider
+```
 out(i) = ((1 - abs(coef)) * in(i)) + (coef * out(i-1)).
 ```
 
@@ -18,6 +18,7 @@ out(i) = ((1 - abs(coef)) * in(i)) + (coef * out(i-1)).
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -32,7 +33,7 @@ out(i) = ((1 - abs(coef)) * in(i)) + (coef * out(i-1)).
 ## Examples
 
 
-```supercollider
+```
 { OnePole.ar(WhiteNoise.ar(0.5), 0.95) }.play
 
 { OnePole.ar(WhiteNoise.ar(0.5), -0.95) }.play

@@ -43,7 +43,7 @@ The parameters noted above should be provided in the source pattern. Alternately
 So... deep breath...
 
 
-```supercollider
+```
 (
 ~swingify = Prout({ |ev|
     var now, nextTime = 0, thisShouldSwing, nextShouldSwing = false, adjust;
@@ -81,7 +81,7 @@ So... deep breath...
 
 ### Examples
 
-```supercollider
+```
 p = Pbind(\degree, Pseries(0, 1, 8), \dur, 0.25);
 
 p.play;  // straight 16ths
@@ -131,7 +131,7 @@ q = Ppar([
 Swing should not apply to triplets. Note that the rhythmic value 1/6 introduces floating-point rounding error, so we need to raise the threshold slightly. `(1/6)+(1/6)+(1/6)` is within 0.05 of an eighth-note, but `1/6` is not, causing triplet notes to pass through unchanged.
 
 
-```supercollider
+```
 // swing threshold: throw a few triplets in
 (
 Pchain(
@@ -153,7 +153,7 @@ Pchain(
 We need to measure the current metric position against some reference point. The most logical is the time when the pattern started processing. [Prout](../../Classes/Prout.md) allows variables to persist for the entire length of its stream (unlike [Pfunc](../../Classes/Pfunc.md)).
 
 
-```supercollider
+```
 (
 ~swingify = Prout({ |ev|
     var now, nextTime = 0, thisShouldSwing, nextShouldSwing = false, adjust;
@@ -165,7 +165,7 @@ We need to measure the current metric position against some reference point. The
 If the source event is nil, errors will follow, so we should stop looping in that case.
 
 
-```supercollider
+```
     while { ev.notNil } {
 ```
 
@@ -175,7 +175,7 @@ If the source event is nil, errors will follow, so we should stop looping in tha
 `now` is what the next time *was*. The time of the next event simply adds `ev.delta`.
 
 
-```supercollider
+```
         now = nextTime;
         nextTime = now + ev.delta;
 ```
@@ -197,7 +197,7 @@ As discussed above, there are two factors to decide whether or not this note sho
 There's room also for a slight optimization. In the previous event, we decided whether the next event would need to swing or not. Now, in the current event, we are processing what used to be "next." So we can just copy the old value of `nextShouldSwing` from last time, instead of redoing the calculation. (Note that this requires `nextShouldSwing = false` in the beginning -- because `now` is always 0 for the first event, and consequently can never swing.)
 
 
-```supercollider
+```
         // current this time is what was "next" last time
         thisShouldSwing = nextShouldSwing;
         nextShouldSwing = ((nextTime absdif: now.round(ev[\swingBase])) <= (ev[\swingThreshold] ? 0)) and: {
@@ -216,7 +216,7 @@ Naming the variables appropriately makes the subsequent "if" block almost self-e
 
 
 
-```supercollider
+```
         if(thisShouldSwing) {
             ev[\timingOffset] = (ev[\timingOffset] ? 0) + adjust;
             // if next note will not swing, this note needs to be shortened
@@ -239,7 +239,7 @@ Naming the variables appropriately makes the subsequent "if" block almost self-e
 This is the normal, correct way to handle input values from `next` within routines.
 
 
-```supercollider
+```
         ev = ev.yield;
     };
 });

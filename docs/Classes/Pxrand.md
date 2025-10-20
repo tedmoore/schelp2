@@ -13,7 +13,7 @@ Like [Prand](../Classes/Prand.md), returns one item from the list at random for 
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Pxrand.new(#[1, 2, 3], 10);    // return 10 items

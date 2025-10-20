@@ -13,6 +13,7 @@ Plays back a sample resident in memory.
 
 ## Class Methods
 
+
 ### `ar`, `kr`
 **Arguments:**
 
@@ -30,7 +31,7 @@ Plays back a sample resident in memory.
 ## Examples
 
 
-```supercollider
+```
 s.boot // Boot the server, if you need to
 
 // read a whole sound into memory
@@ -53,7 +54,7 @@ SynthDef(\help_PlayBuf, { |out = 0, bufnum = 0|
 In the above example, note how the `doneAction: Done.freeSelf` causes the synth to free itself when the buffer reaches its end.
 Note again that the number of channels must be fixed for the SynthDef. It cannot vary depending on which buffer you use.
 
-```supercollider
+```
 // loop is true
 SynthDef(\help_PlayBuf, { |out = 0, bufnum = 0|
     Out.ar(out,

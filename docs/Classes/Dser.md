@@ -14,6 +14,7 @@ See [Pser](../Classes/Pser.md) for structurally related equivalent.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -25,7 +26,7 @@ See [Pser](../Classes/Pser.md) for structurally related equivalent.
 ## Examples
 
 
-```supercollider
+```
 (
 {
     var a, freq, trig;

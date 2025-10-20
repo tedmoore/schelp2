@@ -14,6 +14,7 @@ This can be a useful indicator of the perceptual *brightness* of a signal.
 
 ## Class Methods
 
+
 ### `kr`
 **Arguments:**
 
@@ -25,7 +26,7 @@ This can be a useful indicator of the perceptual *brightness* of a signal.
 
 A [Blip](../Classes/Blip.md) oscillator is ideal for demonstrating this because the number of harmonics is directly manipulated: as the number of harmonics increases, the centroid is pushed higher. In the example, left-to-right changes the number of harmonics, but up-to-down changes the fundamental pitch; note the different effects of these two on the centroid.
 
-```supercollider
+```
 s.boot;
 b = Buffer.alloc(s, 2048, 1);
 (

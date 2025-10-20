@@ -13,6 +13,7 @@ Set the random generator seed of the resulting stream.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -20,7 +21,7 @@ Set the random generator seed of the resulting stream.
 |----------|-------------|
 | `randSeed` | integer number, pattern or stream that returns an integer number.
 > **Note:** randSeed is always treated as a pattern/stream. If you provide a single, constant seed value, it will behave as an infinite-length stream. This will cause the subpattern to be embedded an infinite number of times. Compare:
-```supercollider
+```
 // Pwhite repeats its three values forever
 Pseed(1000, Pwhite(1, 10, 3)).asStream.nextN(10);
 
@@ -33,7 +34,7 @@ Pseed(Pn(1000, 1), Pwhite(1, 10, 3)).asStream.nextN(10);
 ## Examples
 
 
-```supercollider
+```
 a = Pseed(1972, Prand([1, 2, 3], inf));
 
 b = a.asStream;

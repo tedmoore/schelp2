@@ -27,7 +27,7 @@ VLayoutView inherits some useful formatting methods from its superclasses.
 ## Examples
 
 
-```supercollider
+```
 (
 q = 10;
 w = Window.new;
@@ -48,7 +48,7 @@ v.background_(Color.rand) // The sliders automatically expand to the optimal wid
 
 Stretching the layout view; Slider height is fixed:
 
-```supercollider
+```
 (
 q = 10;
 w = Window.new;
@@ -70,7 +70,7 @@ w.front
 
 Stretching the layout view and the contents; if all the contents are elastic, the heights of the contents are perfectly divided up. In this example, the StaticText is not elastic in order to preserve its height.
 
-```supercollider
+```
 (
 q = 10;
 w = Window.new;
@@ -96,7 +96,7 @@ w.front
 
 Mixed stretching modes:
 
-```supercollider
+```
 (
 q = 5;
 w = Window.new;
@@ -125,7 +125,7 @@ w.front
 
 Set minimum heights; beware that if the layout view height is smaller than the combined height of all the contents, things might disappear when you try to handle them with the mouse:
 
-```supercollider
+```
 (
 q = 5;
 w = Window.new;
@@ -149,7 +149,7 @@ w.front
 
 Spacing:
 
-```supercollider
+```
 (
 q = 10;
 w = Window.new;
@@ -168,7 +168,7 @@ w.front
 
 Nesting: use VLayoutView and HLayoutView in combination:
 
-```supercollider
+```
 (
 q = 10;
 w = Window.new("nesting", Rect(30, 30, 400, 700));

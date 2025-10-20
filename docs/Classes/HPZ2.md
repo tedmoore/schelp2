@@ -10,7 +10,7 @@
 
 A special case fixed filter. Implements the formula:
 
-```supercollider
+```
 out(i) = 0.25 * (in(i) - (2 * in(i - 1)) + in(i - 2)).
 ```
 
@@ -18,6 +18,7 @@ out(i) = 0.25 * (in(i) - (2 * in(i - 1)) + in(i - 2)).
 
 
 ## Class Methods
+
 
 ### `ar`, `kr`
 **Arguments:**
@@ -31,7 +32,7 @@ out(i) = 0.25 * (in(i) - (2 * in(i - 1)) + in(i - 2)).
 ## Examples
 
 
-```supercollider
+```
 // Compare:
 
 { WhiteNoise.ar(0.25) }.play;

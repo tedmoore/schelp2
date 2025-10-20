@@ -13,7 +13,7 @@ Returns elements in the list. If an element is an array itself, it embeds the fi
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Place(#[1, [2, 5], [3, 6]], inf);

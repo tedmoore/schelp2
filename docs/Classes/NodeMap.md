@@ -10,7 +10,7 @@
 
 Object to store control values and bus mappings independently of a specific node.
 
-```supercollider
+```
 a = NodeMap.new;
 a.set(\freq, [446, 662], \amp, 0.2, \out, Bus.audio(s));
 a.asOSCArgArray;
@@ -21,29 +21,42 @@ a.asOSCArgArray;
 
 ## Instance Methods
 
+
 ### `set`
-set arguments of a node### `unset`
-remove settings### `unmap`
-remove mappings### `at`
-return setting at that key.### `sendToNode`
-apply a setting to a node by sending a bundle### `send`
-apply a setting to a node by sending a bundle### `addToBundle`
-add all my messages to the bundle### `addToEvent`
-add all my values to the event### `asOSCArgArray`
-returns the arguments for an OSC message.### `unmapArgsToBundle`
-returns the arguments for an OSC message to unmap any mapped controls.### `setMsg`
+set arguments of a node
+### `unset`
+remove settings
+### `unmap`
+remove mappings
+### `at`
+return setting at that key.
+### `sendToNode`
+apply a setting to a node by sending a bundle
+### `send`
+apply a setting to a node by sending a bundle
+### `addToBundle`
+add all my messages to the bundle
+### `addToEvent`
+add all my values to the event
+### `asOSCArgArray`
+returns the arguments for an OSC message.
+### `unmapArgsToBundle`
+returns the arguments for an OSC message to unmap any mapped controls.
+### `setMsg`
 returns the OSC message for setting a synth**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `target` | a group, synth, or server to use as a nodeID to set. |  
+
 ### `get`
-Kept for backward compatibility.### `clear`
+Kept for backward compatibility.
+### `clear`
 Remove all settings and clear cache
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 (

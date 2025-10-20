@@ -16,7 +16,7 @@ Since sustain is calculated as `~dur * ~legato`, this means `~legato < 1.0` caus
 ## Examples
 
 
-```supercollider
+```
 // This SynthDef has a harder attack than the default, illustrating rearticulation more clearly.
 (
 SynthDef(\sawpulse, { |out, freq = 440, gate = 0.5, plfofreq = 6, mw = 0, ffreq = 2000, rq = 0.3, freqlag = 0.05, amp = 1|

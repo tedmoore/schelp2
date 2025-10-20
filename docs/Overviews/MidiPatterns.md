@@ -7,7 +7,7 @@
 This document is a brief overview of some commonly used midi commands available in the midievent part of [Event](../Classes/Event.md) and which arguments they offer.
 To use them in a event pattern such as [Pbind](../Classes/Pbind.md), you need to first initialise a midi out device.
 
-```supercollider
+```
 // This posts a list of available midi devices
 // Note their names and bus names and use them in the next step
 MIDIClient.init;
@@ -24,7 +24,7 @@ In the examples below, it is assumed that you have initialised a midi out.
 
 Now, to use it in a Pbind:
 
-```supercollider
+```
 p = Pbind(
     // These keys are common to all midi commands
     \type, \midi,
@@ -48,7 +48,7 @@ p.stop;
 The most common midi commands are \noteOn and \noteOff. They are used to play notes. \noteOff is automatically transmitted after the note duration when you use the \noteOn command.
 
 
-```supercollider
+```
 p = Pbind(
     // These keys are common to all midi commands
     \type, \midi,
@@ -74,7 +74,7 @@ p.stop;
 Send control change messages.
 
 
-```supercollider
+```
 p = Pbind(
     // These keys are common to all midi commands
     \type, \midi,
@@ -97,7 +97,7 @@ p.stop;
 
 ## \polyTouch
 
-```supercollider
+```
 p = Pbind(
     // These keys are common to all midi commands
     \type, \midi,
@@ -118,7 +118,7 @@ p = Pbind(
 
 ## \program
 
-```supercollider
+```
 p = Pbind(
     // These keys are common to all midi commands
     \type, \midi,
@@ -140,7 +140,7 @@ p = Pbind(
 Emit after touch messages.
 
 
-```supercollider
+```
 p = Pbind(
     // These keys are common to all midi commands
     \type, \midi,
@@ -160,7 +160,7 @@ p = Pbind(
 
 ## \bend
 
-```supercollider
+```
 p = Pbind(
     // These keys are common to all midi commands
     \type, \midi,
@@ -182,7 +182,7 @@ p = Pbind(
 Send a sysex message.
 
 
-```supercollider
+```
 p = Pbind(
     // These keys are common to all midi commands
     \type, \midi,

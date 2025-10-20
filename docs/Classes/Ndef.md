@@ -11,7 +11,7 @@
 Ndef registers synths by key. All accesses to the registered synths go through the Ndef class via that key. Registered synths can be replaced with other synths while playing. A synth and its replacement can automatically crossfade and the replacement time can be quantized.
 Ndef is a reference to a proxy, forms an alternative to [ProxySpace](../Classes/ProxySpace.md). All methods are inherited from [NodeProxy](../Classes/NodeProxy.md).
 
-```supercollider
+```
 Ndef(key)    // returns the instance
 Ndef(key, obj)    // stores the object and returns the instance, like Tdef and Pdef.
 ```
@@ -21,7 +21,7 @@ Graphical editor overviewing all current Ndefs: [NdefMixer](../Classes/NdefMixer
 
 ### First Example
 
-```supercollider
+```
 s.boot;
 
 Ndef(\a).play; // play to hardware output.
@@ -46,42 +46,50 @@ Ndef.clear(3); // clear all after 3 seconds
 
 
 ### Creation
+
 ### `new`
-Return a new node proxy and store it in a global ProxySpace under the key. If there is already an Ndef there, replace its object with the new one. The object can be any supported class, see [NodeProxy / Supported sources ](../Classes/NodeProxy.md#supported-sources) help. Internally, all instances are kept in a [ProxySpace](../Classes/ProxySpace.md). The [EnvironmentRedirect / dispatch ](../Classes/EnvironmentRedirect.md#dispatch) function is called when the source is set.**Arguments:**
+Return a new node proxy and store it in a global ProxySpace under the key. If there is already an Ndef there, replace its object with the new one. The object can be any supported class, see [NodeProxy#Supported sources](../Classes/NodeProxy.md#supported-sources) help. Internally, all instances are kept in a [ProxySpace](../Classes/ProxySpace.md). The [EnvironmentRedirect#dispatch](../Classes/EnvironmentRedirect.md#dispatch) function is called when the source is set.**Arguments:**
 
 | Argument | Description |
 |----------|-------------|
 | `key` | the name of the proxy (usually a symbol). If only the key is given and no object, it returns the proxy object:
-```supercollider
+```
 Ndef(\x) // get the proxy
 ```
 
 If key is an association, it is interpreted as **key -> server name**. (order changed in SC3.3 !). If no name is given, it uses the default server that was default when Ndef was first called. (to change it, see [#*defaultServer](#*defaultserver)). |  
 | `object` | an object
-```supercollider
+```
 Ndef(\x, { Dust.ar }); // returns the proxy and set the source object.
 ``` |  
 
+
 ### `ar`
 equivalent to `*new(key).ar(numChannels, offset)` (see [BusPlug#-ar](../Classes/BusPlug.md#-ar))
+
 ### `kr`
 equivalent to `*new(key).kr(numChannels, offset)` (see [BusPlug#-kr](../Classes/BusPlug.md#-kr))
+
 ### `clear`
 clear all Ndefs in all proxyspaces of the Ndef class
+
 ### `clearDict`
 clear all Ndefs and remove all proxyspaces of the Ndef class
+
 ### `defaultServer`
 set the default server (default: `Server.default`)
+
 ### `all`
 Return the dictionary of all servers, pointing to proxyspaces with Ndefs for each.
-```supercollider
+```
 Ndef.all;
 ```
 
 
+
 ### `dictFor`
 Return the proxyspace for a given server.
-```supercollider
+```
 Ndef.dictFor(s);
 ```
 
@@ -90,9 +98,10 @@ Ndef.dictFor(s);
 
 ## Instance Methods
 
+
 ### `proxyspace`
 Return the proxyspace for this instance
-```supercollider
+```
 Ndef(\x).proxyspace
 ```
 
@@ -101,7 +110,7 @@ Ndef(\x).proxyspace
 Behind every Ndef there is one single instance of [ProxySpace](../Classes/ProxySpace.md) per server used (usually just the one for the default server). This ProxySpace keeps default values for the proxies that can be set. This can be done by:
 
 
-```supercollider
+```
 // set default quant
 Ndef(\x).proxyspace.quant = 1.0;
 ```
@@ -113,7 +122,7 @@ The other values that can be set in such a way are: `clock, fadeTime, quant, res
 ## Examples
 
 
-```supercollider
+```
 s.boot;
 
 Ndef(\sound).play;
@@ -135,7 +144,7 @@ Ndef.clear; // clear all Ndefs
 
 ### using Ndef inside other Ndefs
 
-```supercollider
+```
 Ndef(\lfo2, { LFNoise1.kr(LFNoise1.kr(0.1).exprange(1, 300) ! 2, 400, 800) });
 Ndef(\sound, { Blip.ar(Ndef.kr(\lfo2), 30) * 0.2 }).play;
 
@@ -147,7 +156,7 @@ Ndef(\lfo2, { [MouseX.kr(10, 300, 1), MouseY.kr(10, 300, 1)] });
 
 ### setting and mapping parameters
 
-```supercollider
+```
 Ndef(\sound, { |freq = 56, numHarm = 10| Blip.ar(freq, numHarm, 30) * 0.2 }).play;
 Ndef(\sound).set(\freq, 15);
 Ndef(\sound).set(\freq, 15, \numHarm, 100);
@@ -170,7 +179,7 @@ Three parameters are automatically specified if they don't exist in a given UGen
 If a UGen function that is passed to the proxy has its own envelope, and if this envelope can free the synth, the node proxy uses this envelope instead of making its own. If you provide a `fadeTime` argument, the proxy's fadeTime will be used.
 
 
-```supercollider
+```
 Ndef(\sound).fadeTime = 3;
 (
 Ndef(\sound, { |fadeTime = 1, gate = 1|
@@ -185,7 +194,7 @@ Ndef(\sound, { |fadeTime = 1, gate = 1|
 
 ### Simple audio routing with the <<> operator
 
-```supercollider
+```
 (
 Ndef(\sound, {
     RHPF.ar(
@@ -217,7 +226,7 @@ Ndef.clear(3);        // fade out and clear all Ndefs
 Controlling multi-channeled sequenced streams and having independent control over filtering and node ordering is a difficult topic in SuperCollider. However, using Ndefs (or their superclass [NodeProxy](../Classes/NodeProxy.md) or a [ProxySpace](../Classes/ProxySpace.md)) may provide a convenient solution.
 
 
-```supercollider
+```
 // a SynthDef, creating single-channel grain when instantiated
 (
 SynthDef(\grain, { |out = 0, freq = 300, amp = 0.3|
@@ -308,9 +317,10 @@ Pdef.clear;
 
 
 ### Making Copies
+
 ### `copy`
 Because an Ndef is a unique instance for a given key, it can be copied only by supplying a new key. See also: [NodeProxy#-copy](../Classes/NodeProxy.md#-copy).
-```supercollider
+```
 Ndef(\x, { SinOsc.ar(Rand(500, 900)) * 0.1 }).play;
 Ndef(\x).copy(\y);
 Ndef(\y).play;
@@ -328,7 +338,7 @@ Ndef(\y).play;
 Ndefs can be used recursively. A structure like the following works:
 
 
-```supercollider
+```
 Ndef(\sound, { SinOsc.ar([600, 635], Ndef.ar(\sound), LFNoise1.kr(2).max(0) * 0.2) });
 Ndef(\sound).play;
 Ndef.clear;
@@ -338,7 +348,7 @@ Ndef.clear;
 This is because there is a feedback delay (the server's **block size**), usually 64 samples, so that calculation can reiterate over its own outputs. For single sample feedback, see:
 
 
-```supercollider
+```
 (Platform.resourceDir +/+ "examples/demonstrations/single_sample_feedback.scd").openDocument;
 ```
 
@@ -347,7 +357,7 @@ This is because there is a feedback delay (the server's **block size**), usually
 
 ### Using different servers
 
-```supercollider
+```
 // create a new server
 a = Server(\foo, NetAddr("127.0.0.1", 57123)).boot.makeWindow;
 Ndef(\sound, { SinOsc.ar([600, 635]) * SinOsc.kr(2).max(0) * 0.2 }).play; // play on default
@@ -368,7 +378,7 @@ a.quit;    // terminate new server
 
 ### GUI
 
-```supercollider
+```
 // create a window for a given Ndef
 Ndef(\sound).edit
 (
@@ -392,7 +402,7 @@ NdefMixer(s);
 For a complete list, see [NodeProxy](../Classes/NodeProxy.md), and [NodeProxy_roles](../Reference/NodeProxy_roles.md)
 
 
-```supercollider
+```
 // setsrc
 (
 Ndef(\x,

@@ -10,7 +10,7 @@
 
 UnaryOpUGens are created as the result of a unary operator applied to a [UGen](../Classes/UGen.md).
 
-```supercollider
+```
 (SinOsc.ar(200).abs).dump;
 (LFSaw.ar(200).sin).dump;
 ```
@@ -23,6 +23,7 @@ See [Operators](../Overviews/Operators.md) for an overview of common operators.
 
 ## Class Methods
 
+
 ### `new`
 return a new instance that applies the operator `selector` to the ugen `a`**Arguments:**
 
@@ -34,7 +35,7 @@ return a new instance that applies the operator `selector` to the ugen `a`**Argu
 ## Examples
 
 
-```supercollider
+```
 a = WhiteNoise.ar; // a WhiteNoise
 b = a.squared; // a UnaryOpUGen.
 b.operator; // squared

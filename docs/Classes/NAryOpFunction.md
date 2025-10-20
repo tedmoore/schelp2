@@ -13,7 +13,7 @@ Operating on functions instead of numbers, what results is not a result of the c
 ## Examples
 
 
-```supercollider
+```
 // example
 a = 0.8.linexp(0, 1, 40, 20000); // map (0..1) to exponentially to human frequency hearing range
 a = { b }.linexp(0, 1, 40, 20000); // result is  a NAryOpFunction
@@ -25,7 +25,7 @@ a.value; // again, with a different value.
 
 
 
-```supercollider
+```
 // sound example
 (
 var a = { 1.0.rand };

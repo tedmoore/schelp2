@@ -13,6 +13,7 @@ Get the current number of allocated frames.
 
 ## Class Methods
 
+
 ### `kr`, `ir`
 **Arguments:**
 
@@ -23,7 +24,7 @@ Get the current number of allocated frames.
 ## Examples
 
 
-```supercollider
+```
 b = Buffer.read(s, ExampleFiles.child);
 
 // indexing with a phasor

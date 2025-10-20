@@ -32,7 +32,7 @@ The gui elements in detail:
 
 first example:
 
-```supercollider
+```
 (
 // create a short history
 h = History([
@@ -55,10 +55,13 @@ g.postDoc(2);
 
 ## Class Methods
 
+
 ### `docHeight`
 get and set the height of the text window opened by HistoryGui
+
 ### `docTitle`
 get and set the title of the text window opened by HistoryGui
+
 ### `new`
 create a new HistoryGui**Arguments:**
 
@@ -76,55 +79,75 @@ create a new HistoryGui**Arguments:**
 
 
 ### views
+
 ### `textV`
 top: the TextView for the selected line
+
 ### `startBut`, `filtBut`, `keyPop`, `filTextV`, `topBut`
 the line of buttons, popup and TextView
+
 ### `listV`
 the ListView for the history lines
+
 ### `resetViews`
 reset all views
+
 ### `showLineAt`
 show the line at that index in History.lines in the TextView.
 
 ### 'doc'-related
+
 ### `doc`
 the external text window made by HistoryGui to show codelines on. This is still called doc because it used to be a Document in pre-Qt times.
+
 ### `findDoc`
 find an open a re-usable text window, or make a new one
+
 ### `docFlag`
 get or set the symbol for the doc strategy to use: `\sameDoc` tries to re-use a single text window, `\newDoc` always makes a new one (and keep track of old docs)
+
 ### `oldDocs`
 list of previous text windows (docs) opened
+
 ### `postDoc`
 find the codeline at index in History, and post it on the textwindow
+
 ### `setDocStr`
 set the string of the current textwindow
+
 ### `rip`
 create a new textwindow with currently selected line
 
 ### filtering
+
 ### `filtering`
 flag whether filtering is on
+
 ### `filterOn`, `filterOff`
 convenience on/off methods
+
 ### `filters`
 keys and string fragments to filter for. e.g. ['all', "+"] gets lines from all sources that contain the string "+".
+
 ### `filterLines`
 apply filtering to history lines
+
 ### `filteredIndices`
 the indices of the current filtered lines
+
 ### `filteredShorts`
 the current filtered short lines for gui displaymethod:.setKeyFilter set the key(s) to filter for, and perform filtering
+
 ### `setStrFilter`
 set the string to filter for, and perform filtering
+
 ### `stickMode`
 stickMode 0 means top, i.e. select top when new lines come in; stickMode 1 means keep, i.e. keep current line selected after new lines come in.
 
 ## Examples
 
 
-```supercollider
+```
 (
 // create a short history
 h = History([

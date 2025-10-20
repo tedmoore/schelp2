@@ -9,6 +9,7 @@
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -21,7 +22,7 @@
 ## Examples
 
 
-```supercollider
+```
 (
 var a, b;
 a = Padd(\freq, 801, Pbind(\freq, 100));
@@ -32,7 +33,7 @@ x = a.asStream;
 
 
 
-```supercollider
+```
 (
 var a, b;
 a = Padd(\freq, Pseq([401, 801], 2), Pbind(\freq, 100));
@@ -43,7 +44,7 @@ x = a.asStream;
 
 
 
-```supercollider
+```
 // sound example
 (
 SynthDef(\sinegrain,

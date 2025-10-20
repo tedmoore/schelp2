@@ -13,12 +13,16 @@ A tree of IdentityDictionaries. Addresses within the tree are specified with a s
 
 ## Instance Methods
 
+
 ### `at`
-Retrieves a leaf node or nil if not found.### `put`
-Puts the item as a leaf node, internally creating new branches as needed to accommodate the list of keys.### `choose`
-Choose a branch at each level, descend the tree until a leaf is chosen. By using arguments **key1, key2 ... keyN**, one can start at an address within the tree, descend the tree until a leaf is chosen.### `putTree`
+Retrieves a leaf node or nil if not found.
+### `put`
+Puts the item as a leaf node, internally creating new branches as needed to accommodate the list of keys.
+### `choose`
+Choose a branch at each level, descend the tree until a leaf is chosen. By using arguments **key1, key2 ... keyN**, one can start at an address within the tree, descend the tree until a leaf is chosen.
+### `putTree`
 A way to insert objects into the tree with a syntax similar to the organization of the tree itself.
-```supercollider
+```
 // pseudo code:
 putTree(key1, [
     key2a, item1-2a,
@@ -29,13 +33,15 @@ putTree(key1, [
 ]);
 ```
 
+
 ### `removeAt`
-Remove only the item located by the path.### `removeEmptyAt`
+Remove only the item located by the path.
+### `removeEmptyAt`
 Remove the item located by the path. This might make the item's parent dictionary empty. In that case, it will remove the parent and continue up the chain, removing empty dictionaries as it goes. This is slower but cleaner.
 ## Examples
 
 
-```supercollider
+```
 // Example of the difference between removeAt and removeEmptyAt
 
 m = MultiLevelIdentityDictionary.new;

@@ -14,6 +14,7 @@ for inner workings see [JITLib/jitlib_fading](../Tutorials/JITLib/jitlib_fading.
 
 ## Class Methods
 
+
 ### `new`
 **Arguments:**
 
@@ -28,12 +29,13 @@ for inner workings see [JITLib/jitlib_fading](../Tutorials/JITLib/jitlib_fading.
 | `chanConstraint` | max numChannels for the synthdef. If ugenfunc returns a larger array, it wraps |  
 | `rateConstraint` | a symbol like \audio, \control or \scalar. |  
 
+
 ### `sampleAccurate`
 always use [OffsetOut](../Classes/OffsetOut.md), if set to true (default: false)
 ## Examples
 
 
-```supercollider
+```
 a = ProxySynthDef("xtest", { SinOsc.ar(400) * 0.1 });
 
 a.add;
