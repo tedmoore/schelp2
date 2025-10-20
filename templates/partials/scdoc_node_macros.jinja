@@ -268,7 +268,7 @@ ${{ node.text }}$
 
 {#- Method -#}
 {% macro render_method(node, method_type="Method") -%}
-{%- set method_names = [] -%}
+{% set method_names = [] -%}
 {%- for child in node.children -%}
   {%- if child.id == "METHODNAMES" -%}
     {%- for name_node in child.children -%}
@@ -277,7 +277,7 @@ ${{ node.text }}$
       {%- endif -%}
     {%- endfor -%}
   {%- endif -%}
-{%- endfor -%}
+{%- endfor %}
 
 ### `{{ method_names | join("`, `") }}`
 
